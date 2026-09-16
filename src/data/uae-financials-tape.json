@@ -54,7 +54,7 @@
    "total_equity_aed": 88370231,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4860205"
   },
@@ -75,7 +75,7 @@
    "total_equity_aed": 94644578,
    "balance_sheet_reconciled": false,
    "liabilities_derived": true,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4686232"
   },
@@ -96,7 +96,7 @@
    "total_equity_aed": 33877521,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4577137"
   },
@@ -112,14 +112,15 @@
    "net_profit_aed": 77235000,
    "eps": 30.89,
    "cash_and_equivalents_aed": 57983000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1549874948,
+   "total_liabilities_aed": 985674984,
+   "total_equity_aed": 564199964,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5268915"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5268915",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -133,14 +134,15 @@
    "net_profit_aed": 30969000,
    "eps": 12.39,
    "cash_and_equivalents_aed": 61839000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1542709865,
+   "total_liabilities_aed": 1029086381,
+   "total_equity_aed": 513623484,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4908488"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4908488",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -154,14 +156,15 @@
    "net_profit_aed": 6000000,
    "eps": 2.27,
    "cash_and_equivalents_aed": 108000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1564346790,
+   "total_liabilities_aed": 1081650226,
+   "total_equity_aed": 482696564,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4797890"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4797890",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -175,14 +178,15 @@
    "net_profit_aed": 58000000,
    "eps": 23.037,
    "cash_and_equivalents_aed": 97000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1708341322,
+   "total_liabilities_aed": 1188379137,
+   "total_equity_aed": 519962185,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4597462"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4597462",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -223,7 +227,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4899888"
   },
   {
@@ -243,7 +247,7 @@
    "total_equity_aed": 9039793,
    "balance_sheet_reconciled": false,
    "liabilities_derived": true,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4695327"
   },
@@ -285,7 +289,7 @@
    "total_equity_aed": 89254,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED million",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5211994"
   },
@@ -306,7 +310,7 @@
    "total_equity_aed": 85774,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED million",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4839656"
   },
@@ -327,7 +331,7 @@
    "total_equity_aed": 88741,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED million",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4676640"
   },
@@ -343,14 +347,15 @@
    "net_profit_aed": 8103999999.999999,
    "eps": 1.04,
    "cash_and_equivalents_aed": 66694999999.99999,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 744273269,
+   "total_liabilities_aed": 664764162,
+   "total_equity_aed": 79509107,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4572977"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4572977",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "ADX",
@@ -370,7 +375,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "ocr-garbled-numbers",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4567270"
   },
   {
@@ -385,14 +390,15 @@
    "net_profit_aed": 102000000,
    "eps": 0,
    "cash_and_equivalents_aed": 685000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 14108238,
+   "total_liabilities_aed": 2915010,
+   "total_equity_aed": 11193228,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5211831"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5211831",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -406,14 +412,15 @@
    "net_profit_aed": 108321000,
    "eps": 0.008,
    "cash_and_equivalents_aed": 611324000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 14135814,
+   "total_liabilities_aed": 2937557,
+   "total_equity_aed": 11198257,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4837843"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4837843",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -433,7 +440,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4699612"
   },
   {
@@ -448,14 +455,15 @@
    "net_profit_aed": 348000000,
    "eps": 0.024,
    "cash_and_equivalents_aed": 407000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 13479652,
+   "total_liabilities_aed": 2918407,
+   "total_equity_aed": 10561245,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4599696"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4599696",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -475,7 +483,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5192988"
   },
   {
@@ -496,7 +504,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4831419"
   },
   {
@@ -511,14 +519,15 @@
    "net_profit_aed": 176000000,
    "eps": 0.078,
    "cash_and_equivalents_aed": 162000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1251994901,
+   "total_liabilities_aed": 638039859,
+   "total_equity_aed": 613955042,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4686027"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4686027",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -538,7 +547,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4594448"
   },
   {
@@ -558,7 +567,7 @@
    "total_equity_aed": 3664852,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5256799"
   },
@@ -600,7 +609,7 @@
    "total_equity_aed": 3737681,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4733709"
   },
@@ -726,7 +735,7 @@
    "total_equity_aed": 4287313,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5225656"
   },
@@ -747,7 +756,7 @@
    "total_equity_aed": 4443886,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4892212"
   },
@@ -769,7 +778,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-assets-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4695411"
   },
   {
@@ -784,14 +793,15 @@
    "net_profit_aed": 1060000000,
    "eps": 0.066,
    "cash_and_equivalents_aed": 272000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1332321,
+   "total_liabilities_aed": 373606,
+   "total_equity_aed": 958715,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4574061"
+   "unit_hint": "USD'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4574061",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "ADX",
@@ -810,7 +820,7 @@
    "total_equity_aed": 24607924,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5251658"
   },
@@ -831,7 +841,7 @@
    "total_equity_aed": 25779177,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4901736"
   },
@@ -847,14 +857,15 @@
    "net_profit_aed": 5166000000,
    "eps": 0.067,
    "cash_and_equivalents_aed": 3702000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 32467014,
+   "total_liabilities_aed": 7762768,
+   "total_equity_aed": 24704246,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4703731"
+   "unit_hint": "USD'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4703731",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -873,7 +884,7 @@
    "total_equity_aed": 24441536,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4597511"
   },
@@ -894,7 +905,7 @@
    "total_equity_aed": 8150882,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5254960"
   },
@@ -916,7 +927,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4910417"
   },
   {
@@ -937,7 +948,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4695109"
   },
   {
@@ -958,7 +969,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4594566"
   },
   {
@@ -978,7 +989,7 @@
    "total_equity_aed": 30065294,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5266207"
   },
@@ -999,7 +1010,7 @@
    "total_equity_aed": 30594457,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4906252"
   },
@@ -1020,7 +1031,7 @@
    "total_equity_aed": 30097609,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4742559"
   },
@@ -1041,7 +1052,7 @@
    "total_equity_aed": 29642594,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4600382"
   },
@@ -1062,7 +1073,7 @@
    "total_equity_aed": 183243,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5261162"
   },
@@ -1078,14 +1089,15 @@
    "net_profit_aed": 6345000,
    "eps": 0.03,
    "cash_and_equivalents_aed": 261189000.00000003,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2487605,
+   "total_liabilities_aed": 2161068,
+   "total_equity_aed": 326537,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4913172"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4913172",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -1099,14 +1111,15 @@
    "net_profit_aed": 30000000,
    "eps": 0.14,
    "cash_and_equivalents_aed": 287000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2818028,
+   "total_liabilities_aed": 2497836,
+   "total_equity_aed": 320192,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4781322"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4781322",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -1125,7 +1138,7 @@
    "total_equity_aed": 280208,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4600747"
   },
@@ -1141,14 +1154,15 @@
    "net_profit_aed": 97000000,
    "eps": 0.73,
    "cash_and_equivalents_aed": 563000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 13429491,
+   "total_liabilities_aed": 7288862,
+   "total_equity_aed": 6140629,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5244855"
+   "unit_hint": "USD'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5244855",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -1162,14 +1176,15 @@
    "net_profit_aed": 40000000,
    "eps": 0.26,
    "cash_and_equivalents_aed": 597000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 13206379,
+   "total_liabilities_aed": 7078395,
+   "total_equity_aed": 6127984,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4889734"
+   "unit_hint": "USD'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4889734",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -1188,7 +1203,7 @@
    "total_equity_aed": 806819,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4892935"
   },
@@ -1204,14 +1219,15 @@
    "net_profit_aed": 143000000,
    "eps": 0.98,
    "cash_and_equivalents_aed": 667000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 12208569,
+   "total_liabilities_aed": 6823005,
+   "total_equity_aed": 5385564,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4594499"
+   "unit_hint": "USD'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4594499",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -1272,7 +1288,7 @@
    "total_equity_aed": 2787585,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4734164"
   },
@@ -1309,14 +1325,15 @@
    "net_profit_aed": -9103000,
    "eps": -0.61,
    "cash_and_equivalents_aed": 65107000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 3230781,
+   "total_liabilities_aed": 1856717,
+   "total_equity_aed": 1374064,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5256605"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5256605",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -1330,14 +1347,15 @@
    "net_profit_aed": 8057000,
    "eps": 0.54,
    "cash_and_equivalents_aed": 64010000.00000001,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 3127837,
+   "total_liabilities_aed": 1731833,
+   "total_equity_aed": 1396004,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4911587"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4911587",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -1351,14 +1369,15 @@
    "net_profit_aed": 28000000,
    "eps": 1.85,
    "cash_and_equivalents_aed": 57000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2945898,
+   "total_liabilities_aed": 1535324,
+   "total_equity_aed": 1410574,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4772777"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4772777",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -1372,14 +1391,15 @@
    "net_profit_aed": 6000000,
    "eps": 0.38,
    "cash_and_equivalents_aed": 30000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2876762,
+   "total_liabilities_aed": 1502064,
+   "total_equity_aed": 1374698,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4597588"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4597588",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -1440,7 +1460,7 @@
    "total_equity_aed": 48751990,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4692155"
   },
@@ -1477,14 +1497,15 @@
    "net_profit_aed": 236355000,
    "eps": 3.38,
    "cash_and_equivalents_aed": 644943000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1110540216,
+   "total_liabilities_aed": 267833867,
+   "total_equity_aed": 842706349,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5240413"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5240413",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "ADX",
@@ -1630,7 +1651,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4582003"
   },
   {
@@ -1645,14 +1666,15 @@
    "net_profit_aed": 9790000000,
    "eps": 0.65,
    "cash_and_equivalents_aed": 28727000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 230058800,
+   "total_liabilities_aed": 120013625,
+   "total_equity_aed": 110045175,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5233822"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5233822",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "ADX",
@@ -1666,14 +1688,15 @@
    "net_profit_aed": 3801000000,
    "eps": 0.22,
    "cash_and_equivalents_aed": 27246000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 225783532,
+   "total_liabilities_aed": 120858524,
+   "total_equity_aed": 104925008,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4868808"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4868808",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "ADX",
@@ -1687,14 +1710,15 @@
    "net_profit_aed": 15032000000,
    "eps": 0.79,
    "cash_and_equivalents_aed": 25380000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 214421578,
+   "total_liabilities_aed": 110379313,
+   "total_equity_aed": 104042265,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4691802"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4691802",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "ADX",
@@ -1714,7 +1738,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "scanned-image",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4586289"
   },
   {
@@ -1729,14 +1753,15 @@
    "net_profit_aed": 147000000,
    "eps": 0.018,
    "cash_and_equivalents_aed": 140000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1695711,
+   "total_liabilities_aed": 1260873,
+   "total_equity_aed": 434838,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223533"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223533",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -1756,7 +1781,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4851134"
   },
   {
@@ -1771,14 +1796,15 @@
    "net_profit_aed": 218000000,
    "eps": 0.026,
    "cash_and_equivalents_aed": 154000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1734126,
+   "total_liabilities_aed": 1244152,
+   "total_equity_aed": 489974,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4691617"
+   "unit_hint": "USD'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4691617",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -1792,14 +1818,15 @@
    "net_profit_aed": 135000000,
    "eps": 0.016,
    "cash_and_equivalents_aed": 71000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1574389,
+   "total_liabilities_aed": 1167088,
+   "total_equity_aed": 407301,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4579824"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4579824",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -1819,7 +1846,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5261043"
   },
   {
@@ -1882,7 +1909,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4850262"
   },
   {
@@ -1945,7 +1972,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5254422"
   },
   {
@@ -1981,14 +2008,15 @@
    "net_profit_aed": 13175000,
    "eps": 0.167,
    "cash_and_equivalents_aed": 449000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 186810334,
+   "total_liabilities_aed": 27815598,
+   "total_equity_aed": 158894736,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4744727"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4744727",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -2049,7 +2077,7 @@
    "total_equity_aed": 4125346,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4815257"
   },
@@ -2092,7 +2120,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4903464"
   },
   {
@@ -2154,7 +2182,7 @@
    "total_equity_aed": 3748031,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5228462"
   },
@@ -2175,7 +2203,7 @@
    "total_equity_aed": 4245604,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4854002"
   },
@@ -2196,7 +2224,7 @@
    "total_equity_aed": 4115682,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4680437"
   },
@@ -2218,7 +2246,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4576387"
   },
   {
@@ -2238,7 +2266,7 @@
    "total_equity_aed": 4786520,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5187390"
   },
@@ -2259,7 +2287,7 @@
    "total_equity_aed": 4745429,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4878057"
   },
@@ -2280,7 +2308,7 @@
    "total_equity_aed": 4634143,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4775801"
   },
@@ -2302,7 +2330,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4567371"
   },
   {
@@ -2323,7 +2351,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4586504"
   },
   {
@@ -2344,7 +2372,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5245890"
   },
   {
@@ -2365,7 +2393,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4910914"
   },
   {
@@ -2386,7 +2414,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4759098"
   },
   {
@@ -2407,7 +2435,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4589608"
   },
   {
@@ -2448,7 +2476,7 @@
    "total_equity_aed": 1170865,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4895732"
   },
@@ -2469,7 +2497,7 @@
    "total_equity_aed": 1142807,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4789316"
   },
@@ -2490,7 +2518,7 @@
    "total_equity_aed": 1097366,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4597664"
   },
@@ -2511,7 +2539,7 @@
    "total_equity_aed": 63560042,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5226967"
   },
@@ -2532,7 +2560,7 @@
    "total_equity_aed": 59857132,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4851116"
   },
@@ -2554,7 +2582,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "ambiguous-multiple-reconciling-sets",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4705300"
   },
   {
@@ -2653,14 +2681,15 @@
    "net_profit_aed": 47722000,
    "eps": 1.29,
    "cash_and_equivalents_aed": 42425000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 621979797,
+   "total_liabilities_aed": 371115473,
+   "total_equity_aed": 252889434,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4568687"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4568687",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "ADX",
@@ -2721,7 +2750,7 @@
    "total_equity_aed": 1509497,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4676249"
   },
@@ -2763,7 +2792,7 @@
    "total_equity_aed": 9804264,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5228348"
   },
@@ -2784,7 +2813,7 @@
    "total_equity_aed": 9542502,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4901907"
   },
@@ -2806,7 +2835,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4759889"
   },
   {
@@ -2842,14 +2871,15 @@
    "net_profit_aed": 166303000,
    "eps": 0.57,
    "cash_and_equivalents_aed": 403515000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 4788491,
+   "total_liabilities_aed": 1585966,
+   "total_equity_aed": 3202525,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223163"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223163",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "ADX",
@@ -2863,14 +2893,15 @@
    "net_profit_aed": 68647000,
    "eps": 0.21,
    "cash_and_equivalents_aed": 557612000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 4761865,
+   "total_liabilities_aed": 1655980,
+   "total_equity_aed": 3105885,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4852738"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4852738",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "ADX",
@@ -2884,14 +2915,15 @@
    "net_profit_aed": 342000000,
    "eps": 1.2,
    "cash_and_equivalents_aed": 277000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 4324215,
+   "total_liabilities_aed": 1403704,
+   "total_equity_aed": 2920511,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4673967"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4673967",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -2931,7 +2963,7 @@
    "total_equity_aed": 1701910,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5267796"
   },
@@ -2952,7 +2984,7 @@
    "total_equity_aed": 1626961,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5098284"
   },
@@ -2973,7 +3005,7 @@
    "total_equity_aed": 1630622,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4765887"
   },
@@ -3016,7 +3048,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5210881"
   },
   {
@@ -3037,7 +3069,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4842144"
   },
   {
@@ -3058,7 +3090,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4673039"
   },
   {
@@ -3079,7 +3111,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4566047"
   },
   {
@@ -3094,14 +3126,15 @@
    "net_profit_aed": 32610999.999999996,
    "eps": 0.24,
    "cash_and_equivalents_aed": 17349000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 386905146,
+   "total_liabilities_aed": 100050810,
+   "total_equity_aed": 286854336,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5244244"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5244244",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -3115,14 +3148,15 @@
    "net_profit_aed": 17132000,
    "eps": 0.13,
    "cash_and_equivalents_aed": 18652000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 413042014,
+   "total_liabilities_aed": 94338763,
+   "total_equity_aed": 318203251,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4883746"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4883746",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -3142,7 +3176,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4717013"
   },
   {
@@ -3157,14 +3191,15 @@
    "net_profit_aed": 31459000,
    "eps": 0.231,
    "cash_and_equivalents_aed": 14236000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 374876616,
+   "total_liabilities_aed": 98899192,
+   "total_equity_aed": 275977424,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4591030"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4591030",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -3220,14 +3255,15 @@
    "net_profit_aed": -91225000,
    "eps": -0.256,
    "cash_and_equivalents_aed": 10155000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1253512667,
+   "total_liabilities_aed": 1106146415,
+   "total_equity_aed": 147366252,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4789296"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4789296",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -3241,14 +3277,15 @@
    "net_profit_aed": -84521000,
    "eps": -0.241,
    "cash_and_equivalents_aed": 5587000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1194073621,
+   "total_liabilities_aed": 1041018408,
+   "total_equity_aed": 153055213,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4599022"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4599022",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -3478,7 +3515,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4814866"
   },
   {
@@ -3499,7 +3536,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4599831"
   },
   {
@@ -3514,14 +3551,15 @@
    "net_profit_aed": 128000000,
    "eps": 0.34,
    "cash_and_equivalents_aed": 609000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 10272062,
+   "total_liabilities_aed": 3302117,
+   "total_equity_aed": 6969945,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223873"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223873",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -3535,14 +3573,15 @@
    "net_profit_aed": 60000000,
    "eps": 0.14,
    "cash_and_equivalents_aed": 603000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 10025945,
+   "total_liabilities_aed": 3120322,
+   "total_equity_aed": 6905623,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4854676"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4854676",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -3556,14 +3595,15 @@
    "net_profit_aed": 90000000,
    "eps": 0.15,
    "cash_and_equivalents_aed": 492000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 264696,
+   "total_liabilities_aed": 164125,
+   "total_equity_aed": 100187,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4674467"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4674467",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "ADX",
@@ -3577,14 +3617,15 @@
    "net_profit_aed": 80000000,
    "eps": 0.2,
    "cash_and_equivalents_aed": 555000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 9954299,
+   "total_liabilities_aed": 3093849,
+   "total_equity_aed": 6860450,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4572569"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4572569",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -3604,7 +3645,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5266566"
   },
   {
@@ -3625,7 +3666,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4892661"
   },
   {
@@ -3646,7 +3687,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4703676"
   },
   {
@@ -3667,7 +3708,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4598061"
   },
   {
@@ -3688,7 +3729,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5261460"
   },
   {
@@ -3709,7 +3750,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4908638"
   },
   {
@@ -3730,7 +3771,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4782590"
   },
   {
@@ -3751,7 +3792,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4602304"
   },
   {
@@ -3771,7 +3812,7 @@
    "total_equity_aed": 1348,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD million",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5228608"
   },
@@ -3814,7 +3855,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4697845"
   },
   {
@@ -3855,7 +3896,7 @@
    "total_equity_aed": 1426,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD million",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4531192"
   },
@@ -3918,7 +3959,7 @@
    "total_equity_aed": 250700820,
    "balance_sheet_reconciled": false,
    "liabilities_derived": true,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4700889"
   },
@@ -3960,7 +4001,7 @@
    "total_equity_aed": 1717915,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5243376"
   },
@@ -3976,14 +4017,15 @@
    "net_profit_aed": 22000000,
    "eps": 0,
    "cash_and_equivalents_aed": 2220000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 15029151,
+   "total_liabilities_aed": 13363577,
+   "total_equity_aed": 1665574,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4906306"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4906306",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -4002,7 +4044,7 @@
    "total_equity_aed": 1643086,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4708134"
   },
@@ -4045,7 +4087,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5234374"
   },
   {
@@ -4066,7 +4108,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "ambiguous-multiple-reconciling-sets",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4704598"
   },
   {
@@ -4081,14 +4123,15 @@
    "net_profit_aed": 54000000,
    "eps": 0.049,
    "cash_and_equivalents_aed": 199000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 18533,
+   "total_liabilities_aed": 8373,
+   "total_equity_aed": 10160,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5266446"
+   "unit_hint": "AED million",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5266446",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -4108,7 +4151,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4912785"
   },
   {
@@ -4128,7 +4171,7 @@
    "total_equity_aed": 806.2,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED million",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4789320"
   },
@@ -4149,7 +4192,7 @@
    "total_equity_aed": 975.1,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED million",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4598253"
   },
@@ -4171,7 +4214,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5266770"
   },
   {
@@ -4192,7 +4235,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4892684"
   },
   {
@@ -4213,7 +4256,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4777650"
   },
   {
@@ -4234,7 +4277,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4594083"
   },
   {
@@ -4275,7 +4318,7 @@
    "total_equity_aed": 4402231,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4908399"
   },
@@ -4296,7 +4339,7 @@
    "total_equity_aed": 4350616,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4782832"
   },
@@ -4317,7 +4360,7 @@
    "total_equity_aed": 4230940,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4595486"
   },
@@ -4359,7 +4402,7 @@
    "total_equity_aed": 54749984,
    "balance_sheet_reconciled": false,
    "liabilities_derived": true,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4704274"
   },
@@ -4381,7 +4424,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5222426"
   },
   {
@@ -4401,7 +4444,7 @@
    "total_equity_aed": 5114919,
    "balance_sheet_reconciled": false,
    "liabilities_derived": true,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4850619"
   },
@@ -4417,14 +4460,15 @@
    "net_profit_aed": 401000000,
    "eps": 0.18,
    "cash_and_equivalents_aed": 451000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 6739944,
+   "total_liabilities_aed": 1721585,
+   "total_equity_aed": 5018359,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4686188"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4686188",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -4438,14 +4482,15 @@
    "net_profit_aed": 333000000,
    "eps": 0.15,
    "cash_and_equivalents_aed": 312000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 6450351,
+   "total_liabilities_aed": 1577297,
+   "total_equity_aed": 4873054,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4570423"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4570423",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -4465,7 +4510,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5226813"
   },
   {
@@ -4486,7 +4531,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4853999"
   },
   {
@@ -4507,7 +4552,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4686433"
   },
   {
@@ -4528,7 +4573,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4570207"
   },
   {
@@ -4549,7 +4594,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223876"
   },
   {
@@ -4564,14 +4609,15 @@
    "net_profit_aed": 80000000,
    "eps": 0.016,
    "cash_and_equivalents_aed": 3469000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 19381539,
+   "total_liabilities_aed": 13968006,
+   "total_equity_aed": 5413533,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4855477"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4855477",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -4585,14 +4631,15 @@
    "net_profit_aed": 1602000000,
    "eps": 0.32,
    "cash_and_equivalents_aed": 4486000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 20416465,
+   "total_liabilities_aed": 14263735,
+   "total_equity_aed": 6152730,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4721474"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4721474",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -4612,7 +4659,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4577006"
   },
   {
@@ -4675,7 +4722,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4702800"
   },
   {
@@ -4696,7 +4743,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4596324"
   },
   {
@@ -4717,7 +4764,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4595626"
   },
   {
@@ -4738,7 +4785,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-assets-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5266117"
   },
   {
@@ -4759,7 +4806,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4912245"
   },
   {
@@ -4780,7 +4827,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4839286"
   },
   {
@@ -4801,7 +4848,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4599138"
   },
   {
@@ -4822,7 +4869,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223860"
   },
   {
@@ -4843,7 +4890,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4855474"
   },
   {
@@ -4963,14 +5010,15 @@
    "net_profit_aed": 83556000,
    "eps": 0.56,
    "cash_and_equivalents_aed": 133120000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1059556663,
+   "total_liabilities_aed": 452832280,
+   "total_equity_aed": 606724383,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "scanned-image",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4565609"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4565609",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -4984,14 +5032,15 @@
    "net_profit_aed": 83556000,
    "eps": 0.56,
    "cash_and_equivalents_aed": 133120000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1059556663,
+   "total_liabilities_aed": 452832280,
+   "total_equity_aed": 606724383,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "scanned-image",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4564157"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4564157",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -5005,14 +5054,15 @@
    "net_profit_aed": -91027000,
    "eps": -0.015,
    "cash_and_equivalents_aed": 11728000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 592660,
+   "total_liabilities_aed": 50676,
+   "total_equity_aed": 541984,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5189022"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5189022",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -5032,7 +5082,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4901787"
   },
   {
@@ -5053,7 +5103,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4704825"
   },
   {
@@ -5073,7 +5123,7 @@
    "total_equity_aed": 688417,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "USD'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4576599"
   },
@@ -5136,7 +5186,7 @@
    "total_equity_aed": 4474097,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4695735"
   },
@@ -5200,7 +5250,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-assets-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4858743"
   },
   {
@@ -5220,7 +5270,7 @@
    "total_equity_aed": 18321472,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4687115"
   },
@@ -5241,7 +5291,7 @@
    "total_equity_aed": 20879930,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4586206"
   },
@@ -5257,14 +5307,15 @@
    "net_profit_aed": 1713000000,
    "eps": 0.85,
    "cash_and_equivalents_aed": 10462000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 108611423,
+   "total_liabilities_aed": 93592725,
+   "total_equity_aed": 15018698,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5212297"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5212297",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -5278,14 +5329,15 @@
    "net_profit_aed": 1008000000,
    "eps": 0.5,
    "cash_and_equivalents_aed": 13607000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 107322535,
+   "total_liabilities_aed": 93123588,
+   "total_equity_aed": 14198947,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4837443"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4837443",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -5305,7 +5357,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4686086"
   },
   {
@@ -5320,14 +5372,15 @@
    "net_profit_aed": 2080000000,
    "eps": 1.03,
    "cash_and_equivalents_aed": 11863000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 99458736,
+   "total_liabilities_aed": 85256674,
+   "total_equity_aed": 14202062,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4567996"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4567996",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -5347,7 +5400,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5241086"
   },
   {
@@ -5368,7 +5421,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4897634"
   },
   {
@@ -5409,7 +5462,7 @@
    "total_equity_aed": 2263422,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4597395"
   },
@@ -5425,14 +5478,15 @@
    "net_profit_aed": 76654000,
    "eps": 0.026,
    "cash_and_equivalents_aed": 163198000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 8706168,
+   "total_liabilities_aed": 2764198,
+   "total_equity_aed": 5941970,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "scanned-image",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5244377"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5244377",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -5451,7 +5505,7 @@
    "total_equity_aed": 5981094,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4904960"
   },
@@ -5472,7 +5526,7 @@
    "total_equity_aed": 5941970,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4780541"
   },
@@ -5493,7 +5547,7 @@
    "total_equity_aed": 5758091,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4567846"
   },
@@ -5515,7 +5569,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223756"
   },
   {
@@ -5551,14 +5605,15 @@
    "net_profit_aed": 77397000,
    "eps": 0.127,
    "cash_and_equivalents_aed": 101841000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2186198,
+   "total_liabilities_aed": 721640,
+   "total_equity_aed": 1464558,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5261089"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5261089",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -5593,14 +5648,15 @@
    "net_profit_aed": 105891000,
    "eps": 0.174,
    "cash_and_equivalents_aed": 71958000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2132722,
+   "total_liabilities_aed": 679477,
+   "total_equity_aed": 1453245,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4746296"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4746296",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -5614,14 +5670,15 @@
    "net_profit_aed": 59197000,
    "eps": 0.097,
    "cash_and_equivalents_aed": 61536000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2058494,
+   "total_liabilities_aed": 662369,
+   "total_equity_aed": 1396125,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4596925"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4596925",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -5641,7 +5698,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "ocr-garbled-numbers",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5168450"
   },
   {
@@ -5662,7 +5719,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4824665"
   },
   {
@@ -5683,7 +5740,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "ocr-garbled-numbers",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4678892"
   },
   {
@@ -5698,14 +5755,15 @@
    "net_profit_aed": 1105000000,
    "eps": 0.33,
    "cash_and_equivalents_aed": 7517000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 79210316,
+   "total_liabilities_aed": 70997017,
+   "total_equity_aed": 8303299,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4551443"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4551443",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "ADX",
@@ -5724,7 +5782,7 @@
    "total_equity_aed": 1799676,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5241374"
   },
@@ -5745,7 +5803,7 @@
    "total_equity_aed": 1784429,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4916279"
   },
@@ -5809,7 +5867,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5237525"
   },
   {
@@ -5845,14 +5903,15 @@
    "net_profit_aed": 117535000,
    "eps": 0.085,
    "cash_and_equivalents_aed": 47526000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 27162806,
+   "total_liabilities_aed": 108145071,
+   "total_equity_aed": -80924993,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4842565"
+   "unit_hint": "USD million",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4842565",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "ADX",
@@ -5872,7 +5931,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-total-assets-line",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4639387"
   },
   {
@@ -5893,7 +5952,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4554549"
   },
   {
@@ -5997,7 +6056,7 @@
    "total_equity_aed": 4038758,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5209959"
   },
@@ -6013,14 +6072,15 @@
    "net_profit_aed": 75000000,
    "eps": 0.02,
    "cash_and_equivalents_aed": -791000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 26892936,
+   "total_liabilities_aed": 23050863,
+   "total_equity_aed": 3842073,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4839630"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4839630",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -6039,7 +6099,7 @@
    "total_equity_aed": 4031655,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4692437"
   },
@@ -6055,14 +6115,15 @@
    "net_profit_aed": 316000000,
    "eps": 0.14,
    "cash_and_equivalents_aed": -1269000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 24465361,
+   "total_liabilities_aed": 20506104,
+   "total_equity_aed": 3959257,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4572886"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4572886",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -6081,7 +6142,7 @@
    "total_equity_aed": 4941599,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223555"
   },
@@ -6097,14 +6158,15 @@
    "net_profit_aed": 57000000,
    "eps": 0.03,
    "cash_and_equivalents_aed": 186000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 5353314,
+   "total_liabilities_aed": 679010,
+   "total_equity_aed": 4674304,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4911823"
+   "unit_hint": "AED'000",
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4911823",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "ADX",
@@ -6123,7 +6185,7 @@
    "total_equity_aed": 4799724,
    "balance_sheet_reconciled": true,
    "liabilities_derived": false,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
    "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4702018"
   },
@@ -6139,14 +6201,15 @@
    "net_profit_aed": 608000000,
    "eps": 0.184,
    "cash_and_equivalents_aed": 904000000,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 13967565,
+   "total_liabilities_aed": 5201338,
+   "total_equity_aed": 8766227,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
-   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4586918"
+   "balance_sheet_reason": null,
+   "eng_pdf_url": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4586918",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6166,7 +6229,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "ambiguous-multiple-reconciling-sets",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/13/73b5a981-71a4-47f1-b4fd-b4944d8ef172/Air%20Arabia%20FS%202025%20130226%200127PM_.pdf"
   },
   {
@@ -6181,14 +6244,15 @@
    "net_profit_aed": 116848,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 33865319,
+   "total_liabilities_aed": 30449775,
+   "total_equity_aed": 3415544,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/23/17d895e4-740a-4120-9636-3a49a1476dc8/AJMANBANK%20FS%20Q2%20E%2023%2007%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/23/17d895e4-740a-4120-9636-3a49a1476dc8/AJMANBANK%20FS%20Q2%20E%2023%2007%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6202,14 +6266,15 @@
    "net_profit_aed": 129565,
    "eps": 0.048,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 32828651,
+   "total_liabilities_aed": 29624674,
+   "total_equity_aed": 3203977,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/29/07a04824-b6c7-4169-98a6-36d8e2620e15/AJMANBANK%20FS%20Q1%20E%2029%2004%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/29/07a04824-b6c7-4169-98a6-36d8e2620e15/AJMANBANK%20FS%20Q1%20E%2029%2004%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6223,14 +6288,15 @@
    "net_profit_aed": null,
    "eps": 0.203,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 32863451,
+   "total_liabilities_aed": 29391200,
+   "total_equity_aed": 3472251,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jan/28/dfbe0aef-e630-442a-a286-10c80998380c/AJMANBANK%20FS%20Ann%20E%202.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jan/28/dfbe0aef-e630-442a-a286-10c80998380c/AJMANBANK%20FS%20Ann%20E%202.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6250,7 +6316,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/13/1e8499ec-dc49-455d-8a11-5cdf9113160f/AL%20ANSARI%20FS%20Q2%202026.Pdf.pdf"
   },
   {
@@ -6271,7 +6337,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/15/1fa0c05b-7618-4ff9-865c-04c2be95e58e/AAFS%20FS%20Q1%202026%20Financial%20Statements%20EN.Pdf.pdf"
   },
   {
@@ -6292,7 +6358,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/13/b2804db9-f8e7-4085-8623-7a3a25482152/AAFS%20FS%202025%20English.pdf"
   },
   {
@@ -6313,7 +6379,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/13/99a72960-6fa6-4fb0-8428-67c18ebdeda2/ALEC%20Holdings%20PJSC%20%20%20CFS%20Q2%202026.Pdf.pdf"
   },
   {
@@ -6334,7 +6400,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/8/99657f6f-4fda-43fe-9cca-a0800dc4ca82/ALEC%20Holdings%20LLC%20%20%20%20CFS%20Q1%202026%20English.Pdf.pdf"
   },
   {
@@ -6355,7 +6421,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/11/e38cbf0c-5724-43ce-b55d-3fa8af11b85b/ALEC%20Holdings%20%20%20CFS%20.pdf"
   },
   {
@@ -6370,14 +6436,15 @@
    "net_profit_aed": 23750,
    "eps": 0.043,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1850769,
+   "total_liabilities_aed": 1270293,
+   "total_equity_aed": 580476,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/3/431a6257-c4dc-466c-8da6-028f6ec472f4/ENFS%20Al%20Ramz%20Corporation%20Investment%20And%20Developmen.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/3/431a6257-c4dc-466c-8da6-028f6ec472f4/ENFS%20Al%20Ramz%20Corporation%20Investment%20And%20Developmen.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6391,14 +6458,15 @@
    "net_profit_aed": 12082,
    "eps": 0.022,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1931797,
+   "total_liabilities_aed": 1336577,
+   "total_equity_aed": 595220,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/13f0e7eb-1094-404a-bf68-4d9bc4366fb5/ENFS%20Al%20Ramz%20Corporation%20PJSC%20%20%20Q1%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/13f0e7eb-1094-404a-bf68-4d9bc4366fb5/ENFS%20Al%20Ramz%20Corporation%20PJSC%20%20%20Q1%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6418,7 +6486,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/14/bfd059b7-dd4a-42bc-afb2-92682a778ffc/AMAN%20FS%20Q2%20E%2014.08.2026.Pdf.pdf"
   },
   {
@@ -6439,7 +6507,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/8/fc616ec5-7b47-4502-a746-4d50c1ff34df/AMAN%20FS%20Q4%20E%2008.04.2.pdf"
   },
   {
@@ -6454,14 +6522,15 @@
    "net_profit_aed": 15716,
    "eps": 0.0161,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2748011,
+   "total_liabilities_aed": 285645,
+   "total_equity_aed": 2462366,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/11/a2c7624e-5300-4465-a502-f60bf2c00782/Amlak%20Finance%20PJSC%20%20ENG%20%20FS%2030%20Jun%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/11/a2c7624e-5300-4465-a502-f60bf2c00782/Amlak%20Finance%20PJSC%20%20ENG%20%20FS%2030%20Jun%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6475,14 +6544,15 @@
    "net_profit_aed": 28214,
    "eps": 0.0344,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 3461445,
+   "total_liabilities_aed": 288302,
+   "total_equity_aed": 3173143,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/12/eb20ee08-b078-4242-a875-175f73ee4eec/Amlak%20Finance%20PJSC%2031%20March%202026%20Consolidated%20%20%20En.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/12/eb20ee08-b078-4242-a875-175f73ee4eec/Amlak%20Finance%20PJSC%2031%20March%202026%20Consolidated%20%20%20En.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -6496,14 +6566,15 @@
    "net_profit_aed": 64391,
    "eps": 0.032,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 6170279,
+   "total_liabilities_aed": 3553117,
+   "total_equity_aed": 2617162,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/5/ad5b0f8f-a3aa-42e4-b2f2-f8f144ca218d/ARMX%20FS%20Q2%202026%20E%2005%2008%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/5/ad5b0f8f-a3aa-42e4-b2f2-f8f144ca218d/ARMX%20FS%20Q2%202026%20E%2005%2008%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6517,14 +6588,15 @@
    "net_profit_aed": 16844,
    "eps": 0.012,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 5936312,
+   "total_liabilities_aed": 3385251,
+   "total_equity_aed": 2551061,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/8/bd16e382-1d27-46ca-b8df-a9bd20755633/ARMX%20FS%20Q1%202026%20E%2008%2005%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/8/bd16e382-1d27-46ca-b8df-a9bd20755633/ARMX%20FS%20Q1%202026%20E%2008%2005%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6538,14 +6610,15 @@
    "net_profit_aed": null,
    "eps": -0.17,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 3449278,
+   "total_liabilities_aed": 194413164,
+   "total_equity_aed": -190963886,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/14/70a5b45a-9eb2-4ca1-9437-2c44d990454f/Al%20Sagr%20National%20Insurance%20Company%20PSC%20Financial%20S.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/14/70a5b45a-9eb2-4ca1-9437-2c44d990454f/Al%20Sagr%20National%20Insurance%20Company%20PSC%20Financial%20S.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -6565,7 +6638,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/15/0b2b9d94-9397-4f71-9928-02ce16900bc4/Financials%2031%20%2003%202026%20English.Pdf.pdf"
   },
   {
@@ -6580,14 +6653,15 @@
    "net_profit_aed": 11389978,
    "eps": 0.06,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2156207081,
+   "total_liabilities_aed": 1641773010,
+   "total_equity_aed": 514434071,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/6/b15e3c2a-7eae-4bc0-9e37-32a4638318ce/BHM%20Capital%20Financials%20English%20%20%20Consolidated%20Inte.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/6/b15e3c2a-7eae-4bc0-9e37-32a4638318ce/BHM%20Capital%20Financials%20English%20%20%20Consolidated%20Inte.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -6601,14 +6675,15 @@
    "net_profit_aed": 885582,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 154504921,
+   "total_liabilities_aed": 137536617,
+   "total_equity_aed": 16968304,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/22/982c8e48-0b80-44cf-8b5c-31eedba0fa0e/CBD%20Financial%20Statements%2030%20June%202026%20English.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/22/982c8e48-0b80-44cf-8b5c-31eedba0fa0e/CBD%20Financial%20Statements%2030%20June%202026%20English.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6628,7 +6703,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/22/b6e6948d-4ac5-4c0b-a7ca-eff7efc9fc21/CBD%20Financial%20Statem.pdf"
   },
   {
@@ -6649,7 +6724,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jan/21/d1f03e8f-4cf6-4dc3-969e-893c4353800e/CBD%20Financial%20Statem.pdf"
   },
   {
@@ -6670,7 +6745,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "ambiguous-multiple-reconciling-sets",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2022/Mar/25/a0b76672-f231-4968-a4ac-59cf3300028e/DAMAC_FS_2021_E_24_03_2021.pdf"
   },
   {
@@ -6691,7 +6766,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/12/c912af12-eadc-44ab-9cd7-16e60d1a3d8d/Dubai%20Electricity%20And%20Water%20Authority%20PJSC%20%20%20FS%20%20%20.pdf"
   },
   {
@@ -6712,7 +6787,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/12/cd67f020-9be5-42a8-8f89-3045202fde9c/DEWA.ENG.Q1.pdf"
   },
   {
@@ -6733,7 +6808,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/27/3fc534cd-2159-48c9-a6b7-371fab22cace/DEWA%20Consolidated%20FS.pdf"
   },
   {
@@ -6754,7 +6829,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/3/ff67cbbb-33bf-46bc-841b-f82dde031e82/Deyaar%20Development%20PJSC%20%20%20FS%20ENG%20%2030%20Jun%202026.Pdf.pdf"
   },
   {
@@ -6775,7 +6850,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/bdb1b58d-4106-44e7-a58b-ebc4950e6244/Deyaar%20Development%20PJSC%20FS%2031%20Mar%202026%20English.Pdf.pdf"
   },
   {
@@ -6790,14 +6865,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 8027554,
+   "total_liabilities_aed": 2356907,
+   "total_equity_aed": 5670647,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/11/10c08363-8e8a-483a-a6af-60e5bae617a5/Deyaar%20FS%202025%20%20Engl.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/11/10c08363-8e8a-483a-a6af-60e5bae617a5/Deyaar%20FS%202025%20%20Engl.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6811,14 +6887,15 @@
    "net_profit_aed": 1937578,
    "eps": 0.25,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 423169651,
+   "total_liabilities_aed": 369279768,
+   "total_equity_aed": 53889885,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/14/3d84c08e-4f2d-42f0-9707-656a294349b8/DIB%20FS%20E%2014%2007%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/14/3d84c08e-4f2d-42f0-9707-656a294349b8/DIB%20FS%20E%2014%2007%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6838,7 +6915,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/28/0172ec10-118c-41b5-bf25-70d71a417a0a/DIB%20FS%20E%2028%2004%202026.Pdf.pdf"
   },
   {
@@ -6859,7 +6936,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/10/a18f9206-61fe-4f91-bf14-eeba95b07861/Dubai%20Investments%20PJSC%2030%20June%202026%20Consolidated%20%20.pdf"
   },
   {
@@ -6874,14 +6951,15 @@
    "net_profit_aed": null,
    "eps": 0.04,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 23431040,
+   "total_liabilities_aed": 8044667,
+   "total_equity_aed": 15386373,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/ec2c0cc3-7960-4b36-ba5f-0d037d47e14f/DIC%20FS%20E%20Q1%202026%2011%2005%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/ec2c0cc3-7960-4b36-ba5f-0d037d47e14f/DIC%20FS%20E%20Q1%202026%2011%2005%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6895,14 +6973,15 @@
    "net_profit_aed": 41360,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 3831815,
+   "total_liabilities_aed": 2625791,
+   "total_equity_aed": 1206024,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/30/eea60ab4-ef3e-4485-b8bd-ac5a834a2edb/Dubai%20Insurance%20FS%20%20%20Q2%202026%20%20%20English%20FS%20%20%20Copy.P.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/30/eea60ab4-ef3e-4485-b8bd-ac5a834a2edb/Dubai%20Insurance%20FS%20%20%20Q2%202026%20%20%20English%20FS%20%20%20Copy.P.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6916,14 +6995,15 @@
    "net_profit_aed": 70438,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 4308063,
+   "total_liabilities_aed": 3174109,
+   "total_equity_aed": 1133954,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/5b7031f6-24c7-4345-803f-dd25afcd0e2d/DIN%201Q%20E%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/5b7031f6-24c7-4345-803f-dd25afcd0e2d/DIN%201Q%20E%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6937,14 +7017,15 @@
    "net_profit_aed": null,
    "eps": 1.906,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 4316229,
+   "total_liabilities_aed": 3144103,
+   "total_equity_aed": 1172126,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/17/e966dbae-fa0d-4c14-972d-9b11461f7f68/DIN%20FINANCIALS%202025%20.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/17/e966dbae-fa0d-4c14-972d-9b11461f7f68/DIN%20FINANCIALS%202025%20.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -6964,7 +7045,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/11/1e633cd7-ed30-403a-9c79-3496f882be2b/Dubai%20Refreshment%20PJ.pdf"
   },
   {
@@ -6985,7 +7066,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-equity-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/7/735700f5-c1ee-41e6-ad47-dc62e3ea0955/DSI%20FS%20E%207%208%202026.Pdf.pdf"
   },
   {
@@ -7000,14 +7081,15 @@
    "net_profit_aed": 10414364,
    "eps": 0.0042,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2393706504,
+   "total_liabilities_aed": 1918878468,
+   "total_equity_aed": 474828036,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/23/c42cfa3d-7eb3-4196-9f1e-b67a711176ad/DTC%20FS%20Q2%20E%2023%2007%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/23/c42cfa3d-7eb3-4196-9f1e-b67a711176ad/DTC%20FS%20Q2%20E%2023%2007%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7021,14 +7103,15 @@
    "net_profit_aed": 1449267,
    "eps": 0.18,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 17620927,
+   "total_liabilities_aed": 7653803,
+   "total_equity_aed": 9967124,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/22/9136b93c-0ec5-4923-b223-9fe7b0c3438c/EITC%20Consolidated%20Financial%20Statements%20For%20The%20Per.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/22/9136b93c-0ec5-4923-b223-9fe7b0c3438c/EITC%20Consolidated%20Financial%20Statements%20For%20The%20Per.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7042,14 +7125,15 @@
    "net_profit_aed": 722499,
    "eps": 0.18,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 20222191,
+   "total_liabilities_aed": 11052885,
+   "total_equity_aed": 9169306,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/22/3873662b-be76-463d-97f8-d01f1b5e286c/EITC%20Consolidated%20Fi.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/22/3873662b-be76-463d-97f8-d01f1b5e286c/EITC%20Consolidated%20Fi.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7063,14 +7147,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 137761890,
+   "total_liabilities_aed": 120568152,
+   "total_equity_aed": 17193738,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Oct/23/0572279a-c318-48d4-a189-2ed3aaa2be18/1.%20Emirates%20Islamic%20.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Oct/23/0572279a-c318-48d4-a189-2ed3aaa2be18/1.%20Emirates%20Islamic%20.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7090,7 +7175,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Jul/24/69aa2d23-62ae-486d-84d2-7c9a014bc205/1.%20Emirates%20Islamic%20.pdf"
   },
   {
@@ -7105,14 +7190,15 @@
    "net_profit_aed": 1009380,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 111126673,
+   "total_liabilities_aed": 96828362,
+   "total_equity_aed": 14300311,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Apr/21/9b195371-1680-4b7a-ac98-ebe9639c6a96/Emirates%20Islamic%20Ban.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Apr/21/9b195371-1680-4b7a-ac98-ebe9639c6a96/Emirates%20Islamic%20Ban.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7126,14 +7212,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 4550094,
+   "total_liabilities_aed": 3073309,
+   "total_equity_aed": 1476785,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/10/d4436416-9314-41c3-a4eb-f02985134bac/En%20%20%20EIB%20FS%20Q2%202026%20V4%20%20%20Set.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/10/d4436416-9314-41c3-a4eb-f02985134bac/En%20%20%20EIB%20FS%20Q2%202026%20V4%20%20%20Set.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7147,14 +7234,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 4601482,
+   "total_liabilities_aed": 3134145,
+   "total_equity_aed": 1467337,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/7/4a8394e6-3551-489d-9559-d83b05e49db9/En%20%20%20EIB%20FS%20Q1%202026%20Signed%20Set.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/7/4a8394e6-3551-489d-9559-d83b05e49db9/En%20%20%20EIB%20FS%20Q1%202026%20Signed%20Set.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7168,14 +7256,15 @@
    "net_profit_aed": null,
    "eps": 8.36,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 4877615,
+   "total_liabilities_aed": 3391711,
+   "total_equity_aed": 1485904,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/11/2aef9f4a-e932-48c7-adf9-1df0e5c2d986/En%20%20%20Eibank%20PJSC%20FS%20.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/11/2aef9f4a-e932-48c7-adf9-1df0e5c2d986/En%20%20%20Eibank%20PJSC%20FS%20.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7189,14 +7278,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 4995986,
+   "total_liabilities_aed": 3520389,
+   "total_equity_aed": 1475597,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Nov/10/2a4133eb-7185-4223-bb5b-39259027a651/En%20%20%20Eibank%20Financia.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Nov/10/2a4133eb-7185-4223-bb5b-39259027a651/En%20%20%20Eibank%20Financia.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7210,14 +7300,15 @@
    "net_profit_aed": 4736545,
    "eps": 0.42,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 192985243,
+   "total_liabilities_aed": 84101806,
+   "total_equity_aed": 108883437,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/7/11340cb3-ebb9-4519-ba35-6472803fd7b0/Emaar%20Properties%20PJSC%20And%20Its%20Subsidiaries%2030%20June.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/7/11340cb3-ebb9-4519-ba35-6472803fd7b0/Emaar%20Properties%20PJSC%20And%20Its%20Subsidiaries%2030%20June.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7231,14 +7322,15 @@
    "net_profit_aed": 6412121,
    "eps": 0.57,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 195293707,
+   "total_liabilities_aed": 91701546,
+   "total_equity_aed": 103592161,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/ca83f2b5-7d91-4674-86d5-810f5ee11c99/FS%20%20%20Emaar%20Properties%20PJSC%20And%20Its%20Subsidiaries%2031.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/ca83f2b5-7d91-4674-86d5-810f5ee11c99/FS%20%20%20Emaar%20Properties%20PJSC%20And%20Its%20Subsidiaries%2031.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7252,14 +7344,15 @@
    "net_profit_aed": null,
    "eps": 1.99,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 186700687,
+   "total_liabilities_aed": 79024380,
+   "total_equity_aed": 107676307,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/12/9e0de168-d6ee-4ebe-a343-58b56a84ab2f/Emaar%20Properties%20PJS.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/12/9e0de168-d6ee-4ebe-a343-58b56a84ab2f/Emaar%20Properties%20PJS.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7279,7 +7372,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/7/dfb65009-b6da-490f-bef9-3ccc64fc27f6/Emaar%20Development%20PJSC%20FS%2030%20June%202026%20English.Pdf.pdf"
   },
   {
@@ -7300,7 +7393,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/4cc67623-a590-4b3f-8954-0e0b5bb65133/Emaar%20Development%20PJSC%20FS%2031%20March%202026%20English.Pd.pdf"
   },
   {
@@ -7321,7 +7414,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "ambiguous-multiple-reconciling-sets",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/12/3553986b-25f4-430b-be30-92a6ef54a49c/Emaar%20Development%20PJ.pdf"
   },
   {
@@ -7342,7 +7435,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Nov/6/a0c17832-2e8a-4d9c-a88d-537cc95c2c67/Emaar%20Development%20PJ.pdf"
   },
   {
@@ -7363,7 +7456,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2021/Nov/11/866fea29-f598-4f83-936e-3a3b9a86c0ff/EMAARMALLS_FS_Q3_E_11_11_21.pdf"
   },
   {
@@ -7384,7 +7477,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/23/84be7db5-d011-45db-a4a9-748eefcee75e/3.%20Emirates%20NBD%20H1%202026%20Results%20Presentation.Pdf.pdf"
   },
   {
@@ -7399,14 +7492,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1216751,
+   "total_liabilities_aed": 1072304,
+   "total_equity_aed": 144197,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED million",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/22/0561fe7b-97b6-4652-8c8f-60d913335a60/Emirates%20NBD%20Q1%202026%20Financial%20Statements%20English.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/22/0561fe7b-97b6-4652-8c8f-60d913335a60/Emirates%20NBD%20Q1%202026%20Financial%20Statements%20English.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7420,14 +7514,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 12267233,
+   "total_liabilities_aed": 8711788,
+   "total_equity_aed": 3528330,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/6/e99ef8e9-6bcc-443d-997e-229f82408bb0/EMPOWER%20FS%20Q2%20E%2005%2008%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/6/e99ef8e9-6bcc-443d-997e-229f82408bb0/EMPOWER%20FS%20Q2%20E%2005%2008%202026.Pdf.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -7441,14 +7536,15 @@
    "net_profit_aed": 1594011,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 426226264,
+   "total_liabilities_aed": 68648274,
+   "total_equity_aed": 357577990,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/14/aa53eb05-4524-45c1-988c-64afbbbe9094/ERC%20%20Q2%20English%20Financial%20Statement%2030%20June%202026.P.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/14/aa53eb05-4524-45c1-988c-64afbbbe9094/ERC%20%20Q2%20English%20Financial%20Statement%2030%20June%202026.P.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -7462,14 +7558,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 427910093,
+   "total_liabilities_aed": 74467191,
+   "total_equity_aed": 353442902,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/14/24079245-bdc3-4488-b204-59d54a07f99f/FS%20English%20ERC%20%20Q1%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/14/24079245-bdc3-4488-b204-59d54a07f99f/FS%20English%20ERC%20%20Q1%202026.Pdf.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -7483,14 +7580,15 @@
    "net_profit_aed": null,
    "eps": 0.027,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 414307940,
+   "total_liabilities_aed": 55447225,
+   "total_equity_aed": 358860715,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Mar/7/729ca00a-4411-4ebb-a491-a8eff589ee7d/ERIC%20%20%20Signed%20%20%20FS%20%20.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Mar/7/729ca00a-4411-4ebb-a491-a8eff589ee7d/ERIC%20%20%20Signed%20%20%20FS%20%20.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -7504,14 +7602,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 410735675,
+   "total_liabilities_aed": 48484585,
+   "total_equity_aed": 362251090,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Nov/13/21079c49-8e29-4aea-94ae-ee8b77321290/ERC%20%20%20Q3%202025%20%20%20FS%20E.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Nov/13/21079c49-8e29-4aea-94ae-ee8b77321290/ERC%20%20%20Q3%202025%20%20%20FS%20E.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -7531,7 +7630,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/13/e862134a-2f08-47cc-9522-83e2fd04c642/Signed%20FS%20English.Pdf.pdf"
   },
   {
@@ -7552,7 +7651,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/14/65c678ac-66e7-4b8d-b32a-be6f3554ab95/GFH%20Q1%20%202026%20English%20FS%20Full%20Set.Pdf.pdf"
   },
   {
@@ -7573,7 +7672,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/12/02bd2737-32ae-4aab-b332-4ced9f07a125/08122026%20Financials%20Ithmaar%20Holding%2030%20June%202026%20F.pdf"
   },
   {
@@ -7594,7 +7693,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-reconciling-total-assets-liabilities-equity",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/13/816f0564-f779-4427-8171-e1d343f33fc2/05132026%20Financials%20Ithmaar%20Holding%2031%20March%202026%20.pdf"
   },
   {
@@ -7615,7 +7714,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2019/May/30/04b34cce-26b1-49d3-9e01-b2651e0e7d13/MARKA_FS_ANN_2018_E_13_05_2019.pdf"
   },
   {
@@ -7630,14 +7729,15 @@
    "net_profit_aed": 2120901,
    "eps": 19.16,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 365747852,
+   "total_liabilities_aed": 321703180,
+   "total_equity_aed": 44044672,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/30/be3df509-10b4-4d31-8314-696369c596ce/Mashreqbank%20PSC%20CFS%202026Q2%20English.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/30/be3df509-10b4-4d31-8314-696369c596ce/Mashreqbank%20PSC%20CFS%202026Q2%20English.Pdf.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -7651,14 +7751,15 @@
    "net_profit_aed": 1926668,
    "eps": 9.15,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 344304598,
+   "total_liabilities_aed": 302582965,
+   "total_equity_aed": 41721633,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/30/0c36261a-9517-4de2-a46b-4cf200be5fb6/Mashreqbank%20PSC%20-%20CFS%202026-Q1.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/30/0c36261a-9517-4de2-a46b-4cf200be5fb6/Mashreqbank%20PSC%20-%20CFS%202026-Q1.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -7672,14 +7773,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 123502163,
+   "total_liabilities_aed": 78000508,
+   "total_equity_aed": 45501655,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/29/48c23e0f-d3f4-4bbd-ae0f-d6772cb26be8/Mazaya%20FS%20%20E%20Q2%2031%2003%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/29/48c23e0f-d3f4-4bbd-ae0f-d6772cb26be8/Mazaya%20FS%20%20E%20Q2%2031%2003%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7693,14 +7795,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 124687172,
+   "total_liabilities_aed": 77155386,
+   "total_equity_aed": 47531786,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/29/6aca4d53-43be-4ffb-8ee2-799ace589921/Mazaya%20FS%20%20E%20Q1%2031%2003%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/29/6aca4d53-43be-4ffb-8ee2-799ace589921/Mazaya%20FS%20%20E%20Q1%2031%2003%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7720,7 +7823,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "ambiguous-multiple-reconciling-sets",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/16/db7a46b5-e91d-41b4-ab62-f0a1e040a5d2/Agility%20FS%20Q1%2031%20Mar%202026.Pdf.pdf"
   },
   {
@@ -7735,14 +7838,15 @@
    "net_profit_aed": 534210,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 20017182,
+   "total_liabilities_aed": 13824314,
+   "total_equity_aed": 6192838,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/3/51b619c0-8f74-4338-982e-4333b3942905/ORIENT%20FS%20E%2003%2008%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/3/51b619c0-8f74-4338-982e-4333b3942905/ORIENT%20FS%20E%2003%2008%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7762,7 +7866,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/d3309d03-d585-4ed8-8190-2ab73002a294/ORIENT%20FS%20E%2011%2005%202026.Pdf.pdf"
   },
   {
@@ -7783,7 +7887,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/4/0f9f3dcf-0263-41e7-8658-c5efa1054991/ORIENTTKAFUL%20FS%20Q2%20E%2004.08.2026.Pdf.pdf"
   },
   {
@@ -7804,7 +7908,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/12/5af44ff5-6a28-44b3-aff3-d51198f1c4c5/ORIENTTKAFUL%20FS%20Q1%20E%2012.05.2026.Pdf.pdf"
   },
   {
@@ -7819,14 +7923,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2528073,
+   "total_liabilities_aed": 2008809,
+   "total_equity_aed": 519264,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/13/4438e409-34ee-4774-b69b-c0ff48365ff9/Parkin%20Q2%202026%20FS%2013%20Aug%202026%20ENG.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/13/4438e409-34ee-4774-b69b-c0ff48365ff9/Parkin%20Q2%202026%20FS%2013%20Aug%202026%20ENG.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7846,7 +7951,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/6/ffffcfe8-fdc6-4f65-b93d-35b3b4a0313a/Q1%202026%20FS%20ENG%206%20May%202026.Pdf.pdf"
   },
   {
@@ -7867,7 +7972,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-assets-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/13/7d637b48-46a9-4e57-be51-0a8d3090344f/Salama%20FS%20IFRS%2017%20Q2%202026%20%20%20Signed.Pdf.pdf"
   },
   {
@@ -7882,14 +7987,15 @@
    "net_profit_aed": 13960,
    "eps": 0.023,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 3224914,
+   "total_liabilities_aed": 2719893,
+   "total_equity_aed": 505021,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/15/6dd5bea4-6c6a-4cfd-b0e4-64a0f4a710ac/Salama%20FS%20IFRS%2017%20Q1%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/15/6dd5bea4-6c6a-4cfd-b0e4-64a0f4a710ac/Salama%20FS%20IFRS%2017%20Q1%202026.Pdf.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -7903,14 +8009,15 @@
    "net_profit_aed": 369277,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 7871500,
+   "total_liabilities_aed": 6652834,
+   "total_equity_aed": 1218666,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/b2881521-d6af-456b-8a95-de3a2b91477a/EN%20%20%20SALIK%20Q1%202026%20%20%20Signed%20Financials.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/b2881521-d6af-456b-8a95-de3a2b91477a/EN%20%20%20SALIK%20Q1%202026%20%20%20Signed%20Financials.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7930,7 +8037,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/13/1dfe627c-bdba-4e4b-a5ad-da8825bd2bec/SHUAA%20FS%20Q2%20E%2013%2008%202026.Pdf.pdf"
   },
   {
@@ -7945,14 +8052,15 @@
    "net_profit_aed": 87686,
    "eps": 0.025,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2497784,
+   "total_liabilities_aed": 2048379,
+   "total_equity_aed": 449405,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/10/a26ffc04-8bf1-4542-b0e4-f80ef37a3844/AFS%20Spinneys%201961%20Q2%202026%20English.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/10/a26ffc04-8bf1-4542-b0e4-f80ef37a3844/AFS%20Spinneys%201961%20Q2%202026%20English.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7966,14 +8074,15 @@
    "net_profit_aed": 86834,
    "eps": 0.025,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 2426919,
+   "total_liabilities_aed": 2066172,
+   "total_equity_aed": 360747,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/64f91f8f-42b4-4f78-b709-bb07da448e70/Spinneys%201961%20AFS%20Q1%202026%20English.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/64f91f8f-42b4-4f78-b709-bb07da448e70/Spinneys%201961%20AFS%20Q1%202026%20English.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -7987,14 +8096,15 @@
    "net_profit_aed": 191354,
    "eps": 0.3,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 11552070,
+   "total_liabilities_aed": 8019242,
+   "total_equity_aed": 3532828,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/29/95069979-cfdc-4227-891c-54678c937332/Sukoon%20Insurance%20PJSC%20%20%20FS%2030%20Jun%202026%20EN.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/29/95069979-cfdc-4227-891c-54678c937332/Sukoon%20Insurance%20PJSC%20%20%20FS%2030%20Jun%202026%20EN.Pdf.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -8008,14 +8118,15 @@
    "net_profit_aed": null,
    "eps": 0.26,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 11061953,
+   "total_liabilities_aed": 7713254,
+   "total_equity_aed": 3348699,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/29/b4bf0c72-3c01-4f5f-9ad5-43f6944435e8/Sukoon%20Insurance%20PJSC%20%20%20FS%2031%20Mar%202026%20EN.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/29/b4bf0c72-3c01-4f5f-9ad5-43f6944435e8/Sukoon%20Insurance%20PJSC%20%20%20FS%2031%20Mar%202026%20EN.Pdf.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -8035,7 +8146,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/29/46b54c17-1bed-432b-a438-eb2e1d0b28b3/Sukoon%20Takaful%20Q2%202026%20FS%20%20EN.Pdf.pdf"
   },
   {
@@ -8056,7 +8167,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/29/843598a6-2334-4bb6-86eb-710b1f5edef5/Sukoon%20Takaful%20FS%20En.Pdf.pdf"
   },
   {
@@ -8071,14 +8182,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 4238228817,
+   "total_liabilities_aed": 2329077954,
+   "total_equity_aed": 1909150863,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/9/a03ff00a-bd5f-4dc1-abe4-9a2f260ad3a0/Taaleem%20Holdings%20Consol%209M%202025%2026%20English%20Signed..pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/9/a03ff00a-bd5f-4dc1-abe4-9a2f260ad3a0/Taaleem%20Holdings%20Consol%209M%202025%2026%20English%20Signed..pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -8092,14 +8204,15 @@
    "net_profit_aed": 106234814,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 4219165505,
+   "total_liabilities_aed": 2413505548,
+   "total_equity_aed": 1805659957,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Mar/26/9eda19aa-45bd-4569-bede-3e7bb59b037c/Taaleem%20Holdings%20Con.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Mar/26/9eda19aa-45bd-4569-bede-3e7bb59b037c/Taaleem%20Holdings%20Con.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -8113,14 +8226,15 @@
    "net_profit_aed": 71322016,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 4185446950,
+   "total_liabilities_aed": 2486386569,
+   "total_equity_aed": 1699060381,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jan/8/c67b2831-f5e4-4f9f-a585-27a0c72b7c99/Taaleem%20Holdings%20Con.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jan/8/c67b2831-f5e4-4f9f-a585-27a0c72b7c99/Taaleem%20Holdings%20Con.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -8140,7 +8254,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Jul/29/d115daea-b109-421a-951c-73e3e0e0fb67/TECOM%20FS%20Q2%20E%2029%2007%202026.Pdf.pdf"
   },
   {
@@ -8161,7 +8275,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Apr/28/79c87a35-675e-4b49-9778-8528b4693207/TECOM%20FS%20Q1%20E%2028%2004%202026.Pdf.pdf"
   },
   {
@@ -8182,7 +8296,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-total-liabilities-line",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/2/4f4c420e-a006-401d-9ed0-f795f0779cfe/TECOM%20FS%20ANN%20E%2002%2002.pdf"
   },
   {
@@ -8197,14 +8311,15 @@
    "net_profit_aed": 18615969,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 492437767,
+   "total_liabilities_aed": 129868956,
+   "total_equity_aed": 362568811,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/7/292d8e9e-f772-4b21-ab12-75423ecbda26/Uffsq226signed.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/7/292d8e9e-f772-4b21-ab12-75423ecbda26/Uffsq226signed.Pdf.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -8218,14 +8333,15 @@
    "net_profit_aed": 16306068,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 466569623,
+   "total_liabilities_aed": 107868974,
+   "total_equity_aed": 358700649,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/12/12e0aabe-1cf3-4a18-84b0-9313028256f4/Ufcfsq1eng26signed.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/12/12e0aabe-1cf3-4a18-84b0-9313028256f4/Ufcfsq1eng26signed.Pdf.pdf",
+   "balance_sheet_source": "pdf-text"
   },
   {
    "exchange": "DFM",
@@ -8245,7 +8361,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Feb/13/c2596066-deea-46a8-96a4-c49837172e29/UFC%20FS%202025%20English..pdf"
   },
   {
@@ -8260,14 +8376,15 @@
    "net_profit_aed": null,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 417375456,
+   "total_liabilities_aed": 83322059,
+   "total_equity_aed": 334053397,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
    "unit_hint": null,
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Nov/13/56d09a95-a2af-46e8-b4b4-7732cb950cd4/UFCFSQ325%20ENG.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Nov/13/56d09a95-a2af-46e8-b4b4-7732cb950cd4/UFCFSQ325%20ENG.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -8281,14 +8398,15 @@
    "net_profit_aed": 71351463,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 3554655899,
+   "total_liabilities_aed": 1047646991,
+   "total_equity_aed": 2507008908,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/10/d735743e-3625-4919-b643-9c7571472162/Union%20Coop%20%20%20English%20Q2%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/10/d735743e-3625-4919-b643-9c7571472162/Union%20Coop%20%20%20English%20Q2%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -8308,7 +8426,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/May/11/467df745-a981-4c63-81d4-25f0c9f0e2d9/Union%20Coop%20English%20FS%20%20%20Q1%202026.Pdf.pdf"
   },
   {
@@ -8329,7 +8447,7 @@
    "balance_sheet_reconciled": null,
    "liabilities_derived": null,
    "unit_hint": null,
-   "balance_sheet_reason": null,
+   "balance_sheet_reason": "no-balance-sheet-in-document",
    "eng_pdf_url": "https://feeds.dfm.ae/documents/2025/Nov/6/7c6ffe6a-b8fb-4ba1-a06b-560cc55f4f5e/Union%20Coop%20Q3%20Englis.pdf"
   },
   {
@@ -8344,14 +8462,15 @@
    "net_profit_aed": 17378,
    "eps": null,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1475038,
+   "total_liabilities_aed": 1202922,
+   "total_equity_aed": 272116,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/11/2f2ab3bf-4890-4a93-8dd9-c2ffe4fe9664/Watania%20International%20Holding%20%20Q2%202026.Pdf.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Aug/11/2f2ab3bf-4890-4a93-8dd9-c2ffe4fe9664/Watania%20International%20Holding%20%20Q2%202026.Pdf.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   },
   {
    "exchange": "DFM",
@@ -8365,14 +8484,15 @@
    "net_profit_aed": null,
    "eps": 0.132,
    "cash_and_equivalents_aed": null,
-   "total_assets_aed": null,
-   "total_liabilities_aed": null,
-   "total_equity_aed": null,
-   "balance_sheet_reconciled": null,
+   "total_assets_aed": 1408785,
+   "total_liabilities_aed": 1146769,
+   "total_equity_aed": 262016,
+   "balance_sheet_reconciled": true,
    "liabilities_derived": null,
-   "unit_hint": null,
+   "unit_hint": "AED'000",
    "balance_sheet_reason": null,
-   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Mar/31/893b9a52-5f79-43be-a004-deff3907449f/EN%20Watania%20Internati.pdf"
+   "eng_pdf_url": "https://feeds.dfm.ae/documents/2026/Mar/31/893b9a52-5f79-43be-a004-deff3907449f/EN%20Watania%20Internati.pdf",
+   "balance_sheet_source": "ocr-of-scanned-page"
   }
  ]
 }
