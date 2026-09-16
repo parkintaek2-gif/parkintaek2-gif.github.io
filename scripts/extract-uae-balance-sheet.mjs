@@ -697,8 +697,13 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       /* 글자로 못 뽑았고 «그림인 쪽»이 있으면 그 쪽만 읽어 다시 해 본다 */
       if (!것.됐나 && 브라우저 && fs.existsSync(자리)) {
         try {
+          /* 🔴 [2026-09-17 02:5x 실측] 처음에 «빈 쪽 4개»까지만 읽었다. 그런데 세 보니 —
+           *   AGTHIA 빈 쪽 26개 · ALPHADHABI 55개 — **문서 전체가 스캔**인 판이 있다.
+           *   그런 문서는 재무상태표가 5~8쪽쯤이라 4개에서 끊으면 영영 못 닿는다
+           *   (`scanned-image` 로 남은 20건이 그 꼴이었다).
+           * ⭐ 10개로 늘려도 느려지지 않는다 — **찾는 즉시 멈춘다.** 재무상태표는 앞쪽에 있다. */
           const 빈쪽 = 빈쪽찾기(자리);
-          for (const p of 빈쪽.slice(0, 4)) {
+          for (const p of 빈쪽.slice(0, 10)) {
             const 글 = await 쪽읽기(브라우저, 자리, p, 자리.replace(/\.pdf$/, ''));
             const 다시 = 글에서뽑는다(글 + 'x'.repeat(2100));   /* 한 쪽이라 길이 문턱을 채워 준다 */
             if (다시.됐나) { 것 = 다시; OCR로 = true; break; }
