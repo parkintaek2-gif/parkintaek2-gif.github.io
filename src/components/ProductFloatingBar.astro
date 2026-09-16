@@ -78,10 +78,11 @@ const { href, label, blurb } = Astro.props;
    * ✅ 열이 서는 넓이(1,080px 이상)에서는 이 띠를 감춘다 — 열이 그 일을 한다.
    * ⛔ 좁은 화면에서는 «그대로 둔다». 거기엔 열이 없어서 이 띠가 유일한 입구다.
    *   지우면 폰 손님이 상품으로 갈 길을 통째로 잃는다.
+   *
+   * ⚠ 그 규칙은 이 파일 «맨 아래»에 있다. 처음에 여기(위쪽)에 뒀더니 뒤에 오는
+   *   `.pfb { display: flex }` 가 덮어써서 띠가 그대로 떴다 — 특정도가 같으면 «나중 것»이 이긴다.
+   *   화면으로 재서 잡았다: 1280px 에서 떠있는띠 true · 상품열 true (둘 다 보였다).
    */
-  @media (min-width: 1080px) {
-    .pfb { display: none; }
-  }
   .pfb {
     position: fixed;
     left: 0.8rem;
@@ -146,5 +147,11 @@ const { href, label, blurb } = Astro.props;
 
   @media (max-width: 480px) {
     .pfb-blurb { display: none; }
+  }
+
+  /* 🔴 여기가 «맨 아래»여야 한다 — 특정도가 같으면 나중 것이 이긴다.
+     위쪽에 뒀더니 뒤에 오는 `.pfb { display: flex }` 가 덮어써서 띠가 그대로 떴다. */
+  @media (min-width: 1080px) {
+    .pfb { display: none; }
   }
 </style>
