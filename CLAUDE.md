@@ -726,6 +726,7 @@ WikiTip        K컬처·e스포츠    K팝·드라마·영화·웹툰·e스포�
 거래일+1     KRX 일별 시세          archive/raw/krx/  (다음 저녁 19시경에 들어온다)
 거래일+1     일반상품(금·석유)       node scripts/collect-commodities.mjs   (5번)
 매일 한 번   ADX 시가총액·시세       node scripts/collect-uae-adx-marketwatch.mjs   (5번)
+매일 한 번   일본 국채 금리곡선       node scripts/collect-jgb-yields.mjs   (5번)
 하루 두 번   API 승인 확인          npm run watch:approvals
 
 🔴 **[2026-09-16 · 5번] ADX 시가총액을 이 목록에 넣었다 — 그날 값은 그날만 있다.**
