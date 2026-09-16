@@ -60,6 +60,11 @@ const UAE줄 = 시장목록.filter((m) => m.country === 'UAE').reduce((a, m) => 
 /* 🔴 걸프에 시가총액이 «있는» 곳. 예전엔 0 이었고, 그래서 지면이 「그쪽이 안 낸다」고
    말하고 있었다. 이제 받아 오므로 수가 산다 — 수가 바뀌면 문장도 저절로 따라간다. */
 const UAE시총 = 시장목록.filter((m) => m.country === 'UAE').reduce((a, m) => a + m.filled.c, 0);
+/* 🔴 [2026-09-17] 걸프에 PBR 이 섰다. 지면이 그 사실을 말하게 한다 —
+ *   아래 글은 「걸프는 PER 을 못 낸다」까지만 말하고 있었다. 그건 지금도 맞지만,
+ *   그 옆에 «그래도 PBR 은 낸다»가 빠지면 손님은 걸프 칸이 통째로 빈 줄 안다.
+ *   ⚠ 수를 여기서 세어 쓴다 — 글에 숫자를 박으면 다음 달에 조용히 틀린다. */
+const UAE_PBR = 시장목록.filter((m) => m.country === 'UAE').reduce((a, m) => a + (m.filled.b || 0), 0);
 
 /* 손님이 자주 찾는 칸을 «한 번 눌러» 채우는 지름길.
    ⛔ 이름을 「Value」·「Quality」로 짓지 않는다 — 그러면 우리가 좋다/나쁘다를 말한 것이 된다.
@@ -114,6 +119,16 @@ const jsonLd = {
         built on one quarter of earnings and today&rsquo;s price would be a number we could not stand
         behind. We leave it empty and say why, on the row itself. Most screeners drop these companies
         in silence, and the market then looks smaller and tidier than it really is.
+      </p>
+      <p class="coverage">
+        <b>What we could reach, we went and got.</b> Price-to-book asks nothing of a quarter — the
+        market cap and the book value are both figures from one day — so the quarterly problem above
+        does not touch it. Getting there meant reading the balance sheet out of the audited PDF, and
+        for many Gulf filers that page is a scan with no text in it at all: we render the page and
+        read it. A figure only stands if assets equal liabilities plus equity to within 0.5% and the
+        filing states the scale it is written in — thousands, millions, dirhams or dollars, which
+        differs by company. <b>{UAE_PBR}</b> of the {UAE줄} Gulf listings now carry a price-to-book
+        ratio on that basis. The rest stay empty, and the row says why.
       </p>
     </div>
 
