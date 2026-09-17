@@ -1,280 +1,269 @@
-# 6번 세션 인수인계 (SeoulMarkets) — **오픈까지 10일**
+# 6번 세션 인수인계 (SeoulMarkets) — **2026-09-17 21시 갱신판**
 
-> 작성 **2026-08-05 13:1x KST** · 2번 → **6번**
+> 갱신 **2026-09-17 21:0x KST** · 6번 → **2번**
+> 사장님 지시(2026-09-17 20:41): 「역할 맞바꿈 — 2번=에스마켓」
+> 5번 지시(20:48): 「6번→2번 인계 문서를 «지금 상태»로 갱신 — 8/5 이후 바뀐 것만, 마감 ASAP」
 >
-> 사장님 지시(2026-08-05):
-> **「새 세션(6번)을 하나 더 만든다. 지금 SeoulMarkets 를 새 세션에 넘긴다.
->  이젠 네가 3, 5, 6번의 중간 보스다. 네가 다 출발시킨 거니까 마무리까지 네가 책임지고 한다」**
+> ⚠ **이 문서는 8/5 원본을 갈아엎은 것이다.** 원본(8/5)에 있던 「오픈 전 10일」 시기의
+> 내용(회원가입·결제 없음, 기사 15편, 재무제표 미수집 등)은 **전부 낡았다.** 아래가
+> 지금(9/17 21시) 실제 상태다. 원본은 git 이력에 남아 있으니 필요하면 그때 것을 본다.
 >
-> 🔴 **먼저 `docs/세션-공통수칙.md` 를 읽으십시오.** 공동 리소스·업무보고·라이선스·
->   비즈니스·일하는 법이 거기 있습니다. **이 문서는 SeoulMarkets 고유한 것만** 담습니다.
->   같은 규칙을 두 군데 적으면 어느 쪽이 맞는지 아무도 모릅니다.
+> 🔴 **먼저 `CLAUDE.md`(이 저장소 루트)를 처음부터 끝까지 읽는다.** 사고 이력·ctype 함정·
+>   도메인 사고·klifemap 격리·업무시간·강령이 전부 거기 있다. **이 문서는 SeoulMarkets 고유
+>   현재 상태만** 담는다 — 같은 규칙을 두 곳에 적지 않는다.
 
 ---
 
-## Ⅰ. 무엇을 맡는가
+## Ⅰ. 지금 무엇을 파는가 — **8/5 와 완전히 다르다**
 
-**한국 금융시장 데이터를 영문으로 가공해 발행한다.** seoulmarkets.com · 미국 독자 대상.
+**8/5엔 무료 발행 매체였다. 지금은 값을 받는 사이트다** (사장님 지시 2026-09-1x).
 
 ```
-카테고리 5   증시 equities · 외환 fx · 채권 rates · 커머디티 commodities · 거시 macro
-             (+ funds) — 선물·옵션은 기초자산이 속한 시장에 넣는다
-안 하는 것    가상자산(재배포 근거 확보 실패, About 에 명시) ·
-             유료결제·회원가입·관리자화면 **없음**
+무료   기사 139편 · /rankings(축 20개, 순위 20장+허브) · /data 지면 24장(신용등급·
+       외국인보유·스크리너·컨센서스 등) · 지수 20종 · UAE/걸프 스크리너
+유료   학술 $79(1회) · 데이터셋 1벌 $990/년 · 전부 $2,990/년 — PayPal 실결제(live)
+회원   이메일·구글·게스트체크아웃 로그인. 비회원 구매도 된다(로그인 없이 바로 결제)
 ```
 
-⚠ **KLifeMap 의 구조(회원·결제·SQLite)를 여기로 가져오지 마십시오.** 무료 발행 매체입니다.
+⚠ **8/5 문서의 「유료결제·회원가입 없음」은 틀렸다.** CLAUDE.md 「결제 없음·회원가입
+없음 두 줄을 걷어냈다」절을 반드시 읽는다 — 되살리면 사장님 결정을 뒤집는 것이다.
 
 ---
 
-## Ⅱ. 지금 있는 것 — **2026-08-05 13:00 실측**
+## Ⅱ. 🔴 가장 중요한 사실 — **이 배포 하나가 사이트 셋을 같이 낸다**
 
-### 2-1. 발행물
-
-```
-기사        **15편** (equities 8 · macro 2 · rates 1 · commodities 1 · fx 1 · funds 1 · 기타)
-순위표      /rankings — **2,862개사 · 축 14개** · 동적 정렬
-데이터 판매  /data/korean-listed-workforce.csv — 2,862행 · 무료·가입 없음
-지면        /about · /api · /newsletter · 카테고리 6장 · sitemap · RSS
-빌드        3,863장
-```
-
-### 2-2. 데이터 보유 — 🟢 팔 수 있는 것
-
-| 무엇 | 건수 | 라이선스 |
-|---|---:|---|
-| 시세 6종(주식·지수·채권·파생·증권상품·일반상품) | **12,090,414** | 🟢 제한 없음 |
-| KRX 상장종목정보 | 4,144,832 | 🟢 |
-| 펀드 표준코드 | 183,351 | 🟢 |
-| **증자·감자 이력** (2013~2026) | **28,541** | 🟢 · 8/5 확보 |
-| DART 직원·임원 현황 | 37,925 | 🟢 |
-| 국민연금 사업장 | 593,127 | 🟢 · 8/5 확보 |
-| 증권사 리포트 | 66,186 | 🟡 **사실만.** 원문·요약 재배포 금지 |
-| KDI 발간물 | 1,211 | 🟢 1유형 |
-
-🔴 **격리해 둔 것** — 주식발행정보 152,396건(공공누리 2유형). `archive` 밖으로 뺐습니다.
-   **되살리지 마십시오.** 같은 사실은 DART `irdsSttus` 로 이미 받았습니다.
-
-### 2-3. 수집기 29개 · 예약
+`@parkintaek2/seoulmarkets:main` 스테이지의 `web` 앱 **하나**가 `server.mjs` 의 호스트별
+라우팅으로 **SeoulMarkets·K Culture Wire·100yearmap 셋 다** 서비스한다.
 
 ```
-18:00 펀드 · 18:05 주식시세 · 18:10 증권상품 · 18:15 지수 · 18:20 채권
-18:25 파생 · 18:30 일반상품 · **18:40 증권사 직접수집** ← 소급 안 됨
-09:10/18:06 공공데이터 알림
+seoulmarkets.com · www.seoulmarkets.com       → 금융(이 저장소가 다루는 것)
+kculturewire.com · www.kculturewire.com       → 1번 몫(K컬처) — 같은 배포, 다른 콘텐츠
+100yearmap.com · www.100yearmap.com           → 3번 몫(교육) → 5번 인수
 ```
 
-⚠ **이 예약은 세션 메모리에만 있습니다.** 세션이 바뀌면 사라지고 7일 뒤 만료됩니다.
-   **당분간 내가 들고 있습니다.** 8/8에 정식으로 넘깁니다 —
-   인수인계 도중에 예약이 공중에 뜨면 그날치가 날아갑니다.
+⛔ **`ctype remove` 는 이 여섯 도메인 연결을 통째로 가져간다** (2026-09-14·09-17 두 번
+실측 — 사이트 셋이 최대 1시간 내려갔다). 지우기 전에 반드시 `ctype routes` 로 여섯이
+다 붙어 있는지 적어 둔다. 자세한 사고 이력은 `CLAUDE.md` 「같은 Cloudtype 계정에
+KLifeMap」 절 아래에 있다.
 
-### 2-4. 검사
-
-`npm test` — 지시 색인 · 목표주가 파서 · 요청 경로 · 근속연수 · **합치기** ·
-**합계 낱말** · 임원 재직기간 · 유입 측정 · **호스트별 라우팅** · **증자 형태 분류**
-
----
-
-## Ⅲ. 🔴 오늘(8/5) 있었던 일 — **인수 전에 반드시 읽으십시오**
-
-### 3-1. 상품 데이터가 두 겹으로 틀려 있었습니다
-
-| | 나가 있던 값 | 실제 | 영향 |
-|---|---:|---:|---|
-| 부문별 신고를 **첫 줄만** 셈 | 삼성전자 50,817 | **128,881** | 986곳 |
-| **합계 행을 못 알아봐 두 배** | 삼성전기 24,346 | **12,173** | 5곳 |
-
-**둘 다 오류가 안 났습니다.** 빌드도 배포도 통과했고 숫자도 그럴듯했습니다.
-두 번째는 **국민연금이 12,528명으로 적고 있어서** 잡았습니다 —
-**두 출처를 나란히 놓지 않았으면 못 잡았습니다.**
-
-### 3-2. 그래서 기사 3편을 정정했습니다
-
-```
-gender-gap      78% → **76%** · 표본 1,066 → 1,836 · **제목이 바뀌었습니다**
-pay-holding     Half → **Four** (발행 때부터 본문과 어긋나 있었습니다)
-                「Lingseo Korea」는 실제로 **Lynxeo Korea** — 사명 오기
-tenure-returns  −0.061 → −0.037 · 제목 14 → **17 points**
-```
-
-정정란이 없어서 **새로 만들었습니다** — `content.config.ts` 의 `corrections`,
-본문 위 배너, 검증노트 이력. **낸 뒤 숫자가 바뀌면 조용히 고치지 마십시오.**
-
-### 3-3. 15편을 냈습니다
-
-> One in three Korean listed companies files its headcount in pieces. Forty-two add it up.
-
-**우리가 그 실수를 했기 때문에 쓸 수 있는 기사입니다.** 정정 이력을 기사에 붙여 뒀습니다.
-
----
-
-## Ⅳ. 🔴 지금 손에 쥐고 넘기는 일 — **끝나지 않은 것**
-
-### 4-1. 재무제표 수집 — **가장 큰 구멍. 오늘 21:00 기한이었습니다**
-
-```
-지금    우리는 **사람 데이터만** 있습니다
-문제    근속 8년 → 그래서? / 근속 8년 · **1인당 매출 12억** → 이건 팝니다
-```
-
-경쟁사가 재무만 하는 것은 사람이 없어서고, **우리가 사람만 하면 분모가 없습니다.**
-
-```
-DART fnlttSinglAcnt / fnlttSinglAcntAll   매출·영업이익·자산
-⚠ **부르기 전에 라이선스부터** 보십시오 (공통수칙 Ⅳ)
-```
-
-### 4-2. 증자 희석 기사 — **재다가 멈춰 있습니다**
-
-```
-현금(유상증자)  6,377건 · 신주 79.7% · 가중평균 발행가 **8,729원**
-전환(CB·BW)   13,145건 · 신주 19.7% · 가중평균 발행가 **3,345원**
-```
-
-「전환이 싸게 희석한다」로 읽히지만 **아직 못 쟀습니다.** 두 갈래가 **다른 회사들**일 수
-있습니다 — 주가가 낮은 회사가 CB 를 많이 쓴다면 가격 차이는 **회사 구성**의 차이입니다.
-
-```
-⬜ 같은 회사 안에서 비교하거나
-⬜ 발행일의 **시장가 대비 할인율**로 본다 (주가 1,616일치가 이미 있습니다)
-```
-
-기사 14편에서 여성비 상관이 산업 통제로 무너진 것과 **같은 종류의 함정**입니다.
-
-⚠ 분류는 `src/lib/issuance.mjs` 만 씁니다. **다시 정의하지 마십시오.**
-   발행가에 단위 오기가 있어 `발행가정상()` 으로 걸러야 합니다(아주스틸 1,666억·음수).
-
-### 4-3. 이직률 — **재 보고 「아직 못 판다」로 결론냈습니다**
-
-```
-① 사업장명만        본사 한 곳만 (성우하이텍 1,782 → 20)
-② 사업자번호 앞6만   남의 회사가 딸려 옴 (비 중앙값 ×10.18)
-③ 앞6 + 이름 시작   중앙값 0.955 — 제일 낫지만 **기아 ×0.26 · 롯데쇼핑 ×0.27**
-```
-
-포털 파일의 사업자등록번호가 **앞 6자리로 잘려** 있고 사업장관리번호도 없습니다.
-**없는 열쇠는 만들 수 없습니다.** 오차가 한 방향(과소)이라 「못 찾은 것」과
-「진짜 작은 것」이 구분되지 않습니다. **달치는 계속 쌓으십시오**(9월 말 재판단).
-
-### 4-4. 🔴 검색 유입 0 — **유일한 마케팅 채널이 막혀 있습니다**
-
-```
-8/4  검색엔진 크롤러 **0건**
-8/5  구글 9건 · **AI 크롤러 1,842건 (전체 봇의 96%)**
-검색 유입 0.0% · 사이트 간 유입 0.0%
-```
-
-robots·사이트맵·canonical 은 **전부 정상**입니다(실측). 막힌 것은 색인이 아니라 **발견**입니다.
-Search Console 등록이 사장님 손 항목으로 올라가 있습니다(`docs/사장님-손.md`).
-
-⚠ **AI 가 구글보다 200배 많이 읽고 있습니다.** 영문 한국 데이터라는 우리 위치에서는
-   **구글 순위보다 AI 답변 인용이 빠를 수 있습니다.** 이건 아직 아무도 안 판 축입니다.
-
-### 4-5. 남은 주간 항목
-
-```
-⬜ DESIGN.md            8/8 21:00
-⬜ 오픈 전 교차 감사      8/13 21:00 (오픈 8/15 전)
-⬜ ②를 팔러 가기         첫 결제가 제일 부족합니다 (전략 Ⅷ)
-```
-
----
-
-## Ⅴ. 저장소 경계
-
-### 5-1. 당신 것
-
-```
-content/articles/**            src/pages/*.astro (wikitip·100y 밖)
-src/components/**              src/styles/global.css
-scripts/collect-{stock,bond,fund,derivative,index,product,commodity,broker,
-                 tenure,executive,company,issuance,kdi,nps}*.mjs
-scripts/{analyze-dilution,recheck-*,reparse-*,refetch-*,build-rankings-json,
-         render-ranking,render-tenure-report}.mjs
-src/lib/{issuance,traffic,store,kdi,subscribe}.mjs
-archive/raw/{stocks,bonds,indices,derivatives,products,commodities,broker,
-             dart-*,funds,nps,kdi,research*}/
-docs/데이터-라이선스-대장.md (줄 추가 환영)
-```
-
-### 5-2. 🔴 공용 — 고치기 전에 메모로 알립니다
-
-```
-server.mjs · package.json(test) · src/consts.ts · docs/세션간-메모.md(붙이기만)
-docs/세션-공통수칙.md ← **내(2번) 것입니다. 고치지 마십시오**
-```
-
-### 5-3. 남의 것
-
-```
-5번  src/pages/wikitip/** · src/layouts/WikiTip.astro · scripts/collect-{riot,netflix,star}*
-     archive/raw/{riot-ladder,netflix-top10,star-pageviews,wikitip}/
-3번  src/pages/100y/** · src/layouts/HundredYear.astro · scripts/*100yearmap* · *alimi*
-     archive/raw/{alimi,kess,neis,univ}/
-```
-
----
-
-## Ⅵ. 🔴 배포 — **당분간 내가 합니다**
-
-```
-⛔ ctype 을 직접 부르지 않습니다 (apply·undeploy·**ls 까지**)
-✅ 커밋·푸시까지만 하고 나에게 알립니다
-```
-
-이유는 공통수칙 Ⅰ-1 에 있습니다. **오늘도 우리 `web` 이 klifemap 스테이지에 잘못 올라가
-13분째 멎어 있습니다.** klifemap 은 사장님 매출 서비스입니다.
-
-배포 반영 확인은 반드시 **눈으로** 합니다.
+✅ 배포 전후 습관화할 것 — **매번**:
 ```bash
-curl -s -o /dev/null -w "%{http_code}\n" https://seoulmarkets.com/article/{slug}
-npm run indexnow    # 발행 뒤 검색엔진에 알린다
+ctype routes -t @parkintaek2/seoulmarkets:main   # apply 전에 한 번, 후에 한 번
 ```
 
 ---
 
-## Ⅶ. 🔴 3일치 작업지시 (8/5~8/7 · 2번이 지시자)
+## Ⅲ. 8/5 이후 새로 생긴 것 — **이번 인계의 핵심**
 
-### Day 1 (8/5 남은 시간) — **세고, 눈으로 보십시오**
-
-```
-1  `docs/세션-공통수칙.md` → 이 문서 → `docs/인계-현재상태.md` → 세션간-메모 꼬리
-2  npm test 를 돌린다 (통과해야 정상)
-3  운영 지면을 **브라우저로 엽니다** — /rankings · 기사 3편 · CSV 내려받기
-   ⚠ 「빌드 통과」는 확인이 아닙니다. 오늘 제목의 옛 숫자를 그렇게 잡았습니다
-4  Ⅳ-1 재무제표: **라이선스부터** 확인하고 대장에 줄을 만듭니다 (아직 수집 안 함)
-5  결과를 세션간-메모에 [보고] 로 붙입니다
-```
-
-### Day 2 (8/6) — **재무제표 하나를 끝까지**
+### 3-1. 결제·회원 (완전히 새 시스템)
 
 ```
-1  DART fnlttSinglAcnt 수집기를 붙입니다. 이름 `scripts/collect-financials.mjs`
-2  **원문을 같이 저장합니다** — 파서를 고쳤을 때 다시 안 받으려고
-3  실제로 돌려 **건수와 채움률**을 확인합니다. 「붙였다」가 아니라 「N개사 · 채움 M%」
-4  상장사와 붙는 비율을 잽니다 (corp_code 로 붙으니 높아야 정상입니다)
+PayPal Orders v2 (live) — /api/pay/order · /api/pay/capture
+결제 뒤 확인 메일 — Gmail 서비스 계정(GOOGLE_SERVICE_ACCOUNT_JSON)으로 발송
+회원 로그인 — 이메일·구글. 네이버 로그인은 **막혀 있다**(이 서버에서 네이버에 자체가
+             안 닿는다 — www.naver.com 도 실패). 문을 내린 상태(정상)
+다시 보기   /recover — 주문번호로 조회. 안 산 번호는 402
+```
+⚠ **매시 55분 결제 점검이 반드시 도는 채로 넘긴다** — 아래 Ⅴ절.
+
+### 3-2. 재무제표 — 8/5엔 「가장 큰 구멍」이었다. 지금은 **2,709개사 확보**
+
+```
+src/data/korea-valuation-tape.json   2,709개사 · 시총·PER·PBR·ROE·재무 6종 정본
+                                      build-korea-valuation-tape.mjs 가 낸다
+```
+8/5 문서가 말한 「우리는 사람만 있다」는 더 이상 사실이 아니다. 재무가 핵심 상품이다.
+
+### 3-3. 🔴 우리가 매기는 신용등급 — `/data/company-credit` (사장님 2026-09-15 지시)
+
+```
+방법론    src/lib/smarkets-grade.mjs — SM1(강함)~SM9(약함) · NR(못 잼)
+          여섯 축(이자보상배율·차입금/자산·부채/자본·유동비율·ROA·알트만Z), 공개 가중치
+등급 받은 곳   2,415 / 2,709 개사 (89.1%). 부족(4축 미만)이면 NR — 낮은 등급 아님
+⛔ 축을 더하거나 가중치를 바꾸려면 **판(version, 지금 2026-09-15)을 올리고** 지면에
+   무엇을 왜 바꿨는지 적는다. 조용히 바꾸면 어제 등급과 오늘 등급이 다른 자가 낸 것이 된다
+```
+오늘(9/17) 이 자료로 기사 한 편을 냈다 — `korea-power-utility-weak-balance-sheet-grade`
+(한국전력 SM8). **회사·명단 하나를 다룰 땐 「이것은 신용평가사 등급이 아니다」를
+반드시 본문에 명시한다** — 안 하면 오해를 산다(정치적으로 민감한 회사일수록 더 그렇다).
+
+### 3-4. UAE·걸프 데이터 — `/data/screener`(Asia & Gulf 겸용)·`/data/company-credit` 겸용
+
+```
+src/data/uae-financials-tape.json    398행(자본 선 곳 260) — ADX·DFM 상장사 재무
+scripts/collect-uae-adx-marketwatch.mjs   시가총액·시세 — **매일 1회 필수**
+   🔴 [2026-09-16] 예전엔 시총 0/76 이었다 — «-delayed» 옆문(scrollingTicker)만 불렀던
+     탓이다. marketwatch 엔드포인트로 128/128 나온다. 계산으로 메꾸지 않는다(검산 오차 큼)
+scripts/collect-uae-adx-disclosures.mjs   공시 8종 — **지배권변경·CEO변경 태그가 아직
+     없다.** 한국(collect-dart-breaking.mjs)엔 있다. 새 나라 열 때 반드시 넣는다(CLAUDE.md
+     「주력과 서비스」절 참조 — 사람 축은 서비스일 뿐, 공시(사건)가 상품이다)
+scripts/collect-uae-cbuae-eibor.mjs       금리곡선 — 매일
 ```
 
-### Day 3 (8/7) — **인력 × 재무 = 우리만의 축**
+### 3-5. 「누가 한국 증권을 들고 있나」 — `/data/foreign-holdings` (IMF PIP, 2026-09-17 신설)
 
 ```
-1  1인당 매출 · 인건비 비중 · 근속 대비 생산성을 계산합니다
-2  🔴 **재 보고 작으면 안 씁니다.** 「재 보고 안 된다고 적는 것도 결과」입니다
-3  쓸 만하면 순위표에 축을 추가하고 **CSV 에도 나가게** 합니다 (전략 Ⅲ)
-4  기사로 낼 때는 **발행 전에 숫자를 원본에서 다시 뽑아 대조**합니다
+scripts/collect-imf-pip-mirror.mjs   거울(mirror) 방식 — 리포터국들이 COUNTERPART_
+     COUNTRY=KOR 로 신고한 자산을 합산(한국은 부채를 직접 안 걷는다, CPIS 구조상)
+75개국 · 2024 합계 $636.2B(하한선 — 중국 등 미보고국 제외, 0 아님)
+⚠ 처음엔 리포터=KOR·자산(A) 로 받아 방향이 반대였다(「한국이 해외에 든 것」) — 정정함.
+  오전 자산(A) 데이터(collect-imf-pip.mjs, KOR·JPN·IND·CHN·SAU)는 다른 쓸모가 있어 남김
+오늘(9/17) 후속 기사 — `korea-foreign-securities-holdings-fell-2024`
+     (73개국 공통표본 YoY −12.7%, 미국 최대 감소)
+```
+
+### 3-6. `/rankings` — 재무 축 신설 + 독립 지면 셋 (사장님 지시, 2026-09-17 완료)
+
+```
+축 다섬 추가: 시총 · PBR · ROE · 이자보상배율 · 차입금/자본 (기존 15축은 대부분 «사람» 축
+   이었다 — CLAUDE.md 「주력과 서비스」 위반이라 5번이 잡았다)
+독립 지면 셋: /rankings/market-cap · /rankings/pbr · /rankings/interest-cover
+   컴포넌트 src/components/AxisRankingPage.astro (props: axisId·path·h1·intro·faq·
+   trust·fmt) — 새 축 지면을 뗄 땐 이것을 재사용한다, 복붙하지 않는다
+데이터 산출처: scripts/build-rankings-json.mjs → src/data/rankings.json (유일한 산출처.
+   값을 다른 곳에서 다시 계산하지 않는다)
+```
+
+### 3-7. OECD CLI — **자료만 있고 지면이 없다** (열린 항목)
+
+```
+archive/raw/oecd-cli/         scripts/collect-oecd-cli.mjs 로 오늘 수집만 끝냄
+⬜ 아직 기사도 지면도 없다. 다음에 손댈 사람 몫으로 남겨 둔다.
 ```
 
 ---
 
-## Ⅷ. 오픈 8/15 — **10일 남았습니다**
+## Ⅳ. 🔴 매일 도는 수집기 — **소급 안 되는 것에 🔴**
 
-주말이라 **오픈 뒤 오류를 고칠 시간을 번다**는 것이 사장님 계산입니다.
+`node scripts/check-archive-freshness.mjs` 가 기계로 잰다. 세션이 깨어날 때마다 이것부터
+돌려서 빨간불이 있으면 그 자리에서 해당 수집기를 돌린다. **예약(cron)이 대신 돌려주지
+않는다** — 이 저장소의 cron 은 전부 「깨어나서 확인하라」는 알림이지, 수집기 자체를
+부르는 OS 크론이 아니다. 세션이 죽어 있으면 그날치는 아무도 안 받는다.
 
-SeoulMarkets 는 세 사이트 중 **가장 앞서 있습니다**(기사 15 · 지면 8+ · 데이터 넘침).
-그래서 당신 몫은 **새로 만드는 것보다 「틀린 게 없는지」**입니다.
+| 무엇 | 명령 | 소급 | 참는 선 |
+|---|---|---|---:|
+| 🔴 **증권사 직접수집(18:40)** | `collect-broker-direct.mjs` | **안 됨** — 그 시각 리스트가 다음 페이지로 밀린다 | 1일 |
+| 주식시세 | `collect:stocks` | 됨(날짜 인자) | 3거래일 |
+| 채권시세 | `collect:bonds` | 됨 | 3거래일 |
+| 파생상품시세 | `collect:derivatives` | 됨 | — |
+| 지수시세 | `collect:indices` | 됨 | — |
+| 증권상품시세 | `collect:products` | 됨 | — |
+| 일반상품(금·석유) | `collect:commodities` | 됨 | — |
+| 펀드기본정보 | `collect:funds` | 됨 | — |
+| 🔴 **한경컨센서스(목표주가·잠정치)** | `collect-seoulmarkets-hankyung-consensus.mjs` | **안 됨** — 창이 30일이라 한 달 지나면 그날치는 영영 없다 | 1거래일 |
+| 🔴 **애널리스트 순위** | `collect-seoulmarkets-hankyung-analysts.mjs` | **안 됨** — 「오늘 시점 최근 1개월」만 준다, 매일 스냅숏 쌓아야 이력이 남는다 | — |
+| UAE ADX 시가총액·시세 | `collect-uae-adx-marketwatch.mjs` | **안 됨**(그날 값은 그날만) | — |
+| UAE 공시 | `collect-uae-adx-disclosures.mjs` | 대체로 됨 | — |
+| 일본 국채 금리곡선 | `collect-jgb-yields.mjs` | 됨 | — |
+| DART 회사목록 | `collect-dart.mjs --corpcode` | 주 1회로 충분(소급 개념 아님) | — |
+
+⚠ **채권에서 18일, 일반상품에서 49거래일치가 조용히 빠진 적이 있다** (수집기는 붙었는데
+한 번도 안 돌린 채 방치). **감시(check-archive-freshness)에 올라 있어야 「도는 것」이다.**
+자를 만든 것과 도는 것은 다르다.
+
+---
+
+## Ⅴ. 🔴 넘겨야 할 상시 의무 — **세션이 죽으면 다 같이 죽는다**
+
+### 5-1. 이 세션(6번)이 들고 있는 예약(cron) — **세션 메모리에만 있다, 그대로 안 넘어간다**
 
 ```
-8/13 21:00  오픈 전 교차 감사 — 내가 점검표를 줍니다
-            숫자·링크·모바일·인쇄·404·robots·sitemap·정정 이력
+매시 55분     SeoulMarkets 결제 점검 — 「매출0」이면 그 자리에서 진단·고침·배포
+매일 09:02    아침 업무보고
+매일 21:02    저녁 업무보고
+2시간마다(:23)  자동 이어가기 — 인계-현재상태·세션간-메모 꼬리 확인
+08:37·17:37   API 승인 확인
+```
+✅ **2번 세션에서 CronCreate 로 위 다섯을 다시 건다.** 넘겨받은 즉시 거는 것이 먼저다 —
+안 걸면 다음 정각에 아무도 결제를 점검하지 않는다.
+
+### 5-2. 매시 정각 — 5번과의 소통 (사장님 지시 2026-09-15)
+
+```
+node scripts/매시소통-자물쇠.mjs --적는다 --누구 2번 --한말 "..."
+```
+「이번 시간에 소통 없음」이면 **배포가 잠긴다.** 정각을 피해서 적는다(정각은 이 소통 자리).
+
+### 5-3. 손님길 세 징검다리 — SeoulMarkets·KLifeMap 30분 교대
+
+```
+node scripts/손님길-자물쇠.mjs --잰다 --사이트 seoulmarkets --누구 2번
+```
+차례표(:30 마다, 07:30~20:30 업무시간대)를 어기지 않는다 — 정각과 겹치지 않게 설계됐다.
+
+### 5-4. 결제 점검이 «매출 0」을 보이면
+
+`check-seoulmarkets-payment.mjs` 는 **주문 생성까지만** 한다(capture 는 안 부른다 — 돈이
+오가는 자리라서다). 매출 0 을 보면:
+1. Cloudtype 콘솔에서 `GOOGLE_SERVICE_ACCOUNT_JSON`·`PAYPAL_*` 시크릿이 실제로 있는지
+   `ctype stage secret` 로 확인한다(콘솔 UI 와 CLI 저장소가 다를 수 있다는 미확인 가설이
+   있다 — 09-17 사고 메모 참조)
+2. `PAYPAL_MODE` 를 절대 건드리지 않는다(live 사고 방지)
+3. 배포 직후라면 롤백보다 원인(대개 누락된 secret) 을 먼저 본다
+
+---
+
+## Ⅵ. 저장소 경계 — 8/5 와 큰 틀은 같다, 늘어난 것만 추가
+
+### 6-1. 당신(2번) 것 — SeoulMarkets 전부
+
+```
+content/articles/**                     src/pages/*.astro (wikitip·100y 밖)
+src/pages/data/**                       src/pages/rankings/**
+src/components/{AxisRankingPage,ProductRail,BuyBar}.astro 등 SeoulMarkets 전용 컴포넌트
+scripts/collect-{stock,bond,fund,derivative,index,product,commodity,broker,
+    tenure,executive,company,issuance,kdi,uae-*,imf-*,jgb-*,dart-*}*.mjs
+scripts/{build-rankings-json,build-korea-valuation-tape,build-foreign-holdings-page,
+    check-seoulmarkets-payment,손님길-자물쇠}.mjs
+src/lib/{issuance,traffic,store,kdi,subscribe,smarkets-grade,gmail-send}.mjs
+archive/raw/{stocks,bonds,indices,derivatives,products,commodities,broker,
+    dart-*,funds,uae-*,imf-pip*,oecd-cli,research*}/  (전부 .gitignore — 커밋 안 됨)
+src/data/*.json  (빌드가 읽는 «작은 자료» — 커밋됨. archive/ 원본을 여기로 줄여 낸다)
+docs/데이터-출처-라이선스.md · docs/투자AI-설계.md
 ```
 
-**막히면 사장님이 아니라 나에게 물으십시오.** 8/8부터는 사장님이 직접 지시하십니다.
+### 6-2. 🔴 공용 — 고치기 전에 메모로 알린다
+
+```
+server.mjs (세 사이트 라우팅) · package.json(scripts) · src/consts.ts ·
+docs/세션간-메모.md(붙이기만) · .cloudtype/app.yaml (시크릿 참조 — 지우면 배포가 죽는다)
+```
+
+### 6-3. 남의 것
+
+```
+1번(KCW)     src/pages/wikitip/** · src/layouts/WikiTip.astro · scripts/collect-{riot,
+             netflix,star,kcw-*}* · archive/raw/{riot-ladder,netflix-top10,star-pageviews,
+             wikitip,kcw-*}/
+5번(100y)    src/pages/100y/** · src/layouts/HundredYear.astro · scripts/*100y* ·
+             archive/raw/{alimi,kess,neis,univ,100y-*}/  (3번에서 5번으로 인계 완료)
+```
+
+---
+
+## Ⅶ. 배포
+
+```bash
+git pull --rebase origin main      # 공유 작업트리 — 다른 세션 WIP 파일은 stash -u 로 비켜 둔다
+git push origin main && git push site main
+ctype apply -f .cloudtype/app.yaml -t @parkintaek2/seoulmarkets:main   # 반드시 이 폴더에서
+ctype routes -t @parkintaek2/seoulmarkets:main    # 여섯 도메인 확인 (apply 전후 둘 다)
+npm run indexnow                                    # 발행 뒤 검색엔진에 알린다
+```
+배포 반영은 **눈으로** 확인한다(curl 200 + 브라우저 렌더). `npm run build` 를 로컬에서
+먼저 돌려 `npm test` 전체가 초록인지 보고 올린다.
+
+---
+
+## Ⅷ. 지금 열려 있는 것 (인계 시점 기준)
+
+```
+⬜ OECD CLI — 자료만 있고 지면 없음 (Ⅲ-7)
+⬜ 이직률 조인 — 열쇠(사업자번호)가 6자리로 잘려 있어 정확도 확보 못함, 9월 말 재판단 보류 중
+⬜ 증자 희석 기사 — 같은 회사 내 비교로 다시 재야 함(회사 구성 차이와 못 갈랐다)
+⬜ 순방문자 — 27.7명/일(9/17 GA4 7일평균), 목표(유닛당 1,000명/일)의 3%. 콘텐츠는
+   찼지만 유입이 핵심 과제
+```
+
+**막히면 5번에게 먼저 묻는다.** 사장님 손이 필요한 항목은 `docs/사장님-손.md` 를 먼저
+본다 — 답이 이미 있을 수 있다.
