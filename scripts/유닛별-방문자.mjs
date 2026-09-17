@@ -85,6 +85,22 @@ export function 사이트별뽑기(글) {
   return 표.size ? 표 : null;
 }
 
+/**
+ * 🔴 **1인당 지면 잣대** — 이 자가 다시는 로봇을 손님으로 못 세게 막는 자리.
+ *
+ * 2026-09-17 에 이 자는 3번 백년지도를 「2,726명꼴 · 목표의 273%」라고 냈고,
+ * 같은 날 GA4 는 그 사이트 순방문자를 **14명**이라 냈다. 195장/사람이다.
+ * 사람은 하루에 한 사이트에서 195장을 안 넘긴다 — 그 수가 넘으면 «사람이 아닌 것»이 섞인 것이다.
+ *
+ * ⛔ 판정하지 않는다. **「이 수로 손님 수를 말하지 마라」**까지만 말한다.
+ *   (우리 강령 — 못 쟀으면 못 쟀다고 적는다. 보정해서 메꾸지 않는다)
+ */
+export const 사람당지면선 = 50;
+export function 너무많나(지면요청, 순방문자) {
+  if (!Number.isFinite(지면요청) || !Number.isFinite(순방문자) || 순방문자 <= 0) return null; // 못 잼
+  return 지면요청 / 순방문자 > 사람당지면선 ? Math.round(지면요청 / 순방문자) : null;
+}
+
 /* ── 자가시험 — 자를 먼저 시험한다 ─────────────────────────────────── */
 if (process.argv.includes('--시험')) {
   const 본 = [
@@ -104,10 +120,21 @@ if (process.argv.includes('--시험')) {
   const 빈것 = 사이트별뽑기("아무 표도 없는 글");
   const 맵본 = 클라이프맵뽑기("  klifemap.ai   **431명** (사람) · 봇 523");
   const 맵빈 = 클라이프맵뽑기("아무 것도 없는 글");
-  const 맞나 = t && t.size === 3 && 합 === 639 && 빈것 === null && 맵본 === 431 && 맵빈 === null;
+  /* 1인당 지면 잣대 — 2026-09-17 에 겪은 그 수로 시험한다 */
+  const 잣대 = [
+    ['그날 실제로 있었던 일을 잡는다', 너무많나(2726, 14) === 195],
+    ['사람이 있을 법한 비율은 안 잡는다', 너무많나(60, 20) === null],
+    ['선 바로 위는 잡는다', 너무많나(51, 1) === 51],
+    ['선 바로 아래는 안 잡는다', 너무많나(50, 1) === null],
+    ['순방문자를 못 쟀으면 판정하지 않는다', 너무많나(2726, null) === null],
+    ['0 으로 나누지 않는다', 너무많나(2726, 0) === null],
+  ];
+  const 진 = 잣대.filter(([, ok]) => !ok);
+  const 맞나 = t && t.size === 3 && 합 === 639 && 빈것 === null && 맵본 === 431 && 맵빈 === null && !진.length;
+  for (const [이름] of 진) console.log('   🔴 ' + 이름);
   console.log(맞나
-    ? '✅ 자가시험 통과 — www 를 합쳐 639, 표가 없으면 null(0 이 아니다)'
-    : `🔴 자가시험 실패: size=${t?.size} 합=${합} 빈것=${빈것}`);
+    ? `✅ 자가시험 통과 — www 를 합쳐 639, 표가 없으면 null(0 이 아니다), 1인당 지면 잣대 ${잣대.length}가지`
+    : `🔴 자가시험 실패: size=${t?.size} 합=${합} 빈것=${빈것} 잣대실패=${진.length}`);
   process.exit(맞나 ? 0 : 1);
 }
 
@@ -143,24 +170,75 @@ if (!표) {
   process.exit(1);
 }
 
+/* 🔴🔴 [2026-09-17 · 5번] **이 자는 「순방문자」를 낸 적이 없다. 낼 수가 없다.**
+ *
+ * 여기 있던 표는 traffic-report 의 수를 그대로 「하루 순방문자 (사람)」이라 적고
+ * 사장님의 「하루 1,000명」 목표에 대고 백분율까지 냈다. 실측으로 300배쯤 부풀어 있었다 —
+ * 09-16 에 이 표는 3번 백년지도를 「2,726명꼴 · 목표의 273%」라고 냈고, 같은 날 GA4 는
+ * 100yearmap.com 순방문자를 **14명**이라고 냈다.
+ *
+ * 까닭은 둘이다.
+ * ```
+ * ① 우리 계수기는 쿠키·IP 를 «일부러» 안 남긴다(src/lib/traffic.mjs 머리글).
+ *    그러면 같은 사람이 열 장을 봐도 열로 세어진다 — 셀 수 있는 것은 «요청 건수»뿐이다
+ * ② 우리 점검 로봇이 «사람»으로 세어진다. 9222 로 붙은 사장님 크롬을 쓰므로
+ *    UA 에 headless 도 bot 도 없다. 2026-09-17 10:5x 에 표식 경로를 한 번 열어 실측했다 —
+ *    R2 집계에 「봇 0 · 사람 1」로 들어와 있었다.
+ *    실제로 가장 많이 읽힌 지면 1·2·3·4위가 /v1/subscribe · /v1/research · /v1/hs ·
+ *    /api/download 였다. 손님이 읽는 지면이 아니라 «우리 점검이 두드리는 창구»다
+ * ```
+ *
+ * ⛔ 그래서 요청 건수로 「명」을 말하지 않는다. 목표 백분율도 그 수로 내지 않는다.
+ * ✅ 순방문자는 «순방문자를 셀 수 있는 자»에게 묻는다 — GA4(쿠키를 심는다)와
+ *   klifemap 자체 계수기(bj_vid 쿠키를 심는다)다. 그 둘을 목표에 대고 잰다.
+ * ⬜ GA4 는 광고차단·쿠키거부로 **덜 센다.** 바닥값이다 — 그 말을 화면에 같이 적는다. */
 const 날 = (/^날 (.+)$/m.exec(글) || [, '?'])[1];
-console.log(`\n📊 유닛별 하루 순방문자 (사람) — ${날}${일수 > 1 ? ` · ${일수}일 합` : ''}`);
-console.log(`   목표: 유닛당 하루 ${목표.toLocaleString()}명 (9월)\n`);
 
+let GA4표 = null; let GA4못잼 = null; let GA4날수 = 0;
+try {
+  const { 사이트날짜별방문자, 하루평균 } = await import('./lib/ga4.mjs');
+  const g = await 사이트날짜별방문자({ 일: Math.max(일수, 7) });
+  if (g.못잼) GA4못잼 = g.못잼;
+  else { GA4표 = 하루평균(g.사이트날짜별); GA4날수 = g.날들.length; }
+} catch (e) { GA4못잼 = String(e.message).slice(0, 60); }
+
+console.log(`\n📊 유닛별 하루 방문 — ${날}${일수 > 1 ? ` · ${일수}일` : ''}`);
+console.log(`   목표: 유닛당 하루 순방문자 ${목표.toLocaleString()}명 (9월)`);
+console.log('   ⬜ 순방문자 = 사람 수(쿠키로 묶음) · 지면요청 = 열린 지면 수(사람 수가 아니다)\n');
+console.log(`  ${'유닛'.padEnd(20)} ${'순방문자/일'.padStart(11)}  목표  ${'지면요청/일'.padStart(11)}`);
+console.log('  ' + '─'.repeat(62));
+
+/** 순방문자 칸 한 줄 — 못 쟀으면 0 이 아니라 「못 쟀음」 */
+function 순칸(주소들) {
+  if (!GA4표) return { 글: '못 쟀음'.padStart(11), 몫: '  —  ' };
+  const 값 = 주소들.map((d) => GA4표.get(d.replace(/^www\./, ''))).filter(Boolean);
+  if (!값.length) return { 글: '0'.padStart(11), 몫: '  0% ' };
+  const 평 = 값.reduce((a, b) => a + b.평균, 0);
+  return { 글: (Math.round(평 * 10) / 10).toLocaleString().padStart(11), 몫: `${String(Math.round((평 / 목표) * 100)).padStart(3)}% ` };
+}
+
+const 넘친것 = [];
 for (const u of 유닛) {
-  const 합 = u.주소.reduce((a, d) => a + (표.get(d) ?? 0), 0);
-  const 쪽 = 일수 > 1 ? Math.round(합 / 일수) : 합;
-  const 몫 = Math.round((쪽 / 목표) * 100);
-  const 낱 = u.주소.map((d) => `${d} ${(표.get(d) ?? 0).toLocaleString()}`).join(' + ');
-  console.log(`  ${u.이름.padEnd(20)} ${String(쪽.toLocaleString()).padStart(7)}명꼴  목표의 ${String(몫).padStart(3)}%   (${낱})`);
+  const 요청 = Math.round(u.주소.reduce((a, d) => a + (표.get(d) ?? 0), 0) / 일수);
+  const s = 순칸(u.주소);
+  console.log(`  ${u.이름.padEnd(20)} ${s.글}  ${s.몫} ${String(요청.toLocaleString()).padStart(11)}`);
+  const 비 = 너무많나(요청, Number(String(s.글).replace(/,/g, '')) || null);
+  if (비) 넘친것.push(`${u.이름} ${비}장/사람`);
 }
+
 const 맵 = 클라이프맵읽기(일수);
-if (맵 === null) {
-  console.log(`  ${'1번/4번 KLifeMap'.padEnd(20)} ${'못 쟀음'.padStart(7)}      ⛔ klifemap/tools/klifemap-visitors.mjs 가 안 돌았다`);
-} else {
-  const 몫 = Math.round((맵.평균 / 목표) * 100);
-  const 날치 = 맵.잰날수 < 맵.요청날수 ? ` (요청 ${맵.요청날수}일 중 ${맵.잰날수}일만 잼)` : '';
-  console.log(`  ${'1번/4번 KLifeMap'.padEnd(20)} ${String(맵.평균.toLocaleString()).padStart(7)}명꼴  목표의 ${String(몫).padStart(3)}%   (klifemap.ai · ${맵.잰날수}일 평균${날치})`);
-  console.log(`  ${''.padEnd(20)} ${''.padStart(7)}      ⚠ 쿠키를 안 심어 같은 사람 여러 번을 한 명으로 못 묶습니다`);
+{
+  const s = 순칸(['klifemap.ai']);
+  const 자체 = 맵 === null ? '못 쟀음' : `${맵.평균.toLocaleString()} (자체 계수기)`;
+  console.log(`  ${'1번/4번 KLifeMap'.padEnd(20)} ${s.글}  ${s.몫} ${자체.padStart(11)}`);
 }
-console.log('\n⛔ 「못 쟀음」을 0 으로 옮겨 적지 마십시오 — 「손님이 없다」와 「안 세서 모른다」는 다릅니다.');
+
+console.log('');
+if (GA4못잼) console.log(`  ⬜ 순방문자를 못 쟀습니다 — ${GA4못잼}. **0 이 아니라 「못 쟀다」입니다**`);
+else console.log(`  ⬜ 순방문자는 GA4 ${GA4날수}일 평균입니다. 광고차단·쿠키거부로 **덜 세는 바닥값**입니다`);
+console.log('  🔴 「지면요청」에는 **우리 점검 로봇이 섞여 있습니다**(2026-09-17 실측). 손님 수로 읽지 마십시오');
+if (넘친것.length) {
+  console.log(`  🔴 1인당 지면이 ${사람당지면선}장을 넘습니다 — ${넘친것.join(' · ')}`);
+  console.log('     사람은 하루에 한 사이트에서 이만큼 안 봅니다. 「지면요청」을 손님 수로 옮겨 적지 마십시오');
+}
+console.log('  ⛔ 「못 쟀음」을 0 으로 옮겨 적지 마십시오 — 「손님이 없다」와 「안 세서 모른다」는 다릅니다.');

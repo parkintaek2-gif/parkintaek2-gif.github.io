@@ -27,22 +27,12 @@ import { createSign } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export const 갈래 = 'https://www.googleapis.com/auth/analytics.readonly';
-
-/** 우리 사이트인가 — 시험서버·백업·localhost 는 손님이 아니다 */
-export function 우리것인가(호스트) {
-  const h = String(호스트 ?? '').toLowerCase();
-  if (!h) return false;
-  if (/^(localhost|127\.0\.0\.1)/.test(h)) return false;
-  if (h.includes('cloudtype.app')) return false;      /* 배포 확인용 주소 */
-  if (h.includes('github.io')) return false;          /* 백업 경로 */
-  return /(100yearmap|klifemap|kculturewire|seoulmarkets)\./.test(h);
-}
-
-/** www 를 떼어 한 사이트로 묶는다 — www 와 민얼굴이 갈리면 수가 반으로 쪼개져 보인다 */
-export function 사이트이름(호스트) {
-  return String(호스트 ?? '').toLowerCase().replace(/^www\./, '');
-}
+/* 🔴 [2026-09-17] 이 넷(갈래·우리것인가·사이트이름·날짜풀기)을 여기서 «선언»하지 않는다.
+   `유닛별-방문자.mjs` 도 같은 판정이 필요해지면서 복사본이 둘이 될 참이었다.
+   갈라 두면 한쪽만 고쳐지고 두 보고가 «다른 수»를 낸다 — scripts/lib/ga4.mjs 한 곳에 둔다.
+   ⚠ 여기서 다시 내보내는 것은 이 자의 자가시험과 이 자를 import 하는 곳을 위해서다. */
+export { 갈래, 우리것인가, 사이트이름, 날짜풀기 } from './lib/ga4.mjs';
+import { 갈래, 우리것인가, 사이트이름, 날짜풀기 } from './lib/ga4.mjs';
 
 /**
  * 앞뒤 반을 갈라 견준다 — 「요즘 떨어지나」를 재는 가장 단순한 자다.
@@ -62,12 +52,6 @@ export function 앞뒤견줌(날짜별) {
     바뀜: 앞평균 ? (뒤평균 - 앞평균) / 앞평균 : null,
     첫날: 날들[0], 끝날: 날들[날들.length - 1],
   };
-}
-
-/** GA4 가 주는 20260906 을 사람이 읽는 꼴로 */
-export function 날짜풀기(s) {
-  const v = String(s ?? '');
-  return /^\d{8}$/.test(v) ? `${v.slice(0, 4)}-${v.slice(4, 6)}-${v.slice(6)}` : v;
 }
 
 /** 막대 — 눈으로 추세를 본다. 표만 있으면 사람이 못 읽는다 */
