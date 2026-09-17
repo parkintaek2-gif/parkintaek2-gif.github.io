@@ -200,7 +200,6 @@ const DESC = 'Lost the download link? Enter the PayPal order ID from your receip
       var 번호 = (번호칸.value || '').trim();
       var p = 고른품();
 
-      /* ⛔ 서버가 어차피 다시 보지만, 여기서 먼저 걸러 손님이 빈 화면을 안 보게 한다 */
       if (!/^[A-Za-z0-9-]{6,64}$/.test(번호)) {
         말한다('That does not look like a PayPal order ID. It is 6 to 64 letters and digits, on your PayPal receipt.', true);
         번호칸.focus();

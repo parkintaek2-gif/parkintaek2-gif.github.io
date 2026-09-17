@@ -32,12 +32,6 @@ const { href, label, blurb } = Astro.props;
 </div>
 
 <script>
-  /**
-   * 🔴 실측(2026-09-13, 데스크톱 스크린샷) — 이 배너를 그냥 fixed 로만 두면
-   * 지면 맨 아래의 「투자자문 아님」고지·발행 주체 정보(footer)를 그대로 덮는다.
-   * YMYL 필수 고지를 가려서는 안 된다(CLAUDE.md 「투자자문 아님을 고정 노출」).
-   * ⇒ footer 가 화면에 들어오면 배너를 스스로 숨긴다(IntersectionObserver).
-   */
   (function () {
     try {
       const bar = document.getElementById('pfb');
