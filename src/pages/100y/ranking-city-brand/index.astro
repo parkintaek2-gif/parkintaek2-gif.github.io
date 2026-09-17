@@ -1,0 +1,149 @@
+---
+/**
+ * /100y/ranking-city-brand — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 · 기초자치단체 브랜드평판 편)
+ *
+ * 🔴 사장님 지시(2026-09-17, brikorea.com 벤치마킹) 이행 — 한국기업평판연구소
+ *   기초자치단체 브랜드평판(2026-08-26 발표)을 그대로 인용한다. 100yearmap이 새로
+ *   순위를 매기지 않는다. "순위"라는 낱말을 의도적으로 쓴다 — docs/금지말-대장.json 등록.
+ *
+ * ⭐ 톤: 화제성 상위 5곳 가운데 세 곳(강남구·용인시·거제시)이 오히려 인구가 줄고
+ *   있다는 사실만 짚는다 — 왜 그런지는 판정하지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/ranking-city-brand-2026.json';
+
+const 자료 = 원본 as any;
+const 순위출처 = 자료.순위출처;
+const top5 = 자료.top5 as any[];
+const 실측 = 자료.실측대조;
+const 지자체별 = 실측.지자체별 as any[];
+const 일위 = top5[0];
+const 감소곳 = 지자체별.filter((r) => r.인구증감률_퍼센트 < 0);
+
+const desc =
+  `${순위출처.이름}에서 ${일위.지자체}가 브랜드평판지수 ${일위.브랜드평판지수.toLocaleString()}점으로 1위입니다. ` +
+  `그런데 100yearmap이 실측한 인구 통계로는 상위 5곳 중 ${감소곳.length}곳의 인구가 오히려 줄고 있습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 기초자치단체 순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${순위출처.이름}를 그대로 인용했습니다. ${순위출처['⚠원자료']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '화제성이 높으면 인구도 느나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `이 표로는 아닙니다. 브랜드평판 상위 5곳 중 ${감소곳.map((r: any) => r.지자체).join('·')}는 오히려 인구가 줄고 있습니다(전년동월대비).`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`${일위.지자체} 브랜드평판 전체 1위 — 그런데 인구는 줄고 있습니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    {일위.지자체} 브랜드평판 전체 1위<br class="pcbr" />
+    그런데 인구는 줄고 있습니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {순위출처.이름}({순위출처.분석기간})를 그대로 인용했습니다. {순위출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    2026년 8월 기초자치단체 브랜드평판 조사 결과, <strong>{일위.지자체}</strong>가
+    브랜드평판지수 <strong>{일위.브랜드평판지수.toLocaleString()}점</strong>으로 전체 1위입니다.
+  </p>
+
+  <h2>브랜드평판 순위표</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>순위</th><th>지자체</th><th>브랜드평판지수</th></tr></thead>
+      <tbody>
+        {top5.map((r) => (
+          <tr>
+            <td>{r.순위}위</td>
+            <td>{r.지자체}</td>
+            <td><strong>{r.브랜드평판지수.toLocaleString()}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>같은 다섯 곳, 실제 인구는 늘고 있을까요?</h2>
+  <p>{실측.무엇}({실측.기준월} 기준)입니다.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지자체</th><th>인구(2026-08)</th><th>인구증감률(전년동월비)</th><th>고령인구비율</th></tr></thead>
+      <tbody>
+        {지자체별.map((r) => (
+          <tr>
+            <td>{r.지자체}</td>
+            <td>{r.인구_2026년8월.toLocaleString()}명</td>
+            <td><strong>{r.인구증감률_퍼센트 > 0 ? '+' : ''}{r.인구증감률_퍼센트}%</strong></td>
+            <td>{r.고령인구비율_퍼센트}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">⚠ {실측.정의} 전국 고령인구비율은 {실측.전국_고령인구비율_퍼센트}%입니다.</p>
+  <div class="warn">
+    <p>{실측.요지}</p>
+  </div>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 두 공개 자료를 나란히
+    {' '}놓아 보여줄 뿐, 어느 지역이 더 좋은지 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 브랜드평판: 한국기업평판연구소({순위출처.url}) · 실측: 국가데이터처 행정구역(시군구)별
+    {' '}인구 통계·고령인구비율
+  </p>
+
+  <p class="note">
+    <a href="/ranking-university-brand">← 대학 브랜드평판이 앞선다고 취업률도 앞설까요?</a>
+    <br />
+    <a href="/ranking-apartment-brand">← 아파트 브랜드평판이 앞선 곳, 하자판정 명단에는 없습니다</a>
+  </p>
+
+  <HundredAgeWalk 키="ranking-city-brand" />
+
+  <NextQuestionBrief 모은것="한국기업평판연구소 기초자치단체 브랜드평판 + 국가데이터처 행정구역별 인구 통계" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-city-brand"></div>
+</HundredYear>
