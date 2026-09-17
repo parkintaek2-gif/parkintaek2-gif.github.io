@@ -1,0 +1,151 @@
+---
+/**
+ * /100y/ranking-university-brand — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 · 대학 브랜드평판 편)
+ *
+ * 🔴 사장님 지시(2026-09-17, brikorea.com 링크 전달·「콘텐트 카테고리를 우리 쪽에 가져올만한 것
+ *   적용해...벤치마킹이 중심」) 이행. 한국기업평판연구소 대학교 브랜드평판(2026-09-07 발표)을
+ *   그대로 인용한다. 100yearmap이 새로 순위를 매기지 않는다.
+ *   "순위"라는 낱말을 의도적으로 쓴다 — docs/금지말-대장.json 등록.
+ *
+ * ⭐ 톤: 브랜드평판 1~5위 다섯 대학의 실제 취업률·중도탈락률을 나란히 놓아, 화제성 순위와
+ *   실적 순위가 같은 줄로 서지 않는다는 사실만 보여준다. 서울대가 낮다는 이미 낸 결론
+ *   (ranking-university-global)과는 다른 각도 — 여기서는 성균관대가 취업률 1위임을 짚는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/ranking-university-brand-2026.json';
+
+const 자료 = 원본 as any;
+const 순위출처 = 자료.순위출처;
+const top5 = 자료.top5 as any[];
+const 실측 = 자료.실측대조;
+const 학교별 = 실측.학교별 as any[];
+const 일위 = top5[0];
+const 취업률1위 = [...학교별].sort((a, b) => b.취업률 - a.취업률)[0];
+
+const desc =
+  `${순위출처.이름}에서 ${일위.대학}이 브랜드평판지수 ${일위.브랜드평판지수.toLocaleString()}점으로 1위입니다. ` +
+  `그런데 이 다섯 대학 중 100yearmap이 실측한 취업률 1위는 ${취업률1위.대학}(${취업률1위.취업률}%)입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 대학 브랜드평판 순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${순위출처.이름}를 공식 지면에서 그대로 인용했습니다. ${순위출처['⚠원자료']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '브랜드평판 1위 대학이 취업도 가장 잘 되나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `이 표로는 아닙니다. 브랜드평판 1위는 ${일위.대학}이지만, 실측 취업률 1위는 ${취업률1위.대학}(${취업률1위.취업률}%)입니다. 두 순위는 다른 것을 잽니다.`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`${일위.대학} 브랜드평판 전체 1위 — 그런데 취업률 1위는 ${취업률1위.대학}입니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    {일위.대학} 브랜드평판 전체 1위<br class="pcbr" />
+    그런데 취업률 1위는 {취업률1위.대학}입니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {순위출처.이름}({순위출처.분석기간})를 공식 지면에서 그대로 인용했습니다.
+      {' '}{순위출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    2026년 9월 대학교 브랜드평판 조사 결과, <strong>{일위.대학}</strong>이
+    브랜드평판지수 <strong>{일위.브랜드평판지수.toLocaleString()}점</strong>으로 전체 1위입니다.
+  </p>
+
+  <h2>브랜드평판 순위표</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>순위</th><th>대학</th><th>브랜드평판지수</th></tr></thead>
+      <tbody>
+        {top5.map((r) => (
+          <tr>
+            <td>{r.순위}위</td>
+            <td>{r.대학}</td>
+            <td><strong>{r.브랜드평판지수.toLocaleString()}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>같은 다섯 대학, 실제 취업률·중도탈락률은 어떨까요?</h2>
+  <p>{실측.무엇}({실측.공시연도}년 공시)입니다.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>대학</th><th>취업률</th><th>중도탈락률</th><th>전임교원확보율</th></tr></thead>
+      <tbody>
+        {학교별.map((r) => (
+          <tr>
+            <td>{r.대학}</td>
+            <td><strong>{r.취업률}%</strong></td>
+            <td>{r.중도탈락률}%</td>
+            <td>{r.전임교원확보율}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <div class="warn">
+    <p>{실측.요지}</p>
+  </div>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 두 공개 자료를 나란히
+    {' '}놓아 보여줄 뿐, 어느 대학이 더 좋은지 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 브랜드평판: 한국기업평판연구소({순위출처.url}) · 실측: 한국대학교육협의회
+    {' '}대학정보공시(대학알리미)
+  </p>
+
+  <p class="note">
+    <a href="/ranking-university-global">← QS 세계대학순위, 국내대비 순위와 같은 이야기일까요?</a>
+    <br />
+    <a href="/ranking-university-nature-index">← 네이처 인덱스는 무엇을 기준으로 대학 순위를 매길까요?</a>
+  </p>
+
+  <HundredAgeWalk 키="ranking-university-brand" />
+
+  <NextQuestionBrief 모은것="한국기업평판연구소 대학교 브랜드평판 + 한국대학교육협의회 대학정보공시(대학알리미)" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-university-brand"></div>
+</HundredYear>
