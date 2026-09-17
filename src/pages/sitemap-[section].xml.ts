@@ -69,6 +69,9 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/video', lastmod: newest, changefreq: 'weekly', priority: '0.7' },
       // 데이터 상품 지면들 — 기업이 살 「주소」다. 검색 유입이 곧 영업. 5장이 사이트맵에 0개였다(56316, 2026-08-09).
       { loc: '/data', changefreq: 'weekly', priority: '0.9' },
+      // 🔴 [2026-09-18 · 6번] Korea Markets Research Index(학술논문 1,406편 색인) — 라이브
+      // 200 이고 noindex 도 없는데 이 목록에 없었다. 넷째로 찾은 같은 병.
+      { loc: '/research', changefreq: 'weekly', priority: '0.7' },
       /* 🔴 [2026-09-12 · 4번] F6 무료 영문 지면 넷(Financials·Valuation·Index·Consensus) —
        *   target-changes(Consensus)만 여기 있었고 나머지 셋은 라이브 200인데 이 목록에
        *   없었다. 같은 사고가 이 파일에서 벌써 세 번째다(위 5번 주석 두 곳 참고).
@@ -116,6 +119,14 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/kospi-weights', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/largest-companies', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/trading-partners', changefreq: 'weekly', priority: '0.7' },
+      // 🔴 [2026-09-18 · 6번] 이 파일의 넷째 사고 — 신용등급·외국인보유·재무축 지면 다섯이
+      // 같은 실수로 빠져 있었다(9/15~9/17에 만들고 이 목록에 안 넣음). 사이트맵이 11줄로
+      // 보인 진짜 까닭은 「자료가 없어서」가 아니라 이 목록이 낡아서였다.
+      { loc: '/data/company-credit', changefreq: 'weekly', priority: '0.9' },
+      { loc: '/data/foreign-holdings', lastmod: newest, changefreq: 'weekly', priority: '0.8' },
+      { loc: '/rankings/market-cap', changefreq: 'weekly', priority: '0.8' },
+      { loc: '/rankings/pbr', changefreq: 'weekly', priority: '0.8' },
+      { loc: '/rankings/interest-cover', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/korea-valuation.csv', changefreq: 'weekly', priority: '0.6' },
       { loc: '/data/korea-trade.csv', changefreq: 'weekly', priority: '0.6' },
       { loc: '/data/korea-trade-balance.csv', changefreq: 'weekly', priority: '0.6' },

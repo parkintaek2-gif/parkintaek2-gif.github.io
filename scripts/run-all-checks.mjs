@@ -233,6 +233,8 @@ export const 단계들 = [
   "node scripts/check-kcw-geo-fit.mjs --자가시험",
   "node scripts/check-asset-files-committed.mjs --자가시험",
   "node scripts/check-seoulmarkets-korean-leak.mjs --selftest",
+  "node scripts/check-sitemap-page-coverage.mjs --자가시험",
+  "node scripts/check-sitemap-page-coverage.mjs",
   "node scripts/check-seat-config.mjs --자가시험",
   "node scripts/check-seat-resume-id.mjs --자가시험",
   "node scripts/_article-drift.mjs --자가시험",
