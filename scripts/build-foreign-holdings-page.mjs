@@ -74,7 +74,7 @@ const 산출 = {
     최근연도,
     전년,
     리포터수: 나라들.length,
-    받은때: new Date().toLocaleString('ko-KR'),
+    받은때: new Date().toLocaleString('en-GB', { timeZone: 'Asia/Seoul' }),
   },
   총액,
   나라들,

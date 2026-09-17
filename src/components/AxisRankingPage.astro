@@ -21,7 +21,7 @@ interface Props {
   path: string;               // '/rankings/market-cap' 처럼, 스킴·도메인 없이
   h1: string;
   intro: string;               // 첫 문단
-  faq: { q: string; a: string }[];
+  faq: { q: string, a: string }[];
   trust: string[];             // 「왜 믿을 수 있나」 넉 줄
   fmt: (v: number) => string;  // 값 표시
 }
