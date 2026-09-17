@@ -247,9 +247,6 @@ const jsonLd = {
   </div>
 
   <script define:vars={{ dataUrl }}>
-    /* ⛔ 판정의 정본은 src/lib/screener.mjs 다(자가시험 41가지).
-       ⚠ 브라우저는 그 모듈을 못 받으므로 «같은 규칙»을 여기 옮겨 적었다.
-         한쪽을 고치면 반드시 다른 쪽도 고친다. */
     (function () {
       var 줄들 = null;
       var 시장 = {};
@@ -258,7 +255,7 @@ const jsonLd = {
         c: 'market cap', v: 'revenue', np: 'net profit', e: 'EPS',
         p: 'PER', b: 'PBR', r: 'ROE', d: 'debt/equity', i: 'industry',
       };
-      var 곱 = { c: 1e6, v: 1e6, np: 1e6 };   /* 손님은 $m 으로 친다 — 달러로 바꾼다 */
+      var 곱 = { c: 1e6, v: 1e6, np: 1e6 };
       var 보인수 = 100;
       var 정렬칸 = 'c', 내림 = true;
 
@@ -304,7 +301,6 @@ const jsonLd = {
         return 것;
       }
 
-      /* 주소줄과 같이 움직인다 — 손님이 «자기가 만든 화면»을 그대로 보낼 수 있어야 한다 */
       function 주소에적는다() {
         var p = new URLSearchParams();
         if ($('q').value.trim()) p.set('q', $('q').value.trim());
@@ -341,7 +337,6 @@ const jsonLd = {
         if (s) { 내림 = s.indexOf('_asc') < 0; 정렬칸 = s.replace('_asc', ''); }
       }
 
-      /* ── 거른다. 🔴 'fail'(조건에 안 맞음) 과 'missing'(칸이 비었음) 을 «가른다» ── */
       function 거른다() {
         var 조건 = 조건읽기();
         var 글 = ($('q').value || '').trim().toLowerCase();
@@ -353,11 +348,9 @@ const jsonLd = {
           var r = 줄들[i];
           if (고른.indexOf(r.m) < 0) continue;
           if (글 && ((r.n || '') + ' ' + (r.k || '') + ' ' + (r.t || '')).toLowerCase().indexOf(글) < 0) continue;
-          시장안.push(r);      /* 고른 시장 안의 줄 — 「이 칸이 몇 곳에 있나」의 분모다 */
+          시장안.push(r);
 
           var 까닭 = null;
-          /* 업종도 «없을 수» 있다 — ADX 는 업종을 주는 우물이 없다.
-             없는 것을 「안 맞았다」로 세면 손님을 속이는 것이다 */
           if (업종) {
             if (!r.i) { 까닭 = 'missing'; 칸별.i = (칸별.i || 0) + 1; }
             else if (r.i !== 업종) 까닭 = 'fail';
@@ -378,8 +371,6 @@ const jsonLd = {
         return { 남은: 남은, 시장안: 시장안, 안맞음: 안맞음, 값없음: 값없음, 칸별: 칸별 };
       }
 
-      /* ⭐ 고른 시장에서 칸마다 몇 곳에 값이 «있나» — 조건을 걸기 «전»에 보인다.
-           시장을 바꾸면 이 수가 통째로 달라지므로 다시 센다 */
       function 채움보이기(시장안) {
         var 칸들 = document.querySelectorAll('#nums .num');
         for (var i = 0; i < 칸들.length; i += 1) {
@@ -389,7 +380,6 @@ const jsonLd = {
           var 자 = 칸들[i].querySelector('.have');
           자.textContent = n.toLocaleString('en-US') + ' of ' + 시장안.length.toLocaleString('en-US')
             + ' have this figure';
-          /* 0 이면 그 조건은 «아무도 남기지 못한다» — 걸기 전에 알아야 한다 */
           if (n === 0) 자.setAttribute('data-none', ''); else 자.removeAttribute('data-none');
         }
       }
@@ -404,7 +394,7 @@ const jsonLd = {
           var a = A[정렬칸], b = B[정렬칸];
           var ao = 있나(a), bo = 있나(b);
           if (!ao && !bo) return 0;
-          if (!ao) return 1;                /* ⛔ 값 없는 줄은 언제나 맨 아래 */
+          if (!ao) return 1;
           if (!bo) return -1;
           if (정렬칸 === 'm') return 내림 ? String(b).localeCompare(String(a)) : String(a).localeCompare(String(b));
           return 내림 ? Number(b) - Number(a) : Number(a) - Number(b);
@@ -414,7 +404,6 @@ const jsonLd = {
           + r.시장안.length.toLocaleString('en-US') + ' companies'
           + (r.안맞음 ? ' · ' + r.안맞음.toLocaleString('en-US') + ' did not match' : '');
 
-        /* 🔴 말없이 빠진 곳 — 이 지면이 있는 이유 */
         var d = $('dropped');
         if (r.값없음 > 0) {
           var 쪽 = [];
@@ -473,13 +462,11 @@ const jsonLd = {
 
       function 다시() { 보인수 = 100; 그린다(); }
 
-      /* ── 손잡이 ── */
       $('nums').addEventListener('input', 다시);
       $('q').addEventListener('input', 다시);
       $('ind').addEventListener('change', 다시);
       document.querySelectorAll('.mk').forEach(function (b) { b.addEventListener('change', 다시); });
 
-      /* 나라 단추 — 그 나라만 보고 싶을 때 한 번에. 이미 그 나라만 켜져 있으면 «다 켠다» */
       document.querySelectorAll('.ctry').forEach(function (b) {
         b.addEventListener('click', function () {
           var 나라 = b.getAttribute('data-country');
@@ -505,7 +492,7 @@ const jsonLd = {
             el.querySelector('.mx').value = (켜짐 || 건다[k].max === undefined) ? '' : 건다[k].max;
           }
           b.classList.toggle('on');
-          $('ranges').open = true;      /* 무엇이 걸렸는지 손님이 보게 편다 */
+          $('ranges').open = true;
           다시();
         });
       });
@@ -537,13 +524,11 @@ const jsonLd = {
         });
       });
 
-      /* 넓은 화면에서는 손수 치는 칸을 펴 둔다. 조건을 싣고 온 주소라면 폭과 상관없이 편다 */
       (function () {
         var 조건왔나 = /(^|&)(c|v|np|e|p|b|r|d)_(min|max)=/.test(location.search.slice(1));
         if (조건왔나 || window.innerWidth >= 900) $('ranges').open = true;
       })();
 
-      /* ── 줄 뭉치를 «받아» 온다. 못 받으면 못 받았다고 적는다 ── */
       주소에서읽는다();
       fetch(dataUrl)
         .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
@@ -583,7 +568,6 @@ const jsonLd = {
   .mkts { border: 0; padding: 0; margin: 0 0 .9rem; display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; }
   .mkts legend { font-size: .78rem; font-weight: 600; color: var(--muted); padding: 0; margin-bottom: .35rem; }
   .country { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
-  /* 나라 이름은 «단추»다 — 손님은 「UAE 만 보고 싶다」로 생각한다 */
   .ctry {
     padding: .2rem .5rem; border: 1px solid var(--rule); border-radius: 3px;
     background: var(--paper); color: var(--muted); font: inherit; font-size: .72rem;
@@ -607,7 +591,6 @@ const jsonLd = {
   }
   .tilde { color: var(--muted); }
   .have { font-size: .7rem; color: var(--muted); line-height: 1.3; }
-  /* 🔴 고른 시장에 그 칸이 «한 곳도» 없으면 — 걸면 전멸한다. 걸기 전에 빨갛게 말한다 */
   .have[data-none] { color: var(--down); font-weight: 600; }
 
   .ranges { margin-top: 1rem; }
@@ -635,7 +618,6 @@ const jsonLd = {
   .acts button:hover { border-color: var(--accent); }
   .acts .hint { margin-left: auto; font-size: .9rem; font-weight: 700; }
 
-  /* 🔴 말없이 빠진 곳 — 눈에 띄어야 한다. 이것이 이 지면의 이유다 */
   .dropped {
     margin: 0 0 1rem; padding: .75rem .9rem;
     border-left: 3px solid var(--down);
@@ -676,12 +658,10 @@ const jsonLd = {
 <style is:global>
   #rows td { padding: .5rem .6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
   #rows td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  /* 시장 이름(「DFM — Dubai」)이 두 줄로 접히면 줄 높이가 들쭉날쭉해진다 */
   #rows td:nth-child(2) { white-space: nowrap; }
   #rows td.n[title] { cursor: help; }
   #rows .nm { display: block; font-weight: 600; color: var(--ink); }
   #rows .tk { display: block; font-size: .72rem; color: var(--muted); margin-top: .1rem; }
-  /* 「왜 비었는지」는 손님이 «그 줄에서» 알아야 한다 — 표 밖으로 미루지 않는다 */
   #rows .why { display: block; font-size: .72rem; color: var(--down); margin-top: .15rem; max-width: 34rem; }
   #rows .empty { color: var(--muted); padding: 1.6rem .6rem; text-align: center; }
   #rows tr:hover td { background: var(--paper-2); }
