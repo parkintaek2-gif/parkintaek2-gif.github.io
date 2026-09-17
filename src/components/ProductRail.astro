@@ -101,13 +101,10 @@ const 볼것 = [
 <style>
   .rail { display: none; }   /* 기본은 «없다». 넓을 때만 선다 */
 
-  /* 🔴 1,080px 부터 열을 세운다. 그 아래는 본문이 온 폭을 쓴다 —
-     좁은 화면에서 두 열로 쪼개면 본문이 읽기 힘들어진다 */
   @media (min-width: 1080px) {
     .rail { display: block; }
     .rail-in {
       position: sticky; top: 1.2rem;
-      /* ⛔ 화면보다 길어지지 않게 — 길면 스크롤이 갇힌다 */
       max-height: calc(100vh - 2.4rem); overflow-y: auto;
       padding: 1rem 1.05rem;
       border: 1px solid var(--line, #e5e5e5); border-radius: 10px;

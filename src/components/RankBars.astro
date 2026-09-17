@@ -94,11 +94,9 @@ const 수 = (v: number) => v.toLocaleString('en-US');
   .rb-scroll { overflow-x: auto; }
   .rb-scroll svg { min-width: 520px; display: block; }
 
-  /* 색 — 지면 바탕에 대고 검증기를 돌려 고른 값이다. ⛔ 눈으로 골라 바꾸지 않는다 */
   .rb-a { --bar: #6b3fa0; }
   .rb-b { --bar: #eb6834; }
   @media (prefers-color-scheme: dark) {
-    /* ⛔ 지면 강조색 #b491e8 은 어두운 쪽 밝기 띠를 벗어나 FAIL 이었다 — 한 단 내려 잡는다 */
     .rb-a { --bar: #9a72d6; }
     .rb-b { --bar: #d95926; }
   }

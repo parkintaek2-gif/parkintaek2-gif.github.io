@@ -417,7 +417,6 @@ const jsonLd = 추가스키마.length ? [articleLd, ...추가스키마] : articl
 </Base>
 
 <style>
-  /* 이 기사의 데이터를 파는 지면으로 곧장 보내는 칸. (2번 46083) */
   .product-cta {
     display: block; margin: 2rem 0 0; padding: 1.1rem 1.2rem;
     border: 1px solid var(--accent); border-radius: 10px; background: var(--accent-soft, var(--card));
@@ -512,9 +511,6 @@ const jsonLd = 추가스키마.length ? [articleLd, ...추가스키마] : articl
 </style>
 
 <style>
-  /* 🔴 [2026-09-16 · 사장님] 1칼럼 → 2칼럼. 상품 열은 «가로가 짧게».
-     ⛔ 좁은 화면에서 쪼개지 않는다 — 본문이 읽기 힘들어진다.
-     ⚠ 이 규칙은 Base 의 .wrap 을 «덮어쓰는» 것이 아니라 넓을 때만 더한다. */
   @media (min-width: 1080px) {
     .wrap--rail {
       display: grid;
@@ -523,6 +519,6 @@ const jsonLd = 추가스키마.length ? [articleLd, ...추가스키마] : articl
       align-items: start;
       max-width: 1180px;
     }
-    .col-main { min-width: 0; }   /* ⛔ 없으면 긴 표·코드가 열을 밀어낸다 */
+    .col-main { min-width: 0; }
   }
 </style>

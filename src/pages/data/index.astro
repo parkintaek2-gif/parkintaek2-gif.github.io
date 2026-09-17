@@ -675,9 +675,6 @@ const 묶음 = [
   </div>
 
   <script>
-    /* 시장 고르기 — 누르면 그 시장 상품만 남는다. 다시 누르면 다 보인다.
-       ⛔ 상품을 숨기고 «수»를 안 고치면 손님이 「몇 개인지」를 잘못 읽는다. 수도 같이 고친다.
-       ⛔ 한 묶음이 통째로 비면 그 묶음 머리도 감춘다 — 빈 제목만 남으면 고장으로 보인다. */
     (function () {
       var 카드들 = Array.prototype.slice.call(document.querySelectorAll('.card[data-mkt]'));
       if (!카드들.length) return;
@@ -729,7 +726,6 @@ const 묶음 = [
 </Base>
 
 <style>
-  /* 🔴 시장 띠 — 진열장에서 «제일 먼저» 보여야 하는 줄이다 */
   .mkts { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; margin: 1rem 0 .2rem; }
   .mkts__lab { font-size: .72rem; font-weight: 700; color: var(--muted); text-transform: uppercase;
                letter-spacing: .05em; margin-right: .2rem; }
@@ -739,7 +735,6 @@ const 묶음 = [
   .mk:hover { border-color: var(--accent); }
   .mk--on { background: var(--accent); border-color: var(--accent); color: #fff; }
   .mk--on em { color: rgba(255,255,255,.75); }
-  /* ⛔ 아직 상품이 없는 시장을 단추로 만들지 않는다 — 누를 것이 없으면 거짓말이 된다 */
   .mkts__soon { font-size: .74rem; color: var(--muted); flex-basis: 100%; margin-top: .15rem; }
 
   .dx { max-width: 52rem; margin: 0 auto; }
@@ -750,16 +745,12 @@ const 묶음 = [
   .axis { color: var(--muted); font-size: .95rem; margin: 0 0 2rem; padding-bottom: 1.2rem;
           border-bottom: 1px solid var(--line); }
   .axis b { color: var(--ink); }
-  /* ⭐ 묶음 머리 — 손님이 「지금 받을 수 있나」를 먼저 읽게 한다 */
   .grp { margin: 0 0 2.6rem; }
   .grph { font-size: 1.24rem; margin: 0 0 .35rem; letter-spacing: -.01em; display: flex;
           align-items: baseline; gap: .5rem; }
   .grph .n { font-size: .74rem; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums;
              border: 1px solid var(--line); border-radius: 999px; padding: .05rem .45rem; }
   .grpl { font-size: .88rem; color: var(--muted); line-height: 1.65; margin: 0 0 1.1rem; max-width: 42rem; }
-  /* ⭐ [2026-09-09 · 5번] 카드 17장이 한 줄로 늘어서 지면이 1,000px 폭에서 10,418px 였다.
-   *   손님이 넷째 묶음(Live API)까지 가려면 아홉 화면을 넘겨야 한다.
-   *   ⇒ 넓은 화면에서만 두 칸으로 접는다. minmax 라 폰(390px)은 그대로 한 칸이다. */
   .cards { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem;
            grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); }
   /* ⚠ align-items:start 로 뒀더니 한 줄 안에서 카드 높이가 들쭉날쭉해 값·단추 줄이 어긋났다.
@@ -767,7 +758,6 @@ const 묶음 = [
    *     그러면 같은 줄의 값과 단추가 한 선에 온다. */
   .card { border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.2rem; background: var(--card);
           display: flex; flex-direction: column; }
-  /* 🔴 [2026-09-14] 덮는 시장을 첫 화면에 적는 줄 */
   .coverage {
     margin: .6rem 0 1.1rem; padding: .7rem .9rem;
     border-left: 3px solid var(--accent, #b4884a);
@@ -791,7 +781,6 @@ const 묶음 = [
   .go:hover { text-decoration: underline; }
   .fine { font-size: .82rem; color: var(--muted); line-height: 1.65; margin-top: 2rem;
           padding-top: 1rem; border-top: 1px solid var(--line); }
-  /* [2026-09-11 · 5번 문안] 값표 — Nasdaq 식 「Contact sales」 대신 값을 적는다 */
   .lede { font-size: .95rem; line-height: 1.65; color: var(--ink-2); margin: 0 0 1.6rem; max-width: 42rem; }
   .licence-block { margin: 0 0 2.6rem; padding: 1.2rem 1.4rem; border: 1px solid var(--line);
                    border-radius: 10px; background: var(--card); }
@@ -801,11 +790,6 @@ const 묶음 = [
                               vertical-align: top; }
   .pricing thead th { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
   .pricing td:last-child, .pricing th:last-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
-  /* 🔴 [2026-09-11 19:3x · 5번] **폰에서 값표가 안 읽혔다.** 390px 로 띄워 눈으로 보고 알았다 —
-     세 칸이 눌려 「The / published / page and a / sample file.」처럼 한두 낱말씩 끊겼다.
-     ⛔ 여기는 «사는 사람이 값을 보는 화면»이다. 읽기 어려우면 값표가 없는 것과 같다.
-     ✅ 좁은 화면에서는 표를 버리고 «덩이»로 쌓는다 — 이름과 값을 한 줄에, 설명은 그 아래.
-     ⚠ 표 자체는 그대로 둔다(넓은 화면·스크린리더·복사에는 표가 맞다). 보이는 꼴만 바꾼다. */
   @media (max-width: 640px) {
     .pricing, .pricing tbody, .pricing tr, .pricing th, .pricing td { display: block; width: 100%; }
     .pricing thead { position: absolute; left: -9999px; }   /* 읽어 주는 기계에는 남긴다 */
@@ -835,22 +819,16 @@ const 묶음 = [
      이름과 밑글이 한 줄로 붙어 「Academic licence — one dataset$79 · One-time」이 됐다.
      ⛔ 코드로는 성한데 화면에서 안 되는 자리다. 렌더해서 눈으로 봐야만 보인다. */}
 <style is:global>
-  /* 🔴 [2026-09-13 · 5번] 결제 자리. 사장님: 「그릇이 내용물을 결정한다」 —
-       값을 내는 화면이라 특히 또렷해야 한다. 무엇을 고르는 중인지 한눈에 보이게 한다. */
   .buybox { margin: .6rem 0 1rem; }
   .buyrow { border: 0; padding: 0; margin: 0 0 .7rem; }
   .buyrow legend { font-size: .78rem; letter-spacing: .04em; text-transform: uppercase;
                    color: var(--muted); padding: 0; margin-bottom: .35rem; }
-  /* 🔴 [2026-09-16] 이메일 필수 칸 — 결제 전 마지막 마찰이라 크고 또렷하게 둔다 */
   .buyemail { display: block; width: 100%; max-width: 22rem; padding: .5rem .65rem;
               font: inherit; font-size: .92rem; border: 1px solid var(--rule, #d8d8d8);
               border-radius: 8px; background: var(--paper, #fff); color: var(--ink); }
   .buyemail:focus { outline: 2px solid var(--accent, #444); outline-offset: 1px; }
   .buyemail-note { margin: .35rem 0 0; padding: 0; border: 0; }
   .chips { display: flex; flex-wrap: wrap; gap: .4rem; }
-  /* ⚠ [2026-09-13] 눈으로 보고 잡았다 — span 이 인라인이라 이름과 밑글이 «한 줄로 붙어»
-       「Academic licence — one dataset$79 · One-time」처럼 나왔다. block 으로 내린다.
-       align-items 를 안 주면 세로 칩에서 글이 가운데로 몰린다. */
   .chip { display: flex; flex-direction: column; align-items: flex-start; gap: .15rem; cursor: pointer;
           border: 1px solid var(--rule, #d8d8d8); border-radius: 8px; padding: .45rem .6rem;
           font-size: .85rem; line-height: 1.35; background: transparent; text-align: left;
