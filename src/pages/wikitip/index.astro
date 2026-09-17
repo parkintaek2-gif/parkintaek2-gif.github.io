@@ -288,53 +288,6 @@ const jsonLd = {
   </section>
 
   {/*
-    🔴🔴 2026-08-24 밤 — **가장 수요가 큰 작품 지면들이 굶고 있었다.**
-    사장님 「방문자 늘리는 데 올인하라」로 파다가 구글에 직접 물어서 알았다 —
-    ```
-      위키백과 조회 1만 이상인 작품 11편을 골라 색인 상태를 물었더니
-        색인됨 6편   그런데 28일 노출 0 — 구글이 「관련 없다」고 본 것이다
-        「발견만」 4편  크롤조차 안 됐다
-        「구글이 모름」 1편 (mr-queen) — 사이트맵에 있는데도 아예 모른다
-        들어오는 링크  1~2개   ← 이것이 뿌리다
-    ```
-    ⇒ 크롤 우선순위는 «들어오는 링크»에서 온다. 우리 가장 강한 지면이 이 첫 화면인데,
-      여기서 작품 지면으로 가는 문이 여섯 개뿐이었다.
-
-    🔴 **그리고 여기서 자를 한 번 버렸다.** 처음엔 «위키백과 조회수»로 고르려고 559편을 다
-      쟀는데, 제목만으로 영어 위키백과를 찾으면 **같은 이름의 다른 작품**을 잡는다 —
-      Modern Family(미국 시트콤) 143,055회와 Gossip Girl 67,238회가 「한국 작품」 목록
-      맨 위에 올라왔다. 우리 자료에 위키데이터 Q번호가 없어 정확히 짚을 방법이 없었다.
-      ⛔ 틀린 수로 지면을 만드느니 **우리가 직접 센 수**를 쓴다. 그래서 차트 자리다.
-      까닭은 `wikitip-title-demand.json` 의 `whyNotWikipedia` 에 적어 뒀다 — 다시 파지 않게.
-
-    ⛔ 「인기 순」이라고 부르지 않는다. 차트 자리 수이고, 그것은 시청자 수도 좋음도 아니다.
-    ⛔ 수를 손으로 적지 않는다. 자료에서 읽는다.
-    ⚠ 자료가 없으면 이 칸을 아예 안 그린다 — 빈 상자는 없는 것만 못하다.
-  */}
-  {수요큰작품.length > 0 && (
-    <section class="demand">
-      <h2>The titles that took the most chart places</h2>
-      <p class="note">
-        Counted from Netflix&rsquo;s own weekly country files. <b>A chart place is not a viewing
-        figure</b> &mdash; it shows a title was on Netflix in that country that week, and nothing
-        about how many people watched or what they thought of it.
-      </p>
-      <ul class="hot">
-        {수요큰작품.map((t: any) => (
-          <li>
-            <a href={`/title/${t.slug}`}>{t.title}</a>
-            <span class="cnt">{t.places.toLocaleString('en-US')} chart places &middot;
-              {' '}{t.markets} {t.markets === 1 ? 'country' : 'countries'}</span>
-          </li>
-        ))}
-      </ul>
-      <p class="note fine">
-        <a href="/titles">All {수요전체} Korean titles that charted &rarr;</a>
-      </p>
-    </section>
-  )}
-
-  {/*
     ⭐⭐ 2026-08-22 — 이 칸은 **두 실측이 만나는 자리**다.
       ① Search Console 4주: 우리에게 오는 물음은 「<제목> netflix country」·「hit or flop」·
          「korea ladder」·「Tudum 파일 주소」였다. 순위 7~17 인데 클릭이 거의 0이다
@@ -453,6 +406,59 @@ const jsonLd = {
       <p class="more">
         Hold rights to a Korean title? Netflix gives you global hours, not countries.{' '}
         <a href="/for-industry">What we can hand over &rarr;</a>
+      </p>
+    </section>
+  )}
+
+  {/*
+    🔴🔴 2026-08-24 밤 — **가장 수요가 큰 작품 지면들이 굶고 있었다.**
+    사장님 「방문자 늘리는 데 올인하라」로 파다가 구글에 직접 물어서 알았다 —
+    ```
+      위키백과 조회 1만 이상인 작품 11편을 골라 색인 상태를 물었더니
+        색인됨 6편   그런데 28일 노출 0 — 구글이 「관련 없다」고 본 것이다
+        「발견만」 4편  크롤조차 안 됐다
+        「구글이 모름」 1편 (mr-queen) — 사이트맵에 있는데도 아예 모른다
+        들어오는 링크  1~2개   ← 이것이 뿌리다
+    ```
+    ⇒ 크롤 우선순위는 «들어오는 링크»에서 온다. 우리 가장 강한 지면이 이 첫 화면인데,
+      여기서 작품 지면으로 가는 문이 여섯 개뿐이었다.
+
+    🔴 **그리고 여기서 자를 한 번 버렸다.** 처음엔 «위키백과 조회수»로 고르려고 559편을 다
+      쟀는데, 제목만으로 영어 위키백과를 찾으면 **같은 이름의 다른 작품**을 잡는다 —
+      Modern Family(미국 시트콤) 143,055회와 Gossip Girl 67,238회가 「한국 작품」 목록
+      맨 위에 올라왔다. 우리 자료에 위키데이터 Q번호가 없어 정확히 짚을 방법이 없었다.
+      ⛔ 틀린 수로 지면을 만드느니 **우리가 직접 센 수**를 쓴다. 그래서 차트 자리다.
+      까닭은 `wikitip-title-demand.json` 의 `whyNotWikipedia` 에 적어 뒀다 — 다시 파지 않게.
+
+    ⛔ 「인기 순」이라고 부르지 않는다. 차트 자리 수이고, 그것은 시청자 수도 좋음도 아니다.
+    ⛔ 수를 손으로 적지 않는다. 자료에서 읽는다.
+    ⚠ 자료가 없으면 이 칸을 아예 안 그린다 — 빈 상자는 없는 것만 못하다.
+
+    🔴 [2026-09-17 · 사장님 지시] Latest(기사)를 이 지면보다 위로 올렸다 — 「Latest를
+      제일 위로 올리는 게 어떤가」에 1번이 낸 의견(asked 는 실측 기반 자리라 그대로 두고,
+      Latest 를 그 바로 아래·demand 보다 위로)을 사장님이 그대로 승인했다. 순서:
+      axes → asked → latest → demand → (동남아 이하). demand 를 완전히 없앤 게 아니라
+      «셋째»로 내렸을 뿐이다 — 위 크롤 우선순위 근거는 그대로 유효하니 지우지 않는다.
+  */}
+  {수요큰작품.length > 0 && (
+    <section class="demand">
+      <h2>The titles that took the most chart places</h2>
+      <p class="note">
+        Counted from Netflix&rsquo;s own weekly country files. <b>A chart place is not a viewing
+        figure</b> &mdash; it shows a title was on Netflix in that country that week, and nothing
+        about how many people watched or what they thought of it.
+      </p>
+      <ul class="hot">
+        {수요큰작품.map((t: any) => (
+          <li>
+            <a href={`/title/${t.slug}`}>{t.title}</a>
+            <span class="cnt">{t.places.toLocaleString('en-US')} chart places &middot;
+              {' '}{t.markets} {t.markets === 1 ? 'country' : 'countries'}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="note fine">
+        <a href="/titles">All {수요전체} Korean titles that charted &rarr;</a>
       </p>
     </section>
   )}
