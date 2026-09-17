@@ -138,6 +138,8 @@ async function 라이브() {
 
   const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
   const page = await b.newPage();
+  /* [2026-09-17] 우리 점검이 손님으로 세어지지 않게 이름을 댄다 (scripts/lib/우리크롬.mjs) */
+  await (await import('./lib/우리크롬.mjs')).이름대기(page, '5번-광고점검');
   let 심사중 = null;
   try {
     const c = await page.target().createCDPSession();

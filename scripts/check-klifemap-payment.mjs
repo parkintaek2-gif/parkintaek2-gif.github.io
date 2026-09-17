@@ -191,6 +191,10 @@ async function 손님으로결제창까지() {
     b = await 부르기('puppeteer-core').connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
     방 = await b.createBrowserContext();          /* 사장님 로그인과 갈라 놓는다 */
     page = await 방.newPage();
+    /* 🔴 [2026-09-17] 이 점검이 «사람»으로, 그것도 «새 손님»으로 세어지고 있었다 —
+       새 칸을 열므로 bj_vid 가 매번 새로 생겨 매시 점검이 unique_visits 를 한 명씩 늘렸다.
+       머리글로 스스로 이름을 댄다. UA 는 안 건드린다(토스·페이팔이 다르게 굴 수 있다). */
+    await (await import('./lib/우리크롬.mjs')).이름대기(page, '5번-결제점검');
     const 쉼 = (ms) => new Promise((r) => setTimeout(r, ms));
     await page.setViewport({ width: 430, height: 1400 });
     await page.evaluateOnNewDocument(() => { try { localStorage.setItem('bj_lang', 'ko'); } catch (e) { /* 막혀도 간다 */ } });

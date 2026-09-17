@@ -218,18 +218,38 @@ export function 유입표(searchParams) {
   }
 }
 
+/**
+ * 🔴🔴 [2026-09-17 · 5번] **우리 점검 로봇이 「사람」으로 세어지고 있었다.**
+ *
+ * 우리 점검 자들은 9222 로 «사장님 크롬»에 붙어 손님과 똑같이 지면을 연다. 그래서 UA 에
+ * `headless` 도 `bot` 도 없다 — 위 `봇패턴` 이 잡을 방법이 없다. 그날 실측으로
+ * 「많이 읽힌 지면」 1~4위가 전부 우리 점검이 두드리는 창구였다
+ * (`/v1/subscribe` 672 · `/v1/research` 551 · `/v1/hs` 397 · `/api/download` 324).
+ * 그 수가 그대로 「하루 순방문자」로 보고에 올라가 사장님의 9월 목표를 300배 부풀렸다.
+ *
+ * ⛔ UA 를 갈아 끼우지 않는다 — 결제 점검이 지나는 길이라 남의 지면 동작이 바뀔 수 있다.
+ * ✅ 우리 자만 아는 **머리글 한 줄**을 붙인다. 손님은 절대 안 붙이는 이름이다.
+ *    붙이는 쪽은 `scripts/lib/우리크롬.mjs` 한 자리다.
+ */
+export const 우리점검머리글 = 'x-our-check';
+export const 우리점검종류 = '우리점검';
+
 export function 센다(입력) {
   try {
     /* ⚠ **구조분해를 기본값에 맡기지 않는다.** `센다(null)` 이면 기본값이 안 걸려 던진다.
      *   시험에서 실제로 잡혔다 — 운영 서버에서 이게 던지면 세 사이트가 같이 죽는다. */
-    const { host, pathname, referer, userAgent, from } = 입력 ?? {};
+    const { host, pathname, referer, userAgent, from, 우리점검 } = 입력 ?? {};
     if (!셀것인가(pathname)) return;
     /* ⚠ **경로를 먼저 본다.** UA 는 속일 수 있고 경로는 의도 그 자체다 */
     const 스캐너 = 스캐너경로.test(String(pathname));
     const UA봇 = 봇패턴.test(String(userAgent ?? ''));
-    const 봇 = (스캐너 || UA봇) ? '1' : '0';
+    /* ⭐ 우리 자가 스스로 댄 이름이 먼저다 — 우리는 손님이 아니다 */
+    const 우리 = !!우리점검;
+    const 봇 = (우리 || 스캐너 || UA봇) ? '1' : '0';
     /* 봇이면 **종류만** 남긴다(google/bing/naver…). 사람이면 빈칸이다 */
-    const 종류 = 봇 === '0' ? '' : (스캐너 && !UA봇 ? '스캐너' : 봇종류(userAgent));
+    const 종류 = 봇 === '0' ? ''
+      : 우리 ? 우리점검종류
+        : (스캐너 && !UA봇 ? '스캐너' : 봇종류(userAgent));
     const 경로 = 통.size >= 경로상한 ? '(기타)' : String(pathname).slice(0, 200);
     /* ⭐ from 은 **우리가 붙인 딱지**다. 손님이 친 글이 아니다 — 흰 목록이라 안전하다 */
     const 딱지 = String(from ?? '').slice(0, 40).replace(/[^A-Za-z0-9_\-.]/g, '');

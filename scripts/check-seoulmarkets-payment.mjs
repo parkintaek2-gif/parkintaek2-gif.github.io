@@ -206,6 +206,10 @@ async function 단추그려지나() {
     const puppeteer = require('puppeteer-core');
     b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
     page = await b.newPage();                       /* ⭐ 언제나 «새 탭» */
+    /* 🔴 [2026-09-17] 이 점검이 «손님»으로 세어지고 있었다 — 그날 「많이 읽힌 지면」
+       1·2·3·4위가 이 자가 두드리는 /v1/subscribe · /v1/research · /v1/hs · /api/download 였다.
+       머리글 한 줄로 스스로 이름을 댄다. UA 는 안 건드린다(토스·페이팔이 다르게 굴 수 있다). */
+    await (await import('./lib/우리크롬.mjs')).이름대기(page, '6번-결제점검');
     await page.setViewport({ width: 400, height: 860 });   /* 손님 크기로 본다 */
     await page.goto(사이트 + '/data#buy', { waitUntil: 'networkidle2', timeout: 60000 });
     await new Promise((r) => setTimeout(r, 2500));

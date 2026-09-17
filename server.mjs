@@ -18,7 +18,7 @@ import { handleApi } from './src/lib/api.mjs';
 import { 등록 as 댓글등록, 목록 as 댓글목록 } from './src/lib/comments.mjs';
 import { 던지기 as 투표던지기, 집계 as 투표집계 } from './src/lib/votes.mjs';
 import { 경로후보 } from './src/lib/url-path.mjs';
-import { 센다, flush할때되면, 유입표, 현황 as 유입현황 } from './src/lib/traffic.mjs';
+import { 센다, flush할때되면, 유입표, 현황 as 유입현황, 우리점검머리글 } from './src/lib/traffic.mjs';
 /* 🔴 [2026-09-13 · 5번] 달러 결제 — 사장님: 「페이팔 결제붙여」·「이런 절차 필요없이 바로 결제」 */
 import * as 페이팔 from './src/lib/paypal.mjs';
 import { 메일보내기 } from './src/lib/gmail-send.mjs';
@@ -975,6 +975,9 @@ const server = createServer((req, res) => {
          * ⛔ 물음표 뒤를 통째로 안 남긴다. **`from` 하나만** 흰 목록으로 뽑는다 —
          *    거기엔 손님이 친 검색어·이메일이 들어올 수 있다 */
         from: 유입표(u.searchParams),
+        /* ⭐ [2026-09-17] 우리 점검 자가 스스로 대는 이름. 손님은 이 머리글을 안 붙인다.
+         *   값은 안 남긴다 — 「붙었나 안 붙었나」만 본다(traffic.mjs 우리점검머리글 참조) */
+        우리점검: !!req.headers[우리점검머리글],
       });
       flush할때되면();
     } catch { /* 측정은 조용히 실패한다 */ }
