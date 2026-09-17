@@ -1,0 +1,539 @@
+{
+ "_메모": {
+  "상품": "누가 한국 증권을 들고 있나 — IMF PIP 거울(mirror) 방식",
+  "출처": "IMF — https://api.imf.org/external/sdmx/2.1/data/PIP",
+  "방법": "리포터국이 자국 자산으로 신고한 값 가운데 COUNTERPART_COUNTRY=KOR(SECTOR=S1·COUNTERPART_SECTOR=S1) 을 합산",
+  "최근연도": "2024",
+  "전년": "2023",
+  "리포터수": 75,
+  "받은때": "2026. 9. 17. 오후 2:59:34"
+ },
+ "총액": 636150031915.1486,
+ "나라들": [
+  {
+   "code": "USA",
+   "name": "United States",
+   "value": 195424000000,
+   "share": 0.30719797248405417,
+   "prevValue": 252562000000
+  },
+  {
+   "code": "SGP",
+   "name": "Singapore",
+   "value": 73881153422.03926,
+   "share": 0.11613793871803772,
+   "prevValue": 87808976945.24496
+  },
+  {
+   "code": "GBR",
+   "name": "United Kingdom",
+   "value": 49669039596,
+   "share": 0.07807755577166267,
+   "prevValue": 39762141325.00002
+  },
+  {
+   "code": "HKG",
+   "name": "Hong Kong",
+   "value": 39008758371.97321,
+   "share": 0.06132006038659809,
+   "prevValue": 31183203175.0096
+  },
+  {
+   "code": "LUX",
+   "name": "Luxembourg",
+   "value": 38246898934.3566,
+   "share": 0.06012245070429875,
+   "prevValue": 48199654368.96999
+  },
+  {
+   "code": "IRL",
+   "name": "Ireland",
+   "value": 29791496400,
+   "share": 0.046830928091462665,
+   "prevValue": 36353394999.99999
+  },
+  {
+   "code": "NOR",
+   "name": "Norway",
+   "value": 27078854625.55066,
+   "share": 0.04256677397944784,
+   "prevValue": 24092035398.23009
+  },
+  {
+   "code": "FRA",
+   "name": "France",
+   "value": 21520018741.5,
+   "share": 0.03382852733138022,
+   "prevValue": 19858583745
+  },
+  {
+   "code": "CYM",
+   "name": "Cayman Islands",
+   "value": 17767563571.48,
+   "share": 0.02792983208377782,
+   "prevValue": 19765154379.95
+  },
+  {
+   "code": "JPN",
+   "name": "Japan",
+   "value": 15510206775.77402,
+   "share": 0.024381366026313134,
+   "prevValue": 19869968660.44676
+  },
+  {
+   "code": "AUS",
+   "name": "Australia",
+   "value": 15148342200.00002,
+   "share": 0.023812530755355752,
+   "prevValue": 17081531999.99997
+  },
+  {
+   "code": "CHE",
+   "name": "Switzerland",
+   "value": 12273172887.42226,
+   "share": 0.019292890468736612,
+   "prevValue": 15568003287.96436
+  },
+  {
+   "code": "DEU",
+   "name": "Germany",
+   "value": 12192530400,
+   "share": 0.01916612400897635,
+   "prevValue": 13576030000
+  },
+  {
+   "code": "SAU",
+   "name": "Saudi Arabia",
+   "value": 12078050419.42067,
+   "share": 0.01898616649135321,
+   "prevValue": 10905993431.28131
+  },
+  {
+   "code": "CAN",
+   "name": "Canada",
+   "value": 11950591510.09047,
+   "share": 0.018785806665941457,
+   "prevValue": 14851410469.1507
+  },
+  {
+   "code": "NLD",
+   "name": "Netherlands",
+   "value": 11178564000,
+   "share": 0.0175722132188638,
+   "prevValue": 14525225000
+  },
+  {
+   "code": "CHN",
+   "name": "China",
+   "value": 10572089668.02,
+   "share": 0.016618862119981995,
+   "prevValue": 11345728829.96
+  },
+  {
+   "code": "BMU",
+   "name": "Bermuda",
+   "value": 8380845377.07631,
+   "share": 0.013174322025647828,
+   "prevValue": 9073296521.9763
+  },
+  {
+   "code": "SWE",
+   "name": "Sweden",
+   "value": 5548373058.685936,
+   "share": 0.008721799544648915,
+   "prevValue": 6138165232.63225
+  },
+  {
+   "code": "MYS",
+   "name": "Malaysia",
+   "value": 5228946792.284116,
+   "share": 0.008219675438107291,
+   "prevValue": 5460792046.70587
+  },
+  {
+   "code": "ITA",
+   "name": "Italy",
+   "value": 3809029313.9124,
+   "share": 0.00598762732502772,
+   "prevValue": 4002278433.464999
+  },
+  {
+   "code": "MAC",
+   "name": "Macao",
+   "value": 2714478904.811256,
+   "share": 0.0042670420005155646,
+   "prevValue": 2921092147.742926
+  },
+  {
+   "code": "DNK",
+   "name": "Denmark",
+   "value": 2695963824.217055,
+   "share": 0.0042379371043978036,
+   "prevValue": 3477545331.890225
+  },
+  {
+   "code": "BRA",
+   "name": "Brazil",
+   "value": 2345997847.8,
+   "share": 0.0036878059107177973,
+   "prevValue": 1793985756.17
+  },
+  {
+   "code": "THA",
+   "name": "Thailand",
+   "value": 1677294016,
+   "share": 0.00263663276247972,
+   "prevValue": 1711568213
+  },
+  {
+   "code": "BEL",
+   "name": "Belgium",
+   "value": 1502249400,
+   "share": 0.00236147028944954,
+   "prevValue": 1608880000
+  },
+  {
+   "code": "FIN",
+   "name": "Finland",
+   "value": 1304858400,
+   "share": 0.0020511802790792685,
+   "prevValue": 1333735000
+  },
+  {
+   "code": "ESP",
+   "name": "Spain",
+   "value": 1246680000,
+   "share": 0.0019597263812859253,
+   "prevValue": 1217710000
+  },
+  {
+   "code": "GGY",
+   "name": "Guernsey",
+   "value": 858674330.399585,
+   "share": 0.0013497984552708745,
+   "prevValue": 1047228749.30255
+  },
+  {
+   "code": "BHR",
+   "name": "Bahrain",
+   "value": 758500000,
+   "share": 0.0011923287934396752,
+   "prevValue": 698900000
+  },
+  {
+   "code": "KAZ",
+   "name": "Kazakhstan",
+   "value": 682310290.196709,
+   "share": 0.0010725619051571743,
+   "prevValue": 466688262.486712
+  },
+  {
+   "code": "AUT",
+   "name": "Austria",
+   "value": 598406400.0000001,
+   "share": 0.0009406686630172444,
+   "prevValue": 931514999.9999999
+  },
+  {
+   "code": "PHL",
+   "name": "Philippines",
+   "value": 595376778.594628,
+   "share": 0.0009359062308025491,
+   "prevValue": 804498338
+  },
+  {
+   "code": "MEX",
+   "name": "Mexico",
+   "value": 557724634.344643,
+   "share": 0.0008767187084241691,
+   "prevValue": 32992727.8509368
+  },
+  {
+   "code": "JEY",
+   "name": "Jersey",
+   "value": 475474450,
+   "share": 0.0007474250194856865,
+   "prevValue": 7059287650.000003
+  },
+  {
+   "code": "KWT",
+   "name": "Kuwait",
+   "value": 392703354.440656,
+   "share": 0.0006173124809227957,
+   "prevValue": 281044072.2068629
+  },
+  {
+   "code": "SVK",
+   "name": "Slovakia",
+   "value": 219207900,
+   "share": 0.0003445852220427752,
+   "prevValue": 255682281.4
+  },
+  {
+   "code": "ISR",
+   "name": "Israel",
+   "value": 202000000,
+   "share": 0.00031753515659171315,
+   "prevValue": 171000000
+  },
+  {
+   "code": "CYP",
+   "name": "Cyprus",
+   "value": 170931321.226032,
+   "share": 0.0002686965537224578,
+   "prevValue": 118578587.87125
+  },
+  {
+   "code": "ZAF",
+   "name": "South Africa",
+   "value": 142925989.4999997,
+   "share": 0.00022467339830152452,
+   "prevValue": 198691663.9999995
+  },
+  {
+   "code": "HUN",
+   "name": "Hungary",
+   "value": 112395833.3333333,
+   "share": 0.00017668132939483206,
+   "prevValue": 86929915.71412078
+  },
+  {
+   "code": "PRT",
+   "name": "Portugal",
+   "value": 104645154.406125,
+   "share": 0.00016449760144016286,
+   "prevValue": 166114650
+  },
+  {
+   "code": "SVN",
+   "name": "Slovenia",
+   "value": 103278087.9,
+   "share": 0.00016234863274167927,
+   "prevValue": 149520865
+  },
+  {
+   "code": "CHL",
+   "name": "Chile",
+   "value": 100966627.355115,
+   "share": 0.00015871511795912665,
+   "prevValue": 104355548.970503
+  },
+  {
+   "code": "NZL",
+   "name": "New Zealand",
+   "value": 79018612.52115059,
+   "share": 0.00012421379950773988,
+   "prevValue": 151643948.5196221
+  },
+  {
+   "code": "MUS",
+   "name": "Mauritius",
+   "value": 77600000,
+   "share": 0.00012198380273028188,
+   "prevValue": 73400000
+  },
+  {
+   "code": "PAN",
+   "name": "Panama",
+   "value": 30312028.2,
+   "share": 0.000047649181292571406,
+   "prevValue": 1165063.92
+  },
+  {
+   "code": "BGR",
+   "name": "Bulgaria",
+   "value": 23539011.70407899,
+   "share": 0.000037002295878558866,
+   "prevValue": 28372811.08446684
+  },
+  {
+   "code": "IDN",
+   "name": "Indonesia",
+   "value": 22953120.4127623,
+   "share": 0.00003608130041848972,
+   "prevValue": 10442883.2798109
+  },
+  {
+   "code": "POL",
+   "name": "Poland",
+   "value": 20481810.20189213,
+   "share": 0.000032196508959106754,
+   "prevValue": 4574332.90978399
+  },
+  {
+   "code": "CZE",
+   "name": "Czechia",
+   "value": 18360358.13013162,
+   "share": 0.00002886167917787761,
+   "prevValue": 20155523.77547372
+  },
+  {
+   "code": "MNG",
+   "name": "Mongolia",
+   "value": 10412683.7534502,
+   "share": 0.000016368283000949487,
+   "prevValue": 10742122.5728536
+  },
+  {
+   "code": "IND",
+   "name": "India",
+   "value": 10079043.99742126,
+   "share": 0.00001584381591096993,
+   "prevValue": 70551660.08152422
+  },
+  {
+   "code": "COL",
+   "name": "Colombia",
+   "value": 9548296.85291802,
+   "share": 0.000015009504635522203,
+   "prevValue": 22623772.9029807
+  },
+  {
+   "code": "GRC",
+   "name": "Greece",
+   "value": 9350100.000000002,
+   "share": 0.000014697947859644443,
+   "prevValue": 16575000
+  },
+  {
+   "code": "ALB",
+   "name": "Albania",
+   "value": 5041949.16385025,
+   "share": 0.000007925723352824981,
+   "prevValue": 7504573.70709389
+  },
+  {
+   "code": "EST",
+   "name": "Estonia",
+   "value": 3139271.1414,
+   "share": 0.0000049347967993479955,
+   "prevValue": 2762327.62
+  },
+  {
+   "code": "LVA",
+   "name": "Latvia",
+   "value": 2077800,
+   "share": 0.0000032662106354765423,
+   "prevValue": 1105000
+  },
+  {
+   "code": "ISL",
+   "name": "Iceland",
+   "value": 1894920.299855282,
+   "share": 0.000002978731753184965,
+   "prevValue": 683655.55
+  },
+  {
+   "code": "ABW",
+   "name": "Aruba",
+   "value": 1602878.01117318,
+   "share": 0.0000025196540607687595,
+   "prevValue": 8802878.01117318
+  },
+  {
+   "code": "GIB",
+   "name": "Gibraltar",
+   "value": 1254550,
+   "share": 0.000001972097676743236,
+   "prevValue": null
+  },
+  {
+   "code": "LTU",
+   "name": "Lithuania",
+   "value": 779175.0000000001,
+   "share": 0.0000012248289883037035,
+   "prevValue": 961349.9999999999
+  },
+  {
+   "code": "URY",
+   "name": "Uruguay",
+   "value": 402720,
+   "share": 6.330582092208649e-7,
+   "prevValue": 5690865
+  },
+  {
+   "code": "ROU",
+   "name": "Romania",
+   "value": 308476.140897,
+   "share": 4.849109886363181e-7,
+   "prevValue": 119634.1952
+  },
+  {
+   "code": "CRI",
+   "name": "Costa Rica",
+   "value": 233227.506944444,
+   "share": 3.6662343039157866e-7,
+   "prevValue": 0
+  },
+  {
+   "code": "MKD",
+   "name": "North Macedonia",
+   "value": 52780,
+   "share": 8.296784933124069e-8,
+   "prevValue": 0
+  },
+  {
+   "code": "LBN",
+   "name": "Lebanon",
+   "value": 10392,
+   "share": 1.6335769046044963e-8,
+   "prevValue": 113882
+  },
+  {
+   "code": "TUR",
+   "name": "Turkey",
+   "value": 9100,
+   "share": 1.4304801608834601e-8,
+   "prevValue": 0
+  },
+  {
+   "code": "ARG",
+   "name": "Argentina",
+   "value": 0,
+   "share": 0,
+   "prevValue": 0
+  },
+  {
+   "code": "BGD",
+   "name": "Bangladesh",
+   "value": 0,
+   "share": 0,
+   "prevValue": null
+  },
+  {
+   "code": "BHS",
+   "name": "Bahamas",
+   "value": 0,
+   "share": 0,
+   "prevValue": 0
+  },
+  {
+   "code": "BLR",
+   "name": "Belarus",
+   "value": 0,
+   "share": 0,
+   "prevValue": 0
+  },
+  {
+   "code": "HND",
+   "name": "Honduras",
+   "value": 0,
+   "share": 0,
+   "prevValue": 0
+  },
+  {
+   "code": "KOS",
+   "name": "Kosovo",
+   "value": 0,
+   "share": 0,
+   "prevValue": 0
+  },
+  {
+   "code": "SLV",
+   "name": "El Salvador",
+   "value": 0,
+   "share": 0,
+   "prevValue": 0
+  }
+ ]
+}
