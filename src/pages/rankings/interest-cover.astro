@@ -1,0 +1,33 @@
+---
+/** /rankings/interest-cover — Korean listed companies by interest coverage ratio. */
+import AxisRankingPage from '../../components/AxisRankingPage.astro';
+
+const fmt = (v: number) => v.toFixed(2) + 'x';
+---
+<AxisRankingPage
+  axisId="interestCoverage"
+  path="/rankings/interest-cover"
+  h1="Korean listed companies, ranked by interest coverage"
+  intro="Interest coverage — operating income divided by finance costs — for every Korean listed company that filed both figures in its most recent annual report. Sorted highest first: the higher the number, the more times over operating profit covers interest expense."
+  fmt={fmt}
+  trust={[
+    'This ratio is operating income ÷ finance costs from the same annual filing — not adjusted, annualised, or smoothed.',
+    'A company that filed no finance-cost line (often because it carries little or no interest-bearing debt) is left out of this ranking, not shown as an infinite or zero ratio.',
+    'A value under 1.0x means operating profit did not cover interest expense that year — we mark that as a fact from the filing, not as a warning or a forecast.',
+    'For the borrowings themselves rather than the coverage ratio, see the borrowings-to-equity measure on the full rankings page.',
+  ]}
+  faq={[
+    {
+      q: 'What is interest coverage?',
+      a: 'Operating income divided by finance costs (interest expense), from the same fiscal year’s annual filing. A ratio of 3x means operating profit was three times the interest bill that year.',
+    },
+    {
+      q: 'What does an interest coverage ratio below 1 mean?',
+      a: 'It means operating income did not cover finance costs that year, as filed. It is one year’s figure, not a trend or a solvency forecast — check whether the shortfall repeats across years before drawing a conclusion.',
+    },
+    {
+      q: 'Why are roughly half of listed companies missing from this ranking?',
+      a: 'A company is left out, not shown at zero, when it filed no finance-cost line at all — common for companies with little or no interest-bearing debt. About 44.5% of listed companies had both figures on file at the time this page was built.',
+    },
+  ]}
+/>

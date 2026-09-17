@@ -1,0 +1,33 @@
+---
+/** /rankings/market-cap — Korean listed companies by market capitalisation. */
+import AxisRankingPage from '../../components/AxisRankingPage.astro';
+
+const fmt = (v: number) => '₩' + (v / 1e12).toLocaleString(undefined, { maximumFractionDigits: 1 }) + 'tn';
+---
+<AxisRankingPage
+  axisId="marketCap"
+  path="/rankings/market-cap"
+  h1="Korean listed companies, ranked by market capitalisation"
+  intro="Market capitalisation — share price times shares outstanding — for every Korean listed company that files with the Financial Supervisory Service. Sorted highest first, as of the most recent close on file."
+  fmt={fmt}
+  trust={[
+    'Every figure is share price × shares outstanding on a single named date — not an estimate.',
+    'A company with no traded close on that date (delisted, halted, or newly listed after the cutoff) is left out, not shown as zero.',
+    'We do not rank a company as "undervalued" or "overvalued" from this number alone — that needs earnings and book value too. See the paired PBR ranking for that.',
+    'The full computation is open: build-rankings-json.mjs joins this from the same valuation tape used across every SeoulMarkets data page.',
+  ]}
+  faq={[
+    {
+      q: 'What is market capitalisation?',
+      a: 'The total value of a company’s outstanding shares — share price multiplied by the number of shares outstanding. It is a market price, not a measure of the company’s underlying worth.',
+    },
+    {
+      q: 'Which is the largest listed company in Korea?',
+      a: 'See the table above — it updates from the same source used across this site’s data pages, so the answer is whatever the most recent filing and closing price show, not a fixed claim.',
+    },
+    {
+      q: 'Why do some companies have no market cap listed here?',
+      a: 'A company is left off this ranking, not shown at zero, if it has no traded closing price on file for the date this page was built — for example a recent listing, a trading halt, or a delisting.',
+    },
+  ]}
+/>

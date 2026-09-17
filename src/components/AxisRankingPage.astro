@@ -1,0 +1,177 @@
+---
+/**
+ * AxisRankingPage — one financial axis, ranked. Shared by /rankings/market-cap,
+ * /rankings/pbr, /rankings/interest-cover (사장님 지시 2026-09-17, ASAP — 「재무 축」을
+ * /rankings 에 넣고 상위 셋은 «제 주소»로 뗀다).
+ *
+ * ⛔ 이 지면은 /rankings(다축 표그래프)와 다른 자리다 — 검색은 「pbr ranking korea」처럼
+ *   한 축을 바로 찾는다. 한 축·고정 URL·FAQ 로 그 물음에 바로 답한다.
+ * ⛔ 「좋다/나쁘다」를 말하지 않는다. 값과 정의만 준다. 투자자문이 아니다.
+ * ⛔ 값이 없는 곳은 순위에서 빠진다(0 아님) — 몇 곳이 빠졌는지 화면에 적는다.
+ *
+ * data/rankings.json 을 그대로 쓴다(계산을 복사하지 않는다 — build-rankings-json.mjs 가
+ * 유일한 산출처다). /rankings 의 다축 표와 **같은 수**가 나온다.
+ */
+import Base from '../layouts/Base.astro';
+import { SITE_URL } from '../consts';
+import data from '../data/rankings.json';
+
+interface Props {
+  axisId: string;
+  path: string;               // '/rankings/market-cap' 처럼, 스킴·도메인 없이
+  h1: string;
+  intro: string;               // 첫 문단
+  faq: { q: string; a: string }[];
+  trust: string[];             // 「왜 믿을 수 있나」 넉 줄
+  fmt: (v: number) => string;  // 값 표시
+}
+
+const { axisId, path, h1, intro, faq, trust, fmt } = Astro.props;
+
+const 열 = Object.fromEntries(data.cols.map((c, i) => [c, i]));
+const 축 = data.axes.find((a) => a.id === axisId)!;
+const 자리 = 열[axisId];
+
+const 채운것 = data.rows.filter((r) => r[자리] != null);
+const 정렬 = [...채운것].sort((a, b) => 축.dir === 'desc' ? b[자리] - a[자리] : a[자리] - b[자리]);
+const 상위 = 정렬.slice(0, 100);
+const 최대 = Math.max(...상위.map((r) => Math.abs(r[자리])), 1);
+const 빠진수 = data.rows.length - 채운것.length;
+
+const TITLE = `${h1} — SeoulMarkets`;
+const DESC = intro;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Dataset',
+      name: `${축.label}, Korean listed companies, ${data.year}`,
+      description: DESC,
+      url: `${SITE_URL}${path}`,
+      temporalCoverage: String(data.year),
+      creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+      isBasedOn: 'https://opendart.fss.or.kr',
+      variableMeasured: 축.label,
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faq.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <div class="wrap">
+    <div class="rk">
+      <h1>{h1}</h1>
+      <p class="lead">{intro}</p>
+
+      <section class="trust">
+        <h2>Why you can trust this number</h2>
+        <ul>
+          {trust.map((t) => <li>{t}</li>)}
+        </ul>
+      </section>
+
+      <p class="count">
+        {채운것.length.toLocaleString()} of {data.rows.length.toLocaleString()} companies filed this figure
+        {빠진수 > 0 && <> — {빠진수.toLocaleString()} did not, and are left out rather than shown as zero.</>}
+      </p>
+
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr>
+              <th class="r">#</th>
+              <th>Company</th>
+              <th class="r">{축.label}</th>
+              <th class="r">Employees</th>
+              <th class="hide-sm">Industry</th>
+            </tr>
+          </thead>
+          <tbody>
+            {상위.map((r, i) => (
+              <tr>
+                <td class="r n">{i + 1}</td>
+                <td class="nm">
+                  <span class="bar" style={`width:${(Math.abs(r[자리]) / 최대 * 100).toFixed(1)}%`}></span>
+                  <span class="t">{r[열.name]}{r[열.ticker] && <span class="tk"> {r[열.ticker]}</span>}</span>
+                </td>
+                <td class="r v">{fmt(r[자리])}</td>
+                <td class="r e">{r[열.headcount] == null ? '—' : r[열.headcount].toLocaleString()}</td>
+                <td class="hide-sm i">{r[열.industry] ?? '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="more">
+        <a href="/rankings">See all {data.axes.length} measures, sortable and filterable, on the full rankings page →</a>
+      </p>
+
+      <section class="meth">
+        <h2>Frequently asked</h2>
+        {faq.map((f) => (
+          <div class="qa">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </div>
+        ))}
+
+        <h2>Source</h2>
+        <p class="fine">
+          Financial Supervisory Service, DART Open API — {data.year} annual filings, most recent
+          basis (consolidated where filed, otherwise separate). Data as of {data.generated} KST.
+          Not investment advice.
+        </p>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .rk h1 { font-size: clamp(1.6rem, 4.5vw, 2.2rem); line-height: 1.25; margin: 1rem 0 .7rem; letter-spacing: -.02em; }
+  .rk .lead { color: var(--muted); margin: 0 0 1.4rem; max-width: 46rem; }
+
+  .trust { margin: 0 0 1.4rem; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--card); }
+  .trust h2 { font-size: .95rem; margin: 0 0 .5rem; }
+  .trust ul { margin: 0; padding-left: 1.1rem; }
+  .trust li { font-size: .87rem; line-height: 1.6; color: var(--muted); margin: 0 0 .3rem; }
+
+  .count { font-size: .8rem; color: var(--muted); margin: 0 0 .6rem; font-variant-numeric: tabular-nums; }
+
+  .scroll-x { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { padding: .5rem .55rem; border-bottom: 1px solid var(--line); text-align: left; }
+  th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .n { color: var(--muted); width: 2.6rem; }
+  .v { font-weight: 600; }
+  .e, .i { color: var(--muted); }
+  .i { font-size: .82rem; }
+  .nm { position: relative; min-width: 14rem; overflow: hidden; }
+  .bar { position: absolute; left: 0; top: 3px; bottom: 3px; background: var(--bg2, var(--card)); border-radius: 0 3px 3px 0; }
+  .nm .t { position: relative; }
+  .tk { display: block; color: var(--muted); font-size: .74rem; font-variant-numeric: tabular-nums; letter-spacing: .02em; margin-top: 1px; }
+
+  .more { margin: 1rem 0 0; font-size: .88rem; }
+  .more a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+  .more a:hover { color: var(--ink); }
+
+  .meth { margin: 2.5rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .meth h2 { font-size: 1.02rem; margin: 1.4rem 0 .5rem; }
+  .meth h2:first-child { margin-top: 0; }
+  .qa { margin: 0 0 1.1rem; }
+  .qa h3 { font-size: .92rem; margin: 0 0 .3rem; }
+  .qa p { font-size: .89rem; line-height: 1.65; color: var(--muted); margin: 0; }
+  .fine { font-size: .8rem; color: var(--muted); margin: 0; }
+
+  @media (max-width: 560px) { .hide-sm { display: none; } }
+</style>

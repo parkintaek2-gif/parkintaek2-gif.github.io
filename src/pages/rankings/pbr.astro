@@ -1,0 +1,33 @@
+---
+/** /rankings/pbr — Korean listed companies by price-to-book ratio. */
+import AxisRankingPage from '../../components/AxisRankingPage.astro';
+
+const fmt = (v: number) => v.toFixed(2) + 'x';
+---
+<AxisRankingPage
+  axisId="pbr"
+  path="/rankings/pbr"
+  h1="Korean listed companies, ranked by price to book (PBR)"
+  intro="Price-to-book ratio — market capitalisation divided by total equity — for every Korean listed company with a positive book value on file. Sorted highest first, most recent annual filing."
+  fmt={fmt}
+  trust={[
+    'PBR here is market cap ÷ total equity from the same annual filing, not a forecast or a broker estimate.',
+    'A company with zero or negative total equity is left out of this ranking, not shown as zero or a negative multiple.',
+    'A very high PBR usually means a small or negative equity base, not necessarily a richly priced company — check the employee count and industry columns before reading it as a verdict.',
+    'We do not label any value "expensive" or "cheap." This is a ratio, not investment advice.',
+  ]}
+  faq={[
+    {
+      q: 'What is price to book (PBR)?',
+      a: 'Market capitalisation divided by total shareholders’ equity, most recent annual filing. A PBR of 1.0 means the market values the company at exactly its filed book value.',
+    },
+    {
+      q: 'Why is the top of this ranking so extreme?',
+      a: 'The highest PBR multiples usually belong to companies with a very small equity base on file, not to companies the market considers most valuable — a small denominator inflates the ratio. Check the reported total equity before drawing a conclusion.',
+    },
+    {
+      q: 'Why are some companies missing from this ranking?',
+      a: 'A company is left out, not shown at zero, when its filed total equity is zero or negative — PBR is not a meaningful number in that case.',
+    },
+  ]}
+/>
