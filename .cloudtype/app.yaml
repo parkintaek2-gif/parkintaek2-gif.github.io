@@ -83,6 +83,18 @@ options:
     - name: PAYPAL_MODE
       secret: PAYPAL_MODE
 
+    # 🔴 [2026-09-17] 결제 뒤 손님 메일 — 이것이 없으면 결제는 되는데 편지가 안 나간다.
+    #   GOOGLE_APPLICATION_CREDENTIALS(파일 경로)는 이 컨테이너에 파일이 없어 절대 못 쓴다.
+    #   src/lib/gmail-send.mjs 가 문자열(JSON 또는 base64) 열쇠도 받게 고쳤다 — 그 문자열이 이것.
+    #   ⚠ 순서 — 스테이지에 시크릿 GOOGLE_SERVICE_ACCOUNT_JSON 을 먼저 만들고 이 줄을 적었다
+    #     (2026-09-17 확인 — 콘솔에 먼저 넣은 뒤 이 줄을 추가함, 순서를 지켰다).
+    #   MAIL_FROM 은 도메인 위임 발신자 주소다 — 없으면 admin@klifedesign.net 으로 떨어지고
+    #   손님에게 admin@ 으로 보내게 된다. 라이브에서 실제 발송 확인함(2026-09-17 11시대).
+    - name: GOOGLE_SERVICE_ACCOUNT_JSON
+      secret: GOOGLE_SERVICE_ACCOUNT_JSON
+    - name: MAIL_FROM
+      secret: MAIL_FROM
+
     # 🔴 KDI Open API 인증키 — **여기 미리 적어 두면 안 된다.** 지웠다.
     #
     # 2026-08-03 20:08 에 `- name: KDI_API_KEY / secret: KDI_API_KEY` 를 넣었다.
