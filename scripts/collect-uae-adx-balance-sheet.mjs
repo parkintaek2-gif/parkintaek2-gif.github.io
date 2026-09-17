@@ -133,12 +133,34 @@ export function 대차대조표읽기(글) {
   return null;   /* 그래도 안 되면 안 낸다 */
 }
 
-/** PDF 의 단위 표기를 «읽어만» 둔다 — 우리가 곱하지 않는다. */
+/**
+ * PDF 의 단위 표기를 «읽어만» 둔다 — 우리가 곱하지 않는다.
+ *
+ * 🔴 [2026-09-17 · 5번 지적, 02:01 메모] 옛 판은 흠이 둘이었다 —
+ *   ① 앞 6000자만 봤다. 실측 241줄 가운데 단위가 «거기» 있는 건 26줄뿐이었다.
+ *   ② 통화를 안 갈랐다. `in\s+thousands` 가 통화와 상관없이 무조건 AED'000 을 돌려줬다.
+ *     ADNOC 계열(ADNOCDRILL·ADNOCGAS·ADNOCLS·AGILITY·AMR·BOROUGE·ICAP·PHX·SUDATEL) 은
+ *     USD 로 보고하는데 칸 이름이 `total_assets_aed` 라 AED 처럼 보이는 게 함정이었다.
+ * ✅ 5번이 scripts/extract-uae-balance-sheet.mjs 에 먼저 고친 답(단위읽기)을 그대로 들여온다 —
+ *   글 «전체»에서 AED/USD × (000·thousand·million) 을 세어 «가장 많이 나온 것»을 쓴다.
+ *   1·2등이 엇비슷하면(2배 안) 두 통화가 섞인 문서로 보고 못 정한 것으로 둔다.
+ */
 export function 단위힌트(글) {
-  const t = String(글 ?? '').slice(0, 6000);
-  if (/AED\s*[’']?\s*000|AED\s*thousand|in\s+thousands/i.test(t)) return "AED'000";
-  if (/AED\s*million|in\s+millions/i.test(t)) return 'AED million';
-  return null;
+  const t = String(글 ?? '');
+  const 셈 = {};
+  const 더 = (열쇠, n) => { if (n) 셈[열쇠] = (셈[열쇠] || 0) + n; };
+  for (const 돈 of ['AED', 'USD']) {
+    더(`${돈}'000`, (t.match(new RegExp(String.raw`${돈}[ '’]*000\b`, 'gi')) || []).length);
+    더(`${돈}'000`, (t.match(new RegExp(String.raw`${돈}\s*thousands?\b`, 'gi')) || []).length);
+    더(`${돈} million`, (t.match(new RegExp(String.raw`${돈}\s*millions?\b`, 'gi')) || []).length);
+    더(`${돈} million`, (t.match(new RegExp(String.raw`millions?\s+of\s+${돈}`, 'gi')) || []).length);
+    const 딴이름 = 돈 === 'AED' ? String.raw`|UAE\s+Dirhams?|Dirhams?` : '';
+    더(`${돈}'000`, (t.match(new RegExp(String.raw`thousands?\s+of\s+(?:${돈}${딴이름})`, 'gi')) || []).length);
+  }
+  const 줄 = Object.entries(셈).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]);
+  if (!줄.length) return null;
+  if (줄.length > 1 && 줄[1][1] > 0 && 줄[0][1] < 줄[1][1] * 2) return null;
+  return 줄[0][0];
 }
 
 /* ── 자가시험 — 실측한 진짜 pdftotext -table 줄로 잰다 ──────────────────────── */
@@ -198,9 +220,17 @@ export function 자가시험() {
     대차대조표읽기('\fSTATEMENT OF FINANCIAL POSITION\nTotal assets 400,000\nTotal equity 900,000') === null);
   재다('셋을 다 읽은 쪽이 뺄셈보다 «먼저»다', 대차대조표읽기(adcb)?.liabilitiesDerived === false);
 
-  재다('단위힌트: AED’000 을 읽는다', 단위힌트("All amounts in AED’000 unless stated") === "AED'000");
-  재다('단위힌트: million 을 읽는다', 단위힌트('Figures in AED million') === 'AED million');
+  재다('단위힌트: AED’000 을 읽는다', 단위힌트("All amounts in AED’000 unless stated".repeat(3)) === "AED'000");
+  재다('단위힌트: million 을 읽는다', 단위힌트('Figures in AED million'.repeat(3)) === 'AED million');
   재다('단위힌트: 없으면 null', 단위힌트('아무 말도 없다') === null);
+  재다('🔴 USD 로 내는 회사도 있다 — 통화를 가른다', 단위힌트("USD'000 ".repeat(10)) === "USD'000");
+  재다('🔴 「in thousands」만으로는 AED 로 단정하지 않는다 — USD 문서면 USD 로 읽는다',
+    단위힌트('all figures in USD thousands are stated. USD thousands used throughout.'.repeat(4)) === "USD'000");
+  재다('🔴 6000자 밖(먼 뒤쪽)에 있는 단위 표기도 읽는다',
+    단위힌트('x'.repeat(6500) + "AED'000 ".repeat(5)) === "AED'000");
+  재다('두 통화가 엇비슷하게 섞이면 못 정한 것으로 둔다',
+    단위힌트("AED'000 ".repeat(5) + "USD'000 ".repeat(4)) === null);
+  재다('한쪽이 압도적이면 그것을 쓴다', 단위힌트("AED'000 ".repeat(20) + "USD'000 ") === "AED'000");
 
   const 실패 = 것.filter((x) => !x.됐나);
   console.log(`■ 자가시험 ${것.length - 실패.length}/${것.length}`);
