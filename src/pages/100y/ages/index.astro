@@ -54,6 +54,7 @@ import 출생성비 from '../../../data/100yearmap/birth-sex-ratio.json';
 import 합계출산율 from '../../../data/100yearmap/fertility-rate.json';
 import 자격나이 from '../../../data/100yearmap/qual-age.json';
 import 자격기간 from '../../../data/100yearmap/qual-duration.json';
+import 문화관람 from '../../../data/100yearmap/culture-attendance.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
@@ -89,6 +90,7 @@ const ak = 출생성비 as any;
 const al = 합계출산율 as any;
 const am = 자격나이 as any;
 const an = 자격기간 as any;
+const ap = 문화관람 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -357,6 +359,12 @@ const 문들 = [
     수: `${(an.등급 as any[]).find((r: any) => r.등급 === '기술사').가운데값일}일`,
     한줄: `등급마다 걸린 날이 다릅니다 — 기능사 ${(an.등급 as any[]).find((r: any) => r.등급 === '기능사').가운데값일}일부터 기술사 ${(an.등급 as any[]).find((r: any) => r.등급 === '기술사').가운데값일}일까지.`,
     기간: `${an.출처.기준연도}년 · 한국산업인력공단`,
+  },
+  {
+    나이: '전 연령', 주소: '/culture-attendance', 이름: '나이대별로 무엇을 얼마나 관람할까',
+    수: `${ap.전체최신.영화}%`,
+    한줄: `영화 관람률입니다(전체). 그런데 20대(${(ap.최신연령별 as any[]).find((r: any) => r.연령 === '20대').영화}%)가 정점이고, 전통예술 공연만은 60·70대가 더 높습니다.`,
+    기간: `${ap.해들[0]}~${ap.최신} · 국민여가활동조사`,
   },
 ];
 

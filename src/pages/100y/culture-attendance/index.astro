@@ -1,0 +1,158 @@
+---
+/**
+ * /100y/culture-attendance — 나이대별 문화예술 관람 — 무엇을, 얼마나 보나
+ *
+ * 🔴 사장님 지시(2026-09-17) — 「어떤 메뉴는 너무 얇고 어떤 메뉴는 너무 깊다,
+ *   밸런스를 맞추는 것을 우선순위로」. 실측하니 「문화」 축이 /travel 한 장뿐이었다.
+ *   scripts/collect-100y-culture-attendance.mjs 참고. «더 깊이 파는» 것이 아니라
+ *   «맞추는» 것이 목적이라 한 장만 낸다.
+ *
+ * ⭐ 핵심 발견 — 영화·관람안함 모두 "나이 들수록 단조롭게" 움직이지 않는다.
+ *   20대가 정점(영화 82.8%·관람안함 최저 11.1%)이고, 10대는 20대보다 오히려 낮다.
+ *   그리고 전통예술 공연만은 반대로 60·70대가 20~40대보다 높다 — 그대로 밝힌다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import { 조사 } from '../../../lib/josa';
+import 원본 from '../../../data/100yearmap/culture-attendance.json';
+
+const 자료 = 원본 as any;
+const 연령별 = 자료.최신연령별 as any[];
+const 전체 = 자료.전체최신;
+const 흐름 = 자료.연도별전체흐름 as any[];
+
+const 영화1위 = [...연령별].sort((a, b) => b.영화 - a.영화)[0];
+const 전통예술1위 = [...연령별].sort((a, b) => b['전통예술 공연'] - a['전통예술 공연'])[0];
+const 영화1위이가 = 조사(영화1위.연령, '이가');
+const 전통예술1위이가 = 조사(전통예술1위.연령, '이가');
+const 스물대 = 연령별.find((r) => r.연령 === '20대');
+const 십대 = 연령별.find((r) => r.연령 === '15~19세');
+const 육십대 = 연령별.find((r) => r.연령 === '60대');
+
+const desc =
+  `${자료.최신}년 기준 문화예술 관람률(복수응답)입니다. 영화는 ${영화1위.연령}${영화1위이가} ${영화1위.영화}%로 가장 높지만, ` +
+  `전통예술 공연은 반대로 ${전통예술1위.연령}${전통예술1위이가} ${전통예술1위['전통예술 공연']}%로 가장 높습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.무엇,
+  description: desc,
+  temporalCoverage: `${자료.해들[0]}/${자료.최신}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['나이대별 문화예술 장르별 관람률(복수응답)', '나이대별 관람 안 함 비율'],
+};
+---
+
+<HundredYear
+  title={`${영화1위.연령}${영화1위이가} 영화관에 가장 많이 갑니다 — 그런데 전통예술 공연은 ${전통예술1위.연령}${전통예술1위이가} 더 봅니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    {영화1위.연령}{영화1위이가} 영화관에 가장 많이 갑니다<br class="pcbr" />
+    그런데 전통예술 공연은 {전통예술1위.연령}{전통예술1위이가} 더 봅니다
+  </h1>
+  <p class="sub">
+    {자료.최신}년 기준, 만 15세 이상 <strong>{전체.영화}%</strong>가 지난 1년 동안 영화를 봤고,
+    {' '}<strong>{전체.관람안함}%</strong>는 이 아홉 갈래(영화·대중음악·뮤지컬·연극·미술전시회·
+    문학행사·서양음악연주회·전통예술공연·무용) 중 어느 것도 보지 않았습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{자료.최신}년 · 전체 영화 관람률</p>
+    <p class="answer-num">{전체.영화}%</p>
+    <p class="answer-sub">관람 안 함 {전체.관람안함}% — 문화체육관광부 국민여가활동조사</p>
+  </div>
+
+  <h2>나이대로 갈립니다 — 그런데 «계속 줄어드는» 모양이 아닙니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>영화</th><th>관람 안 함</th><th>대중음악/연예</th><th>미술전시회</th><th>전통예술 공연</th></tr></thead>
+      <tbody>
+        {연령별.map((r) => (
+          <tr>
+            <td>{r.연령}</td>
+            <td><strong>{r.영화}%</strong></td>
+            <td>{r.관람안함}%</td>
+            <td>{r['대중음악/연예']}%</td>
+            <td>{r.미술전시회}%</td>
+            <td>{r['전통예술 공연']}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    영화 관람률은 <strong>{십대.연령}({십대.영화}%)보다 {스물대.연령}({스물대.영화}%)가 더 높습니다</strong> —
+    나이가 들수록 «한결같이» 줄어드는 게 아니라, <strong>{영화1위.연령}{영화1위이가} 정점</strong>이고 그 다음부터
+    나이 들수록 낮아집니다. 관람 안 함 비율도 거울처럼 같은 모양입니다 — {십대.연령} {십대.관람안함}%보다
+    {' '}{스물대.연령} {스물대.관람안함}%가 오히려 낮습니다(가장 낮음).
+  </p>
+  <p class="note">
+    ⚠ 복수응답입니다 — 한 사람이 영화도 보고 전시회도 볼 수 있어 가로 합이 100%가 안 됩니다.
+    표본조사라 나이대·장르로 잘게 갈릴수록 오차가 커집니다.
+  </p>
+
+  <h2>딱 하나, 거꾸로 가는 장르가 있습니다</h2>
+  <div class="warn">
+    <p>
+      <strong>전통예술 공연</strong>만은 다른 여덟 장르와 반대로 움직입니다 — {육십대.연령}({육십대['전통예술 공연']}%)·
+      {' '}{전통예술1위.연령}({전통예술1위['전통예술 공연']}%) 모두 20~40대(0.5~2%)보다 높습니다.
+      영화·대중음악처럼 「젊을수록 많이 본다」는 이야기가 이 한 장르에는 안 맞습니다.
+    </p>
+  </div>
+
+  <h2>{흐름[0].해}년부터 {자료.최신}년까지 — 전체 흐름</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>영화</th><th>관람 안 함</th></tr></thead>
+      <tbody>
+        {흐름.map((r) => (
+          <tr>
+            <td>{r.해}년</td>
+            <td>{r.영화}%</td>
+            <td>{r.관람안함 == null ? '못 잼(2023년 조사엔 이 항목이 없었다)' : `${r.관람안함}%`}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>복수응답이라 아홉 갈래를 다 더해도 100%가 안 됩니다 — 한 사람이 여러 장르를 봅니다</li>
+    <li>「관람 안 함」은 2023년 조사엔 이 항목 자체가 없었습니다 — 0으로 채우지 않고 비워 둡니다</li>
+    <li>표본조사입니다(전수조사 아님) — 나이대·장르로 잘게 갈릴수록 표본이 작아집니다</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 어느 장르를 더 봐야 한다고 말하지 않습니다 —
+    {' '}{자료.최신}년에 나이대마다 무엇을 얼마나 봤는지가 저희가 셀 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관}, {자료.출처.창구}에서 받았습니다({자료.출처.orgId} · {자료.출처.tblId}).
+    {' '}받은 날 {자료.원천수집시각}.
+  </p>
+
+  <p class="note">
+    <a href="/travel">← 1년에 국내여행을 며칠이나 갈까요, 나이대로 다른가</a>
+    <br />
+    <a href="/exercise">← 몇 %가 규칙적으로 운동하나, 동호회로 하는 사람은 얼마나 되나요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+    <br />
+    <a href="/community">← 커뮤니티 — 「문화예술을 즐기는 사람」 방</a>
+  </p>
+
+  <HundredAgeWalk 키="culture-attendance" />
+
+  <NextQuestionBrief 모은것="문화체육관광부 국민여가활동조사(문화예술행사별 관람률)" />
+
+  {/* 2번의 자체 댓글 시스템(2026-08-31, 무쿠키·무IP) */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/culture-attendance"></div>
+</HundredYear>
