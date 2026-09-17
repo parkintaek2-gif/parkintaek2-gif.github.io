@@ -19,6 +19,7 @@ import { 등록 as 댓글등록, 목록 as 댓글목록 } from './src/lib/commen
 import { 던지기 as 투표던지기, 집계 as 투표집계 } from './src/lib/votes.mjs';
 import { 경로후보 } from './src/lib/url-path.mjs';
 import { 센다, flush할때되면, 유입표, 현황 as 유입현황, 우리점검머리글 } from './src/lib/traffic.mjs';
+import { 못닿는주소인가 } from './src/lib/mail-guard.mjs';
 /* 🔴 [2026-09-13 · 5번] 달러 결제 — 사장님: 「페이팔 결제붙여」·「이런 절차 필요없이 바로 결제」 */
 import * as 페이팔 from './src/lib/paypal.mjs';
 import { 메일보내기 } from './src/lib/gmail-send.mjs';
@@ -634,8 +635,27 @@ const handle = async (req, res) => {
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) ? e : null;
         })();
         /* ⛔ 대소문자만 다른 같은 주소로 두 통을 보내지 않는다 */
+        /* 🔴🔴 [2026-09-17] **시험 주소로는 안 보낸다 — 반송이 사장님 편지함으로 간다.**
+         *   그날 사장님 편지함에 반송이 둘 들어왔다 —
+         *     · `6ubon-test@klifedesign.net`        (우리 시험 계정 · 그 편지함이 없다)
+         *     · `sb-…@personal.example.com`         (페이팔 «샌드박스» 구매자 · 도메인이 없다)
+         *   결제 점검을 매시 돌리므로 **반송도 매시 쌓인다.** 사장님이 진짜 주문 편지와
+         *   구분하실 수 없게 되고, 그러면 진짜 첫 주문이 왔을 때 묻혀서 못 보신다.
+         *   ⛔ 「시험이니까 괜찮다」가 아니다 — 보내는 순간 바깥으로 나가고 되돌릴 수 없다.
+         *   ✅ 그래서 «절대 닿지 않는 주소»는 보내지 않고 로그만 남긴다. 결제는 그대로 성공한다. */
         const 받을주소들 = [체크아웃메일, 결과.산사람메일].filter(Boolean)
-          .filter((v, i, arr) => arr.findIndex((x) => x.toLowerCase() === v.toLowerCase()) === i);
+          .filter((v, i, arr) => arr.findIndex((x) => x.toLowerCase() === v.toLowerCase()) === i)
+          .filter((주소) => {
+            /* 🔴 샌드박스로 돌고 있으면 «어느 주소로도» 안 보낸다. 시험 주문에서 나온 편지다.
+             *   주소를 하나하나 막는 것보다 이쪽이 먼저다 — 시험 구매자 주소는 계속 새로 생긴다. */
+            if (!페이팔.진짜돈인가()) {
+              console.log(`[pay] 편지를 안 보냈다 — 샌드박스 모드다 (주문 ${입력.orderID})`);
+              return false;
+            }
+            const 왜 = 못닿는주소인가(주소);
+            if (왜) console.log(`[pay] 편지를 안 보냈다 — ${왜} (주문 ${입력.orderID})`);
+            return !왜;
+          });
         if (받을주소들.length) {
           const 상품이름 = 품.이름 + (골른것 ? ' — ' + 골른것.이름 : '');
           const 받을링크 = 'https://seoulmarkets.com' + 받는곳;

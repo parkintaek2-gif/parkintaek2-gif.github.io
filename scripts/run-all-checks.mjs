@@ -214,6 +214,9 @@ export const 단계들 = [
   /* 🔴 [2026-09-17] 사장님: 「마감시간 ASAP 못박아..다시는 9시란 말 쓰지말도록」
      같은 말씀을 세 번 하시게 했다. 다짐으로 못 고친 버릇이라 자로 잡는다. */
   "node scripts/check-마감은-ASAP.mjs",
+  /* 🔴 [2026-09-17] 시험 주소로 주문 편지가 나가 사장님 편지함에 반송이 쌓였다.
+     진짜 첫 주문 편지가 그 속에 묻히면 못 보신다. */
+  "node src/lib/mail-guard.mjs --자가시험",
   "node scripts/check-kcw-canonical.mjs --시험만",
   "node scripts/check-index-verdict.mjs --시험만",
   "node scripts/check-sitemap-pickup.mjs --시험만",
