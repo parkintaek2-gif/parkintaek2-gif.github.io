@@ -256,6 +256,8 @@ const jsonLd = {
         if (unit === 'KRW') return (v / 1e6).toFixed(1) + 'm';
         if (unit === '%') return v.toFixed(1) + '%';
         if (unit === 'n') return v.toLocaleString();
+        if (unit === 'x') return v.toFixed(2) + 'x';
+        if (unit === 'KRWtn') return '₩' + (v / 1e12).toLocaleString(undefined, { maximumFractionDigits: 1 }) + 'tn';
         return v.toFixed(2);
       }
 

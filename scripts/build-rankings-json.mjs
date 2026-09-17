@@ -100,6 +100,25 @@ export const AXES = [
     note: 'From the incorporation date on file, not the listing date.' },
   { key: '1인당시총', id: 'mktCapPerHead', label: 'Market cap per employee', unit: 'KRW', dir: 'desc',
     note: 'Latest KRX market capitalisation divided by headcount as filed to DART. Joined on ticker; unlisted names or those with no traded close are left null, not zero.' },
+
+  /**
+   * 🔒 [2026-09-17 · 사장님 지시, 5번 전달] 「사람을 절대 주력으로 하지 마라 —
+   *   우리는 영어판 FnGuide 로 승부를 봐야 하지 않니?」(2026-09-09·09-14 반복 지시).
+   * 그런데 이 표는 축 열 개가 전부 사람 축이었다. 재무 축 다섯을 더한다.
+   * 출처는 src/data/korea-valuation-tape.json(2,709곳, build-korea-valuation-tape.mjs 산출) —
+   * DART 재무제표 원문에서 뽑은 값이라 render-ranking.mjs 의 사람 축 계산과는 별도다.
+   * ⛔ 값이 없으면(총자본≤0·이자비용=0 등) null 로 둔다. 0 으로 채우지 않는다.
+   */
+  { key: '시가총액', id: 'marketCap', label: 'Market capitalisation', unit: 'KRWtn', dir: 'desc',
+    note: 'Latest KRX close × shares outstanding, as of the price date on the valuation tape.' },
+  { key: '주가순자산배율', id: 'pbr', label: 'Price to book (PBR)', unit: 'x', dir: 'desc',
+    note: 'Market cap ÷ total equity, most recent annual filing. Null where total equity is zero or negative.' },
+  { key: '자기자본이익률', id: 'roe', label: 'Return on equity (ROE)', unit: '%', dir: 'desc',
+    note: 'Net income ÷ total equity, most recent annual filing. Null where total equity is zero or negative.' },
+  { key: '이자보상배율', id: 'interestCoverage', label: 'Interest coverage', unit: 'x', dir: 'desc',
+    note: 'Operating income ÷ finance costs. A value under 1 means operating profit does not cover interest expense. Null where finance costs are zero or not filed.' },
+  { key: '차입금자본비율', id: 'borrowToEquity', label: 'Borrowings / equity', unit: '%', dir: 'asc',
+    note: 'Short-term + long-term borrowings + bonds, divided by total equity. This is interest-bearing debt only, not total liabilities. Null where none of the three borrowing lines were filed, or total equity is zero or negative.' },
 ];
 
 function main() {
@@ -142,6 +161,17 @@ function main() {
   }
   const mktCapStale = 시총일 == null || (mktCapLagDays != null && mktCapLagDays > 7);
 
+  /* 재무 축 다섯 — korea-valuation-tape.json(종목코드 유일) 을 종목코드로 잇는다.
+     ⚠ 이 파일이 없어도 빌드를 멈추지 않는다 — 재무 축만 전부 null 로 빠진다(0 아님). */
+  const 밸류경로 = path.resolve('src/data/korea-valuation-tape.json');
+  const 밸류맵 = new Map();
+  if (existsSync(밸류경로)) {
+    const 밸류표 = JSON.parse(readFileSync(밸류경로, 'utf8')).rows ?? [];
+    for (const v of 밸류표) 밸류맵.set(String(v.ticker).padStart(6, '0'), v);
+  } else {
+    console.warn('  ⚠ korea-valuation-tape.json 이 없다 — 재무 축 다섯은 전부 null 로 나간다.');
+  }
+
   /* 영문명 붙이기 — corp 로 잇는다. ⚠ 이 열쇠를 빠뜨려 35,004행 읽고 0건 붙은 적이 있다 */
   const 영문맵 = new Map(회사표.map((r) => [r.corp, r]));
 
@@ -172,6 +202,20 @@ function main() {
     /* 1인당 시가총액 — 최신 시총 ÷ 신고 인원. 상장·주가·인원 다 있어야 값이 산다 */
     const 시총 = c?.종목 ? 시총맵.get(String(c.종목).padStart(6, '0')) : null;
     r['1인당시총'] = (시총 > 0 && r['인원'] > 0) ? 시총 / r['인원'] : null;
+
+    /* 재무 축 다섯 — 종목코드로 밸류 테이프와 잇는다. 못 찾으면 다섯 다 null */
+    const 밸류 = c?.종목 ? 밸류맵.get(String(c.종목).padStart(6, '0')) : null;
+    r['시가총액'] = (밸류?.marketCap > 0) ? 밸류.marketCap : null;
+    r['주가순자산배율'] = Number.isFinite(밸류?.pbr) ? 밸류.pbr : null;
+    r['자기자본이익률'] = Number.isFinite(밸류?.roe) ? 밸류.roe * 100 : null;
+    r['이자보상배율'] = (밸류?.financeCosts > 0 && Number.isFinite(밸류?.operatingIncome))
+      ? 밸류.operatingIncome / 밸류.financeCosts : null;
+    {
+      const 차입금항목 = [밸류?.shortTermBorrowings, 밸류?.longTermBorrowings, 밸류?.bonds]
+        .filter((x) => x != null && Number.isFinite(x));
+      const 차입금 = 차입금항목.length ? 차입금항목.reduce((a, b) => a + b, 0) : null;
+      r['차입금자본비율'] = (차입금 != null && 밸류?.totalEquity > 0) ? (차입금 / 밸류.totalEquity) * 100 : null;
+    }
 
     rows.push([
       이름,
