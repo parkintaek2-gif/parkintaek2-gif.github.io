@@ -173,3 +173,58 @@ console.log('  스캐너 판별까지 전부 통과');
   if (실패) { console.error(`\n${실패} 실패`); process.exit(1); }
   console.log(`  ${표.length + 1} 통과 · 0 실패`);
 }
+
+/* ══════════════════════════════════════════════════════════════════
+ * 🔴🔴 하루가 통째로 «덮여» 사라지지 않는다 (2026-09-17)
+ *
+ * 30일을 세어 보니 사흘이 비어 있었다 — 09-05 요청 3건 · 09-10 12건 · 09-15 2건.
+ * 옆날들은 2~5만 건이다. 「손님이 없었다」가 아니라 «지워진» 것이었다.
+ * 까닭: flush 가 R2 «읽기 실패»를 「파일이 없다」와 같이 받아 빈 누적 위에 지금 통만
+ * 얹어 put 했다. ⇒ 한 번 못 읽은 그 순간 그날 쌓인 것이 통째로 덮인다.
+ *
+ * ⛔ 이 시험이 지키는 것 — **못 읽었으면 쓰지 않는다.**
+ *   글자를 찾아보는 시험이 아니라 «불러서» 본다. 글자 시험은 고쳐도 안 잡힌다(오늘 겪었다).
+ * ══════════════════════════════════════════════════════════════════ */
+{
+  const { 쌓인것읽기 } = await import('../src/lib/traffic.mjs');
+  console.log('\n읽기 실패 때 하루를 덮어쓰지 않는다');
+  let 실패 = 0;
+  const 재본다 = async (이름, 읽기, 봐야할것) => {
+    const r = await 쌓인것읽기(읽기, 'raw/traffic/20260917.json');
+    const 맞나 = 봐야할것(r);
+    if (!맞나) { 실패++; console.log(`  ✕ ${이름} — 나온 것 ${JSON.stringify(r).slice(0, 90)}`); }
+  };
+
+  /* 🔴 그날 실제로 일어난 일 — R2 가 한 번 안 열렸다 */
+  await 재본다('읽기가 던지면 «쓰지 마라»를 낸다',
+    async () => { throw new Error('S3 GET 503: slow down'); },
+    (r) => r.ok === false && /못 읽었다/.test(r.왜));
+  await 재본다('시간초과도 마찬가지다',
+    async () => { throw new Error('The operation was aborted due to timeout'); },
+    (r) => r.ok === false);
+
+  /* 파일이 «없는» 것은 정상이다 — 그날 첫 판이다. 이때는 써야 한다 */
+  await 재본다('파일이 없으면 빈 누적으로 «쓴다»',
+    async () => null,
+    (r) => r.ok === true && Object.keys(r.누적).length === 0);
+
+  /* 쌓인 것이 있으면 그대로 돌려준다 — 이것이 안 되면 날마다 덮어쓴다 */
+  await 재본다('쌓인 것을 그대로 돌려준다',
+    async () => JSON.stringify({ 집계: { 'a\tb\tc\t0\t\t': 1234 } }),
+    (r) => r.ok === true && r.누적['a\tb\tc\t0\t\t'] === 1234);
+  await 재본다('Buffer 로 와도 읽는다',
+    async () => Buffer.from(JSON.stringify({ 집계: { x: 7 } })),
+    (r) => r.ok === true && r.누적.x === 7);
+
+  /* 읽기는 됐는데 깨진 경우 — 덮으면 깨진 것마저 못 되살린다 */
+  await 재본다('깨진 글이면 «쓰지 마라»를 낸다',
+    async () => '{이건 JSON 이 아니다',
+    (r) => r.ok === false && /깨졌다/.test(r.왜));
+  /* 집계 칸이 없는 옛 꼴은 «빈 것»으로 읽되 실패는 아니다 */
+  await 재본다('집계 칸이 없으면 빈 누적이다',
+    async () => JSON.stringify({ 날짜: '20260917' }),
+    (r) => r.ok === true && Object.keys(r.누적).length === 0);
+
+  if (실패) { console.error(`\n${실패} 실패`); process.exit(1); }
+  console.log('  7 통과 · 0 실패');
+}
