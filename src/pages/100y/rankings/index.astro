@@ -1,0 +1,143 @@
+---
+/**
+ * /100y/rankings — 「순위 + 문제제기」 시리즈 20장이 들어가는 문
+ *
+ * 🔴 왜 만드나 (2026-09-17 · 사장님 지시로 실측) — 「순위(ranking-*)」 지면 20장을
+ *   지난 며칠 사이 계속 만들었는데, **메인 메뉴 9곳 어디에도 안 걸려 있었다.**
+ *   서로(순위 지면끼리)만 31개 링크로 얽힌 고립된 섬이었다 — 사람이 사이트 안에서
+ *   걸어 들어갈 문이 없었다. 「어떤 메뉴는 너무 얇고 어떤 메뉴는 너무 깊다,
+ *   밸런스를 맞추는 걸 우선순위로」 지시에 따라 새 콘텐트 대신 «문»부터 만든다.
+ *
+ * ⛔ 여기서 새로 순위를 매기지 않는다 — 이미 발표된 3자 순위를 모아 보여줄 뿐이다
+ *   (docs/3번-순위콘텐트-지침.md). 톤은 비판적 질문이지 동경이 아니다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+
+interface 항목 { href: string; 제목: string; 한줄: string }
+interface 갈래 { 이름: string; 항목들: 항목[] }
+
+const 갈래들: 갈래[] = [
+  {
+    이름: '대학·학원',
+    항목들: [
+      { href: '/ranking-university-brand', 제목: '대학 브랜드평판', 한줄: '서울대가 화제성 1위, 취업률 1위는 성균관대입니다' },
+      { href: '/ranking-university-global', 제목: '세계대학평가', 한줄: '서울대가 국내 1위·세계 순위권, 그런데 취업률은 낮은 축입니다' },
+      { href: '/ranking-university-nature-index', 제목: '네이처 인덱스', 한줄: '순위를 매긴 기준(논문 수·비중)부터 밝힙니다' },
+      { href: '/ranking-university-region', 제목: '대학 취업률 — 권역별', 한줄: '평균으로 묶으면 안 보이는 학교별 편차가 있습니다' },
+      { href: '/ranking-university-level', 제목: '대학 취업률 — 전문대 vs 4년제', 한줄: '설립 형태가 다르면 비교의 뜻도 달라집니다' },
+      { href: '/ranking-university-founding', 제목: '대학 취업률 — 설립 유형별', 한줄: '국립·사립·특수대학원 사이의 차이입니다' },
+      { href: '/ranking-university', 제목: '대학 평가 vs 행복도', 한줄: '평가에서 높은 대학이 학생 행복도도 높은지 대조합니다' },
+      { href: '/ranking-hagwon', 제목: '학원 브랜드평판·일타강사', 한줄: '브랜드평판 1위 학원의 두 대표강사가 재판 중입니다' },
+      { href: '/ranking-medical-quota', 제목: '지역의사 정원', 한줄: '정원이 가장 많은 지역과, 그 지역의 실제 의료 여건을 나란히 놓습니다' },
+    ],
+  },
+  {
+    이름: '기업·브랜드평판',
+    항목들: [
+      { href: '/ranking-apartment-brand', 제목: '아파트 브랜드평판', 한줄: '브랜드평판 1위가 하자판정 명단에는 없습니다' },
+      { href: '/ranking-convenience-brand', 제목: '편의점 브랜드평판', 한줄: '화제성 1위와 매출 1위가 다릅니다' },
+      { href: '/ranking-city-brand', 제목: '기초자치단체 브랜드평판', 한줄: '화제성 1위 지역인데 인구는 줄고 있습니다' },
+      { href: '/ranking-sangjo-brand', 제목: '상조회사 브랜드평판', 한줄: '화제성 상위 5곳 중 두 곳이 자본잠식 상태입니다' },
+      { href: '/ranking-good-company', 제목: '일하기 좋은 기업', 한줄: '뽑힌 31곳 같은 규모의 회사는 근로자 6명 중 1명뿐입니다' },
+    ],
+  },
+  {
+    이름: '재산·소득',
+    항목들: [
+      { href: '/ranking-apartment-value', 제목: '공동주택 공시가격', 한줄: '전국에서 가장 비싼 단지와 그 격차입니다' },
+      { href: '/ranking-stock-wealth', 제목: '주식 재산', 한줄: '한 사람의 주식재산이 청년 가구 몇 곳을 합친 것과 같은지 환산합니다' },
+      { href: '/ranking-lawmaker-wealth', 제목: '국회의원 재산', 한줄: '가장 많은 의원의 재산을 청년가구 자산격차와 대조합니다' },
+      { href: '/ranking-tax-delinquent', 제목: '고액체납자', 한줄: '체납액을 근로자 실질임금 몇 년치로 환산합니다' },
+    ],
+  },
+  {
+    이름: '스포츠 연봉',
+    항목들: [
+      { href: '/ranking-kbo-salary', 제목: 'KBO 선수 연봉', 한줄: '연봉 1위를 근로자 실질임금 몇 년치로 환산합니다' },
+      { href: '/ranking-vleague-salary', 제목: 'V리그 선수 연봉', 한줄: '남녀부 연봉 1위와 그 격차를 함께 봅니다' },
+    ],
+  },
+];
+
+const 전체수 = 갈래들.reduce((s, g) => s + g.항목들.length, 0);
+
+const desc =
+  `이미 발표된 유명 순위(브랜드평판·연봉·재산·대학평가 등) ${전체수}가지를 모았습니다. ` +
+  `저희가 새로 매긴 순위는 하나도 없습니다 — 그 순위가 가리지 않는 것을 100yearmap 실측 ` +
+  `데이터로 나란히 놓아 보여줄 뿐입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: '순위, 그러나 전부는 아닙니다',
+  description: desc,
+  hasPart: 갈래들.flatMap((g) =>
+    g.항목들.map((it) => ({
+      '@type': 'WebPage',
+      name: it.제목,
+      url: `https://100yearmap.com${it.href}`,
+    }))
+  ),
+};
+---
+
+<HundredYear title="순위, 그러나 전부는 아닙니다" description={desc} jsonLd={jsonLd}>
+  <h1>순위, 그러나 전부는 아닙니다</h1>
+  <p class="sub">
+    브랜드평판·연봉·재산·대학평가 — 이미 세상에 발표된 유명 순위 <strong>{전체수}가지</strong>를
+    모았습니다. <strong>저희가 새로 매긴 순위는 하나도 없습니다.</strong>
+  </p>
+
+  <div class="warn">
+    <p>
+      <strong>⚠ 이 순위들은 저희가 매긴 게 아닙니다.</strong> 각 지면 안에서 누가·언제
+      발표했는지 밝힙니다. 저희가 하는 일은 그 순위 옆에 100yearmap이 실측한 자료를
+      나란히 놓아, <strong>순위가 말하지 않는 것</strong>을 보여주는 것뿐입니다.
+    </p>
+  </div>
+
+  {
+    갈래들.map((g) => (
+      <>
+        <h2>{g.이름}</h2>
+        <ul class="ranklist">
+          {g.항목들.map((it) => (
+            <li>
+              <a href={it.href}>
+                <strong>{it.제목}</strong>
+                <span class="note"> — {it.한줄}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    ))
+  }
+
+  <h2>이 지면들이 말하지 않는 것</h2>
+  <ul>
+    <li>순위가 높다고 그 대상이 «더 낫다»는 뜻은 아닙니다 — 각 순위는 저마다 다른 것을 잽니다</li>
+    <li>순위 자체는 화제성·평판·발표치일 뿐, 100yearmap의 실측 대조가 그것의 «전부»를 대신하지 않습니다</li>
+    <li>여기 모은 것은 저희가 그때그때 찾은 것입니다 — 세상의 모든 순위를 담지 않았습니다</li>
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 부자가 되는 법이나 성공하는 법을
+    말하는 지면이 아닙니다 — 사실을 나란히 놓고, 판단은 보는 분의 몫으로 남깁니다.
+  </p>
+
+  <NextQuestionBrief 모은것="한국기업평판연구소·중앙일보 대학평가·국세청·공정거래위원회 등 이미 발표된 3자 순위 + 100yearmap 실측 자료" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/rankings"></div>
+</HundredYear>
+
+<style>
+  .ranklist { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+  .ranklist li { padding: 0.55rem 0; border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+  .ranklist li:last-child { border-bottom: none; }
+  .ranklist a { text-decoration: none; display: block; }
+  .ranklist a:hover strong { text-decoration: underline; }
+</style>
