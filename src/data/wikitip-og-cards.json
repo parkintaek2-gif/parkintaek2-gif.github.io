@@ -678,6 +678,26 @@
    "figure": "151,508",
    "label": "Lisa's 30-day English Wikipedia views — higher than any BTS member we track",
    "왜": "자동은 dek 의 「30」(-day total)을 집는다 — 창 길이일 뿐 우리가 잰 값이 아니다. 이 기사의 핵심 수는 라리사의 30일 조회수 151,508이다"
+  },
+  "le-sserafim-blizzcon-drove-a-real-wikipedia-spike": {
+   "figure": "2.89x",
+   "label": "LE SSERAFIM's Wikipedia reading the day after BlizzCon",
+   "왜": "자동은 「13 — September」(날짜)를 집는다. 이 기사의 핵심 수는 실제 조회수 배수 2.89x다"
+  },
+  "jins-billion-stream-song-did-not-move-his-wikipedia-page": {
+   "figure": "1.01x",
+   "label": "Jin's Wikipedia reading the day Billions Club added his song",
+   "왜": "자동은 「1 billion」(스포티파이 스트림 수, 남의 수)을 집는다. 우리가 잰 수는 1.01x — 사실상 그대로였다는 것이다"
+  },
+  "illits-third-100-million-song-in-japan-same-flat-line-in-english": {
+   "figure": "0.93x",
+   "label": "ILLIT's Wikipedia reading the day of the Japan milestone",
+   "왜": "자동은 「16 — September」(날짜)를 집는다. 이 기사의 핵심 수는 0.93x — 평균 이하였다는 것이다"
+  },
+  "top-ruled-out-a-bigbang-reunion-readers-barely-noticed": {
+   "figure": "0.73x",
+   "label": "T.O.P's Wikipedia reading the day the story reached readers",
+   "왜": "자동은 「20 — th-anniversary」(문구 조각)를 집는다. 이 기사의 핵심 수는 보도일의 0.73x다"
   }
  }
 }
