@@ -876,9 +876,6 @@ const 묶음 = [
   var 상자 = document.getElementById('buyBox');
   if (!상자) return;
   var 알림 = document.getElementById('buyNote');
-  /* 🔴 [2026-09-16 · 6번 · 사장님 결정] 이메일 칸 — 「연락 닿는 주소」를 결제 시점에 쥔다.
-     ⛔ 저장소·로그 어디에도 안 남긴다 — 이 변수는 손님 브라우저 메모리에만 있다가
-        주문·승인 요청 본문에 실려 서버로 한 번 갈 뿐이다. */
   var 메일칸 = document.getElementById('buyEmail');
   function 메일유효() { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((메일칸 && 메일칸.value || '').trim()); }
   if (메일칸) 메일칸.addEventListener('input', 다시그리기);
@@ -965,20 +962,6 @@ const 묶음 = [
     끝칸.appendChild(f);
   }
 
-  /*
-   * 🔴🔴 [2026-09-15 20:2x] **페이팔 단추를 눌러도 아무 일이 안 일어났다 — 결제 0 이었다.**
-   *
-   * 사장님: 「페이팔 결제 페이지로 안 넘어감」 · 「결제 안됨」
-   *
-   * 까닭 — SDK 를 «언제나» vault=true&intent=subscription 으로 싣고 있었는데,
-   * 일회성 상품(Annual · Academic · Single · All)은 createOrder 로 부른다.
-   * 페이팔 SDK 는 subscription 판에서 createOrder 를 «모른다». 그래서
-   *   단추는 그려지고 · 눌리고 · 오류도 안 나고 · 우리 서버로 요청도 안 가고 · 아무 일도 없다.
-   * ⛔ 이것이 오늘 두 번째로 만난 «빨간불이 안 켜지는» 갈래다. 손님은 그냥 떠난다.
-   *
-   * ⇒ 판이 둘이니 SDK 도 «둘»을 싣는다. data-namespace 로 갈라 둔다.
-   *   ⛔ 주기를 바꿀 때마다 스크립트를 다시 꽂지 않는다 — window.paypal 이 서로 덮어쓴다.
-   */
   function 판고르기() {
     return 주기 === 'month' ? window.paypal_sub : window.paypal_once;
   }
@@ -1023,8 +1006,6 @@ const 묶음 = [
             끝났다('payment received.', j.downloadUrl,
               'Keep this link \u2014 it does not expire. Order ' + data.orderID +
               '. Receipt ' + (j.receipt || '') +
-              /* 🔴 [2026-09-14 · 5번] 아침 점검에서 찾았다 — 링크는 안 만료되는데
-                   «되찾는 길»을 안 알려 주고 있었다. 사장님: 「비회원 결제는 감명서를 다시 못보잖아」 */
               '. Lost it? Go to seoulmarkets.com/recover and enter that order ID \u2014 PayPal emailed it to you too.' +
               ' Trouble? admin@klifedesign.net');
           });
@@ -1057,14 +1038,6 @@ const 묶음 = [
       셋칸.appendChild(칩(d['이름'], d['설명'], function () { 고른셋 = { 코드: d['코드'] }; 다시그리기(); }));
     });
 
-    /*
-     * 🔴 SDK 를 «둘» 싣는다. 한 판으로는 둘 다 못 판다 —
-     *   일회성(Annual·Academic·Single·All)  intent=capture  → createOrder
-     *   정기(Monthly)                        vault=true&intent=subscription → createSubscription
-     * ⛔ 하나만 싣고 둘 다 팔려고 하면, 안 맞는 쪽은 «눌러도 아무 일이 안 일어난다».
-     *   오류도 안 난다. 그래서 2026-09-15 에 결제가 통째로 죽어 있는 줄 몰랐다.
-     * ⚠ data-namespace 가 없으면 나중에 실린 것이 window.paypal 을 덮어쓴다. 반드시 가른다.
-     */
     var 싣는다 = function (이름, 덧, 다되면) {
       var s = document.createElement('script');
       s.src = 'https://www.paypal.com/sdk/js?client-id=' + encodeURIComponent(c.clientId) +
