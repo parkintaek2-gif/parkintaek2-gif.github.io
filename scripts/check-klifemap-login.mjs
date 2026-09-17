@@ -54,6 +54,16 @@ const 밑주소 = process.env.KLM_BASE || 'https://klifemap.ai';
 export const 제공자들 = ['google', 'naver', 'kakao'];
 export const 가짜코드 = 'ZZZ_bogus_probe_do_not_use';
 
+/* 서버가 «지금 내놓는» 문만 잰다. 못 물어봤으면 박아 둔 셋을 그대로 잰다 —
+ * 조용히 덜 재는 것이 제일 나쁘다. 내려간 문은 «내려갔다»고 따로 적는다. */
+export function 잴문고르기(열린문, 박은것 = 제공자들) {
+  if (!Array.isArray(열린문) || 열린문.length === 0) return { 잴것: [...박은것], 내린것: [] };
+  return {
+    잴것: 박은것.filter((p) => 열린문.includes(p)),
+    내린것: 박은것.filter((p) => !열린문.includes(p)),
+  };
+}
+
 /* ── 판정만 떼어 낸다 (밖에 안 나가고 시험할 수 있게) ─────────────────── */
 
 /* 열쇠가 틀렸을 때만 나오는 말들. 여기 걸리면 «손님이 못 들어온다» */
@@ -166,6 +176,15 @@ function 자가시험() {
   다('제공자 셋을 다 잰다', 제공자들.length === 3 && ['google', 'naver', 'kakao'].every((p) => 제공자들.includes(p)));
   다('가짜 코드임이 이름에 드러난다', /bogus|가짜/i.test(가짜코드));
 
+  /* 서버가 내놓는 문만 잰다 — 내린 문 때문에 영영 빨간불이 되지 않게 */
+  다('내린 문은 재지 않고 «내려갔다»로 뺀다',
+    잴문고르기(['google', 'kakao']).잴것.join() === 'google,kakao'
+    && 잴문고르기(['google', 'kakao']).내린것.join() === 'naver');
+  다('셋 다 열려 있으면 셋 다 잰다', 잴문고르기(['google', 'naver', 'kakao']).잴것.length === 3);
+  다('못 물어봤으면(null) 박아 둔 셋을 그대로 잰다', 잴문고르기(null).잴것.length === 3 && 잴문고르기(null).내린것.length === 0);
+  다('빈 배열도 «못 물어봤다»로 읽는다', 잴문고르기([]).잴것.length === 3);
+  다('모르는 제공자를 서버가 내놔도 늘리지 않는다', 잴문고르기(['google', 'apple']).잴것.join() === 'google');
+
   const 진 = 것들.filter((x) => !x.참);
   console.log(`자가시험 ${것들.length - 진.length}/${것들.length}`);
   for (const x of 진) console.log('   🔴 ' + x.이름);
@@ -176,13 +195,33 @@ function 자가시험() {
 
 if (process.argv.includes('--자가시험')) 자가시험();
 else {
+  /* 🔴🔴 [2026-09-17] **서버가 «내놓는» 문만 잰다.**
+   *
+   * 오늘 네이버를 내렸다 — 이 서버에서 네이버에 아예 안 닿아서다(www.naver.com 조차).
+   * 그런데 이 자는 세 제공자를 «박아 두고» 재고 있었다. 그대로 두면 내린 문 때문에
+   * 영영 빨간불이고, 그러면 세션이 「이건 원래 안 되는 것」으로 넘기면서
+   * **그 아래 되는 항목까지 같이 건너뛴다**(저장소가 Riot 건에서 겪은 그대로다).
+   * ✅ 그래서 /api/auth/providers 가 내놓는 것만 잰다. 내려간 문은 «내려갔다»고 적는다.
+   * ⛔ 못 물어봤으면 박아 둔 셋을 그대로 잰다 — 조용히 덜 재지 않는다.
+   */
+  let 열린문 = null;
+  try {
+    const r = await fetch(밑주소 + '/api/auth/providers', { signal: AbortSignal.timeout(15000) });
+    const j = await r.json();
+    if (Array.isArray(j.providers) && j.providers.length) 열린문 = j.providers;
+  } catch { /* 못 물어봤으면 아래에서 박아 둔 셋을 쓴다 */ }
+  const { 잴것, 내린것 } = 잴문고르기(열린문);
+
   const 잰것 = [];
-  for (const p of 제공자들) 잰것.push(await 하나잰다(p));
+  for (const p of 잴것) 잰것.push(await 하나잰다(p));
 
   console.log('■ KLifeMap 「들어오기」 — 손님이 «끝까지» 들어올 수 있나  (' + new Date().toLocaleString('ko-KR') + ')');
   for (const x of 잰것) {
     const 표 = x.판정 === '통과' ? '✅' : x.판정 === '거절' ? '🔴' : '⬜';
     console.log(`   ${표} ${x.제공자.padEnd(7)} ${x.판정}  — ${x.왜}`);
+  }
+  for (const p of 내린것) {
+    console.log(`   ⬛ ${p.padEnd(7)} 내려 있다  — 서버가 이 문을 안 내놓는다(/api/auth/providers). 손님 화면에도 안 보인다`);
   }
   const 거절 = 잰것.filter((x) => x.판정 === '거절');
   const 못잼 = 잰것.filter((x) => x.판정 === '못잼');
@@ -200,6 +239,7 @@ else {
     for (const x of 못잼) console.log('      · ' + x.제공자 + ' — ' + (x.글 || x.왜));
     process.exit(2);
   }
-  console.log('   ✅ 셋 다 열쇠가 통과한다 — 손님이 들어올 수 있다');
+  console.log(`   ✅ 열려 있는 문 ${잰것.length}개가 다 열쇠를 통과한다 — 손님이 들어올 수 있다`
+    + (내린것.length ? `  (내려 둔 문 ${내린것.length}개: ${내린것.join(', ')})` : ''));
   process.exit(0);
 }
