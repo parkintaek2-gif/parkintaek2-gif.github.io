@@ -1,13 +1,13 @@
 {
-  "generated": "2026-09-15T19:25+09:00",
+  "generated": "2026-09-17T14:56+09:00",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 41,
-    "짝찾음": 39,
+    "영상": 42,
+    "짝찾음": 40,
     "짝못찾음": 2,
     "두지면에걸린것": 0,
-    "지면에서읽음": 39
+    "지면에서읽음": 40
   },
   "videos": [
     {
@@ -95,9 +95,9 @@
       "src": "/video/chung-ha-agency-split-reading-spike-smaller-than-unexplained-one-voiced.mp4",
       "thumb": "/video/thumb/chung-ha-agency-split-reading-spike-smaller-than-unexplained-one-voiced.jpg",
       "seconds": 10.9,
-      "page": null,
-      "says": null,
-      "saysFrom": null,
+      "page": "/what-moves-english-reading",
+      "says": "Seventeen seconds: a Reddit post said Chung Ha left her agency, and her Wikipedia reading rose 2.2x that day, but an unexplained day three weeks earlier was 3.8x, and we don't know why.",
+      "saysFrom": "built page",
       "alsoOn": []
     },
     {
@@ -188,6 +188,16 @@
       "page": "/titles-to-name",
       "says": "A man and a woman read the multiple out — 9.9 times more reads between the ends.",
       "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "le-sserafim-blizzcon-drove-a-real-wikipedia-spike-voiced",
+      "src": "/video/le-sserafim-blizzcon-drove-a-real-wikipedia-spike-voiced.mp4",
+      "thumb": "/video/thumb/le-sserafim-blizzcon-drove-a-real-wikipedia-spike-voiced.jpg",
+      "seconds": 17,
+      "page": null,
+      "says": null,
+      "saysFrom": null,
       "alsoOn": []
     },
     {

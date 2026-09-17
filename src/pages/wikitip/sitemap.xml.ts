@@ -250,6 +250,14 @@ const videoSets = [
       + 'Wikipedia reading rose 2.2x that day, smaller than an unexplained 3.8x spike three weeks '
       + "earlier that we can't source a cause for.",
   },
+  {
+    set: 'le-sserafim-blizzcon-drove-a-real-wikipedia-spike-voiced',
+    page: '/what-moves-english-reading',
+    title: "LE SSERAFIM's BlizzCon Set Moved English Wikipedia. Three Other K-pop Stories This Week Did Not.",
+    description: '17 seconds: LE SSERAFIM closed BlizzCon 2026 on 13 September, and their English '
+      + 'Wikipedia reading hit 2.89x average the next day. The same week, a Spotify Billions Club '
+      + 'milestone, a Japan streaming record and a BIGBANG reunion statement moved the number not at all.',
+  },
   /*
    * 🔴 [2026-08-29] **어제·오늘 만든 영상 넷이 이 목록에 없었다.**
    *   목록에 없으면 ① 영상 사이트맵에 안 들어가고 ② 올릴 문안(upload-kit)이 안 만들어진다.

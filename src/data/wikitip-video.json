@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-15T19:25+09:00",
+  "generated": "2026-09-17T14:56+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -128,6 +128,13 @@
       "uploadDate": "2026-08-21",
       "thumb": "/video/thumb/instrument.jpg",
       "src": "/video/instrument.mp4"
+    },
+    {
+      "set": "le-sserafim-blizzcon-drove-a-real-wikipedia-spike-voiced",
+      "seconds": 17,
+      "uploadDate": "2026-09-17",
+      "thumb": "/video/thumb/le-sserafim-blizzcon-drove-a-real-wikipedia-spike-voiced.jpg",
+      "src": "/video/le-sserafim-blizzcon-drove-a-real-wikipedia-spike-voiced.mp4"
     },
     {
       "set": "least-voiced",
