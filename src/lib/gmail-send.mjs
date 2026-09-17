@@ -106,10 +106,29 @@ export function 편지만들기({ 받는곳, 제목, 글, 첨부들 = [], 보내
 export const 감싸기 = (편지) => Buffer.from(편지, 'utf8').toString('base64url');
 
 /**
- * 서비스 계정 키파일을 읽는다. ⛔ 없으면 null — 「없다」를 예외로 던지지 않는다.
+ * 서비스 계정 열쇠를 읽는다 — «두 길»을 다 받는다. ⛔ 없으면 null — 예외로 던지지 않는다.
  * 부르는 쪽(메일보내기)이 그것을 「메일이 아직 안 켜졌다」로 조용히 읽는다.
+ *
+ * 🔴 [2026-09-16/17 · 5번 실측] 라이브(Cloudtype)에서는 파일 경로 방식이 «영영 안 된다» —
+ *   Cloudtype 시크릿은 문자열이지 파일이 아니고, 이 키파일은 git 이 추적하지 않아
+ *   배포해도 컨테이너 안에 안 생긴다. 그래서 로컬 개발(`GOOGLE_APPLICATION_CREDENTIALS`
+ *   파일 경로)과 라이브(`GOOGLE_SERVICE_ACCOUNT_JSON` 문자열, JSON 원문 또는 base64)를
+ *   같은 함수가 다 받게 한다 — «먼저 문자열, 없으면 파일».
+ * ⛔ 값을 로그에 찍지 않는다.
  */
 export function 키읽기() {
+  const 문자열키 = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+  if (문자열키 && 문자열키.trim()) {
+    const 시도 = (s) => { try { return JSON.parse(s); } catch { return null; } };
+    /* 원문 JSON 을 먼저 본다 — '{' 로 시작하면 그대로, 아니면 base64 로 감싼 것으로 본다 */
+    const 곧장 = 시도(문자열키);
+    if (곧장) return 곧장;
+    try {
+      const 풀린것 = Buffer.from(문자열키, 'base64').toString('utf8');
+      const 파싱됨 = 시도(풀린것);
+      if (파싱됨) return 파싱됨;
+    } catch { /* base64 도 아니면 아래에서 파일 경로로 넘어간다 */ }
+  }
   const 키파일 = process.env.GOOGLE_APPLICATION_CREDENTIALS;
   if (!키파일 || !existsSync(키파일)) return null;
   try { return JSON.parse(readFileSync(키파일, 'utf8')); } catch { return null; }
@@ -157,7 +176,7 @@ export async function 메일보내기({
   try {
     if (!받는곳 || !제목 || !글) return { ok: false, 왜: '받는곳·제목·글 가운데 빠진 것이 있다' };
     const 키 = 키읽기();
-    if (!키) return { ok: false, 왜: '서비스 계정 키파일이 없다(GOOGLE_APPLICATION_CREDENTIALS)' };
+    if (!키) return { ok: false, 왜: '서비스 계정 열쇠가 없다(GOOGLE_SERVICE_ACCOUNT_JSON 또는 GOOGLE_APPLICATION_CREDENTIALS)' };
     const 토큰 = await 위임토큰받기(키, 대신할주소, 부르기);
     const raw = 감싸기(편지만들기({ 받는곳, 제목, 글, 첨부들, 보내는곳, 이름 }));
     const r = await 부르기('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
@@ -172,4 +191,50 @@ export async function 메일보내기({
   } catch (e) {
     return { ok: false, 왜: String(e && e.message ? e.message : e).slice(0, 200) };
   }
+}
+
+/* ── 자가시험 — 키읽기() 가 «두 길」을 다 받는지 ─────────────────────────── */
+
+export function 자가시험() {
+  const 것 = []; const 재다 = (이름, 됐나) => 것.push({ 이름, 됐나 });
+  const 옛 = { j: process.env.GOOGLE_SERVICE_ACCOUNT_JSON, f: process.env.GOOGLE_APPLICATION_CREDENTIALS };
+  const 지우기 = () => { delete process.env.GOOGLE_SERVICE_ACCOUNT_JSON; delete process.env.GOOGLE_APPLICATION_CREDENTIALS; };
+  const 되돌리기 = () => {
+    지우기();
+    if (옛.j !== undefined) process.env.GOOGLE_SERVICE_ACCOUNT_JSON = 옛.j;
+    if (옛.f !== undefined) process.env.GOOGLE_APPLICATION_CREDENTIALS = 옛.f;
+  };
+  const 가짜키 = { client_email: 'x@y.iam.gserviceaccount.com', private_key: 'fake', client_id: '1' };
+
+  try {
+    지우기();
+    process.env.GOOGLE_SERVICE_ACCOUNT_JSON = JSON.stringify(가짜키);
+    재다('🔴 문자열판 — JSON 원문을 그대로 받는다', 키읽기()?.client_email === 가짜키.client_email);
+
+    지우기();
+    process.env.GOOGLE_SERVICE_ACCOUNT_JSON = Buffer.from(JSON.stringify(가짜키)).toString('base64');
+    재다('🔴 base64판 — 감싼 것도 풀어서 받는다', 키읽기()?.client_email === 가짜키.client_email);
+
+    지우기();
+    재다('⛔ 둘 다 없으면 null — 「없다」를 지어내지 않는다', 키읽기() === null);
+
+    지우기();
+    process.env.GOOGLE_SERVICE_ACCOUNT_JSON = '이건 JSON 도 base64 도 아니다 !!!';
+    재다('⛔ 문자열이 있어도 못 읽으면(둘 다 파싱 실패) 파일 경로로 넘어간다(파일도 없으면 null)', 키읽기() === null);
+
+    지우기();
+    process.env.GOOGLE_SERVICE_ACCOUNT_JSON = '   ';
+    재다('⛔ 빈 칸뿐인 문자열은 «없는 것»으로 본다', 키읽기() === null);
+  } finally {
+    되돌리기();
+  }
+
+  const 실패 = 것.filter((x) => !x.됐나);
+  console.log(`■ gmail-send 자가시험 ${것.length - 실패.length}/${것.length}`);
+  for (const x of 실패) console.log(`  🔴 ${x.이름}`);
+  return 실패.length === 0;
+}
+
+if (process.argv[1] && process.argv[1].endsWith('gmail-send.mjs') && process.argv.includes('--자가시험')) {
+  process.exit(자가시험() ? 0 : 1);
 }

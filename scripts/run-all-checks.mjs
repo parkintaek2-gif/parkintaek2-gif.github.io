@@ -106,6 +106,8 @@ export const 단계들 = [
   "node scripts/check-seats-alive.mjs --자가시험",
   "node scripts/check-16시보고.mjs --자가시험",
   "node scripts/check-seoulmarkets-payment.mjs --자가시험",
+  /* 결제 뒤 편지 — 라이브(Cloudtype)는 파일 경로가 아니라 문자열 열쇠를 받는다 */
+  "node src/lib/gmail-send.mjs --자가시험",
   "node scripts/손님길-자물쇠.mjs --자가시험",
   "node scripts/check-진도.mjs --자가시험",
   "node scripts/check-content-types.mjs --자가시험",
