@@ -611,10 +611,22 @@ ctype routes -t @parkintaek2/seoulmarkets:main
 app.cloudtype.io → 구글 로그인(parkintaek2@gmail.com) → @parkintaek2/seoulmarkets
   → 「연결」 탭 → 오른쪽 위 「도메인 연결」
   → 칸에 도메인을 «치고» → 인증하기 → (연결할 서비스: web) → 연결하기
-지금 붙어 있어야 하는 것 다섯 —
+지금 붙어 있어야 하는 것 **여섯** —
   seoulmarkets.com · www.seoulmarkets.com
   kculturewire.com · www.kculturewire.com
-  100yearmap.com
+  100yearmap.com   · www.100yearmap.com
+```
+
+🔴 **[2026-09-17] 이 목록이 「다섯」이었고, 빠진 하나가 실제로 404 였다.**
+  `www.100yearmap.com` 은 DNS 가 우리 서버(34.8.247.175)를 제대로 가리키는데
+  **콘솔에 안 붙어 있어 Cloudtype «라우터»가 404 를 냈다** — 우리 서버까지 오지도 않았다.
+  손님이 www 를 붙여 치면 사이트가 없는 것으로 보였다.
+  ⇒ 콘솔에서 붙였고 실측했다 — `www.100yearmap.com` **301 → `https://100yearmap.com/` → 200**.
+  ⛔ 이 목록을 «문서」로만 믿지 않는다. **기계로 센다** —
+
+```bash
+ctype routes -t @parkintaek2/seoulmarkets:main     # 여섯이어야 한다
+node scripts/check-domains.mjs
 ```
 
 ⭐ 그래서 **`remove` 를 치기 전에 `ctype routes` 로 붙은 도메인을 먼저 적어 둔다.**
