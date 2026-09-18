@@ -258,6 +258,14 @@ const videoSets = [
       + 'Wikipedia reading hit 2.89x average the next day. The same week, a Spotify Billions Club '
       + 'milestone, a Japan streaming record and a BIGBANG reunion statement moved the number not at all.',
   },
+  {
+    set: 'riizes-quietest-reading-day-in-a-month-was-their-milestone-day-voiced',
+    page: '/what-moves-english-reading',
+    title: "Riize's 100-Million-Stream Day Was Their Quietest Wikipedia Day in a Month",
+    description: '17 seconds: SM Entertainment announced on 17 September that Riize\'s Love 119 passed '
+      + '100 million Spotify streams. That same day, Riize\'s English Wikipedia reading was 0.73x '
+      + 'average — the lowest day in the 30 we measured.',
+  },
   /*
    * 🔴 [2026-08-29] **어제·오늘 만든 영상 넷이 이 목록에 없었다.**
    *   목록에 없으면 ① 영상 사이트맵에 안 들어가고 ② 올릴 문안(upload-kit)이 안 만들어진다.

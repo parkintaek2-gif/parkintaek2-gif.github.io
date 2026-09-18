@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-17T14:56+09:00",
+  "generated": "2026-09-18T17:17+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -212,6 +212,13 @@
       "uploadDate": "2026-08-30",
       "thumb": "/video/thumb/relay-voiced.jpg",
       "src": "/video/relay-voiced.mp4"
+    },
+    {
+      "set": "riizes-quietest-reading-day-in-a-month-was-their-milestone-day-voiced",
+      "seconds": 16.9,
+      "uploadDate": "2026-09-18",
+      "thumb": "/video/thumb/riizes-quietest-reading-day-in-a-month-was-their-milestone-day-voiced.jpg",
+      "src": "/video/riizes-quietest-reading-day-in-a-month-was-their-milestone-day-voiced.mp4"
     },
     {
       "set": "samename",
