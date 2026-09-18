@@ -493,6 +493,30 @@ if (내가실행됐다) {
     ? { 됐나: false, 말: 막힘.join(' · ') }
     : (못잰것 ? null : { 됐나: true, 말: `주소 ${볼주소.length}개 다 200 (301 은 정규화다)` })));
 
+  /* 🔴 [2026-09-18 · 5번] ⑥-2 백업 저장소 빌드 — **우리가 먼저 안다.**
+     사장님: 「배포가 잘 안된다고 자꾸 메일이 온다」
+     내 기사 하나로 빌드가 섰고 실패 메일이 일곱 번 사장님께 갔는데, 그동안 우리 쪽에는
+     아무 빨간불도 안 켜졌다. ⛔ 알림이 사장님께만 가면 사장님이 우리 감시 장치가 된다. */
+  let 빌드 = null;
+  try {
+    const r = await fetch('https://api.github.com/repos/parkintaek2-gif/parkintaek2-gif.github.io/actions/runs?per_page=10',
+      { headers: { 'User-Agent': 'seoulmarkets-check/1.0' }, signal: AbortSignal.timeout(15000) });
+    if (r.ok) {
+      const 끝난것 = ((await r.json()).workflow_runs || []).filter((x) => x && x.status === 'completed');
+      if (끝난것.length) {
+        const 맨앞 = 끝난것[0];
+        if (맨앞.conclusion === 'success') 빌드 = { 됐나: true, 말: `백업 저장소 Pages 빌드 초록 (${맨앞.created_at.slice(5, 16).replace('T', ' ')} UTC)` };
+        else {
+          let 연속 = 0;
+          for (const x of 끝난것) { if (x.conclusion === 'success') break; 연속++; }
+          빌드 = { 됐나: false, 말: `🔴 백업 저장소 빌드가 깨져 있다 — 연달아 ${연속}건. 실패 메일이 사장님께 간다. `
+            + `먼저 «npm run build» 를 여기서 돌린다 → ${String(맨앞.display_title).slice(0, 40)}` };
+        }
+      }
+    }
+  } catch (e) { /* 못 재면 빈칸 — 못 잰 것을 초록으로도 빨강으로도 세지 않는다 */ }
+  console.log(줄('⑥-2', '배포 빌드', 빌드));
+
   /* ⑦ 진행 줄 */
   let 진행 = null;
   try {
