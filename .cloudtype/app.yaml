@@ -83,22 +83,18 @@ options:
     - name: PAYPAL_MODE
       secret: PAYPAL_MODE
 
-    # 🔴🔴 [2026-09-17 13:1x · 1번] 임시로 뺐다 — **이 두 줄이 배포를 통째로 크래시시키고 있었다.**
-    #   실측 — `ctype stage secret -t @parkintaek2/seoulmarkets:main` 로 스테이지 시크릿
-    #   목록을 직접 찍어 봤더니 GOOGLE_SERVICE_ACCOUNT_JSON·MAIL_FROM 둘 다 «없었다».
-    #   위 주석은 "콘솔에 먼저 넣었다"고 적혀 있었지만 실제로는 안 들어가 있었다(어떻게
-    #   빠졌는지는 못 쟀다 — 짐작하지 않는다). Kubernetes 가 존재하지 않는 시크릿 키를
-    #   env 로 주입하려다 파드 생성 자체가 실패해 **seoulmarkets·kculturewire·100yearmap
-    #   세 도메인이 전부 다운**됐다(13:0x~13:1x, 약 15분).
-    #   ⛔ 되살리는 순서 — ① Cloudtype 콘솔에서 실제 서비스 계정 JSON 을
-    #     GOOGLE_SERVICE_ACCOUNT_JSON 시크릿으로, 발신 주소를 MAIL_FROM 으로 «먼저» 넣는다
-    #     ② `ctype stage secret -t @parkintaek2/seoulmarkets:main` 로 두 이름이 실제로
-    #     찍히는지 확인한다 ③ 그 다음에만 아래 두 줄을 되살리고 apply 한다.
-    #   그 전에 되살리면 같은 사고가 또 난다.
-    # - name: GOOGLE_SERVICE_ACCOUNT_JSON
-    #   secret: GOOGLE_SERVICE_ACCOUNT_JSON
-    # - name: MAIL_FROM
-    #   secret: MAIL_FROM
+    # 🔴 [2026-09-18 · 6번] 되살렸다 — 순서대로 확인한 뒤에만 했다.
+    #   ① Cloudtype 콘솔(프로젝트 설정 → 시크릿 → 시크릿 관리하기, ⚠ 서비스별
+    #     "환경변수" 빠른입력 표와는 다른 자리다 — 09-17 사고가 그 둘을 헷갈려서 났다)에서
+    #     실제 서비스 계정 JSON(base64 한 줄로 — 여러 줄 그대로 붙이면 입력칸이 깨진다)을
+    #     GOOGLE_SERVICE_ACCOUNT_JSON 으로, u6@klifedesign.net 을 MAIL_FROM 으로 넣고 저장.
+    #   ② 그 화면을 새로 열어 Name 칸 목록(값 아님)에 두 이름이 다시 보이는 것으로
+    #     확인했다 — `ctype stage secret` 는 값까지 함께 찍혀 나와 이번엔 쓰지 않았다.
+    #   ③ 그 다음에만 아래 두 줄을 되살리고 apply 한다.
+    - name: GOOGLE_SERVICE_ACCOUNT_JSON
+      secret: GOOGLE_SERVICE_ACCOUNT_JSON
+    - name: MAIL_FROM
+      secret: MAIL_FROM
 
     # 🔴 KDI Open API 인증키 — **여기 미리 적어 두면 안 된다.** 지웠다.
     #
