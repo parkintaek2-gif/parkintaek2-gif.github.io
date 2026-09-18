@@ -297,6 +297,10 @@ export const 단계들 = [
    *   값 채움률·최신 날짜를 검사로 지킨다. archive-freshness 와 같은 결로
    *   «실제 검사»를 npm test 관문에 둔다(자가시험은 따로 손으로 돌린다). */
   "node scripts/check-f7-data-quality.mjs",
+  /* 🔴 [2026-09-18 · 2번] 손님 계정(SeoulMarkets 2단계) — src/lib/accounts.mjs 자가시험.
+   *   SQLite+litestream 이 아니라 이미 검증된 store.mjs(R2 직접쓰기)를 쓴다. 새 인프라가
+   *   없으니 「볼륨·복구 시험」도 이 자가시험이 전부다 — 잃을 로컬 볼륨 자체가 없다. */
+  "node scripts/check-accounts.mjs",
   /* 🔴 [2026-09-13 · 3번] 5번의 check-daily.mjs(일일 점검표, 사장님 지시) 가 안 물려
    *   check-tests-wired.mjs 에 걸렸다. 자가시험만 문다 — 실제 검사는 「손으로 볼 것」이
    *   남아 있어 일부러 exit 1 을 낸다(아직 자동화 전이라는 신호). 그걸 npm test 관문에
