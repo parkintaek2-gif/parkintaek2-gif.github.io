@@ -302,7 +302,11 @@ async function 잰다() {
     console.log('   ⛔ klifemap 에 ctype apply 를 «env 선언 없이» 치지 않는다 — 그것이 09-11 에 다 지웠다');
   }
 
-  if (process.argv.includes('--적는다')) {
+  /* 🔴 [2026-09-18 · 5번] 서울마켓츠 쪽에서 같은 병을 잡고 여기도 함께 고쳤다 —
+   *   `--적는다` 를 붙여야만 대장에 남아, 고정 지시 명령줄 그대로 돌리면 증거가 안 남았다.
+   *   ⛔ 증거를 «사람이 꼬리표를 기억해야만» 남는 구조로 두지 않는다.
+   *   ⇒ 기본으로 적고, 정말 안 남기고 싶을 때만 `--안적는다` 를 붙인다. */
+  if (!process.argv.includes('--안적는다')) {
     const 곳 = path.join(뿌리, 'docs', '고정업무-마커');
     fs.mkdirSync(곳, { recursive: true });
     const 날 = 때.getFullYear() + '-' + String(때.getMonth() + 1).padStart(2, '0') + '-' +

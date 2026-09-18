@@ -345,7 +345,16 @@ async function 잰다() {
   }
   for (const x of 답.못잰것) console.log('   ⬜ ' + x);
 
-  if (process.argv.includes('--적는다')) {
+  /* 🔴🔴 [2026-09-18 · 5번] **기본으로 적는다.** 여기 `--적는다` 가 있어야만 적었다.
+   *   그런데 고정 지시(매시 결제 점검)의 명령줄에는 그 꼬리표가 «없다» —
+   *     node scripts/check-seoulmarkets-payment.mjs
+   *   그래서 지시대로 돌리면 「팔린다」를 보고도 **대장에 한 줄도 안 남았다.**
+   *   실제로 오늘 12:11 뒤로 seoulmarkets 줄이 끊겨 있었다(13·14·15시 다 돌렸는데도).
+   *   같은 자리의 klifemap 쪽은 기본으로 적고 있어 줄이 이어져 있었다 — 둘이 달랐다.
+   * ⛔ 「봤다」는 증거가 아니다. 대장의 줄이 증거다. 그 증거를 사람이 꼬리표를 기억해야만
+   *   남는 구조로 두지 않는다 — 자물쇠가 장식이 되어도 아무 데도 빨간불이 안 켜진다.
+   * ⇒ 기본으로 적고, 정말 안 남기고 싶을 때만 `--안적는다` 를 붙인다. */
+  if (!process.argv.includes('--안적는다')) {
     const i = process.argv.indexOf('--누구');
     const 누구 = i > 0 ? (process.argv[i + 1] || '5번') : '5번';
     const 곳 = path.join(뿌리, 'docs', '고정업무-마커');

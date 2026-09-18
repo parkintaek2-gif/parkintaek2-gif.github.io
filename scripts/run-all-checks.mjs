@@ -77,6 +77,12 @@ export const 단계들 = [
    *   ⚠ 만들 때 check-2h ⑥-2 에만 물려 두고 여기 npm test 에는 안 물렸다 —
    *     check-tests-wired 가 그것을 잡아 줬다. **자를 만들면 관문에 «물려야» 도는 것이다.** */
   "node scripts/check-pages-build.mjs --자가시험",
+  /* 🔴 [2026-09-18 · 5번] 결제 점검이 «지시대로 돌렸을 때» 대장에 남는가.
+   *   「--적는다」를 붙여야만 적고 있어서, 고정 지시 명령줄 그대로 돌리면 증거가 안 남았다.
+   *   실제로 seoulmarkets 줄이 12:11 뒤로 끊겨 있었다 — 13·14·15시 다 돌렸는데도.
+   *   이런 결함은 조용하다 — 화면도 검사도 다 초록인데 대장만 비어 간다. */
+  "node scripts/check-payment-ledger-writes.mjs --자가시험",
+  "node scripts/check-payment-ledger-writes.mjs",
   "node scripts/build-seoulmarkets-research-page.mjs --자가시험",
   "node scripts/collect-korea-markets-research.mjs --자가시험",
   "node scripts/collect-trade-revisions.mjs --자가시험",
