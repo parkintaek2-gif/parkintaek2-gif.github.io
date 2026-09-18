@@ -11,7 +11,7 @@ pages:
   - "/what-moves-english-reading"
 sources:
   - org: "STARNEWS"
-    api: "News report, '방탄소년단 진, 스포티파이 빌리언스 클럽 멤버 선정,' 2026-09-16"
+    api: "News report, translated headline: 'BTS's Jin selected as Spotify Billions Club member,' 2026-09-16"
     url: "https://www.starnewskorea.com/music/2026/09/16/2026091606450613416"
   - org: "allkpop"
     api: "News report, 'BTS Jin's solo hit Don't Say You Love Me surpasses 1 billion Spotify streams,' 2026-08"
@@ -38,3 +38,8 @@ They didn't. Over the 30 days ending 16 September, Jin averaged 1,817 views a da
 The one day in our window that stood out was 7 September, at 2,581 views (1.42x baseline) — but we found no news story naming Jin published that day. We're not attaching it to the streaming milestone or guessing at another cause; it goes in the record as unexplained.
 
 A billion streams is aimed at people already listening — moving a number Spotify already tracks doesn't require anyone to go look up who Jin is. That's a plausible reading of why neither date shows in our data, not a rule we've tested elsewhere.
+
+Our running method for checking what actually moves English Wikipedia reading is on
+[what-moves-english-reading](/what-moves-english-reading).
+
+*These are statistics, not you. This is not investment advice.*

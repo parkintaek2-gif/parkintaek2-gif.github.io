@@ -59,3 +59,8 @@ LE SSERAFIM's rise wasn't a single-day blip — it built over three days as the 
 ## What we're not saying
 
 A stream-count milestone and a quote at a fan meeting are stories that reach people who are, in a sense, already reading about the artist through other channels — a fan account, a music app, a K-pop news aggregator. A prime-time musical performance at a video-game convention with a large non-K-pop-fan audience is a different kind of exposure — the kind that sends people who don't already follow the group to go look the name up. That's one explanation for the gap in our numbers. We didn't test it against other crossover appearances, so we're not calling it a rule — just naming a plausible reason for what we measured this week.
+
+Our running method for checking what actually moves English Wikipedia reading is on
+[what-moves-english-reading](/what-moves-english-reading).
+
+*These are statistics, not you. This is not investment advice.*

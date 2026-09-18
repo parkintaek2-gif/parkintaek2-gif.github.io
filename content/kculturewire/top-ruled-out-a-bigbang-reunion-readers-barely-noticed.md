@@ -33,3 +33,8 @@ We checked English Wikipedia reading of T.O.P on both dates. Over the 30 days en
 The two days that stand furthest from baseline in our window, 19 August (1.60x) and 6 September (1.53x), sit before either date in this story, and we found no report naming T.O.P on those specific days. We're recording them as unexplained rather than folding them into a narrative they may not belong to.
 
 A member confirming he won't rejoin a group he already left in practice is, in a sense, a non-event for anyone who has followed BIGBANG's last several years — which may be exactly why it didn't send new readers to look him up.
+
+Our running method for checking what actually moves English Wikipedia reading is on
+[what-moves-english-reading](/what-moves-english-reading).
+
+*These are statistics, not you. This is not investment advice.*

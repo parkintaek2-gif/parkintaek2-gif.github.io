@@ -84,3 +84,8 @@ That refusal is the part we care about most. An eighth page went into this measu
 The 221 attention stories already on this site still carry raw multipliers. We are not going to go back and silently restate them. We have said here what the raw figures do and do not account for, and readers can weigh the older pieces with that in hand.
 
 One last thing this does not do. It measures a weekly rhythm in how many people opened an English Wikipedia page. It does not measure why any individual person opened it, and it says nothing about whether the reading was warm or cold. We hold one measurement, and the weekday is now part of reading it properly.
+
+This method note lives alongside our running record on
+[what-moves-english-reading](/what-moves-english-reading).
+
+*These are statistics, not you. This is not investment advice.*

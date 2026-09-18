@@ -698,6 +698,26 @@
    "figure": "0.73x",
    "label": "T.O.P's Wikipedia reading the day the story reached readers",
    "왜": "자동은 「20 — th-anniversary」(문구 조각)를 집는다. 이 기사의 핵심 수는 보도일의 0.73x다"
+  },
+  "jimins-first-korean-language-billion-did-not-move-his-page": {
+   "figure": "0.89x",
+   "label": "Jimin's reading the day his 1-billion-stream milestone was announced",
+   "왜": "자동은 발표일 날짜 「17 — September」를 집는다. 이 기사의 핵심 수는 그날 열람이 평소의 0.89배였다는 것이다"
+  },
+  "riizes-quietest-reading-day-in-a-month-was-their-milestone-day": {
+   "figure": "0.73x",
+   "label": "Riize's reading the day of their 100-million-stream milestone — a 30-day low",
+   "왜": "자동은 발표일 날짜 「17 — September」를 집는다. 이 기사의 핵심 수는 그날이 30일 중 가장 조용한 날(0.73배)이었다는 것이다"
+  },
+  "rose-was-already-26-percent-above-average-the-day-before-her-single": {
+   "figure": "1.26x",
+   "label": "Rosé's reading the day before her single released — already above average",
+   "왜": "자동은 발표일 날짜 「18 — September」를 집는다. 이 기사의 핵심 수는 발매 «전날»의 1.26배 상승이다"
+  },
+  "iu-reading-had-already-risen-before-todays-donation-was-announced": {
+   "figure": "19%",
+   "label": "how much IU's reading had already risen in the week before her donation was announced",
+   "왜": "자동은 「18 — September」를 집는다. 이 기사의 핵심 수는 발표 전 8일간 19% 높았다는 것 — 원인을 못 찾아 미확인으로 남긴다"
   }
  }
 }

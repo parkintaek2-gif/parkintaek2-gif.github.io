@@ -32,3 +32,8 @@ We checked whether the announcement moved how often English-speaking readers loo
 For context, the busiest day in our window was 19 August at 2,303 views (1.33x baseline), and the quietest was 31 August at 1,445 (0.84x). The milestone day falls comfortably inside that everyday range — nothing about it stands out.
 
 We're not reading this as ILLIT's Japan success being small. It's a genuinely large number, independently confirmed by the group's own label. It's simply a separate audience from the one that searches for a group's name on English Wikipedia — and this week, that second audience didn't react.
+
+Our running method for checking what actually moves English Wikipedia reading is on
+[what-moves-english-reading](/what-moves-english-reading).
+
+*These are statistics, not you. This is not investment advice.*
