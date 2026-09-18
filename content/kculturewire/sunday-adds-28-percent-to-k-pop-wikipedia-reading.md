@@ -1,8 +1,7 @@
 ---
 title: "Sunday Adds 28% to K-Pop Wikipedia Reading. We Audited Our Own Yardstick and Found It."
 dek: "Our attention stories compare one day's English Wikipedia reading to a 30-day average. Across seven Korean stars over 78 days, the weekday alone moves that number 28% — for Jin, 68%. We re-checked three published calls; all hold."
-category: data
-genre: method
+category: stars
 pubDate: 2026-09-18
 dataAsOf: 2026-09-16T00:00:00+09:00
 author: Newsroom
