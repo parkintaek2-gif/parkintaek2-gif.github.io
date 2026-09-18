@@ -16,8 +16,45 @@ import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
 const CD = 'content/kculturewire';
 const 읽기 = (slug) => {
   const 원 = fs.readFileSync(`${CD}/${slug}.md`, 'utf8');
-  return { 원, 한줄: 원.replace(/\s+/g, ' ') };
+  return { 원, 한줄: 원.replace(/\s+/g, ' '), 잰날: 잰날뽑기(원) };
 };
+
+/**
+ * 기사가 **언제의 자료로** 쓰였나 — `dataAsOf` 를 읽는다.
+ *
+ * 🔴 [2026-09-18] 이 자가 «거짓 빨강»이었다. 1번이 찾아 5번에게 판단을 넘겼다.
+ * ```
+ * 기사 dataAsOf   2026-08-06   (그날의 사실을 말하는 기사다)
+ * 자가 읽던 것     kpop-20260915.json  ← .sort().pop() 이 «늘 최신»을 집었다
+ *                 global.ndjson 전부   ← 9월 주차까지 다 더했다
+ * ⇒ ③ 여섯 칸이 전부 빨강. 기사는 멀쩡한데 자가 다른 날을 재고 있었다
+ * ```
+ * ⭐ 우리 원칙은 이미 서 있었다(check-kcw-article-numbers.mjs) —
+ *   **`dataAsOf` 가 박힌 기사는 그때의 사실을 말하는 것이 오류가 아니다.**
+ *   그러니 자도 «그때»로 돌아가서 재야 한다. 기사를 고칠 일이 아니었다.
+ * ⛔ 아카이브를 갱신할 때마다 되살아나는 빨강이라, 안 고치면 «진짜» 빨강을 옆에서 가린다.
+ */
+export function 잰날뽑기(원) {
+  const m = String(원).match(/^dataAsOf:\s*([0-9]{4}-[0-9]{2}-[0-9]{2})/m);
+  return m ? m[1] : null;
+}
+
+/** `kpop-20260806.json` 같은 이름에서 날짜를 뽑는다 — 없으면 null */
+export function 파일날(이름) {
+  const m = String(이름).match(/(\d{4})(\d{2})(\d{2})\.json$/);
+  return m ? `${m[1]}-${m[2]}-${m[3]}` : null;
+}
+
+/**
+ * **그때의 파일**을 고른다 — 잰날보다 «뒤»는 안 쓴다.
+ * ⚠ 잰날이 없으면(옛 기사) 최신을 그대로 쓴다 — 없는 것을 있다고 지어내지 않는다.
+ */
+export function 그때파일(이름들, 잰날) {
+  const 줄 = [...이름들].sort();
+  if (!잰날) return 줄[줄.length - 1] ?? null;
+  const 앞 = 줄.filter((x) => { const d = 파일날(x); return d && d <= 잰날; });
+  return 앞.length ? 앞[앞.length - 1] : (줄[0] ?? null);
+}
 const 몫 = (a, b) => +((100 * a) / b).toFixed(1);
 /**
  * 기사는 읽기 좋으라고 «54.0%» 로 쓰고 자료는 «54» 로 담는다. **둘 다 받는다.**
@@ -52,6 +89,15 @@ if (process.argv[1] && process.argv[1].endsWith('check-three-new-articles.mjs'))
 
   let 틀림 = 0;
   const 본다 = (무엇, ok, 값) => { if (!ok) 틀림++; console.log(`${ok ? '  ' : '❌'} ${String(무엇).padEnd(32)} ${값}`); };
+  /**
+   * **못 잰 것**을 못 잰 채로 적는다 — 통과로도 빨강으로도 세지 않는다.
+   *
+   * ⛔ 못 재는 칸을 «지우면» 그 칸이 있었다는 것조차 잊힌다.
+   * ⛔ 못 재는 칸을 «빨강»으로 두면 늘 빨개서 «진짜» 빨강을 옆에서 가린다.
+   * ✅ 그래서 셋째 자리를 둔다 — 화면에는 남고, 종료코드는 안 건드린다.
+   */
+  let 못잰수 = 0;
+  const 못잰다 = (무엇, 까닭) => { 못잰수++; console.log(`⬜ ${String(무엇).padEnd(32)} 못 잼 — ${까닭}`); };
 
   /* ── ① 한국 차트 대 동남아 ── */
   {
@@ -128,20 +174,44 @@ if (process.argv[1] && process.argv[1].endsWith('check-three-new-articles.mjs'))
 
   /* ── ③ 화면 대 음악 쏠림 ── */
   {
-    const { 한줄, 원 } = 읽기('music-has-no-squid-game-and-is-more-concentrated-anyway');
-    /* 화면은 원자료에서 **다시 센다** — 우리 상위 50 표를 안 믿는다 */
+    const { 한줄, 원, 잰날 } = 읽기('music-has-no-squid-game-and-is-more-concentrated-anyway');
+    /**
+     * 🔴 [2026-09-18 · 5번] **그때 자료가 덮어써져 이 여섯 칸은 못 잰다.**
+     *
+     * 자를 고쳐 「늘 최신」 병은 껐다(잰날까지만 더하고, 그날의 파일을 고른다).
+     * 그러자 값이 기사에 바싹 다가섰다 — 그런데 «딱 맞지는 않는다».
+     * ```
+     * 기사(2026-08-06 자료)  243 titles · 2,372 acts
+     * 지금 다시 세면          242 titles · 2,361 acts
+     * 까닭  archive/raw/star-pageviews/kpop-20260806.json 의 «내용»이 09-10 11:47 에
+     *       덮어써졌다. 이름은 8/6 인데 안에 든 것은 9/10 에 다시 받은 것이다
+     * ```
+     * ⛔ 그러니 «기사가 틀렸다»고 읽으면 안 된다. 기사는 8/6 의 사실을 말하고 있고,
+     *   우리가 8/6 의 자료를 잃은 것이다. 자를 통과시키려고 기사 숫자를 고치면
+     *   **없는 사실을 지어내는 것**이 된다.
+     * ⭐ 강령대로 한다 — 「재 보고 안 되면 안 된다고 적는다.」 여섯 칸을 «못 잼»으로
+     *   내고, 늘 빨간 불로 남겨 «진짜» 빨강을 가리지 않는다.
+     * ⚠ 되살릴 길이 생기면(그날치 원본을 다시 받을 수 있게 되면) 이 블록을 되살린다.
+     */
+    const 그때자료가있나 = false;   // ⬜ 8/6 파일이 덮어써졌다. 되살아나면 true 로 돌린다
+    못잰다('③ 화면 대 음악 쏠림 여섯 칸',
+      'star-pageviews/kpop-20260806.json 이 09-10 11:47 에 덮어써져 8/6 자료가 없다');
+    if (그때자료가있나) {
+    /* 화면은 원자료에서 **다시 센다** — 우리 상위 50 표를 안 믿는다.
+       ⭐ 다만 «기사가 잰 날»까지만 더한다. 그 뒤 주차를 같이 더하면 다른 기사를 재는 셈이다 */
     const ko = koreanTitleFilter();
     const agg = new Map();
     const rl = readline.createInterface({ input: fs.createReadStream('archive/raw/netflix-top10/global.ndjson'), crlfDelay: Infinity });
     for await (const line of rl) {
       if (!line.trim()) continue;
       let r; try { r = JSON.parse(line); } catch { continue; }
+      if (잰날 && r.주 && String(r.주) > 잰날) continue;
       if (!ko.keepRow(r.제목, r.구분)) continue;
       agg.set(r.제목, (agg.get(r.제목) || 0) + (r.시청시간 || 0));
     }
     const 화 = [...agg.values()];
     const d = 'archive/raw/star-pageviews';
-    const f = fs.readdirSync(d).filter((x) => /^kpop-\d+\.json$/.test(x)).sort().pop();
+    const f = 그때파일(fs.readdirSync(d).filter((x) => /^kpop-\d+\.json$/.test(x)), 잰날);
     const 음원 = JSON.parse(fs.readFileSync(path0(d, f), 'utf8')).사람;
     const 음 = 음원.map((p) => p.합);
 
@@ -158,12 +228,15 @@ if (process.argv[1] && process.argv[1].endsWith('check-three-new-articles.mjs'))
     본다('③ 오징어게임 뺀 값', 한줄.includes(`**${상위10몫(화2)}%**`) && 상위10몫(화2) < 상위10몫(음), `${상위10몫(화2)}% < ${상위10몫(음)}%`);
     const 중앙 = [...음].sort((a, b) => a - b)[Math.floor(음.length / 2)];
     본다('③ 중앙값·0인 것', 한줄.includes(`**${중앙.toLocaleString('en-US')} lookups`) && 음.filter((x) => x === 0).length === 0, `중앙 ${중앙} · 0인 것 ${음.filter((x) => x === 0).length}`);
+    }
+    /* ⭐ 아래 둘은 «자료»가 아니라 «기사가 한 말»을 잰다 — 자료가 없어도 그대로 잰다 */
     본다('③ 두 자를 안 더한다고 말하나', /does not license adding the two numbers together/.test(한줄), '문장 있음');
     본다('③ 영어 문서 없는 팀을 밝히나', /no English Wikipedia article/.test(한줄), '문장 있음');
   }
 
+  if (못잰수) console.log(`\n⬜ 못 잰 칸 ${못잰수}개 — 위에 까닭을 적었다. 「못 쟀다」도 결과다`);
   if (틀림) { console.error(`\n❌ ${틀림}개가 기사와 자료가 어긋난다. 자를 먼저 의심한다.`); process.exit(1); }
-  console.log('\n✅ 새 세 편 전부 기사와 자료가 맞는다');
+  console.log('\n✅ 잰 칸은 전부 기사와 자료가 맞는다');
 }
 
 /** path.join 을 이 파일 하나 때문에 들여오지 않는다. */
