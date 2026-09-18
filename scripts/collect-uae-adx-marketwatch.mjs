@@ -191,7 +191,40 @@ function 자가시험() {
 
 /* ── 들머리 ───────────────────────────────────────────────────────────── */
 
+/**
+ * 🔴🔴 [2026-09-18 12:5x · 5번] **이 수집기는 멈춰 세웠다. 돌리면 약관을 어긴다.**
+ *
+ * 라이선스 대장을 채우면서 ADX 이용약관 원문을 브라우저로 직접 읽었다(curl 은 403 이다).
+ * `adx.ae/en/terms-of-use` 원문 —
+ * ```
+ *   “Systematic retrieval of data or other content from this site to create or compile,
+ *    directly or indirectly, a collection, compilation, database or directory without
+ *    written permission from ADX is prohibited.”
+ * ```
+ * ⛔ 막히는 것이 «싣는 것»만이 아니다. **날마다 받아 표로 쌓는 것 그 자체**가 그 문장이다.
+ *   그래서 KRX 에 쓰던 「쌓되 안 싣는다(내부 검산용)」가 여기엔 안 통한다 —
+ *   KRX 조문은 「비상업적 목적으로만」이라 내부 검산에 여지가 있지만, 이쪽은 compile 자체다.
+ *
+ * 함께 한 일 — screener 에서 뺐고(ADX시총을_지면에_싣나=false),
+ *   아카이빙 감시에서 내렸고, 라이선스 대장에 🔴 로 올렸다.
+ * ⚠ 이미 받아 둔 것(2026-09-16·17)은 지우지 않는다. 버리지 않고 안 쓴다.
+ * ⬜ 열린 우물을 찾으면 그때 되살린다. 못 찾았다 — Bayanat.ae(CMA)는 예산자료뿐이고
+ *   시장통계는 2019년에 멈춰 있다(docs/UAE-데이터-출처-라이선스.md).
+ *
+ * ⛔ 「소급이 안 되니 일단 받아 두자」로 이 빗장을 풀지 않는다. 받는 것이 곧 어기는 것이다.
+ *   푸는 조건은 하나 — ADX 의 «written permission» 을 받거나, 같은 값을 주는 열린 우물을
+ *   찾는 것. 그때 이 상수를 false 로 내리고 위 세 자리를 함께 되돌린다.
+ */
+export const 약관이막는다 = true;
+
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+  if (약관이막는다 && !process.argv.includes('--자가시험')) {
+    console.log('⛔ 멈춰 세운 수집기다 — ADX 이용약관이 «systematic retrieval … to compile a');
+    console.log('   database» 를 금지한다. 날마다 받아 쌓는 것이 바로 그 행위다.');
+    console.log('   까닭과 되살리는 조건은 이 파일 아래쪽 「약관이막는다」 주석에 적어 두었다.');
+    console.log('   docs/라이선스-대장.tsv 의 uae-adx-marketwatch 줄도 함께 본다.');
+    process.exit(0);
+  }
   if (process.argv.includes('--자가시험')) 자가시험();
   else {
     const 것 = 고른다(받는다());

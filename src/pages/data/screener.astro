@@ -113,12 +113,16 @@ const jsonLd = {
         because the figure <i>does not exist</i> — not because it failed your test — we count those
         companies and say so, in red, above the table. A PER screen on its own removes{' '}
         <b>{PER없는곳.toLocaleString('en-US')}</b> of {줄수.toLocaleString('en-US')} companies that
-        way, and that includes <b>every one of the {UAE줄} Gulf listings</b> — not because the
-        exchanges withhold anything. Abu Dhabi and Dubai both publish market capitalisation, and we
-        carry it for <b>{UAE시총}</b> of the {UAE줄}. What they file is <i>quarterly</i>, so a PER
-        built on one quarter of earnings and today&rsquo;s price would be a number we could not stand
-        behind. We leave it empty and say why, on the row itself. Most screeners drop these companies
-        in silence, and the market then looks smaller and tidier than it really is.
+        way, and that includes <b>every one of the {UAE줄} Gulf listings</b>. Two separate reasons
+        sit behind that, and we name both rather than let one stand for the other. What Gulf
+        companies file is <i>quarterly</i>, so a PER built on one quarter of earnings and
+        today&rsquo;s price would be a number we could not stand behind. And market capitalisation
+        reaches us for <b>{UAE시총}</b> of the {UAE줄}: Dubai companies state it in their own filings,
+        which we carry, while Abu Dhabi publishes it only on the exchange&rsquo;s own market-data
+        board, whose terms of use bar systematic retrieval of site content to compile a database —
+        so we do not republish it. Every empty cell says which of the two it is, on the row itself.
+        Most screeners drop these companies in silence, and the market then looks smaller and tidier
+        than it really is.
       </p>
       <p class="coverage">
         <b>What we could reach, we went and got.</b> Price-to-book asks nothing of a quarter — the
@@ -128,7 +132,9 @@ const jsonLd = {
         read it. A figure only stands if assets equal liabilities plus equity to within 0.5% and the
         filing states the scale it is written in — thousands, millions, dirhams or dollars, which
         differs by company. <b>{UAE_PBR}</b> of the {UAE줄} Gulf listings now carry a price-to-book
-        ratio on that basis. The rest stay empty, and the row says why.
+        ratio on that basis. The rest stay empty, and the row says why — for the Abu Dhabi names the
+        balance sheet is there and it is the market capitalisation we cannot republish, which is a
+        different thing from a figure we failed to read.
       </p>
     </div>
 

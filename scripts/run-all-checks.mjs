@@ -71,6 +71,12 @@ export const 단계들 = [
   "node scripts/check-stock-prices-datago.mjs",
   "node scripts/check-licence-register.mjs",
   "node scripts/check-forbidden-sources.mjs",
+  /* 🔴 [2026-09-18 · 5번] 백업 저장소(Pages) 빌드를 «우리가 먼저» 잰다.
+   *   아침에 내 기사 하나가 갈래 값을 틀려 빌드를 세웠고 실패 메일이 사장님께 일곱 번 갔다.
+   *   ⛔ 알림이 사장님께만 가면 사장님이 우리 감시 장치가 된다.
+   *   ⚠ 만들 때 check-2h ⑥-2 에만 물려 두고 여기 npm test 에는 안 물렸다 —
+   *     check-tests-wired 가 그것을 잡아 줬다. **자를 만들면 관문에 «물려야» 도는 것이다.** */
+  "node scripts/check-pages-build.mjs --자가시험",
   "node scripts/build-seoulmarkets-research-page.mjs --자가시험",
   "node scripts/collect-korea-markets-research.mjs --자가시험",
   "node scripts/collect-trade-revisions.mjs --자가시험",

@@ -58,6 +58,37 @@ const ADX사람 = 'archive/raw/uae-adx-people';
    손님에게 적어 두었었다 — 사실이 아니었다. 우리가 «-delayed» 옆 문을 부르고 있었다.
    scripts/collect-uae-adx-marketwatch.mjs 가 날마다 쌓는다(소급 안 되는 자료다). */
 const ADX시총 = 'archive/raw/uae-adx-marketwatch';
+
+/**
+ * 🔴 [2026-09-18 12:5x · 5번] **ADX 시총은 «쌓되 싣지 않는다».**
+ *
+ * 라이선스 대장을 채우면서 ADX 이용약관 원문을 브라우저로 직접 읽었다(curl 은 403).
+ * `adx.ae/en/terms-of-use` 30~38절 원문 —
+ * ```
+ *   “…the user shall agree not to sell, license, rent, modify, distribute, copy,
+ *    reproduce, transmit, publicly display, publicly perform, publish, adapt, edit,
+ *    or create derivative works from such materials or content.”
+ *   “Systematic retrieval of data or other content from this site to create or compile,
+ *    directly or indirectly, a collection, compilation, database or directory without
+ *    written permission from ADX is prohibited.”
+ * ```
+ * 우리가 날마다 받아 표로 쌓는 것이 바로 «systematic retrieval … to compile a database» 다.
+ *
+ * ⚠ 자매 자료(uae-adx-disclosures·financials·people)가 🟡 인 까닭은 그것이 **상장사가
+ *   자기 이름으로 낸 법정 공시**라서 거래소 소유로 보기 어렵다는 업계 관행 판단이었다
+ *   (docs/UAE-데이터-출처-라이선스.md, 2026-09-13 확정). **시세·시총은 그 예외에 안 든다** —
+ *   그것은 거래소가 «자기가» 만들어 «Market Data Services» 로 파는 바로 그 물건이다.
+ *
+ * ✅ 그래서 받는 것은 그대로 둔다 — 내부 검산용이다(KRX 를 🔴 로 두고도 쌓는 것과 같은 자리).
+ * ⛔ 손님 지면·파는 파일에는 넣지 않는다.
+ * ⬜ 열린 우물을 찾으면 이 값을 true 로 되돌린다. 지금은 못 찾았다 —
+ *   Bayanat.ae(CMA) 는 예산자료뿐이고 시장통계는 2019년에 멈춰 있다.
+ */
+export const ADX시총을_지면에_싣나 = false;
+export const ADX시총못싣는까닭 =
+  'Market capitalisation withheld — Abu Dhabi Securities Exchange publishes it, but the '
+  + 'exchange’s terms of use bar systematic retrieval of its site content to compile a '
+  + 'database, so we do not republish it. Dubai figures below come from DFM company filings.';
 const DFM회사 = 'archive/raw/dubai-dfm-companies';
 const 환율광 = 'archive/raw/uae-cbuae-fx';
 
@@ -442,14 +473,17 @@ export function 이름표만들기(ADX들, DFM들, ADX시총표 = {}) {
           /adx/marketwatch/1.1/securityBoard/marketwatch (128/128 에 시총이 들어 있다).
        ⚠ 주식수는 여전히 없다. 그래서 시총은 «받아서» 쓰고 «계산해서» 만들지 않는다 —
           계산판은 두바이로 검산했더니 오차 가운데값 99.9% 였다. */
-    const 시총 = ADX시총표[c.symbol];
+    /* 🔴 [2026-09-18] 약관을 읽고 «싣지 않는» 쪽으로 돌렸다 — 위 ADX시총을_지면에_싣나 참조 */
+    const 시총 = ADX시총을_지면에_싣나 ? ADX시총표[c.symbol] : null;
     표['ADX:' + c.symbol] = {
       name: c.engName || c.symbol, sector: null,
       marketCap: 시총 ? 시총.marketCap : null,
       시총쓸수있나: Boolean(시총),
       시총까닭: 시총 ? null
-        : 'Market capitalisation withheld — this ticker was not in the exchange’s market-watch feed '
-          + 'on the day we last collected it',
+        : (ADX시총을_지면에_싣나
+          ? 'Market capitalisation withheld — this ticker was not in the exchange’s market-watch feed '
+            + 'on the day we last collected it'
+          : ADX시총못싣는까닭),
       shares: null,   /* ⛔ 주식수는 아직 없다. 시총을 주식수로 되돌려 쓰지 않는다 */
     };
   }

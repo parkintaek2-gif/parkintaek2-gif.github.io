@@ -181,7 +181,23 @@ export const 갈래들 = [
    * ⚠ 이것을 만든 날 «바로» 이 목록에 올린다 — 커머디티를 한 번도 안 받은 채 한 달을
    *   보낸 사고가 「자를 만들고 감시에 안 올린 것」이었다.
    * ⚠ 거래일 자료다(UAE 는 월~금). 주말에 없는 것은 맞는 것이다. */
-  { 길: 'archive/raw/uae-adx-marketwatch', 이름: 'ADX 시가총액·시세(걸프 상품의 밑감)', 몫: '5번', 참는날: 3, 거래일: true, 매일: true, 무늬: /^(\d{4}-\d{2}-\d{2})\.json$/ },
+  /* 🔴🔴 [2026-09-18 12:5x · 5번] **감시에서 내렸다 — 더 안 받는다.**
+   *
+   * 라이선스 대장을 채우면서 ADX 이용약관 원문을 브라우저로 직접 읽었다(curl 은 403).
+   * `adx.ae/en/terms-of-use` —
+   *   「Systematic retrieval of data or other content from this site to create or compile,
+   *    directly or indirectly, a collection, compilation, database or directory without
+   *    written permission from ADX is prohibited.」
+   * ⛔ 약관이 막는 것은 «싣는 것»만이 아니라 **날마다 받아 표로 쌓는 것 그 자체**다.
+   *   그래서 「쌓되 안 싣는다」(KRX 를 🔴 로 두고도 모으는 자리)가 여기엔 안 통한다.
+   *   KRX 조문은 「비상업적 목적으로만」이라 내부 검산에 여지가 있지만, 이쪽은 compile 자체다.
+   * ⚠ 이미 받아 둔 것(2026-09-16·17)은 지우지 않는다 — 버리지 않고 안 쓴다.
+   * ⬜ 열린 우물을 찾으면 그때 되살린다. 지금은 못 찾았다(Bayanat.ae CMA 는 예산자료뿐,
+   *   시장통계는 2019년에 멈춰 있다 — docs/UAE-데이터-출처-라이선스.md).
+   * ⛔ 「소급이 안 되니 일단 받아 두자」로 되살리지 않는다. 받는 것이 곧 어기는 것이다.
+   *
+   * { 길: 'archive/raw/uae-adx-marketwatch', 이름: 'ADX 시가총액·시세', 몫: '5번',
+   *   참는날: 3, 거래일: true, 매일: true, 무늬: /^(\d{4}-\d{2}-\d{2})\.json$/ }, */
   /* 🔴 [2026-09-16 · 5번] 일본 국채 금리곡선(JGB). **소급이 안 된다** —
    *   재무성(MOF) 의 이 주소는 «이번 달»치만 둔다. 달이 넘어가면 지난달은 영영 없다.
    *   ⇒ ADX 를 올린 지 두 시간 만에 같은 구멍을 또 봤다. 자를 만든 날 «바로» 올린다.
