@@ -203,7 +203,8 @@ export const 갈래들 = [
    *   ⇒ ADX 를 올린 지 두 시간 만에 같은 구멍을 또 봤다. 자를 만든 날 «바로» 올린다.
    * ⚠ 일본 거래일이라 한국 공휴일과 어긋난다 — 그래서 참는 선을 4로 둔다.
    *   출처: https://www.mof.go.jp/english/jgbs/reference/interest_rate/jgbcme.csv (열쇠 필요 없음) */
-  { 길: 'archive/raw/jgb-yields', 이름: '일본 국채 금리곡선(도쿄 — 15만기)', 몫: '5번', 참는날: 4, 거래일: true, 매일: true, 무늬: /^(\d{4}-\d{2}-\d{2})\.json$/ },
+  /* ⚠ 속날짜: 재무성이 «이번 달 전체»를 한 장으로 준다 — 파일 이름만 세면 구멍이 거짓으로 뜬다 */
+  { 길: 'archive/raw/jgb-yields', 이름: '일본 국채 금리곡선(도쿄 — 15만기)', 몫: '5번', 참는날: 4, 거래일: true, 매일: true, 속날짜: true, 무늬: /^(\d{4}-\d{2}-\d{2})\.json$/ },
   /* 🔴 [2026-09-11 03:1x · 2번] 펀드는 더 나쁘다 — 날짜별 파일의 마지막이 2026-08-20 이다.
    * 오늘(09-11)까지 «22일»이 비어 있다. all.ndjson(누적본, 183,570건)은 있어서 「자료가
    * 있다」로 보이지만, 그것은 마지막으로 합친 시점의 스냅숏이지 매일 갱신되는 것이 아니다.
@@ -303,7 +304,33 @@ export function 재기(갈래, { 오늘 = 오늘날(), 목록읽기 = (p) => fs.
   if (!있나(절대)) return { ...갈래, 상태: '못쟀다', 까닭: '폴더가 없다', 마지막: null, 지남: null };
   let 이름들 = [];
   try { 이름들 = 목록읽기(절대); } catch (e) { return { ...갈래, 상태: '못쟀다', 까닭: `폴더를 못 읽었다 — ${e.message}`, 마지막: null, 지남: null }; }
-  const 날들 = 이름들.map((n) => 날뽑기(n, 갈래.무늬)).filter(Boolean).sort((a, b) => a - b);
+  let 날들 = 이름들.map((n) => 날뽑기(n, 갈래.무늬)).filter(Boolean).sort((a, b) => a - b);
+  /* 🔴 [2026-09-18 · 5번] **파일 «안»에 여러 날이 든 갈래가 있다.**
+   *   일본 국채(JGB)는 재무성이 «이번 달 전체»를 한 장으로 주므로, 오늘 한 번 받으면
+   *   09-14~09-17 이 그 파일 안에 다 들어온다. 그런데 이 자는 파일 «이름»만 세어
+   *   「09-17 이 빠졌다」고 빨간불을 켰다 — 자료는 멀쩡한데 자가 틀린 것이다.
+   * ⛔ 거짓 빨강은 두 번 해롭다. 고칠 것이 없는데 사람을 부르고, 늘 빨간 채로 있으면
+   *   «진짜» 빨강이 그 옆에 묻힌다. (오늘 아침 check-astro-props 에서 겪은 것과 같다)
+   * ⇒ `속날짜: true` 인 갈래는 가장 최근 파일을 열어 «안의 날짜»까지 함께 센다.
+   * ⚠ 최신성(지남)은 그대로 파일 이름으로 잰다 — 「오늘 받았나」는 파일이 답한다. */
+  if (갈래.속날짜 && 날들.length) {
+    try {
+      const 최근 = 이름들
+        .filter((n) => 날뽑기(n, 갈래.무늬))
+        .sort((a, b) => 날뽑기(a, 갈래.무늬) - 날뽑기(b, 갈래.무늬))
+        .pop();
+      const 속 = JSON.parse(fs.readFileSync(path.join(절대, 최근), 'utf8'));
+      const 줄들 = Array.isArray(속) ? 속 : (속.값 || 속.rows || []);
+      const 더할것 = 줄들
+        .map((r) => (r && typeof r.date === 'string' ? r.date : null))
+        .filter(Boolean)
+        .map((s) => { const m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; })
+        .filter(Boolean);
+      const 있는것 = new Set(날들.map((d) => d.getTime()));
+      for (const d of 더할것) if (!있는것.has(d.getTime())) { 날들.push(d); 있는것.add(d.getTime()); }
+      날들 = 날들.sort((a, b) => a - b);
+    } catch { /* 못 읽으면 파일 이름만으로 잰다 — 0 으로 채우지 않는다 */ }
+  }
   if (!날들.length) return { ...갈래, 상태: '못쟀다', 까닭: '이름에서 날짜를 못 읽었다', 마지막: null, 지남: null };
   const 마지막 = 날들[날들.length - 1];
   const 지남 = 지난날수(마지막, 오늘, 갈래.거래일);
