@@ -50,6 +50,30 @@ const pages를읽는다 = (src) => {
  *    스키마가 바뀌면 이 수도 같이 고친다. 그래서 어디를 봐야 하는지 위에 적어 둔다.
  */
 const 앞말한계 = { title: 120, dek: 240 };
+/* 갈래에 쓸 수 있는 값 — **스키마 파일에서 읽어 온다.** 여기 손으로 적어 두면
+   사장님이 갈래를 바꾸실 때 이 자만 옛 목록을 들고 남아 «거짓 빨강»을 켠다.
+   ⚠ 못 읽으면 빈 목록을 돌려주고 이 검사는 «안 잰다». 못 재는 것을 빨강으로 만들지 않는다. */
+const 갈래값 = (() => {
+  try {
+    const 전체 = fs.readFileSync(path.join('src', 'content.config.ts'), 'utf8');
+    /* 🔴 [2026-09-18] 처음엔 파일 전체에서 첫 `category: z.enum` 을 집었다. 그런데 이 파일에는
+       컬렉션이 «둘»이다 — 금융(articles)과 K컬처(kcwArticles). 앞의 것이 먼저 걸려서
+       KCW 기사 222편을 통째로 「스키마에 없는 값」이라 부르는 **거짓 빨강**이 났다.
+       (이 파일 스스로 위에 적어 두었다 — 거짓 빨강은 묶음 자를 멈춰 뒤 검사를 다 막는다.)
+       ⇒ kcwArticles 블록 «안»에서만 찾는다. 블록을 못 찾으면 아예 안 잰다. */
+    const 시작 = 전체.indexOf('const kcwArticles');
+    if (시작 < 0) return {};
+    const 끝 = 전체.indexOf('\nconst ', 시작 + 1);
+    const 블록 = 전체.slice(시작, 끝 < 0 ? undefined : 끝);
+    const 뽑기 = (열쇠) => {
+      const m = 블록.match(new RegExp(`${열쇠}:\\s*z\\.enum\\(\\[([^\\]]+)\\]`));
+      return m ? m[1].split(',').map((v) => v.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean) : null;
+    };
+    const out = {};
+    for (const 열쇠 of ['category', 'genre']) { const v = 뽑기(열쇠); if (v && v.length) out[열쇠] = v; }
+    return out;
+  } catch { return {}; }
+})();
 
 const 기사들 = fs.readdirSync(CD).filter((f) => f.endsWith('.md'));
 
@@ -160,6 +184,23 @@ for (const f of 기사들) {
     const m = src.match(new RegExp(`^${열쇠}:\\s*"([\\s\\S]*?)"\\s*\\r?$`, 'm'));
     if (m && m[1].length > 한계) {
       문제.push(`${slug} — ${열쇠} 가 ${m[1].length}자다. 스키마 한계 ${한계}자를 넘어 빌드가 선다`);
+    }
+  }
+
+  /* 🔴 [2026-09-18 · 5번] **앞말의 «갈래 값»도 여기서 잡는다.**
+     사장님: 「배포가 잘 안된다고 자꾸 메일이 온다」
+     ─────────────────────────────────────────────────────────────
+     내가 낸 기사에 `category: data` · `genre: method` 를 적었다. 둘 다 스키마에 없는
+     값이라 astro 의 content sync 에서 **빌드가 통째로 섰고**, 그 실패 메일이
+     사장님께 일곱 번 갔다(10:24~10:52 KST).
+     ⛔ 바로 윗줄이 «길이»는 「빌드가 선다」며 미리 잡고 있었는데, 같은 이유로 빌드를
+       세우는 «갈래 값»은 아무도 안 보고 있었다. 한쪽만 막은 자물쇠였다.
+     ⚠ 목록은 손으로 적지 않고 **스키마 파일에서 읽어 온다** — 사장님이 갈래를 바꾸시면
+       (2026-08-10 「스타·작품·전통문화·산업」처럼) 이 자가 저절로 따라가야 한다. */
+  for (const [열쇠, 값들] of Object.entries(갈래값)) {
+    const m = src.match(new RegExp(`^${열쇠}:\\s*["']?([A-Za-z0-9_-]+)["']?\\s*\\r?$`, 'm'));
+    if (m && !값들.includes(m[1])) {
+      문제.push(`${slug} — ${열쇠} 가 「${m[1]}」이다. 스키마에 없는 값이라 빌드가 선다 (쓸 수 있는 것: ${값들.join('·')})`);
     }
   }
 
