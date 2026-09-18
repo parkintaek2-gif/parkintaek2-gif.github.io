@@ -301,6 +301,10 @@ export const 단계들 = [
    *   SQLite+litestream 이 아니라 이미 검증된 store.mjs(R2 직접쓰기)를 쓴다. 새 인프라가
    *   없으니 「볼륨·복구 시험」도 이 자가시험이 전부다 — 잃을 로컬 볼륨 자체가 없다. */
   "node scripts/check-accounts.mjs",
+  /* 🔴 [2026-09-18 · 2번] 위 자는 accounts.mjs 로직만 잰다. 이 자는 server.mjs 라우팅을
+   *   실제로 띄워 누른다 — 결제 라우트가 두 번 당한 "POST 본문읽을경로 빠짐" 함정을
+   *   여기서도 그대로 밟을 뻔했고, 이 자가 그 자리에서 잡았다. */
+  "node scripts/check-accounts-http.mjs",
   /* 🔴 [2026-09-13 · 3번] 5번의 check-daily.mjs(일일 점검표, 사장님 지시) 가 안 물려
    *   check-tests-wired.mjs 에 걸렸다. 자가시험만 문다 — 실제 검사는 「손으로 볼 것」이
    *   남아 있어 일부러 exit 1 을 낸다(아직 자동화 전이라는 신호). 그걸 npm test 관문에

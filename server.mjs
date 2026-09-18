@@ -22,6 +22,7 @@ import { 센다, flush할때되면, 유입표, 현황 as 유입현황, 우리점
 import { 못닿는주소인가 } from './src/lib/mail-guard.mjs';
 /* 🔴 [2026-09-13 · 5번] 달러 결제 — 사장님: 「페이팔 결제붙여」·「이런 절차 필요없이 바로 결제」 */
 import * as 페이팔 from './src/lib/paypal.mjs';
+import * as 계정 from './src/lib/accounts.mjs';
 import { 메일보내기 } from './src/lib/gmail-send.mjs';
 import { 상품, 상품찾기 } from './src/data/licence-products.mjs';
 import { 데이터셋목록, 데이터셋찾기, 줄파일들, 골라야하나 } from './src/data/licence-datasets.mjs';
@@ -274,8 +275,10 @@ const handle = async (req, res) => {
   /* 🔴 [2026-09-13 · 5번] 결제 두 자리도 POST 다 — 여기 안 넣으면 405 로 막혀 «살 수가 없다» */
   /* 🔴 [2026-09-14 · 1번] 자체 투표(`/api/vote`, VS 뉴스) — comments 와 같은 이유로 POST 를 연다.
    *   사장님 지시: 「투표할 수 있는 걸 만들어줘야지... 집계도 실시간으로」. */
+  /* 🔴 [2026-09-18 · 2번] 손님 계정(회원가입·로그인) 두 자리도 POST 다 — 결제와 같은 이유. */
   const POST허용 = req.method === 'POST' && (parsed.pathname === '/v1/subscribe' || parsed.pathname === '/api/comments' || parsed.pathname === '/v1/keys'
-    || parsed.pathname === '/api/pay/order' || parsed.pathname === '/api/pay/capture' || parsed.pathname === '/api/vote');
+    || parsed.pathname === '/api/pay/order' || parsed.pathname === '/api/pay/capture' || parsed.pathname === '/api/vote'
+    || parsed.pathname === '/api/account/signup' || parsed.pathname === '/api/account/login');
   if (req.method !== 'GET' && req.method !== 'HEAD' && !POST허용) {
     res.writeHead(405, { ...BASE_HEADERS, Allow: 'GET, HEAD' }).end('Method Not Allowed');
     return;
@@ -463,7 +466,8 @@ const handle = async (req, res) => {
      */
     const 본문읽을경로 = (p) => p === '/v1' || p.startsWith('/v1/')
       || p === '/api/comments' || p === '/api/vote'
-      || p === '/api/pay/order' || p === '/api/pay/capture';   /* 🔴 빠져 있던 둘 */
+      || p === '/api/pay/order' || p === '/api/pay/capture'   /* 🔴 빠져 있던 둘 */
+      || p === '/api/account/signup' || p === '/api/account/login';   /* 🔴 [2026-09-18·2번] 같은 함정, 미리 막음 */
     let 본문 = null;
     if (req.method === 'POST' && 본문읽을경로(pathname)) {
       본문 = await new Promise((resolve) => {
@@ -565,6 +569,69 @@ const handle = async (req, res) => {
      *   ⛔ 열쇠가 없으면 결제 자리를 아예 안 연다 — 되는 척하지 않는다
      *   ⚠ 이 세 자리는 색인되면 안 된다(X-Robots-Tag: noindex)
      */
+    /* ── 손님 계정 (2026-09-18 · 2번) ────────────────────────────────────
+     * 「비밀번호 → 계정 → 내가 산 것」의 1·2단. DB 가 아니라 src/lib/accounts.mjs
+     * (=store.mjs, R2 직접쓰기)를 쓴다 — 이유는 accounts.mjs 머리글 참고.
+     * ⛔ 세션은 서버에 아무것도 안 남긴다(HMAC 토큰 하나). ACCOUNT_SESSION_SECRET
+     *   스테이지 시크릿이 없으면 발급·확인이 던지므로 그 경우 503 으로 답한다. */
+    if (pathname === '/api/account/signup' || pathname === '/api/account/login') {
+      const 헤더 = { ...BASE_HEADERS, 'Content-Type': 'application/json; charset=utf-8', 'X-Robots-Tag': 'noindex' };
+      let 입력 = {};
+      try { 입력 = JSON.parse(본문 ?? '{}'); } catch { 입력 = {}; }
+      const email = String(입력.email ?? '').trim();
+      const password = String(입력.password ?? '');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || password.length < 8) {
+        res.writeHead(400, 헤더);
+        res.end(JSON.stringify({ ok: false, error: 'valid email and password (8+ chars) required' }));
+        return;
+      }
+      try {
+        if (pathname === '/api/account/signup') {
+          await 계정.계정만들기(email, password);
+        } else {
+          const 계정정보 = await 계정.로그인(email, password);
+          if (!계정정보) {
+            res.writeHead(401, 헤더);
+            res.end(JSON.stringify({ ok: false, error: 'invalid email or password' }));
+            return;
+          }
+        }
+        const 토큰 = 계정.세션발급(email);
+        res.writeHead(200, 헤더);
+        res.end(JSON.stringify({ ok: true, token: 토큰 }));
+      } catch (e) {
+        if (e?.code === 'exists') {
+          res.writeHead(409, 헤더);
+          res.end(JSON.stringify({ ok: false, error: 'account already exists' }));
+          return;
+        }
+        console.error('[account] ' + pathname + ' —', e?.message ?? e);
+        res.writeHead(503, 헤더);
+        res.end(JSON.stringify({ ok: false, error: 'account service unavailable' }));
+      }
+      return;
+    }
+
+    /* 「내가 산 것」— 로그인 토큰이 있어야 한다. 목록은 색인일 뿐이고, 실제 결제 여부는
+     * /api/download 와 마찬가지로 그때그때 PayPal 에 되묻는 것이 정본이다(여기서는 안 묻는다 —
+     * 화면이 각 주문을 /api/download 로 다시 확인하며 받는다). */
+    if (pathname === '/api/account/purchases') {
+      const 헤더 = { ...BASE_HEADERS, 'Content-Type': 'application/json; charset=utf-8', 'X-Robots-Tag': 'noindex' };
+      const auth = req.headers['authorization'] ?? '';
+      const 토큰 = auth.startsWith('Bearer ') ? auth.slice(7) : '';
+      let email = null;
+      try { email = 계정.세션확인(토큰); } catch { email = null; }
+      if (!email) {
+        res.writeHead(401, 헤더);
+        res.end(JSON.stringify({ ok: false, error: 'login required' }));
+        return;
+      }
+      const 목록 = await 계정.내가산것(email);
+      res.writeHead(200, 헤더);
+      res.end(JSON.stringify({ ok: true, purchases: 목록 }));
+      return;
+    }
+
     /* 화면이 «결제 단추를 낼지 말지»를 알아야 한다. ⛔ 시크릿은 여기 안 담긴다(paypal.mjs 가 막는다) */
     if (pathname === '/api/pay/config') {
       res.writeHead(200, { ...BASE_HEADERS, 'Content-Type': 'application/json; charset=utf-8', 'X-Robots-Tag': 'noindex' });
@@ -615,6 +682,19 @@ const handle = async (req, res) => {
           + (골른것 ? '&dataset=' + encodeURIComponent(골른것.코드) : '');
         res.writeHead(200, 헤더);
         res.end(JSON.stringify({ ok: true, downloadUrl: 받는곳, receipt: 결과.결제번호 }));
+
+        /* 🔴 [2026-09-18 · 2번] 로그인한 손님이면 「내가 산 것」에 색인을 남긴다.
+         * ⛔ 응답은 이미 나갔다 — 이건 편의 색인일 뿐, 실패해도 결제는 그대로 성공이다.
+         *   비회원이거나 토큰이 없으면 계정.내가산것() 이 빈 배열을 주므로 그냥 넘어간다. */
+        (async () => {
+          const auth = req.headers['authorization'] ?? '';
+          const 토큰 = auth.startsWith('Bearer ') ? auth.slice(7) : '';
+          if (!토큰) return;
+          let email = null;
+          try { email = 계정.세션확인(토큰); } catch { return; }
+          if (!email) return;
+          await 계정.구매기록추가(email, { orderID: 입력.orderID, product: 품.코드, dataset: 골른것 ? 골른것.코드 : null });
+        })().catch((e) => console.error('[account] 구매기록추가 실패 — ' + (e?.message ?? e)));
 
         /*
          * 🔴 [2026-09-15/16 · 5번→6번 · 사장님 지시 「회원가입 안하면 정보를 어떻게 보내지?」
