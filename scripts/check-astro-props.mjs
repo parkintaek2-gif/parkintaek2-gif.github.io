@@ -45,11 +45,22 @@ export function 받는이름들(글) {
     몸 += c; i += 1;
   }
   const 깐몸 = 몸.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/\/\/[^\n]*/g, ' ');
+  /* ⛔ 단순히 ;·개행으로 자르면 안 된다 — `고른것?: { href: string; name: string }`
+     처럼 중첩 객체 타입 «안»의 세미콜론까지 칸 경계로 잘못 잘라, 그 안의 필드
+     이름(name 등)을 최상위 필수 prop 으로 잘못 센다. 중첩 깊이 0에서만 자른다. */
+  const 줄들 = []; let 줄 = '', 깊이2 = 0;
+  for (const c of 깐몸) {
+    if (c === '{' || c === '(' || c === '[') 깊이2 += 1;
+    else if (c === '}' || c === ')' || c === ']') 깊이2 -= 1;
+    if ((c === ';' || c === '\n') && 깊이2 === 0) { 줄들.push(줄); 줄 = ''; }
+    else 줄 += c;
+  }
+  if (줄.trim()) 줄들.push(줄);
   const 칸 = [];
-  for (const 줄 of 깐몸.split(/[;\n]/)) {
+  for (const 줄 of 줄들) {
     const t = 줄.trim();
     if (!t) continue;
-    const g = t.match(/^([A-Za-z_$][\w$]*)\s*(\?)?\s*:/);
+    const g = t.match(/^([A-Za-z_$\p{L}][\w$\p{L}]*)\s*(\?)?\s*:/u);
     if (g) 칸.push({ 이름: g[1], 필수: !g[2] });
   }
   return 칸;
@@ -83,7 +94,7 @@ export function 넘긴이름들(꼬리표) {
   let i = 0;
   while (i < 속.length) {
     const 남 = 속.slice(i);
-    const g = 남.match(/^\s*([A-Za-z_$][\w$:-]*)\s*(=)?/);
+    const g = 남.match(/^\s*([A-Za-z_$\p{L}][\w$:\-\p{L}]*)\s*(=)?/u);
     if (!g) { i += 1; continue; }
     이름들.push(g[1]);
     i += g[0].length;
@@ -159,6 +170,9 @@ function 자가시험() {
   재('중괄호가 안에 또 있어도 몸을 옳게 끊는다',
     받는이름들('interface Props {\n opts: { a: string };\n page: string;\n}').map((x) => x.이름),
     ['opts', 'page']);
+  재('🔴 재발 방지 — 중첩 객체 안에 세미콜론이 «여럿» 있어도 그 필드를 최상위 필수로 안 센다 (ProductRail 사고)',
+    받는이름들('interface Props {\n 고른것?: { href: string; name: string; blurb?: string } | null;\n}').map((x) => x.이름),
+    ['고른것']);
 
   재('간단한 꼬리표', 꼬리표자르기('<A page="/x" />', 0), '<A page="/x" />');
   재('속성 안의 부등호에 안 속는다',
