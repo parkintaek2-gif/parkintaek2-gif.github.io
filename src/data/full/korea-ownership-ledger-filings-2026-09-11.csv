@@ -1,4 +1,4 @@
-ticker,name_en,name_ko,filing_id,filed_on,filing_kind,holder_name,shares_held,shares_change,stake_pct,stake_change_pct,related_party_shares,related_party_pct,reason_raw_ko
+﻿ticker,name_en,name_ko,filing_id,filed_on,filing_kind,holder_name,shares_held,shares_change,stake_pct,stake_change_pct,related_party_shares,related_party_pct,reason_raw_ko
 900290,Great Rich Technologies Limited,그레이트리치과기유한공사,20250416000481,2025-04-16,general,Zhou YongNan,0,-35991038,0,-53.42,0,0,"- 대표 보고자 변경에 따른 변동보고
 - 공동보유계약 해제"
 900290,Great Rich Technologies Limited,그레이트리치과기유한공사,20250416000505,2025-04-16,general,신루이샹홀딩리미티드,41069646,41069646,50.8,50.8,31351311,38.78,공동보유약정 체결로 인한 대표보고자 변경에 대한 신규보고

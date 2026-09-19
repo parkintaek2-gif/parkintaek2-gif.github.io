@@ -36,6 +36,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 시세 } from '../src/lib/stock-prices-datago.mjs';
 import { parquet로쓰기 } from './lib/parquet-out.mjs';
+import { csv쓰기 } from './lib/csv-out.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 고용길 = path.join(뿌리, 'archive/raw/dart-employment/employment-2025.ndjson');
@@ -177,7 +178,7 @@ function 짓기() {
   fs.mkdirSync(낼방, { recursive: true });
   const csv = [머리칸.join(','), ...줄들.map((r) => 머리칸.map((k) => 칸(r[k])).join(','))].join('\n');
   const csv길 = path.join(전체방, `korea-people-panel-${오늘}.csv`);
-  fs.writeFileSync(csv길, csv, 'utf8');
+  csv쓰기(csv길, csv); // ⭐ [F5·2번] BOM — 한글 칸(name_ko)이 엑셀에서 안 깨지게
 
   /* 표본 — 인원 많은 100곳. 칸은 하나도 줄이지 않는다(품질은 다 보여야 깔때기가 돈다) */
   const 표본 = 표본뽑기(줄들);
@@ -190,7 +191,7 @@ function 짓기() {
     `# built: ${오늘}`,
   ].join('\n');
   const 표본csv = [표본머리, 머리칸.join(','), ...표본.map((r) => 머리칸.map((k) => 칸(r[k])).join(','))].join('\n');
-  fs.writeFileSync(path.join(낼방, 'korea-people-panel-sample.csv'), 표본csv, 'utf8');
+  csv쓰기(path.join(낼방, 'korea-people-panel-sample.csv'), 표본csv);
   parquet로쓰기(표본, 머리칸, path.join(낼방, 'korea-people-panel-sample.parquet'));
 
   /* 칸 사전 — ⭐ Wind·QUICK 이 상품 지면에서 가장 길게 쓰는 것이 이것이다 */

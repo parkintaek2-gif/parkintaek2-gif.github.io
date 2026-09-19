@@ -12,11 +12,13 @@
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { gunzipSync } from 'node:zlib';
+import { parquetReadObjects } from 'hyparquet';
 import { 데이터셋, 데이터셋목록, 데이터셋찾기, 줄파일들, 골라야하나 } from '../src/data/licence-datasets.mjs';
 import { 머리글, tar만들기, 묶기 } from '../src/lib/tar-gz.mjs';
+import { csv파일읽기 } from '../scripts/lib/csv-read.mjs';
 
 const 뿌리 = fileURLToPath(new URL('../', import.meta.url));
 
@@ -32,6 +34,62 @@ test('🔴 파는 파일이 저장소에 실제로 있다 — 「돈은 받았�
     }
   }
   assert.deepStrictEqual(없는것, [], '팔겠다고 적어 놓고 파일이 없다:\n  · ' + 없는것.join('\n  · '));
+});
+
+/** 공개 경로 /data/full/x.csv 가 실제로 어느 파일인지 찾는다(빌드 전엔 src 에 있다) */
+function 실물찾기(공개경로) {
+  for (const 밑 of ['src', 'public', 'dist']) {
+    const 후보 = 뿌리 + 밑 + 공개경로;
+    if (existsSync(후보)) return 후보;
+  }
+  return null;
+}
+
+/* ── F5 [2026-09-19 · 2번] «CSV·Parquet» 관문을 검사로 굳힌다 ─────────── */
+
+test('🔴 [F5] 파는 CSV 는 전부 UTF-8 BOM 이다 — 엑셀에서 한글이 안 깨지게', () => {
+  const BOM안붙은것 = [];
+  for (const d of Object.values(데이터셋)) {
+    for (const p of d.파일) {
+      if (!p.endsWith('.csv')) continue;
+      const 실물 = 실물찾기(p);
+      if (!실물) continue; // 파일 존재 자체는 위 검사가 잡는다
+      const 처음세바이트 = readFileSync(실물).subarray(0, 3);
+      const bom있음 = 처음세바이트[0] === 0xEF && 처음세바이트[1] === 0xBB && 처음세바이트[2] === 0xBF;
+      if (!bom있음) BOM안붙은것.push(d.코드 + ' → ' + p);
+    }
+  }
+  assert.deepStrictEqual(BOM안붙은것, [], 'BOM 이 없는 CSV(엑셀에서 한글이 깨진다):\n  · ' + BOM안붙은것.join('\n  · '));
+});
+
+test('🔴 [F5] CSV 곁의 Parquet 은 «같은 표»다 — 행 수·첫 행 값이 CSV 와 같다', async () => {
+  const 어긋난것 = [];
+  for (const d of Object.values(데이터셋)) {
+    const csv들 = d.파일.filter((p) => p.endsWith('.csv'));
+    for (const csv경로 of csv들) {
+      const parquet경로 = csv경로.replace(/\.csv$/, '.parquet');
+      if (!d.파일.includes(parquet경로)) continue; // Parquet 짝이 없는 파일은 이 검사 대상이 아니다
+      const csv실물 = 실물찾기(csv경로);
+      const parquet실물 = 실물찾기(parquet경로);
+      if (!csv실물 || !parquet실물) continue; // 존재 자체는 위 검사가 잡는다
+
+      const csv = csv파일읽기(csv실물);
+      const buf = readFileSync(parquet실물);
+      const ab = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
+      // eslint-disable-next-line no-await-in-loop
+      const 행들 = await parquetReadObjects({ file: ab });
+
+      if (행들.length !== csv.줄들.length) {
+        어긋난것.push(`${d.코드} → ${csv경로} — 행 수 csv=${csv.줄들.length} parquet=${행들.length}`);
+        continue;
+      }
+      const 첫칸 = csv.머리칸[0];
+      if (csv.줄들.length && String(행들[0][첫칸] ?? '') !== String(csv.줄들[0][첫칸] ?? '')) {
+        어긋난것.push(`${d.코드} → ${csv경로} — 첫 행 「${첫칸}」 값이 다르다`);
+      }
+    }
+  }
+  assert.deepStrictEqual(어긋난것, [], '행 수 또는 첫 행 값이 어긋난다:\n  · ' + 어긋난것.join('\n  · '));
 });
 
 /* ── ②③ 무엇을 주나 ──────────────────────────────────────── */

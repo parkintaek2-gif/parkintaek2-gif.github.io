@@ -1,4 +1,4 @@
-ticker,name_en,name_ko,market,sector_ko,fiscal_year,headcount,men,women,women_share,tenure_years,tenure_years_men,tenure_years_women,tenure_ratio_women_to_men,annual_pay_per_person_krw_men,annual_pay_per_person_krw_women,pay_ratio_women_to_men,pay_ratio_withheld_reason,close_price_krw,market_cap_krw,listed_shares,price_as_of
+﻿ticker,name_en,name_ko,market,sector_ko,fiscal_year,headcount,men,women,women_share,tenure_years,tenure_years_men,tenure_years_women,tenure_ratio_women_to_men,annual_pay_per_person_krw_men,annual_pay_per_person_krw_women,pay_ratio_women_to_men,pay_ratio_withheld_reason,close_price_krw,market_cap_krw,listed_shares,price_as_of
 005930,"SAMSUNG ELECTRONICS CO,.LTD",삼성전자,KOSPI,전자부품·컴퓨터·통신장비,2025,128881,94273,34608,0.269,13.73,14,13,0.929,167000000,130000000,0.778,,269500,1575572084856000,5846278608,20260909
 005380,HYUNDAI MOTOR CO,현대자동차,KOSPI,자동차·트레일러,2025,72598,66681,5917,0.082,15.8,16.2,11.3,0.698,132000000,118000000,0.894,,388000,79446013208000,204757766,20260909
 000270,KIA CORPORATION,기아,KOSPI,자동차·트레일러,2025,36566,34664,1902,0.052,20.76,21.1,14.5,0.687,135000000,116000000,0.859,,126800,49504368146400,390412998,20260909

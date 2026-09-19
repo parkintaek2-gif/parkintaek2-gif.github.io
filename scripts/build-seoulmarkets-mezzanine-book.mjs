@@ -37,6 +37,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parquet로쓰기 } from './lib/parquet-out.mjs';
+import { csv쓰기 } from './lib/csv-out.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 원본길 = path.join(뿌리, 'archive/raw/dart-issuance/mezzanine.ndjson');
@@ -172,7 +173,7 @@ function 짓기() {
   fs.mkdirSync(낼방, { recursive: true });
 
   const csv길 = path.join(전체방, `korea-mezzanine-book-${오늘}.csv`);
-  fs.writeFileSync(csv길, CSV로(머리칸, 줄들), 'utf8');
+  csv쓰기(csv길, CSV로(머리칸, 줄들)); // ⭐ [F5·2번] BOM — 엑셀에서 안 깨지게
 
   /* 표본 — 최근 결의 100건. 칸은 하나도 줄이지 않는다 */
   const 표본 = 표본뽑기(줄들);
@@ -183,10 +184,9 @@ function 짓기() {
     '#   The full file and the query API are the licensed product: https://seoulmarkets.com/data',
     `# built: ${오늘}`,
   ].join('\n');
-  fs.writeFileSync(
+  csv쓰기(
     path.join(낼방, 'korea-mezzanine-book-sample.csv'),
     [표본머리, CSV로(머리칸, 표본)].join('\n'),
-    'utf8',
   );
   parquet로쓰기(표본, 머리칸, path.join(낼방, 'korea-mezzanine-book-sample.parquet'));
 

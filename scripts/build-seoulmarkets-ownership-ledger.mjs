@@ -27,6 +27,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parquet로쓰기 } from './lib/parquet-out.mjs';
+import { csv쓰기 } from './lib/csv-out.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 원본길 = path.join(뿌리, 'archive/raw/dart-ownership/ownership.ndjson');
@@ -164,10 +165,10 @@ function 짓기() {
   fs.mkdirSync(낼방, { recursive: true });
 
   const 대량보유길 = path.join(전체방, `korea-ownership-ledger-filings-${오늘}.csv`);
-  fs.writeFileSync(대량보유길, CSV로(대량보유머리, 대량보유줄), 'utf8');
+  csv쓰기(대량보유길, CSV로(대량보유머리, 대량보유줄)); // ⭐ [F5·2번] BOM
 
   const 임원주주길 = path.join(전체방, `korea-ownership-ledger-executives-${오늘}.csv`);
-  fs.writeFileSync(임원주주길, CSV로(임원주주머리, 임원주주줄), 'utf8');
+  csv쓰기(임원주주길, CSV로(임원주주머리, 임원주주줄)); // ⭐ [F5·2번] BOM
 
   /* 표본 — 최근 접수 100건씩. 칸은 하나도 줄이지 않는다 */
   const 대량보유표본 = 표본뽑기(대량보유줄);
@@ -178,10 +179,9 @@ function 짓기() {
     '#   The full file and the query API are the licensed product: https://seoulmarkets.com/data',
     `# built: ${오늘}`,
   ].join('\n');
-  fs.writeFileSync(
+  csv쓰기(
     path.join(낼방, 'korea-ownership-ledger-filings-sample.csv'),
     [대량보유표본머리, CSV로(대량보유머리, 대량보유표본)].join('\n'),
-    'utf8',
   );
   parquet로쓰기(대량보유표본, 대량보유머리, path.join(낼방, 'korea-ownership-ledger-filings-sample.parquet'));
 
@@ -193,10 +193,9 @@ function 짓기() {
     '#   The full file and the query API are the licensed product: https://seoulmarkets.com/data',
     `# built: ${오늘}`,
   ].join('\n');
-  fs.writeFileSync(
+  csv쓰기(
     path.join(낼방, 'korea-ownership-ledger-executives-sample.csv'),
     [임원주주표본머리, CSV로(임원주주머리, 임원주주표본)].join('\n'),
-    'utf8',
   );
   parquet로쓰기(임원주주표본, 임원주주머리, path.join(낼방, 'korea-ownership-ledger-executives-sample.parquet'));
 

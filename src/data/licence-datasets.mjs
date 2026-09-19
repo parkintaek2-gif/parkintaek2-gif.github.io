@@ -15,17 +15,27 @@
 
 /** 뿌리는 dist/ 아래 공개 경로다. server.mjs 가 그대로 내보낸다 */
 export const 데이터셋 = {
+  /* ⭐ [2026-09-19 · 2번 · F5] 「CSV·Parquet」 관문 — 전량 CSV 곁에 같은 표를
+   * Parquet 으로도 낸다(scripts/build-seoulmarkets-full-parquet.mjs, CSV 를 그대로
+   * 읽어 만든 것이라 두 파일의 값이 같다). CSV 는 누구나 열고, Parquet 은 pandas·
+   * DuckDB 로 큰 표를 빨리 읽는다 — 손님이 고르게 «둘 다» 준다. */
   people: {
     코드: 'people',
     이름: 'Sector workforce panel',
     설명: 'Headcount, tenure, pay and the gender gap, as filed — the axis nobody else counts.',
-    파일: ['/data/full/korea-people-panel-2026-09-11.csv'],
+    파일: [
+      '/data/full/korea-people-panel-2026-09-11.csv',
+      '/data/full/korea-people-panel-2026-09-11.parquet',
+    ],
   },
   mezzanine: {
     코드: 'mezzanine',
     이름: 'Convertibles, warrants and exchangeables',
     설명: 'Korean CB, BW and EB issues as filed — private versus public placement, coupons, refixing.',
-    파일: ['/data/full/korea-mezzanine-book-2026-09-11.csv'],
+    파일: [
+      '/data/full/korea-mezzanine-book-2026-09-11.csv',
+      '/data/full/korea-mezzanine-book-2026-09-11.parquet',
+    ],
   },
   ownership: {
     코드: 'ownership',
@@ -33,7 +43,9 @@ export const 데이터셋 = {
     설명: 'Large-holding reports and executive share filings — who moved a stake, and when.',
     파일: [
       '/data/full/korea-ownership-ledger-filings-2026-09-11.csv',
+      '/data/full/korea-ownership-ledger-filings-2026-09-11.parquet',
       '/data/full/korea-ownership-ledger-executives-2026-09-11.csv',
+      '/data/full/korea-ownership-ledger-executives-2026-09-11.parquet',
     ],
   },
   /**
@@ -48,7 +60,9 @@ export const 데이터셋 = {
     설명: 'Board/management rosters (ADX) and substantial (5%+) shareholders (ADX+DFM) — the service tier, not the main product.',
     파일: [
       '/data/full/uae-adx-board-2026-09-14.csv',
+      '/data/full/uae-adx-board-2026-09-14.parquet',
       '/data/full/uae-adx-shareholders-2026-09-14.csv',
+      '/data/full/uae-adx-shareholders-2026-09-14.parquet',
     ],
   },
   /**
@@ -61,7 +75,10 @@ export const 데이터셋 = {
     코드: 'uae-disclosures',
     이름: 'UAE material disclosures (ADX+DFM)',
     설명: 'Every ADX and DFM company disclosure ranked by likely price impact — earnings, ownership change, delisting risk and more, scored against US SEC Form 8-K categories.',
-    파일: ['/data/full/uae-disclosures-digest-2026-09-14.csv'],
+    파일: [
+      '/data/full/uae-disclosures-digest-2026-09-14.csv',
+      '/data/full/uae-disclosures-digest-2026-09-14.parquet',
+    ],
   },
   /**
    * 🔴 [2026-09-14 · 6번] 항목4(5번 지침) — ADX+DFM 재무제표 수치, 두 거래소 다 찼다.
@@ -82,7 +99,10 @@ export const 데이터셋 = {
     코드: 'uae-financials',
     이름: 'UAE financial highlights (ADX+DFM — Revenue/Net Profit/EPS, plus ADX balance sheet)',
     설명: 'Revenue, net profit and EPS for every ADX and DFM quarterly filing — ADX from the exchange’s own AI-extracted summary (76 operating companies; 20 ADX listings are ETFs with no income statement), DFM parsed directly from the filed PDF (49 of 76 filers; the rest file scanned images we will not guess at). Total assets, liabilities and equity are included for 121 of 292 ADX filings — published only where assets = liabilities + equity reconciles, with unit and derivation flagged per row.',
-    파일: ['/data/full/uae-financials-digest-2026-09-14.csv'],
+    파일: [
+      '/data/full/uae-financials-digest-2026-09-14.csv',
+      '/data/full/uae-financials-digest-2026-09-14.parquet',
+    ],
   },
 };
 
