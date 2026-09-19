@@ -2,8 +2,8 @@
  "무엇": "지면마다 화면에 있는 «안 쓰기로 한 낱말» — 이 대장이 기준선이다",
  "⛔": "대장에 있는 것은 잘못이 아니다. 우리 지면은 「등수를 매기지 않습니다」처럼 약속으로 쓴다. 새로 생긴 것만 본다",
  "만든날": "2026-08-20",
- "지면수": 4973,
- "든지면수": 3189,
+ "지면수": 5112,
+ "든지면수": 3195,
  "지면별": {
   "about.html": [
    "등수",
@@ -84,9 +84,6 @@
    "순위"
   ],
   "ranking-medical-quota.html": [
-   "순위"
-  ],
-  "ranking-university-global.html": [
    "순위"
   ],
   "ranking-stock-wealth.html": [
@@ -11739,6 +11736,24 @@
    "순위"
   ],
   "ranking-university-level.html": [
+   "순위"
+  ],
+  "nps-cap-region.html": [
+   "순위"
+  ],
+  "ranking-bakery-brand.html": [
+   "순위"
+  ],
+  "ranking-chicken-brand.html": [
+   "순위"
+  ],
+  "ranking-coffee-brand.html": [
+   "순위"
+  ],
+  "ranking-hairsalon-brand.html": [
+   "순위"
+  ],
+  "ranking-pizza-brand.html": [
    "순위"
   ]
  }
