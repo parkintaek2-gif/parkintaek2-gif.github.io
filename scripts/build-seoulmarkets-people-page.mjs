@@ -117,7 +117,13 @@ export function 중간값(값들) {
 function 짓기() {
   const f = 최근상품(fs.readdirSync(자료방));
   if (!f) throw new Error('korea-people-panel CSV 가 없다 — build-seoulmarkets-people-panel.mjs 를 먼저 돌린다');
-  const 글 = fs.readFileSync(path.join(자료방, f), 'utf8');
+  /* 🔴 [2026-09-19] 커밋 b061823b0(2번·F5)에서 파는 전량 CSV에 엑셀용 BOM을 붙였는데,
+   * 이 자는 같은 원본을 «세는 데» 다시 읽으면서 BOM을 벗기지 않았다. `머리.indexOf('ticker')`
+   * 가 실제로는 '﻿ticker' 를 찾다 -1 을 돌려줘 회사 수가 «0»으로 조용히 무너졌다
+   * (줄 수는 그대로 2,924라 눈에 안 띄었다). 한 곳을 고치면 그 파일을 읽는 다른 곳도
+   * 따라가야 한다는 원칙을 이 자리에서 놓쳤다 — BOM을 벗기는 것으로 뿌리를 막는다. */
+  const 글원본 = fs.readFileSync(path.join(자료방, f), 'utf8');
+  const 글 = 글원본.charCodeAt(0) === 0xFEFF ? 글원본.slice(1) : 글원본; // 엑셀용 BOM 벗기기
   const 순진한줄수 = 글.trim().split('\n').length - 1;
   const 표 = 파싱(글);
   const 머리 = 표[0]; const 몸 = 표.slice(1);

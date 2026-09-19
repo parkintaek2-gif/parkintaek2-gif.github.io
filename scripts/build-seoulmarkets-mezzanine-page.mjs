@@ -89,7 +89,11 @@ export function 리픽싱갈래(행들, 하한자리, 메모자리) {
 function 짓기() {
   const f = 최근상품(fs.readdirSync(자료방));
   if (!f) throw new Error('korea-mezzanine-book CSV 가 없다 — 2번의 build-seoulmarkets-mezzanine-book.mjs 를 먼저 돌린다');
-  const 글 = fs.readFileSync(path.join(자료방, f), 'utf8');
+  /* 🔴 [2026-09-19] build-seoulmarkets-people-page.mjs 와 같은 사고 — 커밋 b061823b0
+   * (F5·BOM)이 이 원본에도 엑셀용 BOM을 붙였는데 여기서 안 벗겨 `머리.indexOf(...)`
+   * 가 전부 -1 이 되어 회사 수가 조용히 0 으로 무너졌다. BOM 을 벗겨 뿌리를 막는다. */
+  const 글원본 = fs.readFileSync(path.join(자료방, f), 'utf8');
+  const 글 = 글원본.charCodeAt(0) === 0xFEFF ? 글원본.slice(1) : 글원본; // 엑셀용 BOM 벗기기
   /* ⭐ 「순진하게 줄을 세면 몇이 되나」를 함께 낸다 — 지면에서 손으로 적지 않게 */
   const 순진한줄수 = 글.trim().split('\n').length - 1;
   const 표 = 파싱(글);

@@ -115,7 +115,11 @@ export function 임원주주한줄(r, 자) {
 function 읽기(갈래, 한줄) {
   const f = 최근원자료(fs.readdirSync(자료방), 갈래);
   if (!f) throw new Error(`korea-ownership-ledger-${갈래} CSV 가 없다 — build-seoulmarkets-ownership-ledger.mjs 를 먼저 돌린다`);
-  const 글 = fs.readFileSync(path.join(자료방, f), 'utf8');
+  /* 🔴 [2026-09-19] 커밋 b061823b0(F5·BOM)이 이 원본에 엑셀용 BOM을 붙였다 —
+   * 벗기지 않으면 첫 칸 이름을 머리.indexOf() 가 못 찾아 그 칸이 통째로 undefined 가
+   * 된다. 이 자는 손님이 실제로 사는 판을 만드므로 더 위험하다 — 뿌리에서 벗긴다. */
+  const 글원본 = fs.readFileSync(path.join(자료방, f), 'utf8');
+  const 글 = 글원본.charCodeAt(0) === 0xFEFF ? 글원본.slice(1) : 글원본; // 엑셀용 BOM 벗기기
   const 표 = 파싱(글);
   const 머리 = 표[0]; const 몸 = 표.slice(1);
   const 자 = (이름) => 머리.indexOf(이름);
