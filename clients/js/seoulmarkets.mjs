@@ -17,7 +17,7 @@
  * earns search traffic on its own, ahead of the API itself.
  */
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.2.0';
 export const BASE = 'https://seoulmarkets.com/v1';
 
 /**
@@ -119,6 +119,73 @@ export class Client {
   /** Exports and imports by HS code and partner country. */
   tradeExports(params) {
     return this.#get('/trade/exports', params);
+  }
+
+  /* ⭐ [2026-09-19 · 2번] These twelve were already live on the API (src/lib/api.mjs)
+   * but missing from this client — the same "newest work is the least documented"
+   * gap already found today in api.astro and openapi.mjs. Every one returns the
+   * full envelope ({ count, results, coverage } or similar), not just `.results` —
+   * the coverage block is part of what makes this data trustworthy, so we do not
+   * strip it by default the way the older `search`/`countries` shortcuts do. */
+
+  /** Brokerage target-price and rating reports. `{ ticker }` narrows to one company. */
+  research(params) {
+    return this.#get('/research', params);
+  }
+
+  /** Korean research houses in English, with rename history. */
+  institutions() {
+    return this.#get('/institutions');
+  }
+
+  /** Filed annual financial statements, as filed to DART — not our estimate. */
+  financials(params) {
+    return this.#get('/financials', params);
+  }
+
+  /** PER, PBR, ROE and debt-to-equity, with the price date and statement vintage. */
+  valuation(params) {
+    return this.#get('/valuation', params);
+  }
+
+  /** 168 KRX indices, in English, most recent snapshot only. */
+  indexTape(params) {
+    return this.#get('/index-tape', params);
+  }
+
+  /** Dated history behind indexTape() — a time series, not a single snapshot. */
+  indices(params) {
+    return this.#get('/indices', params);
+  }
+
+  /** Analyst target-price reports and analyst accuracy rankings. `kind: 'reports' | 'analysts'`. */
+  consensus(params) {
+    return this.#get('/consensus', params);
+  }
+
+  /** Substantial-shareholding and officer/major-shareholder filings. `kind: 'filings' | 'executives'`. */
+  ownership(params) {
+    return this.#get('/ownership', params);
+  }
+
+  /** Workforce filings — headcount, tenure and pay by gender, joined to KRX price. */
+  people(params) {
+    return this.#get('/people', params);
+  }
+
+  /** Convertible bond / bond-with-warrant / exchangeable-bond issuance filings, as filed. */
+  mezzanine(params) {
+    return this.#get('/mezzanine', params);
+  }
+
+  /** Korean financial-statement account names, hand-mapped to standard English. */
+  accountDictionary(params) {
+    return this.#get('/account-dictionary', params);
+  }
+
+  /** Revenue, net profit, EPS and (where reconciled) balance sheet for ADX and DFM filers. */
+  uaeFinancials(params) {
+    return this.#get('/uae-financials', params);
   }
 }
 
