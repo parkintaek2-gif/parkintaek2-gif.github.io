@@ -289,6 +289,10 @@ export const 단계들 = [
    * 는 --selftest 가 있었지만 어디에도 안 걸려 있었다. ENFORCE_FROM(2026-08-17)이
    * 이미 지나 지금 실제로 429 를 돌려야 하는데 그걸 재는 검사가 없었다. */
   "node src/lib/tiers.mjs --selftest",
+  /* 🔴 [2026-09-20 · 2번] src/lib/apikeys.mjs(F7 열쇠 발급 — 1번 몫)도 같은 병이었다.
+   * --selftest 는 있는데 npm test 어디에도 안 걸려 있었다. tiers.mjs 가 이 파일의
+   * 확인() 을 불러 pro 등급을 가른다 — 유료화 장치의 절반이다. */
+  "node src/lib/apikeys.mjs --selftest",
   "node scripts/build-korea-valuation-tape.mjs --자가시험",
   "node scripts/build-korea-index-tape.mjs --자가시험",
   "node scripts/build-korea-governance-snapshot.mjs --자가시험",

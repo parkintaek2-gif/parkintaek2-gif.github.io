@@ -98,27 +98,40 @@ export async function 확인(rawKey) {
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   if (process.argv.includes('--selftest')) {
     (async () => {
+      /* 🔴 [2026-09-20 · 2번] console.assert() 는 실패해도 종료코드를 0 으로 둔다 —
+       * 「Assertion failed」를 화면에 찍고도 이 아래 console.log('통과')가 그대로
+       * 실행돼 npm test 가 초록으로 읽는다. 실측으로 확인했다(일부러 깨뜨려 재현).
+       * 유료화의 절반(열쇠 인증)을 재는 자가 «영원히 못 우는» 자였다 — 다른 자가시험이
+       * 쓰는 통과/실패 세기 + process.exit(1) 꼴로 바꾼다. */
+      let 통 = 0; const 실 = [];
+      const 검 = (이름, 참인가) => { if (참인가) 통 += 1; else 실.push(이름); };
+
       const 임시메일 = `__selftest__${Date.now()}@example.invalid`;
 
       const r1 = await 발급({ email: '이메일아님' });
-      console.assert(r1.ok === false && r1.why === 'invalid_email', '① 형식이 아닌 이메일은 거부');
+      검('① 형식이 아닌 이메일은 거부', r1.ok === false && r1.why === 'invalid_email');
 
       const r2 = await 발급({ email: 임시메일, tier: 'pro' });
-      console.assert(r2.ok === true && r2.apiKey?.startsWith(열쇠앞가지), '② 정상 발급 — 원본 열쇠를 돌려준다');
+      검('② 정상 발급 — 원본 열쇠를 돌려준다', r2.ok === true && r2.apiKey?.startsWith(열쇠앞가지));
 
       const r3 = await 발급({ email: 임시메일 });
-      console.assert(r3.ok === false && r3.why === 'already_issued', '③ 같은 메일 재요청은 막는다');
+      검('③ 같은 메일 재요청은 막는다', r3.ok === false && r3.why === 'already_issued');
 
       const r4 = await 확인(r2.apiKey);
-      console.assert(r4?.tier === 'pro', '④ 발급된 열쇠는 인증에서 pro 로 확인된다');
+      검('④ 발급된 열쇠는 인증에서 pro 로 확인된다', r4?.tier === 'pro');
 
       const r5 = await 확인('sm_live_이런열쇠는_없다');
-      console.assert(r5 === null, '⑤ 없는 열쇠는 null');
+      검('⑤ 없는 열쇠는 null', r5 === null);
 
       const r6 = await 확인('완전히_다른_형식');
-      console.assert(r6 === null, '⑥ 접두어부터 다르면 저장소를 아예 안 본다');
+      검('⑥ 접두어부터 다르면 저장소를 아예 안 본다', r6 === null);
 
-      console.log('apikeys.mjs 자가시험 6개 — 통과');
+      if (실.length) {
+        console.error(`❌ apikeys.mjs 자가시험 실패 ${실.length}개\n${실.map((x) => `   · ${x}`).join('\n')}`);
+        process.exitCode = 1;
+        return;
+      }
+      console.log(`apikeys.mjs 자가시험 ${통}개 — 통과`);
     })();
   }
 }
