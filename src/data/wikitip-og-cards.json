@@ -718,6 +718,36 @@
    "figure": "19%",
    "label": "how much IU's reading had already risen in the week before her donation was announced",
    "왜": "자동은 「18 — September」를 집는다. 이 기사의 핵심 수는 발표 전 8일간 19% 높았다는 것 — 원인을 못 찾아 미확인으로 남긴다"
+  },
+  "rescene-topped-bts-and-blackpink-in-reputation-not-in-reading": {
+   "figure": "624x",
+   "label": "BTS's English Wikipedia reading vs. Re:Scene — the group a reputation index ranked just above them",
+   "왜": "자동은 연도(2026)를 집는다. 요점은 평판지수 1위 리센느(11회)와 2위 BTS(6,860회)의 624배 격차다"
+  },
+  "plaves-wikipedia-reading-rose-before-the-melon-awards-news-broke": {
+   "figure": "1.52x",
+   "label": "Plave's reading in the days around the Melon Music Awards announcement, vs. its own baseline",
+   "왜": "자동은 「18 — th Melon」을 집는다. 요점은 발표 전부터 오른 1.52배다"
+  },
+  "katseyes-animal-hit-100-million-views-wikipedia-reading-fell-that-day": {
+   "figure": "0.62x",
+   "label": "Katseye's Wikipedia reading on the day 'Animal' hit 100 million YouTube views, vs. baseline",
+   "왜": "자동은 「100 million」을 집는다. 그건 유튜브 조회수이지 우리가 잰 수가 아니다 — 우리가 잰 것은 그날 위키백과 열람이 평소의 0.62배로 떨어졌다는 것이다"
+  },
+  "bts-set-a-9-billion-stream-record-english-wikipedia-reading-hit-a-month-low": {
+   "figure": "0.70x",
+   "label": "BTS's English Wikipedia reading in the 10 days before the 9-billion-stream record, vs. the 10 days before that",
+   "왜": "자동은 「18 — September」(발표일)를 집는다. 우리가 잰 것은 그 전 열흘의 열람이 그 앞 열흘의 0.70배로 떨어졌다는 것이다"
+  },
+  "twenty-nine-names-in-our-panel-averaged-zero-english-readers": {
+   "figure": "29",
+   "label": "of 2,371 people and groups in our panel averaged zero English Wikipedia views for 30 days",
+   "왜": "자동은 패널 크기(2,371)를 집는다. 기사의 요점은 그 안에서 «0»으로 남은 29명이다"
+  },
+  "seo-kang-joons-reading-more-than-doubled-in-a-week-we-dont-know-why": {
+   "figure": "2.59x",
+   "label": "Seo Kang-joon's most recent 7-day English Wikipedia reading vs. his own 30-day average",
+   "왜": "자동은 패널 크기(2,371)를 집는다. 요점은 서강준 개인의 최근 7일이 자기 30일 평균의 2.59배로 뛴 것이다"
   }
  }
 }
