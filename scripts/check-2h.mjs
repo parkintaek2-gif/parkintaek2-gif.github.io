@@ -50,7 +50,7 @@ const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
  *     (report-unit-content-check.mjs)가 «맡은 자리 수»에서 세고 있다.
  *     그 자와 이 자가 다른 수를 말하면 사장님이 두 수를 보시게 된다.
  *     ⇒ 사이트 수만 한 곳에 두고 둘이 같이 본다. */
-export const 맡은사이트수_1번 = 3;
+export const 맡은사이트수_1번 = 4;
 export const 하루몫 = {
   텍스트: 6 * 맡은사이트수_1번,
   새영상: 1 * 맡은사이트수_1번,
