@@ -18,3 +18,5 @@ src/pages/index.astro	1e1b5ce58622372f	3번	2026-09-12 10:05 KST	통과
 src/pages/index.astro	3b7d07f17380bed8	5번	2026-09-13 02:13 KST	통과	
 src/pages/100y/index.astro	84cc65f22ee168eb	5번	2026-09-13 02:13 KST	통과	
 src/pages/index.astro	aab86030c0abc7f9	6번	2026-09-14 21:13 KST	통과	
+src/pages/index.astro	4783fe5ce3b0e2ba	2번	2026-09-19 17:21 KST	통과	/ 400px·1280px 로 봤다(눈1). 상품카드·CTA 눌러 봄(눈2). ad-slot 은 unfilled 시 display:none — 빈 공백 아님, DOM 실측 확인(눈3). 한국어 6자는 footer 사업자명(Beomjin Academy 범진아카데미) 하나뿐, 법정 표기라 정상. 폰 400px 가로넘침 0px. 다리1 로그인 없이 비회원구매(check-seoulmarkets-payment.mjs 17시 실측) · 다리2 결제창 뜸(페이팔) · 다리3 /recover 주문번호로 다시봄
+src/pages/wikitip/index.astro	838c68b12826e2e3	2번	2026-09-19 17:21 KST	통과	/wikitip 400px·1280px 로 봤다(눈1). 기사 링크·헤더 메뉴 눌러 봄(눈2). 표 없음, 카드 목록 빈칸 0(눈3). 한국어 9자는 footer 통신판매업신고번호 2026-세종-0591(세종특별자치시) 하나뿐, 로마자 병기(2026-Sejong-0591) 있어 정상. 가로넘침 0px
