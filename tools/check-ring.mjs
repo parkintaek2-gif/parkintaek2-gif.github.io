@@ -40,6 +40,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+/* 도는 자리 목록은 한 곳에서 읽는다 — scripts/lib/도는자리.mjs 가 정본이다 */
+import { 도는자리 } from '../scripts/lib/도는자리.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -54,7 +56,7 @@ export const 고리 = [
 /** 사이트마다 «눈으로 볼 자리»를 적는다. ⚠ 첫 화면만 보지 않는다 — 목록·글·판정까지 본다 */
 export const 사이트들 = [
   {
-    키: 'klifemap', 이름: 'KLifeMap', 주인: '1번', 밑: 'https://klifemap.ai',
+    키: 'klifemap', 이름: 'KLifeMap', 주인: '2번', 밑: 'https://klifemap.ai',
     볼곳: [
       { 이름: '첫 화면', 길: '/', 있어야: ['KLifeMap'] },
       { 이름: '콘텐츠 목록', 길: '/content', 카드고르기: '.post-card', 적어도: 3, 메뉴고르기: '.filter-bar a' },
@@ -63,14 +65,14 @@ export const 사이트들 = [
     ],
   },
   {
-    키: '100yearmap', 이름: '백년지도', 주인: '3번', 밑: 'https://100yearmap.com',
+    키: '100yearmap', 이름: '백년지도', 주인: '5번', 밑: 'https://100yearmap.com',
     볼곳: [
       { 이름: '첫 화면', 길: '/', 메뉴고르기: 'nav a, header a' },
       { 이름: '나이 축', 길: '/age' },
     ],
   },
   {
-    키: 'kculturewire', 이름: 'K Culture Wire', 주인: '5번', 밑: 'https://www.kculturewire.com',
+    키: 'kculturewire', 이름: 'K Culture Wire', 주인: '1번', 밑: 'https://www.kculturewire.com',
     견줄것들: ['Stars', 'Titles', 'Industry', 'Tradition'],
     볼곳: [
       { 이름: '첫 화면', 길: '/', 메뉴고르기: 'nav a, header a' },
@@ -82,7 +84,7 @@ export const 사이트들 = [
      * 서울마켓츠에는 /articles 가 «없다» — 목록이 다섯 갈래(/equities·/fx·/rates·/commodities·/macro)다.
      * ⛔ 주소를 짐작해 넣고 404 를 남의 흠으로 적지 않는다. 첫 화면의 메뉴를 «눌러» 찾는다.
      *   (오늘 증권사 아카이브에서 같은 잘못을 한 번 더 했다 — 폴더를 짐작으로 읽고 6번을 잡았다) */
-    키: 'seoulmarkets', 이름: 'SeoulMarkets', 주인: '6번', 밑: 'https://seoulmarkets.com',
+    키: 'seoulmarkets', 이름: 'SeoulMarkets', 주인: '5번', 밑: 'https://seoulmarkets.com',
     /* ⭐ «견줄 것» — 같은 결의 기사 목록 다섯 갈래만 서로 견준다.
      * ⛔ 첫 화면·ABOUT·API·DATA·VIDEO 를 같이 세지 않는다 — 결이 달라 「얇다」가 뜻을 잃는다.
      *   (2026-09-10 23:4x 에 그렇게 재서 일곱을 집었다. 그 가운데 셋은 잘못이었다) */
@@ -154,12 +156,56 @@ export function 번호고르기(값) {
   return /^[0-9]+$/.test(s) ? s + '번' : s;
 }
 
+/**
+ * 🔴🔴 [2026-09-19 · 사장님 「언제 세션을 정리했는데 아직도 헤매나?」]
+ *   사이트 주인이 1·3·5·6번으로 적혀 있었다. 3번·6번은 9/18 에 접혔고 그 몫은 5번이
+ *   이어받았다. 그래서 **네 사이트 가운데 둘을 아무도 안 보고 있었다** — 고리가
+ *   반쪽만 돌고 있었는데 아무 데도 빨간불이 안 켜졌다.
+ *   ⇒ 주인을 지금 분장으로 고쳤다 (klifemap 2번 · 백년지도 5번 · KCW 1번 · 서울마켓츠 5번)
+ *   ⛔ 사장님이 정하신 «고리 순서»는 그대로다. 바꾼 것은 «누가 그 사이트의 주인인가»뿐이다.
+ *
+ * ⚠ 그리고 한 자리가 두 사이트를 맡는 일이 생겼다(5번 — 접힌 자리를 이어받았다).
+ *   앞의 findIndex 는 «첫 번째로 걸린 사이트»만 보고 다음 칸을 냈으므로,
+ *   5번이 자기 사이트를 자기가 보게 될 수 있었다. 자기가 자기를 보면 점검이 아니다.
+ *   ⇒ 다음 칸부터 고리를 돌며 «내 것이 아닌 첫 사이트»를 고른다.
+ */
+export const 고리순서 = ['klifemap', '100yearmap', 'kculturewire', 'seoulmarkets'];
+
+/**
+ * 내가 볼 곳 «전부». 한 자리가 두 사이트를 맡으면 볼 곳도 둘이다.
+ *
+ * ⛔ 처음에 「내 첫 사이트의 다음 하나」만 냈더니 **KLifeMap 을 아무도 안 보게 됐다** —
+ *   5번이 백년지도·서울마켓츠 둘을 맡는데, 서울마켓츠 «다음»인 KLifeMap 이 통째로 빠졌다.
+ *   자가시험(아무도안보는곳)이 그 자리에서 잡았다. 고리가 반쪽만 도는 것은 안 도는 것과 같다.
+ */
+export function 볼곳들정하기(내번호, 것들 = 사이트들) {
+  const 나 = 번호고르기(내번호);
+  const 주인 = (k) => 것들.find((s) => s.키 === k)?.주인;
+  const 낸것 = [];
+  고리순서.forEach((내키, i) => {
+    if (주인(내키) !== 나) return;                   /* 내 사이트가 아니면 여기서 출발하지 않는다 */
+    for (let k = 1; k < 고리순서.length; k++) {
+      const 다음키 = 고리순서[(i + k) % 고리순서.length];
+      if (주인(다음키) === 나) continue;             /* 자기 것을 자기가 보지 않는다 */
+      const 곳 = 것들.find((s) => s.키 === 다음키);
+      if (곳 && !낸것.includes(곳)) 낸것.push(곳);
+      break;
+    }
+  });
+  return 낸것;
+}
+
 export function 볼곳정하기(내번호, 것들 = 사이트들) {
-  const 순서 = ['klifemap', '100yearmap', 'kculturewire', 'seoulmarkets'];
-  const 내자리 = 순서.findIndex((k) => 것들.find((s) => s.키 === k)?.주인 === 번호고르기(내번호));
-  if (내자리 < 0) return null;                       /* 지킬 사이트가 없는 자리 — 못 쟀다가 아니라 «해당 없음» */
-  const 다음키 = 순서[(내자리 + 1) % 순서.length];
-  return 것들.find((s) => s.키 === 다음키) || null;
+  const 것 = 볼곳들정하기(내번호, 것들);
+  return 것.length ? 것[0] : null;                   /* 지킬 사이트가 없는 자리 — «해당 없음» */
+}
+
+/** 아무도 안 보고 있는 사이트 — 고리에 구멍이 났는지 잰다. ⛔ 비어야 정상이다. */
+export function 아무도안보는곳(것들 = 사이트들, 도는것 = null) {
+  const 도는 = 도는것 || 도는자리;
+  const 보이는곳 = new Set();
+  for (const 자리 of 도는) for (const x of 볼곳들정하기(자리, 것들)) 보이는곳.add(x.키);
+  return 것들.filter((s) => !보이는곳.has(s.키)).map((s) => s.키);
 }
 
 /** 한 자리를 «눈으로» 잰다 — 화면을 띄우고, 무엇이 보이나를 센다 */
@@ -204,22 +250,22 @@ export function 자가시험() {
     사이트들.every((s) => (s.볼곳 || []).length >= 2));
 
   /* 🔴 고리 — 사장님이 정하신 순서 그대로여야 한다 */
-  검('🔴 KLifeMap(1번)이 백년지도를 본다', 볼곳정하기('1번')?.키 === '100yearmap');
-  검('🔴 백년지도(3번)가 K Culture Wire 를 본다', 볼곳정하기('3번')?.키 === 'kculturewire');
-  검('🔴 K Culture Wire(5번)가 SeoulMarkets 를 본다', 볼곳정하기('5번')?.키 === 'seoulmarkets');
-  검('🔴 SeoulMarkets(6번)가 KLifeMap 을 본다 — 고리가 닫힌다', 볼곳정하기('6번')?.키 === 'klifemap');
+  검('🔴 KLifeMap(2번)이 백년지도를 본다', 볼곳정하기('2번')?.키 === '100yearmap');
+  검('🔴 백년지도·서울마켓츠 주인(5번)은 자기 것이 아닌 곳을 본다', 볼곳정하기('5번')?.주인 !== '5번');
+  검('🔴 K Culture Wire(1번)가 SeoulMarkets 를 본다', 볼곳정하기('1번')?.키 === 'seoulmarkets');
+  검('🔴 아무도 안 보는 사이트가 없다 — 고리에 구멍이 없다', 아무도안보는곳().length === 0);
   검('⛔ 자기 사이트를 자기가 보지 않는다',
-    ['1번', '3번', '5번', '6번'].every((n) => 볼곳정하기(n)?.주인 !== n));
-  검('⛔ 지킬 사이트가 없는 자리는 null — 지어내지 않는다', 볼곳정하기('2번') === null);
+    도는자리.every((n) => !볼곳정하기(n) || 볼곳정하기(n).주인 !== n));
+  검('⛔ 지킬 사이트가 없는 자리는 null — 지어내지 않는다', 볼곳정하기('4번') === null);
   검('⛔ 번호가 아니면 null', 볼곳정하기(null) === null);
   /* 🔴 01:5x 에 내가 걸린 것 — 「번」을 안 붙이면 튕겼다. 이제 둘 다 받는다 */
   검('🔴 「5」와 「5번」이 같은 곳을 가리킨다 — 사람이 꼴을 외우게 두지 않는다',
-    볼곳정하기(5)?.키 === 'seoulmarkets' && 볼곳정하기('5')?.키 === 볼곳정하기('5번')?.키);
+    !!볼곳정하기(5) && 볼곳정하기('5')?.키 === 볼곳정하기('5번')?.키);
   검('⛔ 그래도 없는 번호는 여전히 null — 관대함이 지어냄이 되지 않는다',
-    볼곳정하기(2) === null && 볼곳정하기('9') === null);
+    볼곳정하기(4) === null && 볼곳정하기('9') === null);
   검('⛔ 번호고르기는 빈 값을 「번」으로 만들지 않는다', 번호고르기('') === '' && 번호고르기(null) === '');
   검('고리가 넷을 다 덮는다',
-    new Set(['1번', '3번', '5번', '6번'].map((n) => 볼곳정하기(n).키)).size === 4);
+    new Set(도는자리.map((n) => 볼곳정하기(n)?.키).filter(Boolean)).size >= 3);
 
   /* ⭐ 두께갈림 — 오늘 내 «눈»이 잡은 것을 자가 잡게 한다 (23:3x) */
   const 잼 = (a) => a.map((n, i) => ({ 이름: "칸" + i, 보이는글자: n }));

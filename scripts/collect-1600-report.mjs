@@ -31,6 +31,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 🔴 [2026-09-19 · 사장님 「언제 세션을 정리했는데 아직도 헤매나?」]
+   도는 자리 목록은 이 파일에 «또» 적혀 있었다. 답이 여러 곳에 있으면 자리를 옮길 때마다
+   여러 번 고쳐야 하고, 한 곳만 빠져도 그것이 조용히 일을 막는다.
+   ⇒ 한 곳에서 읽는다. 자리가 바뀌면 scripts/lib/도는자리.mjs 만 고친다. */
+import { 도는자리 as 도는자리목록 } from './lib/도는자리.mjs';
 
 const 뿌리 = path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), '..');
 const dataeco메모 = path.join(뿌리, 'docs', '세션간-메모.md');
@@ -360,8 +365,9 @@ else {
     1: '1번 K Culture Wire', 2: '2번 KLifeMap', 3: '3번 백년지도(접힘 09-18)',
     4: '4번 방문자유입(접힘 09-13)', 5: '5번 총괄', 6: '6번 SeoulMarkets(접힘 09-18)',
   };
-  /** 지금 도는 자리 — 여기 없는 번호는 「못 찾았다」로 세지 않는다 */
-  const 도는자리 = new Set([1, 2, 5]);
+  /** 지금 도는 자리 — 여기 없는 번호는 「못 찾았다」로 세지 않는다.
+      ⛔ 수를 여기 다시 적지 않는다. scripts/lib/도는자리.mjs 가 정본이다. */
+  const 도는자리 = new Set(도는자리목록.map((자리) => Number(String(자리).replace('번', ''))));
   let out = `# 업무보고 통합 · ${날짜}\n\n`;
   for (let n = 1; n <= 6; n++) {
     if (골라낸것[n]?.대신함) {
