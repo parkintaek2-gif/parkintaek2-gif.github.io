@@ -51,10 +51,26 @@ test('balance_sheet=true 는 대차대조표 있는 줄만 낸다', async () => 
   assert.ok(몸.results.every((r) => r.balance_sheet_reconciled === true || r.liabilities_derived === true));
 });
 
-test('🔴 대차대조표가 없는 줄은 total_assets_aed 가 null 이다 — 0 으로 채우지 않는다', async () => {
-  const { 몸 } = await 불러('/v1/uae-financials?exchange=DFM&limit=200');
-  const dfm줄 = 몸.results.find((r) => r.total_assets_aed !== null);
-  assert.equal(dfm줄, undefined, 'DFM 은 대차대조표를 아직 안 낸다 — 값이 있으면 지어낸 것이다');
+/*
+ * 🔴 [2026-09-19 · 2번이 고침] 이 검사가 「DFM 은 대차대조표를 아직 안 낸다」고
+ * 못박아 두었는데, 그 사이 걸프 대차대조표 수집이 진짜로 DFM 까지 넓어졌다
+ * (커밋 49179ccc2·ddb4ed227 — OCR 로 얻은 줄이 실제로 늘었다). 값이 «생겼다»는
+ * 사실이 아니라 값이 «지어낸 것인가」가 지켜야 할 것이었는데, 검사가 후자 대신
+ * 전자(DFM 은 영원히 0건)를 재고 있었다. ⛔ 좋아진 데이터를 흠으로 잘못 세지
+ * 않는다 — 「값이 있다」가 아니라 「값에 출처가 없다」를 잡게 고친다.
+ */
+test('🔴 값이 있는 줄은 전부 출처(대조 또는 뺀 값)가 있다 — 0 으로 채우지 않는다', async () => {
+  const { 몸 } = await 불러('/v1/uae-financials?limit=500');
+  const 값있는줄들 = 몸.results.filter((r) => r.total_assets_aed !== null);
+  assert.ok(값있는줄들.length > 0, '값이 있는 줄이 하나도 없다 — 아래 검사가 헛돈다');
+  const 출처없는것 = 값있는줄들.filter((r) => r.balance_sheet_reconciled !== true && r.liabilities_derived !== true);
+  assert.deepStrictEqual(
+    출처없는것.map((r) => `${r.exchange}/${r.symbol}`),
+    [],
+    '대조도 안 됐고 뺀 값도 아닌데 대차대조표 값이 있다 — 지어낸 값일 수 있다',
+  );
+  /* ⛔ 0 으로 채우는 것도 «지어낸 값»이다 — 값이 있다면서 실제로는 0 이면 안 된다 */
+  assert.ok(값있는줄들.every((r) => r.total_assets_aed !== 0), '총자산이 0 으로 채워진 줄이 있다');
 });
 
 test('🔴 liabilities_derived=true 인 줄은 그 칸을 감추지 않고 함께 낸다', async () => {
