@@ -36,6 +36,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 도는자리 } from './lib/도는자리.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 형제 = path.resolve(뿌리, '../klifemap');
@@ -225,7 +226,9 @@ function 본일() {
   console.log('  ⛔ 「했다고 하더라」로 세지 않는다. 파일·자료를 직접 본다\n');
 
   let 됐다 = 0; let 안됐다 = 0; let 못쟀다 = 0;
-  for (const 자리 of ['1번', '2번', '3번', '6번']) {
+  /* 🔴 [2026-09-19] 여기 1·2·3·6번이 박혀 있었다 — 3·6번은 접혔고 5번은 아예 빠져 있었다.
+     총괄의 진도 자가 «없는 자리»를 보고 «도는 자리»를 안 보고 있었다. */
+  for (const 자리 of 도는자리) {
     const 몫 = 것.filter((x) => x.자리 === 자리);
     if (!몫.length) continue;
     console.log('── ' + 자리 + ' ──');

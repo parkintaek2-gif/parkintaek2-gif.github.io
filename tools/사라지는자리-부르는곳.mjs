@@ -35,8 +35,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 접힌자리 } from '../scripts/lib/도는자리.mjs';
 
-export const 사라질자리 = ['2번', '4번'];
+/* 🔴 [2026-09-19 · 사장님 「언제 세션을 정리했는데 아직도 헤매나?」]
+   여기 «사라질 자리»가 2번·4번으로 적혀 있었다. 그 뒤 사장님이 2번을 되살리셨고
+   (오늘 직접 로그인까지 해 두셨다) 대신 3·6번이 접혔다. 이 자가 옛 전제를 들고 있어
+   «살아 있는 2번»을 사라질 자리라며 훑고, 정작 접힌 3·6번은 안 훑고 있었다.
+   ⇒ 목록을 정본에서 읽는다. 자리가 바뀌면 scripts/lib/도는자리.mjs 만 고친다. */
+export const 사라질자리 = [...접힌자리];
 
 /** 저장소 뿌리 둘 — 형제 저장소까지 본다. 한쪽만 보고 「0곳」이라 한 적이 있다 */
 export const 볼저장소 = [

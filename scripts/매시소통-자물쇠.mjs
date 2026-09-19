@@ -33,7 +33,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { 도는자리 } from './lib/도는자리.mjs';
+import { 도는자리, 접힌자리 } from './lib/도는자리.mjs';
 
 const 뿌리 = path.resolve(import.meta.dirname, '..');
 export const 대장길 = path.join(뿌리, 'docs/매시소통.tsv');
@@ -319,7 +319,7 @@ export function 자가시험() {
   /* 🔴 [2026-09-19] 여기서 「5번은 빠져 있어야 한다」를 재고 있었다 — 사장님이 그것을
      뒤집으셨다. 이제는 «도는 자리가 하나도 빠지지 않았는가»를 잰다. */
   재다('🔴 도는 자리가 하나도 안 빠졌다', 도는자리.every((x) => 걸리는자리.includes(x)));
-  재다('⛔ 접힌 자리를 잠그지 않는다', !걸리는자리.some((x) => ['3번','4번','6번','7번'].includes(x)));
+  재다('⛔ 접힌 자리를 잠그지 않는다', !걸리는자리.some((x) => 접힌자리.includes(x)));
   재다('걸리는 자리는 다 「N번」 꼴이다', 걸리는자리.every((x) => /^\d번$/.test(x)));
 
   재다('마지막말: 가장 나중 것', 마지막말(대장, '6번').시각 === '2026-09-15 14:02');
