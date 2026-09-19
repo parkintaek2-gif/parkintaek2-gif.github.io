@@ -1,0 +1,151 @@
+---
+/**
+ * /100y/nps-cap-region — 국민연금 상한에 눌린 사람, 서울보다 경기도가 많다
+ *
+ * ⛔ 3자 순위 인용이 아니다 — 국민연금 가입 사업장 내역(공공데이터포털)을
+ *   100yearmap이 직접 집계한 «이슈 메이킹» 지면이다. 남이 안 세는 축을 우리가 센다.
+ * ⛔ 판정하지 않는다 — 경기도가 서울보다 "잘산다"고 말하지 않는다. 인과도 확정하지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/nps-cap-region-2026.json';
+
+const 자료 = 원본 as any;
+const 출처 = 자료.출처;
+const 전체 = 자료.전체;
+const 지역 = 자료.지역top10 as any[];
+const 업종 = 자료.업종top5 as any[];
+const 일위 = 지역[0];
+const 이위 = 지역[1];
+
+const desc =
+  `국민연금 가입 사업장 내역으로 재면, 상한(월 ${전체.사람 ? '' : ''}${'573,300'}원)에 눌린 사람 비율이 ` +
+  `${일위.지역} ${일위.상한걸린비율}%로 ${이위.지역}(${이위.상한걸린비율}%)보다 높습니다. ` +
+  `전국 평균은 ${전체.상한걸린비율}%입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '경기도가 서울보다 국민연금 상한에 눌린 사람이 많다는 게 무슨 뜻인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `사업장 평균 고지액이 상한(월 573,300원)에 닿은 사업장의 사람 비율입니다. 경기도 ${일위.상한걸린비율}%, 서울 ${이위.상한걸린비율}%로 경기도가 더 높습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '이게 경기도가 서울보다 잘산다는 뜻인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: (자료.이자료가못가르는것 as string[])[2],
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`국민연금 상한에 눌린 사람, 서울보다 ${일위.지역}가 많습니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    국민연금 상한에 눌린 사람<br class="pcbr" />
+    서울보다 {일위.지역}가 많습니다
+  </h1>
+
+  <p class="sub">
+    {출처.이름}({출처.기준월} 기준)를 100yearmap이 직접 집계했습니다.
+    전국 평균 <strong>{전체.사람.toLocaleString()}명</strong> 중
+    <strong>{전체.눌린사람.toLocaleString()}명({전체.상한걸린비율}%)</strong>이
+    월 고지액 상한(<strong>573,300원</strong>)에 걸린 사업장 소속입니다.
+  </p>
+
+  <div class="warn">
+    <p>
+      지역별로 나누면 <strong>{일위.지역}</strong>이 <strong>{일위.상한걸린비율}%</strong>로
+      전국에서 가장 높고, <strong>{이위.지역}</strong>({이위.상한걸린비율}%)이 뒤를 잇습니다.
+      «서울이 가장 높을 것»이라는 짐작과 다릅니다.
+    </p>
+  </div>
+
+  <h2>지역별 순위 (상위 10곳)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>순위</th><th>지역</th><th>상한걸린비율</th><th>가입자 수</th></tr></thead>
+      <tbody>
+        {지역.map((r, i) => (
+          <tr>
+            <td>{i + 1}위</td>
+            <td>{r.지역}</td>
+            <td><strong>{r.상한걸린비율}%</strong></td>
+            <td>{r.사람.toLocaleString()}명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>업종으로 보면 — 상위 5곳은 전부 제조업입니다</h2>
+  <p class="note">{자료.업종top5주}</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>순위</th><th>업종</th><th>상한걸린비율</th><th>가입자 수</th></tr></thead>
+      <tbody>
+        {업종.map((r, i) => (
+          <tr>
+            <td>{i + 1}위</td>
+            <td>{r.업종}</td>
+            <td><strong>{r.상한걸린비율}%</strong></td>
+            <td>{r.사람.toLocaleString()}명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 1위 «비디오 및 기타 영상 기기 제조업»은 가입자 {업종[0].사람.toLocaleString()}명 중
+    {' '}{업종[0].상한걸린비율}%가 상한에 걸립니다 — 사실상 이 업종 대부분이 상한 위에 있다는 뜻입니다.
+  </p>
+
+  <h2>왜 경기도가 서울보다 높을까요</h2>
+  <p>{자료.왜다른가.설명}</p>
+  <p class="note">⚠ {자료.왜다른가.세는법}</p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 국민연금 가입 자료를
+    {' '}집계해 보여줄 뿐, 어느 지역이 더 좋은지 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — {출처.이름} · 이용허락범위: {출처.이용허락범위}
+  </p>
+
+  <p class="note">
+    <a href="/ranking-chicken-brand">← 치킨 전문점 브랜드평판 1위도 업종 생존은 못 이깁니다</a>
+  </p>
+
+  <HundredAgeWalk 키="nps-cap-region" />
+
+  <NextQuestionBrief 모은것="국민연금공단 국민연금 가입 사업장 내역" />
+
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/nps-cap-region"></div>
+</HundredYear>
