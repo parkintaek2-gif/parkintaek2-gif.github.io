@@ -285,6 +285,10 @@ export const 단계들 = [
   "node scripts/build-seoulmarkets-full-parquet.mjs --자가시험",
   "node scripts/check-data-page-counts.mjs --자가시험",
   "node scripts/check-data-page-counts.mjs",
+  /* 🔴 [2026-09-19 · 2번] src/lib/tiers.mjs("파는 것은 양이다" — 유일한 유료화 장치)
+   * 는 --selftest 가 있었지만 어디에도 안 걸려 있었다. ENFORCE_FROM(2026-08-17)이
+   * 이미 지나 지금 실제로 429 를 돌려야 하는데 그걸 재는 검사가 없었다. */
+  "node src/lib/tiers.mjs --selftest",
   "node scripts/build-korea-valuation-tape.mjs --자가시험",
   "node scripts/build-korea-index-tape.mjs --자가시험",
   "node scripts/build-korea-governance-snapshot.mjs --자가시험",
