@@ -557,10 +557,17 @@ const 묶음 = [
             </tr>
           </tbody>
         </table>
+        {/* 🔴 [2026-09-19 · 2번] 이 문단이 「월간 플랜이 없다」고 말하는데, 바로 아래
+            Buy 상자의 Annual/Monthly 토글은 실제로 월간 정기결제(single_monthly·
+            all_monthly, PayPal 구독)를 판다(licence-products.mjs, 2026-09-13 신설).
+            같은 날 만들어진 기능인데 이 문단만 그대로 남아 있었다 — 손님에게
+            자동갱신 여부를 잘못 알리는 결제 지면이라 그대로 둘 수 없었다. */}
         <p class="fine">
-          Monthly figures in brackets are for comparison only — billing is annual, once.
-          There is no monthly plan and no automatic renewal: your licence simply ends after
-          twelve months unless you buy again. We will not put a card on file.
+          The prices above are billed once a year, with the monthly figure in brackets shown
+          only for comparison — that annual licence has no automatic renewal; it simply ends
+          after twelve months unless you buy again, and we will not put a card on file for it.
+          A separate recurring monthly plan is also available — use the Annual / Monthly toggle
+          below — which renews every month until you cancel.
         </p>
 
         {/* 🔴 [2026-09-13 · 5번] 사장님: 「Email … invoice … bank transfer …
