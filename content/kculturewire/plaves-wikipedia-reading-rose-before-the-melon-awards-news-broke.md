@@ -1,6 +1,6 @@
 ---
 title: "Plave's English Wikipedia Reading Rose Before the Melon Music Awards News Broke"
-dek: "The 18th Melon Music Awards named its first lineup — Plave, Riize, NCT Wish, Alpha Drive One and Lngshot — on 16 September. Plave's English Wikipedia page was already reading above average three days earlier."
+dek: "The 18th Melon Music Awards named its first lineup — Plave, Riize, NCT Wish, Alpha Drive One and Lngshot — on 16 September. Plave's English Wikipedia reading was already 1.52x its baseline three days before the announcement."
 category: stars
 genre: music
 pubDate: 2026-09-19

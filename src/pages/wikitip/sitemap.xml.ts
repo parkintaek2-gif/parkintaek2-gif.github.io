@@ -266,6 +266,14 @@ const videoSets = [
       + '100 million Spotify streams. That same day, Riize\'s English Wikipedia reading was 0.73x '
       + 'average — the lowest day in the 30 we measured.',
   },
+  {
+    set: 'rescene-topped-bts-and-blackpink-in-reputation-not-in-reading-voiced',
+    page: '/what-moves-english-reading',
+    title: "Re:Scene Topped BTS and BLACKPINK in Reputation. English Wikipedia Barely Noticed.",
+    description: '17 seconds: a Korean reputation index ranked Re:Scene first among K-pop groups this '
+      + 'September, ahead of BTS and BLACKPINK. Re:Scene averaged 11 English Wikipedia views a day. '
+      + 'BTS averaged 6,860 — 624 times as many.',
+  },
   /*
    * 🔴 [2026-08-29] **어제·오늘 만든 영상 넷이 이 목록에 없었다.**
    *   목록에 없으면 ① 영상 사이트맵에 안 들어가고 ② 올릴 문안(upload-kit)이 안 만들어진다.

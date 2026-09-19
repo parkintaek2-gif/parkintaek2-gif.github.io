@@ -1,6 +1,6 @@
 ---
 title: "Seo Kang-joon's English Wikipedia Reading More Than Doubled in a Week. We Don't Know Why."
-dek: "Across our 2,371-person K-pop panel, actor Seo Kang-joon's most recent seven-day reading average came in at 2.59 times his 30-day average — one of the sharpest rises in the panel, and one we could not attach to a specific news event."
+dek: "Across our 2,371-person K-pop panel, actor Seo Kang-joon's most recent seven-day reading average came in at 2.59x his 30-day average — one of the sharpest rises in the panel, and one we could not attach to a specific news event."
 category: stars
 genre: drama
 pubDate: 2026-09-19

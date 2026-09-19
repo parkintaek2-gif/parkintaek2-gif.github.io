@@ -1,6 +1,6 @@
 ---
 title: "29 Names in Our K-Pop Panel Averaged Zero English Wikipedia Readers for 30 Days"
-dek: "Our panel holds 2,371 Korean pop-culture people and groups, each checked against 30 days of English Wikipedia pageviews. Twenty-nine of them — 1.2% — recorded a daily average of exactly zero."
+dek: "Our panel holds 2,371 Korean pop-culture people and groups, each checked against 30 days of English Wikipedia pageviews. 29 of them — 1.2% — recorded a daily average of exactly zero."
 category: stars
 genre: music
 pubDate: 2026-09-19

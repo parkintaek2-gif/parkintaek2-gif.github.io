@@ -1,6 +1,6 @@
 ---
 title: "Katseye's 'Animal' Hit 100 Million YouTube Views. Their Wikipedia Reading Fell That Day."
-dek: "The music video for Katseye's 'Animal' passed 100 million YouTube views on 16 September 2026. English Wikipedia readers looked the group up less that day than on 22 of the previous 23 days we measured."
+dek: "The music video for Katseye's 'Animal' passed 100 million YouTube views on 16 September 2026. English Wikipedia reading that day was 0.62x baseline — lower than on 22 of the previous 23 days we measured."
 category: stars
 genre: music
 pubDate: 2026-09-19

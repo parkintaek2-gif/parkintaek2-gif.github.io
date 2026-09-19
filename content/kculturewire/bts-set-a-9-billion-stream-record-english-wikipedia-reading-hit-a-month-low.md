@@ -1,6 +1,6 @@
 ---
 title: "BTS Set a 9-Billion-Stream Spotify Record. English Wikipedia Reading Hit a Month-Low the Day Before."
-dek: "STARNEWS reported BTS passed 9 billion Spotify streams in a year, first for an Asian act. Wikimedia has no data yet for that day — the 29 days before it show reading nearly halving."
+dek: "STARNEWS reported BTS passed 9 billion Spotify streams in a year, first for an Asian act. Wikimedia has no data yet for that day, but the 10 days before it read at 0.70x the 10 days before that."
 category: stars
 genre: music
 pubDate: 2026-09-19

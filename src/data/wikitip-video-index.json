@@ -1,13 +1,14 @@
 {
-  "generated": "2026-09-18T17:17+09:00",
+  "generated": "2026-09-19T10:42+09:00",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 43,
-    "짝찾음": 41,
+    "영상": 44,
+    "짝찾음": 42,
     "짝못찾음": 2,
     "두지면에걸린것": 0,
-    "지면에서읽음": 41
+    "지면에서읽음": 3,
+    "원본에서읽음": 38
   },
   "videos": [
     {
@@ -16,8 +17,8 @@
       "thumb": "/video/thumb/a-phone-and-a-burger-took-two-k-pop-faces-voiced.jpg",
       "seconds": 17,
       "page": "/brand-kinds",
-      "says": "Seventeen seconds on the two brand kinds this panel had left out, and on the moment we found one company was three quarters of the technology total and cut our own headline from five times to one point three.",
-      "saysFrom": "built page",
+      "says": null,
+      "saysFrom": null,
       "alsoOn": []
     },
     {
@@ -37,7 +38,7 @@
       "seconds": 14,
       "page": "/watched",
       "says": "Fourteen seconds, read aloud: nine of the ten most watched Korean titles on Netflix reached number one. Alchemy of Souls charted for 27 weeks — longer than eight of them — and peaked at three. King the Land drew 41 million hours per charting week against its 16. Netflix publishes hours only for the weeks a title was inside the top 10.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -47,7 +48,7 @@
       "seconds": 14,
       "page": "/clumping",
       "says": "Fourteen seconds, read aloud: four times outside Korea — Vietnam twice, then Indonesia and Malaysia in the same week — every one of a country's ten Netflix TV places was Korean. That is 0.02% of the country-weeks we checked. In 11,594 of them, a country's top 10 held exactly one Korean title. A top 10 is a ranking of what was watched most, not a census, and Netflix releases no viewer numbers by country at all.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -56,8 +57,8 @@
       "thumb": "/video/thumb/alongside-voiced.jpg",
       "seconds": 14,
       "page": "/what-to-watch-after",
-      "says": "Fourteen seconds, read aloud: Squid Game and My Name were on the same country's Netflix top 10, in the same week, 274 times — and even that closest pair is only a tenth of all the country-weeks Squid Game shared with anything. This counts one published list. It is not a count of people, and Netflix releases no viewer data at all.",
-      "saysFrom": "built page",
+      "says": "Fourteen seconds, read aloud: … and … were on the same country's Netflix top 10, in the same week, … times — and even that closest pair is only a tenth of all the country-weeks … shared with anything. This counts one published list. It is not a count of people, and Netflix releases no viewer data at all.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -66,8 +67,8 @@
       "thumb": "/video/thumb/brands.jpg",
       "seconds": 14,
       "page": "/brand-kinds",
-      "says": "A man and a woman read out the two figures in the table above — 53.79 and 38.45, both for Indonesia.",
-      "saysFrom": "built page",
+      "says": "A man and a woman read out the two figures in the table above — … and …, both for ….",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -77,7 +78,7 @@
       "seconds": 14,
       "page": "/bts-hometowns",
       "says": "Fourteen seconds, read aloud: two of the seven were born in Busan and two in Daegu. Wikidata records a place of birth, which is not the same thing as a hometown, and a hospital city is often recorded instead of the town a person grew up in.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -87,7 +88,7 @@
       "seconds": 14,
       "page": "/member-vs-group",
       "says": "Fourteen seconds, read aloud: seven BTS members across four Southeast Asian Wikipedias is twenty-eight checks, and the group page wins every one. But Lee Hye-ri beats Girl's Day in all four of hers — six acts lose to their own member everywhere we could measure. This counts encyclopaedia pages being opened, not popularity or streams.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -96,8 +97,8 @@
       "thumb": "/video/thumb/chung-ha-agency-split-reading-spike-smaller-than-unexplained-one-voiced.jpg",
       "seconds": 10.9,
       "page": "/what-moves-english-reading",
-      "says": "Seventeen seconds: a Reddit post said Chung Ha left her agency, and her Wikipedia reading rose 2.2x that day, but an unexplained day three weeks earlier was 3.8x, and we don't know why.",
-      "saysFrom": "built page",
+      "says": "Seventeen seconds: a Reddit post said Chung Ha left her agency, and her Wikipedia reading rose 2.2x that day, but an unexplained day three weeks earlier was 3.8x, and we don",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -107,7 +108,7 @@
       "seconds": 14,
       "page": "/what-actually-fell",
       "says": "A man and a woman read out the four numbers, and the one that is not negative — the Japanese and Taiwanese culture articles, which rose.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -116,8 +117,8 @@
       "thumb": "/video/thumb/counting.jpg",
       "seconds": 14,
       "page": "/read-vs-visited",
-      "says": "A man and a woman read out the two figures above — Seoul has 25 districts and the public tourist count can speak for 5.",
-      "saysFrom": "built page",
+      "says": "A man and a woman read out the two figures above — Seoul has … districts and the public tourist count can speak for ….",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -127,7 +128,7 @@
       "seconds": 14,
       "page": "/debut-age",
       "says": "Fourteen seconds, read aloud: stars who debuted before eighteen are read 11.89 per million; those who started at twenty-six or later, 2.43. Median career length barely differs across the four bands, so this is not the older ones simply having had less time.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -147,7 +148,7 @@
       "seconds": 14,
       "page": "/read-in",
       "says": "Fourteen seconds: Chinese Wikipedia leads for 306 of these 478 people, for the seven BTS members it leads for none, Spanish takes six, and Jimin is the exception by 4,669 reads. The film says on screen that these are language editions and not countries.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -156,8 +157,8 @@
       "thumb": "/video/thumb/fame.jpg",
       "seconds": 14,
       "page": "/fame-compare",
-      "says": "A man and a woman read the headline out — BTS above Son Heung-min, out of 2,511 names we measured.",
-      "saysFrom": "built page",
+      "says": "A man and a woman read the headline out — BTS above …, out of … names we measured.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -167,7 +168,7 @@
       "seconds": 14,
       "page": "/written-down-first",
       "says": "Fourteen seconds, read aloud: of twenty five Korean titles written up on all four Southeast Asian Wikipedias, the Indonesian one wrote first for twenty four. The Vietnamese edition, the biggest of the four, wrote first for eight. Size does not explain the order. This counts when an article was written, not when anyone read it.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -177,7 +178,7 @@
       "seconds": 14,
       "page": "/half-life",
       "says": "A man and a woman read out the median half-life and how many of the titles came back above half at least once.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -186,8 +187,8 @@
       "thumb": "/video/thumb/instrument.jpg",
       "seconds": 14,
       "page": "/titles-to-name",
-      "says": "A man and a woman read the multiple out — 9.9 times more reads between the ends.",
-      "saysFrom": "built page",
+      "says": "A man and a woman read the multiple out — … times more reads between the ends.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -197,7 +198,7 @@
       "seconds": 17,
       "page": "/what-moves-english-reading",
       "says": "LE SSERAFIM closed BlizzCon on September thirteenth. The next day their English Wikipedia reading hit 2.89 times average. The same week, three other K-pop stories moved the number not at all.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -207,7 +208,7 @@
       "seconds": 14,
       "page": "/who-reads-least",
       "says": "Fourteen seconds, read aloud: which country reads BTS and Byeon Woo-seok most, the one that comes last for all twenty, and the objection we cannot rule out — shown before the table.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -217,7 +218,7 @@
       "seconds": 14,
       "page": "/attention-share",
       "says": "Fourteen seconds, read aloud: seven hundred seventy four Korean acts drew two point six seven million English Wikipedia reads in the single month of August twenty twenty six, and twenty four of those acts hold half of it. The bottom half of the list — three hundred eighty seven acts together — holds three point one percent, the same share as the top three point one percent. The act in the middle was read five hundred nineteen times in the month. These are encyclopaedia pages being opened, not tickets, not streams and not money, and we hold no revenue data for any act on this page.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -227,7 +228,7 @@
       "seconds": 14,
       "page": "/malaysia",
       "says": "Fourteen seconds, read aloud: Malaysia's share of four country reading is seven point six to eight point six percent for people. For luxury and car brands, twenty three. That row rests on twenty two brands, not thousands.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -247,7 +248,7 @@
       "seconds": 14,
       "page": "/hit-or-flop",
       "says": "Fourteen seconds, read aloud: more Korean titles have been number one somewhere than have ever reached fifty countries. Sixty-five of them were number one in the only country that ever charted them. A chart place is a rank in one country in one week, not viewers and not money.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -256,8 +257,8 @@
       "thumb": "/video/thumb/onecountry-voiced.jpg",
       "seconds": 14,
       "page": "/underrated",
-      "says": "Fourteen seconds, now read aloud over music we made ourselves. Mr. Sunshine held a Netflix top ten place for twenty-three weeks and never left one country, while the middle Korean title we publish reached 7. Charting is not the same as being available, and Netflix publishes only the top ten.",
-      "saysFrom": "built page",
+      "says": "Fourteen seconds, now read aloud over music we made ourselves. Mr. Sunshine held a Netflix top ten place for twenty-three weeks and never left one country, while the middle Korean title we publish reached …. Charting is not the same as being available, and Netflix publishes only the top ten.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -267,7 +268,7 @@
       "seconds": 14,
       "page": "/one-out",
       "says": "A man and a woman read out what happened to each of two medians when a single title was removed.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -277,7 +278,7 @@
       "seconds": 14,
       "page": "/only-one-wikipedia",
       "says": "Fourteen seconds: the names only one edition has written about, the size table that rules out the obvious explanation, and why a gap here is a fact about editors.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -287,7 +288,7 @@
       "seconds": 14,
       "page": "/places",
       "says": "Fourteen seconds, read aloud: we published the Battle of Khe Sanh as the most-read Korean place in Vietnamese, and it was fought in Vietnam. Nineteen of our two thousand two hundred and thirty-eight places are not in Korea at all, which our own first check did not catch.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -297,7 +298,7 @@
       "seconds": 14,
       "page": "/places",
       "says": "Fourteen seconds, read aloud: YG Entertainment scores 111.47 reads per million and Seoul, the most-read place of any kind, 106.54. Five hundred and eighteen cities and districts sit below that one company. These are Wikipedia reader counts per million people, not a measure of importance, and a company and a city are not the same kind of thing — the ordering is what we can count, not a claim about which matters more.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -307,7 +308,17 @@
       "seconds": 14,
       "page": "/staying-power",
       "says": "Fourteen seconds, read aloud: Vietnam's number one series on Netflix was Korean for 34 weeks straight — but not one show. Eleven different Korean series held that place, and it changed hands thirteen times without once leaving Korean television. This counts the top place week by week, not one title's own run, and a rank is an ordering: Netflix publishes no viewers or hours by country.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
+      "alsoOn": []
+    },
+    {
+      "set": "rescene-topped-bts-and-blackpink-in-reputation-not-in-reading-voiced",
+      "src": "/video/rescene-topped-bts-and-blackpink-in-reputation-not-in-reading-voiced.mp4",
+      "thumb": "/video/thumb/rescene-topped-bts-and-blackpink-in-reputation-not-in-reading-voiced.jpg",
+      "seconds": 17,
+      "page": null,
+      "says": null,
+      "saysFrom": null,
       "alsoOn": []
     },
     {
@@ -315,9 +326,9 @@
       "src": "/video/riizes-quietest-reading-day-in-a-month-was-their-milestone-day-voiced.mp4",
       "thumb": "/video/thumb/riizes-quietest-reading-day-in-a-month-was-their-milestone-day-voiced.jpg",
       "seconds": 16.9,
-      "page": null,
-      "says": null,
-      "saysFrom": null,
+      "page": "/what-moves-english-reading",
+      "says": "SM Entertainment announced on September seventeenth that Riize",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -327,7 +338,7 @@
       "seconds": 14,
       "page": "/is-it-korean",
       "says": "Fourteen seconds, read aloud: a Netflix chart row carries a title, a country, a week and a rank, and nothing else. For 423 of our 974 titles another country carries a work with the same English name, so the row alone cannot say which work charted. For 41 of them Wikidata lists no Korean work at all, and we publish that list rather than drop the rows.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -337,7 +348,7 @@
       "seconds": 14,
       "page": "/school",
       "says": "Fourteen seconds: one name, Lee You-mi, moves a whole school's figure from 43 countries to 25. The school did not travel — a person did.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -346,8 +357,8 @@
       "thumb": "/video/thumb/season.jpg",
       "seconds": 14,
       "page": "/look-vs-fly",
-      "says": "A man and a woman read out the two peak months and the one month both sides fall lowest — June.",
-      "saysFrom": "built page",
+      "says": "A man and a woman read out the two peak months and the one month both sides fall lowest — ….",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -357,7 +368,7 @@
       "seconds": 14,
       "page": "/what-kind-fell",
       "says": "A man and a woman read out the two medians side by side — the Korean articles and the Japanese ones beside them — and say plainly that both fell. Narrated.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -367,7 +378,7 @@
       "seconds": 14,
       "page": "/star-signs",
       "says": "Fourteen seconds: the names in six of the twelve signs, and the measurement that says the spread across signs is indistinguishable from chance.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -377,7 +388,7 @@
       "seconds": 14,
       "page": "/group/hearts2hearts",
       "says": "The same fourteen seconds, now spoken aloud over music we made ourselves. The measurement has not changed: this name was opened about twice as often on the Vietnamese Wikipedia yesterday as on an average day the week before. An encyclopaedia open is not a stream, a ticket or a fan, and the data does not say why it moved.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -387,7 +398,7 @@
       "seconds": 14,
       "page": "/star-signs",
       "says": "Fourteen seconds, read aloud: 281 Korean stars from Wikidata, counted by star sign. Aquarius 28, Cancer 17 — and dealing 281 people into twelve signs at random produces a gap that size about 87% of the time. Chi-squared is 6.3 against a 0.05 threshold of 19.68. 22 of the 281 sit within a day of a sign boundary, where a birth time we do not have would change the answer. We measured it, and there is nothing to explain.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -407,7 +418,7 @@
       "seconds": 14,
       "page": "/most-read",
       "says": "Fourteen seconds, read aloud: Crash Landing on You had one hundred thirty one thousand reads on its biggest day and Hyun Bin took thirty four point two percent of that. Parasite had two point seven million and Song Kang-ho took three point nine. Across twelve Korean breakouts the bigger the title, the smaller the share reaching any one actor — but these twelve are titles we picked because we knew they broke out, so this is a pattern inside a list of winners, not a law.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -417,7 +428,7 @@
       "seconds": 14,
       "page": "/person",
       "says": "Fourteen seconds: we measure people two ways — how often their Wikipedia page is opened, and how many countries their titles charted in. Of the people we can measure both ways, not one is in the top five of both lists.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -427,7 +438,7 @@
       "seconds": 14,
       "page": "/wave-and-floor",
       "says": "A man and a woman read out how many titles could be measured on both sides of their peak, and why most of them could not be.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -437,7 +448,7 @@
       "seconds": 14,
       "page": "/works-and-readers",
       "says": "Fourteen seconds: the ladder of median reads by number of charting titles, the chance one actor from the top band outreads one from the bottom, and where the two bands overlap.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     }
   ]

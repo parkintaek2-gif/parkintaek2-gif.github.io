@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-18T17:17+09:00",
+  "generated": "2026-09-19T10:42+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -212,6 +212,13 @@
       "uploadDate": "2026-08-30",
       "thumb": "/video/thumb/relay-voiced.jpg",
       "src": "/video/relay-voiced.mp4"
+    },
+    {
+      "set": "rescene-topped-bts-and-blackpink-in-reputation-not-in-reading-voiced",
+      "seconds": 17,
+      "uploadDate": "2026-09-19",
+      "thumb": "/video/thumb/rescene-topped-bts-and-blackpink-in-reputation-not-in-reading-voiced.jpg",
+      "src": "/video/rescene-topped-bts-and-blackpink-in-reputation-not-in-reading-voiced.mp4"
     },
     {
       "set": "riizes-quietest-reading-day-in-a-month-was-their-milestone-day-voiced",
