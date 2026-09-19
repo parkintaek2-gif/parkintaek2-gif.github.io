@@ -748,6 +748,11 @@
    "figure": "2.59x",
    "label": "Seo Kang-joon's most recent 7-day English Wikipedia reading vs. his own 30-day average",
    "왜": "자동은 패널 크기(2,371)를 집는다. 요점은 서강준 개인의 최근 7일이 자기 30일 평균의 2.59배로 뛴 것이다"
+  },
+  "ius-anniversary-donation-day-read-exactly-like-the-day-before-it": {
+   "figure": "1.08x",
+   "label": "IU's donation-day reading vs. baseline — identical to the day before the news broke",
+   "왜": "자동은 날짜 조각 「18」(September)을 집는다. 요점은 발표일(1.08x)이 그 전날(1.08x)과 사실상 같았다는 것이다"
   }
  }
 }
