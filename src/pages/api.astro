@@ -4,6 +4,7 @@ import { SITE, SITE_URL, PUBLISHER, PUBLISHER_SM } from '../consts';
 import stats from '../data/research-stats.json';
 import { SUBJECT_STATS } from '../lib/subjects.mjs';
 import { LIMITS, ENFORCE_FROM } from '../lib/tiers.mjs';
+import { buildLive, soon } from '../lib/api-docs.mjs';
 
 /**
  * 개발자·기관을 향한 판매 화면.
@@ -43,50 +44,13 @@ const 첫해 = stats.first_day.slice(0, 4);
 /* ⚠ 2026-08-03 KST — 이 페이지에 **리서치가 한 글자도 없었다.**
    66,071건은 우리가 유일하게 실제로 갖고 있는 대량 데이터인데, 개발자가 처음 보는 화면에서
    빠져 있었다. 분류 사전(HS·국가)은 참조표이고, **리서치는 우리가 모았기 때문에 존재하는 것**이다.
-   파는 사람이 상품을 안 보여 주고 있었다. 앞에 세운다. */
-const live = [
-  {
-    path: '/v1/research',
-    what: `Every target price and rating issued by Korean brokerages, ${첫해}-${stats.latest_day.slice(0, 4)}. ${건수} records.`,
-    example: '/v1/research?broker=Mirae%20Asset&limit=5',
-  },
-  {
-    path: '/v1/institutions',
-    what: `The ${stats.brokers} Korean research houses in English, grouped into 34 legal entities across renames.`,
-    example: '/v1/institutions',
-  },
-  {
-    path: '/v1/hs/{code}',
-    what: 'Resolve any HS code — 2, 4, 6 or 10 digits — to its English description.',
-    example: '/v1/hs/8542',
-  },
-  {
-    path: '/v1/hs?q={keyword}',
-    what: 'Search the classification in English when you do not know the code.',
-    example: '/v1/hs?q=battery',
-  },
-  {
-    path: '/v1/countries',
-    what: 'Partner country codes with English names.',
-    example: '/v1/countries',
-  },
-  {
-    path: '/v1/meta',
-    what: 'Coverage, dictionary size, and exactly what has been collected so far.',
-    example: '/v1/meta',
-  },
-];
+   파는 사람이 상품을 안 보여 주고 있었다. 앞에 세운다.
 
-const soon = [
-  {
-    path: '/v1/trade/flash',
-    what: "Korea's 10-day provisional trade figures, by product. Released 1st, 11th and 21st at 09:00 KST.",
-  },
-  {
-    path: '/v1/trade/exports',
-    what: 'Exports and imports by HS code and partner country, monthly, back to the start of our archive.',
-  },
-];
+   ⭐ [2026-09-19 · 2번] 목록 자체는 src/lib/api-docs.mjs 로 옮겼다 — astro 파일은
+   테스트가 import 할 수 없어서, 「예제 주소가 실제로 200 인가」를 재는 검사
+   (tests/api-docs-examples.test.mjs)가 이 화면과 같은 목록을 직접 불러 재게 했다.
+   여기서는 그리기만 한다. */
+const live = buildLive(stats);
 
 /* ⚠ 이 예제는 실제 응답과 **글자 단위로 같아야 한다.**
    문서와 실물이 다르면 첫 호출에서 들통나고, 데이터 상품에서 그건 치명적이다.

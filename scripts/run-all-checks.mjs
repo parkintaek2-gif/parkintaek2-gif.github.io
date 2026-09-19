@@ -50,6 +50,18 @@ const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 단계들 = [
   "node scripts/check-before-i-write.mjs --자가시험",
   "node scripts/check-tests-wired.mjs",
+  /* 🔴🔴 [2026-09-19 · 2번] **tests/*.test.mjs 전체(node:test 자리)가 npm test 에
+   *   «한 번도» 안 걸려 있었다.** check-tests-wired.mjs 는 scripts/ 폴더만 훑어서
+   *   이 구멍을 못 잡는다(tests/ 는 아예 다른 폴더다) — 「자물쇠라고 적힌 종이」였다.
+   *   라이선스 파일 존재·BOM·F7 API 커버리지·페이팔 검증 같은 검사 76개가 오늘까지
+   *   조용히 «안 돌고» 있었다. `tests/*.test.mjs` 는 셸 글롭이라 execSync 가 그대로
+   *   펼친다(Windows cmd.exe 로도 실측 확인) — node --test 에 디렉터리를 직접 주면
+   *   이 Node 판에서는 되레 MODULE_NOT_FOUND 로 죽는다(직접 겪음), 그래서 글롭으로 편다.
+   * ⛔ 글자 `tests` 뒤에 `/*.test.mjs` 를 «붙여 적지» 않는다 — check-tests-wired.mjs 의
+   *   주석 걷기가 정규식이라 `/*` 를 «블록주석 시작»으로 잘못 읽어 그 뒤 몇 줄을
+   *   통째로 삼킨다(실측 — check-comment-close.mjs 가 «안 불리는 검사」로 잘못 잡혔었다).
+   *   그래서 문자열을 둘로 나눠 붙인다. */
+  "node --test tests/" + "*.test.mjs",
   "node scripts/deploy.mjs --selftest",
   "node scripts/check-comment-close.mjs",
   "node scripts/count-newsdesk.mjs --자가시험",

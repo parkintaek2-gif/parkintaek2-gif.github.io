@@ -603,6 +603,110 @@ export function openapi(baseUrl) {
           },
         },
       },
+      /* ⭐ [2026-09-19 · 2번] financials·consensus·indices·uae-financials 가
+       * src/lib/api.mjs 에는 이미 있었는데 이 파일에 없었다 — «새로 만든 것일수록
+       * 안 잡힌다»의 실측 사례다. 실제 핸들러(financials()·consensus()·indices()·
+       * uaeFinancials())의 파라미터를 그대로 옮겼다. */
+      '/financials': {
+        get: {
+          tags: ['Markets'],
+          operationId: 'getFinancials',
+          summary: 'Filed annual financial statements for Korean listed companies, as filed to DART',
+          description:
+            'One row per company per fiscal year (fnlttSinglAcntAll, annual report). `measured:false` means DART had no annual statement on file for that company and year — those rows carry nulls, never zeros. `basis` says CFS (consolidated) or OFS (separate-only). This is what companies filed, not our estimate. `?ticker=` returns every year on file for one company; otherwise a filtered, paginated list.',
+          parameters: [
+            { name: 'ticker', in: 'query', required: false, schema: { type: 'string', pattern: '^\\d{6}$' }, description: '6-digit KRX short code, e.g. 005930.' },
+            { name: 'year', in: 'query', required: false, schema: { type: 'integer' }, description: 'Fiscal year, e.g. 2025.' },
+            { name: 'market', in: 'query', required: false, schema: { type: 'string' }, description: 'KOSPI, KOSDAQ or KONEX.' },
+            { name: 'name', in: 'query', required: false, schema: { type: 'string' }, description: 'English or Korean company name. Substring match.' },
+            { name: 'measured', in: 'query', required: false, schema: { type: 'boolean' }, description: 'true drops rows with no annual statement on file.' },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer' }, description: 'Max rows; capped by plan.' },
+          ],
+          responses: {
+            200: { description: 'Financial-statement rows with source and coverage notes' },
+            404: {
+              description: 'ticker did not match any listed company.',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
+          },
+        },
+      },
+      '/consensus': {
+        get: {
+          tags: ['Markets'],
+          operationId: 'getConsensus',
+          summary: 'Analyst target-price reports and analyst rankings for Korean listed companies',
+          description:
+            'The source keeps only a rolling 30-day window — our snapshots are the historical record beyond that. `kind=reports` (default) is one row per analyst report, with `target_change_pct` null when there is no prior target to compare against (not "unchanged"). `kind=analysts` is per-analyst accuracy rankings; an accuracy of 0 means "not computed", not "zero accuracy".',
+          parameters: [
+            { name: 'kind', in: 'query', required: false, schema: { type: 'string', enum: ['reports', 'analysts'] }, description: 'Which table. Default: reports.' },
+            { name: 'ticker', in: 'query', required: false, schema: { type: 'string' }, description: '6-digit KRX code. reports only.' },
+            { name: 'house', in: 'query', required: false, schema: { type: 'string' }, description: 'Brokerage/research house name. Substring match.' },
+            { name: 'since', in: 'query', required: false, schema: { type: 'string', format: 'date' }, description: 'reports published on/after this date. reports only.' },
+            { name: 'target_changed', in: 'query', required: false, schema: { type: 'boolean' }, description: 'true keeps only reports with a known target-price change. reports only.' },
+            { name: 'as_of', in: 'query', required: false, schema: { type: 'string', format: 'date' }, description: 'Ranking snapshot date. analysts only.' },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer' }, description: 'Max rows; capped by plan.' },
+          ],
+          responses: {
+            200: { description: 'Consensus rows with source and coverage notes' },
+            400: {
+              description: 'kind was neither "reports" nor "analysts".',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
+            404: {
+              description: 'ticker did not match any report in the rolling 30-day window (reports only).',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
+          },
+        },
+      },
+      '/indices': {
+        get: {
+          tags: ['Markets'],
+          operationId: 'getIndices',
+          summary: 'Dated time series for KRX indices, in English',
+          description:
+            'Unlike `/index-tape` (one snapshot per index, most recent date only), this is the archived history stitched into a series. `?list=names` returns every index name we carry, in Korean/English pairs, with no other filter applied. Otherwise `name=` (exact match, English or Korean) returns one index\'s series; `year_low_not_measured:true` marks a source placeholder rather than a genuine zero annual low.',
+          parameters: [
+            { name: 'list', in: 'query', required: false, schema: { type: 'string', enum: ['names'] }, description: '"names" returns the name index instead of rows.' },
+            { name: 'name', in: 'query', required: false, schema: { type: 'string' }, description: 'Exact English or Korean index name, e.g. "KOSPI 200".' },
+            { name: 'family', in: 'query', required: false, schema: { type: 'string' }, description: 'English or Korean series name. Substring match.' },
+            { name: 'since', in: 'query', required: false, schema: { type: 'string', format: 'date' }, description: 'Rows dated on/after this date.' },
+            { name: 'until', in: 'query', required: false, schema: { type: 'string', format: 'date' }, description: 'Rows dated on/before this date.' },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer' }, description: 'Max rows; capped by plan.' },
+          ],
+          responses: {
+            200: { description: 'Index history rows, or the name index when list=names' },
+            404: {
+              description: 'name did not match any index exactly.',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
+          },
+        },
+      },
+      '/uae-financials': {
+        get: {
+          tags: ['Gulf'],
+          operationId: 'getUaeFinancials',
+          summary: 'Revenue, net profit, EPS and (where reconciled) balance sheet for ADX and DFM filers',
+          description:
+            'ADX rows come from the exchange\'s own AI-extracted summary; DFM rows are parsed directly from the filed PDF. Not an audit — we did not re-check the filed figures. `total_assets_aed` is null unless `balance_sheet_reconciled:true` (assets = liabilities + equity checks out) or `liabilities_derived:true` (liabilities backed out from assets − equity, flagged, never hidden). `unit_hint` must be read together with the figures — some filers report in thousands.',
+          parameters: [
+            { name: 'symbol', in: 'query', required: false, schema: { type: 'string' }, description: 'ADX or DFM ticker symbol, e.g. ALDAR or EMAAR.' },
+            { name: 'exchange', in: 'query', required: false, schema: { type: 'string', enum: ['ADX', 'DFM'] }, description: 'Filter to one exchange.' },
+            { name: 'period', in: 'query', required: false, schema: { type: 'string' }, description: 'Exact filing period, e.g. "Q2 2026".' },
+            { name: 'balance_sheet', in: 'query', required: false, schema: { type: 'boolean' }, description: 'true keeps only rows with a reconciled or derived balance sheet.' },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer' }, description: 'Max rows; capped by plan.' },
+          ],
+          responses: {
+            200: { description: 'UAE financial-highlight rows with source and coverage notes' },
+            404: {
+              description: 'symbol did not match any ADX or DFM filer.',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
+          },
+        },
+      },
     },
   };
 }
