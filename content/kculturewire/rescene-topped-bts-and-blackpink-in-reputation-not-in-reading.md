@@ -49,3 +49,6 @@ Re:Scene's English Wikipedia readership averaged 11 views a day across the entir
 A reputation index built for a Korean audience, from Korean-language sources, can be a real and accurate read of who a domestic audience is talking about most right now — a debut-era rookie group riding a wave of local media coverage can genuinely outscore a group with over a decade of global reach on that specific measure. That's not a contradiction with our numbers; it's a different question answered by a different instrument, pointed at a different readership.
 
 What our count says is narrower: as of mid-September 2026, Re:Scene has not yet become a name that English-speaking readers look up in meaningful numbers. Whether that changes is not something a 29-day window can tell us.
+
+Our running method for checking what actually moves English Wikipedia reading is on
+[what-moves-english-reading](/what-moves-english-reading).

@@ -40,3 +40,6 @@ Reading on the milestone day was the fourth-lowest of the 29 days we measured. I
 ## The bigger picture — this wasn't a one-day dip
 
 Katseye's English Wikipedia reading has been drifting down since late August, independent of this milestone. The first ten days of our window (20-29 August) averaged 25,802 views a day; the six days from 12-17 September averaged 15,022 — a decline already well underway before "Animal" crossed 100 million views. The milestone day's low reading fits inside that longer slide rather than standing apart from it. We're not attributing the decline to the milestone, or to any single cause — only reporting that a widely covered platform record did not interrupt it.
+
+Our running method for checking what actually moves English Wikipedia reading is on
+[what-moves-english-reading](/what-moves-english-reading).

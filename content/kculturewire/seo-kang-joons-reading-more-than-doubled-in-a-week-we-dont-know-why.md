@@ -37,3 +37,6 @@ We only compared his own recent week against his own longer baseline — not aga
 ## Why we screen out low-base names
 
 Ratios like this can be misleading when the starting number is tiny — a rise from 2 views a day to 5 is "2.5x" but meaningless. We limited this comparison to panel members averaging at least 50 views a day over the full 30 days, so the ratios reported are built on a base large enough that a multi-day sample isn't just noise. Seo Kang-joon's 1,552-view baseline clears that bar comfortably.
+
+Our running method for checking what actually moves English Wikipedia reading is on
+[what-moves-english-reading](/what-moves-english-reading).

@@ -44,3 +44,6 @@ Reading fell fairly steadily across the window: 17 September, the last day we ca
 ## What we can't say yet
 
 We can't check whether the 9-billion-stream report itself moved reading on 18 September, because Wikimedia hasn't published that day's numbers yet. If reading jumped on the day the record was announced, our next update will show it. What the data through 17 September shows is a readership in decline running into that announcement, not building toward it.
+
+Our running method for checking what actually moves English Wikipedia reading is on
+[what-moves-english-reading](/what-moves-english-reading).

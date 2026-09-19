@@ -44,3 +44,6 @@ Reading was already above baseline on 13 September — 223 views, three days bef
 ## What we're not counting
 
 One day in our window, 23 August, spiked to 649 views — nearly five times the 139-view baseline we calculated from the other 22 days. We found no news event that day naming Plave and are excluding it from the baseline above, rather than let one unexplained day move it.
+
+Our running method for checking what actually moves English Wikipedia reading is on
+[what-moves-english-reading](/what-moves-english-reading).

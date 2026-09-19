@@ -49,3 +49,6 @@ The first ten names in that list, drawn straight from our panel:
 Every name in our panel has a confirmed, disambiguation-free English Wikipedia article — the zero is not a data-quality artifact of us mismatching a page. It reflects an audience: English-language Wikipedia readers, specifically, over one specific month. A name can carry real weight in Korean-language media, on Korean streaming charts, or inside a fandom that reads in Korean, and still not register with the audience our count measures.
 
 The panel-wide numbers put this in context: the median person or group in our panel averaged 29 views a day; the mean was 135, pulled up by a small number of very high-traffic pages. These 29 names sit at the floor of a panel that is already heavily concentrated at the top.
+
+Our running method for checking what actually moves English Wikipedia reading is on
+[what-moves-english-reading](/what-moves-english-reading).
