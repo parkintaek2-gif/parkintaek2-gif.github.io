@@ -1,0 +1,125 @@
+---
+/**
+ * /100y/ranking-eyewear-brand — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 · 안경 편)
+ *
+ * 한국기업평판연구소 2026년 9월 안경 브랜드평판 1위(젠틀몬스터)를 그대로 인용한다.
+ * 100yearmap이 새로 순위를 매기지 않는다.
+ *
+ * ⚠ 이번 편은 이 시리즈의 다른 업종과 달리 「업종 전체가 오래 간다」는 대조다.
+ *   순위+문제제기가 늘 「짧다」쪽으로만 가지 않는다 — 실측이 그렇게 나오면 그대로 낸다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/ranking-eyewear-brand-2026.json';
+
+const 자료 = 원본 as any;
+const 순위출처 = 자료.순위출처;
+const top5 = 자료.top5 as any[];
+const 실측 = 자료.실측대조;
+const 일위 = top5[0];
+
+const desc =
+  `${순위출처.이름}에서 ${일위.브랜드}가 1위입니다. ` +
+  `100yearmap이 실측한 안경 및 렌즈 소매업 업종 전체의 사업장 수명 중앙값은 ${실측.수명중앙값_년}년으로, ` +
+  `이 시리즈의 다른 업종보다 깁니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 안경 브랜드 순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${순위출처.이름}를 그대로 인용했습니다. ${순위출처['⚠원자료']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '이 업종은 왜 치킨·커피·미용실보다 오래 가나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: (자료.이자료가못가르는것 as string[])[0] + ' ' + (자료.이자료가못가르는것 as string[])[1],
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`안경 브랜드평판 1위는 ${일위.브랜드} — 안경원 업종은 이 시리즈에서 가장 오래 갑니다(중앙값 ${실측.수명중앙값_년}년)`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    안경 브랜드평판 1위는 {일위.브랜드}<br class="pcbr" />
+    안경원 업종 수명 중앙값은 {실측.수명중앙값_년}년입니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {순위출처.이름}({순위출처.발표일} 보도)를 그대로 인용했습니다. {순위출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    한국기업평판연구소 빅데이터 분석에서 <strong>{일위.브랜드}</strong>가
+    안경 부문 <strong>2026년 9월 1위</strong>(브랜드평판지수 {일위.브랜드평판지수?.toLocaleString()})로
+    나왔습니다. 2위는 {top5[1]?.브랜드}, 3위는 {top5[2]?.브랜드}입니다.
+  </p>
+  <p class="note">⚠ {자료.top5주}</p>
+
+  <h2>이번엔 다릅니다 — 업종 전체가 «오래» 갑니다</h2>
+  <p>{실측.무엇}입니다.</p>
+  <div class="warn">
+    <p>
+      안경 및 렌즈 소매업 사업장 <strong>{실측.닫은곳.toLocaleString()}곳</strong>이 국민연금
+      가입 자격을 잃었고(2026년 6월 기준), {실측.쓰는말}의 중앙값은
+      <strong>{실측.수명중앙값_년}년</strong>입니다.
+      <strong>{실측.일년내_퍼센트}%</strong>만 1년 안에, <strong>{실측.삼년내_퍼센트}%</strong>가
+      3년 안에 이 명단에 들었습니다 — 이 시리즈에서 재 본 다른 업종(치킨·커피·미용실·
+      반려동물용품)보다 뚜렷이 낮은 비율입니다.
+    </p>
+  </div>
+  <p class="note">⚠ {실측.쓰면안되는말}</p>
+  <p class="note">⚠ {실측.주의}</p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 두 공개 자료를 나란히
+    {' '}놓아 보여줄 뿐, 어느 브랜드가 더 좋은지 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 브랜드평판: 한국기업평판연구소({순위출처.url}) · 실측: 국민연금공단 국민연금
+    {' '}가입 사업장 내역(공공데이터포털 15083277)
+  </p>
+
+  <p class="note">
+    <a href="/ranking-petsupply-brand">← 반려동물용품 브랜드평판 1위, 그 소매업 수명 중앙값은 1.9년입니다</a>
+    <br />
+    <a href="/ranking-hairsalon-brand">← 미용실 브랜드 2년 연속 1위, 업종 전체 수명 중앙값은 3년입니다</a>
+  </p>
+
+  <HundredAgeWalk 키="ranking-eyewear-brand" />
+
+  <NextQuestionBrief 모은것="한국기업평판연구소 안경 브랜드평판 + 국민연금공단 가입 사업장 내역" />
+
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-eyewear-brand"></div>
+</HundredYear>
