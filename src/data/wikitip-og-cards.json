@@ -753,6 +753,11 @@
    "figure": "1.08x",
    "label": "IU's donation-day reading vs. baseline — identical to the day before the news broke",
    "왜": "자동은 날짜 조각 「18」(September)을 집는다. 요점은 발표일(1.08x)이 그 전날(1.08x)과 사실상 같았다는 것이다"
+  },
+  "we-found-the-cause-seo-kang-joons-spike-and-his-co-star-moved-the-same-way": {
+   "figure": "6.24x",
+   "label": "his rise since the drama premiere — co-star rose 4.27x",
+   "왜": "자동은 지난주 기사의 옛 수 2.59x(본문에 인용문으로 남아 있다)를 집는다. 이 기사의 새 수는 6.24x — 같은 드라마의 두 주연이 같은 주에 같이 튄 것이다"
   }
  }
 }
