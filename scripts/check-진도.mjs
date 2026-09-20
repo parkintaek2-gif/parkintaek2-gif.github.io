@@ -180,20 +180,56 @@ export const 맡은일 = [
   },
 
   /* ── 새 나라 (사장님: 아시아마켓츠인데 도쿄가 빠지면 안된다) ──────── */
+  /* 🔴 [2026-09-20 15:4x · 5번] 이 두 자리가 «틀린 빨간불»을 켜고 있었다.
+       1번은 도쿄를 끝냈는데(사장님께 완료 메일까지 갔다) 자가 🔴 로 읽었다.
+       [까닭] 자가 «파일 이름»을 박아 두고 그 이름이 있나만 봤다. 1번이 쓴 이름은 달랐다 —
+         docs/일본-데이터-출처-라이선스.md · scripts/collect-japan-jpx-companies.mjs
+         (자가 찾던 이름: docs/데이터-출처-라이선스.md · collect-japan-jpx-listings/edinet)
+       ⛔ 자는 «이름»을 재지 않는다. 일이 됐나를 잰다 —
+         라이선스는 «어느 docs 문서든» 적혔으면 된 것이고,
+         수집기는 «돌려서 자료가 쌓였나»가 진짜 판정이다.
+       ⛔ 이름을 박아 두는 잣대를 다시 만들지 말 것. 남이 다른 이름을 쓰면 또 거짓 빨간불이다. */
   {
     자리: '1번', 이름: '도쿄 — 라이선스 판정 + EDINET 무료 열쇠', 마감: '2026-09-16 21:00',
     잰다: () => {
-      const g = 읽기(path.join(뿌리, 'docs/데이터-출처-라이선스.md')) ?? '';
-      const 적혔나 = /EDINET|JPX/i.test(g);
-      return { 됐나: 적혔나, 말: 적혔나 ? '라이선스 문서에 적혔다' : '아직 안 적혔다' };
+      const 본 = path.join(뿌리, 'docs');
+      /* ⚠ «라이선스»가 이름에 든 문서를 먼저 본다 — 아무 문서나 두 낱말이 스쳤다고
+         「라이선스 판정이 됐다」로 세면 또 거짓 초록불이다 */
+      const 차례 = (fs.existsSync(본) ? fs.readdirSync(본) : [])
+        .filter((f) => f.endsWith('.md'))
+        .sort((a, b) => (b.includes('라이선스') ? 1 : 0) - (a.includes('라이선스') ? 1 : 0));
+      let 찾은 = null;
+      for (const f of 차례) {
+        const g = 읽기(path.join(본, f)) ?? '';
+        if (/EDINET/i.test(g) && /JPX/i.test(g)) { 찾은 = f; break; }
+      }
+      return { 됐나: !!찾은, 말: 찾은 ? 'docs/' + 찾은 + ' 에 적혔다' : '아직 안 적혔다' };
     },
   },
   {
     자리: '1번', 이름: '도쿄 — 수집기 둘', 마감: '2026-09-17 21:00',
     잰다: () => {
-      const 것 = ['scripts/collect-japan-jpx-listings.mjs', 'scripts/collect-japan-edinet.mjs']
-        .filter((f) => 있나(f));
-      return { 됐나: 것.length === 2, 말: '만든 자 ' + 것.length + '/2' };
+      const 자리 = path.join(뿌리, 'scripts');
+      const 자들 = (fs.existsSync(자리) ? fs.readdirSync(자리) : [])
+        .filter((f) => /^collect-japan-.*\.mjs$/.test(f));
+      /* 진짜 판정은 «쌓였나»다 — 자만 있고 안 돌렸으면 안 된 것이다 */
+      const 창고 = path.join(뿌리, 'archive/raw');
+      let 행 = 0; let 어디 = null;
+      for (const d of (fs.existsSync(창고) ? fs.readdirSync(창고) : [])) {
+        if (!/japan|jpx|edinet/i.test(d)) continue;
+        const 날 = fs.readdirSync(path.join(창고, d)).filter((x) => x.endsWith('.json')).sort();
+        if (!날.length) continue;
+        try {
+          const j = JSON.parse(fs.readFileSync(path.join(창고, d, 날[날.length - 1]), 'utf8'));
+          const 큰 = Array.isArray(j) ? j
+            : Object.values(j).filter(Array.isArray).sort((a, b) => b.length - a.length)[0] ?? [];
+          if (큰.length > 행) { 행 = 큰.length; 어디 = d + '/' + 날[날.length - 1]; }
+        } catch (e) { /* 깨진 판은 세지 않는다 */ }
+      }
+      return {
+        됐나: 자들.length >= 1 && 행 > 0,
+        말: '수집기 ' + 자들.length + '개 · 쌓인 것 ' + (어디 ? 어디 + ' ' + 행 + '행' : '0행'),
+      };
     },
   },
 
