@@ -34,6 +34,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 제외 = new Set([
   '/404',
   '/recover',       // 손님이 직접 «주문번호»를 쳐야 뜨는 조회 도구 — 검색 가치 없음
+  '/account',       // 로그인해야 뜨는 화면 — /recover 와 같은 이유. noindex 로도 막아 뒀다
 ]);
 
 /** 파일 경로 → URL 경로. `index.astro` 는 그 폴더 자체, 동적 라우트(`[..]`)는 null(따로 다룬다) */
