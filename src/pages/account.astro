@@ -1,0 +1,345 @@
+---
+/*
+ * `/account` — 로그인해서 「내가 산 것」을 다시 받는 지면. (seoulmarkets.com/account)
+ *
+ * ── 🔴 왜 만드나 (2026-09-20 · 2번) ──────────────────────────────────────
+ *   src/lib/accounts.mjs · server.mjs 의 /api/account/{signup,login,purchases}
+ *   가 2026-09-18 에 이미 만들어져 있었는데, **이걸 부르는 화면이 하나도 없었다.**
+ *   grep 으로 확인 — src/pages·src/components 어디에도 `/api/account` 를 부르는
+ *   곳이 0건이었다. 손님이 계정을 만들 방법도, 로그인할 방법도, 로그인한 뒤
+ *   「내가 산 것」을 볼 방법도 «화면으로는» 없었다 — 백엔드만 있고 문이 없었다.
+ *
+ * ── /recover 와 다른 자리 ────────────────────────────────────────────────
+ *   /recover 는 주문번호 하나로 «비회원»이 다시 받는 길이고(이미 있다, F5 요건을
+ *   그걸로 충족한다). 이 지면은 **로그인한 손님**이 매번 주문번호를 찾지 않고
+ *   목록에서 바로 다시 받게 하는 «편의»다 — 계정이 있어야만 도는 부가 기능이며,
+ *   계정을 안 만들어도 /recover 로 여전히 받을 수 있다(이 지면이 유일한 길이 아니다).
+ *
+ * ⛔ 이 지면이 지키는 것
+ * ⛔ 비밀번호를 이 파일에 담아 두지 않는다 — 전부 서버로 보내고 서버가 해시만 남긴다.
+ * ⛔ 「내가 산 것」 목록은 «색인일 뿐»이다(accounts.mjs 머리글) — 실제로 받을 때는
+ *    /api/download 가 그때그때 PayPal 에 다시 물어 확인한다. 이 지면은 목록만 그린다.
+ * ⛔ 상품·데이터셋 이름을 이 파일에 박아 넣지 않는다 — /api/pay/config 하나에서 온다
+ *    (2026-09-13 「All six datasets」 사고와 같은 자리 — 이름을 두 곳에 안 둔다).
+ */
+import Base from '../layouts/Base.astro';
+const TITLE = 'Your account — download what you bought again';
+const DESC = 'Log in to see every dataset you licensed and get the file again, without hunting for your PayPal order ID each time.';
+---
+
+<Base title={TITLE} description={DESC} noindex={true}>
+  <div class="wrap">
+    <article class="legal">
+      <p class="kicker">SeoulMarkets · licence holders</p>
+      <h1>Your account</h1>
+      <p class="lead">
+        An account is optional — <a href="/recover">your PayPal order ID</a> always works on its own.
+        Logging in just saves you from digging up that ID every time: everything you have licensed
+        shows up here, one click to download again.
+      </p>
+
+      <section id="authSection">
+        <div class="tabs" role="tablist">
+          <button type="button" id="tabLogin" class="tab" aria-selected="true">Log in</button>
+          <button type="button" id="tabSignup" class="tab" aria-selected="false">Create account</button>
+        </div>
+
+        <form id="authForm" novalidate>
+          <label class="fld">
+            <span>Email</span>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </label>
+          <label class="fld">
+            <span>Password</span>
+            <input id="password" name="password" type="password" autocomplete="current-password"
+              minlength="8" required />
+            <small id="pwHint" class="hint" hidden>At least 8 characters.</small>
+          </label>
+
+          <p id="authMsg" class="msg" hidden></p>
+
+          <button id="authGo" type="submit" class="btn">Log in</button>
+        </form>
+      </section>
+
+      <section id="purchasesSection" hidden>
+        <div class="acctBar">
+          <span id="whoAmI"></span>
+          <button type="button" id="logoutBtn" class="btn ghost">Log out</button>
+        </div>
+
+        <h2>What you have licensed</h2>
+        <p id="purchasesMsg" class="msg" hidden></p>
+        <ul id="purchasesList" class="purchases"></ul>
+      </section>
+
+      <section>
+        <h2>Trouble logging in?</h2>
+        <p>
+          Write to <a href="mailto:admin@klifedesign.net">admin@klifedesign.net</a>. A licence you paid for is a licence you keep, whether or not this account works — <a href="/recover">/recover</a> with your PayPal order ID never depends on this page.
+        </p>
+      </section>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .wrap { max-width: 46rem; margin: 0 auto; padding-block: 2.5rem; padding-inline: 1rem; }
+  .kicker { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; opacity: .65; margin: 0 0 .35rem; }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.2; margin: 0 0 .75rem; }
+  .lead { font-size: 1.05rem; line-height: 1.6; opacity: .9; }
+  section { margin-top: 2rem; }
+  h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+  p { line-height: 1.65; }
+
+  .tabs { display: flex; gap: .5rem; margin-bottom: 1rem; }
+  .tab {
+    font: inherit; padding: .5rem 1rem; border-radius: .4rem 0.4rem 0 0;
+    border: 1px solid rgba(127, 127, 127, .45); border-bottom: none;
+    background: transparent; color: inherit; cursor: pointer; opacity: .6;
+  }
+  .tab[aria-selected="true"] { opacity: 1; font-weight: 600; }
+
+  .fld { display: block; margin: 0 0 1rem; }
+  .fld > span { display: block; font-size: .85rem; opacity: .75; margin: 0 0 .3rem; }
+  .fld input {
+    width: 100%; box-sizing: border-box; padding: .6rem .7rem; font: inherit;
+    border: 1px solid rgba(127, 127, 127, .45); border-radius: .4rem;
+    background: transparent; color: inherit;
+  }
+  .fld input:focus { outline: 2px solid currentColor; outline-offset: 1px; }
+  .hint { display: block; margin-top: .3rem; opacity: .6; font-size: .8rem; }
+  .hint[hidden] { display: none; }
+
+  /* :global() — 아래 클래스는 스크립트가 나중에 만드는 요소에도 붙는다.
+     scoped 스타일은 빌드 시점에 없던 태그에는 안 먹는다. */
+  :global(.btn) {
+    font: inherit; font-weight: 600; padding: .65rem 1.2rem; border-radius: .4rem;
+    border: 1px solid currentColor; background: transparent; color: inherit; cursor: pointer;
+    display: inline-block; text-decoration: none;
+  }
+  :global(.btn[disabled]) { opacity: .45; cursor: default; }
+  :global(.btn.ghost) { font-weight: 400; opacity: .75; }
+
+  .msg { margin: 0 0 1rem; padding: .6rem .7rem; border-radius: .4rem; line-height: 1.5;
+    border: 1px solid rgba(127, 127, 127, .45); }
+  .msg.bad { border-color: #c0392b; }
+  .msg.good { border-color: #2f9e56; }
+
+  .acctBar { display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1rem; font-size: .9rem; opacity: .85; }
+
+  /* ⚠ 목록 전체(<li> 부터)가 client 스크립트로 만들어진다 — 같은 까닭으로 :global() */
+  :global(.purchases) { list-style: none; margin: 0; padding: 0; }
+  :global(.purchases li) {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: .5rem; padding: .75rem 0; border-bottom: 1px solid rgba(127, 127, 127, .25);
+  }
+  :global(.purchases .pname) { font-weight: 600; }
+  :global(.purchases .pmeta) { opacity: .65; font-size: .85rem; }
+  :global(.purchases .pdl) { white-space: nowrap; }
+</style>
+
+<script is:inline>
+  (function () {
+    var TOKEN_KEY = 'sm_account_token';
+    var EMAIL_KEY = 'sm_account_email';
+
+    var tabLogin = document.getElementById('tabLogin');
+    var tabSignup = document.getElementById('tabSignup');
+    var authForm = document.getElementById('authForm');
+    var emailEl = document.getElementById('email');
+    var pwEl = document.getElementById('password');
+    var pwHint = document.getElementById('pwHint');
+    var authMsg = document.getElementById('authMsg');
+    var authGo = document.getElementById('authGo');
+    var authSection = document.getElementById('authSection');
+    var purchasesSection = document.getElementById('purchasesSection');
+    var purchasesMsg = document.getElementById('purchasesMsg');
+    var purchasesList = document.getElementById('purchasesList');
+    var whoAmI = document.getElementById('whoAmI');
+    var logoutBtn = document.getElementById('logoutBtn');
+    if (!authForm) return;
+
+    var mode = 'login'; // 'login' | 'signup'
+    var 상품표 = {}; // 코드 → {이름}
+    var 셋표 = {};   // 코드 → {이름}
+
+    /* ⚠ /api/pay/config 의 products 는 객체, datasets 는 배열이다 — recover.astro 와 같은 함정 */
+    function 펴기(것) {
+      if (!것) return [];
+      return Array.isArray(것) ? 것 : Object.keys(것).map(function (k) { return 것[k]; });
+    }
+
+    function 말한다(el, 글, 급) {
+      el.textContent = 글;
+      el.hidden = !글;
+      el.className = 'msg' + (급 ? ' ' + 급 : '');
+    }
+
+    fetch('/api/pay/config').then(function (r) { return r.json(); }).then(function (c) {
+      펴기(c.products).forEach(function (p) { 상품표[p['코드']] = p; });
+      펴기(c.datasets).forEach(function (d) { 셋표[d['코드']] = d; });
+      다시그린다목록(); // 목록이 이미 그려져 있었다면 이름을 채워 다시 그린다
+    }).catch(function (e) {
+      if (window.console) window.console.error('[account] config', e);
+    });
+
+    function 토큰저장(token, email) {
+      try { window.localStorage.setItem(TOKEN_KEY, token); window.localStorage.setItem(EMAIL_KEY, email); }
+      catch (e) { /* 시크릿 모드 등 — 이번 방문만 로그인 유지, 새로고침하면 다시 물어본다 */ }
+    }
+    function 토큰읽기() {
+      try { return { token: window.localStorage.getItem(TOKEN_KEY), email: window.localStorage.getItem(EMAIL_KEY) }; }
+      catch (e) { return { token: null, email: null }; }
+    }
+    function 토큰지우기() {
+      try { window.localStorage.removeItem(TOKEN_KEY); window.localStorage.removeItem(EMAIL_KEY); }
+      catch (e) { /* 지울 것도 없었다 */ }
+    }
+
+    function 탭바꾸기(새모드) {
+      mode = 새모드;
+      var 로그인인가 = mode === 'login';
+      tabLogin.setAttribute('aria-selected', String(로그인인가));
+      tabSignup.setAttribute('aria-selected', String(!로그인인가));
+      pwEl.setAttribute('autocomplete', 로그인인가 ? 'current-password' : 'new-password');
+      pwHint.hidden = 로그인인가;
+      authGo.textContent = 로그인인가 ? 'Log in' : 'Create account';
+      말한다(authMsg, '', '');
+    }
+    tabLogin.addEventListener('click', function () { 탭바꾸기('login'); });
+    tabSignup.addEventListener('click', function () { 탭바꾸기('signup'); });
+
+    var 최근구매 = []; // /api/account/purchases 가 준 원본을 들고 있다가 이름표가 늦게 와도 다시 그린다
+
+    function 다운로드주소(p) {
+      var 주소 = '/api/download?order=' + encodeURIComponent(p.orderID) + '&product=' + encodeURIComponent(p.product);
+      if (p.dataset) 주소 += '&dataset=' + encodeURIComponent(p.dataset);
+      return 주소;
+    }
+
+    function 다시그린다목록() {
+      if (!최근구매.length) return;
+      purchasesList.innerHTML = '';
+      최근구매.forEach(function (p) {
+        var 상품이름 = (상품표[p.product] && 상품표[p.product]['이름']) || p.product;
+        var 세트이름 = p.dataset ? ((셋표[p.dataset] && 셋표[p.dataset]['이름']) || p.dataset) : null;
+        var li = document.createElement('li');
+
+        var left = document.createElement('div');
+        var name = document.createElement('div');
+        name.className = 'pname';
+        name.textContent = 상품이름 + (세트이름 ? ' — ' + 세트이름 : '');
+        var meta = document.createElement('div');
+        meta.className = 'pmeta';
+        var 날짜 = p.capturedAt ? new Date(p.capturedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+        meta.textContent = 'Order ' + p.orderID + (날짜 ? ' · bought ' + 날짜 : '');
+        left.appendChild(name); left.appendChild(meta);
+
+        var a = document.createElement('a');
+        a.className = 'btn pdl';
+        a.href = 다운로드주소(p);
+        a.textContent = 'Download';
+
+        li.appendChild(left); li.appendChild(a);
+        purchasesList.appendChild(li);
+      });
+    }
+
+    function 구매목록불러오기(token) {
+      말한다(purchasesMsg, 'Loading your purchases…', '');
+      fetch('/api/account/purchases', { headers: { authorization: 'Bearer ' + token } })
+        .then(function (r) { return r.json().then(function (b) { return { status: r.status, body: b }; }); })
+        .then(function (res) {
+          if (res.status === 401) {
+            토큰지우기();
+            로그인화면보이기();
+            말한다(authMsg, 'Your session expired. Please log in again.', 'bad');
+            return;
+          }
+          if (!res.body || res.body.ok !== true) {
+            말한다(purchasesMsg, 'Could not load your purchases right now. Try again shortly, or use /recover with your order ID.', 'bad');
+            return;
+          }
+          최근구매 = res.body.purchases || [];
+          if (!최근구매.length) {
+            말한다(purchasesMsg, "Nothing shows up here yet. If you already bought something and it's not listed, use /recover with your PayPal order ID — the list here is just a convenience index, not the record of truth.", '');
+          } else {
+            말한다(purchasesMsg, '', '');
+          }
+          다시그린다목록();
+        })
+        .catch(function (e) {
+          if (window.console) window.console.error('[account] purchases', e);
+          말한다(purchasesMsg, 'Could not reach the server. Try again shortly.', 'bad');
+        });
+    }
+
+    function 계정화면보이기(email) {
+      authSection.hidden = true;
+      purchasesSection.hidden = false;
+      whoAmI.textContent = email ? ('Logged in as ' + email) : '';
+    }
+    function 로그인화면보이기() {
+      authSection.hidden = false;
+      purchasesSection.hidden = true;
+    }
+
+    logoutBtn.addEventListener('click', function () {
+      토큰지우기();
+      최근구매 = [];
+      authForm.reset();
+      로그인화면보이기();
+    });
+
+    authForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = (emailEl.value || '').trim();
+      var password = pwEl.value || '';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { 말한다(authMsg, 'Enter a valid email.', 'bad'); emailEl.focus(); return; }
+      if (password.length < 8) { 말한다(authMsg, 'Password must be at least 8 characters.', 'bad'); pwEl.focus(); return; }
+
+      var 경로 = mode === 'login' ? '/api/account/login' : '/api/account/signup';
+      authGo.disabled = true;
+      말한다(authMsg, mode === 'login' ? 'Logging in…' : 'Creating your account…', '');
+
+      fetch(경로, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email: email, password: password }),
+      })
+        .then(function (r) { return r.json().then(function (b) { return { status: r.status, body: b }; }); })
+        .then(function (res) {
+          authGo.disabled = false;
+          if (res.status === 409) {
+            말한다(authMsg, 'An account with that email already exists — switch to "Log in".', 'bad');
+            탭바꾸기('login');
+            return;
+          }
+          if (res.status === 401) { 말한다(authMsg, 'Wrong email or password.', 'bad'); return; }
+          if (res.status === 503) { 말한다(authMsg, 'Accounts are temporarily unavailable. Your purchase and download link are unaffected — use /recover with your PayPal order ID.', 'bad'); return; }
+          if (!res.body || res.body.ok !== true || !res.body.token) {
+            말한다(authMsg, 'Something went wrong. Try again, or use /recover with your PayPal order ID.', 'bad');
+            return;
+          }
+          토큰저장(res.body.token, email);
+          authForm.reset();
+          계정화면보이기(email);
+          구매목록불러오기(res.body.token);
+        })
+        .catch(function (e) {
+          authGo.disabled = false;
+          if (window.console) window.console.error('[account] ' + 경로, e);
+          말한다(authMsg, 'Could not reach the server. Try again shortly.', 'bad');
+        });
+    });
+
+    /* 이미 로그인돼 있으면 바로 목록을 보인다 */
+    var 저장된것 = 토큰읽기();
+    if (저장된것.token) {
+      계정화면보이기(저장된것.email);
+      구매목록불러오기(저장된것.token);
+    }
+  })();
+</script>
