@@ -274,6 +274,14 @@ const videoSets = [
       + 'September, ahead of BTS and BLACKPINK. Re:Scene averaged 11 English Wikipedia views a day. '
       + 'BTS averaged 6,860 — 624 times as many.',
   },
+  {
+    set: 'samedrama-voiced',
+    page: '/what-moves-english-reading',
+    title: "Two Co-Stars, One Drama Premiere. Their Wikipedia Reading Moved Differently.",
+    description: '14 seconds: a Korean drama premiered 12 September. Seo Kang-joon\'s English '
+      + 'Wikipedia reading rose 6.24x his baseline. His co-star Ahn Eun-jin\'s rose 4.27x hers. '
+      + 'Same premiere, different rise.',
+  },
   /*
    * 🔴 [2026-08-29] **어제·오늘 만든 영상 넷이 이 목록에 없었다.**
    *   목록에 없으면 ① 영상 사이트맵에 안 들어가고 ② 올릴 문안(upload-kit)이 안 만들어진다.

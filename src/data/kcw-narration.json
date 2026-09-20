@@ -182,6 +182,11 @@
    "제목": "Re:Scene topped BTS and BLACKPINK in a reputation ranking. English Wikipedia barely noticed",
    "내레이션": "A Korean reputation index ranked Re:Scene first among K-pop groups this September, ahead of BTS in second and BLACKPINK in third. We checked English Wikipedia. Re:Scene averaged eleven views a day. BTS averaged six thousand eight hundred sixty, six hundred twenty four times as many.",
    "설명": "A reputation index built for a Korean audience can be accurate for that audience. It is a different question from what English-language readers look up."
+  },
+  "samedrama": {
+   "제목": "Two co-stars, one drama premiere. English Wikipedia reading moved differently for each",
+   "내레이션": "A Korean drama premiered September twelfth. Seo Kang-joon's reading rose six point two four times his baseline. Ahn Eun-jin's rose four point two seven times hers.",
+   "설명": "Same premiere, different rise."
   }
  }
 }
