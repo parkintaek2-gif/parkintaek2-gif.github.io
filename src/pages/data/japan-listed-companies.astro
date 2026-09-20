@@ -1,0 +1,218 @@
+---
+/*
+ * `/data/japan-listed-companies` — **일본(도쿄) 확장의 첫 지면 — 상장사 명부.**
+ * (seoulmarkets.com/data/japan-listed-companies)
+ *
+ * ── 🔴 왜 «명부만» 내는가 (2026-09-20 · 5번 지시) ───────────────────────
+ *   사장님 물음 「도쿄 시장을 완료한거야?」에 5번이 재서 답했다 — 아니다, 명부 한 장뿐이다.
+ *   회사 규칙(새 나라를 열 때: ①재무제표 ②공시(중대사건) ③컨센서스 ④시세 ⑤사람)의
+ *   1·2번이 비어 있으므로 «아직 상품이 아니다». 이 지면도 그렇게 판다 — 있는 것만 낸다.
+ *   ⛔ 「일본 시장 데이터」로 부풀리지 않는다. 정확히 「명부」라고 이름 짓는다(사장님 지시:
+ *      이름이 실제 내용물과 같아야 한다).
+ *
+ * ── ⭐ 이 지면이 실제로 파는 것 ────────────────────────────────────────
+ *   JPX(거래소) 자체 파일은 상업이용이 약관으로 막혀 있다(docs/일본-데이터-출처-라이선스.md).
+ *   같은 정보(종목코드·영문명·업종)를 «정부 규제기관»(금융청)이 공개하는 EDINET 코드리스트로
+ *   대신 받았다 — 한국의 DART 대 KRX와 같은 구도다. 자본금(資本金)을 회사 규모의 대체
+ *   지표로 쓴다고 명시한다 — 시가총액이 아니다(JPX 시세는 안 쓴다).
+ *
+ * ⛔ 화면에 한국어를 내지 않는다. 투자자문이 아니다.
+ * 🔴 Astro 앞말(--- 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/japan-listed-companies.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const t = tape as any;
+const num = (n: number) => n.toLocaleString('en-GB');
+const yen = (m: number | null) => (m === null ? '—' : '¥' + num(m) + 'm');
+
+const top10 = t.회사들.slice(0, 10);
+const top업종 = t.업종별.slice(0, 10);
+
+const TITLE = 'Japan-listed companies — the EDINET registry, 3,818 by name';
+const DESC = 'Every EDINET filer that carries a live securities code, in English, sourced from Japan’s '
+  + 'Financial Services Agency rather than the Tokyo Stock Exchange’s own file. ' + num(t.상장건수)
+  + ' listed companies today. This is the roster only — financial statements, disclosures, consensus '
+  + 'and prices are not built yet.';
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Japan-listed companies (EDINET Code List extract)',
+  description: DESC,
+  url: SITE_URL + '/data/japan-listed-companies',
+  keywords: ['Japan', 'Tokyo Stock Exchange', 'JPX', 'EDINET', 'listed companies', 'securities code',
+    'company registry', 'Financial Services Agency'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: 'https://creativecommons.org/licenses/by/4.0/',
+  isAccessibleForFree: true,
+  temporalCoverage: t.EDINET실행일 ?? undefined,
+  variableMeasured: ['EDINET code', 'securities code', 'English name', 'industry', 'capital', 'fiscal year end'],
+};
+
+const faq: Array<[string, string]> = [
+  ['Is this the Tokyo Stock Exchange’s own list?',
+    'No. The exchange operator (JPX) restricts commercial collection or reuse of its own listed-company '
+    + 'file without prior permission or a paid contract — confirmed by reading its terms of use directly. '
+    + 'This registry instead comes from Japan’s financial regulator, the Financial Services Agency, via '
+    + 'the EDINET Code List, which Japan’s own open-data portal lists under a CC BY licence.'],
+  ['Why is the ranking by capital, not market capitalisation?',
+    'Because we do not use JPX’s market data (see above). Paid-in capital, as filed by '
+    + 'each company, is what this source carries, and we say so rather than presenting it as market cap.'],
+  ['Why are there fewer companies here than the Tokyo Stock Exchange lists?',
+    'The EDINET Code List centres on companies that file annual securities reports — ordinary operating '
+    + 'companies. Some listed vehicles (certain ETFs, REITs and PRO Market issues) file under separate rules '
+    + 'and may not carry a securities code in this particular list. We report the count this source gives, '
+    + 'not the exchange’s own total.'],
+  ['What is not here yet?',
+    'Financial statements, disclosure events (including control-change and CEO-change filings), analyst '
+    + 'consensus and daily prices. This page will say so until each is built — the plan is public in '
+    + 'our own working notes, not hidden.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({
+    '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>Japan-listed companies — the EDINET registry</h1>
+    <p class="lead">
+      <b>{num(t.상장건수)} companies</b>, in English, each carrying a live securities code —
+      sourced from Japan’s Financial Services Agency rather than the Tokyo Stock Exchange’s own file.
+      This is the roster only. No financial statements, no disclosures, no prices — yet.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false}
+      아직="Registry only today. Financial statements and disclosure events are next; this page will say so when they land." />
+
+    <section class="stats">
+      <div class="stat"><b>{num(t.상장건수)}</b><span>companies with a securities code</span></div>
+      <div class="stat"><b>{t.업종별.length}</b><span>industries (FSA classification)</span></div>
+      <div class="stat"><b>CC BY</b><span>licence (Japan open-data portal)</span></div>
+      <div class="stat"><b>{t.EDINET실행일 ?? '—'}</b><span>EDINET as-of date</span></div>
+    </section>
+
+    <section>
+      <h2>Read this before anything else: what this registry is, and is not</h2>
+      <p class="warn">
+        This page lists <b>who is on file</b>, not what they are worth or how they are doing. There is
+        no market capitalisation column here, because Japan Exchange Group’s own market-data files
+        restrict commercial reuse without a paid contract — we read the terms directly rather than
+        assuming an open robots.txt meant an open licence. The <b>Financial Services Agency</b> publishes
+        the same company-identifying fields (name, industry, securities code) separately, under a
+        Creative Commons Attribution licence, and that is the source behind every row below.
+      </p>
+    </section>
+
+    <section>
+      <h2>Companies, by paid-in capital</h2>
+      <p>
+        Ranked by capital as filed, in millions of yen — the nearest size indicator this source
+        carries. <b>This is not a market-capitalisation ranking.</b>
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Company</th><th>Securities code</th><th>Industry</th><th class="n">Capital</th></tr>
+          </thead>
+          <tbody>
+            {top10.map((c: any) => (
+              <tr>
+                <td>{c.nameEn || c.name}</td>
+                <td class="n mono">{c.securitiesCode}</td>
+                <td>{c.industry}</td>
+                <td class="n">{yen(c.capitalMillionYen)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Top 10 of {num(t.상장건수)} shown here. The full registry is what we licence.</p>
+    </section>
+
+    <section>
+      <h2>By industry (FSA classification)</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Industry</th><th class="n">Companies</th></tr></thead>
+          <tbody>
+            {top업종.map((r: any) => (
+              <tr><td>{r.업종}</td><td class="n">{num(r.건수)}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>What is not here yet</h2>
+      <ul>
+        <li>Financial statements (revenue, operating income, assets) — next step, from EDINET XBRL filings.</li>
+        <li>Disclosure events — including control-change and CEO-change filings, the same tags we track
+          for Korea.</li>
+        <li>Analyst consensus and target prices.</li>
+        <li>Daily prices and market capitalisation — blocked from JPX’s own file by its terms of use;
+          an alternative source has not been found yet.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Source and licence</h2>
+      <p>
+        EDINET Code List, Financial Services Agency (Japan) &mdash;{' '}
+        <a href={t.출처주소}>{t.출처주소}</a>, licensed CC BY (Japan’s Public Data Licence 1.0). We
+        state that this page is a compilation we built from that source, sorted and translated into
+        English, not the Agency’s own unedited output.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        The same shape for Korea and the Gulf: <a href="/data/largest-companies">largest companies</a>,{' '}
+        <a href="/data/screener">the screener</a>. <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+  <BuyBar 자리="bottom" 살수있나={false}
+    아직="Registry only today. Financial statements and disclosure events are next; this page will say so when they land." />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n { text-align: right; white-space: nowrap; }
+  td.mono { font-variant-numeric: tabular-nums; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+  }
+</style>

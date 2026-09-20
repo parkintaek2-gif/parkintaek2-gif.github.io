@@ -69,6 +69,7 @@ const 이름표 = {
 const 시장표 = [
   { key: 'korea', 이름: 'Seoul', 나라: 'Korea', 찾을말: /korea|krx|dart|kospi|kosdaq|konex|seoul|won/i },
   { key: 'uae', 이름: 'Abu Dhabi · Dubai', 나라: 'UAE', 찾을말: /uae|adx|dfm|abu dhabi|dubai|gulf|dirham/i },
+  { key: 'japan', 이름: 'Tokyo', 나라: 'Japan', 찾을말: /japan|jpx|edinet|tokyo|topix|yen/i },
 ];
 
 /** 한 상품이 어느 시장 것인가. ⛔ 못 가리면 «비워 둔다» — 짐작으로 한국에 넣지 않는다 */
@@ -344,6 +345,19 @@ const 묶음 = [
           + 'own savers.',
         price: 'Free page',
         cta: 'See the ranking',
+      },
+      {
+        /* 🔴 [2026-09-20] 도쿄 확장 — 명부까지만 선 상태다. 재무제표·공시·시세는 아직 0.
+           그래서 여기(무료 읽기)에 두지, licensed 로 올리지 않는다 — 팔 것이 아직 없다. */
+        href: '/data/japan-listed-companies',
+        시장: ['japan'],
+        name: 'Japan-listed companies — the EDINET registry',
+        one: 'Every company on file with Japan’s Financial Services Agency that carries a live '
+          + 'securities code — 3,818 of them, in English, by industry, from the EDINET Code List '
+          + '(government open data, not the exchange’s own file). This is the roster only: '
+          + 'financial statements, disclosures and prices are not built yet, and this page says so.',
+        price: 'Free page',
+        cta: 'See the registry',
       },
     ],
   },

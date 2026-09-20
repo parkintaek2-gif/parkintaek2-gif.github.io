@@ -125,6 +125,8 @@ export const GET: APIRoute = async ({ params }) => {
       // 보인 진짜 까닭은 「자료가 없어서」가 아니라 이 목록이 낡아서였다.
       { loc: '/data/company-credit', changefreq: 'weekly', priority: '0.9' },
       { loc: '/data/foreign-holdings', lastmod: newest, changefreq: 'weekly', priority: '0.8' },
+      // 🔴 [2026-09-20 · 1번] 도쿄 확장 첫 지면 — 같은 커밋에서 바로 넣는다(위 사고를 안 되풀이한다).
+      { loc: '/data/japan-listed-companies', changefreq: 'weekly', priority: '0.8' },
       { loc: '/rankings/market-cap', changefreq: 'weekly', priority: '0.8' },
       { loc: '/rankings/pbr', changefreq: 'weekly', priority: '0.8' },
       { loc: '/rankings/interest-cover', changefreq: 'weekly', priority: '0.8' },
