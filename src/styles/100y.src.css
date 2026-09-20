@@ -229,6 +229,17 @@
     }
     .answer-sub { font-size: var(--fs-note); color: var(--muted); margin: 0; }
 
+    /* 🔴 [2026-09-21 · 5번] 「한 줄 답」 옆에 서는 줄.
+       학과 지면에서 «계열 수치»가 그 학과만의 수처럼 읽히던 것을 갈랐다 —
+       큰 칸에는 그 학과만 다른 수(개설 학교 수)를, 이 줄에는 계열 수치를 «무엇의 수인지
+       밝혀» 둔다. 애드센스가 「가치가 별로 없는 콘텐츠」로 반려한 자리다(925장이 같은 수). */
+    .answer-side {
+      font-size: var(--fs-note); color: var(--ink);
+      margin: -16px 0 24px; padding: 0 2px; line-height: 1.7;
+    }
+    .answer-side strong { color: var(--gold); }
+    .answer-side-warn { color: var(--muted); }
+
     .nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 0 14px; }
     .num {
       background: var(--paper); border: 1px solid var(--line);
