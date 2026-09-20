@@ -56,6 +56,21 @@ export const INSTITUTIONS = {
   이베스트증권: { en: 'eBEST Investment & Securities', entity: 'ls-securities', type: 'brokerage', verified: true, note: 'Same firm as eBEST Investment & Securities; now LS Securities' },
   이베스트투자: { en: 'eBEST Investment & Securities', entity: 'ls-securities', type: 'brokerage', verified: true, note: 'Truncated form found in the source listing' },
 
+  /* 🔴 [2026-09-20 · 5번] 세 곳이 영문명 없이 나가고 있었다 — 한경컨센서스 창에서
+     보고서 231건(LS 92 · 우리은행 27 · 상상인 12)이 영문 지면에 이름 없이 섰다.
+     ⛔ 지어내지 않았다. **DART 에 그 회사가 «직접 신고한» 영문명**을 그대로 옮겼다
+       (archive/raw/dart-company/company.ndjson · 종목코드로 확인) —
+         엘에스증권(주) 078020    「LS SECURITIES Co., Ltd.」
+         (주)우리은행   000030    「Woori Bank」
+         (주)상상인증권 001290    「SANGSANGININVESTMENT&SECURITIES CO.,LTD.」
+     ⚠ 상상인만 신고서에 띄어쓰기가 빠져 있다. 읽을 수 없으므로 띄어쓰기만 넣었다 —
+       낱말을 바꾼 것이 아니다. 원 표기를 위에 적어 두었으니 다음 사람이 대조할 수 있다.
+     ⚠ 우리은행은 증권사가 아니라 «은행»이다. 목표주가를 내지 않는 곳이라 갈래를 가른다 —
+       이 갈래를 섞으면 「목표주가를 안 낸 증권사」로 잘못 세게 된다. */
+  LS증권: { en: 'LS Securities', entity: 'ls-securities', type: 'brokerage', verified: true, note: 'DART filing 078020' },
+  우리은행: { en: 'Woori Bank', entity: 'woori-bank', type: 'bank', verified: true, note: 'DART filing 000030 — a bank, not a securities firm' },
+  상상인증권: { en: 'Sangsangin Investment & Securities', entity: 'sangsangin-securities', type: 'brokerage', verified: true, note: 'DART filing 001290 (filed without spaces)' },
+
   현대차증권: { en: 'Hyundai Motor Securities', entity: 'hyundai-motor', type: 'brokerage', verified: true },
   교보증권: { en: 'Kyobo Securities', entity: 'kyobo', type: 'brokerage', verified: true },
   DB금융투자: { en: 'DB Financial Investment', entity: 'db', type: 'brokerage', verified: true, note: 'Formerly Dongbu Securities' },
@@ -133,6 +148,7 @@ export const ENTITY_CURRENT_NAME = {
 export const INSTITUTION_TYPES = {
   brokerage: 'Securities firm. Issues investment opinions and target prices.',
   'credit-rating': 'Credit rating or corporate information agency. Publishes company analysis but does not issue target prices.',
+  bank: 'Commercial bank. Publishes economic and industry research; does not issue target prices.',
   'ir-service': 'Investor relations body. Publishes sponsored company analysis; does not issue target prices.',
 };
 

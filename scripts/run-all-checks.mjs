@@ -128,6 +128,8 @@ export const 단계들 = [
   "node scripts/check-smarkets-grade.mjs",
   /* 자리가 도는가 — 멈춘 자리의 사이트도 200 이라 점검표가 못 잡았다 */
   "node scripts/check-seats-alive.mjs --자가시험",
+  /* 「지금 도는 자리」를 두 곳에 적지 못하게 막는다 — 만들어 놓고 여기 안 물려 있었다 */
+  "node scripts/check-자리목록-한곳.mjs",
   "node scripts/check-16시보고.mjs --자가시험",
   "node scripts/check-seoulmarkets-payment.mjs --자가시험",
   /* 결제 뒤 편지 — 라이브(Cloudtype)는 파일 경로가 아니라 문자열 열쇠를 받는다 */
