@@ -11,6 +11,7 @@
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 원본 from '../../../data/100yearmap/ranking-eyewear-brand-2026.json';
 
 const 자료 = 원본 as any;
@@ -114,6 +115,8 @@ const jsonLd = {
     <br />
     <a href="/ranking-hairsalon-brand">← 미용실 브랜드 2년 연속 1위, 업종 전체 수명 중앙값은 3년입니다</a>
   </p>
+
+  <HundredCardnews 벌="안경원업종수명" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
 
   <HundredAgeWalk 키="ranking-eyewear-brand" />
 
