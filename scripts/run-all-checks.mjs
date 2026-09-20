@@ -133,6 +133,10 @@ export const 단계들 = [
   "node scripts/check-seats-alive.mjs --자가시험",
   /* 「지금 도는 자리」를 두 곳에 적지 못하게 막는다 — 만들어 놓고 여기 안 물려 있었다 */
   "node scripts/check-자리목록-한곳.mjs",
+  /* 한 커밋에 남의 사이트 파일이 섞이는 것을 막는다 — .git/hooks/commit-msg 가 이 자를 부른다.
+     ⚠ 훅은 저장소에 안 실린다(.git 은 커밋되지 않는다). 그래서 «자»만이라도 여기 물려
+       둔다 — 자가 살아 있으면 다음 사람이 훅을 다시 걸 수 있다. */
+  "node scripts/check-남의것섞였나.mjs --자가시험",
   "node scripts/check-16시보고.mjs --자가시험",
   "node scripts/check-seoulmarkets-payment.mjs --자가시험",
   /* 결제 뒤 편지 — 라이브(Cloudtype)는 파일 경로가 아니라 문자열 열쇠를 받는다 */
