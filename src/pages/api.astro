@@ -3,7 +3,9 @@ import Base from '../layouts/Base.astro';
 import { SITE, SITE_URL, PUBLISHER, PUBLISHER_SM } from '../consts';
 import stats from '../data/research-stats.json';
 import { SUBJECT_STATS } from '../lib/subjects.mjs';
-import { LIMITS, ENFORCE_FROM } from '../lib/tiers.mjs';
+import { LIMITS, ENFORCE_FROM, tierNote } from '../lib/tiers.mjs';
+
+const 한도정책 = tierNote();
 import { buildLive, soon } from '../lib/api-docs.mjs';
 
 /**
@@ -396,9 +398,20 @@ const jsonLd = {
         </p>
         <p>
           <strong>No key is required to call this API directly, and that does not change.</strong>{' '}
-          The limits below are published now and take effect on {ENFORCE_FROM} — until then
-          every response carries your current usage in <code>X-RateLimit-*</code> headers and
-          nothing is ever rejected, so you can size your integration before anything binds.
+          {한도정책.enforced ? (
+            <>
+              The limits below have been enforced since {ENFORCE_FROM}. Every response carries
+              your usage in <code>X-RateLimit-*</code> headers, and a request over the free-tier
+              limit returns <code>HTTP 429</code> with a <code>Retry-After</code> header —
+              classification endpoints stay free and unlimited either way.
+            </>
+          ) : (
+            <>
+              The limits below are published now and take effect on {ENFORCE_FROM} — until then
+              every response carries your current usage in <code>X-RateLimit-*</code> headers and
+              nothing is ever rejected, so you can size your integration before anything binds.
+            </>
+          )}
         </p>
         <div class="table-scroll">
           <table>

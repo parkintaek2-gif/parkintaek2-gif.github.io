@@ -188,14 +188,29 @@ function 오늘(now) {
   return now.toLocaleString('sv-SE').slice(0, 10);
 }
 
-/** `/v1/meta` 와 `/api` 페이지가 함께 읽는다. 두 곳이 어긋나지 않게 여기 하나만 둔다. */
-export const TIER_NOTE = {
-  free: `${LIMITS.free.maxPageSize} records per request, ${LIMITS.free.perMinute} requests per minute per IP.`,
-  pro: `${LIMITS.pro.maxPageSize} records per request. Quotas are set by your marketplace plan.`,
-  enforced_from: ENFORCE_FROM,
-  policy:
-    'Limits are published before they are enforced. Until the date above, requests over the limit are counted and reported in the response headers but never rejected, so you can size your integration before anything breaks.',
-};
+/**
+ * `/v1/meta` 와 `/api` 페이지가 함께 읽는다. 두 곳이 어긋나지 않게 여기 하나만 둔다.
+ *
+ * ⚠ [2026-09-20 · 2번] `policy` 문장이 ENFORCE_FROM(2026-08-17) 이 지난 뒤에도
+ *   "아직 시행 전"으로 고정돼 있었다 — 오늘(09-20)은 이미 시행 한 달이 지나
+ *   429 를 실제로 돌려주고 있는데, 문서는 "절대 막지 않는다"고 말하고 있었다.
+ *   시행일이 지나면 문구가 달라지게 함수로 바꿨다.
+ */
+export function tierNote(now = new Date()) {
+  const enforced = 오늘(now) >= ENFORCE_FROM;
+  return {
+    free: `${LIMITS.free.maxPageSize} records per request, ${LIMITS.free.perMinute} requests per minute per IP.`,
+    pro: `${LIMITS.pro.maxPageSize} records per request. Quotas are set by your marketplace plan.`,
+    enforced_from: ENFORCE_FROM,
+    enforced,
+    policy: enforced
+      ? `Enforced since ${ENFORCE_FROM}. Requests over the free-tier limit return HTTP 429 (Retry-After header included); X-RateLimit-* headers report your usage on every response.`
+      : 'Limits are published before they are enforced. Until the date above, requests over the limit are counted and reported in the response headers but never rejected, so you can size your integration before anything breaks.',
+  };
+}
+
+/** ⚠ 서버 기동 시점에 고정된다 — 요청마다 최신값이 필요하면 tierNote() 를 직접 부른다. */
+export const TIER_NOTE = tierNote();
 
 /* node src/lib/tiers.mjs --selftest */
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
