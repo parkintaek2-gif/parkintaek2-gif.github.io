@@ -569,13 +569,25 @@ if (내가실행됐다) {
     const r = await fetch('https://api.github.com/repos/parkintaek2-gif/parkintaek2-gif.github.io/actions/runs?per_page=10',
       { headers: { 'User-Agent': 'seoulmarkets-check/1.0' }, signal: AbortSignal.timeout(15000) });
     if (r.ok) {
+      /* 🔴 [2026-09-20 · 5번] **「success 가 아니다」를 「깨졌다」로 읽고 있었다.**
+         오늘 18:25 에 이 자리가 빨갛게 떴는데, 실제 끝값은 `cancelled` 이었고
+         로컬 `npm run build` 는 멀쩡히 끝났다(끝값 0).
+         까닭 — Pages 일감은 concurrency 묶음이라, 우리가 잇따라 푸시하면 앞 판을
+         «스스로 취소»한다. 우리는 origin·site 양쪽에 자주 미니까 취소가 늘 생긴다.
+         ⇒ 깨진 것으로 셀 끝값을 «못 박는다». cancelled·skipped·neutral 은 깨진 것이 아니다.
+         ⛔ 「success 가 아니면 실패」로 되돌리지 말 것 — 거짓 빨간불이 켜지면
+           그 옆의 «진짜» 빨간불이 안 보인다. */
+      const 깨진끝값 = ['failure', 'timed_out', 'startup_failure', 'action_required'];
       const 끝난것 = ((await r.json()).workflow_runs || []).filter((x) => x && x.status === 'completed');
       if (끝난것.length) {
         const 맨앞 = 끝난것[0];
-        if (맨앞.conclusion === 'success') 빌드 = { 됐나: true, 말: `백업 저장소 Pages 빌드 초록 (${맨앞.created_at.slice(5, 16).replace('T', ' ')} UTC)` };
-        else {
+        if (!깨진끝값.includes(맨앞.conclusion)) {
+          const 덧 = 맨앞.conclusion === 'success' ? ''
+            : ` · 맨 앞은 ${맨앞.conclusion} 이다 — 잇따라 민 판이 앞 판을 스스로 취소한 것이지 깨진 것이 아니다`;
+          빌드 = { 됐나: true, 말: `백업 저장소 Pages 빌드 초록 (${맨앞.created_at.slice(5, 16).replace('T', ' ')} UTC)${덧}` };
+        } else {
           let 연속 = 0;
-          for (const x of 끝난것) { if (x.conclusion === 'success') break; 연속++; }
+          for (const x of 끝난것) { if (!깨진끝값.includes(x.conclusion)) break; 연속++; }
           빌드 = { 됐나: false, 말: `🔴 백업 저장소 빌드가 깨져 있다 — 연달아 ${연속}건. 실패 메일이 사장님께 간다. `
             + `먼저 «npm run build» 를 여기서 돌린다 → ${String(맨앞.display_title).slice(0, 40)}` };
         }
