@@ -99,6 +99,7 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/analyst-attention', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/broker-candour', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/sector-leaders', changefreq: 'weekly', priority: '0.8' },
+      { loc: '/data/consensus', changefreq: 'weekly', priority: '0.8' },
       // 관세청 무역 데이터 상품 — 국가×월 수출입. 무료 CSV + 라이브 API 로 이어진다(2026-08-21).
       { loc: '/data/korea-trade-dataset', lastmod: newest, changefreq: 'weekly', priority: '0.8' },
       // Korea Concentration Index — 주가×관세청 교차. 무료 지면 + 일일 CSV → 유료 피드(2026-08-22).
