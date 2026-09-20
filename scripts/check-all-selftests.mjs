@@ -40,6 +40,7 @@ export const 돌릴것 = [
   ['check-6beon-directives.mjs', '--selftest'],
   ['check-6번-15시보고-자물쇠.mjs', '--자가시험'],
   ['check-6번-콘텐트-due.mjs', '--자가시험'],
+  ['check-결제-둘다.mjs', '--자가시험'],
   ['check-daily-shipping.mjs', '--자가시험'],
   ['check-demand-covered.mjs', '--자가시험'],
   ['check-dist-ready.mjs', '--자가시험'],
