@@ -1,0 +1,11 @@
+{
+  "site": "sc-domain:klifemap.ai",
+  "dimension": "query",
+  "window": {
+    "from": "2026-08-20",
+    "to": "2026-09-17",
+    "days": 28
+  },
+  "rowLimit": 25000,
+  "rows": []
+}
