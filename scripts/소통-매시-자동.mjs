@@ -29,6 +29,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import { 도는자리 } from './lib/도는자리.mjs';
 
 const 여기 = path.dirname(fileURLToPath(import.meta.url));
 const 뿌리 = path.join(여기, '..');
@@ -144,8 +145,8 @@ function 차린다() {
   }
   fs.writeFileSync(표길, JSON.stringify(본자리, null, 1));
 
-  /* 조용한 자리 */
-  const 자리들 = ['1번', '2번', '5번'];
+  /* 조용한 자리 — 자리 목록은 이 파일에 두지 않는다(check-자리목록-한곳.mjs) */
+  const 자리들 = 도는자리;
   const 조용 = [];
   for (const w of 자리들) {
     const 소통 = 분으로(대장마지막(w));
