@@ -43,3 +43,12 @@ test('openapi 스펙 — 갈래마다 GET 오퍼레이션과 설명이 있다(�
     assert.ok(ops.get.responses?.[200], path + ' 에 200 응답 설명이 없다');
   }
 });
+
+test('🔴 [2026-09-20] 모든 갈래가 429 를 낼 수 있다(api.mjs 가 라우팅 전에 요율을 가른다) — 스펙에도 있어야 한다', () => {
+  const spec = openapi('https://seoulmarkets.com/v1');
+  for (const [path, ops] of Object.entries(spec.paths)) {
+    for (const [method, op] of Object.entries(ops)) {
+      assert.ok(op.responses?.[429], `${method.toUpperCase()} ${path} 에 429 응답 설명이 없다`);
+    }
+  }
+});

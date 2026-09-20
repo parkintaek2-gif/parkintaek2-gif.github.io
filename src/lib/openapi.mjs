@@ -47,8 +47,24 @@ const SOURCE_SCHEMA = {
   properties: { agency: { type: 'string' }, system: { type: 'string' } },
 };
 
+/*
+ * 🔴 [2026-09-20 · 2번] 이 파일 어디에도 429 가 없었다 — 그런데 `handleApi()`
+ *   는 라우팅 «전에» 등급·한도부터 가른다(api.mjs). 즉 여기 실린 모든 갈래가
+ *   429 를 낼 수 있는데, 명세에는 한 곳도 안 적혀 있었다. 개별 응답마다
+ *   손으로 적으면 반드시 하나를 빠뜨리므로, 아래에서 모든 GET 갈래에
+ *   한 번에 붙인다(이 파일 자신의 원칙 — 「손으로 옮겨 적지 않는다」).
+ */
+const RATE_LIMITED_RESPONSE = {
+  description:
+    'Free-tier rate limit exceeded (60 requests/minute/IP, enforced since 2026-08-17). Paid plans through the marketplace have no per-minute cap.',
+  headers: {
+    'Retry-After': { schema: { type: 'integer' }, description: 'Seconds until the current window resets.' },
+  },
+  content: { 'application/json': { schema: ERROR_SCHEMA } },
+};
+
 export function openapi(baseUrl) {
-  return {
+  const spec = {
     /*
      * ⚠ 2026-08-03 KST — **3.1 이 아니라 3.0.3 이다. 일부러 낮췄다.**
      *
@@ -709,4 +725,12 @@ export function openapi(baseUrl) {
       },
     },
   };
+
+  for (const item of Object.values(spec.paths)) {
+    for (const op of Object.values(item)) {
+      if (op.responses && !op.responses[429]) op.responses[429] = RATE_LIMITED_RESPONSE;
+    }
+  }
+
+  return spec;
 }
