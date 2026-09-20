@@ -126,10 +126,15 @@ export const 맡은일 = [
     자리: '2번', 이름: 'KLifeMap 2칼럼 — 본문 옆 상품 열', 마감: '2026-09-16 21:00',
     잰다: () => {
       /* ⛔ 파일이 있나로 세지 않는다 — 어제 그래서 «있는데 화면엔 없는» 거짓 ✅ 를 냈다.
-         ✅ 실제로 나가는 첫 화면 글에서 2칼럼 표시를 찾는다 */
-      const g = 읽기(path.join(형제, 'public/index.html'));
-      if (g === null) return { 됐나: null, 말: '형제 저장소 첫 화면을 못 읽었다' };
-      const 열 = /crail|rail-in|wrap--rail|상품 열|product-rail/i.test(g);
+         ⛔⛔ [2026-09-20 · 2번] 여기가 그동안 «엉뚱한 파일»을 보고 있었다 — 2칼럼은
+           **홈페이지(public/index.html)가 아니라 글 상세 지면**(/content/:slug)에
+           넣은 기능이다(9/16 완료·배포). 홈페이지는 원래 이 열이 없다 — 그래서
+           매번 「열 없음」만 나왔다. 실제로 나가는 글 지면을 만드는 content/render.js
+           를 본다. 라이브 curl 로도 재확인함(klifemap.ai/content/ilju-gap-ja
+           — wrap--rail·col-main·rail 클래스 7건, grid-template-columns 정상). */
+      const g = 읽기(path.join(형제, 'content/render.js'));
+      if (g === null) return { 됐나: null, 말: '형제 저장소 content/render.js 를 못 읽었다' };
+      const 열 = /wrap--rail|col-main|class="rail"|renderProductRail/i.test(g);
       const 격자 = /grid-template-columns:\s*minmax\(0, *1fr\)\s+\d+px/i.test(g);
       return { 됐나: 열 && 격자, 말: (열 ? '열 있음' : '열 없음') + ' · ' + (격자 ? '2칼럼 격자 있음' : '격자 없음') };
     },
