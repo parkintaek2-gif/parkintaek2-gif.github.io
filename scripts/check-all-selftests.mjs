@@ -44,6 +44,7 @@ export const 돌릴것 = [
   ['소통-매시-자동.mjs', '--자가시험'],
   ['아카이빙-되받기.mjs', '--자가시험'],
   ['정기업무-예약.mjs', '--자가시험'],
+  ['쿠키-털기.mjs', '--자가시험'],
   ['check-daily-shipping.mjs', '--자가시험'],
   ['check-demand-covered.mjs', '--자가시험'],
   ['check-dist-ready.mjs', '--자가시험'],
