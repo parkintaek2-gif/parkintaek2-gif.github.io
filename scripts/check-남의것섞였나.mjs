@@ -86,6 +86,18 @@ export function 갈라세기(길들) {
   return 통;
 }
 
+/**
+ * 빠져나가는 낱말이 «제 줄»에 서 있나.
+ * 🔴 [2026-09-20 · 이 자를 만든 첫 커밋이 바로 이 구멍에 빠졌다]
+ *   처음에는 `메시지.includes('[두사이트]')` 로 봤다. 그랬더니 이 자를 «설명하는»
+ *   커밋 메시지(빠져나가는 법을 적은 글)가 그 낱말을 품고 있어서 그대로 통과했다.
+ *   ⛔ 빠져나가는 낱말을 «글 속 어디든» 찾으면, 그 낱말을 이야기하는 글이 다 통과한다.
+ *   ⇒ 홀로 선 줄일 때만 받는다. 일부러 적은 것과 이야기한 것이 그렇게 갈린다.
+ */
+export function 빠져나가나(메시지) {
+  return String(메시지 || '').split(/\r?\n/).some((줄) => 줄.trim() === '[두사이트]');
+}
+
 export function 스테이지길들() {
   const out = execFileSync('git', ['diff', '--cached', '--name-only'], { encoding: 'utf8' });
   return out.split('\n').map((x) => x.trim()).filter(Boolean);
@@ -112,20 +124,27 @@ export function 자가시험() {
   재다('한 사이트만이면 하나', Object.keys(갈라세기(['src/pages/data/a.astro'])).length === 1);
   재다('빈 것은 빈 것', Object.keys(갈라세기([])).length === 0);
 
+  /* 🔴 이 자를 만든 첫 커밋이 바로 이 구멍에 빠졌다 — 검사로 굳힌다 */
+  재다('제 줄에 서면 빠져나간다', 빠져나가나('무엇을 고쳤다\n\n[두사이트]\n'));
+  재다('줄 앞뒤 빈칸은 봐준다', 빠져나가나('  [두사이트]  '));
+  재다('글 속에서 «말한» 것은 안 빠져나간다',
+       !빠져나가나('빠져나가려면 메시지에 [두사이트] 를 적는다'));
+  재다('없으면 안 빠져나간다', !빠져나가나('그냥 커밋'));
+
   return 흠;
 }
 
 if (process.argv[1] && process.argv[1].endsWith('check-남의것섞였나.mjs')) {
   const 흠 = 자가시험();
   if (흠.length) { console.log('🔴 자가시험 실패:\n  - ' + 흠.join('\n  - ')); process.exit(1); }
-  if (process.argv.includes('--자가시험')) { console.log('✅ 자가시험 12/12'); process.exit(0); }
+  if (process.argv.includes('--자가시험')) { console.log('✅ 자가시험 16/16'); process.exit(0); }
 
   /* 빠져나갈 낱말이 메시지에 있으면 통과시킨다 */
   const 메시지인자 = (process.argv.find((x) => x.startsWith('--메시지=')) || '').slice('--메시지='.length);
   let 메시지 = '';
   if (메시지인자 && fs.existsSync(메시지인자)) 메시지 = fs.readFileSync(메시지인자, 'utf8');
-  if (메시지.includes('[두사이트]')) {
-    console.log('⬜ [두사이트] 라 적혀 있어 통과시킨다 — 일부러 함께 담은 것으로 본다.');
+  if (빠져나가나(메시지)) {
+    console.log('⬜ [두사이트] 가 제 줄에 서 있어 통과시킨다 — 일부러 함께 담은 것으로 본다.');
     process.exit(0);
   }
 
