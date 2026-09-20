@@ -1,0 +1,129 @@
+---
+/**
+ * /100y/ranking-juniorcollege-brand — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 · 전문대학 편)
+ *
+ * 한국기업평판연구소 2026년 9월 전문대학 브랜드평판 1위(경복대학교)를 그대로 인용한다.
+ * 100yearmap이 새로 순위를 매기지 않는다.
+ *
+ * ⚠ 이번 편은 «그 학교 자신»의 대학알리미 공시와 대조한다 — 앞선 다섯 편(업종 전체
+ *   생존통계)과 다르다. 브랜드평판과 공시가 같은 학교를 가리키므로 직접 대조가 된다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/ranking-juniorcollege-brand-2026.json';
+
+const 자료 = 원본 as any;
+const 순위출처 = 자료.순위출처;
+const top5 = 자료.top5 as any[];
+const 실측 = 자료.실측대조;
+const 일위 = top5[0];
+
+const desc =
+  `${순위출처.이름}에서 ${일위.브랜드}가 전월대비 94.84% 오르며 1위를 되찾았습니다. ` +
+  `100yearmap이 대학알리미에서 확인한 이 학교의 취업률은 ${실측.취업률}%(전국평균 대비 +${실측.취업률_차이}p)입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 전문대학 순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${순위출처.이름}를 그대로 인용했습니다. ${순위출처['⚠원자료']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '화제성 1위인데 실제 취업률·중도탈락률은 어떤가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `취업률 ${실측.취업률}%(전국평균 ${실측.취업률_전국평균}%보다 ${실측.취업률_차이}p 높음), `
+          + `중도탈락률 ${실측.중도탈락률}%(전국평균 ${실측.중도탈락률_전국평균}%보다 ${Math.abs(실측.중도탈락률_차이)}p 낮음)로 `
+          + `두 지표는 전국평균보다 낫습니다. 다만 전임교원확보율은 ${실측.전임교원확보율}%로 전국평균 ${실측.전임교원확보율_전국평균}%보다 ${Math.abs(실측.전임교원확보율_차이)}p 낮습니다.`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`전문대학 브랜드평판 1위 ${일위.브랜드}, 94.84% 급등 재탈환 — 실측 취업률은 전국평균보다 10%p 높습니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    전문대학 브랜드평판 1위는 {일위.브랜드}<br class="pcbr" />
+    이 학교 실제 취업률은 전국평균보다 {실측.취업률_차이}%p 높습니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {순위출처.이름}({순위출처.발표일} 보도)를 그대로 인용했습니다. {순위출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    한국기업평판연구소 빅데이터 분석에서 <strong>{일위.브랜드}</strong>가
+    전문대학 부문 <strong>2026년 9월 1위</strong>(브랜드평판지수 {일위.브랜드평판지수?.toLocaleString()} ·
+    전월 대비 94.84% 상승)로 1위를 되찾았습니다. 2위는 {top5[1]?.브랜드}, 3위는 {top5[2]?.브랜드}입니다.
+  </p>
+  <p class="note">⚠ {자료.top5주}</p>
+
+  <h2>이번엔 «같은 학교»를 직접 대조합니다</h2>
+  <p>{실측.무엇}입니다.</p>
+  <div class="warn">
+    <p>
+      대학알리미 공시(2025년) 기준 {일위.브랜드}의 취업률은 <strong>{실측.취업률}%</strong>로
+      전국평균 {실측.취업률_전국평균}%보다 <strong>{실측.취업률_차이}%p 높습니다</strong>.
+      중도탈락률은 <strong>{실측.중도탈락률}%</strong>로 전국평균 {실측.중도탈락률_전국평균}%보다
+      <strong>{Math.abs(실측.중도탈락률_차이)}%p 낮습니다</strong>. 두 지표 다 브랜드평판과
+      같은 방향을 가리킵니다.
+    </p>
+  </div>
+  <p class="note">
+    다만 전임교원확보율은 <strong>{실측.전임교원확보율}%</strong>로 전국평균
+    {실측.전임교원확보율_전국평균}%보다 <strong>{Math.abs(실측.전임교원확보율_차이)}%p 낮습니다</strong> —
+    브랜드평판·취업률·중도탈락률과 다른 방향입니다.
+  </p>
+  <p class="note">⚠ {실측.주의}</p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 두 공개 자료를 나란히
+    {' '}놓아 보여줄 뿐, 이 학교가 좋은지 나쁜지 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 브랜드평판: 한국기업평판연구소({순위출처.url}) · 실측: 한국대학교육협의회
+    {' '}대학정보공시(대학알리미)
+  </p>
+
+  <p class="note">
+    <a href="/ranking-eyewear-brand">← 안경 브랜드평판 1위, 안경원 업종은 이 시리즈에서 가장 오래 갑니다</a>
+    <br />
+    <a href="/ranking-university-level">← 4년제 vs 전문대 — 대학 순위, 구분별로 쪼개 봅니다</a>
+  </p>
+
+  <HundredAgeWalk 키="ranking-juniorcollege-brand" />
+
+  <NextQuestionBrief 모은것="한국기업평판연구소 전문대학 브랜드평판 + 대학알리미 대학정보공시" />
+
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-juniorcollege-brand"></div>
+</HundredYear>
