@@ -79,6 +79,29 @@ except SeoulMarketsError as e:
         f"{e.status} {e.code}",
     )
 
+# 7. [2026-09-21 · 2번] The eleven methods added the same day as this line —
+#    each should return the API's own envelope shape (a dict with "results"
+#    or a dataset-specific top-level key), not raise on a bare call.
+for name, method in [
+    ("research", lambda: sm.research()),
+    ("institutions", lambda: sm.institutions()),
+    ("financials", lambda: sm.financials()),
+    ("valuation", lambda: sm.valuation()),
+    ("index_tape", lambda: sm.index_tape()),
+    ("indices", lambda: sm.indices()),
+    ("consensus", lambda: sm.consensus()),
+    ("ownership", lambda: sm.ownership()),
+    ("people", lambda: sm.people()),
+    ("mezzanine", lambda: sm.mezzanine()),
+    ("account_dictionary", lambda: sm.account_dictionary()),
+    ("uae_financials", lambda: sm.uae_financials()),
+]:
+    try:
+        r = method()
+        check(f"{name}() returns a dict", isinstance(r, dict), f"got {type(r).__name__}")
+    except SeoulMarketsError as e:
+        check(f"{name}() call", False, f"{e.status} {e.code} {e.message}")
+
 print()
 if failures:
     print(f"FAILED: {len(failures)} check(s) — " + "; ".join(failures))
