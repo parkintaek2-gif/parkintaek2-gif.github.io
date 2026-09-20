@@ -20,6 +20,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import d from '../../data/wikitip-what-moves-reading.json';
 
@@ -205,6 +206,8 @@ const jsonLd = {
     set="samedrama-voiced"
     says="A Korean drama premiered September twelfth. Seo Kang-joon's English Wikipedia reading rose 6.24 times his baseline. His co-star Ahn Eun-jin's rose 4.27 times hers. Same premiere, different rise."
   />
+
+  <KcwCardnews set="samedrama" count={4} heading="Same premiere, different rise — card set, free to share" />
 
   <KcwRelatedArticles page="/what-moves-english-reading" />
 </WikiTip>

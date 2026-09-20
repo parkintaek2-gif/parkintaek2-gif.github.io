@@ -1,0 +1,346 @@
+---
+/*
+ * Korea Consensus — 애널리스트 축 무료 지면. (seoulmarkets.com/data/consensus)
+ *
+ * 왜 (2026-09-20 · 5번):
+ *   F6 네 축 가운데 **Consensus 만 지면이 없어 404 였다.** 자료는 2026-09-08 부터
+ *   날마다 쌓이고 있었는데 아무도 내지 않았다.
+ *
+ * ⭐ 우리 몫 — 「누가 1위인가」가 아니다. 그 명부가 **날마다 다시 세어진다**는 사실이다.
+ *   한경컨센서스 애널리스트 지면은 «오늘 시점 최근 1개월»을 매일 다시 센다. 어제 명부도
+ *   어제 점수도 지면에 남지 않는다. 우리만 날마다 찍어 두었고, 그래서 이것을 셀 수 있다.
+ *
+ * ⛔ 이 지면이 지키는 것 — 지우지 않는다
+ * 🔴 **순위라고 쓰지 않는다.** 출처가 rank 라는 칸을 주지만 그 목록은 «이름 가나다순»이다.
+ *    차례를 매길 때는 우리가 score 로 세우고 「우리가 세웠다」를 그 자리에 적는다
+ * 🔴 **정확도 0 을 0% 로 쓰지 않는다** — 출처가 안 낸 칸이다
+ * 🔴 **덜 받힌 스냅숏을 숨기지 않는다** — 09-12·09-13 은 우리가 짧게 받았다. 그대로 적는다
+ * ⛔ 애널리스트 «이름»을 내지 않는다 — 사장님: 사람 축은 곁들이다(CLAUDE.md 「주력과 서비스」).
+ *    우리가 파는 것은 명단이 아니라 «명단이 흔들린다»는 값이다
+ * ⛔ 증권사 영문명을 지어내지 않는다 · ⛔ 화면에 한국어를 내지 않는다
+ * ⛔ 표는 감싸고 그 칸이 실제로 스크롤되는지 재고 낸다
+ *
+ * 자료: src/data/seoulmarkets-consensus.json (scripts/build-seoulmarkets-consensus-page.mjs)
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import data from '../../data/seoulmarkets-consensus.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const 수 = (v) => (v == null ? '—' : Number(v).toLocaleString('en-US'));
+const 몫 = (a, b) => (b ? Math.round((a / b) * 1000) / 10 : null);
+
+const 첫날 = data.snapshots.all[0];
+const 끝날 = data.snapshots.all[data.snapshots.all.length - 1];
+
+const TITLE = 'The Korean analyst list nobody keeps';
+const SAMPLE = `${수(data.distinctAnalysts)} analysts · ${data.snapshots.full.length} complete daily snapshots · `
+  + `${첫날} to ${끝날}`;
+const DESC =
+  `A Korean research site recomputes its analyst list every day over a rolling month and keeps no `
+  + `history. We saved a snapshot daily. Of ${수(data.distinctAnalysts)} analysts seen, only `
+  + `${수(data.inEverySnapshot)} appear in every complete snapshot — and the site leaves the accuracy `
+  + `column blank for ${data.accuracyMissingShare}% of rows.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Korean analyst roster — daily snapshots',
+  description: DESC, url: `${SITE_URL}/data/consensus`,
+  temporalCoverage: `${첫날}/${끝날}`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: ['analysts on the roster', 'roster turnover between snapshots', 'accuracy not published', 'published score'],
+};
+
+const 짧은판 = data.snapshots.short;
+const 이름없는곳 = data.houses.filter((h) => !h.house_en);
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>{TITLE}</h1>
+      <p class="sample">{SAMPLE}</p>
+    <BuyBar 자리="top" />
+
+      <p class="lead">
+        The Korean research site we follow publishes a list of analysts with a score beside each
+        name. It recalculates that list <b>every day, over the last month</b>, and it keeps nothing
+        older. Open it tomorrow and yesterday's list is gone — not archived, not paginated, gone.
+        {' '}So we photograph it daily. This page is what {data.snapshots.full.length} complete
+        photographs show.
+      </p>
+
+      <aside class="caveat" role="note">
+        <b>Half the roster does not stay put.</b> Across the complete snapshots we hold,
+        {' '}<b>{수(data.distinctAnalysts)} different analysts</b> appear, but only
+        {' '}<b>{수(data.inEverySnapshot)}</b> are present in all of them —
+        {' '}{data.churnShare}% were missing on at least one day. {수(data.inOneSnapshotOnly)} showed
+        up on exactly one day in the whole window. That is a fact about the list, not about the
+        people on it: a one-month scoring window admits and drops names as the month rolls.
+      </aside>
+
+      <ol class="five">
+        <li><b>What it is</b> — a dated snapshot of the published analyst list: house, score, star
+          rating, and the accuracy figure when the source prints one.</li>
+        <li><b>Why it cannot be bought back later</b> — the source recomputes the window daily and
+          keeps no history. Someone starting today gets today.</li>
+        <li><b>What it is not</b> — not a ranking. See the next box.</li>
+        <li><b>Not names</b> — we publish the shape of the roster, not a directory of individuals.
+          The identified rows are in the licensed file.</li>
+        <li><b>Not accuracy</b> — whether targets were met is a{' '}
+          <a href="/data/target-price-accuracy">separate page</a>, and what analysts did to those
+          targets is <a href="/data/target-changes">another</a>.</li>
+      </ol>
+
+      <section class="blk">
+        <h2>The number that looks like a rank is not one</h2>
+        <p>
+          The source hands back a field called <code>rank</code>. We checked what it orders before
+          we used it, and it orders nothing: the page requests its own list sorted by analyst name,
+          so that number is a <b>row position in an alphabetical list</b>. On the
+          {' '}{data.latestFullSnapshot} snapshot the names run in perfect Korean alphabetical order
+          while the scores beside them read 8.16, 7.79, 8.10, 9.40 — not descending.
+        </p>
+        <p class="fine">
+          We store it as <code>row_in_name_order</code> and never print it as a standing. A table
+          below <i>is</i> ordered by merit, and we ordered it — from the score the source published.
+          Saying "the number 1 Korean analyst" from this data would have been false, and it would
+          have been an easy thing to publish.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>The accuracy column is blank more often than it is filled — for a third of rows</h2>
+        <div class="tw">
+          <table class="press">
+            <thead><tr><th>Rows in the complete snapshots</th><th class="r">Rows</th><th class="r">Share</th></tr></thead>
+            <tbody>
+              <tr><td class="axis">Accuracy figure published</td><td class="r"><b>{수(data.analystRowsUsed - data.accuracyMissing)}</b></td><td class="r">{몫(data.analystRowsUsed - data.accuracyMissing, data.analystRowsUsed)}%</td></tr>
+              <tr><td class="axis">Accuracy not published</td><td class="r"><b>{수(data.accuracyMissing)}</b></td><td class="r">{data.accuracyMissingShare}%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          The source prints <code>0</code> in that column when it has no figure. We do not carry that
+          through as an accuracy of zero — a zero would say the analyst was never right, which is a
+          different and much worse claim than "not published". Those rows are null with a flag.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>Scores move even when the analyst does not</h2>
+        <p>
+          Because the window rolls, a score changes on days when nothing was published. Across the
+          {' '}{수(data.scoreSwingMeasuredOn)} analysts present in three or more complete snapshots,
+          the score moved by a median of <b>{data.scoreSwingMedian}</b> points between its own high
+          and low, and by as much as <b>{data.scoreSwingMax}</b>.
+        </p>
+        <p class="fine">
+          We report the spread and not a reading of it. A score that drifts with the calendar is
+          worth knowing about before anyone treats it as a verdict.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>Who is on the list, by house</h2>
+        <p>
+          The roster below is the most recent complete snapshot ({data.latestFullSnapshot}),
+          {' '}{수(data.latestRoster)} analysts. Report counts are for the whole collected window,
+          {' '}{수(data.reports)} reports.
+        </p>
+        <div class="tw">
+          <table class="press">
+            <thead>
+              <tr><th>House</th><th class="r">Analysts</th><th class="r">Accuracy published</th><th class="r">Reports in window</th></tr>
+            </thead>
+            <tbody>
+              {data.houses.map((h) => (
+                <tr>
+                  <td class="axis">{h.house_en ?? 'English name not recorded'}</td>
+                  <td class="r">{수(h.analysts)}</td>
+                  <td class="r">{수(h.accuracy_published)}</td>
+                  <td class="r">{h.reports === 0 ? '—' : 수(h.reports)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {이름없는곳.length > 0 && (
+          <p class="fine">
+            <b>{이름없는곳.length} of these houses appear without a name.</b> Our institution
+            dictionary has no English name recorded for them, and we would rather leave the row
+            unnamed than transliterate one ourselves.
+          </p>
+        )}
+      </section>
+
+      <section class="blk">
+        <h2>The two lists on the same site do not cover the same houses</h2>
+        <p>
+          The dash in that last column is not zero. The analyst list and the report list come from
+          the same publisher and disagree about who exists.
+        </p>
+        <div class="tw">
+          <table class="press">
+            <thead><tr><th>Organisation</th><th>On the analyst list</th><th>Filed reports in the window</th></tr></thead>
+            <tbody>
+              {data.onRosterNoReports.map((h) => (
+                <tr>
+                  <td class="axis">{h.house_en ?? 'English name not recorded'}</td>
+                  <td>yes</td>
+                  <td>none</td>
+                </tr>
+              ))}
+              {data.filedReportsNotOnRoster.map((h) => (
+                <tr>
+                  <td class="axis">{h.house_en ?? 'English name not recorded'}</td>
+                  <td>no</td>
+                  <td>{수(h.reports)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          Two of the organisations filing reports are not brokerages at all — a commercial bank and
+          an investor-relations body — which is one reason they carry no analyst rows. We keep the
+          category on each institution rather than counting them as brokerages that published
+          nothing.
+        </p>
+      </section>
+
+    <BuyBar 자리="mid" />
+      <section class="blk">
+        <h2>Ordered by score — an order we computed</h2>
+        <p>
+          Ten highest published scores on the {data.latestFullSnapshot} snapshot. <b>The source did
+          not rank these.</b> We sorted them by the score it published, which is a different claim
+          from the site having called anyone first.
+        </p>
+        <div class="tw">
+          <table class="press">
+            <thead>
+              <tr><th class="r">Our order</th><th>House</th><th class="r">Score</th><th class="r">Stars</th><th class="r">Accuracy</th></tr>
+            </thead>
+            <tbody>
+              {data.ourOrderTop.map((a) => (
+                <tr>
+                  <td class="r">{a.our_order}</td>
+                  <td class="axis">{a.house_en ?? 'English name not recorded'}</td>
+                  <td class="r">{a.score}</td>
+                  <td class="r">{수(a.stars)}</td>
+                  <td class="r">{a.accuracy_not_published ? 'not published' : `${Math.round(a.accuracy * 10) / 10}%`}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          Analyst names are withheld here and carried in the licensed file. A public leaderboard of
+          named individuals, built on a score that drifts with the calendar, is not something this
+          page should create.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>How we counted — including where our own collection fell short</h2>
+        <div class="tw">
+          <table class="press">
+            <thead><tr><th>Snapshot date</th><th class="r">Rows collected</th><th>Used</th></tr></thead>
+            <tbody>
+              {data.snapshots.all.map((d) => (
+                <tr>
+                  <td class="axis">{d}</td>
+                  <td class="r">{수(data.rowsPerSnapshot[d])}</td>
+                  <td>{짧은판.includes(d) ? 'no — short collection' : 'yes'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {짧은판.length > 0 && (
+          <p class="fine">
+            <b>{짧은판.length} of our own snapshots came back short</b> ({짧은판.join(', ')}) and are
+            excluded from every count above. Treating them as complete would have produced a
+            headline that the roster collapsed to {수(data.rowsPerSnapshot[짧은판[0]])} people
+            overnight, which is not what happened — our collection stopped early. A snapshot is
+            flagged short when it holds fewer than half the median row count, so the rule catches
+            the next one too without anyone remembering these dates.
+          </p>
+        )}
+        <div class="tw">
+          <table class="kv">
+            <tbody>
+              <tr><th>Source</th><td>{data.source}</td></tr>
+              <tr><th>Window</th><td>{첫날} to {끝날} · {data.snapshots.all.length} snapshots, {data.snapshots.full.length} complete</td></tr>
+              <tr><th>Built</th><td>{data.builtOn}</td></tr>
+              <tr><th>Reports side</th><td>{수(data.reports)} reports over {data.reportSnapshots.length} snapshots; {수(data.reportsWithATarget)} carried a target price.</td></tr>
+              <tr><th>Zero is not a number</th><td>{data.accuracyNote}</td></tr>
+              <tr><th>The rank field</th><td>{data.rankNote}</td></tr>
+              <tr><th>Not back-fillable</th><td>{data.windowNote}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="fine">
+          {data.whatThisIsNot.map((x) => <li>{x}</li>)}
+        </ul>
+      </section>
+
+      <aside class="licence-cta">
+        <p>
+          This page shows the shape. The full dataset — <strong>{수(data.analystRows)} dated analyst
+          rows with names and house, plus {수(data.reports)} reports, {첫날} to {끝날}</strong> —
+          is available as CSV and Parquet.{' '}
+          <a href="/data#licence">See licence options</a>.
+        </p>
+      </aside>
+
+      <p class="fine bottom">
+        This page reports what a publisher published and how it changed. It is not investment
+        advice, and nothing here is a recommendation to buy or sell any security.
+      </p>
+    <BuyBar 자리="bottom" />
+  </article>
+  </div>
+</Base>
+
+<style>
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.4rem; }
+  .caveat { margin: 0 0 1.8rem; padding: .9rem 1.1rem; border: 1px solid var(--accent);
+            border-radius: 8px; background: var(--card); font-size: .9rem; line-height: 1.65; }
+  .caveat b { color: var(--ink); }
+  .five { margin: 0 0 2.4rem; padding: 1.1rem 1.2rem 1.1rem 2.4rem; background: var(--card);
+          border: 1px solid var(--line); border-radius: 8px; }
+  .five li { margin: 0 0 .5rem; font-size: .92rem; line-height: 1.6; }
+  .five li:last-child { margin-bottom: 0; }
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+  .blk code { font-size: .86em; background: var(--card); border: 1px solid var(--line);
+              border-radius: 4px; padding: .05rem .3rem; }
+  .tw { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 .8rem; }
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.kv td { line-height: 1.6; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; white-space: nowrap; }
+  table.press td.axis { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .fine { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+  ul.fine { padding-left: 1.2rem; }
+  ul.fine li { margin: 0 0 .35rem; }
+  .licence-cta { margin: 1.6rem 0; padding: .9rem 1.1rem; border: 1px solid var(--line);
+                 border-radius: 8px; background: var(--card); font-size: .88rem; }
+  .licence-cta p { margin: 0; }
+  .licence-cta a { color: var(--accent); font-weight: 600; }
+  .bottom { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+</style>

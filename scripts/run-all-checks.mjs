@@ -126,6 +126,9 @@ export const 단계들 = [
   "node scripts/build-india-rating-moves.mjs --자가시험",
   /* 우리가 매기는 등급 — 기준선·가중치가 말없이 바뀌면 여기서 걸린다 */
   "node scripts/check-smarkets-grade.mjs",
+  /* 컨센서스 지면 — 「rank 가 순위가 아니다」·「덜 받힌 판을 섞지 않는다」를 검사로 굳혔다 */
+  "node scripts/build-seoulmarkets-consensus-page.mjs --자가시험",
+  "node scripts/build-v1-consensus-tape.mjs --자가시험",
   /* 자리가 도는가 — 멈춘 자리의 사이트도 200 이라 점검표가 못 잡았다 */
   "node scripts/check-seats-alive.mjs --자가시험",
   /* 「지금 도는 자리」를 두 곳에 적지 못하게 막는다 — 만들어 놓고 여기 안 물려 있었다 */

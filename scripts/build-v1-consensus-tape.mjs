@@ -74,7 +74,15 @@ export function 애널한줄(r, 받은날) {
   const 정확도 = Number(r.정확도);
   const 냈나 = Number.isFinite(정확도) && 정확도 > 0;
   return {
-    rank: Number(r.순위) || null,
+    /* 🔴 [2026-09-20 · 5번] 여기는 «순위»가 아니다 — 그래서 이름을 바꿨다.
+       수집기가 지면이 내는 요청을 그대로 줍는데, 그 요청이
+       `sort={"key":"writerName","orderBy":"asc"}` 다. 곧 «이름 가나다순»으로 받은
+       목록의 «몇 번째 줄»이 API 의 rank 로 온다.
+       실측(2026-09-18 판 74명) — 이름은 가나다순으로 완벽히 정렬돼 있고,
+       점수는 1위 8.16 · 2위 7.79 · 4위 9.40 으로 내림차순이 «아니다».
+       ⛔ 이것을 rank 로 두면 지면이 「1위 애널리스트」라고 쓰게 된다. 거짓이 된다.
+       ✅ 순위가 필요하면 우리가 score 로 세우고 «우리가 세웠다»고 밝힌다. */
+    row_in_name_order: Number(r.순위) || null,
     analyst_id: r.애널리스트번호 ?? null,
     name: r.이름 ?? null,
     house: r.증권사 ?? null,
@@ -120,6 +128,11 @@ export function 짓기(갈래, 읽기 = (이름) => JSON.parse(fs.readFileSync(p
         + '(measured 2026-09-09). Older reports cannot be back-filled — these snapshots are the record.',
       accuracyNote: 'The ranking page prints 0 for analysts whose accuracy it does not publish. We carry that '
         + 'through as accuracy:null with accuracy_not_published:true, never as an accuracy of zero.',
+      rankNote: 'The source returns a field called rank, but the page requests its list sorted by analyst '
+        + 'name, so that number is a row position in an alphabetical list and not a standing. We store it as '
+        + 'row_in_name_order and never present it as a rank. Measured on the 2026-09-18 snapshot: names are '
+        + 'in perfect Korean alphabetical order while scores are not descending (8.16, 7.79, 8.10, 9.40 ...). '
+        + 'Any ordering by merit on our pages is one we computed from score, and we say so.',
       notThis: 'These are other houses’ published views, reproduced as filed. They are not ours and not advice.',
     },
     reports: 리포트,
@@ -157,6 +170,10 @@ export function 자가시험() {
   const a2 = 애널한줄({ 순위: 2, 정확도: 55 }, '2026-09-13');
   재다('정확도가 있으면 그대로', a2.accuracy === 55 && a2.accuracy_not_published === false);
   재다('순위 스냅숏 날을 단다', a2.as_of === '2026-09-13');
+  /* 🔴 [2026-09-20 · 5번] 지면이 「1위 애널리스트」라고 쓰지 못하게 «검사로» 막는다.
+     지면 요청이 이름 가나다순이라 그 수는 줄 번호일 뿐이다. 이름이 rank 면 읽는 사람이 속는다. */
+  재다('rank 라는 이름을 내주지 않는다', !('rank' in a2));
+  재다('줄 번호는 줄 번호라고 적는다', a2.row_in_name_order === 2);
 
   const 지은것 = 짓기(
     { 리포트: [{ 날: '2026-09-12', 이름: 'a' }, { 날: '2026-09-13', 이름: 'b' }], 애널: [{ 날: '2026-09-13', 이름: 'c' }] },
@@ -177,7 +194,10 @@ export function 자가시험() {
 if (process.argv[1] && process.argv[1].endsWith('build-v1-consensus-tape.mjs')) {
   const 흠 = 자가시험();
   if (흠.length) { console.log('🔴 자가시험 실패:\n  - ' + 흠.join('\n  - ')); process.exit(1); }
-  console.log('✅ 자가시험 21/21');
+  console.log('✅ 자가시험 23/23');
+
+  /* --자가시험 은 재기만 한다 — npm test 가 돌 때마다 src/data 를 다시 쓰지 않는다 */
+  if (process.argv.includes('--자가시험')) process.exit(0);
 
   const 갈래 = 갈래나누기(fs.readdirSync(우물));
   if (!갈래.리포트.length) { console.log('🔴 우물이 비었다: ' + 우물); process.exit(1); }

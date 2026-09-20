@@ -1191,6 +1191,7 @@ function consensusCoverage() {
     target_change_note: m.targetChangeNote ?? null,
     window_note: m.windowNote ?? null,
     accuracy_note: m.accuracyNote ?? null,
+    rank_note: m.rankNote ?? null,
     not_this: m.notThis ?? null,
   };
 }
@@ -1363,7 +1364,7 @@ async function root() {
       'GET /v1/uae-financials':
         'Quarterly financial highlights for ADX (Abu Dhabi) and DFM (Dubai) listed companies — revenue, net profit, EPS, and total assets/liabilities/equity where the balance sheet reconciles. ADX figures come from the exchange’s own AI-extracted disclosure summary; DFM figures are parsed directly from the filed PDF by us. ?symbol= for one company, ?exchange=ADX|DFM to filter, ?period= (e.g. "Q2 2026"), ?balance_sheet=true to keep only rows with assets/liabilities/equity. liabilities_derived=true means total_liabilities_aed was computed as assets minus equity, not read from the filing; unit_hint carries the unit as printed (e.g. AED’000) and figures are never rescaled.',
       'GET /v1/consensus':
-        'Korean brokerage reports and the analyst ranking, as published. ?kind=reports (default) or ?kind=analysts, ?ticker= for one company, ?house= to filter by brokerage, ?since=YYYY-MM-DD to trim, ?target_changed=true for reports that moved a target price. The source keeps only a rolling 30-day window — our dated snapshots are the record.',
+        'Korean brokerage reports and the analyst roster, as published. ?kind=reports (default) or ?kind=analysts, ?ticker= for one company, ?house= to filter by brokerage, ?since=YYYY-MM-DD to trim, ?target_changed=true for reports that moved a target price. The source keeps only a rolling 30-day window — our dated snapshots are the record. The analyst rows carry row_in_name_order, not a rank: the source list is alphabetical (see rank_note in coverage).',
       'GET /v1/indices':
         'Dated history of KRX index levels — one row per index per trading day. ?name= for one index, ?family= to filter by series, ?since= / ?until= to trim, ?list=names for every index name we carry. This is the time series; /v1/index-tape is the single most-recent snapshot with English names.',
     },

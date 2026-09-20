@@ -1,0 +1,262 @@
+{
+ "builtOn": "2026-09-20 09:31 KST",
+ "source": "Hankyung Consensus — broker report list and analyst ranking",
+ "windowNote": "The source page only ever shows a rolling ~30-day window, whatever date range is requested (measured 2026-09-09). Older reports cannot be back-filled — these snapshots are the record.",
+ "accuracyNote": "The ranking page prints 0 for analysts whose accuracy it does not publish. We carry that through as accuracy:null with accuracy_not_published:true, never as an accuracy of zero.",
+ "rankNote": "The source returns a field called rank, but the page requests its list sorted by analyst name, so that number is a row position in an alphabetical list and not a standing. We store it as row_in_name_order and never present it as a rank. Measured on the 2026-09-18 snapshot: names are in perfect Korean alphabetical order while scores are not descending (8.16, 7.79, 8.10, 9.40 ...). Any ordering by merit on our pages is one we computed from score, and we say so.",
+ "notThis": "These are other houses’ published views, reproduced as filed. They are not ours and not advice.",
+ "snapshots": {
+  "all": [
+   "2026-09-09",
+   "2026-09-10",
+   "2026-09-12",
+   "2026-09-13",
+   "2026-09-14",
+   "2026-09-16",
+   "2026-09-18"
+  ],
+  "full": [
+   "2026-09-09",
+   "2026-09-10",
+   "2026-09-14",
+   "2026-09-16",
+   "2026-09-18"
+  ],
+  "short": [
+   "2026-09-12",
+   "2026-09-13"
+  ],
+  "shortThreshold": 37
+ },
+ "rowsPerSnapshot": {
+  "2026-09-09": 94,
+  "2026-09-10": 96,
+  "2026-09-12": 20,
+  "2026-09-13": 20,
+  "2026-09-14": 79,
+  "2026-09-16": 71,
+  "2026-09-18": 74
+ },
+ "analystRows": 454,
+ "analystRowsUsed": 414,
+ "distinctAnalysts": 116,
+ "inEverySnapshot": 58,
+ "inOneSnapshotOnly": 13,
+ "churnShare": 50,
+ "scoreSwingMedian": 0.28,
+ "scoreSwingMax": 2.58,
+ "scoreSwingMeasuredOn": 75,
+ "accuracyMissing": 127,
+ "accuracyMissingShare": 30.7,
+ "latestFullSnapshot": "2026-09-18",
+ "latestRoster": 74,
+ "houses": [
+  {
+   "house_ko": "SK증권",
+   "house_en": "SK Securities",
+   "analysts": 11,
+   "accuracy_published": 8,
+   "reports": 112
+  },
+  {
+   "house_ko": "유안타증권",
+   "house_en": "Yuanta Securities Korea",
+   "analysts": 11,
+   "accuracy_published": 6,
+   "reports": 98
+  },
+  {
+   "house_ko": "대신증권",
+   "house_en": "Daishin Securities",
+   "analysts": 10,
+   "accuracy_published": 6,
+   "reports": 55
+  },
+  {
+   "house_ko": "iM증권",
+   "house_en": "iM Securities",
+   "analysts": 8,
+   "accuracy_published": 4,
+   "reports": 57
+  },
+  {
+   "house_ko": "LS증권",
+   "house_en": "LS Securities",
+   "analysts": 7,
+   "accuracy_published": 4,
+   "reports": 92
+  },
+  {
+   "house_ko": "메리츠증권",
+   "house_en": "Meritz Securities",
+   "analysts": 6,
+   "accuracy_published": 4,
+   "reports": 85
+  },
+  {
+   "house_ko": "한화투자증권",
+   "house_en": "Hanwha Investment & Securities",
+   "analysts": 5,
+   "accuracy_published": 4,
+   "reports": 60
+  },
+  {
+   "house_ko": "하이투자증권",
+   "house_en": "Hi Investment & Securities",
+   "analysts": 5,
+   "accuracy_published": 3,
+   "reports": 0
+  },
+  {
+   "house_ko": "유진투자증권",
+   "house_en": "Eugene Investment & Securities",
+   "analysts": 4,
+   "accuracy_published": 3,
+   "reports": 97
+  },
+  {
+   "house_ko": "IBK투자증권",
+   "house_en": "IBK Investment & Securities",
+   "analysts": 3,
+   "accuracy_published": 1,
+   "reports": 120
+  },
+  {
+   "house_ko": "이베스트증권",
+   "house_en": "eBEST Investment & Securities",
+   "analysts": 3,
+   "accuracy_published": 3,
+   "reports": 0
+  },
+  {
+   "house_ko": "상상인증권",
+   "house_en": "Sangsangin Investment & Securities",
+   "analysts": 1,
+   "accuracy_published": 1,
+   "reports": 12
+  }
+ ],
+ "housesMissingEnglishName": 0,
+ "ourOrderTop": [
+  {
+   "our_order": 1,
+   "house_en": "iM Securities",
+   "score": 12.18,
+   "stars": 10,
+   "accuracy": 85.7142857143,
+   "accuracy_not_published": false
+  },
+  {
+   "our_order": 2,
+   "house_en": "Daishin Securities",
+   "score": 11.03,
+   "stars": 10,
+   "accuracy": 100,
+   "accuracy_not_published": false
+  },
+  {
+   "our_order": 3,
+   "house_en": "Hi Investment & Securities",
+   "score": 10.98,
+   "stars": 10,
+   "accuracy": 100,
+   "accuracy_not_published": false
+  },
+  {
+   "our_order": 4,
+   "house_en": "Daishin Securities",
+   "score": 10.92,
+   "stars": 10,
+   "accuracy": 100,
+   "accuracy_not_published": false
+  },
+  {
+   "our_order": 5,
+   "house_en": "SK Securities",
+   "score": 10.26,
+   "stars": 10,
+   "accuracy": 42.8571428571,
+   "accuracy_not_published": false
+  },
+  {
+   "our_order": 6,
+   "house_en": "LS Securities",
+   "score": 10.18,
+   "stars": 10,
+   "accuracy": 58.3333333333,
+   "accuracy_not_published": false
+  },
+  {
+   "our_order": 7,
+   "house_en": "SK Securities",
+   "score": 10.04,
+   "stars": 10,
+   "accuracy": 33.3333333333,
+   "accuracy_not_published": false
+  },
+  {
+   "our_order": 8,
+   "house_en": "eBEST Investment & Securities",
+   "score": 10.02,
+   "stars": 10,
+   "accuracy": 80,
+   "accuracy_not_published": false
+  },
+  {
+   "our_order": 9,
+   "house_en": "Daishin Securities",
+   "score": 9.75,
+   "stars": 9,
+   "accuracy": 40,
+   "accuracy_not_published": false
+  },
+  {
+   "our_order": 10,
+   "house_en": "iM Securities",
+   "score": 9.4,
+   "stars": 9,
+   "accuracy": 33.3333333333,
+   "accuracy_not_published": false
+  }
+ ],
+ "reports": 840,
+ "reportsWithATarget": 245,
+ "reportSnapshots": [
+  "2026-09-08",
+  "2026-09-09",
+  "2026-09-10",
+  "2026-09-12",
+  "2026-09-13",
+  "2026-09-14",
+  "2026-09-16",
+  "2026-09-18"
+ ],
+ "onRosterNoReports": [
+  {
+   "house_ko": "하이투자증권",
+   "house_en": "Hi Investment & Securities"
+  },
+  {
+   "house_ko": "이베스트증권",
+   "house_en": "eBEST Investment & Securities"
+  }
+ ],
+ "filedReportsNotOnRoster": [
+  {
+   "house_ko": "우리은행",
+   "house_en": "Woori Bank",
+   "reports": 27
+  },
+  {
+   "house_ko": "한국IR협의회",
+   "house_en": "Korea IR Service",
+   "reports": 25
+  }
+ ],
+ "whatThisIsNot": [
+  "Not a ranking of analysts. The source hands us its list sorted by name, so the number it calls a rank is a row position. Any order on this page is one we computed from the score the source published, and we label it that way.",
+  "Not a measure of who is right. Whether a target was met is a separate page.",
+  "Not a full roster of Korean analysts. It is the list one Korean site showed on the days we collected it.",
+  "Not back-fillable. The source recomputes a rolling one-month window every day and keeps nothing older, so these snapshots exist only because we saved them."
+ ]
+}

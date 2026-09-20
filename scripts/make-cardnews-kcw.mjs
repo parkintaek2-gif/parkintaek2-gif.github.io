@@ -185,6 +185,67 @@ function 세는자벌짓기(d) {
   };
 }
 
+/**
+ * 같은드라마 벌 — 오늘 낸 후속기사의 짝
+ *   (`/article/we-found-the-cause-seo-kang-joons-spike-and-his-co-star-moved-the-same-way`).
+ *   숏영상(make-video-kcw-samedrama.mjs)과 같은 수, 다른 매체다.
+ *
+ * ⭐ 이야기 한 줄: **같은 드라마 프리미어 뒤 두 공동주연의 위키백과 열람이 같이 튀었다 —
+ *   그런데 배수는 달랐다(6.24배 대 4.27배).**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 — 누가 «더 인기»인지 판정하지 않는다. 배수만 나란히 놓는다.
+ * ⛔ 수를 손으로 안 박는다 — src/data/kcw-samedrama.json 에서 읽는다.
+ */
+export function 같은드라마벌짓기(d) {
+  return {
+    갈피: 'samedrama',
+    빛: '#5fb3c4',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `English Wikipedia pageviews · 30-day window · premiered ${d.premiereDate}`,
+        큰: 'Same premiere.\nDifferent rise.',
+        아래: `"${d.drama}" premiered ${d.premiereDate}. Both **${d.leadA}** and **${d.leadB}** are `
+          + `credited leads — we checked each one's own reading against their own baseline, not `
+          + 'against each other\'s fame.',
+      },
+      {
+        꼴: '표',
+        제목: 'Reading rise\nsince the\npremiere',
+        머리: ['Name', 'Before', 'After', 'Rise'],
+        줄: [
+          [d.leadA, String(d.leadABefore), String(d.leadAAfter), `${d.leadARatio}x`],
+          [d.leadB, String(d.leadBBefore), String(d.leadBAfter), `${d.leadBRatio}x`],
+        ],
+        아래: `${d.leadA}'s single highest day was ${d.leadAPeakDay}; ${d.leadB}'s was `
+          + `${d.leadBPeakDay} — both fall in the days right after the premiere.`,
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          'Not a claim that one actor is more popular — we compared each one against their own '
+            + 'baseline, not against each other',
+          'Not streaming or viewership numbers for the drama — we hold English Wikipedia reading, '
+            + 'one narrow measure',
+          'Not a reason for the size gap between 6.24x and 4.27x — shared exposure to the same '
+            + 'event did not move both people by the same amount, and we are not explaining why',
+        ],
+      },
+      {
+        꼴: '끝',
+        제목: 'Same event.\nDifferent\nreaders.',
+        글: 'A premiere is one dated event.\nTwo co-stars, two different rises.\n\n'
+          + '**We measure each person against their own baseline, not against each other.**',
+        길: `${주소}/article/we-found-the-cause-seo-kang-joons-spike-and-his-co-star-moved-the-same-way`,
+        곁: `Wikimedia Pageviews API · 21 Aug – 19 Sep 2026 · measured ${d.generated}`,
+      },
+    ],
+  };
+}
+
 export const 벌목록 = {
   fame: { 자료: 'src/data/wikitip-fame-compare.json', 만들기: (d) => 한벌짓기(d) },
   manager: { 자료: 'src/data/wikitip-sea-athletes.json', 만들기: (d) => 감독벌짓기(d) },
@@ -224,6 +285,8 @@ export const 벌목록 = {
      ⭐ 카드로 낼 값이 있는 것은 표의 «마지막 칸»이다 — 둘 다 든 제목이 0편이다.
      ⛔ 「경제지가 돈을 쓴다」만 내면 아무것도 아니다. 짝이 이야기다. */
   moneyage: { 자료: 'src/data/kcw-money-vs-age-in-headline.json', 만들기: (d) => 돈나이벌짓기(d) },
+  /* [2026-09-20] 오늘 낸 후속기사·숏영상의 짝 — 같은 프리미어, 다른 배수(서강준·안은진) */
+  samedrama: { 자료: 'src/data/kcw-samedrama.json', 만들기: (d) => 같은드라마벌짓기(d) },
 };
 
 /**
