@@ -228,6 +228,34 @@ export function 오늘낸기사(파일글들, 오늘) {
   return 파일글들.filter((s) => new RegExp(`^pubDate:\\s*${오늘}`, 'm').test(String(s ?? ''))).length;
 }
 
+/**
+ * 1번이 오늘 «새로 세운 글»을 네 자리에서 함께 센다.
+ * ⚠ 한 자리만 세고 네 자리 몫으로 나누면 늘 모자라 보인다 — 2026-09-20 에 그랬다.
+ * ⚠ KLifeMap 몫은 형제 저장소에 있어 여기서는 안 세어진다. 그래서 이 수는 «바닥값»이다.
+ */
+export const 글자리들 = [
+  'content/kculturewire',   // K Culture Wire
+  'content/articles',       // SeoulMarkets
+  'src/pages/100y',         // 백년지도
+  'src/pages/wikitip',      // WikiTip 지면
+];
+
+/** git 이 내준 파일 목록에서 «글»만 센다 */
+export function 글만세기(파일들) {
+  if (!Array.isArray(파일들)) return null;
+  const 것 = [...new Set(파일들.map((s) => String(s ?? '').trim()).filter(Boolean))];
+  return 것.filter((f) => /\.(md|astro)$/.test(f) && !/\/(_|components?\/)/.test(f)).length;
+}
+
+export function 오늘낸글수(뿌리길, 오늘, 돌리기 = null) {
+  try {
+    const 돌 = 돌리기 ?? ((인자) => execFileSync('git', 인자, { cwd: 뿌리길, encoding: 'utf8' }));
+    const 글 = 돌(['log', '--since=' + 오늘 + 'T00:00:00', '--diff-filter=A',
+      '--name-only', '--format=', '--', ...글자리들]);
+    return 글만세기(String(글).split('\n'));
+  } catch { return null; }
+}
+
 /* ── 자가시험 ───────────────────────────────────────────────── */
 export function 자가시험() {
   const 실패 = [];
@@ -275,6 +303,18 @@ export function 자가시험() {
      사이트당으로 바꾸시자 이 시험이 빨개졌다 — 자가 옛 수를 지키느라 새 지시를 막은 것이다.
      ⇒ 수가 아니라 «성질»을 잰다: 한 곳에서 나오나 · 사이트 수에 따라 함께 움직이나. */
   검('하루 몫이 한 곳에서 나온다', 하루몫.텍스트 === 6 * 맡은사이트수_1번);
+  /* 🔴 세는 «범위»와 나누는 수가 짝이어야 한다 — 2026-09-20 에 어긋나 1번을 깎아내렸다 */
+  검('글 세는 자리가 네 곳이다 — 나누는 수도 네 사이트 몫이다', 글자리들.length === 맡은사이트수_1번);
+  검('글 자리가 겹치지 않는다', new Set(글자리들).size === 글자리들.length);
+  검('md 와 astro 만 글로 센다', 글만세기(['a/b.md','c/d.astro','e/f.json','g/h.png']) === 2);
+  검('같은 파일을 두 번 세지 않는다', 글만세기(['a/b.md','a/b.md']) === 1);
+  검('빈 줄을 세지 않는다', 글만세기(['','  ','a/b.md']) === 1);
+  검('부품 폴더는 글이 아니다', 글만세기(['src/pages/100y/components/x.astro','src/pages/100y/y.astro']) === 1);
+  검('배열이 아니면 null', 글만세기(null) === null);
+  검('git 이 내준 목록을 그대로 센다',
+    오늘낸글수('.', '2026-09-20', () => ['content/articles/a.md','content/kculturewire/b.md','src/data/c.json'].join(String.fromCharCode(10))) === 2);
+  검('git 이 엎어지면 null 이다 — 0 으로 세지 않는다',
+    오늘낸글수('.', '2026-09-20', () => { throw new Error('없다'); }) === null);
   검('영상·기타도 사이트 수를 따라간다',
     하루몫.새영상 === 맡은사이트수_1번 && 하루몫.버전업 === 맡은사이트수_1번);
   검('사이트가 하나면 옛 몫(6·1·1)과 같아진다', 6 * 1 === 6 && 1 * 1 === 1);
@@ -397,11 +437,15 @@ if (내가실행됐다) {
 
   /* ③ 오늘 몫 */
   const 영상 = 오늘낸영상(읽기('src/data/wikitip-video.json'), 오늘);
-  let 기사 = null;
-  try {
-    const 방 = path.join(뿌리, 'content/kculturewire');
-    기사 = 오늘낸기사(fs.readdirSync(방).filter((f) => f.endsWith('.md')).map((f) => fs.readFileSync(path.join(방, f), 'utf8')), 오늘);
-  } catch { 기사 = null; }
+  /* 🔴 [2026-09-20 · 5번] **이 수가 1번을 깎아내리고 있었다.**
+     여기는 `content/kculturewire` «한 곳»만 세는데, 나누는 수(하루몫.텍스트)는
+     «네 사이트» 몫인 24 다. 한 사이트 낸 것을 네 사이트 몫으로 나누니 늘 모자라 보인다.
+     오늘 실측 — 자는 「텍스트 4/24」라 했고, 실제로는
+       KCW 4 · SeoulMarkets 4 · 백년지도 3 (+ KLifeMap 6, 형제 저장소) = 11~17편이었다.
+     이 수로 21시에 사장님께 「1번이 모자란다」를 올릴 뻔했다.
+     ⛔ 나누는 수와 세는 자리의 «범위»가 어긋난 자를 두지 않는다. 사람을 잘못 벌준다.
+     ⇒ 오늘 «새로 선» 글을 git 으로 네 자리에서 함께 센다. */
+  const 기사 = 오늘낸글수(뿌리, 오늘);
   /* 🔴 버전업 몫은 «남은 무음 편»에서 나온다. 0 편이면 갚을 것이 없다 */
   const 밀린무음 = 남은무음(읽기('src/data/kcw-video-sound.json'), 오늘);
   const 버전업몫 = 밀린무음 === null ? 하루몫.버전업 : (밀린무음 > 0 ? 하루몫.버전업 : 0);
