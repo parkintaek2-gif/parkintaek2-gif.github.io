@@ -28,8 +28,13 @@ const child = spawn(process.execPath, ['server.mjs'], {
   stdio: ['ignore', 'pipe', 'pipe'],
 });
 
+/* ⚠ [2026-09-21 · 2번] server.mjs 는 기동 로그로 「serving dist/ on http://…」를
+ * 찍는다(server.mjs:1098) — 「listen」이라는 글자는 어디에도 안 나온다. 그래서
+ * 이 자는 매번 준비 신호를 못 받고 아래 고정 5.3초를 다 채운 뒤에야 요청을 쐈다.
+ * 느린 기계에서 5.3초를 넘기면 「fetch failed」로 통째로 빨간불이 났다(실측).
+ * 실제로 찍는 문구로 맞춘다. */
 let 준비됨 = false;
-child.stdout.on('data', (d) => { if (String(d).includes('listen')) 준비됨 = true; });
+child.stdout.on('data', (d) => { if (String(d).includes('serving dist/')) 준비됨 = true; });
 
 async function 기다린다(ms) { return new Promise((r) => setTimeout(r, ms)); }
 
