@@ -7,6 +7,11 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "nana-stage-fall-wikipedia-reading-jumped-20-times": {
+   "figure": "20x",
+   "label": "Nana's reading jumped 20x the day after her stage fall",
+   "왜": "글머리 첫 수는 '918'(기준선)이라 약하다. 이 기사의 핵심 대조수는 20x(19일 열람 18,446 ÷ 기준 918)다"
+  },
   "chung-ha-agency-split-reading-spike-smaller-than-unexplained-one": {
    "figure": "3.8x",
    "label": "an unexplained spike beat the agency-split reading rise",

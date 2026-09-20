@@ -56,6 +56,15 @@ const 평판대조 = [
   { 순위축: 'Boy-group member reputation, Sept 2026', 첫: 'Jimin', 첫수: '2,029/day', 둘: 'G-Dragon', 둘수: '1,592/day', 셋: 'San', 셋수: '1,371/day',
     일치: 'Yes', 링크: '/article/jimin-g-dragon-and-san-ranked-the-same-way-in-reputation-and-in-reading' },
 ];
+
+/**
+ * 「단일 사건 급등」 — 원인이 다른 뉴스와 섞이지 않는, 가장 깨끗한 사례들.
+ * 🔴 check-table-promises.mjs 가 og-cards.json 의 figure 를 이 지면 표 칸에서 찾는다.
+ */
+const 원인스파이크 = [
+  { 사람: 'Nana (After School)', 사건: 'Stage fall, hospitalized', 기준: '918/day', 정점: '18,446',
+    배수: '20x', 링크: '/article/nana-stage-fall-wikipedia-reading-jumped-20-times' },
+];
 const 움직임글 = (e: 사건) => {
   if (e.netRatio === null) return 'not measured';
   if (e.netRatio >= 1.05) return `up ${e.netRatio}×`;
@@ -195,6 +204,29 @@ const jsonLd = {
     <b>a superlative in a headline and a measurable rise are not the same object</b>, and only one of
     them can be checked.
   </p>
+
+  <h2>Single-cause spikes, side by side</h2>
+  <p class="note">
+    Most spikes we track share the week with something else. These are the ones where we found no
+    competing explanation &mdash; one reported event, one clean before-and-after.
+  </p>
+
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>Person</th><th>Event</th><th>Baseline</th><th>Peak day</th><th>Multiple</th></tr></thead>
+      <tbody>
+        {원인스파이크.map((r) => (
+          <tr>
+            <th scope="row">{r.사람}</th>
+            <td>{r.사건}</td>
+            <td class="num">{r.기준}</td>
+            <td class="num">{r.정점}</td>
+            <td class="num"><a href={r.링크}>{r.배수}</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 
   <h2>What we could not measure</h2>
   <ul>{d.notMeasured.map((s: string) => <li>{s}</li>)}</ul>
