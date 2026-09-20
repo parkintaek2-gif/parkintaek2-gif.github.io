@@ -34,7 +34,8 @@ function 줄나눔(글, 폭) {
   return 줄;
 }
 
-const 프론트 = (t) => {
+const 프론트 = (raw) => {
+  const t = String(raw).replace(/\r\n/g, '\n');
   const m = t.match(/^---\n([\s\S]*?)\n---/); if (!m) return {};
   const y = m[1];
   const g = (k) => (y.match(new RegExp(`^${k}:\\s*"?(.+?)"?\\s*$`, 'm')) || [])[1];
