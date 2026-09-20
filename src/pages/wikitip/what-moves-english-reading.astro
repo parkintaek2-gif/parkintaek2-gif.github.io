@@ -44,6 +44,18 @@ if ((캠페인.netRatio ?? 0) >= (생일.netRatio ?? 0)) {
 }
 
 const 쉼표 = (n: number | null) => (n === null ? '—' : Number(n).toLocaleString('en-US'));
+
+/**
+ * 「평판지수 순위 vs 실측 읽기 순위」 대조 — 사건(전/후) 표와는 다른 결이라 별도 표로 낸다.
+ * 🔴 check-table-promises.mjs 가 기사 대표수(og-cards.json)가 이 지면 «표 칸»에 있는지 잰다 —
+ *   본문 문장은 안 본다. 그래서 여기도 <table>로 낸다.
+ */
+const 평판대조 = [
+  { 순위축: 'Group reputation, Sept 2026', 첫: 'Re:Scene', 첫수: '11/day', 둘: 'BTS', 둘수: '6,860/day', 셋: 'BLACKPINK', 셋수: '—',
+    일치: 'No', 링크: '/article/rescene-topped-bts-and-blackpink-in-reputation-not-in-reading' },
+  { 순위축: 'Boy-group member reputation, Sept 2026', 첫: 'Jimin', 첫수: '2,029/day', 둘: 'G-Dragon', 둘수: '1,592/day', 셋: 'San', 셋수: '1,371/day',
+    일치: 'Yes', 링크: '/article/jimin-g-dragon-and-san-ranked-the-same-way-in-reputation-and-in-reading' },
+];
 const 움직임글 = (e: 사건) => {
   if (e.netRatio === null) return 'not measured';
   if (e.netRatio >= 1.05) return `up ${e.netRatio}×`;
@@ -138,6 +150,32 @@ const jsonLd = {
             <td>{e.kind}</td>
             <td class="num"><b>{e.netRatio}×</b></td>
             <td class="num">{e.peakDay} &middot; {쉼표(e.peakViews)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Reputation index against reading, side by side</h2>
+  <p class="note">
+    A different test from the events above: does the <em>order</em> a reputation index ranks people
+    or groups in match the order English Wikipedia reads them in?
+  </p>
+
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>Ranked by</th><th>1st</th><th>Reads</th><th>2nd</th><th>Reads</th><th>3rd</th><th>Reads</th><th>Order matched?</th></tr></thead>
+      <tbody>
+        {평판대조.map((r) => (
+          <tr>
+            <th scope="row">{r.순위축}</th>
+            <td>{r.첫}</td>
+            <td class="num">{r.첫수}</td>
+            <td>{r.둘}</td>
+            <td class="num">{r.둘수}</td>
+            <td>{r.셋}</td>
+            <td class="num">{r.셋수}</td>
+            <td><a href={r.링크}>{r.일치}</a></td>
           </tr>
         ))}
       </tbody>
