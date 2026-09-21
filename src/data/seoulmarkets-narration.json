@@ -3,6 +3,10 @@
   "⛔ 지키는 것": "이 파일에 없는 말을 자가 지어내지 않는다. 화면 카드에 없는 수를 목소리로 말하지 않는다(카드 PNG 글자를 못 읽으니, 확실치 않으면 숫자를 빼고 질적 사실만 읽는다). 화면과 소리가 다르면 그 편이 신뢰를 깎는다.",
   "⚠ 길이": "영상 길이 안에 들어가는 말만. make-seoulmarkets-video-sound.mjs 가 실제 목소리 길이를 재서 넘치면 멈춘다(화면을 늘이지 않고 말을 줄인다).",
   "대본": {
+    "seohee-constructions-new-contract-is-29-percent-of-revenue-but-starts-in-21-months": {
+      "내레이션": "Seohee Construction filed a 318 billion won apartment contract in Busan -- 29 percent of its most recent annual revenue. Construction doesn't start until mid-2027, about 21 months from now.",
+      "설명": "Korea's Financial Supervisory Service filing, cross-checked against the company's own revenue disclosure."
+    },
     "korea-won-14-month-high-two-months-after-peak": {
       "내레이션": "The Korean won just hit a 14-month high — 1,355.2 to the dollar, down 12.8% from July's peak of 1,554.4.",
       "설명": "Bank of Korea ECOS daily exchange rate. Not investment advice."
