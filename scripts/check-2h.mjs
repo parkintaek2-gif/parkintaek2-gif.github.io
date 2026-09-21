@@ -222,6 +222,51 @@ export function 오늘낸영상(원부, 오늘) {
   };
 }
 
+/**
+ * 오늘 «새로 선» 영상·카드 파일을 git 으로 센다 — 네 사이트를 다 본다.
+ *
+ * 🔴 [2026-09-21] 왜 만들었나 — **텍스트에서 고친 결함이 영상에 그대로 남아 있었다.**
+ * ─────────────────────────────────────────────────────────────────────────
+ * 9/20 에 「한 곳만 세는데 나누는 수는 네 사이트 몫」이라는 결함을 텍스트에서 고쳤다.
+ * 그런데 바로 옆줄의 영상은 `src/data/wikitip-video.json` «한 원부»만 보고 있었다.
+ * 1번이 「이 자가 KCW 한 곳만 세는 것으로 보인다」고 짚어 주어 알았고, 재 보니 맞았다.
+ *
+ * ```
+ * 자가 센 것   새 영상 1 / 4
+ * 실제         3편 — 100y/video/중고차브랜드평판.mp4
+ *                    video/seohee-constructions-….mp4
+ *                    wikitip/video/nanaspike-voiced.mp4 (버전업)
+ * ```
+ *
+ * ⭐ 오늘 같은 꼴을 **세 번** 만났다 — 비상벨(교훈을 한 자리에만 걸었다) · 텍스트 · 영상.
+ *   **결함은 옆줄에도 있다.** 하나를 고치면 같은 꼴을 그 파일에서 찾아 함께 고친다.
+ *
+ * ⛔ 「-voiced」는 소리를 입힌 «버전업»이지 새 편이 아니다 — 갈라서 센다.
+ */
+export const 영상자리들 = ['public/video', 'public/wikitip/video', 'public/100y/video', 'public/klifemap/video'];
+
+export function 영상갈래(줄들) {
+  const 것 = (줄들 || [])
+    .map((s) => String(s).trim().replace(/^"|"$/g, ''))
+    .filter((s) => /\.(mp4|webm|mov)$/i.test(s));
+  const 고유 = [...new Set(것)];
+  return {
+    새것: 고유.filter((s) => !/-voiced\.\w+$/i.test(s)).length,
+    버전업: 고유.filter((s) => /-voiced\.\w+$/i.test(s)).length,
+    목록: 고유,
+  };
+}
+
+export function 오늘낸영상_파일(뿌리길 = 뿌리, 오늘 = null, 돌리기 = null) {
+  try {
+    if (!오늘) return null;
+    const 돌 = 돌리기 ?? ((인자) => execFileSync('git', 인자, { cwd: 뿌리길, encoding: 'utf8' }));
+    const 글 = 돌(['log', '--since=' + 오늘 + 'T00:00:00', '--diff-filter=A',
+      '--name-only', '--format=', '--', ...영상자리들]);
+    return 영상갈래(String(글).split('\n'));
+  } catch { return null; }
+}
+
 /** 오늘 낸 기사 수. ⛔ 못 읽으면 null */
 export function 오늘낸기사(파일글들, 오늘) {
   if (!Array.isArray(파일글들)) return null;
@@ -445,6 +490,28 @@ export function 자가시험() {
   검('다른 달 같은 날은 안 센다',
     오늘낸글수_사이트맵(사이트맵예(['2026-08-21', '2026-09-21']), '2026-09-21') === 1);
 
+  /* 🔴 [2026-09-21] 영상을 «네 자리»에서 센다 — 텍스트에서 고친 결함이 여기 남아 있었다.
+     1번이 「이 자가 KCW 한 곳만 세는 것 같다」고 짚어 주어 알았고, 재 보니 맞았다. */
+  const 그날 = ['public/100y/video/중고차브랜드평판.mp4',
+    'public/video/seohee-constructions-new-contract.mp4',
+    'public/wikitip/video/nanaspike-voiced.mp4'];
+  검('9/21 의 꼴 — 새 영상 2편', 영상갈래(그날).새것 === 2);
+  검('9/21 의 꼴 — 버전업 1편', 영상갈래(그날).버전업 === 1);
+  검('네 자리를 다 본다 (KCW 한 곳이 아니다)',
+    영상자리들.length === 4 && ['public/video', 'public/wikitip/video', 'public/100y/video']
+      .every((p) => 영상자리들.includes(p)));
+  검('-voiced 는 새 편이 아니다', 영상갈래(['public/video/a-voiced.mp4']).새것 === 0);
+  검('voiced 가 아니면 새 편이다', 영상갈래(['public/video/a.mp4']).새것 === 1);
+  검('영상이 아닌 파일은 안 센다', 영상갈래(['public/video/a.json', 'docs/b.md']).새것 === 0);
+  검('같은 파일이 두 번 나와도 하나로 센다',
+    영상갈래(['public/video/a.mp4', 'public/video/a.mp4']).새것 === 1);
+  검('git 이 씌우는 따옴표를 벗긴다',
+    영상갈래(['"public/100y/video/한글.mp4"']).새것 === 1);
+  검('webm 도 센다', 영상갈래(['public/video/a.webm']).새것 === 1);
+  검('⛔ 오늘이 없으면 null — 0 으로 메꾸지 않는다', 오늘낸영상_파일(뿌리, null) === null);
+  검('⛔ git 이 실패하면 null', 오늘낸영상_파일(뿌리, '2026-09-21', () => { throw new Error('없다'); }) === null);
+  검('빈 결과는 0 이다', 영상갈래([]).새것 === 0 && 영상갈래([]).버전업 === 0);
+
   return { 실패, 센것 };
 }
 
@@ -527,7 +594,12 @@ if (내가실행됐다) {
   console.log(줄('②', '2번 소통', 소통));
 
   /* ③ 오늘 몫 */
-  const 영상 = 오늘낸영상(읽기('src/data/wikitip-video.json'), 오늘);
+  /* 🔴 [2026-09-21] 원부(KCW 한 곳)만 보던 것을 «네 자리 파일»로 바꿨다 — 위 주석 참조.
+     원부도 함께 재서 둘이 어긋나면 보이게 한다. 둘 중 «큰 쪽»을 쓰지 않는다 —
+     파일이 사실이고 원부는 KCW 만 담는다. */
+  const 영상원부 = 오늘낸영상(읽기('src/data/wikitip-video.json'), 오늘);
+  const 영상파일 = 오늘낸영상_파일(뿌리, 오늘);
+  const 영상 = 영상파일 ?? 영상원부 ?? { 새것: 0, 버전업: 0 };
   /* 🔴 [2026-09-20 · 5번] **이 수가 1번을 깎아내리고 있었다.**
      여기는 `content/kculturewire` «한 곳»만 세는데, 나누는 수(하루몫.텍스트)는
      «네 사이트» 몫인 24 다. 한 사이트 낸 것을 네 사이트 몫으로 나누니 늘 모자라 보인다.
@@ -585,6 +657,7 @@ if (내가실행됐다) {
       + `(여기 ${기사여기}${기사형제 === null ? ' · 형제 저장소 못 읽음' : ` + klifemap 파일 ${기사형제}`}`
       + `${기사DB === null ? ' · klifemap 사이트맵 못 읽음' : ` + klifemap 지면 ${기사DB}`})`
       + ` · 새 영상 ${영상.새것}/${하루몫.새영상} · 버전업 ${영상.버전업}/${버전업몫}`
+      + (영상파일 === null ? ' (영상은 원부로만 쟀다 — 파일을 못 읽었다)' : ' (네 자리 파일로 셌다)')
       + (밀린무음 === 0 ? ' (무음 편이 0 — 갚을 것이 없다)' : '')
       + (담당이손댔나 === null ? ' · 1번이 손댔는지 못 쟀다'
         : 담당이손댔나 > 0 ? ` · 1번이 오늘 ${담당이손댔나}번 손댔다`
