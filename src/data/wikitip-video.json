@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-19T10:42+09:00",
+  "generated": "2026-09-22T07:48+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -130,6 +130,13 @@
       "src": "/video/instrument.mp4"
     },
     {
+      "set": "korean-esports-reading-jumped-9x-as-the-asian-games-opened-voiced",
+      "seconds": 14,
+      "uploadDate": "2026-09-22",
+      "thumb": "/video/thumb/korean-esports-reading-jumped-9x-as-the-asian-games-opened-voiced.jpg",
+      "src": "/video/korean-esports-reading-jumped-9x-as-the-asian-games-opened-voiced.mp4"
+    },
+    {
       "set": "le-sserafim-blizzcon-drove-a-real-wikipedia-spike-voiced",
       "seconds": 17,
       "uploadDate": "2026-09-17",
@@ -163,6 +170,13 @@
       "uploadDate": "2026-09-02",
       "thumb": "/video/thumb/manager-voiced.jpg",
       "src": "/video/manager-voiced.mp4"
+    },
+    {
+      "set": "nanaspike-voiced",
+      "seconds": 14,
+      "uploadDate": "2026-09-21",
+      "thumb": "/video/thumb/nanaspike-voiced.jpg",
+      "src": "/video/nanaspike-voiced.mp4"
     },
     {
       "set": "numberone",
@@ -226,6 +240,13 @@
       "uploadDate": "2026-09-18",
       "thumb": "/video/thumb/riizes-quietest-reading-day-in-a-month-was-their-milestone-day-voiced.jpg",
       "src": "/video/riizes-quietest-reading-day-in-a-month-was-their-milestone-day-voiced.mp4"
+    },
+    {
+      "set": "samedrama-voiced",
+      "seconds": 14,
+      "uploadDate": "2026-09-20",
+      "thumb": "/video/thumb/samedrama-voiced.jpg",
+      "src": "/video/samedrama-voiced.mp4"
     },
     {
       "set": "samename",
@@ -310,20 +331,6 @@
       "uploadDate": "2026-09-07",
       "thumb": "/video/thumb/works-voiced.jpg",
       "src": "/video/works-voiced.mp4"
-    },
-    {
-      "set": "samedrama-voiced",
-      "seconds": 14,
-      "uploadDate": "2026-09-20",
-      "thumb": "/video/thumb/samedrama-voiced.jpg",
-      "src": "/video/samedrama-voiced.mp4"
-    },
-    {
-      "set": "nanaspike-voiced",
-      "seconds": 14,
-      "uploadDate": "2026-09-21",
-      "thumb": "/video/thumb/nanaspike-voiced.jpg",
-      "src": "/video/nanaspike-voiced.mp4"
     }
   ],
   "unmeasured": []

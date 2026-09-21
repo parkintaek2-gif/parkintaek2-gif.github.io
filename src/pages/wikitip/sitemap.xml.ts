@@ -290,6 +290,14 @@ const videoSets = [
       + 'was hospitalized. Her English Wikipedia reading rose to over 18,000 a day — 20 times '
       + 'her usual level.',
   },
+  {
+    set: 'korean-esports-reading-jumped-9x-as-the-asian-games-opened-voiced',
+    page: '/what-moves-english-reading',
+    title: "Korean Esports' Wikipedia Reading Jumped 9 Times as the Asian Games Opened",
+    description: '17 seconds: the Asian Games esports page averaged 276 English Wikipedia reads a day '
+      + 'in early September. The day after the opening ceremony, that hit 2,537 reads — 9.2 times '
+      + 'the baseline, part of a two-week build rather than a single-day spike.',
+  },
   /*
    * 🔴 [2026-08-29] **어제·오늘 만든 영상 넷이 이 목록에 없었다.**
    *   목록에 없으면 ① 영상 사이트맵에 안 들어가고 ② 올릴 문안(upload-kit)이 안 만들어진다.

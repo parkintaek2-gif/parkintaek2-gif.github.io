@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-17T05:57:04.662Z",
+  "generated": "2026-09-21T23:07:58.415Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -1168,6 +1168,23 @@
       ]
     },
     {
+      "set": "korean-esports-reading-jumped-9x-as-the-asian-games-opened",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "korean-films-leave-like-everyone-else",
       "sq": [
         1,
@@ -1828,6 +1845,40 @@
     },
     {
       "set": "reaching-number-one-is-mostly-length",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "rescene-topped-bts-and-blackpink-in-reputation-not-in-reading",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "riizes-quietest-reading-day-in-a-month-was-their-milestone-day",
       "sq": [
         1,
         2,
@@ -2944,8 +2995,8 @@
       ]
     }
   ],
-  "setCount": 175,
-  "imageCount": 1714,
+  "setCount": 178,
+  "imageCount": 1744,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "24-netflix-k-titles-ran-long-21-never-left-south-korea",
@@ -2958,32 +3009,53 @@
     "baekhyun-court-injunction-reading-spike-hits-only-him",
     "blackpink-lisa-reads-higher-than-any-bts-member-our-panel-missed-her",
     "brands-are-not-one-thing",
+    "bts-set-a-9-billion-stream-record-english-wikipedia-reading-hit-a-month-low",
     "chinese-not-japanese-reads-korean-stars",
     "crash-landing-on-you-72-weeks-in-japan",
     "december-looking-june-quiet",
     "device-is-not-age-for-korean-acts",
+    "doing-both-music-and-acting-triples-the-odds-of-being-read-in-english",
+    "eum-moon-suks-creature-role-wikipedia-reading-nearly-5x",
     "fan-votes-and-encyclopedia-reads-disagree",
     "five-agencies-one-day-and-what-a-label-count-cannot-say",
+    "garfield-alone-explains-a-fifth-of-when-the-source-wins",
+    "han-na-chang-rco-debut-wikipedia-reading-spiked-47x",
     "hoshi-page-tripled-the-day-his-injury-was-reported",
     "illits-third-100-million-song-in-japan-same-flat-line-in-english",
+    "iu-reading-had-already-risen-before-todays-donation-was-announced",
+    "ius-anniversary-donation-day-read-exactly-like-the-day-before-it",
     "january-peaks-september-does-not",
+    "jewelrys-full-reunion-after-20-years-moved-seo-in-youngs-reading-6x",
+    "jimin-g-dragon-and-san-ranked-the-same-way-in-reputation-and-in-reading",
     "jimin-october-13-and-the-birthday-calendar-of-9249-korean-stars",
+    "jimins-first-korean-language-billion-did-not-move-his-page",
     "jin-called-sold-out-king-ranks-5th-of-7-in-bts",
     "jins-billion-stream-song-did-not-move-his-wikipedia-page",
+    "jo-arams-drama-premiere-wikipedia-reading-jumped-9x",
+    "katseyes-animal-hit-100-million-views-wikipedia-reading-fell-that-day",
     "kdol-named-jimin-no-1-wikipedia-says-third-in-bts",
+    "korean-groups-look-shortest-lived-but-the-cohorts-are-31-years-apart",
     "kpop-generation-lines-are-a-year-off",
     "lee-jung-jae-drew-10-percent-hyun-bin-drew-34-percent",
     "lovely-runners-co-stars-outread-their-own-fan-vote-rank",
     "malaysia-and-singapore-hold-the-same-korean-list",
     "malaysia-gets-korean-titles-in-the-debut-week",
+    "more-netflix-appearances-looked-steadier-we-could-not-confirm-it",
+    "nana-stage-fall-wikipedia-reading-jumped-20-times",
     "netflix-weeks-in-top-10-is-not-weeks-in-a-row",
     "newjeans-topped-the-fan-vote-red-velvets-irene-reads-more",
     "one-film-is-most-of-the-english-k-pop-news-feed",
     "one-member-outdraws-her-own-group-by-04-percent",
     "only-four-countries-come-close-to-all-korean",
+    "pentagons-reading-peaked-the-day-of-their-10th-anniversary-comeback",
+    "plaves-wikipedia-reading-rose-before-the-melon-awards-news-broke",
     "rm-and-j-hope-wikipedia-pages-did-not-move-when-lea-salonga-unfollowed-them",
+    "rose-was-already-26-percent-above-average-the-day-before-her-single",
+    "seo-kang-joons-reading-more-than-doubled-in-a-week-we-dont-know-why",
     "seventeen-thirteen-members-none-close-to-the-group",
+    "song-so-hees-reading-tripled-the-day-after-her-new-single",
     "stray-kids-rose-1-4x-at-rock-in-rio-hwasa-rose-2-4x",
+    "sunday-adds-28-percent-to-k-pop-wikipedia-reading",
     "the-biggest-foreign-draw-is-not-seoul",
     "the-ceiling-and-the-band",
     "the-instrument-was-wrong-not-the-question",
@@ -2991,8 +3063,12 @@
     "the-only-part-of-a-korean-headline-an-english-reader-can-read",
     "top-ruled-out-a-bigbang-reunion-readers-barely-noticed",
     "twelve-coed-korean-groups-is-a-floor",
+    "twenty-nine-names-in-our-panel-averaged-zero-english-readers",
+    "two-of-the-days-top-1000-english-wikipedia-pages-were-korean",
     "v-champion-6-3-million-media-value-wikipedia-flat",
     "vs-news-jung-kook-outreads-rm-on-wikipedia",
-    "what-the-record-cannot-see-about-nationality"
+    "we-found-the-cause-seo-kang-joons-spike-and-his-co-star-moved-the-same-way",
+    "what-the-record-cannot-see-about-nationality",
+    "yekwon-sunwoo-piano-reading-spiked-30x-after-a-tv-cameo"
   ]
 }
