@@ -151,7 +151,12 @@ const jsonLd = {
         count a Japanese filing states is <i>shares issued</i>, which includes any the company holds
         itself, so a Tokyo market capitalisation here is a slight overstatement for a company sitting
         on treasury stock; we would rather say that than quietly net it off with a number the filing
-        does not give us.
+        does not give us. <b>Tokyo has no price-to-book column at all</b>, and that one is worth
+        spelling out: the filings carry a net-assets-per-share figure, but they do not say whether
+        it is the group&rsquo;s or the parent company&rsquo;s alone, and it is demonstrably one for
+        some filers and the other for others. Dividing a group share price by a parent-only book
+        value produces a ratio that looks precise and means nothing, so we publish none until we
+        can tell the two apart.
         Every empty cell says which of these it is, on the row itself.
         Most screeners drop these companies in silence, and the market then looks smaller and tidier
         than it really is.

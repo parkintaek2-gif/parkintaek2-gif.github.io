@@ -613,7 +613,8 @@ async function 본일() {
       as: r.period_end || null,
     })).filter((r) => r.t);
   })();
-  console.log(`   일본 ${일본.length}곳 (시가총액·PER·PBR 은 아직 없다 — 주가 우물 미개통)`);
+  console.log(`   일본 ${일본.length}곳 — 시가총액·PER·PBR 은 «결산일» 값이다`
+    + ' (유가증권보고서의 주가수익률 × 주당이익으로 되짚었다. ⛔ 현재가가 아니다)');
 
   const 추린것 = [...한국, ...UAE, ...일본];
 
