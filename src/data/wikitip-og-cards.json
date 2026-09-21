@@ -7,6 +7,11 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "jo-arams-drama-premiere-wikipedia-reading-jumped-9x": {
+   "figure": "9.2x",
+   "label": "Jo Aram's reading jumped 9.2x after her drama's second episode",
+   "왜": "글머리 첫 수는 '313'(기준선)이라 약하다. 이 기사의 핵심 대조수는 9.2x(9/13 열람 2,877 ÷ 기준 313.4)다"
+  },
   "eum-moon-suks-creature-role-wikipedia-reading-nearly-5x": {
    "figure": "4.9x",
    "label": "Eum Moon-suk's reading rose 4.9x around Hope's N. America release",
