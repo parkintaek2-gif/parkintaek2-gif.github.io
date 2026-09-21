@@ -1,8 +1,8 @@
 {
  "_meta": {
   "product": "India rating moves — our own counts over exchange-disseminated rating actions",
-  "builtAt": "2026-09-15T03:17:45.642Z",
-  "basedOn": "archive\\raw\\india-nse-credit-rating\\20260915.json.gz",
+  "builtAt": "2026-09-21T13:45:18.293Z",
+  "basedOn": "archive\\raw\\india-nse-credit-rating\\20260920.json.gz",
   "source": "NSE system-driven disclosure of credit ratings (SEBI LODR Reg 30)",
   "notThis": [
    "Not a copy of the exchange table. These are counts we computed.",
@@ -12,55 +12,55 @@
   ],
   "publishGate": "⛔ NSE 약관 판단을 사장님께 여쭸다(2026-09-15 메일). 답 전에는 지면에 안 낸다."
  },
- "eventsStored": 21956,
- "movesCounted": 3301,
- "upgrades": 2579,
- "downgrades": 722,
+ "eventsStored": 22344,
+ "movesCounted": 3379,
+ "upgrades": 2639,
+ "downgrades": 740,
  "downgradeShare": 21.9,
- "notCountedBecauseActionUnclear": 17058,
+ "notCountedBecauseActionUnclear": 17351,
  "datesNotTrusted": 2,
  "byAgency": [
   {
    "agency": "CRISIL",
-   "upgrades": 1267,
-   "downgrades": 250,
-   "moves": 1517,
-   "downgradeShare": 16.5
+   "upgrades": 1299,
+   "downgrades": 260,
+   "moves": 1559,
+   "downgradeShare": 16.7
   },
   {
    "agency": "ICRA",
-   "upgrades": 564,
+   "upgrades": 568,
    "downgrades": 87,
-   "moves": 651,
-   "downgradeShare": 13.4
+   "moves": 655,
+   "downgradeShare": 13.3
   },
   {
    "agency": "CARE",
-   "upgrades": 400,
-   "downgrades": 197,
-   "moves": 597,
-   "downgradeShare": 33
+   "upgrades": 410,
+   "downgrades": 199,
+   "moves": 609,
+   "downgradeShare": 32.7
   },
   {
    "agency": "India",
-   "upgrades": 209,
+   "upgrades": 217,
    "downgrades": 64,
-   "moves": 273,
-   "downgradeShare": 23.4
+   "moves": 281,
+   "downgradeShare": 22.8
   },
   {
    "agency": "Infomerics",
-   "upgrades": 84,
-   "downgrades": 77,
-   "moves": 161,
-   "downgradeShare": 47.8
+   "upgrades": 86,
+   "downgrades": 83,
+   "moves": 169,
+   "downgradeShare": 49.1
   },
   {
    "agency": "Acuite",
-   "upgrades": 54,
+   "upgrades": 58,
    "downgrades": 45,
-   "moves": 99,
-   "downgradeShare": 45.5
+   "moves": 103,
+   "downgradeShare": 43.7
   },
   {
    "agency": "Brickwork",
@@ -151,12 +151,25 @@
   },
   {
    "month": "2026-09",
-   "upgrades": 50,
-   "downgrades": 17,
-   "ratio": 2.9
+   "upgrades": 110,
+   "downgrades": 35,
+   "ratio": 3.1
   }
  ],
  "repeatDowngrades": [
+  {
+   "symbol": "VPRPL",
+   "company": "Vishnu Prakash R Punglia Limited",
+   "listing": "equities",
+   "downgradeActions": 10,
+   "downgradeOccasions": 5,
+   "agencies": [
+    "CARE",
+    "Infomerics"
+   ],
+   "firstDate": "2026-01-19",
+   "lastDate": "2026-09-18"
+  },
   {
    "symbol": "UTKARSHBNK",
    "company": "Utkarsh Small Finance Bank Limited",
@@ -221,6 +234,19 @@
    "lastDate": "2026-06-19"
   },
   {
+   "symbol": "SHAREINDIA",
+   "company": "Share India Securities Limited",
+   "listing": "equities",
+   "downgradeActions": 8,
+   "downgradeOccasions": 3,
+   "agencies": [
+    "Acuite",
+    "Infomerics"
+   ],
+   "firstDate": "2025-09-22",
+   "lastDate": "2026-09-16"
+  },
+  {
    "symbol": "SWASTIK",
    "company": "Swastik Pipe Limited",
    "listing": "sme",
@@ -231,18 +257,6 @@
    ],
    "firstDate": "2025-11-19",
    "lastDate": "2026-01-20"
-  },
-  {
-   "symbol": "VPRPL",
-   "company": "Vishnu Prakash R Punglia Limited",
-   "listing": "equities",
-   "downgradeActions": 6,
-   "downgradeOccasions": 3,
-   "agencies": [
-    "CARE"
-   ],
-   "firstDate": "2026-01-19",
-   "lastDate": "2026-06-09"
   },
   {
    "symbol": "DECCANCE",
@@ -407,19 +421,6 @@
    "lastDate": "2026-06-09"
   },
   {
-   "symbol": "SHAREINDIA",
-   "company": "Share India Securities Limited",
-   "listing": "equities",
-   "downgradeActions": 6,
-   "downgradeOccasions": 2,
-   "agencies": [
-    "Acuite",
-    "Infomerics"
-   ],
-   "firstDate": "2025-09-22",
-   "lastDate": "2026-05-28"
-  },
-  {
    "symbol": "SPICEJET",
    "company": "SPICEJET LTD",
    "listing": "equities",
@@ -580,6 +581,18 @@
    ],
    "firstDate": "2026-08-21",
    "lastDate": "2026-08-21"
+  },
+  {
+   "symbol": "PRATHAM",
+   "company": "Pratham EPC Projects Limited",
+   "listing": "sme",
+   "downgradeActions": 10,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-09-15",
+   "lastDate": "2026-09-15"
   },
   {
    "symbol": "WATERBASE",
@@ -1446,6 +1459,18 @@
    "lastDate": "2026-03-05"
   },
   {
+   "symbol": "MEIL",
+   "company": "Mangal Electrical Industries Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2026-09-18",
+   "lastDate": "2026-09-18"
+  },
+  {
    "symbol": "MODINATUR",
    "company": "Modi Naturals Limited",
    "listing": "equities",
@@ -1735,7 +1760,7 @@
   }
  ],
  "withdrawn": {
-  "rows": 1856,
-  "companies": 311
+  "rows": 1884,
+  "companies": 315
  }
 }
