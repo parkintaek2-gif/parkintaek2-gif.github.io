@@ -180,17 +180,40 @@ if (내가진입점) {
   const 몇개 = Number(인자('--몇개', '0'));
   console.log('■ 일본 EDINET 재무제표 —', 날들.join(' · '), 적는다 ? '· 적는다' : '· 안 적는다(재보기)');
 
-  const 목록받기 = async (날) => {
-    const r = await fetch(`https://api.edinet-fsa.go.jp/api/v2/documents.json?date=${날}&type=2&Subscription-Key=${KEY}`);
-    if (!r.ok) return [];
-    const j = await r.json().catch(() => null);
-    return (j?.results || []).filter((x) => String(x.docTypeCode) === '120'
-      && x.xbrlFlag === '1' && x.secCode);   /* 유가증권보고서 · XBRL 있음 · 상장종목 */
+  /* 🔴 [2026-09-21] 250일치를 한 번에 돌렸더니 `UND_ERR_CONNECT_TIMEOUT` 으로 «죽었다».
+     117사에서 멈췄고 그 뒤가 통째로 날아갔다.
+     ⭐ 오늘 비상벨에서 배운 것과 같은 꼴이다 — **닿지 못한 것은 한 번 더 잰다.**
+     ⛔ 그리고 «한 날이 실패해도 다음 날로 넘어간다» — 한 날 때문에 250일을 잃지 않는다. */
+  const 참자 = (ms) => new Promise((r) => setTimeout(r, ms));
+  const 끈질기게 = async (u, 다시 = 3) => {
+    for (let 번 = 0; ; 번++) {
+      try {
+        const ac = new AbortController();
+        const t = setTimeout(() => ac.abort(), 30000);
+        const r = await fetch(u, { signal: ac.signal });
+        clearTimeout(t);
+        return r;
+      } catch (e) {
+        if (번 >= 다시) throw e;
+        await 참자(3000 * (번 + 1));   /* 갈수록 길게 쉰다 — 그쪽을 몰아붙이지 않는다 */
+      }
+    }
   };
 
-  let 받음 = 0, 건너 = 0, 실패 = 0;
+  const 목록받기 = async (날) => {
+    try {
+      const r = await 끈질기게(`https://api.edinet-fsa.go.jp/api/v2/documents.json?date=${날}&type=2&Subscription-Key=${KEY}`);
+      if (!r.ok) return [];
+      const j = await r.json().catch(() => null);
+      return (j?.results || []).filter((x) => String(x.docTypeCode) === '120'
+        && x.xbrlFlag === '1' && x.secCode);   /* 유가증권보고서 · XBRL 있음 · 상장종목 */
+    } catch (e) { console.log(`   🔴 ${날} 목록을 못 받았다 — ${String(e?.message ?? e).slice(0, 60)}`); return null; }
+  };
+
+  let 받음 = 0, 건너 = 0, 실패 = 0, 못본날 = 0;
   for (const 날 of 날들) {
     const 목 = await 목록받기(날);
+    if (목 === null) { 못본날++; continue; }   /* ⛔ 한 날 때문에 멈추지 않는다 */
     console.log(`\n── ${날} : 유가증권보고서(상장) ${목.length}건`);
     if (재본다) continue;
     const 볼것 = 몇개 ? 목.slice(0, 몇개) : 목;
@@ -201,7 +224,7 @@ if (내가진입점) {
       const 낼길 = path.join(날폴더, `${d.docID}.json`);
       if (적는다 && fs.existsSync(낼길)) { 건너++; continue; }
       try {
-        const rr = await fetch(`https://api.edinet-fsa.go.jp/api/v2/documents/${d.docID}?type=5&Subscription-Key=${KEY}`);
+        const rr = await 끈질기게(`https://api.edinet-fsa.go.jp/api/v2/documents/${d.docID}?type=5&Subscription-Key=${KEY}`);
         if (!rr.ok) { 실패++; console.log(`   🔴 ${d.docID} HTTP ${rr.status}`); continue; }
         const buf = Buffer.from(await rr.arrayBuffer());
         const 임시 = path.join(둘곳, `_tmp-${d.docID}`);
@@ -243,7 +266,8 @@ if (내가진입점) {
       } catch (e) { 실패++; console.log(`   🔴 ${d.docID} ${String(e?.message ?? e).slice(0, 70)}`); }
     }
   }
-  console.log(`\n■ 받음 ${받음} · 이미 있음 ${건너} · 못 뽑음 ${실패}`);
+  console.log(`\n■ 받음 ${받음} · 이미 있음 ${건너} · 못 뽑음 ${실패}`
+    + (못본날 ? ` · 🔴 목록을 못 본 날 ${못본날}` : ''));
   if (적는다) console.log('■ 둔 곳 archive/raw/japan-edinet-financials/<날짜>/<docID>.json');
   else if (!재본다) console.log('⭐ --적는다 를 안 줬다. 저장하지 않았다.');
 }
