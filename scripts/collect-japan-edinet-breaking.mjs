@@ -102,6 +102,21 @@ export const 사건 = {
   PublicOfferingOrSecondaryDistributionOfSecuritiesOutsideJapanTextBlock:
     { tag: 'offering-abroad', en: 'Offering outside Japan', 무게: 6,
       뜻: 'Shares or bonds offered or distributed outside Japan' },
+  /* 🔴 [2026-09-22] 60일치를 받으니 표에 없는 이름 넷이 떴다 — «모르는것» 통이 제 일을 했다.
+     넷 다 이미 있는 사건의 변형이다(자회사가 한 것 · 주식양도 약정). 같은 태그로 묶는다.
+     ⛔ 새 태그를 만들어 갈래를 늘리지 않는다 — 손님이 읽을 이름은 사건이지 주체가 아니다. */
+  CorporateShareholderAgreementOnShareTransferEtcTextBlock:
+    { tag: 'governance-agreement', en: 'Shareholder governance agreement', 무게: 6,
+      뜻: 'An agreement between the company and a shareholder about how it is run, including share transfers' },
+  DecisionOnAbsorptionTypeSplitTextBlock:
+    { tag: 'company-split', en: 'Company split', 무게: 6,
+      뜻: 'A decision to split off part of the business into another company' },
+  DecisionOnAbsorptionTypeMergerOfConsolidatedSubsidiaryTextBlock:
+    { tag: 'merger', en: 'Absorption-type merger', 무게: 7,
+      뜻: 'The same merger decision, taken at a consolidated subsidiary' },
+  DecisionOnShareExchangeOfConsolidatedSubsidiaryTextBlock:
+    { tag: 'share-exchange', en: 'Share exchange', 무게: 7,
+      뜻: 'The same share-exchange decision, taken at a consolidated subsidiary' },
 };
 
 /** CSV 한 줄을 칸으로 가른다 — 탭 구분, 값은 큰따옴표로 싸여 있다 */
@@ -227,7 +242,11 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
 
   검('사건 이름·설명에 한국어가 없다',
     !/[가-힣]/.test(Object.values(사건).map((v) => v.en + v.뜻 + v.tag).join('')));
-  검('실측한 열아홉 가지를 다 적었다', Object.keys(사건).length === 19);
+  검('실측한 스물세 가지를 다 적었다 — 60일치에서 넷이 더 나왔다', Object.keys(사건).length === 23);
+  검('자회사가 한 합병도 같은 태그로 묶는다',
+    사건['DecisionOnAbsorptionTypeMergerOfConsolidatedSubsidiaryTextBlock'].tag === 사건['DecisionOnAbsorptionTypeMergerTextBlock'].tag);
+  검('갈래 이름은 사건이지 주체가 아니다 — 태그 종류는 열일곱뿐',
+    new Set(Object.values(사건).map(v=>v.tag)).size === 17);
 
   const 진 = 잰다.filter(([, v]) => !v);
   for (const [이름, v] of 잰다) console.log(`${v ? '✅' : '🔴'} ${이름}`);

@@ -373,6 +373,15 @@ export const 단계들 = [
   "node scripts/build-korea-disclosures-feed.mjs --자가시험",
   /* 일본 중대공시 — 태그를 «요소 이름»으로 붙인다. 표에 없는 이름은 모르는것으로 쌓인다 */
   "node scripts/collect-japan-edinet-breaking.mjs --자가시험",
+  "node scripts/build-japan-disclosures-feed.mjs --자가시험",
+  /* 🔴 [2026-09-22] 사장님 「묻지 않고 네가 스스로 판단해서 하는 걸로 고쳐놔」 —
+     묻는 글이 메모로 새면 그 자리에서 잡는다. 다짐이 아니라 자로 둔다. */
+  "node scripts/check-승인요청-새는곳.mjs --자가시험",
+  "node scripts/check-승인요청-새는곳.mjs",
+  /* 🔴 [2026-09-22] 사장님 「스포츠기사는 seo 맞춤형으로 작성+대중적 관심 키워드」 —
+     그 규칙은 저장소가 아니라 claude.ai 예약작업 아홉의 프롬프트에 산다. 고치는 자를
+     두어 손으로 아홉 번 고치지 않는다. ⚠ 시험은 «고치는 셈»만 잰다(브라우저를 안 붙는다). */
+  "node scripts/set-jbnews-sports-prompt.mjs --자가시험",
   /* 기사·자료 대조기가 «기사가 잰 날»의 스냅숏을 고르는지 — 이것이 깨지면 지난 기사가
      자료를 다시 받을 때마다 통째로 빨강이 된다(2026-09-22 에 겪었다). */
   "node scripts/lib/그날자료.mjs --자가시험",
