@@ -28,10 +28,22 @@ export const 본자국길 = path.join(뿌리, 'docs', '고정업무-마커', 'an
 
 /* ── 판정하는 부분만 따로 뺀다. 이래야 브라우저 없이 시험할 수 있다 ── */
 
-/** 지원팀이 «보낸» 줄인가 — 우리가 보낸 줄(나)과 자동 영수증을 가른다 */
+/** 지원팀이 «보낸» 줄인가 — 우리가 보낸 줄과 자동 알림을 가른다
+ *
+ * 🔴 [2026-09-21 13:5x] 이 자가 «실제로 온 답장을 놓쳤다». 사장님이 「메일 왔다」고
+ *   알려 주셔야 알았다 — 이 자를 만든 목적이 바로 그것을 없애는 것이었는데.
+ *   까닭: 보낸이를 `.yW span` 의 **email 속성**으로 먼저 읽었다. 주고받은 스레드는
+ *   그 자리에 «우리 주소»가 박혀 있어서 「Anthropic 이 아니다」로 걸러졌다.
+ *   화면에 보이는 글자는 「나, Fin」인데 속성은 우리 주소였던 것이다.
+ *   ⇒ 이제 «보이는 글자»와 «속성»을 둘 다 이어 붙여 본다. 하나만 보면 또 놓친다.
+ */
 export function 지원팀줄인가(줄) {
-  const 보낸이 = String(줄.보낸이 || '');
-  if (/^나$|^me$/.test(보낸이.trim())) return false;          // 내가 보낸 것
+  /* 보이는 글자 + 속성을 합쳐서 본다 */
+  const 보낸이 = [줄.보낸이, 줄.보낸이글자, 줄.보낸이속성].filter(Boolean).join(' ');
+  const 다듬 = 보낸이.trim();
+  if (!다듬) return false;
+  /* 「나」 하나뿐이면 내가 보낸 것이다. 「나, Fin」처럼 상대가 «끼어 있으면» 답장이 온 것이다 */
+  if (/^(나|me)$/i.test(다듬)) return false;
   if (!/Anthropic|Fin/i.test(보낸이)) return false;
   const 제목 = String(줄.제목 || '');
   /* 영수증·결제실패·보안링크는 «답장»이 아니다. 사람이 쓴 답을 찾는 것이다 */
@@ -69,13 +81,23 @@ async function 편지함훑기({ 본문까지 = false } = {}) {
   const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
   try {
     await page.setViewport({ width: 1500, height: 1000 });
-    await page.goto('https://mail.google.com/mail/u/1/#search/anthropic', { waitUntil: 'domcontentloaded', timeout: 60000 });
+    /* 🔴 [2026-09-21 14:0x] «검색»이 아니라 «받은편지함»을 본다.
+     * 까닭 — 검색 화면이 보여 주는 «때»는 그 검색어에 «일치한 메시지»의 때다.
+     * 받은편지함은 «스레드의 가장 새 메시지»의 때를 보여 준다.
+     * 13:53 에 답장이 왔는데 검색 화면은 09:53(내가 보낸 것)을 그대로 달고 있었고,
+     * 열쇠(때|보낸이|제목)가 안 바뀌어 «본 것»으로 판정돼 답장을 통째로 놓쳤다.
+     * ⇒ 새 답장을 재는 자는 반드시 받은편지함을 본다. */
+    await page.goto('https://mail.google.com/mail/u/1/#inbox', { waitUntil: 'domcontentloaded', timeout: 60000 });
     for (let i = 0; i < 16; i++) {
       await 잠깐(2500);
       if (await page.evaluate(() => document.querySelectorAll('tr.zA').length > 0)) break;
     }
     const 줄들 = await page.evaluate(() => [...document.querySelectorAll('tr.zA')].slice(0, 15).map((tr) => ({
-      보낸이: (tr.querySelector('.yW span')?.getAttribute('email')) || (tr.querySelector('.yW span')?.textContent || '').trim(),
+      /* ⚠ 속성 하나만 믿지 않는다 — 주고받은 스레드는 email 속성에 «우리 주소»가 박힌다.
+         화면에 보이는 글자(「나, Fin」)가 답장이 왔는지를 말해 준다. 둘 다 싣는다. */
+      보낸이글자: (tr.querySelector('.yW span')?.textContent || '').trim(),
+      보낸이속성: (tr.querySelector('.yW span')?.getAttribute('email')) || '',
+      보낸이: (tr.querySelector('.yW span')?.textContent || '').trim(),
       제목: (tr.querySelector('.y6 span')?.textContent || '').trim(),
       미리보기: (tr.querySelector('.y2')?.textContent || '').replace(/[\u034f\u200b\u00ad\s]+/g, ' ').trim().slice(0, 160),
       때: (tr.querySelector('.xW span')?.getAttribute('title') || tr.querySelector('.xW span')?.textContent || '').trim(),
@@ -118,8 +140,21 @@ function 자가시험() {
   잰다('지원팀이 보낸 것은 센다', 지원팀줄인가({ 보낸이: 'Anthropic, PBC', 제목: 'Re: refund request' }), true);
   잰다('Fin 이 보낸 것도 센다', 지원팀줄인가({ 보낸이: 'Fin', 제목: 'Re: 무엇' }), true);
   잰다('내가 보낸 것은 안 센다', 지원팀줄인가({ 보낸이: '나', 제목: 'Re: refund request' }), false);
-  잰다('나, Fin 처럼 «내가 낀» 스레드도 보낸이가 나면 안 센다', 지원팀줄인가({ 보낸이: '나', 제목: 'x' }), false);
+  잰다('보낸이가 「나」 하나뿐이면 안 센다', 지원팀줄인가({ 보낸이: '나', 제목: 'x' }), false);
   잰다('남남은 안 센다', 지원팀줄인가({ 보낸이: '구글', 제목: 'Re: refund' }), false);
+  잰다('빈 줄은 안 센다', 지원팀줄인가({ 보낸이: '', 제목: 'Re: refund' }), false);
+
+  console.log('── 🔴 실제로 놓쳤던 꼴 (2026-09-21 13:5x)');
+  /* 주고받은 스레드는 화면 글자가 「나, Fin」인데 email 속성에는 «우리 주소»가 박힌다.
+     속성만 보면 「Anthropic 이 아니다」로 걸러져 답장을 통째로 놓친다. */
+  잰다('「나, Fin」은 답장이 온 것이다',
+    지원팀줄인가({ 보낸이: '나, Fin', 제목: 'Re: Partial refund request - duplicate Standard seat' }), true);
+  잰다('속성에 우리 주소가 박혀 있어도 글자로 잡는다',
+    지원팀줄인가({ 보낸이글자: '나, Fin', 보낸이속성: 'u1@klifedesign.net', 제목: 'Re: 무엇' }), true);
+  잰다('「나」 혼자면 아직 답이 없는 것이다',
+    지원팀줄인가({ 보낸이글자: '나', 보낸이속성: 'u1@klifedesign.net', 제목: 'Re: 무엇' }), false);
+  잰다('「나, Fin, 임시보관」 처럼 꼬리가 붙어도 잡는다',
+    지원팀줄인가({ 보낸이: '나, Fin, 임시보관', 제목: 'Re: 무엇' }), true);
 
   console.log('── 답장이 아닌 것은 거른다');
   잰다('영수증은 답장이 아니다', 지원팀줄인가({ 보낸이: 'Anthropic, PBC', 제목: 'Your receipt from Anthropic, PBC #2080' }), false);
