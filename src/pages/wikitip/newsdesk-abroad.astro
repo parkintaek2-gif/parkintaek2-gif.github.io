@@ -161,6 +161,12 @@ const jsonLd = {
           <td class="n"><strong>{수(g.일인당)}</strong></td>
         </tr>
       ))}
+      {배우 && 아이돌 && (
+        <tr class="sum">
+          <td colspan="4">Actors ÷ idols, per person</td>
+          <td class="n"><strong>{일인당배수}×</strong></td>
+        </tr>
+      )}
     </tbody>
   </table>
 
