@@ -374,6 +374,10 @@ export const 단계들 = [
   /* 기사·자료 대조기가 «기사가 잰 날»의 스냅숏을 고르는지 — 이것이 깨지면 지난 기사가
      자료를 다시 받을 때마다 통째로 빨강이 된다(2026-09-22 에 겪었다). */
   "node scripts/lib/그날자료.mjs --자가시험",
+  /* 🔴 [2026-09-22] 내린 기사의 그림·영상이 아직 열려 있나 — 지면은 내렸는데
+     결함 있는 그래프 «영상»이 200 으로 살아 있었다. 내린 것은 같이 내려가야 한다. */
+  "node scripts/check-retracted-article-media.mjs --자가시험",
+  "node scripts/check-retracted-article-media.mjs",
 ];
 
 /** 한 단계가 «검사»인가 — 요약에서 갈라 세려고 본다 */
