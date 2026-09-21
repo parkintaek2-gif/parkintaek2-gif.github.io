@@ -75,6 +75,63 @@ const 원인스파이크 = [
   { 사람: 'Jo Aram', 사건: "Melo Not Solo drama premiere", 기준: '313.4/day', 정점: '2,877',
     배수: '9.2x', 링크: '/article/jo-arams-drama-premiere-wikipedia-reading-jumped-9x' },
 ];
+/**
+ * 「더 확인한 24편」 — 단일 원인 스파이크(원인스파이크)와 달리, 「안 움직였다」·
+ * 「이유를 못 찾았다」 편도 섞여 있다. 그래서 배열 이름과 지면 문구를 «스파이크»로
+ * 부풀리지 않고 중립으로 낸다. 각 값은 그 기사의 대표 수를 그대로 옮긴 것이다.
+ * 🔴 check-table-promises.mjs 가 og-cards.json 의 figure 를 이 지면 표 칸에서 찾는다.
+ */
+const 더확인한것 = [
+  { 사람: 'Baekhyun', 무엇: "Court injunction news day — only his page rose, not Chen's or Xiumin's",
+    값: '1.51x', 링크: '/article/baekhyun-court-injunction-reading-spike-hits-only-him' },
+  { 사람: 'Lisa', 무엇: "30-day reading total, missed entirely by our citizenship-based K-pop panel",
+    값: '151,508', 링크: '/article/blackpink-lisa-reads-higher-than-any-bts-member-our-panel-missed-her' },
+  { 사람: 'BTS', 무엇: 'Reading in the 10 days before their 9-billion-stream record vs. the 10 days before that',
+    값: '0.70x', 링크: '/article/bts-set-a-9-billion-stream-record-english-wikipedia-reading-hit-a-month-low' },
+  { 사람: 'Chung Ha', 무엇: 'Biggest unexplained day in the window, three weeks before her agency-split story broke',
+    값: '3.8x', 링크: '/article/chung-ha-agency-split-reading-spike-smaller-than-unexplained-one' },
+  { 사람: 'ILLIT', 무엇: 'Reading on the day their third 100-million-stream Japan milestone was confirmed',
+    값: '0.93x', 링크: '/article/illits-third-100-million-song-in-japan-same-flat-line-in-english' },
+  { 사람: 'IU', 무엇: 'Eight days before her donation announcement vs. the 22 days before that',
+    값: '19%', 링크: '/article/iu-reading-had-already-risen-before-todays-donation-was-announced' },
+  { 사람: 'IU', 무엇: 'Donation-announcement day itself vs. baseline — two views apart from the day before it',
+    값: '1.08x', 링크: '/article/ius-anniversary-donation-day-read-exactly-like-the-day-before-it' },
+  { 사람: 'Jimin', 무엇: 'Reading on the day his 1-billion-stream "Like Crazy" milestone was announced',
+    값: '0.89x', 링크: '/article/jimins-first-korean-language-billion-did-not-move-his-page' },
+  { 사람: 'Katseye', 무엇: 'Reading the day "Animal" passed 100 million YouTube views',
+    값: '0.62x', 링크: '/article/katseyes-animal-hit-100-million-views-wikipedia-reading-fell-that-day' },
+  { 사람: 'LE SSERAFIM', 무엇: 'Day after their BlizzCon 2026 closing set vs. 23-day baseline',
+    값: '2.89x', 링크: '/article/le-sserafim-blizzcon-drove-a-real-wikipedia-spike' },
+  { 사람: 'Park Eun-bin', 무엇: "30-day reading total vs. Lovely Runner co-star Kim Hye-yoon's, despite placing second in the fan vote",
+    값: '5.8x', 링크: '/article/lovely-runners-co-stars-outread-their-own-fan-vote-rank' },
+  { 사람: 'Irene (Red Velvet)', 무엇: "30-day reading total vs. NewJeans' Minji, who outvoted her in the same fan poll",
+    값: '1.14x', 링크: '/article/newjeans-topped-the-fan-vote-red-velvets-irene-reads-more' },
+  { 사람: 'Pentagon', 무엇: 'Last 7 days of the window (10th-anniversary comeback week) vs. the first 7 days',
+    값: '2.6x', 링크: '/article/pentagons-reading-peaked-the-day-of-their-10th-anniversary-comeback' },
+  { 사람: 'Plave', 무엇: 'Five days spanning the Melon Music Awards lineup news vs. 22-day baseline',
+    값: '1.52x', 링크: '/article/plaves-wikipedia-reading-rose-before-the-melon-awards-news-broke' },
+  { 사람: 'BTS', 무엇: "Daily reading vs. Re:Scene, the group a Korean reputation index ranked above them",
+    값: '624x', 링크: '/article/rescene-topped-bts-and-blackpink-in-reputation-not-in-reading' },
+  { 사람: 'Riize', 무엇: 'Reading on their 100-million-stream milestone day — the lowest day in the 30-day window',
+    값: '0.73x', 링크: '/article/riizes-quietest-reading-day-in-a-month-was-their-milestone-day' },
+  { 사람: 'Lea Salonga', 무엇: 'Her own reading spike on her Hollywood Walk of Fame day, while RM and J-Hope stayed flat',
+    값: '9.87x', 링크: '/article/rm-and-j-hope-wikipedia-pages-did-not-move-when-lea-salonga-unfollowed-them' },
+  { 사람: 'Rosé', 무엇: 'Day before her single "new trick" released vs. 30-day average',
+    값: '1.26x', 링크: '/article/rose-was-already-26-percent-above-average-the-day-before-her-single' },
+  { 사람: 'Seo Kang-joon', 무엇: '7-day reading average vs. 30-day average, cause unmatched at first publication',
+    값: '2.59x', 링크: '/article/seo-kang-joons-reading-more-than-doubled-in-a-week-we-dont-know-why' },
+  { 사람: 'Hwasa (Mamamoo)', 무엇: 'Reading rise around Rock in Rio — bigger than headliner Stray Kids’ own rise',
+    값: '2.42x', 링크: '/article/stray-kids-rose-1-4x-at-rock-in-rio-hwasa-rose-2-4x' },
+  { 사람: 'T.O.P', 무엇: 'Reading the day STARNEWS reported his BIGBANG-reunion comments vs. baseline',
+    값: '0.73x', 링크: '/article/top-ruled-out-a-bigbang-reunion-readers-barely-noticed' },
+  { 사람: '29 panel names', 무엇: 'Members of our 2,371-person K-pop panel averaging zero daily English Wikipedia readers over 30 days',
+    값: '29', 링크: '/article/twenty-nine-names-in-our-panel-averaged-zero-english-readers' },
+  { 사람: 'V (BTS)', 무엇: 'Average daily reading around the reported $6.3M Champion "media impact value" claim',
+    값: '3,590', 링크: '/article/v-champion-6-3-million-media-value-wikipedia-flat' },
+  { 사람: 'Seo Kang-joon', 무엇: "Reading rise after his drama premiere, matched by co-star Ahn Eun-jin's own rise",
+    값: '6.24x', 링크: '/article/we-found-the-cause-seo-kang-joons-spike-and-his-co-star-moved-the-same-way' },
+];
+
 const 움직임글 = (e: 사건) => {
   if (e.netRatio === null) return 'not measured';
   if (e.netRatio >= 1.05) return `up ${e.netRatio}×`;
@@ -232,6 +289,29 @@ const jsonLd = {
             <td class="num">{r.기준}</td>
             <td class="num">{r.정점}</td>
             <td class="num"><a href={r.링크}>{r.배수}</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>24 more reading checks, side by side</h2>
+  <p class="note">
+    Not every row below is a spike. Some are the opposite &mdash; a reported event that produced no
+    measurable change, or a day that read exactly like the days around it. Every figure is what we
+    found, not what we expected.
+  </p>
+
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>Person</th><th>What we checked</th><th>Figure</th><th></th></tr></thead>
+      <tbody>
+        {더확인한것.map((r) => (
+          <tr>
+            <th scope="row">{r.사람}</th>
+            <td>{r.무엇}</td>
+            <td class="num"><b>{r.값}</b></td>
+            <td><a href={r.링크}>Read</a></td>
           </tr>
         ))}
       </tbody>
