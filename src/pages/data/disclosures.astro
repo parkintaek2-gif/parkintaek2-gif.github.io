@@ -1,0 +1,448 @@
+---
+/*
+ * `/data/disclosures` — **중대공시, 두 시장을 한 어휘로.** (seoulmarkets.com/data/disclosures)
+ *
+ * ── 🔴 왜 (2026-09-22 · 5번) ────────────────────────────────────────────
+ *   사장님 지시 둘이 여기서 만난다.
+ *   ① 「모은 자료는 반드시 지면이나 콘텐트로 낸다」 — 일본 임시보고서 1,430건이 쌓여만 있었다.
+ *   ② 「새 도구는 한국만이 아니라 우리가 여는 모든 시장을 담는다」 — 그래서 나라별 지면을
+ *      하나 더 만들지 않고, 두 시장을 «같은 표»에 놓는 지면을 낸다.
+ *
+ * ── ⭐ 이 지면이 남들과 다른 자리 ──────────────────────────────────────
+ *   두 나라 공시를 «같은 어휘»로 세어 보면, 두 시장이 「중대하다」고 부르는 것이
+ *   서로 거의 겹치지 않는다는 것이 드러난다. 33갈래 가운데 셋만 양쪽에 있다.
+ *   그것은 회사가 다른 것이 아니라 «규제가 다른» 것이고, 영문으로 이것을 센 곳이 없다.
+ *
+ * ⛔ 건수를 그냥 맞대지 않는다 — 모은 창이 다르다. «겹치는 창»에서 «모은 날»로 나눈다.
+ * ⛔ 자료 칸에 한국어·일본어를 내지 않는다 — 파일에 애초에 안 담았다.
+ *   ⚠ 딱 한 군데 일본어가 있다: 서류 «양식 이름»(臨時報告書). 그것은 자료가 아니라 사실이고,
+ *     읽는 이가 원문을 찾을 때 쓰는 말이라 로마자와 영어 뜻을 나란히 적어 남긴다.
+ * ⛔ 「사라」·「팔아라」로 읽힐 말을 쓰지 않는다. 사건의 이름과 날짜만 적는다.
+ * ⛔ 우리가 못 모은 날을 «공시가 없던 날»로 적지 않는다.
+ * 🔴 Astro 앞말(--- 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import 한국feed from '../../data/korea-disclosures-feed.json';
+import 일본feed from '../../data/japan-disclosures-feed.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+type 줄 = { d: string; t: string; n: string; named: boolean; m: string; e: string | string[]; w: number; amended: boolean; url: string | null };
+type 갈래 = { en: string; 뜻: string; n: number };
+
+const 한국 = 한국feed as any;
+const 일본 = 일본feed as any;
+const num = (n: number) => Math.round(n).toLocaleString('en-GB');
+const 소수 = (n: number) => (Math.round(n * 10) / 10).toLocaleString('en-GB', { minimumFractionDigits: 1 });
+const 태그들 = (r: 줄) => ([] as string[]).concat(r.e as any);
+
+/* 두 시장을 한 표에 놓는다 — 시장 이름은 줄 안에 이미 있다(KOSPI·KOSDAQ·TSE) */
+const 한국줄 = 한국.rows as 줄[];
+const 일본줄 = 일본.rows as 줄[];
+const 모두 = [...한국줄, ...일본줄].sort((a, b) => (b.d || '').localeCompare(a.d || '') || b.w - a.w);
+
+const 총건수 = 모두.length;
+const 총회사 = new Set(모두.map((r) => r.m + '|' + r.t)).size;
+/* ⛔ 두 나라 갈래 수를 그냥 더하지 않는다 — 양쪽에 다 있는 갈래를 두 번 센다.
+   더하면 36 이 나오는데 «서로 다른» 갈래는 33 이다. 그 셋이 바로 이 지면의 이야기다. */
+const 총갈래 = new Set([...Object.keys(한국.갈래), ...Object.keys(일본.갈래)]).size;
+const 양쪽갈래 = Object.keys(한국.갈래).filter((k) => k in 일본.갈래);
+
+/**
+ * 🔴 **겹치는 창에서만 맞댄다.** 한국은 2026-08-25 부터, 일본은 2026-06-30 부터 모았다.
+ *    창이 다른 두 수를 나란히 놓으면 일본이 두 배 활발해 보인다 — 자의 흠이지 사실이 아니다.
+ * 🔴 그리고 나누는 것은 «달력 날»이 아니라 «우리가 실제로 모은 날»이다.
+ *    우리가 못 모은 날을 「공시가 없던 날」로 세면 건수를 부풀린다.
+ */
+const 창시작 = 한국.처음날 > 일본.처음날 ? 한국.처음날 : 일본.처음날;
+const 창끝 = 한국.만든날 < 일본.만든날 ? 한국.만든날 : 일본.만든날;
+function 창안(줄들: 줄[]) { return 줄들.filter((r) => r.d && r.d >= 창시작 && r.d <= 창끝); }
+function 잰다(줄들: 줄[]) {
+  const 것 = 창안(줄들);
+  const 모은날 = new Set(것.map((r) => r.d)).size;
+  return { 건수: 것.length, 모은날, 하루: 모은날 ? 것.length / 모은날 : 0, 줄: 것 };
+}
+const 한국창 = 잰다(한국줄);
+const 일본창 = 잰다(일본줄);
+
+/** 겹치는 창 안에서 갈래별로 센다 — 표에 실린 수와 창 밖의 수를 섞지 않는다 */
+function 갈래세기(줄들: 줄[], 표: Record<string, 갈래>) {
+  const n: Record<string, number> = {};
+  for (const r of 줄들) for (const t of 태그들(r)) n[t] = (n[t] || 0) + 1;
+  return Object.entries(표)
+    .map(([k, v]) => ({ key: k, en: v.en, 뜻: v.뜻, n: n[k] || 0 }))
+    .filter((r) => r.n > 0)
+    .sort((a, b) => b.n - a.n);
+}
+const 한국갈래 = 갈래세기(한국창.줄, 한국.갈래);
+const 일본갈래 = 갈래세기(일본창.줄, 일본.갈래);
+
+/* 「돈을 대는 일」과 「누가 정하나」 — 두 묶음이 나라마다 어디에 쏠려 있나 */
+const 돈갈래 = new Set(['supply-contract', 'rights-issue', 'convertible-bond', 'bonus-issue',
+  'cb-repricing', 'debt-guarantee', 'buyback', 'cancellation', 'earnings-swing',
+  'stock-options', 'financial-covenant', 'offering-abroad', 'reverse-split', 'bad-debt']);
+const 사람갈래 = new Set(['control-change', 'ceo-change', 'director-change', 'acquisition',
+  'proxy-solicitation', 'major-shareholder-change', 'subsidiary-acquisition', 'share-exchange',
+  'merger', 'company-split', 'agm-outcome', 'auditor-change', 'governance-agreement']);
+function 쏠림(갈래줄: Array<{ key: string; n: number }>) {
+  let 돈 = 0; let 사람 = 0; let 그밖 = 0;
+  for (const r of 갈래줄) {
+    if (돈갈래.has(r.key)) 돈 += r.n;
+    else if (사람갈래.has(r.key)) 사람 += r.n;
+    else 그밖 += r.n;
+  }
+  const 다 = 돈 + 사람 + 그밖 || 1;
+  return { 돈, 사람, 그밖, 돈율: (돈 / 다) * 100, 사람율: (사람 / 다) * 100 };
+}
+const 한국쏠림 = 쏠림(한국갈래);
+const 일본쏠림 = 쏠림(일본갈래);
+
+const 시장별 = 모두.reduce((a: Record<string, number>, r) => { a[r.m] = (a[r.m] || 0) + 1; return a; }, {});
+const 표본수 = 40;
+const 표본 = 모두.slice(0, 표본수);
+const 갈래이름 = (r: 줄) => 태그들(r)
+  .map((t) => (r.m === 'TSE' ? 일본.갈래[t]?.en : 한국.갈래[t]?.en) ?? t).join(' · ');
+const 원문이름 = (r: 줄) => (r.m === 'TSE' ? 'EDINET' : 'DART');
+const 이름없는줄 = (한국.영문명없는줄 || 0) + (일본.영문명없는줄 || 0);
+
+const TITLE = 'Korean and Japanese material disclosures in English — ' + num(총건수) + ' events';
+const DESC = 'Every material filing Korean and Japanese listed companies made to DART and EDINET, '
+  + 'in English, sorted into ' + 총갈래 + ' event types. Only ' + 양쪽갈래.length + ' of those types '
+  + 'appear in both countries — Korea files financing events, Japan files governance events. '
+  + 'We publish the event, the date and the link to the original, not a recommendation.';
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korean and Japanese material disclosures, tagged and translated',
+  description: DESC,
+  url: SITE_URL + '/data/disclosures',
+  keywords: ['Korea', 'Japan', 'DART', 'EDINET', 'disclosure', 'material event', '8-K',
+    '臨時報告書', 'extraordinary report', 'KOSPI', 'KOSDAQ', 'TSE', 'Tokyo Stock Exchange',
+    'control change', 'CEO change', 'supply contract', 'capital raise'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  isAccessibleForFree: true,
+  spatialCoverage: ['Republic of Korea', 'Japan'],
+  temporalCoverage: (한국.처음날 < 일본.처음날 ? 일본.처음날 : 한국.처음날) + '/' + 창끝,
+  variableMeasured: ['filing date', 'ticker', 'company', 'market', 'event type', 'amended flag'],
+};
+
+const faq: Array<[string, string]> = [
+  ['Why do the Korean and Japanese event lists barely overlap?',
+    'Because the two regulators define a material filing differently, and we did not smooth that over. '
+    + 'Of the ' + 총갈래 + ' event types across both countries, only ' + 양쪽갈래.length + ' appear on '
+    + 'both sides. A Korean material filing is most often about money entering or leaving the company — '
+    + 'a supply contract, a capital raise, a convertible bond. A Japanese extraordinary report is most '
+    + 'often about who controls or decides — a shareholder meeting outcome, a change of parent, a change '
+    + 'of representative director. Forcing them into one shared vocabulary would have hidden the finding.'],
+  ['Can I compare the Korean and Japanese counts directly?',
+    'Not the raw totals, because we started collecting Korea and Japan on different dates. On this page '
+    + 'we compare only the window where both records exist (' + 창시작 + ' to ' + 창끝 + '), and we divide '
+    + 'by the number of days we actually captured, not by calendar days. We captured '
+    + 한국창.모은날 + ' days of Korean filings and ' + 일본창.모은날 + ' days of Japanese filings in that '
+    + 'window; treating a day we missed as a day with no filings would inflate the daily rate.'],
+  ['Is this every disclosure these companies file?',
+    'No, and deliberately not. Both markets produce thousands of routine documents a month. We keep only '
+    + 'filings that change what a reader would conclude — the idea behind a US Form 8-K. The selection '
+    + 'rules live in two files in our code, one per country, so the same filing gets the same treatment '
+    + 'every day rather than an editor’s judgement that drifts.'],
+  ['How are the Japanese filings tagged, given they all have the same title?',
+    'Every Japanese extraordinary report is titled simply 臨時報告書 (rinji hōkokusho), so the title '
+    + 'tells you nothing. '
+    + 'We tag by the XBRL element the filer used inside the document instead — the element name is the '
+    + 'event type. That is why the Japanese tags read like accounting terms: they are the filer’s own '
+    + 'labels, not our paraphrase of a headline.'],
+  ['What does the "amended" flag mean?',
+    'Filers in both markets can re-file a corrected version. Where the filing we captured is the corrected '
+    + 'version we mark it, because an amendment is itself information.'],
+  ['Is a disclosure here good news or bad news?',
+    'We do not say, and the tags are deliberately neutral names for events rather than judgements. '
+    + 'A buyback is not automatically good and a capital raise is not automatically bad; which it is '
+    + 'depends on the company and on what you already believe about it. This is not investment advice.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+const jsonLd = [datasetLd, faqLd];
+const 아직 = 'The tagged feed is published here as a sample. The full files, and a daily delivery, '
+  + 'are part of the Korea and Japan datasets.';
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>Material disclosures, two markets, one vocabulary</h1>
+    <p class="lead">
+      <b>{num(총건수)} filings</b> from <b>{num(총회사)} listed companies</b> in Korea and Japan,
+      sorted into <b>{총갈래} event types</b> and linked back to the original document. Put the two
+      countries in the same table and something shows up that neither regulator publishes:{' '}
+      <b>only {양쪽갈래.length} of those {총갈래} event types exist on both sides.</b>
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false} 아직={아직} />
+
+    <section class="stats">
+      <div class="stat"><b>{num(총건수)}</b><span>material events</span></div>
+      <div class="stat"><b>{num(총회사)}</b><span>companies</span></div>
+      <div class="stat"><b>{총갈래}</b><span>event types</span></div>
+      <div class="stat"><b>{양쪽갈래.length}</b><span>types found in both countries</span></div>
+    </section>
+
+    <section>
+      <h2>The finding: Korea files about money, Japan files about control</h2>
+      <p>
+        Both lists answer the same question — <i>what must a listed company tell the market at once?</i>{' '}
+        They answer it differently. Over the window where we hold both records
+        ({창시작} to {창끝}), the Korean stream is dominated by financing and commercial events and
+        the Japanese stream by ownership and governance events.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Where the filings cluster</th>
+              <th class="n">Korea (DART)</th>
+              <th class="n">Japan (EDINET)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Money in or out — contracts, capital raises, bonds, buybacks, options</td>
+              <td class="n"><b>{소수(한국쏠림.돈율)} %</b></td>
+              <td class="n"><b>{소수(일본쏠림.돈율)} %</b></td>
+            </tr>
+            <tr>
+              <td>Who controls or decides — meetings, parents, directors, mergers, auditors</td>
+              <td class="n"><b>{소수(한국쏠림.사람율)} %</b></td>
+              <td class="n"><b>{소수(일본쏠림.사람율)} %</b></td>
+            </tr>
+            <tr>
+              <td>Everything else we kept</td>
+              <td class="n">{소수(100 - 한국쏠림.돈율 - 한국쏠림.사람율)} %</td>
+              <td class="n">{소수(100 - 일본쏠림.돈율 - 일본쏠림.사람율)} %</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Our grouping, not the regulators&rsquo;. We put each of the {총갈래} event types into one of the
+        two buckets once, and we list every type below so you can regroup them yourself.
+      </p>
+      <p class="warn">
+        <b>What this is not.</b> It is not evidence that Korean companies raise more money or that
+        Japanese boards change hands more often. It is a fact about <i>what each regulator makes them
+        announce</i>. A Japanese company signing a large supply contract may well disclose it — through
+        the exchange&rsquo;s timely-disclosure channel, which is not the filing system we read here.
+      </p>
+    </section>
+
+    <section>
+      <h2>How often, once the windows are made comparable</h2>
+      <p>
+        We started collecting the two countries on different dates, so the raw totals are not
+        comparable and we do not put them side by side. Below is the window where both records exist,
+        divided by <b>the days we actually captured</b> — not by calendar days, because a day we
+        missed is not a day without filings.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Market</th><th class="n">Events in window</th><th class="n">Days captured</th><th class="n">Events per captured day</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Korea — DART, {창시작} to {창끝}</td>
+              <td class="n">{num(한국창.건수)}</td><td class="n">{한국창.모은날}</td>
+              <td class="n"><b>{소수(한국창.하루)}</b></td>
+            </tr>
+            <tr>
+              <td>Japan — EDINET, {창시작} to {창끝}</td>
+              <td class="n">{num(일본창.건수)}</td><td class="n">{일본창.모은날}</td>
+              <td class="n"><b>{소수(일본창.하루)}</b></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Outside this window we hold more: {num(한국.건수)} Korean filings from {한국.처음날} and{' '}
+        {num(일본.건수)} Japanese filings from {일본.처음날}. Those are in the tables below and in the
+        sample; they are left out of this comparison only.
+      </p>
+    </section>
+
+    <section>
+      <h2>Korea — {한국갈래.length} event types in the shared window</h2>
+      <p>
+        Ordered by frequency, not importance — <b>we do not rank these</b>, because which one matters
+        depends on the company you are looking at.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Event</th><th>What the filing is</th><th class="n">Count</th></tr></thead>
+          <tbody>
+            {한국갈래.map((r) => (
+              <tr>
+                <td><b>{r.en}</b>{양쪽갈래.includes(r.key) ? <span class="both"> both</span> : null}</td>
+                <td class="d">{r.뜻}</td><td class="n">{num(r.n)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Japan — {일본갈래.length} event types in the shared window</h2>
+      <p>
+        Every Japanese extraordinary report carries the same title — 臨時報告書
+        (<i>rinji hōkokusho</i>, &ldquo;extraordinary report&rdquo;) — so a headline tells you
+        nothing about what happened. We read the XBRL element the filer used inside the document
+        instead: <b>the element name is the event type</b>. These names are therefore the
+        filer&rsquo;s own labels rather than our paraphrase.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Event</th><th>What the filing is</th><th class="n">Count</th></tr></thead>
+          <tbody>
+            {일본갈래.map((r) => (
+              <tr>
+                <td><b>{r.en}</b>{양쪽갈래.includes(r.key) ? <span class="both"> both</span> : null}</td>
+                <td class="d">{r.뜻}</td><td class="n">{num(r.n)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Where they came from</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Market</th><th class="n">Events held</th></tr></thead>
+          <tbody>
+            {Object.entries(시장별).sort((a: any, b: any) => b[1] - a[1]).map(([k, v]: any) => (
+              <tr><td>{k}</td><td class="n">{num(v)}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>The {표본수} most recent, both countries</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Company</th><th>Ticker</th><th>Market</th><th>Event</th><th>Original</th></tr>
+          </thead>
+          <tbody>
+            {표본.map((r) => (
+              <tr>
+                <td class="mono">{r.d}</td>
+                <td>{r.n}{r.amended ? <span class="amend"> amended</span> : null}</td>
+                <td class="mono">{r.t}</td>
+                <td>{r.m}</td>
+                <td>{갈래이름(r)}</td>
+                <td>{r.url ? <a href={r.url} rel="nofollow noopener" target="_blank">{원문이름(r)}</a> : '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        {표본수} of {num(총건수)} shown. The full tagged files are part of the Korea and Japan datasets.
+      </p>
+    </section>
+
+    <section>
+      <h2>Read this before you use it</h2>
+      <ul>
+        <li><b>This is not the full disclosure stream.</b> Publishing a national feed in bulk raises
+          questions we would rather not have to answer; publishing <i>selected material events</i> —
+          the way a US Form 8-K works — does not. So we keep a fixed list of event types per country
+          and drop everything else.</li>
+        <li><b>Names we could not translate, we did not.</b> Where a company has no English name on
+          file with its regulator we print the ticker instead of inventing one:{' '}
+          <b>{num(이름없는줄)}</b> of {num(총건수)} rows are like that.</li>
+        <li><b>The Korean count is net of a subtraction.</b> {num(한국.코드없어뺀줄 ?? 0)} further
+          filings out of the {num(한국.원자료건수 ?? 한국.건수)} we captured carry no ticker —
+          unlisted filers, and subsidiary filings made under a parent&rsquo;s name. We report the
+          subtraction rather than let {num(한국.원자료건수 ?? 한국.건수)} quietly become{' '}
+          {num(한국.건수)}.</li>
+        <li><b>No history before we started.</b> Neither source hands back a bulk archive, so each
+          record starts the day we began collecting and grows one day at a time.</li>
+        <li><b>No money amounts yet.</b> A supply-contract filing states a value and a counterparty;
+          we carry the event, not yet the amount. That is the next build.</li>
+        <li><b>No view on whether any of this is good news.</b> That is yours to form.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Sources</h2>
+      <p>
+        Korea — Financial Supervisory Service, DART,{' '}
+        <a href="https://dart.fss.or.kr" rel="nofollow noopener" target="_blank">dart.fss.or.kr</a>.<br />
+        Japan — Financial Services Agency, EDINET,{' '}
+        <a href="https://disclosure2.edinet-fsa.go.jp" rel="nofollow noopener" target="_blank">disclosure2.edinet-fsa.go.jp</a>.
+      </p>
+      <p>
+        Each row links to the filing it came from. The event names on this page are ours: we wrote
+        them in English from the filing categories and XBRL element names, and we say so rather than
+        presenting them as a regulator&rsquo;s own wording.
+      </p>
+      <p class="note">
+        This page reports filings. It is not investment advice and not a recommendation to buy or
+        sell anything.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        <a href="/data/korea-disclosures">Korea on its own, in more detail</a> ·{' '}
+        <a href="/data/screener">Screen these companies by their filed figures</a> ·{' '}
+        <a href="/data/financials">Korean financial statements</a> ·{' '}
+        <a href="/data">the rest of the catalogue</a>.
+      </p>
+    </section>
+
+    <BuyBar 자리="bottom" 살수있나={false} 아직={아직} />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n, th.n { text-align: right; white-space: nowrap; }
+  td.mono { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.d { color: var(--muted, #555); }
+  .amend { font-size: .72rem; color: var(--muted, #777); }
+  .both { font-size: .7rem; color: var(--accent, #0f4c81); font-weight: 650; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  li { margin: .35rem 0; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+  }
+</style>
