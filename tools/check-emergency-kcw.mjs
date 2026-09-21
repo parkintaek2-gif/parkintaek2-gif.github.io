@@ -42,6 +42,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 전부못닿았나, 부를까, 대조군재기, 지금시각 } from './lib/bell-offline-guard.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 로그 = path.join(뿌리, 'docs', '비상벨.md');
@@ -70,14 +71,25 @@ const 수있어야하는곳 = [
 const 한글가드 = ['/', '/most-read'];
 const 한글무늬 = /[가-힣]{2,}/;
 
-async function 재기(경로) {
+/**
+ * 한 자리를 잰다.
+ *
+ * 🔴 [2026-09-21 19:40] **닿지 못한 것은 «한 번 더» 잰다.**
+ *   그날 여섯 자리가 전부 `fetch failed` 로 나와 사장님께 「비상 6건」이 갔다.
+ *   4분 뒤 여섯 다 200 이었다 — 순간 끊김이었다. 한 번의 실패로 사람을 부르지 않는다.
+ *   ⛔ HTTP 오류(4xx·5xx)는 다시 재지 않는다 — 그건 서버가 «대답한» 것이라 진짜다.
+ */
+async function 재기(경로, 다시 = 1) {
   const url = BASE.replace(/\/$/, '') + 경로;
-  try {
-    const r = await fetch(url, { redirect: 'manual', headers: { 'User-Agent': 'kcw-emergency-bell' } });
-    const 본문 = r.headers.get('content-type')?.includes('text') ? await r.text().catch(() => '') : '';
-    return { url, code: r.status, 본문 };
-  } catch (e) {
-    return { url, code: 0, 오류: String(e?.message ?? e), 본문: '' };
+  for (let 번 = 0; ; 번++) {
+    try {
+      const r = await fetch(url, { redirect: 'manual', headers: { 'User-Agent': 'kcw-emergency-bell' } });
+      const 본문 = r.headers.get('content-type')?.includes('text') ? await r.text().catch(() => '') : '';
+      return { url, code: r.status, 본문 };
+    } catch (e) {
+      if (번 >= 다시) return { url, code: 0, 오류: String(e?.message ?? e), 본문: '' };
+      await new Promise((r) => setTimeout(r, 2500));
+    }
   }
 }
 
@@ -130,21 +142,42 @@ async function 알림보내라(제목, 내용) {
 }
 
 function 로그남겨(줄들) {
-  const 이제 = new Date().toISOString().replace('T', ' ').slice(0, 16);
+  /* 🔴 [2026-09-21] 여기가 UTC 였다 — 19:40 사고가 「10:40」으로 남았다.
+     CLAUDE.md 의 「toISOString() 금지」를 비상벨 넷이 다 어기고 있었다. */
+  const 이제 = 지금시각();
   const 덩이 = `\n## 🔴 kculturewire — ${이제}\n` + 줄들.map((l) => `- ${l}`).join('\n') + '\n';
   fs.appendFileSync(로그, 덩이);
 }
 
 async function 본다() {
   const 빨강 = [];
+  const 가용성결과 = [];
 
   for (const c of 검사목록) {
     /* 자가시험 — 홈을 일부러 없는 주소로 바꿔 빨간불이 «실제로» 뜨는지 본다 */
     const 경로 = 자가시험 && c.이름 === '홈' ? '/__이경로는없다__강제빨강' : c.경로;
     const r = await 재기(경로);
+    가용성결과.push(r);
     const ok = r.code === c.기대;
     if (!조용히 || !ok) console.log(ok ? `✅ ${c.이름} ${r.code}` : `🔴 ${c.이름} ${r.code || r.오류} (기대 ${c.기대})`);
     if (!ok) 빨강.push(`${c.이름} 응답 ${r.code || r.오류} — 기대 ${c.기대} (${r.url})`);
+  }
+
+  /* 🔴 [2026-09-21] **여섯이 «전부» 못 닿았으면 사이트가 아니라 연결을 의심한다.**
+     이 파일 아래쪽에 이미 「자를 먼저 의심한다 — 모든 지면이 빨강이면 자의 흠」이라고
+     적혀 있었는데, 그 규칙이 한글 누출 검사에만 걸려 있고 여기엔 없었다.
+     ⇒ 대조군(우리 통제 밖 주소)을 찔러 갈라 본다. 자세한 것은 tools/lib/bell-offline-guard.mjs */
+  if (!자가시험 && 전부못닿았나(가용성결과)) {
+    const 대조군 = await 대조군재기();
+    const 판 = 부를까(true, 대조군);
+    console.error(`\n⚠ 가용성 ${가용성결과.length}자리가 «전부» 못 닿았다 — 대조군 ${대조군 ? '닿는다' : '못 닿는다'}`);
+    console.error(`   ⇒ ${판.까닭}`);
+    if (!판.부른다) {
+      로그남겨([`⚠ 거짓경보를 삼켰다 — 가용성 ${가용성결과.length}자리 전부 fetch failed 이고 대조군도 못 닿았다.`
+        + ' 이 PC 가 바깥에 못 나간 것이지 사이트가 죽은 것이 아니다. 사장님을 부르지 않았다.']);
+      console.error('📮 사장님께 «안» 보냈다 — 우리 사고가 아니다. 로그에만 남겼다.');
+      return 1;   /* 0(정상)도 2(사고)도 아니다 — 「못 쟀다」는 제 값을 가진다 */
+    }
   }
 
   for (const c of 수있어야하는곳) {
