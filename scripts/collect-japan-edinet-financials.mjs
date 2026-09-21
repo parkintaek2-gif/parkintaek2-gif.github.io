@@ -150,6 +150,27 @@ export function 뽑기(글) {
 }
 
 /** 받은 다섯 칸이 «쓸 만한가» — 하나도 없으면 안 적는다 */
+/**
+ * 🔴 [2026-09-22] **영문 회사명은 서류 «안»에 있다.**
+ *
+ * 스크리너에 일본을 올리고 보니 **400줄이 일본어 이름으로** 나가고 있었다. 명부(EDINET
+ * 코드리스트)에 `nameEn` 이 빈 곳이 403곳이기 때문이다 — 유초은행조차 비어 있다.
+ * 그런데 서류를 열어 보니 모든 제출서류가 `jpdei_cor:FilerNameInEnglishDEI` 를 싣는다.
+ *
+ * ⛔ 우리가 이름을 «음차해서 지어내지» 않는다. 회사가 스스로 적어 낸 영문명을 쓴다.
+ * ⚠ 그래도 없는 곳이 있다 — 그때는 지면이 «종목코드»를 쓴다. 일본어를 영어 지면에 안 낸다.
+ */
+export function 영문명뽑기(글) {
+  for (const 줄 of String(글 || '').split(/\r?\n/)) {
+    const c = 줄가르기(줄);
+    if (c[0] !== 'jpdei_cor:FilerNameInEnglishDEI') continue;
+    const v = String(c[8] ?? '').trim();
+    if (!v || v === '－' || v === '-') return null;
+    return v;
+  }
+  return null;
+}
+
 export function 쓸만한가(값) {
   return Object.values(값 || {}).some((v) => typeof v === 'number' && Number.isFinite(v));
 }
@@ -231,6 +252,13 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
   /* 🔴 실제 서류에 박힌 이름은 «Loss» 가 낀 쪽이다. 그것을 못 받으면 EPS 가 통째로 빈다 */
   검('🔴 진짜 이름(BasicEarningsLossPerShare…)으로도 뽑는다',
     뽑기(한줄글('jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults', '当期', '56.79')).값.eps_jpy === 56.79);
+  /* ── 영문 회사명 — 명부에 없는 400곳을 «서류»가 채운다 ── */
+  const 이름줄 = (값) => [머리, 줄('jpdei_cor:FilerNameInEnglishDEI', '', '', 값)].join('\n');
+  검('서류에서 영문명을 뽑는다',
+    영문명뽑기(이름줄('YAMANO HOLDINGS CORPORATION')) === 'YAMANO HOLDINGS CORPORATION');
+  검('⛔ 「－」는 이름이 아니다', 영문명뽑기(이름줄('－')) === null);
+  검('앞뒤 빈칸을 턴다', 영문명뽑기(이름줄('  Yappli,Inc.  ')) === 'Yappli,Inc.');
+  검('없으면 null — 지어내지 않는다', 영문명뽑기(머리) === null);
   검('⭐ 주가수익률(PER)을 뽑는다 — PER × EPS 가 결산일 주가다',
     뽑기(한줄글('jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults', '当期', '16.43')).값.per === 16.43);
   검('⛔ 지난 해 PER 을 올해로 쓰지 않는다',
@@ -341,7 +369,9 @@ if (내가진입점) {
         const csv = 훑(임시).filter((f) => /\.csv$/i.test(f))
           .sort((a, b) => fs.statSync(b).size - fs.statSync(a).size)[0];
         if (!csv) { 실패++; fs.rmSync(임시, { recursive: true, force: true }); fs.rmSync(`${임시}.zip`, { force: true }); continue; }
-        const { 값, 근거 } = 뽑기(fs.readFileSync(csv, 'utf16le'));
+        const 씨 = fs.readFileSync(csv, 'utf16le');
+        const { 값, 근거 } = 뽑기(씨);
+        const 영문명 = 영문명뽑기(씨);
         fs.rmSync(임시, { recursive: true, force: true });
         fs.rmSync(`${임시}.zip`, { force: true });
 
@@ -356,6 +386,7 @@ if (내가진입점) {
           sec_code: String(d.secCode).replace(/0$/, ''),   /* EDINET 은 5자리(끝 0) — 4자리 종목코드로 */
           edinet_code: d.edinetCode,
           name: d.filerName,
+          name_en: 영문명,   /* 서류가 스스로 적어 낸 영문명. 없으면 null */
           doc_description: d.docDescription,
           period_end: d.periodEnd ?? null,
           ...값,

@@ -127,7 +127,12 @@ export function 한줄(d, 명부 = new Map()) {
     code: String(d.sec_code),
     edinet_code: d.edinet_code ?? null,
     name: d.name ?? null,
-    name_en: 딸림.name_en ?? null,
+    /* 🔴 [2026-09-22] **서류가 적어 낸 영문명을 명부보다 먼저 쓴다.**
+       명부(EDINET 코드리스트)는 403곳이 영문명 빈칸이다 — 유초은행조차 비어 있다.
+       그래서 스크리너 400줄이 일본어 이름으로 나가고 있었다(영어권 손님 지면인데).
+       서류 안 `jpdei_cor:FilerNameInEnglishDEI` 가 그 자리를 메운다.
+       ⛔ 그래도 없으면 null 로 둔다 — 지면이 종목코드를 쓴다. 우리가 음차해 짓지 않는다. */
+    name_en: d.name_en || 딸림.name_en || null,
     market: 딸림.market ?? null,
     sector: 딸림.sector ?? null,
     year: 결산해(d.period_end),
@@ -201,6 +206,12 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
   검('명부에서 영문명·업종을 이어 붙인다',
     한줄(d, new Map([['4847', { name_en: 'IWI', sector: 'IT' }]])).name_en === 'IWI');
   검('명부에 없어도 줄은 선다', 한줄(d, new Map()).name_en === null);
+  검('⭐ 서류가 적어 낸 영문명을 명부보다 먼저 쓴다',
+    한줄({ ...d, name_en: 'YAMANO HOLDINGS CORPORATION' }, new Map([['4847', { name_en: '명부이름' }]])).name_en === 'YAMANO HOLDINGS CORPORATION');
+  검('서류에 없으면 명부를 쓴다',
+    한줄(d, new Map([['4847', { name_en: '명부이름' }]])).name_en === '명부이름');
+  검('⛔ 둘 다 없으면 null — 음차해 짓지 않는다',
+    한줄({ ...d, name_en: '' }, new Map()).name_en === null);
   /* ── 검산 ── */
   검('주식수 × BPS 가 자본과 맞으면 참', 검산맞나(100, 3, 300) === true);
   검('0.6% 어긋남은 통과한다 (실측 S100Z2KC)', 검산맞나(26340000, 384.42, 10065667000) === true);

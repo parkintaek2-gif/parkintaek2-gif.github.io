@@ -477,7 +477,10 @@ const jsonLd = {
           };
           var 밑줄 = [x.t, x.i, x.as].filter(Boolean).join(' · ');
           var tr = document.createElement('tr');
-          tr.innerHTML = '<td><span class="nm">' + 벗(x.n || x.k || '') + '</span>'
+          /* 🔴 [2026-09-22] 영문명이 없으면 «종목코드»를 쓴다. 예전에는 x.k(현지어 이름)로
+             넘어가서 도쿄 400줄이 일본어로 나갔다 — 여기 손님은 영어권이다.
+             ⛔ 우리가 이름을 지어내지 않는다. 코드는 그 회사의 진짜 이름표다. */
+          tr.innerHTML = '<td><span class="nm">' + 벗(x.n || x.t || '') + '</span>'
             + '<span class="tk">' + 벗(밑줄) + '</span>'
             + (x.x ? '<span class="why">' + 벗(x.x) + '</span>' : '') + '</td>'
             + '<td>' + 벗(시장[x.m] || x.m || '—') + '</td>'
