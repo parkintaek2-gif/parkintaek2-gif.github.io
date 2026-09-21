@@ -139,7 +139,10 @@ export function 기사인가(본문) {
  * ⚠ 09시 회차를 09:23 에 보내므로 «같은 시»에 찍힌 자국은 진짜다. 앞선 시각만 시험으로 본다.
  */
 export function 시험자국인가(찍힌때, 회차시) {
-  const h = 찍힌때 instanceof Date ? 찍힌때.getHours() : Number(찍힌때);
+  /* ⛔ Number(null) 은 0 이다 — 「못 읽었다」가 「0시」가 되어 늘 시험으로 보였다.
+     그러면 진짜 자국까지 무시하고 두 번 보낸다. 날짜꼴이 아니면 그 자리에서 아니라고 한다. */
+  const h = 찍힌때 instanceof Date ? 찍힌때.getHours()
+    : (typeof 찍힌때 === 'number' ? 찍힌때 : NaN);
   const s = Number(회차시);
   if (!Number.isFinite(h) || !Number.isFinite(s)) return false;
   return h < s;
