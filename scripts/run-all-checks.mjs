@@ -367,6 +367,10 @@ export const 단계들 = [
      ⭐ 「포기한 것」 칸이 핵심이다 — 끝났거나 버린 일이 목록에 남아 다음 사람이
        「아직 안 한 일」로 읽은 사고가 저장소에 311번 적혀 있다. */
   "node scripts/check-checklist-three-boxes.mjs --자가시험",
+  /* 🔴 [2026-09-21] 일본 재무제표 — 같은 회사의 «지난 해» 값을 올해로 쓰지 않는지,
+     빈 칸을 0 으로 메꾸지 않는지를 시험이 지킨다. */
+  "node scripts/collect-japan-edinet-financials.mjs --자가시험",
+  "node scripts/build-japan-financials-tape.mjs --자가시험",
 ];
 
 /** 한 단계가 «검사»인가 — 요약에서 갈라 세려고 본다 */
