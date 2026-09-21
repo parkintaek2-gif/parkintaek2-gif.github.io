@@ -368,6 +368,12 @@ export const 단계들 = [
      빈 칸을 0 으로 메꾸지 않는지를 시험이 지킨다. */
   "node scripts/collect-japan-edinet-financials.mjs --자가시험",
   "node scripts/build-japan-financials-tape.mjs --자가시험",
+  /* 🔴 [2026-09-22] 한국 중대공시 — 손님 파일에 한글 회사명·공시 원제목이 새지 않는지,
+     영문명 없는 회사를 지어내지 않는지를 시험이 지킨다. */
+  "node scripts/build-korea-disclosures-feed.mjs --자가시험",
+  /* 기사·자료 대조기가 «기사가 잰 날»의 스냅숏을 고르는지 — 이것이 깨지면 지난 기사가
+     자료를 다시 받을 때마다 통째로 빨강이 된다(2026-09-22 에 겪었다). */
+  "node scripts/lib/그날자료.mjs --자가시험",
 ];
 
 /** 한 단계가 «검사»인가 — 요약에서 갈라 세려고 본다 */

@@ -93,6 +93,24 @@ while (true) {
 }
 
 writeFileSync(자물쇠, JSON.stringify({ 자리, pid: process.pid, 언제: new Date().toISOString() }));
+/**
+ * 🔴 [2026-09-22 · 5번] 곳간에서 «손님 자료»를 다시 뽑는다 — **빌드 «앞»에** 해야 한다.
+ *
+ * 한국 중대공시는 자리지킴이가 매시 곳간에 쌓는다. 그 자료를 지면이 쓰려면 누군가
+ * `src/data/*.json` 을 다시 내야 하는데, **사람이 기억해서 돌리는 구조로 두지 않는다** —
+ * 잊으면 지면이 며칠 전 자료를 손님에게 보이고, 아무도 모른다.
+ * ⛔ 실패해도 배포를 막지 않는다(별도 프로세스·종료코드 무시) — 여섯 자리가 한 트리를 쓴다.
+ *   자료가 안 갱신되면 옛 파일이 그대로 실린다. 그편이 배포가 멈추는 것보다 낫다.
+ */
+for (const [이름, 자] of [['한국 중대공시', 'scripts/build-korea-disclosures-feed.mjs']]) {
+  try {
+    const r = spawnSync(process.execPath, [자], { cwd: 뿌리, stdio: 'inherit', timeout: 120000 });
+    if (r.status !== 0) console.log(`⚠ ${이름} 자료 갱신 실패 — 옛 파일로 빌드한다`);
+  } catch (e) {
+    console.log(`⚠ ${이름} 자료 갱신 중 오류(무시하고 계속) — ${e.message}`);
+  }
+}
+
 let 결과 = 1;
 try {
   console.log(`${때()} 빌드한다 (${자리})`);
