@@ -102,7 +102,16 @@ let 만든편 = 0; let 만든장 = 0; const 막힘 = [];
 for (const slug of 대상) {
   const fp = path.join(ROOT, 'content/articles', `${slug}.md`);
   if (!fs.existsSync(fp)) { 막힘.push(`${slug} 없음`); continue; }
-  const fm = 프론트(fs.readFileSync(fp, 'utf8'));
+  const 원글 = fs.readFileSync(fp, 'utf8');
+  /* 🔴 [2026-09-22] **내린 기사(draft: true)의 카드를 다시 굽지 않는다.**
+   * 무역 기사 넷이 「스케일브레이크」 결함으로 내려갔는데, 이 자를 한 번 돌릴 때마다
+   * 그 결함 있는 그래프의 카드 20장이 되살아났다. 지운 자리를 자가 다시 채우고 있었다.
+   * ⛔ 기사를 내린 까닭이 「숫자가 틀렸다」면 그 숫자를 그린 그림도 만들지 않는다.
+   * ✅ check-retracted-article-media.mjs 가 그것을 잰다 — 이 줄이 그 자를 초록으로 만든다. */
+  if (/^draft:\s*true\s*$/m.test(/^---\r?\n([\s\S]*?)\r?\n---/.exec(원글)?.[1] ?? '')) {
+    막힘.push(`${slug} — 내린 기사(draft)라 굽지 않는다`); continue;
+  }
+  const fm = 프론트(원글);
   const cc = (fm.crossChecks || []).slice(0, 3);
   if (!fm.title || cc.length === 0) { 막힘.push(`${slug} — title/crossChecks 부족`); continue; }
   const figure = cards[slug]?.figure || '';
