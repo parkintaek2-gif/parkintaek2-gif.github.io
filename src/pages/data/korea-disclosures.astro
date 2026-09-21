@@ -1,0 +1,261 @@
+---
+/*
+ * `/data/korea-disclosures` — **한국 중대공시. 쌓아만 두던 자료를 지면으로 낸다.**
+ * (seoulmarkets.com/data/korea-disclosures)
+ *
+ * ── 🔴 왜 (2026-09-22 · 5번) ────────────────────────────────────────────
+ *   사장님 지시 — 「모은 자료는 반드시 지면이나 콘텐트로 낸다」.
+ *   `archive/raw/dart-breaking` 에 862건이 쌓여 있는데 쓰는 지면이 한 장도 없었다.
+ *   그리고 이것은 새 나라 차례표의 «둘째 칸»이다 — ①재무제표 ②공시 ③컨센서스.
+ *
+ * ── ⭐ 전량이 아니라 «중대사건»만 낸다 ────────────────────────────────
+ *   공시 전량을 서비스하면 제한이 붙지만, 미국 Form 8-K 식으로 중대사건만 골라 내면
+ *   그 제한이 걸리지 않는다(사장님이 정하신 설계). 고르는 규칙은
+ *   `scripts/collect-dart-breaking.mjs` 하나에 있고, 이 지면은 그것을 영문으로 옮긴다.
+ *
+ * ⛔ 화면에 한국어를 내지 않는다 — 회사 한글명도 공시 원제목도 자료 파일에 «담지 않았다».
+ * ⛔ 「사라」·「팔아라」로 읽힐 말을 쓰지 않는다. 사건의 이름과 날짜만 적는다.
+ * 🔴 Astro 앞말(--- 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import feed from '../../data/korea-disclosures-feed.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const f = feed as any;
+const num = (n: number) => n.toLocaleString('en-GB');
+
+/* 갈래를 건수 많은 차례로. ⛔ 「중요한 차례」로 정렬하지 않는다 — 그건 우리 판단이 된다 */
+const 갈래줄 = Object.entries(f.갈래 as Record<string, { en: string; 뜻: string; n: number }>)
+  .map(([k, v]) => ({ key: k, ...v }))
+  .filter((r) => r.n > 0)
+  .sort((a, b) => b.n - a.n);
+
+/* 손님에게 보이는 표본. 전량 파일은 유료 상품이다(무료 지면은 표본까지) */
+const 표본수 = 40;
+const 표본 = (f.rows as any[]).slice(0, 표본수);
+const 회사수 = new Set((f.rows as any[]).map((r) => r.t)).size;
+const 시장별 = (f.rows as any[]).reduce((a: Record<string, number>, r) => {
+  a[r.m] = (a[r.m] || 0) + 1; return a;
+}, {});
+const 고친것 = (f.rows as any[]).filter((r) => r.amended).length;
+const 영문이름 = f.건수 - (f.영문명없는줄 || 0);
+
+const TITLE = 'Korean material disclosures in English — ' + num(f.건수) + ' events, tagged';
+const DESC = 'Every material filing Korean listed companies made to DART between ' + f.처음날
+  + ' and ' + f.만든날 + ', in English, sorted into ' + 갈래줄.length + ' event types — supply '
+  + 'contracts, capital raises, buybacks, control changes, CEO changes, delisting risk. '
+  + 'We publish the event, the date and the link to the original, not a recommendation.';
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korean material disclosures (DART), tagged and translated',
+  description: DESC,
+  url: SITE_URL + '/data/korea-disclosures',
+  keywords: ['Korea', 'DART', 'disclosure', 'KOSPI', 'KOSDAQ', 'material event', '8-K',
+    'supply contract', 'capital raise', 'buyback', 'control change', 'CEO change'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  isAccessibleForFree: true,
+  temporalCoverage: f.처음날 + '/' + f.만든날,
+  variableMeasured: ['filing date', 'ticker', 'company', 'market', 'event type', 'amended flag'],
+};
+
+const faq: Array<[string, string]> = [
+  ['Is this every disclosure Korean companies file?',
+    'No, and deliberately not. Korean listed companies file thousands of documents a month, most of '
+    + 'them routine. We keep only the filings that change what a reader would conclude — the same idea '
+    + 'behind a US Form 8-K. The selection rule lives in one file in our code, so it is one rule, '
+    + 'applied the same way every day, rather than an editor’s judgement that drifts.'],
+  ['Why are the company names in English but the original filing in Korean?',
+    'Because our readers are not Korean speakers and the filers are. We translate the event type and '
+    + 'carry the English company name as registered with the regulator; we do not translate the filing '
+    + 'itself, and we link to the original so anyone can check us. Where a company has no English name '
+    + 'on file we print the ticker rather than invent one — ' + (f.영문명없는줄 || 0) + ' rows are like that.'],
+  ['What does the "amended" flag mean?',
+    'Korean filers can re-file a corrected version of a disclosure. Where the filing we captured is '
+    + 'that corrected version, we mark it, because an amendment is itself information — '
+    + num(고친것) + ' of the ' + num(f.건수) + ' events here are amendments.'],
+  ['Is a disclosure here good news or bad news?',
+    'We do not say, and the tags are deliberately neutral names for events rather than judgements. '
+    + 'A buyback is not automatically good and a capital raise is not automatically bad; which it is '
+    + 'depends on the company and on what you already believe about it. This is not investment advice.'],
+  ['How far back does this go?',
+    'To ' + f.처음날 + '. Disclosures are not retrievable in bulk after the fact from the source we use, '
+    + 'so the record starts the day we began collecting and grows one day at a time. We would rather '
+    + 'say that than imply a history we do not have.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({
+    '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+const jsonLd = [datasetLd, faqLd];
+const 아직 = 'The tagged feed is published here as a sample. The full file, and a daily delivery, '
+  + 'are part of the Korea dataset.';
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>Korean material disclosures, in English</h1>
+    <p class="lead">
+      <b>{num(f.건수)} filings</b> from <b>{num(회사수)} listed companies</b>, {f.처음날} to {f.만든날},
+      sorted into <b>{갈래줄.length} event types</b>. Korean companies file thousands of documents a
+      month; almost all of them are routine. These are the ones that change what a reader would
+      conclude — and each row links to the original filing so you can check us.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false} 아직={아직} />
+
+    <section class="stats">
+      <div class="stat"><b>{num(f.건수)}</b><span>material events</span></div>
+      <div class="stat"><b>{num(회사수)}</b><span>companies</span></div>
+      <div class="stat"><b>{갈래줄.length}</b><span>event types</span></div>
+      <div class="stat"><b>{num(고친것)}</b><span>are amended re-filings</span></div>
+    </section>
+
+    <section>
+      <h2>Read this first: what we left out, and why</h2>
+      <p class="warn">
+        This is <b>not</b> the full disclosure stream. Publishing a national disclosure feed in bulk
+        raises questions we would rather not have to answer; publishing <i>selected material events</i>
+        — the way a US Form 8-K works — does not. So we keep a fixed list of event types and drop
+        everything else. The list is in our code, not in an editor&rsquo;s head, which means the same
+        filing gets the same treatment on a quiet Tuesday as on a busy one. Where a company has no
+        English name registered we print its ticker instead of inventing a translation:{' '}
+        <b>{num(영문이름)}</b> of {num(f.건수)} rows carry a real English name.
+      </p>
+    </section>
+
+    <section>
+      <h2>The {갈래줄.length} event types, and how often each one happened</h2>
+      <p>
+        Counted over {f.처음날} to {f.만든날}. The order is by frequency, not by importance —{' '}
+        <b>we do not rank these</b>, because which one matters depends on the company you are
+        looking at.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Event</th><th>What the filing is</th><th class="n">Count</th></tr></thead>
+          <tbody>
+            {갈래줄.map((r) => (
+              <tr><td><b>{r.en}</b></td><td class="d">{r.뜻}</td><td class="n">{num(r.n)}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Where they came from</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Market</th><th class="n">Events</th></tr></thead>
+          <tbody>
+            {Object.entries(시장별).sort((a: any, b: any) => b[1] - a[1]).map(([k, v]: any) => (
+              <tr><td>{k}</td><td class="n">{num(v)}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>The {표본수} most recent</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Company</th><th>Ticker</th><th>Market</th><th>Event</th><th>Original</th></tr>
+          </thead>
+          <tbody>
+            {표본.map((r: any) => (
+              <tr>
+                <td class="mono">{r.d}</td>
+                <td>{r.n}{r.amended ? <span class="amend"> amended</span> : null}</td>
+                <td class="mono">{r.t}</td>
+                <td>{r.m}</td>
+                <td>{f.갈래[r.e]?.en ?? r.e}</td>
+                <td>{r.url ? <a href={r.url} rel="nofollow noopener" target="_blank">DART</a> : '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        {표본수} of {num(f.건수)} shown. The full tagged file is part of the Korea dataset.
+      </p>
+    </section>
+
+    <section>
+      <h2>What is not here</h2>
+      <ul>
+        <li>The money in the filing. A supply-contract disclosure states a contract value and a
+          counterparty; we carry the event, not yet the amount. That is the next build.</li>
+        <li>Anything before {f.처음날}. The source does not hand back a bulk history, so the record
+          starts the day we started collecting.</li>
+        <li>A view on whether any of this is good news. That is yours to form.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        Financial Supervisory Service, DART &mdash;{' '}
+        <a href="https://dart.fss.or.kr" rel="nofollow noopener" target="_blank">dart.fss.or.kr</a>.
+        Each row links to the filing it came from. The event names on this page are ours: we wrote
+        them in English from the filing categories, and we say so rather than presenting them as the
+        regulator&rsquo;s own wording.
+      </p>
+      <p class="note">
+        This page reports filings. It is not investment advice and not a recommendation to buy or
+        sell anything.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        <a href="/data/screener">Screen these companies by their filed figures</a> ·{' '}
+        <a href="/data/financials">Korean financial statements</a> ·{' '}
+        <a href="/data">the rest of the catalogue</a>.
+      </p>
+    </section>
+
+    <BuyBar 자리="bottom" 살수있나={false} 아직={아직} />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n { text-align: right; white-space: nowrap; }
+  td.mono { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.d { color: var(--muted, #555); }
+  .amend { font-size: .72rem; color: var(--muted, #777); }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+  }
+</style>
