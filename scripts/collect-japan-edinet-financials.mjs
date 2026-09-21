@@ -47,6 +47,10 @@ const 인자 = (이름, 기본 = null) => {
 };
 const 적는다 = process.argv.includes('--적는다');
 const 재본다 = process.argv.includes('--재본다');
+/* 🔴 [2026-09-22] 뽑는 «칸»을 늘리면 이미 받아 둔 파일은 그 칸이 비어 있다.
+   그때 「이미 있다」로 건너뛰면 새 칸이 영영 안 찬다. --다시받는다 로 덮어쓴다.
+   ⛔ 폴더를 지우고 새로 받지 않는다 — 지우는 사이에 멈추면 있던 것까지 잃는다. */
+const 다시받는다 = process.argv.includes('--다시받는다');
 
 /* ── 뽑을 다섯 칸 ─────────────────────────────────────────────────────────
    ⭐ 요소를 «우선순위»로 둔다. 재무제표 본표(jppfs_cor)가 먼저고,
@@ -58,6 +62,38 @@ export const 뽑을것 = [
   { 칸: 'net_profit_jpy', 요소: ['jppfs_cor:ProfitLoss', 'jppfs_cor:NetIncome'] },
   { 칸: 'assets_jpy', 요소: ['jppfs_cor:Assets', 'jpcrp_cor:TotalAssetsSummaryOfBusinessResults'] },
   { 칸: 'equity_jpy', 요소: ['jppfs_cor:NetAssets', 'jpcrp_cor:NetAssetsSummaryOfBusinessResults'] },
+  /* 🔴 [2026-09-22 · 5번] **주식 관련 셋을 더했다 — 이미 쥔 자료 안에 있었다.**
+   * ─────────────────────────────────────────────────────────────────────────
+   * 일본을 스크리너에 넣고 보니 시총·PER·PBR·EPS 가 통째로 비어 있었다.
+   * 「주가 우물을 못 찾아서」라고 적어 두고 찾아 나섰는데 — **EDINET 서류 안에
+   * 발행주식수·주당순자산·주당이익이 이미 들어 있었다.** 우리가 안 뽑았을 뿐이다.
+   *
+   * ⭐ 그러면 주가 없이도 EPS·BPS 두 칸이 서고, 주가만 붙이면 시총·PER·PBR 이 선다.
+   * ⚠ UAE 에서 같은 셈이 깨졌던 까닭은 «기간 어긋남»이었다(순이익은 분기, EPS 는 연 누계).
+   *   일본은 «연간» 유가증권보고서라 그 함정에 안 걸린다 — 같은 표의 같은 기간이다.
+   * ⛔ 그래도 검산한다 — 발행주식수 × BPS ≈ 자본 이 안 맞으면 그 줄은 안 쓴다.
+   */
+  { 칸: 'shares', 요소: ['jpcrp_cor:TotalNumberOfIssuedSharesSummaryOfBusinessResults'] },
+  { 칸: 'bps_jpy', 요소: ['jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults'] },
+  /* ⚠ [2026-09-22] 처음에 `BasicEarningsPerShare…` 로 적었다가 **한 건도 안 걸렸다.**
+     진짜 이름은 «Loss» 가 낀 `BasicEarningsLossPerShare…` 다(적자도 같은 칸에 적으니까).
+     ⛔ 요소 이름을 «그럴듯하게» 지어 짐작하지 않는다. 서류를 열어 이름을 눈으로 본다. */
+  { 칸: 'eps_jpy', 요소: ['jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults',
+    'jpcrp_cor:BasicEarningsPerShareSummaryOfBusinessResults',
+    'jpcrp_cor:EarningsPerShareSummaryOfBusinessResults'] },
+  /* 🔴🔴 [2026-09-22 · 5번] **주가수익률(PER)이 서류 안에 있었다.**
+   * ─────────────────────────────────────────────────────────────────────────
+   * 「일본은 주가 우물이 없어 시총·PER·PBR 을 못 낸다」고 손님 화면에 적어 두고
+   * 밖에서 주가를 찾아 다녔다. 그런데 유가증권보고서 「経営指標等」에 PER 이 있었다.
+   *
+   *   결산일 주가 = PER × EPS            (실측 16.43 × 56.79 = 933.1엔)
+   *   시가총액    = 주가 × 발행주식수     (933.1 × 26,340,000 = 245.8억엔)
+   *   PBR        = 주가 ÷ BPS           (933.1 ÷ 384.42 = 2.43배)
+   *
+   * ⚠ 이 주가는 «오늘 값이 아니라 결산일 값»이다. 손님 화면에 반드시 그렇게 적는다 —
+   *   `as` 칸(결산일)이 이미 그 날짜를 달고 나간다. ⛔ 「현재가」라고 쓰지 않는다.
+   * ⛔ EPS 가 음수(적자)면 PER 이 없거나 뜻이 없다 — 그 줄은 주가를 못 세운다. */
+  { 칸: 'per', 요소: ['jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults'] },
 ];
 
 /** CSV 한 줄을 칸으로 가른다 — 탭 구분, 값은 큰따옴표로 싸여 있다 */
@@ -78,6 +114,8 @@ export function 뽑기(글) {
   for (const { 칸, 요소 } of 뽑을것) {
     let 걸린 = null;
     for (const e of 요소) {
+      /* ⚠ 相対年度 는 「当期」(기간) 말고 「当期末時点」(시점)도 온다 — 발행주식수·BPS 가 그 꼴이다.
+         처음에 /^当期/ 로 두어 둘 다 받게 했다. 「四期前時点」은 «앞»이 다르므로 안 걸린다. */
       const 후보 = 줄들.filter((c) => c[0] === e && /^当期/.test(c[3] || '') && c[8] && c[8] !== '－');
       if (!후보.length) continue;
       /* 連結(연결)이 사실상 회사의 성적이다. 없으면 個別(별도) */
@@ -157,9 +195,30 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
   }));
   검('며칠만큼 낸다', 평일.length === 5);
   검('어제부터 거슬러 간다', 평일[0] === '2026-09-18');   /* 9/20 일 · 9/19 토 건너뜀 */
-  검('다섯 칸을 다 뽑는다', 뽑을것.length === 5);
-  검('칸 이름이 한국 탭과 같은 꼴이다',
-    뽑을것.every((x) => /^(revenue|operating_profit|net_profit|assets|equity)_jpy$/.test(x.칸)));
+  검('아홉 칸을 뽑는다 — 재무 다섯 + 주식 셋 + PER', 뽑을것.length === 9);
+  /* 🔴 [2026-09-22] 주식 셋을 더하며 이 수를 «같이» 안 고쳐 시험이 떨어졌다.
+     칸을 늘리면 칸을 세는 시험도 따라간다 — 자를 바꾸면 그 자를 보는 시험도 따라간다. */
+  const 한줄글 = (e, 년, 값) => [머리, 줄(e, 년, 'その他', 값)].join('\n');
+  검('⭐ 발행주식수를 뽑는다 — 주가만 붙으면 시총이 선다',
+    뽑기(한줄글('jpcrp_cor:TotalNumberOfIssuedSharesSummaryOfBusinessResults', '当期末時点', '26340000')).값.shares === 26340000);
+  검('⭐ 「当期末時点」(시점)도 받는다 — 주식수·BPS 가 그 꼴이다',
+    뽑기(한줄글('jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults', '当期末時点', '334.84')).값.bps_jpy === 334.84);
+  검('⛔ 「四期前時点」은 안 받는다',
+    뽑기(한줄글('jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults', '四期前時点', '305.87')).값.bps_jpy === null);
+  검('주당이익도 뽑는다',
+    뽑기(한줄글('jpcrp_cor:BasicEarningsPerShareSummaryOfBusinessResults', '当期', '56.4')).값.eps_jpy === 56.4);
+  /* 🔴 실제 서류에 박힌 이름은 «Loss» 가 낀 쪽이다. 그것을 못 받으면 EPS 가 통째로 빈다 */
+  검('🔴 진짜 이름(BasicEarningsLossPerShare…)으로도 뽑는다',
+    뽑기(한줄글('jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults', '当期', '56.79')).값.eps_jpy === 56.79);
+  검('⭐ 주가수익률(PER)을 뽑는다 — PER × EPS 가 결산일 주가다',
+    뽑기(한줄글('jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults', '当期', '16.43')).값.per === 16.43);
+  검('⛔ 지난 해 PER 을 올해로 쓰지 않는다',
+    뽑기(한줄글('jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults', '四期前', '19.55')).값.per === null);
+  /* ⚠ 돈 칸은 `_jpy` 로 끝내 «통화»를 이름에 박는다 — 한국 탭이 `_krw` 인 것과 같은 꼴이다.
+     주식수(shares)·배수(per)는 돈이 아니라 통화를 안 붙인다. */
+  검('돈 칸은 이름에 통화가 박혀 있다',
+    뽑을것.filter((x) => !['shares', 'per'].includes(x.칸)).every((x) => /_jpy$/.test(x.칸)));
+  검('주식수는 돈이 아니라 통화를 안 붙인다', 뽑을것.some((x) => x.칸 === 'shares'));
 
   const 진 = 잰다.filter(([, v]) => !v);
   for (const [이름, v] of 잰다) console.log(`${v ? '✅' : '🔴'} ${이름}`);
@@ -222,7 +281,7 @@ if (내가진입점) {
 
     for (const d of 볼것) {
       const 낼길 = path.join(날폴더, `${d.docID}.json`);
-      if (적는다 && fs.existsSync(낼길)) { 건너++; continue; }
+      if (적는다 && !다시받는다 && fs.existsSync(낼길)) { 건너++; continue; }
       try {
         const rr = await 끈질기게(`https://api.edinet-fsa.go.jp/api/v2/documents/${d.docID}?type=5&Subscription-Key=${KEY}`);
         if (!rr.ok) { 실패++; console.log(`   🔴 ${d.docID} HTTP ${rr.status}`); continue; }

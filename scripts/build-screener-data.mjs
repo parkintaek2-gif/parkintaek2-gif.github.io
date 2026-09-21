@@ -143,6 +143,19 @@ export function 곱(값, 배) {
   return n === null || !Number.isFinite(배) ? null : n * 배;
 }
 
+/** 나눈다 — 어느 한쪽이라도 없거나 아래가 0 이면 null. ⛔ 0 으로 나눈 Infinity 를 내보내지 않는다 */
+export function 비(위, 아래) {
+  const [a, b] = [수(위), 수(아래)];
+  if (a === null || b === null || b === 0) return null;
+  return a / b;
+}
+
+/** 뺀다 — 어느 한쪽이라도 없으면 null. ⛔ 없는 값을 0 으로 보고 빼지 않는다 */
+export function 빼기(가, 나) {
+  const [a, b] = [수(가), 수(나)];
+  return a === null || b === null ? null : a - b;
+}
+
 /**
  * 자리를 줄인다. 환산한 달러를 소수점 끝까지 담으면(1151148514.8329806) 파일만 커진다.
  * ⛔ 「없음」을 0 으로 만들지 않는다 — null 은 null 로 나간다.
@@ -582,11 +595,21 @@ async function 본일() {
       n: r.name_en || null,          /* ⛔ 손님 화면은 영문이다. 일본어 이름은 k 로만 둔다 */
       k: r.name || null,
       i: r.sector || null,
-      c: null, e: null, p: null, b: null,        /* 주가가 없어 못 재는 칸 — 비워 둔다 */
+      /* 🔴 [2026-09-22] 다섯 칸이 «주가를 밖에서 사 오지 않고» 섰다.
+         유가증권보고서가 주당이익·주당순자산·발행주식수·주가수익률을 함께 싣는다 —
+         PER × EPS 가 결산일 주가이고, 거기서 시총과 PBR 이 나온다.
+         ⛔ 「현재가」가 아니라 «결산일» 값이다. as 칸(결산일)을 함께 낸다. */
+      c: 자름(곱(r.market_cap_jpy, JPY당달러)),
+      p: 자름(r.per, 2),
+      b: 자름(r.pbr, 2),
+      e: 자름(곱(r.eps_jpy, JPY당달러), 4),
       v: 자름(곱(r.revenue_jpy, JPY당달러)),
       np: 자름(곱(r.net_profit_jpy, JPY당달러)),
-      r: null, d: null,
-      nc: null,
+      /* 자기자본이익률·부채비율은 «같은 표»에서 나온다 — 환율도 안 탄다(비율이라 약분된다) */
+      r: 자름(백분율(비(r.net_profit_jpy, r.equity_jpy)), 2),
+      d: 자름(백분율(비(빼기(r.assets_jpy, r.equity_jpy), r.equity_jpy)), 2),
+      nc: 자름(r.market_cap_jpy),
+      nv: 자름(r.revenue_jpy),
       as: r.period_end || null,
     })).filter((r) => r.t);
   })();
@@ -773,6 +796,13 @@ export function 자가시험() {
   재다('한국: 시총을 달러로', 한[0].c === 1000000000);
   재다('한국: 기간은 사업연도로 적는다', 한[0].as === 'FY2025');
   재다('⛔ 한국: 없는 EPS 를 지어내지 않는다', 한[0].e === null);
+
+  /* 나눗셈·뺄셈 — 일본의 ROE·부채비율이 이 둘 위에 선다 */
+  재다('비: 나눈다', 비(10, 4) === 2.5);
+  재다('⛔ 비: 0 으로 나누지 않는다 (Infinity 를 안 내보낸다)', 비(10, 0) === null);
+  재다('⛔ 비: 한쪽이 없으면 null', 비(10, null) === null);
+  재다('빼기: 뺀다', 빼기(10, 4) === 6);
+  재다('⛔ 빼기: 없는 값을 0 으로 보지 않는다', 빼기(10, null) === null);
 
   const 실패 = 것.filter((x) => !x.됐나);
   console.log(`■ 자가시험 ${것.length - 실패.length}/${것.length}`);

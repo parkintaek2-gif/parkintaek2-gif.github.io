@@ -52,11 +52,56 @@ export function 최신만(줄들) {
   return [...집.values()].sort((a, b) => String(a.code).localeCompare(String(b.code)));
 }
 
+/**
+ * 🔴 [2026-09-22] **검산 — 두 수를 곱해 셋째 수와 맞는지 본다.**
+ *
+ * 발행주식수 × 주당순자산(BPS) 은 «자본»이 되어야 한다. 주당이익(EPS) × 주식수는 «순이익»이다.
+ * 어긋나면 그 회사의 그 칸은 «쓰지 않는다» — 0 으로 메꾸지도, 그냥 싣지도 않는다.
+ *
+ * ⚠ UAE 에서 이 셈이 깨졌던 까닭은 «기간 어긋남»이었다(순이익은 분기, EPS 는 연 누계).
+ *   일본은 연간 유가증권보고서라 같은 표의 같은 기간이지만, 그래도 잰다.
+ * ⚠ 자기주식·우선주·기중 증자 때문에 완전히 딱 맞지는 않는다 — 그래서 선을 10% 로 둔다.
+ *   실측(S100Z2KC)은 어긋남 0.6% 였다.
+ */
+export const 검산선 = 0.10;
+export function 검산맞나(가, 나, 맞을것, 선 = 검산선) {
+  const 수 = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : null);
+  const [a, b, c] = [수(가), 수(나), 수(맞을것)];
+  if (a === null || b === null || c === null) return null;   /* ⛔ 못 쟀으면 «모른다» — 거짓이 아니다 */
+  if (c === 0) return null;
+  return Math.abs((a * b - c) / c) <= 선;
+}
+
+/**
+ * 🔴 [2026-09-22] **결산일 주가를 세운다 — PER × EPS.**
+ *
+ * 유가증권보고서 「経営指標等」이 주가수익률(PER)을 싣는다. PER 은 «주가 ÷ 주당이익»이므로
+ * 거꾸로 곱하면 그 회사가 스스로 적어 낸 **결산일 주가**가 나온다. 밖에서 시세를 사 올 필요가 없다.
+ *
+ * ⛔ 「현재가」가 아니다. 결산일(period_end) 값이다 — 지면에 그 날짜를 함께 낸다.
+ * ⛔ EPS 가 0 이거나 음수(적자)면 PER 이 뜻을 잃는다. 그 줄은 주가를 «안» 세운다.
+ * ⛔ PER 이 음수로 적혀 온 것도 안 쓴다.
+ */
+export function 결산일주가(per, eps) {
+  const 수 = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : null);
+  const [p, e] = [수(per), 수(eps)];
+  if (p === null || e === null) return null;
+  if (p <= 0 || e <= 0) return null;
+  return p * e;
+}
+
 /** 한 서류를 탭 한 줄로 */
 export function 한줄(d, 명부 = new Map()) {
   if (!d?.sec_code) return null;
   const 딸림 = 명부.get(String(d.sec_code)) || {};
   const 바탕 = d._근거?.net_profit_jpy?.연결개별 || d._근거?.assets_jpy?.연결개별 || null;
+  /* 검산이 «거짓»일 때만 버린다. null(못 쟀다)이면 그대로 싣는다 */
+  const 자본검산 = 검산맞나(d.shares, d.bps_jpy, d.equity_jpy);
+  const 이익검산 = 검산맞나(d.shares, d.eps_jpy, d.net_profit_jpy);
+  const 주식수 = 자본검산 === false ? null : (d.shares ?? null);
+  const bps = 자본검산 === false ? null : (d.bps_jpy ?? null);
+  const eps = 이익검산 === false ? null : (d.eps_jpy ?? null);
+  const 주가 = 결산일주가(d.per, eps);
   return {
     code: String(d.sec_code),
     edinet_code: d.edinet_code ?? null,
@@ -72,6 +117,13 @@ export function 한줄(d, 명부 = new Map()) {
     revenue_jpy: d.revenue_jpy ?? null,
     operating_profit_jpy: d.operating_profit_jpy ?? null,
     net_profit_jpy: d.net_profit_jpy ?? null,
+    shares: 주식수,
+    bps_jpy: bps,
+    eps_jpy: eps,
+    per: 주가 === null ? null : (d.per ?? null),
+    price_jpy: 주가,
+    market_cap_jpy: 주가 !== null && 주식수 !== null ? 주가 * 주식수 : null,
+    pbr: 주가 !== null && bps ? Math.round((주가 / bps) * 100) / 100 : null,
   };
 }
 
@@ -111,6 +163,33 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
   검('명부에서 영문명·업종을 이어 붙인다',
     한줄(d, new Map([['4847', { name_en: 'IWI', sector: 'IT' }]])).name_en === 'IWI');
   검('명부에 없어도 줄은 선다', 한줄(d, new Map()).name_en === null);
+  /* ── 검산 ── */
+  검('주식수 × BPS 가 자본과 맞으면 참', 검산맞나(100, 3, 300) === true);
+  검('0.6% 어긋남은 통과한다 (실측 S100Z2KC)', 검산맞나(26340000, 384.42, 10065667000) === true);
+  검('두 배 어긋나면 거짓', 검산맞나(100, 3, 150) === false);
+  검('⛔ 하나라도 없으면 «모른다»(null) — 거짓이 아니다', 검산맞나(100, null, 300) === null);
+  검('자본이 0 이면 나눌 수 없다 — null', 검산맞나(100, 3, 0) === null);
+  const 검d = { ...d, shares: 30, bps_jpy: 10, eps_jpy: 0.3333 };
+  검('검산에 맞으면 주식수·BPS 를 싣는다', 한줄(검d).shares === 30 && 한줄(검d).bps_jpy === 10);
+  검('⛔ 검산이 깨지면 그 칸을 안 싣는다',
+    한줄({ ...검d, bps_jpy: 100 }).bps_jpy === null && 한줄({ ...검d, bps_jpy: 100 }).shares === null);
+  검('EPS 는 순이익으로 따로 잰다', 한줄({ ...검d, eps_jpy: 99 }).eps_jpy === null);
+  검('EPS 가 깨져도 BPS 는 남는다', 한줄({ ...검d, eps_jpy: 99 }).bps_jpy === 10);
+  검('못 쟀으면(null) 그대로 싣는다', 한줄({ ...d, shares: 30 }).shares === 30);
+
+  /* ── 결산일 주가 ── */
+  검('⭐ PER × EPS 가 결산일 주가다 (실측 16.43 × 56.79)',
+    Math.round(결산일주가(16.43, 56.79) * 10) / 10 === 933.1);
+  검('⛔ 적자(EPS 음수)면 주가를 안 세운다', 결산일주가(16.43, -5) === null);
+  검('⛔ EPS 가 0 이면 안 세운다', 결산일주가(16.43, 0) === null);
+  검('⛔ PER 이 없으면 안 세운다', 결산일주가(null, 56.79) === null);
+  const 주d = { ...d, shares: 30, bps_jpy: 10, eps_jpy: 0.3333, per: 30 };
+  검('주가에서 시가총액이 선다', 한줄(주d).market_cap_jpy === 한줄(주d).price_jpy * 30);
+  검('주가 ÷ BPS 가 PBR 이다', 한줄(주d).pbr === Math.round((한줄(주d).price_jpy / 10) * 100) / 100);
+  검('⛔ 주가를 못 세우면 PER 도 안 싣는다 — 셋이 한 벌이다',
+    한줄({ ...주d, eps_jpy: -1, _근거: 주d._근거 }).per === null);
+  검('⛔ 시가총액을 0 으로 메꾸지 않는다', 한줄({ ...d }).market_cap_jpy === null);
+
   검('한국 탭과 칸 이름 꼴이 같다',
     ['code', 'name', 'year', 'assets_jpy', 'equity_jpy', 'revenue_jpy', 'operating_profit_jpy', 'net_profit_jpy']
       .every((k) => k in 한줄(d)));
