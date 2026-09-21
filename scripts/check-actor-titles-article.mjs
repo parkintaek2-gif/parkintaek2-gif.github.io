@@ -9,10 +9,14 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { 그날자료고르기, 기사가잰날 } from './lib/그날자료.mjs';
 
 const D = 'archive/raw/star-pageviews';
 const 기사 = 'content/kculturewire/korean-actors-more-titles-buys-a-floor.md';
-const f = fs.readdirSync(D).filter((x) => /^actors-\d+\.json$/.test(x)).sort().pop();
+/* 🔴 [2026-09-22] 여기도 «가장 새 스냅숏»을 집고 있었다 — 자료를 다시 받으면 지난 기사가
+   통째로 빨강이 됐다. 기사가 적어 둔 날(dataAsOf)의 자료로 잰다.
+   까닭과 규칙은 scripts/lib/그날자료.mjs 머리글에 있다. */
+const f = 그날자료고르기(fs.readdirSync(D), /^actors-\d+\.json$/, 기사가잰날(기사));
 if (!f) throw new Error('배우 원자료가 없다');
 const a = JSON.parse(fs.readFileSync(path.join(D, f), 'utf8'));
 const 본문 = fs.readFileSync(기사, 'utf8');

@@ -10,8 +10,8 @@ tags: ["nana", "after-school", "wikipedia", "injury", "attention"]
 pages:
   - "/what-moves-english-reading"
 sources:
-  - org: "Etoday (이투데이)"
-    api: "News reports, translated headlines: '나나 추락 사고 \"골반쪽 타박 심각\"… 애프터스쿨 6인만 활동' and '애프터스쿨 나나 부상 '일단 활동 중단''"
+  - org: "Etoday"
+    api: "News reports, headlines translated from Korean: 'Nana stage fall, severe pelvic bruising — After School to perform as six' and 'After School's Nana injured, activities suspended for now'"
     url: "https://www.etoday.co.kr/news/view/750322"
   - org: "Wikimedia Foundation — Pageviews API"
     api: "Daily English Wikipedia pageviews, all-access, user agents only, for Nana (entertainer), 10-19 September 2026"

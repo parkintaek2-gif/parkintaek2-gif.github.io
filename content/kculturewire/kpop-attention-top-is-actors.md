@@ -5,7 +5,7 @@ category: titles
 genre: music
 purpose: both
 pubDate: 2026-08-07
-dataAsOf: 2026-08-06T00:00:00+09:00
+dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
 tags: ["iu", "k-pop", "korean drama", "attention", "netflix", "wikipedia", "measurement", "korea"]
 pages:
@@ -13,7 +13,7 @@ pages:
   - "/actors"
 sources:
   - org: "Wikimedia Foundation"
-    api: "Pageviews API, en.wikipedia, all-access, user agent class 'user', 30 days from 2026-07-08 to 2026-08-06"
+    api: "Pageviews API, en.wikipedia, all-access, user agent class 'user', 30 days from 2026-07-24 to 2026-08-22"
     url: "https://wikimedia.org/api/rest_v1/"
   - org: "Wikidata"
     api: "Music roster — P27=Q884 with occupation singer, rapper, composer or musician, plus musical groups reached by P31/P279* from Q215380 with P495=Q884. Screen roster — P161 (cast member) on Korean titles that appeared in a Netflix Top 10"
@@ -22,7 +22,7 @@ sources:
     api: "Top 10 weekly lists (Tudum), used only to decide which Korean titles the screen roster is drawn from"
     url: "https://www.netflix.com/tudum/top10"
 crossChecks:
-  - "Every view figure in this piece comes from the music panel's own 30-day window, 2026-07-08 to 2026-08-06. The screen roster is used for membership only — to decide who is flagged — and never for its view totals, because it was collected over a different window (2026-07-05 to 2026-08-03) and the two are not directly comparable"
+  - "Every view figure in this piece comes from the music panel's own 30-day window, 2026-07-24 to 2026-08-22. The screen roster is used for membership only — to decide who is flagged — and never for its view totals, and it covers the same 30-day window (2026-07-24 to 2026-08-22)"
   - "The overlap is measured against individuals only, 154 of 1,545. Counted against the whole panel including the 816 groups it is 154 of 2,361, or 6.5% of names and 23.1% of views. Both denominators are stated wherever the figure appears"
   - "Nobody is removed from the roster for having two occupations. Wikidata records both for these people, and the roster is built by rule; hand-removing names would make the rule untestable"
   - "The screen roster is 1,008 measured names out of 1,344 selected. The 336 with no English Wikipedia article are absent from it, so a working actor can be missing from the flag for lack of an article as easily as for lack of a Netflix credit"

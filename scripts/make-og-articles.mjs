@@ -47,6 +47,24 @@ const 명조 = "Georgia,'Times New Roman',serif";
 
 /* ── 자료 읽기 ────────────────────────────────────────────────── */
 
+/**
+ * 두 글을 맞대기 전에 «같은 것을 같게» 만든다.
+ *
+ * 🔴 [2026-09-22] 카드 여섯 장이 「4.9x 가 기사 본문에 없다」로 막혀 있었다. 있었다 —
+ *   본문이 「4.9 times」라고 적었을 뿐이다. 배수를 말하는 법이 셋이다:
+ *   `4.9x` · `4.9 times` · `4.9-fold` · `4.9×`. 사람에겐 같은 말이고 자에겐 달랐다.
+ *
+ * ⛔ 이것은 검사를 무르게 하는 것이 아니다 — 수는 그대로 맞대고, «배수를 가리키는 말»만
+ *   한 꼴로 모은다. 4.9x 와 4.8x 는 여전히 다르다.
+ */
+export function 느슨(s) {
+  return String(s ?? '')
+    .toLowerCase()
+    .replace(/×/g, 'x')
+    .replace(/(\d)\s*[-‑]?\s*(?:times|fold)\b/g, '$1x')
+    .replace(/[,\s]/g, '');
+}
+
 /** 앞머리(frontmatter)와 본문을 가른다. */
 export function 가른다(원문) {
   const m = 원문.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
@@ -198,6 +216,13 @@ if (process.argv[1] && process.argv[1].endsWith('make-og-articles.mjs')) {
   본다('꼭 맞으면 말줄임을 안 단다', !접는다('longword '.repeat(12), 42, 3)[2].endsWith('…'));
   본다('짧은 제목은 안 접는다', 접는다('Short title', 42, 3).length === 1);
   본다('앞머리를 가른다', 가른다('---\ntitle: X\n---\nbody here').몸.trim() === 'body here');
+  /* 🔴 [2026-09-22] 배수를 말하는 법이 둘이라 멀쩡한 카드 여섯이 막혀 있었다 */
+  본다('「4.9 times」와 「4.9x」를 같은 말로 본다', 느슨('4.9 times') === 느슨('4.9x'));
+  본다('「20-fold」도 같다', 느슨('20-fold') === 느슨('20x'));
+  본다('「30×」(곱셈 기호)도 같다', 느슨('30×') === 느슨('30x'));
+  본다('쉼표는 그대로 무시한다', 느슨('1,545') === 느슨('1545'));
+  본다('⛔ 다른 수는 여전히 다르다', 느슨('4.9x') !== 느슨('4.8x'));
+  본다('⛔ times 를 뗐다고 아무 x 나 맞지 않는다', !느슨('Netflix').includes('4.9x'));
   본다('& 를 막는다', 카드SVG({ figure: '1', label: 'a & b', title: 'T' }).includes('a &amp; b'));
 
   /**
@@ -249,7 +274,6 @@ if (process.argv[1] && process.argv[1].endsWith('make-og-articles.mjs')) {
 
     /* ⛔ 고른 수가 **그 기사 안에 실제로 있는지** 본다. 없으면 카드가 기사와 다른 말을 한다. */
     const 온글 = `${title}\n${dek}\n${몸}`;
-    const 느슨 = (s) => s.replace(/[,\s]/g, '').toLowerCase();
     if (!느슨(온글).includes(느슨(쓸것.figure))) {
       막힌것.push(`${slug} — 「${쓸것.figure}」(${쓸것.출처})가 기사 본문에 없다`);
       continue;

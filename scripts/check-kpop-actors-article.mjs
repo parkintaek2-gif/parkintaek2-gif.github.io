@@ -12,6 +12,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { 그날자료고르기, 기사가잰날 } from './lib/그날자료.mjs';
 
 const D = 'archive/raw/star-pageviews';
 /*
@@ -22,9 +23,15 @@ const D = 'archive/raw/star-pageviews';
  * ⚠ 「통과」로 읽히면 안 되므로 경고 표를 붙여 찍고 나간다.
  */
 const 없는것 = [];
+
+/* 🔴 [2026-09-22] 이 자가 **가장 새 스냅숏**을 집어 기사와 맞대고 있었다. 그래서 자료를
+   다시 받을 때마다 지난 기사가 통째로 「틀렸다」가 됐다 — 기사는 안 틀렸다.
+   까닭과 규칙은 scripts/lib/그날자료.mjs 머리글에 있다. */
+const 잰날 = 기사가잰날('content/kculturewire/kpop-attention-top-is-actors.md');
+
 const 최신 = (re) => {
   let f = null;
-  try { f = fs.readdirSync(D).filter((x) => re.test(x)).sort().pop() ?? null; } catch { f = null; }
+  try { f = 그날자료고르기(fs.readdirSync(D), re, 잰날); } catch { f = null; }
   if (!f) { 없는것.push(String(re)); return null; }
   return JSON.parse(fs.readFileSync(path.join(D, f), 'utf8'));
 };

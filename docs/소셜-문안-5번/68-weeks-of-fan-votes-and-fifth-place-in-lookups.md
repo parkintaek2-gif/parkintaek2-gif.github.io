@@ -1,4 +1,4 @@
-# 채널 문안 — 68 weeks of fan votes, fifth place in lookups
+# 채널 문안 — Jin's 68-Week Fan-Vote Streak, Fifth Place in Lookups
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/68-weeks-of-fan-votes-and-fifth-place-in-lo
 
 ## Threads
 ```
-68 weeks of fan votes, fifth place in lookups
+Jin's 68-Week Fan-Vote Streak, Fifth Place in Lookups
 
 On English Wikipedia lookups he is fifth of seven BTS members. But ranks three to six sit inside 7% of each other, so the ranking barely means anything in the middle.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-68 weeks of fan votes, fifth place in lookups
+Jin's 68-Week Fan-Vote Streak, Fifth Place in Lookups
 
 · Jin has topped a Korean idol poll for 68 straight weeks.
 · On English Wikipedia lookups he is fifth of seven BTS members.
