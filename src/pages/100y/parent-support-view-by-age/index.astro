@@ -1,0 +1,140 @@
+---
+/**
+ * /100y/parent-support-view-by-age — 부모 부양, 「누가 책임져야 하나」는 나이마다 다르고 10년 사이 크게 바뀌었다
+ *
+ * 이슈  어제 지면(/housework-view-vs-reality)과 같은 경로로 2026-09-21에 받아 둔 KOSIS
+ *       사회조사 원표 중 아직 지면으로 못 낸 것 — 부모 부양 책임에 대한 견해, 나이띠·10년.
+ * 우리 축  「가족·정부·사회가 함께 책임져야 한다」는 답이 2014년 47.3%에서 2024년 60.3%로
+ *         늘었다. 그런데 나이띠별로 보면 그 증가폭이 같지 않다 — 60세 이상에서 가장 크게 늘었다.
+ * 받은 경로  OpenAPI 는 이 표에서 err 30(데이터 없음)을 반환했다. kosis.kr/statHtml 웹지면이
+ *           호출하는 내부 AJAX(statHtmlContent.do → downGrid.do → downNormal.do)를 크롬 9222로
+ *           직접 밟아 CSV로 받았다.
+ * ⚠ 이 표는 「누가 부양해야 한다고 생각하는가」라는 견해 조사다. 실제로 누가 부양하고
+ *   있는지(실태)는 이 표에 없다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/parent-support-view-by-age.json';
+
+const 자료 = 원본 as any;
+const 전체 = 자료.전체;
+const 나이띠 = 자료.나이띠별 as any[];
+
+const 증가폭 = (r: any) => r.함께_2024 - r.함께_2014;
+const 가장많이늘음 = 나이띠.reduce((a: any, b: any) => (증가폭(b) > 증가폭(a) ? b : a));
+const 가장적게늘음 = 나이띠.reduce((a: any, b: any) => (증가폭(b) < 증가폭(a) ? b : a));
+
+const desc =
+  `국가데이터처 사회조사 원표를 나이띠별로 갈라 보니, 부모 부양을 「가족·정부·사회가 함께 ` +
+  `책임져야 한다」는 답이 2014년 ${전체.가족정부사회가함께_2014}%에서 2024년 ` +
+  `${전체.가족정부사회가함께_2024}%로 늘었습니다. 늘어난 폭은 나이띠마다 달라 ` +
+  `${가장많이늘음.띠}에서 가장 크고(+${증가폭(가장많이늘음).toFixed(1)}%p), ` +
+  `${가장적게늘음.띠}에서 가장 작습니다(+${증가폭(가장적게늘음).toFixed(1)}%p).`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '부모 부양 책임 견해 — 나이띠별, 2014·2024',
+  description: desc,
+  temporalCoverage: '2014/2024',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['부모부양 가족정부사회함께 견해 비율', '부모부양 부모스스로해결 견해 비율'],
+};
+---
+
+<HundredYear
+  title={`부모 부양 — 「가족·정부·사회가 함께」 견해, 10년 새 ${전체.가족정부사회가함께_2014}%→${전체.가족정부사회가함께_2024}%`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>부모 부양은 누구 책임인가 —<br />나이마다 다르고, 10년 사이 크게 바뀌었습니다</h1>
+  <p class="sub">
+    어제 가사분담 지면(/housework-view-vs-reality)과 같은 경로로 받아 둔 KOSIS 사회조사
+    {' '}원표 가운데, 아직 지면으로 안 낸 것을 오늘 마저 폅니다. 「부모 부양은 누가 책임져야
+    {' '}하는가」— 20대부터 60세 이상까지 나이띠별로 견해가 어떻게 다르고, 10년 사이
+    {' '}어떻게 바뀌었는지를 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">「가족·정부·사회가 함께 책임져야 한다」— 전국, 2014 vs 2024</p>
+    <p class="answer-num">{전체.가족정부사회가함께_2014}% → {전체.가족정부사회가함께_2024}%</p>
+    <p class="answer-sub">+{(전체.가족정부사회가함께_2024 - 전체.가족정부사회가함께_2014).toFixed(1)}%p — 이것은 통계이지 당신이 아닙니다</p>
+  </div>
+
+  <h2>나이띠마다 늘어난 폭이 다릅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이띠</th><th>2014 「함께」</th><th>2024 「함께」</th><th>늘어난 폭</th></tr></thead>
+      <tbody>
+        {나이띠.map((r) => (
+          <tr>
+            <td>{r.띠}</td>
+            <td>{r.함께_2014}%</td>
+            <td>{r.함께_2024}%</td>
+            <td><strong>+{증가폭(r).toFixed(1)}%p</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    가장 크게 는 나이띠는 {가장많이늘음.띠}로 10년 사이 +{증가폭(가장많이늘음).toFixed(1)}%p
+    {' '}늘었습니다. 가장 적게 는 나이띠는 {가장적게늘음.띠}로 +{증가폭(가장적게늘음).toFixed(1)}%p에
+    {' '}그쳤습니다. 「부모 부양은 자녀가 책임진다」는 옛 생각이 가장 많이 흔들린 자리가
+    {' '}어디인지, 이 표는 나이띠로 갈라야만 보입니다.
+  </p>
+
+  <h2>「부모 스스로 해결」이라는 답도 나이마다 다릅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이띠</th><th>2014 「부모 스스로」</th><th>2024 「부모 스스로」</th></tr></thead>
+      <tbody>
+        {나이띠.map((r) => (
+          <tr>
+            <td>{r.띠}</td>
+            <td>{r.부모스스로_2014}%</td>
+            <td>{r.부모스스로_2024}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    전국 평균으로는 「부모 스스로 해결」이 {전체.부모스스로_2014}%(2014)에서
+    {' '}{전체.부모스스로_2024}%(2024)로 거의 그대로입니다. 그런데 나이띠별로 보면 방향이
+    {' '}엇갈립니다 — 20~30대는 오히려 늘었고, 50대는 줄었습니다. 평균만 보면 안 보이던
+    {' '}자리입니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {자료.이자료가못가르는것.map((줄: string) => <li>{줄}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 나이띠별로 「부모 부양은 누구 책임인가」에
+    {' '}대한 견해가 10년 사이 어떻게 갈렸는지가 저희가 놓을 수 있는 전부입니다. 「이 나이면
+    {' '}이렇게 생각해야 한다」로 읽을 근거는 이 표에 없습니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관}, {자료.출처.표} ({자료.출처.받은날} 받음). 받은 경로 —
+    {' '}{자료.출처.받은경로}.
+    {' '}<a href={자료.출처.창구} rel="noopener">원문 통계표</a>. {자료.출처.이용허락범위}
+  </p>
+
+  <HundredAgeWalk 키="parent-support-view-by-age" />
+
+  <NextQuestionBrief 모은것="국가데이터처 KOSIS 사회조사 원표(statHtml) 실측 — 기사 숫자 아님" />
+</HundredYear>
+
+<style>
+  .answer { margin: 1.6rem 0; padding: 1.2rem 1.4rem; border-radius: 12px; background: var(--panel, #f6f7f9); }
+  .answer-label { margin: 0 0 0.3rem; font-size: 0.9rem; opacity: 0.75; }
+  .answer-num { margin: 0; font-size: 1.6rem; font-weight: 800; }
+  .answer-sub { margin: 0.3rem 0 0; font-size: 0.92rem; opacity: 0.8; }
+  .tablewrap { overflow-x: auto; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.94rem; }
+  th, td { padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--line, #e6e8ec); text-align: left; }
+  .note { font-size: 0.9rem; opacity: 0.85; }
+</style>

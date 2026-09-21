@@ -1,0 +1,142 @@
+---
+/**
+ * /100y/housework-spectrum-by-age — 가사분담을 「아내~남편」 5단계로 보면, 나이마다 다르고 10년 사이 확 바뀌었다
+ *
+ * 이슈  어제 지면(/housework-view-vs-reality)과 같은 날 받아 둔 KOSIS 사회조사 원표 중
+ *       아직 지면으로 못 낸 것 — DT_1SSFA112R, 가사분담을 「아내가 전적으로」부터
+ *       「남편이 전적으로」까지 다섯 단계로 물은 표. 어제 지면은 「공평하다고 보는가/아닌가」
+ *       이분법(DT_1SSLA050R·DT_1SSFA123R)이었다 — 이 지면은 다른 조사표, 다른 질문이다.
+ * 우리 축  나이띠별로, 10년(2014→2024) 사이 「공평하게 분담」 응답이 얼마나 늘었는지를 본다.
+ * 받은 경로  OpenAPI 는 이 표에서 err 30(데이터 없음)을 반환했다. kosis.kr/statHtml 웹지면이
+ *           호출하는 내부 AJAX(statHtmlContent.do → downGrid.do → downNormal.do)를 크롬 9222로
+ *           직접 밟아 CSV로 받았다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
+import 원본 from '../../../data/100yearmap/housework-spectrum-by-age.json';
+
+const 자료 = 원본 as any;
+const 전체 = 자료.전체;
+const 나이띠 = 자료.나이띠별 as any[];
+
+const 증가폭 = (r: any) => r.공평_2024 - r.공평_2014;
+const 가장많이늘음 = 나이띠.reduce((a: any, b: any) => (증가폭(b) > 증가폭(a) ? b : a));
+const 가장적게늘음 = 나이띠.reduce((a: any, b: any) => (증가폭(b) < 증가폭(a) ? b : a));
+
+const desc =
+  `국가데이터처 사회조사 원표(아내~남편 5단계 가사분담 스펙트럼)를 나이띠별로 갈라 보니, ` +
+  `「부부가 공평하게 분담」한다는 응답이 2014년 전국 ${전체.공평_2014}%에서 2024년 ` +
+  `${전체.공평_2024}%로 늘었습니다. 늘어난 폭은 ${가장많이늘음.띠}에서 가장 크고, ` +
+  `${가장적게늘음.띠}에서 가장 작습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '가사분담(아내~남편 5단계) — 나이띠별, 2014·2024',
+  description: desc,
+  temporalCoverage: '2014/2024',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['가사분담 공평하게 응답 비율', '가사분담 아내가 주로 응답 비율'],
+};
+---
+
+<HundredYear
+  title={`가사분담 「공평하게」 응답, 10년 새 ${전체.공평_2014}%→${전체.공평_2024}% (나이띠별 폭이 다르다)`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>가사분담을 「아내~남편」 5단계로 물으면,<br />나이마다 다르고 10년 사이 확 바뀌었습니다</h1>
+  <p class="sub">
+    어제 가사분담 지면(/housework-view-vs-reality)은 「공평하게 분담해야 한다는 견해」와
+    {' '}「실제로 그런가」를 이분법으로 물은 다른 조사표였습니다. 이 지면은 같은 날 받아 둔
+    {' '}또 다른 원표 — 「아내가 전적으로 책임」부터 「남편이 전적으로 책임」까지 다섯 단계로
+    {' '}물은 표(DT_1SSFA112R)입니다. 두 지면을 같은 조사의 다른 표현으로 섞어 읽지 마십시오.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">「부부가 공평하게 분담한다」— 전국, 2014 vs 2024</p>
+    <p class="answer-num">{전체.공평_2014}% → {전체.공평_2024}%</p>
+    <p class="answer-sub">+{(전체.공평_2024 - 전체.공평_2014).toFixed(1)}%p — 이것은 통계이지 당신이 아닙니다</p>
+  </div>
+
+  <h2>나이띠마다 늘어난 폭이 다릅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이띠</th><th>2014 「공평」</th><th>2024 「공평」</th><th>늘어난 폭</th></tr></thead>
+      <tbody>
+        {나이띠.map((r) => (
+          <tr>
+            <td>{r.띠}</td>
+            <td>{r.공평_2014}%</td>
+            <td>{r.공평_2024}%</td>
+            <td><strong>+{증가폭(r).toFixed(1)}%p</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    2014년에는 나이가 많을수록 「공평하게 분담한다」는 응답이 뚜렷이 줄었습니다 —
+    {' '}13~19세 {나이띠[0].공평_2014}%에서 60세 이상 {나이띠[5].공평_2014}%까지 떨어졌습니다.
+    {' '}2024년에도 같은 방향(나이가 많을수록 낮음)은 그대로지만, 모든 나이띠에서 큰 폭으로
+    {' '}올랐습니다 — {가장많이늘음.띠}에서 +{증가폭(가장많이늘음).toFixed(1)}%p로 가장 크게,
+    {' '}{가장적게늘음.띠}에서 +{증가폭(가장적게늘음).toFixed(1)}%p로 가장 작게 늘었습니다.
+  </p>
+
+  <h2>「아내가 주로 한다」는 응답은 얼마나 줄었나</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이띠</th><th>2014 「아내가 주로」</th><th>2024 「아내가 주로」</th></tr></thead>
+      <tbody>
+        {나이띠.map((r) => (
+          <tr>
+            <td>{r.띠}</td>
+            <td>{r.아내주로_2014}%</td>
+            <td>{r.아내주로_2024}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    전국 평균으로 「아내가 주로 하지만 남편도 분담」은 {전체.아내주로_2014}%(2014)에서
+    {' '}{전체.아내주로_2024}%(2024)로 줄었습니다. 「남편이 주로 하거나 전적으로 책임」은
+    {' '}모든 나이띠에서 4% 아래로 여전히 드뭅니다 — 「공평」의 반대편은 「남편」이 아니라
+    {' '}여전히 「아내가 주로」입니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {자료.이자료가못가르는것.map((줄: string) => <li>{줄}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 나이띠별로 응답이 10년 사이 어떻게
+    {' '}갈렸는지가 저희가 놓을 수 있는 전부입니다. 「이 나이면 이래야 한다」로 읽을 근거는
+    {' '}이 표에 없습니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관}, {자료.출처.표} ({자료.출처.받은날} 받음). 받은 경로 —
+    {' '}{자료.출처.받은경로}.
+    {' '}<a href={자료.출처.창구} rel="noopener">원문 통계표</a>. {자료.출처.이용허락범위}
+  </p>
+
+  <HundredCardnews 벌="가사분담-공평응답-10년" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
+
+  <HundredAgeWalk 키="housework-spectrum-by-age" />
+
+  <NextQuestionBrief 모은것="국가데이터처 KOSIS 사회조사 원표(statHtml) 실측 — 기사 숫자 아님" />
+</HundredYear>
+
+<style>
+  .answer { margin: 1.6rem 0; padding: 1.2rem 1.4rem; border-radius: 12px; background: var(--panel, #f6f7f9); }
+  .answer-label { margin: 0 0 0.3rem; font-size: 0.9rem; opacity: 0.75; }
+  .answer-num { margin: 0; font-size: 1.6rem; font-weight: 800; }
+  .answer-sub { margin: 0.3rem 0 0; font-size: 0.92rem; opacity: 0.8; }
+  .tablewrap { overflow-x: auto; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.94rem; }
+  th, td { padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--line, #e6e8ec); text-align: left; }
+  .note { font-size: 0.9rem; opacity: 0.85; }
+</style>
