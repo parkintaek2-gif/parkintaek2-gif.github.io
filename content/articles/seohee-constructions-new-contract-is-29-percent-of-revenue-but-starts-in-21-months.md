@@ -21,7 +21,7 @@ crossChecks:
   - "Etoday reported two prior Seohee Construction contracts with regional housing cooperatives that were later cancelled before completion: an 88.3 billion won Changwon Jinhae project and a 76.66 billion won Yangsan project. A separate report describes Seohee losing a first-instance lawsuit after a Gumi cooperative cancelled its contract with the company."
 excluded:
   - "Any prediction that this specific Busan contract will or will not proceed to construction. We are reporting a pattern in this company's history with this contract type, not forecasting this deal."
-  - "Whether 전포1동 지역주택조합 has secured the financing, land rights, or member commitments that determine whether a regional-housing-cooperative project actually reaches groundbreaking — that information is not in today's filing."
+  - "Whether that cooperative has secured the financing, land rights, or member commitments that determine whether a regional-housing-cooperative project actually reaches groundbreaking — that information is not in today's filing."
   - "Seohee's overall order backlog or how this contract compares to other construction firms' cooperative-housing exposure — this article covers one filing."
   - "The down payment terms: the filing states no advance payment is involved, with billing tied to construction progress every two months once work begins."
 draft: false
@@ -51,7 +51,7 @@ today's filing.
 
 ## Why the start date matters here specifically
 
-The counterparty is a regional housing cooperative (지역주택조합), a Korean development structure
+The counterparty is a 지역주택조합 (regional housing cooperative), a Korean development structure
 where residents pool funds and contract a builder before the cooperative has necessarily secured
 land rights, member financing, or regulatory approval to build. Construction on today's contract is
 not scheduled to begin for about 21 months.

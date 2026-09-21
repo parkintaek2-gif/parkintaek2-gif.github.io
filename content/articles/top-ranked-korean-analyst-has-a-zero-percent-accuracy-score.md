@@ -26,7 +26,7 @@ corrections:
   - date: 2026-09-21
     note: >-
       The headline and lede called Kang Min-gu "the analyst ranked #1 by score." That is wrong.
-      The "순위"/rank field in the API response our collector captured is not a performance
+      The '순위' (rank) field in the API response our collector captured is not a performance
       ranking at all — it is the row position in a list the platform's own API call sorts
       alphabetically by analyst name (sort key "writerName", ascending), which we confirmed two
       ways: the collector's documented request pattern, and the archived snapshot itself, where

@@ -32,7 +32,7 @@ was wrong, and we're correcting it here.
 
 ## What we got wrong
 
-The article treated a field labeled "순위" ("rank") — running 1 through 74 across a Hankyung
+The article treated a field labeled '순위' (rank) — running 1 through 74 across a Hankyung
 Consensus analyst leaderboard — as a performance ranking, and called the analyst in row 1, Kang
 Min-gu of IBK Investment & Securities, "the analyst ranked #1 by score."
 
