@@ -67,6 +67,42 @@ export const 후보들 = [
   // 증권
   ['미래에셋증권', 'miraeassetsec'], ['NH투자증권', 'nhqv'], ['삼성증권', 'samsungpop'],
   ['한국투자증권', 'truefriend'], ['키움증권', 'kiwoom'],
+  ['대신증권', 'daishin'], ['하나증권', 'hanaw'], ['LS증권', 'ls-sec'],
+  ['신영증권', 'shinyoung'], ['유안타증권', 'myasset'], ['KB증권', 'kbsec'],
+  ['신한투자증권', 'shinhaninvest'], ['한화투자증권', 'hanwhawm'], ['IBK투자증권', 'ibks'],
+  // 캐피탈·저축은행
+  ['현대캐피탈', 'hyundaicapital'], ['롯데캐피탈', 'lottecapital'], ['OK저축은행', 'oksavingsbank'],
+  ['웰컴저축은행', 'welcomebank'], ['SBI저축은행', 'sbisb'], ['페퍼저축은행', 'pepperbank'],
+  // 간편결제·포인트
+  ['카카오페이', 'kakaopay'], ['네이버페이', 'naverpay'], ['페이코', 'payco'],
+  ['삼성페이', 'samsungpay'], ['토스', 'toss'], ['CJ ONE', 'cjone'],
+  ['엘포인트', 'lpoint'], ['해피포인트', 'happypoint'], ['OK캐쉬백', 'okcashbag'],
+  // 신문·방송 — 운세 지면을 오래 달아 온 갈래다
+  ['조선일보', 'chosun'], ['중앙일보', 'joongang'], ['동아일보', 'donga'],
+  ['한겨레', 'hani'], ['경향신문', 'khan'], ['매일경제', 'mk'],
+  ['한국경제', 'hankyung'], ['서울경제', 'sedaily'], ['전자신문', 'etnews'],
+  ['머니투데이', 'mt'], ['이데일리', 'edaily'], ['헤럴드경제', 'heraldcorp'],
+  ['국민일보', 'kmib'], ['세계일보', 'segye'], ['문화일보', 'munhwa'],
+  ['KBS', 'kbs'], ['MBC', 'imbc'], ['SBS', 'sbs'], ['JTBC', 'jtbc'],
+  // 포털·커뮤니티
+  ['다음', 'daum'], ['네이트', 'nate'], ['줌', 'zum'], ['디시인사이드', 'dcinside'],
+  ['뽐뿌', 'ppomppu'], ['루리웹', 'ruliweb'], ['클리앙', 'clien'],
+  // 데이팅·결혼정보 — 2순위로 잡아 둔 갈래다
+  ['듀오', 'duo'], ['가연', 'gayeon'], ['선우', 'sunoo'], ['아만다', 'amanda'],
+  ['위피', 'wippy'], ['정오의데이트', 'noondate'], ['글램', 'glam'], ['틴더', 'tinder'],
+  // 유통·편의점
+  ['이마트', 'emart'], ['홈플러스', 'homeplus'], ['롯데마트', 'lottemart'],
+  ['올리브영', 'oliveyoung'], ['무신사', 'musinsa'], ['컬리', 'kurly'],
+  ['CU', 'cu'], ['GS25', 'gs25'], ['이마트24', 'emart24'], ['세븐일레븐', '7-eleven'],
+  // 게임
+  ['넥슨', 'nexon'], ['엔씨소프트', 'ncsoft'], ['넷마블', 'netmarble'],
+  ['크래프톤', 'krafton'], ['펄어비스', 'pearlabyss'],
+  // 자동차·항공
+  ['현대자동차', 'hyundai'], ['기아', 'kia'], ['제네시스', 'genesis'],
+  ['진에어', 'jinair'], ['에어부산', 'airbusan'], ['티웨이', 'twayair'], ['제주항공', 'jejuair'],
+  // 부동산·교육
+  ['직방', 'zigbang'], ['다방', 'dabang'], ['호갱노노', 'hogangnono'],
+  ['메가스터디', 'megastudy'], ['이투스', 'etoos'], ['대교', 'daekyo'],
 ];
 
 /** 이 이름들은 «대조군»이다 — 반드시 000 이 나와야 이 방법을 믿을 수 있다 */
