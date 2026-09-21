@@ -1,5 +1,5 @@
 ---
-title: "68 weeks of fan votes, fifth place in lookups"
+title: "Jin's 68-Week Fan-Vote Streak, Fifth Place in Lookups"
 dek: "Jin has topped a Korean idol poll for 68 straight weeks. On English Wikipedia lookups he is fifth of seven BTS members. But ranks three to six sit inside 7% of each other, so the ranking barely means anything in the middle."
 category: industry
 purpose: both

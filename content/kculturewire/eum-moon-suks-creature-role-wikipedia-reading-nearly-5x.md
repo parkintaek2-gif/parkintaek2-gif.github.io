@@ -1,5 +1,5 @@
 ---
-title: "A Korean Creature Film's North American Release Nearly Quintupled a Supporting Actor's Reading"
+title: "Eum Moon-suk's Creature-Film Role Nearly Quintupled His Wikipedia Reading"
 dek: "Eum Moon-suk played the film Hope's most talked-about supporting role. His English Wikipedia reading averaged 186 a day in early September, then climbed toward North America's release window, peaking at 905 — 4.9 times his baseline."
 category: stars
 genre: film

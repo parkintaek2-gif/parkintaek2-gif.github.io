@@ -1,5 +1,5 @@
 ---
-title: "A Weekend Drama's Premiere Moved a Supporting Actress's Wikipedia Reading 9 Times"
+title: "Jo Aram's Weekend-Drama Premiere Moved Her Wikipedia Reading 9 Times"
 dek: "Jo Aram averaged 313 English Wikipedia reads a day in early September. The day her new KBS2 drama's second episode aired, that number hit 2,877 -- 9.2 times her baseline."
 category: stars
 genre: drama
