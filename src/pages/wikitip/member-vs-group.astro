@@ -93,6 +93,27 @@ if (영어.behindTheirGroup !== 영어.rows.length - 영어앞선.length) {
   throw new Error(`자료의 「뒤진 짝」 ${영어.behindTheirGroup} 이 나머지와 안 맞는다.`);
 }
 
+/**
+ * 🔴 [2026-09-22] 이 넷은 위 세 자료(pairs·영어.rows·넓힌판)의 «틀»에 안 맞는 낱개 단신이다 —
+ *   member-vs-group 을 관련 지면으로 걸었지만 각자 다른 축(팬투표 대 열람 · 기자실 하루치 ·
+ *   미디어 임팩트밸류 대 열람 · 멤버 대 멤버)을 잰다. 억지로 위 표 스키마에 끼워 넣지 않고
+ *   따로 한 절로 낸다 — check-table-promises.mjs 가 요구하는 «표 칸 안의 그 수»는 이렇게도 선다.
+ */
+const 낱개단신 = [
+  { 찾은것: "Jin's 68-week fan-vote streak vs. his lookup rank",
+    수: '7.1%', 뜻: 'spread across BTS ranks 3-6 in 12-month English Wikipedia lookups',
+    링크: '/article/68-weeks-of-fan-votes-and-fifth-place-in-lookups' },
+  { 찾은것: "One day's entertainment-desk names, per person named",
+    수: '1.13×', 뜻: 'actors vs K-pop idols, English Wikipedia lookups per person, one day (10 Sep 2026)',
+    링크: '/article/a-korean-gossip-desk-names-eighteen-people-abroad-two-vanish' },
+  { 찾은것: "V's Champion deal media-value claim vs. his Wikipedia reading",
+    수: '3,590', 뜻: "V's average daily English Wikipedia lookups over the 30-day window including the reported deal",
+    링크: '/article/v-champion-6-3-million-media-value-wikipedia-flat' },
+  { 찾은것: 'Jung Kook vs. RM, head to head',
+    수: '1.7×', 뜻: "Jung Kook's English Wikipedia lookups as a multiple of RM's, 30-day window",
+    링크: '/article/vs-news-jung-kook-outreads-rm-on-wikipedia' },
+];
+
 const TITLE = 'V and Jungkook are read less than BTS. Jay Park and Lee Hye-ri are read more '
   + 'than 2PM and Girl\'s Day';
 const DESC =
@@ -362,6 +383,32 @@ const jsonLd = {
       {' '}{천(넓힌판.셈.못잰팀)} act{넓힌판.셈.못잰팀 === 1 ? '' : 's'} dropped for missing reads
       rather than counted as zero.
     </p>
+  </section>
+
+  <section>
+    <h2>Other one-off checks against this same question</h2>
+    <p class="note">
+      These four do not fit the tables above &mdash; each measures a different axis (a fan-vote
+      streak, one day's newsdesk names, a media-value claim, a member-to-member pairing) &mdash;
+      but each links back here as related reading. The figure is the one the article itself leads
+      with; the full method is in the linked piece.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Found</th><th>Figure</th><th>What it means</th></tr>
+        </thead>
+        <tbody>
+          {낱개단신.map((r) => (
+            <tr>
+              <td class="nm"><a href={r.링크}>{r.찾은것}</a></td>
+              <td><b>{r.수}</b></td>
+              <td class="fine">{r.뜻}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <section>
