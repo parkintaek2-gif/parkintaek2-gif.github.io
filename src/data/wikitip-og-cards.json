@@ -7,6 +7,11 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "eum-moon-suks-creature-role-wikipedia-reading-nearly-5x": {
+   "figure": "4.9x",
+   "label": "Eum Moon-suk's reading rose 4.9x around Hope's N. America release",
+   "왜": "글머리 첫 수는 없다(인명·역할명뿐). 이 기사의 핵심 대조수는 4.9x(9/13 열람 905 ÷ 기준 186.0)다"
+  },
   "han-na-chang-rco-debut-wikipedia-reading-spiked-47x": {
    "figure": "47x",
    "label": "Chang's reading jumped 47x two days after her RCO debut",
