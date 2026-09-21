@@ -50,14 +50,41 @@ function 사람글(line) {
   return out;
 }
 
+/**
+ * 🔴 [2026-09-22] **순위를 «일부러» 쓰는 지면이 있다 — 사장님 지시가 둘이다.**
+ *
+ *   2026-08-04  「화면에 몇 위·순위를 쓰지 않는다」
+ *   2026-08-31  「과감하게 학교 순위를 공개해, 과연 그게 …행복한 순위인지 문제제기를 해」
+ *
+ * 부딪히는 것이 아니라 **겹친다** — 뒤의 지시가 앞의 지시에 예외를 냈다.
+ * ⛔ 그렇다고 정규식을 무르게 하지 않는다. 무르게 하면 «모든» 지면에서 순위가 통과한다.
+ * ✅ 예외는 «지면 이름»으로, 까닭을 적어 대장에 올린다 — docs/100y-순위지면-면제.json
+ * ⚠ 물음표 검사는 예외 지면에도 그대로 돈다. 면제는 순위 한 가지뿐이다.
+ */
+const 면제대장 = (() => {
+  try {
+    const j = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs', '100y-순위지면-면제.json'), 'utf8'));
+    return new Set(Object.keys(j.지면 || {}));
+  } catch { return new Set(); }
+})();
+
+/** 파일 경로에서 지면 이름(폴더 또는 파일 이름)을 뽑는다 */
+export function 지면이름(이름) {
+  const 조각 = String(이름 || '').replace(/\\/g, '/').split('/').filter(Boolean);
+  const 끝 = 조각[조각.length - 1] || '';
+  return /^index\.astro$/i.test(끝) ? (조각[조각.length - 2] || '') : 끝.replace(/\.astro$/i, '');
+}
+
 function 검사(내용, 이름) {
   const 걸림 = [];
+  const 순위면제 = 면제대장.has(지면이름(이름));
   내용.split('\n').forEach((line, i) => {
     for (const s of 사람글(line)) {
       const 끝 = s.replace(/[.!·…\s]+$/, '');
       if (!/[?？]/.test(s) && 의문어미.test(끝)) {
         걸림.push({ 파일: 이름, 줄: i + 1, 종류: '물음표 없음', 글: s });
       }
+      if (순위면제) continue;
       if (순위표현.test(s) && !순위예외.test(s)) {
         걸림.push({ 파일: 이름, 줄: i + 1, 종류: '순위 표현', 글: s });
       }
@@ -81,6 +108,28 @@ for (const t of 자가시험) {
     자가실패++;
   }
 }
+/* 면제 대장이 실제로 도는지 — ⛔ 「대장을 만들었다」를 「먹는다」로 세지 않는다 */
+{
+  const 글 = '<p>전국 3위입니다</p>';
+  const 시험 = [
+    ['면제 지면이면 순위를 안 잡는다',
+      검사(글, 'src/pages/100y/ranking-bakery-brand/index.astro')
+        .filter((x) => x.종류 === '순위 표현').length === 0],
+    ['면제가 아닌 지면은 그대로 잡는다',
+      검사(글, 'src/pages/100y/major/index.astro')
+        .filter((x) => x.종류 === '순위 표현').length === 1],
+    ['⛔ 면제 지면에서도 물음표는 그대로 본다',
+      검사('<h2>어디서 왔나</h2>', 'src/pages/100y/ranking-bakery-brand/index.astro').length === 1],
+    ['지면 이름을 폴더에서 뽑는다',
+      지면이름('src/pages/100y/ranking-bakery-brand/index.astro') === 'ranking-bakery-brand'],
+    ['낱장은 파일 이름에서 뽑는다', 지면이름('src/pages/100y/about.astro') === 'about'],
+    ['대장이 비어 있지 않다 — 못 읽으면 검사가 조용히 옛날처럼 돈다', 면제대장.size >= 10],
+  ];
+  for (const [이름, 참] of 시험) {
+    if (!참) { console.log(`  ⛔ 자가시험 실패 — ${이름}`); 자가실패++; }
+  }
+}
+
 if (자가실패) {
   console.log(`\n⛔ **검사기 자체가 틀렸다.** 고치기 전에는 결과를 믿지 않는다.`);
   process.exit(1);

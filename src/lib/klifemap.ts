@@ -232,6 +232,9 @@ export const 붙일수있는갈래 = [
    */
   'pets', 'travel', 'promotion', 'exercise', 'hiking', 'golf', 'workout', 'cycling', 'swimming', 'soccer', 'parental-leave', 'oneperson', 'lifelong', 'retire-income', 'polytech', 'pension', 'training-card',
   'marriage-age', 'home', 'spending', 'healthy-years', 'years-left', 'real-wage', 'idle-youth', 'wealth-gap', 'youth-budget-2027', 'nonmarital-birth', 'korea-japan-youth', 'ranking-university', 'ranking-university-founding', 'ranking-university-region', 'ranking-university-level', 'ranking-stock-wealth', 'ranking-apartment-value', 'ranking-hagwon', 'ranking-medical-quota', 'ranking-lawmaker-wealth', 'ranking-kbo-salary', 'ranking-apartment-brand', 'ranking-convenience-brand', 'ranking-tax-delinquent', 'ranking-good-company', 'ranking-vleague-salary', 'ranking-university-nature-index', 'ranking-university-brand', 'ranking-city-brand', 'ranking-sangjo-brand', 'rankings', 'ranking-chicken-brand', 'ranking-coffee-brand', 'ranking-bakery-brand', 'ranking-hairsalon-brand', 'ranking-pizza-brand', 'ranking-petsupply-brand', 'ranking-eyewear-brand', 'ranking-juniorcollege-brand', 'ranking-cosmetics-brand', 'ranking-insurance-agency-brand', 'ranking-usedcar-brand', 'nps-cap-region', 'sandwich-generation', 'school-type-gap', 'ranking-university-global', 'oecd-elderly-poverty', 'happiness-ranking', 'salary-ranking', 'mental-health', 'senior-doctor', 'high-value-home-age', 'wage-education', 'wage-distribution', 'divorce-age', 'remarriage', 'multicultural-marriage', 'birth-sex-ratio', 'fertility-rate',
+  /* [2026-09-22 · 5번] 낱장으로 난 지면이라 폴더가 없다 — 이름을 손으로 올린다.
+     ⛔ 기타로 쌓이면 어느 지면이 손님을 데려왔는지 소급해서 못 가른다. */
+  'housework-view-vs-reality',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary', 'tutoring', 'tutoring-region', 'tutoring-income',
   /* 🔴 2026-09-11 3번 신설 — 사장님 지시. 학생자살 사망사안 보고서(한겨레 인용) */
