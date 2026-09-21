@@ -30,8 +30,8 @@ excluded:
 Han-na Chang, the cellist who won the Rostropovich International Cello Competition at age 11 and
 has conducted full-time since 2007, averaged 25.3 English Wikipedia reads a day in the nine days
 before 11 September, 2026. Two days after she conducted the Royal Concertgebouw Orchestra's
-season-opening concert in Amsterdam, her reading hit 1,186 &mdash; 46.9 times that baseline, the
-largest multiple we have recorded in this series.
+season-opening concert in Amsterdam, her reading hit 1,186 &mdash; 46.9 times that baseline (47,
+rounded), the largest multiple we have recorded in this series.
 
 ## What happened
 

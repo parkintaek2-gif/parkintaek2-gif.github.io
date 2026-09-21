@@ -8,7 +8,7 @@ dataAsOf: 2026-09-12T00:00:00+09:00
 author: Newsroom
 tags: ["seventeen", "hoshi", "kpop", "attention", "wikipedia", "injury"]
 pages:
-  - "/fictional-vs-real"
+  - "/member-vs-group"
 sources:
   - org: "Wikimedia Foundation — Pageviews API"
     api: "Daily pageviews on English Wikipedia, all-access, user agents only, for Hoshi_(South_Korean_singer) and Seventeen_(South_Korean_band), 1-12 September 2026."

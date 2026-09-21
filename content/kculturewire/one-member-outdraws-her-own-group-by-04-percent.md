@@ -9,7 +9,7 @@ dataAsOf: 2026-09-10T00:00:00+09:00
 author: Newsroom
 tags: ["kpop", "blackpink", "bts", "aespa", "solo", "attention", "method", "wikipedia"]
 pages:
-  - "/fictional-vs-real"
+  - "/member-vs-group"
 sources:
   - org: "Wikimedia Foundation — Pageviews API"
     api: "Per-article monthly pageviews on English Wikipedia, all-access, user agents only. Window September 2025 to August 2026, eighteen articles (three group pages and fifteen member pages). Wikimedia Analytics data is released into the public domain under CC0."

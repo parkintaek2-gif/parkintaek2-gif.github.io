@@ -1,5 +1,5 @@
 ---
-title: "A Pianist Made a 90-Second TV Cameo. His Wikipedia Reading Jumped 30 Times."
+title: "A Pianist Made a Cameo on a Korean Drama. His Wikipedia Reading Jumped 30 Times."
 dek: "Yekwon Sunwoo averaged 15 English Wikipedia reads a day for a week. The day his cameo aired on a Korean classical-music drama, that jumped to 315. The day after, it hit 447 — 30 times his baseline."
 category: stars
 genre: music
@@ -22,7 +22,7 @@ crossChecks:
   - "7 September (the day after): 447 views, 30.2x baseline — the peak."
   - "Seoul Economic Daily reports the cameo was in episode 4 of 'Four Hands,' broadcast 6 September, and that Sunwoo played Liszt's arrangement of Schubert's 'Gretchen am Spinnrade.'"
 excluded:
-  - "Any reading of this as proof a 90-second cameo has lasting career value — we measure one week of English Wikipedia reads, not ticket sales, streaming, or bookings."
+  - "Any reading of this as proof a single TV drama cameo has lasting career value — we measure one week of English Wikipedia reads, not ticket sales, streaming, or bookings. We did not verify the cameo's on-screen length, so we do not state one."
   - "The separate news that Sunwoo's solo album 'Liszt' got a vinyl reissue with preorders from 8 September — that is a real second story in the same week, but the reading spike lands squarely on the broadcast date and the day after, before preorders opened, so we attribute it to the cameo."
   - "Any day after 19 September — Wikimedia had not yet published later days when we pulled this data."
 ---

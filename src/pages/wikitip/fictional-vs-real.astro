@@ -58,6 +58,23 @@ const 안그룹 = rows.find((r) => r.문서 === 'Huntr/x') ?? null;
 const 안배수 = (영화?.합 && 안그룹?.합) ? +((영화.합 / 안그룹.합).toFixed(1)) : null;
 const 끝달말 = 달말(영화?.끝달 ?? null);
 
+/**
+ * 🔴 [2026-09-22] 이 둘은 위 표의 «가상 대 실재 열두달/마지막달» 틀에 안 맞는 낱개 단신이다 —
+ *   check-table-promises.mjs 가 요구하는 «표 칸 안의 그 수»는 여기서도 선다. 억지로 위 표에
+ *   끼워 넣지 않는다.
+ * ⚠ AI 배우 기사의 0.4% 는 그 기사를 낸 09-10 시점 스냅숏이다 — 자료가 그 뒤 다시 모여
+ *   지금 위 표의 «열두개월» 배수는 1.2(가상 승)로 바뀌어 있다. 오늘 수로 덮지 않고
+ *   «그 기사가 낸 시점의 값」으로 명확히 적는다 — 방향(가상이 근소 우세)은 그때나 지금이나 같다.
+ */
+const 낱개단신 = [
+  { 찾은것: 'Lead actor share of a title\'s own peak day, across 12 titles',
+    수: '12', 뜻: 'Korean titles compared — Lee Jung-jae drew 10% of Squid Game\'s peak, Hyun Bin drew 34% of a smaller one (r = -0.68)',
+    링크: '/article/lee-jung-jae-drew-10-percent-hyun-bin-drew-34-percent' },
+  { 찾은것: "Virtual group's margin over six real groups combined, at publication (10 Sep 2026 snapshot)",
+    수: '0.4%', 뜻: 'the 12-month margin as first published; the table above uses the latest re-collection, which now shows a wider 1.2x virtual lead',
+    링크: '/article/an-ai-actor-gave-a-cnn-interview-we-counted-who-people-actually-look-up' },
+];
+
 const TITLE = 'The most-read K-pop act of the year does not exist';
 const DESC =
   `Over twelve months an animated film's page was opened ${수(cmp.십이개월.가상)} times on English `
@@ -212,6 +229,32 @@ const jsonLd = [datasetLd, faqLd];
         {' '}Twelve months later it was {수(영화?.끝 ?? null)}. Attention on a film arrives at
         release and drains; attention on a group is smaller each month and does not.
       </p>
+    </section>
+
+    <section>
+      <h2>Other one-off checks against this same question</h2>
+      <p class="note">
+        These two do not fit the virtual-vs-real tables above &mdash; one measures actors against
+        their own show's peak day, the other is a dated snapshot from when its article first
+        published &mdash; but each links back here as related reading. The figure is the one the
+        article itself leads with; the full method is in the linked piece.
+      </p>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th>Found</th><th>Figure</th><th>What it means</th></tr>
+          </thead>
+          <tbody>
+            {낱개단신.map((r) => (
+              <tr>
+                <td class="nm"><a href={r.링크}>{r.찾은것}</a></td>
+                <td><b>{r.수}</b></td>
+                <td class="fine">{r.뜻}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section class="faq">
