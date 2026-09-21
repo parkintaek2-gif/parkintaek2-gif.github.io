@@ -12,6 +12,7 @@
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 원본 from '../../../data/100yearmap/ranking-usedcar-brand-2026.json';
 
 const 자료 = 원본 as any;
@@ -114,6 +115,8 @@ const jsonLd = {
     <br />
     <a href="/ranking-cosmetics-brand">← 화장품 전문점 브랜드평판 1위, 화장품 소매업 수명 중앙값은 2.49년입니다</a>
   </p>
+
+  <HundredCardnews 벌="중고차판매업수명" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
 
   <HundredAgeWalk 키="ranking-usedcar-brand" />
 
