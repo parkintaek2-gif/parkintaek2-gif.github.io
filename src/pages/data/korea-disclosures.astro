@@ -126,7 +126,11 @@ const 아직 = 'The tagged feed is published here as a sample. The full file, an
         everything else. The list is in our code, not in an editor&rsquo;s head, which means the same
         filing gets the same treatment on a quiet Tuesday as on a busy one. Where a company has no
         English name registered we print its ticker instead of inventing a translation:{' '}
-        <b>{num(영문이름)}</b> of {num(f.건수)} rows carry a real English name.
+        <b>{num(영문이름)}</b> of {num(f.건수)} rows carry a real English name. We also dropped{' '}
+        <b>{num(f.코드없어뺀줄 ?? 0)}</b> further filings out of the {num(f.원자료건수 ?? f.건수)} we
+        captured, because they carry no ticker &mdash; unlisted filers, and subsidiary filings made
+        under a parent&rsquo;s name. We would rather report that subtraction than let{' '}
+        {num(f.원자료건수 ?? f.건수)} quietly become {num(f.건수)}.
       </p>
     </section>
 

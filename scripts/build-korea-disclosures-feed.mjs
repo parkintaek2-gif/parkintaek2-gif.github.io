@@ -158,12 +158,19 @@ if (내가진입점 && !process.argv.includes('--자가시험')) {
   if (!파일들.length) { console.error('🔴 곳간이 비었다 — archive/raw/dart-breaking'); process.exit(1); }
 
   let 줄들 = [];
+  /* 🔴 [2026-09-22] **뺀 줄을 세어 함께 낸다.** 원자료 862건 가운데 46건은 종목코드가 없다
+     (비상장 제출인·자회사 몫). 줄로 세울 수 없어 빼지만, «몇 건을 뺐는지»를 안 적으면
+     지면이 862 를 816 으로 조용히 줄여 말하는 것이 된다 — 강령 ③ 「못 잰 것은 못 쟀다고 적는다」. */
+  let 원자료건수 = 0;
+  let 코드없어뺀줄 = 0;
   for (const f of 파일들) {
     const j = JSON.parse(fs.readFileSync(path.join(곳간, f), 'utf8'));
     const 날 = 날꼴(j.날짜 ?? f.slice(0, 8));
     for (const r of j.후보 || []) {
+      원자료건수++;
       const 줄 = 한줄(r, 날, 영문명);
       if (줄) 줄들.push(줄);
+      else if (!r?.code) 코드없어뺀줄++;
     }
   }
   줄들 = 겹침빼기(줄들).sort((a, b) => (b.d || '').localeCompare(a.d || '') || b.w - a.w);
@@ -183,12 +190,15 @@ if (내가진입점 && !process.argv.includes('--자가시험')) {
     만든날: 날꼴(파일들[파일들.length - 1].slice(0, 8)),
     처음날: 날꼴(파일들[0].slice(0, 8)),
     건수: 줄들.length,
+    원자료건수,
+    코드없어뺀줄,
     갈래: Object.fromEntries(Object.entries(갈래).map(([k, v]) => [k, { ...v, n: 갈래별[k] || 0 }])),
     영문명없는줄: 이름없음,
     rows: 줄들,
   };
   fs.writeFileSync(나갈곳, JSON.stringify(낼것), 'utf8');
   console.log(`■ 한국 중대공시 — ${줄들.length}건 · ${낼것.처음날} ~ ${낼것.만든날} · 갈래 ${Object.keys(갈래별).length}`);
+  console.log(`   원자료 ${원자료건수}건 → 줄 ${줄들.length}건 · 종목코드가 없어 뺀 것 ${코드없어뺀줄}건(비상장 제출인·자회사 몫)`);
   console.log(`   영문명을 못 찾은 줄 ${이름없음}건 — ⛔ 지어내지 않고 종목코드를 그대로 뒀다`);
   console.log(`   → ${path.relative(뿌리, 나갈곳)}`);
 }
