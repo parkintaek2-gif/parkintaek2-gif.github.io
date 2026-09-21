@@ -82,6 +82,10 @@
     "korea-fund-factory-slowing": {
       "내레이션": "Korea has 183,351 registered funds, and the factory making them is slowing down. Most aren't stock funds — derivatives and bonds dominate.",
       "설명": "Korea Financial Investment Association fund registry, 183,351 funds. We count registrations, not assets under management."
+    },
+    "four-korean-dilution-filings-landed-in-three-weeks-one-tops-100-percent": {
+      "내레이션": "Four Korean dilution filings landed in three weeks. Korea Advanced Materials issued two same-day bonds — 20.62% combined. Three more companies filed similar events — one tops one hundred percent.",
+      "설명": "Korea's Financial Services Commission DART filings, checked independently. Not investment advice."
     }
   }
 }

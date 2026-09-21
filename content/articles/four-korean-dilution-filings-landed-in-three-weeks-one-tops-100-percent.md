@@ -12,9 +12,9 @@ sources:
     api: "Open DART API — cvbdIsDecsn (Decision on Convertible Bond Issuance), two filings dated 2 September 2026 (rcept_no 20260902000256 and 20260902000259)"
     url: "https://opendart.fss.or.kr/"
 crossChecks:
-  - "Filing one: 5,000,000,000 won face value, conversion price 2,366 won, 2,113,271 convertible shares, stated at 7.01% of shares outstanding. Filing two: 9,700,000,000 won face value, same 2,366 won conversion price, 4,099,746 convertible shares, stated at 13.61%. Both filed the same board date, 2 September 2026, maturing the same date, 10 September 2029."
+  - "Filing one: 5 billion won, conversion price 2,366 won, 2,113,271 shares, stated at 7.01%. Filing two: 9.7 billion won, same 2,366 won price, 4,099,746 shares, stated at 13.61%. Same board date, 2 September 2026; same maturity, 10 September 2029."
   - "Summed: 14.7 billion won combined face value, 6,213,017 convertible shares — the two filings' own percentages add to 20.62%."
-  - "This is the fourth same-axis dilution filing we've checked in the same three-week window: Cellid (16.26%, third-party placement, 21 Sep), Koramco Life Infra REIT (8.13% combined across two same-day bonds, 21 Sep), and THE CODI (176.78% combined across two bonds filed a day apart, 7-8 Sep) — see the linked pieces for each."
+  - "Fourth same-axis filing in three weeks: Cellid (16.26%, 21 Sep), Koramco Life Infra REIT (8.13% combined, 21 Sep), THE CODI (176.78% combined, 7-8 Sep) — see linked pieces for each."
 excluded:
   - "Any claim that four filings in three weeks is an unusual rate for the roughly 2,500 companies DART covers — we have not built a base rate for how often multi-filing, same-day dilution events happen across the whole market. This piece reports four specific filings we found and checked, not a market-wide frequency claim."
   - "Whether these four companies share an industry, an underwriter, or any other connection — we found each independently while checking today's and this month's DART convertible-bond and rights-issue filings; nothing here implies they are related."
