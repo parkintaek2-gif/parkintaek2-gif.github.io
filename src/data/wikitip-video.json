@@ -317,6 +317,13 @@
       "uploadDate": "2026-09-20",
       "thumb": "/video/thumb/samedrama-voiced.jpg",
       "src": "/video/samedrama-voiced.mp4"
+    },
+    {
+      "set": "nanaspike-voiced",
+      "seconds": 14,
+      "uploadDate": "2026-09-21",
+      "thumb": "/video/thumb/nanaspike-voiced.jpg",
+      "src": "/video/nanaspike-voiced.mp4"
     }
   ],
   "unmeasured": []

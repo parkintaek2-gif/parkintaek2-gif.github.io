@@ -246,6 +246,72 @@ export function 같은드라마벌짓기(d) {
   };
 }
 
+/**
+ * 나나 벌 — 오늘 낸 기사의 짝(`/article/nana-stage-fall-wikipedia-reading-jumped-20-times`).
+ *   숏영상(make-video-kcw-nanaspike.mjs)과 같은 수, 다른 매체다.
+ *
+ * ⭐ 이야기 한 줄: **무대 추락·입원이 보도된 이틀 동안 위키백과 열람이 기준선의 20배로 뛰었다 —
+ *   이 시리즈에서 원인이 확인된 가장 깨끗한 급등이다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 — 부상의 심각성을 부풀리거나 가볍게 말하지 않는다. 수만 나란히 놓는다.
+ * ⛔ 수를 손으로 안 박는다 — src/data/kcw-nanaspike.json 에서 읽는다.
+ */
+export function 나나벌짓기(d) {
+  return {
+    갈피: 'nanaspike',
+    빛: '#c9955f',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `English Wikipedia pageviews · measured ${d.generated}`,
+        큰: 'One reported\nevent. One clean\nbefore-and-after.',
+        아래: `**${d.name}**, of ${d.group}, fell from a stage during a TV pre-taping and was `
+          + 'hospitalized. Her English Wikipedia reading spiked the same window.',
+      },
+      {
+        꼴: '수',
+        제목: 'What happened',
+        큰: d.peakDate,
+        곁: 'The day her reading peaked',
+        아래: `${d.event}. She paused all scheduled activities; ${d.group} continued its `
+          + 'promotion as a six-member act.',
+      },
+      {
+        꼴: '표',
+        제목: 'Daily reads,\nbaseline vs\npeak day',
+        머리: ['Day', 'Views', 'Multiple'],
+        줄: [
+          ['Baseline', Number(d.baseline).toLocaleString('en-US'), '1.0x'],
+          ['Peak day', Number(d.peak).toLocaleString('en-US'), `${d.ratio}x`],
+        ],
+        아래: `${d.ratio}x her baseline on the peak day — the largest single-cause multiple we `
+          + 'have measured in this series so far.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What this is not',
+        목록: [
+          'Not a claim about the seriousness or duration of the injury beyond what was reported — '
+            + 'a pelvic contusion, hospitalization, a pause on schedules',
+          "Not a measure of the other six After School members' own reading in the same window — "
+            + `${d.name} only, here`,
+          'Not any day after the peak — later days were not yet published when we pulled this data',
+        ],
+      },
+      {
+        꼴: '끝',
+        제목: 'One reported\nevent, one clean\nbefore-and-after.',
+        글: `A single dated event, a single before-and-after — the kind of pair this series looks `
+          + 'for.\n\n**We measure the reading. We do not measure the story.**',
+        길: `${주소}/article/${d.articleSlug}`,
+        곁: `Wikimedia Pageviews API · measured ${d.generated}`,
+      },
+    ],
+  };
+}
+
 export const 벌목록 = {
   fame: { 자료: 'src/data/wikitip-fame-compare.json', 만들기: (d) => 한벌짓기(d) },
   manager: { 자료: 'src/data/wikitip-sea-athletes.json', 만들기: (d) => 감독벌짓기(d) },
@@ -287,6 +353,8 @@ export const 벌목록 = {
   moneyage: { 자료: 'src/data/kcw-money-vs-age-in-headline.json', 만들기: (d) => 돈나이벌짓기(d) },
   /* [2026-09-20] 오늘 낸 후속기사·숏영상의 짝 — 같은 프리미어, 다른 배수(서강준·안은진) */
   samedrama: { 자료: 'src/data/kcw-samedrama.json', 만들기: (d) => 같은드라마벌짓기(d) },
+  /* [2026-09-21] 오늘 낸 기사·숏영상의 짝 — 나나(애프터스쿨) 무대추락, 열람 20배 */
+  nanaspike: { 자료: 'src/data/kcw-nanaspike.json', 만들기: (d) => 나나벌짓기(d) },
 };
 
 /**

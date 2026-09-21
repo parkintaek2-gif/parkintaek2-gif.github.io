@@ -282,6 +282,14 @@ const videoSets = [
       + 'Wikipedia reading rose 6.24x his baseline. His co-star Ahn Eun-jin\'s rose 4.27x hers. '
       + 'Same premiere, different rise.',
   },
+  {
+    set: 'nanaspike-voiced',
+    page: '/what-moves-english-reading',
+    title: 'Nana Fell From a Stage. Her Wikipedia Reading Jumped 20 Times.',
+    description: '14 seconds: Nana, of After School, fell from a stage during a TV pre-taping and '
+      + 'was hospitalized. Her English Wikipedia reading rose to over 18,000 a day — 20 times '
+      + 'her usual level.',
+  },
   /*
    * 🔴 [2026-08-29] **어제·오늘 만든 영상 넷이 이 목록에 없었다.**
    *   목록에 없으면 ① 영상 사이트맵에 안 들어가고 ② 올릴 문안(upload-kit)이 안 만들어진다.
