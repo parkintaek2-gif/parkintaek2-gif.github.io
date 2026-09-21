@@ -30,7 +30,14 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-export const 볼갈래 = /^content\/kculturewire\/.+\.md$/;
+/**
+ * 🔴 [2026-09-22] **`content/articles/` 를 안 보고 있었다.** 오늘 그 자리에서 두 번 막혔다 —
+ * 새벽에 내가(5번) SeoulMarkets 기사 dek 을 250자로 적어 빌드가 죽었고, 아침에 1번의
+ * KCW 기사가 또 죽었다. 스키마 한도(240)는 두 갈래에 «똑같이» 걸려 있는데
+ * 이 관문은 한 갈래만 보고 있었다. 여섯 자리가 한 작업트리를 쓰므로 한쪽이 막히면 모두 막힌다.
+ * ⛔ 「조심하겠다」로 두지 않는다 — 관문이 본다.
+ */
+export const 볼갈래 = /^content\/(kculturewire|articles)\/.+\.md$/;
 /** ⚠ 짐작하지 않고 찾았다 — `src/content.config.ts` 다(`src/content/config.ts` 가 아니다) */
 export const 스키마길 = 'src/content.config.ts';
 
@@ -125,7 +132,11 @@ function 자가시험() {
   // 갈래 — 남의 파일을 안 본다
   자가('KCW 기사를 본다', 볼갈래.test('content/kculturewire/a.md'));
   자가('⛔ 남의 갈래는 안 본다', 볼갈래.test('src/pages/100y/x.astro') === false);
-  자가('⛔ 다른 콘텐트도 안 본다', 볼갈래.test('content/articles/a.md') === false);
+  /* 🔴 [2026-09-22] 여기 「⛔ 다른 콘텐트도 안 본다」로 적혀 있었다. 그 한 줄 때문에
+     SeoulMarkets 기사 dek 이 그대로 지나가 공용 빌드가 죽었다. 스키마 한도는 두 갈래에
+     똑같이 걸려 있으므로 관문도 두 갈래를 본다. */
+  자가('⭐ SeoulMarkets 기사도 본다 — 같은 한도가 걸려 있다', 볼갈래.test('content/articles/a.md'));
+  자가('⛔ 100y 마크다운은 안 본다 — 그쪽은 스키마가 다르다', 볼갈래.test('content/100y/a.md') === false);
 
   // 🔴 git 이 «감싸서» 낸 경로 — -z 를 안 쓰면 이 꼴로 온다. 그래서 조용히 통과했다
   자가('⛔ 따옴표로 감싸인 경로는 안 맞는다 (그래서 -z 로 받는다)',
