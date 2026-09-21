@@ -147,7 +147,11 @@ const jsonLd = {
         listings now carry a PER and <b>{일본시총.toLocaleString('en-US')}</b> carry a market
         capitalisation. <b>Read the Tokyo price columns as of each company&rsquo;s financial
         year-end, not as of today</b> — the date is on the row. A company that reported a loss has
-        no meaningful PER, so it has no derived price either, and those cells stay empty.
+        no meaningful PER, so it has no derived price either, and those cells stay empty. The share
+        count a Japanese filing states is <i>shares issued</i>, which includes any the company holds
+        itself, so a Tokyo market capitalisation here is a slight overstatement for a company sitting
+        on treasury stock; we would rather say that than quietly net it off with a number the filing
+        does not give us.
         Every empty cell says which of these it is, on the row itself.
         Most screeners drop these companies in silence, and the market then looks smaller and tidier
         than it really is.

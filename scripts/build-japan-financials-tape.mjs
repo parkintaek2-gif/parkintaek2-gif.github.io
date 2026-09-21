@@ -224,8 +224,14 @@ if (내가진입점) {
 
   const 모 = [];
   for (const d of fs.readdirSync(자료방)) {
+    /* ⚠ [2026-09-22] 수집기가 «받는 중»에 남기는 `_tmp-<docID>` 폴더가 있다.
+       읽는 사이에 사라지므로 statSync 가 ENOENT 로 던져 탭 짓기가 통째로 죽었다.
+       ⛔ 한 폴더 때문에 3,681건이 안 실리게 두지 않는다. 날짜 폴더만 본다. */
+    if (d.startsWith('_')) continue;
+    let 폴더인가 = false;
+    try { 폴더인가 = fs.statSync(path.join(자료방, d)).isDirectory(); } catch { continue; }
+    if (!폴더인가) continue;
     const p = path.join(자료방, d);
-    if (!fs.statSync(p).isDirectory()) continue;
     for (const f of fs.readdirSync(p)) {
       if (!f.endsWith('.json')) continue;
       try { 모.push(JSON.parse(fs.readFileSync(path.join(p, f), 'utf8'))); } catch { /* 넘어간다 */ }
@@ -236,7 +242,9 @@ if (내가진입점) {
   const 셈 = (k) => 줄들.filter((r) => typeof r[k] === 'number').length;
   console.log('■ 일본 재무제표 탭');
   console.log(`   서류 ${모.length}건 → 회사 ${줄들.length}곳 (상장 3,818사의 ${(줄들.length / 3818 * 100).toFixed(1)}%)`);
-  for (const k of ['assets_jpy', 'equity_jpy', 'revenue_jpy', 'operating_profit_jpy', 'net_profit_jpy']) {
+  for (const k of ['assets_jpy', 'equity_jpy', 'revenue_jpy', 'operating_profit_jpy', 'net_profit_jpy',
+    /* [2026-09-22] 주가에서 나오는 넷도 함께 센다 — 안 세면 「섰다」를 눈으로 못 본다 */
+    'shares', 'bps_jpy', 'eps_jpy', 'per', 'price_jpy', 'market_cap_jpy', 'pbr']) {
     console.log(`   ${k.padEnd(22)} ${셈(k)} (${(셈(k) / 줄들.length * 100).toFixed(1)}%)`);
   }
   console.log(`   영문명 붙은 곳 ${줄들.filter((r) => r.name_en).length} · 업종 붙은 곳 ${줄들.filter((r) => r.sector).length}`);
