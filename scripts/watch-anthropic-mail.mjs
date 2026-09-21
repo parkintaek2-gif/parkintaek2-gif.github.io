@@ -48,6 +48,15 @@ export function 지원팀줄인가(줄) {
   const 제목 = String(줄.제목 || '');
   /* 영수증·결제실패·보안링크는 «답장»이 아니다. 사람이 쓴 답을 찾는 것이다 */
   if (/receipt|영수증|payment .*unsuccessful|보안 링크|시트가 업그레이드|Your receipt/i.test(제목)) return false;
+
+  /* 🔴 [2026-09-21 15:2x] **「대화 평가」 요청을 새 답장으로 세고 있었다.**
+   * 봇이 대화를 닫으면서 「Rate your conversation / Terrible Bad OK Great Amazing」만
+   * 붙은 편지를 보낸다. 본문은 «이미 읽은 옛 답»이고 새 내용이 하나도 없다.
+   * 그런데 스레드의 때가 바뀌므로 열쇠가 달라져 «새 답장»으로 잡혔다.
+   * ⇒ 사장님이 「메일 왔다」고 세 번 알려 주셨는데 세 번 다 이것이었다.
+   * ⛔ 헛알림은 자를 죽인다 — 진짜 답이 왔을 때 사람이 안 보게 된다. */
+  const 미리 = String(줄.미리보기 || '');
+  if (/^-?\s*Rate your conversation/i.test(미리.trim())) return false;
   return true;
 }
 
@@ -161,6 +170,16 @@ function 자가시험() {
   잰다('결제 실패 알림도 아니다', 지원팀줄인가({ 보낸이: 'Anthropic, PBC', 제목: '$1,848.00 payment to Anthropic, PBC was unsuccessful' }), false);
   잰다('보안 링크도 아니다', 지원팀줄인가({ 보낸이: 'Anthropic', 제목: 'Claude.ai의 보안 링크가 도착했습니다' }), false);
   잰다('시트 업그레이드 알림도 아니다', 지원팀줄인가({ 보낸이: 'Anthropic', 제목: '시트가 업그레이드되었습니다' }), false);
+
+  console.log('── 🔴 「대화 평가」는 답장이 아니다 (2026-09-21 15:2x · 헛알림 세 번)');
+  잰다('평가 요청만 온 것은 안 센다',
+    지원팀줄인가({ 보낸이: '나, Fin', 제목: 'Re: 무엇', 미리보기: '- Rate your conversation Terrible Bad OK Great Amazing' }), false);
+  잰다('앞의 「-」와 공백이 없어도 안 센다',
+    지원팀줄인가({ 보낸이: '나, Fin', 제목: 'Re: 무엇', 미리보기: 'Rate your conversation' }), false);
+  잰다('진짜 답장은 그대로 센다',
+    지원팀줄인가({ 보낸이: '나, Fin', 제목: 'Re: 무엇', 미리보기: 'Hi there, Thank you for the detailed summary' }), true);
+  잰다('미리보기가 아예 없어도 센다 — 없다고 버리지 않는다',
+    지원팀줄인가({ 보낸이: '나, Fin', 제목: 'Re: 무엇' }), true);
 
   console.log('── 새 것만 고르기');
   const 줄들 = [
