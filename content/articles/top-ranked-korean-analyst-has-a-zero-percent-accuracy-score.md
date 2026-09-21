@@ -22,6 +22,22 @@ excluded:
   - "The exact formula behind either \"score\" or \"accuracy\" — the platform does not publish its methodology in a form we could reproduce, so we report the published figures without reverse-engineering the calculation"
   - "Sample size behind each analyst's accuracy figure — a 1-month window likely means some analysts made very few calls, and a 0% or 100% reading from one or two calls is a different claim than the same figure from twenty"
   - "Whether any individual analyst is good or bad at their job — this is a snapshot of one platform's own scoring, not our judgment"
+corrections:
+  - date: 2026-09-21
+    note: >-
+      The headline and lede called Kang Min-gu "the analyst ranked #1 by score." That is wrong.
+      The "순위"/rank field in the API response our collector captured is not a performance
+      ranking at all — it is the row position in a list the platform's own API call sorts
+      alphabetically by analyst name (sort key "writerName", ascending), which we confirmed two
+      ways: the collector's documented request pattern, and the archived snapshot itself, where
+      all 74 names run in exact Korean alphabetical order while the "score" column jumps around
+      non-monotonically. Kang Min-gu is not shown to rank first by any performance measure; he
+      is simply first alphabetically among the analysts this window included. The rest of the
+      article's numbers are unaffected by this error — the 27-of-74 zero-accuracy count and the
+      0.72 score-accuracy correlation are computed directly from the score and accuracy columns,
+      not from the "rank" field, and we re-verified the correlation independently (r=0.724).
+      Full explanation in our companion piece, "An Analyst Leaderboard We Called Ranked Turned
+      Out to Be Alphabetical," published the same day.
 draft: false
 ---
 
