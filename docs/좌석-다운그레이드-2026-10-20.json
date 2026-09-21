@@ -33,6 +33,16 @@
 
   "지원팀대화ID": "215476021858427",
   "지원팀이한말": "2026-09-21 11:5x — 사람 지원팀 대기열에 넣었다. 「They work through these in order, so it won't be today」 ⇒ 오늘은 답이 안 온다. 「you don't need to follow up or resend」 ⇒ 채근하거나 다시 보내지 말라고 했다. 답은 «이메일»로 온다(admin 편지함).",
+
+  "🔴2026-09-21_14:44_확인받은것": {
+    "무엇을물었나": "① 취소하면 모든 좌석이 즉시 멈추나 ② 같은 날 재가입되나 ③ 조직·계정·이력이 남나",
+    "① 즉시 멈추나": "아니다. 「your organization will continue to have access to Claude until the end of the current billing cycle (20 October 2026) ... both your Premium and Standard seats remain active through that date — there is no immediate cut-off. Your automated work on the Premium seat can continue uninterrupted until the paid period ends.」",
+    "② 재가입": "대기기간·유예기간·검증절차 «없다». 결제되면 바로 복구되고 같은 날 1+1 로 시작할 수 있다.",
+    "③ 남는 것": "대화 이력·프로젝트가 계정에 남는다. 같은 조직·같은 주소로 재가입하면 이전 채팅·프로젝트·스킬이 복원된다. 조직 구조와 멤버 계정도 그대로다.",
+    "⭐사장님이맞으셨다": "사장님이 2026-09-21 아침에 「오늘 환불해도 너희 중단 안된다」고 하셨다. 5번이 「환불하면 즉시 멈춘다」고 «추정»해 올린 것이 틀렸다. 지원팀이 사장님 말씀대로 답했다.",
+    "⚠그래도다른점": "이 답은 「cancel(취소)」에 대한 것이다. 오늘 아침 실제로 «환불»을 눌렀을 때는 플랜이 «삭제»됐다. 둘이 같지 않았다 — 다음에 누를 때 이 차이를 기억한다.",
+    "⚠봇이잘못안것": "「이미 다운그레이드가 10/21 부터 적용되도록 예약돼 있다」고 했으나 그 예약은 플랜 삭제로 사라졌다. 지금은 3좌석이다. 14:47 메일로 바로잡아 알렸다."
+  },
   "2026-09-21_12:13_추가발송": "사장님 지시로 채팅과 메일 «양쪽»에 다시 보냈다. 앞서 5번이 「더 보내면 순서가 밀린다」고 적었으나 그것은 봇이 한 말이 아니라 5번의 해석이었다 — 봇 원문은 「work through these in order, so it won't be today ... you don't need to follow up or resend」다. 잘못 받아간 돈을 쥐고 「기다려라·연락하지 마라」고 하는 응대 자체를 항의 사항으로 넣었다.",
   "어디서": "claude.ai → 왼쪽 아래 이니셜 → 「도움 받기」 채팅. ⛔ 메일(support@anthropic.com)은 Fin AI 만 답한다 — 네 번 보내 네 번 다 봇이었다.",
   "요구한것": [
