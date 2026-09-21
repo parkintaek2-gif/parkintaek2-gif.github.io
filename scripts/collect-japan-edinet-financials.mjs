@@ -78,7 +78,10 @@ export const 뽑을것 = [
   /* ⚠ [2026-09-22] 처음에 `BasicEarningsPerShare…` 로 적었다가 **한 건도 안 걸렸다.**
      진짜 이름은 «Loss» 가 낀 `BasicEarningsLossPerShare…` 다(적자도 같은 칸에 적으니까).
      ⛔ 요소 이름을 «그럴듯하게» 지어 짐작하지 않는다. 서류를 열어 이름을 눈으로 본다. */
-  { 칸: 'eps_jpy', 요소: ['jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults',
+  /* 🔴 [2026-09-22] IFRS 로 내는 회사는 이름이 또 다르다 — `…IFRSSummaryOfBusinessResults`.
+     소니(6758)가 그 꼴이라 EPS 가 통째로 비어 있었다. 큰 회사일수록 IFRS 다. */
+  { 칸: 'eps_jpy', 요소: ['jpcrp_cor:BasicEarningsLossPerShareIFRSSummaryOfBusinessResults',
+    'jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults',
     'jpcrp_cor:BasicEarningsPerShareSummaryOfBusinessResults',
     'jpcrp_cor:EarningsPerShareSummaryOfBusinessResults'] },
   /* 🔴🔴 [2026-09-22 · 5번] **주가수익률(PER)이 서류 안에 있었다.**
@@ -93,7 +96,8 @@ export const 뽑을것 = [
    * ⚠ 이 주가는 «오늘 값이 아니라 결산일 값»이다. 손님 화면에 반드시 그렇게 적는다 —
    *   `as` 칸(결산일)이 이미 그 날짜를 달고 나간다. ⛔ 「현재가」라고 쓰지 않는다.
    * ⛔ EPS 가 음수(적자)면 PER 이 없거나 뜻이 없다 — 그 줄은 주가를 못 세운다. */
-  { 칸: 'per', 요소: ['jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults'] },
+  { 칸: 'per', 요소: ['jpcrp_cor:PriceEarningsRatioIFRSSummaryOfBusinessResults',
+    'jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults'] },
 ];
 
 /** CSV 한 줄을 칸으로 가른다 — 탭 구분, 값은 큰따옴표로 싸여 있다 */
@@ -124,6 +128,23 @@ export function 뽑기(글) {
     }
     값[칸] = 걸린 ? Number(걸린[8]) : null;
     근거[칸] = 걸린 ? { 요소: 걸린[0], 연결개별: 걸린[4], 단위: 걸린[7] } : null;
+  }
+
+  /* 🔴🔴 [2026-09-22] **EPS 와 PER 의 «기준»이 같아야 한다.**
+   *
+   * 소니(S100YE2C)를 열어 보고 알았다 — IFRS 로 내는 회사는 표를 «두 벌» 싣는다.
+   * ```
+   *   IFRS       EPS 当期 −54.70   ·  PER 当期 「－」(적자라 없다)
+   *   일본기준    EPS 없음          ·  PER 당기 값이 따로 있다
+   * ```
+   * 칸마다 따로 고르면 «IFRS 가 없다고 적은 PER» 자리에 일본기준 PER 이 들어와
+   * **IFRS EPS × 일본기준 PER** 이라는, 어느 표에도 없는 주가가 만들어진다.
+   * ⛔ 두 수가 다른 표에서 왔으면 곱하지 않는다. 기준이 어긋나면 PER 을 버린다 —
+   *   EPS 는 그 자체로 쓸모가 있으므로 남긴다. */
+  const IFRS인가 = (칸) => /IFRS/.test(근거[칸]?.요소 || '');
+  if (값.per !== null && 값.eps_jpy !== null && IFRS인가('per') !== IFRS인가('eps_jpy')) {
+    값.per = null;
+    근거.per = { 버렸다: 'EPS 와 회계기준이 달라 곱할 수 없다' };
   }
   return { 값, 근거 };
 }
@@ -214,6 +235,29 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
     뽑기(한줄글('jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults', '当期', '16.43')).값.per === 16.43);
   검('⛔ 지난 해 PER 을 올해로 쓰지 않는다',
     뽑기(한줄글('jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults', '四期前', '19.55')).값.per === null);
+  /* ── IFRS 신고사 ── */
+  검('IFRS EPS 도 뽑는다 (소니 꼴)',
+    뽑기(한줄글('jpcrp_cor:BasicEarningsLossPerShareIFRSSummaryOfBusinessResults', '当期', '-54.7')).값.eps_jpy === -54.7);
+  검('IFRS PER 을 일본기준 PER 보다 먼저 쓴다',
+    뽑기([머리,
+      줄('jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults', '当期', 'その他', '66.3'),
+      줄('jpcrp_cor:PriceEarningsRatioIFRSSummaryOfBusinessResults', '当期', 'その他', '17.9')].join('\n')).값.per === 17.9);
+  검('🔴 기준이 어긋나면 PER 을 버린다 (IFRS EPS × 일본기준 PER 금지)',
+    뽑기([머리,
+      줄('jpcrp_cor:BasicEarningsLossPerShareIFRSSummaryOfBusinessResults', '当期', 'その他', '-54.7'),
+      줄('jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults', '当期', 'その他', '66.3')].join('\n')).값.per === null);
+  검('그때 EPS 는 남긴다 — 그 자체로 쓸모가 있다',
+    뽑기([머리,
+      줄('jpcrp_cor:BasicEarningsLossPerShareIFRSSummaryOfBusinessResults', '当期', 'その他', '-54.7'),
+      줄('jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults', '当期', 'その他', '66.3')].join('\n')).값.eps_jpy === -54.7);
+  검('기준이 둘 다 IFRS 면 그대로 쓴다',
+    뽑기([머리,
+      줄('jpcrp_cor:BasicEarningsLossPerShareIFRSSummaryOfBusinessResults', '当期', 'その他', '188.71'),
+      줄('jpcrp_cor:PriceEarningsRatioIFRSSummaryOfBusinessResults', '当期', 'その他', '20.0')].join('\n')).값.per === 20);
+  검('기준이 둘 다 일본기준이면 그대로 쓴다',
+    뽑기([머리,
+      줄('jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults', '当期', 'その他', '56.79'),
+      줄('jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults', '当期', 'その他', '16.43')].join('\n')).값.per === 16.43);
   /* ⚠ 돈 칸은 `_jpy` 로 끝내 «통화»를 이름에 박는다 — 한국 탭이 `_krw` 인 것과 같은 꼴이다.
      주식수(shares)·배수(per)는 돈이 아니라 통화를 안 붙인다. */
   검('돈 칸은 이름에 통화가 박혀 있다',
