@@ -1,0 +1,139 @@
+---
+/**
+ * /100y/housework-view-vs-reality — 가사분담, 말과 실제의 격차는 나이마다 다르다
+ *
+ * 이슈  사장님이 2026-09-21 연합뉴스 기사(중장년층 10년 인식변화, 국가데이터처 사회조사)를
+ *       직접 소재로 주셨다. 기사 숫자는 베끼지 않고, KOSIS 원표에서 직접 받았다 — 받아 보니
+ *       기사 수치와 달랐다(가사분담 「공평하게」 견해: 기사 64.4% vs 원표 실측 68.9%).
+ * 우리 축  기사는 40~64세를 한 덩이로만 다뤘다. 우리는 20대~80세+까지 나이띠별로 갈라
+ *         「말(견해)과 실제(실태)의 격차」가 나이마다 어떻게 다른지를 보여준다 — 백년지도의 정체성.
+ * 받은 경로  OpenAPI 는 이 네 표에서 err 30(데이터 없음)을 반환했다. kosis.kr/statHtml 웹지면이
+ *           호출하는 내부 AJAX(statHtmlContent.do → 다운로드 패널 → downGrid.do → downNormal.do)를
+ *           크롬 9222 로 직접 밟아 CSV 로 받았다(EUC-KR 인코딩).
+ * ⚠ 「견해」와 「실태」는 같은 사람에게 두 번 물은 것이 아니다 — 서로 다른 표본조사다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/housework-view-vs-reality.json';
+
+const 자료 = 원본 as any;
+const 전체 = 자료.전체;
+const 나이띠 = 자료.나이띠별_2024 as any[];
+const 보조 = 자료.보조자료;
+
+const 가장큰격차 = 나이띠.reduce((a: any, b: any) =>
+  (b.견해_공평하게 - b.실태_공평하게) > (a.견해_공평하게 - a.실태_공평하게) ? b : a);
+const 가장작은격차 = 나이띠.reduce((a: any, b: any) =>
+  (b.견해_공평하게 - b.실태_공평하게) < (a.견해_공평하게 - a.실태_공평하게) ? b : a);
+
+const desc =
+  `국가데이터처 사회조사 원표를 직접 받아 보니, 가사를 「공평하게 분담해야 한다」는 견해는 ` +
+  `2024년 전국 68.9%인데 실제로 그렇게 하고 있다는 응답은 23.8%뿐입니다(격차 ${전체.격차_2024}%p). ` +
+  `이 격차는 나이띠마다 달라 ${가장큰격차.띠}에서 가장 크고 ${가장작은격차.띠}에서 가장 작습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '가사분담 — 나이띠별 견해와 실태의 격차',
+  description: desc,
+  temporalCoverage: '2014/2024',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['가사분담 공평하게 분담 견해 비율', '가사분담 공평하게 분담 실태 비율'],
+};
+---
+
+<HundredYear
+  title={`가사분담 — 말은 ${전체.견해_공평하게_2024}%가 공평, 실제는 ${전체.실태_공평하게_2024}%뿐`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>가사분담, 「공평하게」라는 말과<br />실제 사이의 격차는 나이마다 다릅니다</h1>
+  <p class="sub">
+    사장님이 2026-09-21 연합뉴스 기사로 소재를 주셨습니다 — 국가데이터처 사회조사의
+    {' '}10년치 인식 변화. 기사 숫자를 그대로 옮기지 않고, KOSIS 원표를 저희가 직접
+    {' '}받아 다시 쟀습니다. 기사는 40~64세를 한 덩이로 다뤘지만, 원표에는 20대부터
+    {' '}80세 이상까지 나이띠별 응답이 있어 그대로 갈라 보였습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">「부부가 공평하게 분담해야 한다」— 견해 vs 실태(2024, 전국)</p>
+    <p class="answer-num">{전체.견해_공평하게_2024}% (견해) → {전체.실태_공평하게_2024}% (실태)</p>
+    <p class="answer-sub">격차 {전체.격차_2024}%p — 이것은 통계이지 당신이 아닙니다</p>
+  </div>
+
+  <h2>나이띠마다 격차의 크기가 다릅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이띠</th><th>견해(공평하게 분담해야)</th><th>실태(실제로 공평하게)</th><th>격차</th></tr></thead>
+      <tbody>
+        {나이띠.map((r) => (
+          <tr>
+            <td>{r.띠}</td>
+            <td>{r.견해_공평하게}%</td>
+            <td>{r.실태_공평하게}%</td>
+            <td><strong>{(r.견해_공평하게 - r.실태_공평하게).toFixed(1)}%p</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    격차는 나이가 오른다고 일정하게 커지거나 작아지지 않습니다. {가장작은격차.띠}에서
+    {' '}{(가장작은격차.견해_공평하게 - 가장작은격차.실태_공평하게).toFixed(1)}%p로 가장 작고,
+    {' '}{가장큰격차.띠}에서 {(가장큰격차.견해_공평하게 - 가장큰격차.실태_공평하게).toFixed(1)}%p로
+    {' '}가장 큽니다. 20대·80세 이상 양 끝에서 격차가 작고, 중간 나이띠에서 벌어지는
+    {' '}모양입니다 — 이것이 원표에만 있고 「40~64세」 한 덩이로는 안 보이던 자리입니다.
+  </p>
+
+  <h2>10년 사이 「말」은 크게 바뀌었지만, 「실제」는 더디게 바뀝니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th></th><th>공평하게 분담(견해)</th><th>공평하게 분담(실태)</th></tr></thead>
+      <tbody>
+        <tr><td>10년 전</td><td>{전체.견해_공평하게_2014}% (2014)</td><td>{전체.실태_공평하게_2020}% (2020 — 최초 확보 시점)</td></tr>
+        <tr><td>2024</td><td>{전체.견해_공평하게_2024}%</td><td>{전체.실태_공평하게_2024}%</td></tr>
+        <tr><td>변화</td><td>+{(전체.견해_공평하게_2024 - 전체.견해_공평하게_2014).toFixed(1)}%p</td><td>+{(전체.실태_공평하게_2024 - 전체.실태_공평하게_2020).toFixed(1)}%p</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    가사분담 실태 원표(DT_1SSFA123R)는 KOSIS statHtml 웹지면에 2020·2022·2024 세 시점만
+    {' '}있습니다 — 2014년 값은 못 받았습니다(표 자체가 그 이전 시점을 주지 않습니다). 그래서
+    {' '}실태는 2020년을 출발점으로 비교했습니다. 같은 10년 동안 다른 두 자료도 함께 움직였습니다 —
+    {' '}부모 부양을 「가족·정부·사회가 함께」 책임져야 한다는 견해는 {보조.부모부양_가족정부사회함께_2014}%
+    {' '}(2014) → {보조.부모부양_가족정부사회함께_2024}% (2024)로 늘었고, 「일을 우선한다」는 답은
+    {' '}{보조.일가정_일우선_2015}% (2015) → {보조.일가정_일우선_2025}% (2025)로 줄었습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {자료.이자료가못가르는것.map((줄: string) => <li>{줄}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 나이띠별로 「말한 것」과 「실제 한다는 것」
+    {' '}사이의 격차가 어떻게 다른지가 저희가 놓을 수 있는 전부입니다. 「마흔이면 이래야 한다」로
+    {' '}읽을 근거는 이 표에 없습니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관}, {자료.출처.표} ({자료.출처.받은날} 받음). 받은 경로 —
+    {' '}{자료.출처.받은경로}.
+    {' '}<a href={자료.출처.창구} rel="noopener">원문 통계표</a>. {자료.출처.이용허락범위}
+  </p>
+
+  <HundredAgeWalk 키="housework-view-vs-reality" />
+
+  <NextQuestionBrief 모은것="국가데이터처 KOSIS 사회조사 원표(statHtml) 실측 — 기사 숫자 아님" />
+</HundredYear>
+
+<style>
+  .answer { margin: 1.6rem 0; padding: 1.2rem 1.4rem; border-radius: 12px; background: var(--panel, #f6f7f9); }
+  .answer-label { margin: 0 0 0.3rem; font-size: 0.9rem; opacity: 0.75; }
+  .answer-num { margin: 0; font-size: 1.6rem; font-weight: 800; }
+  .answer-sub { margin: 0.3rem 0 0; font-size: 0.92rem; opacity: 0.8; }
+  .tablewrap { overflow-x: auto; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.94rem; }
+  th, td { padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--line, #e6e8ec); text-align: left; }
+  .note { font-size: 0.9rem; opacity: 0.85; }
+</style>
