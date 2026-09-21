@@ -1,0 +1,127 @@
+---
+/**
+ * /100y/ranking-insurance-agency-brand — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 · 보험대리점 편)
+ *
+ * 한국기업평판연구소 2026년 9월 독립보험대리점(GA) 브랜드평판 1위(인카금융서비스)를 그대로 인용한다.
+ * 100yearmap이 새로 순위를 매기지 않는다.
+ *
+ * 실측(국민연금 「보험 대리 및 중개업」)은 화장품 편과 같은 방식으로 계산했다 —
+ * 화장품 편 수치(n=43, 중앙값 2.5년)를 그대로 재현해 방식을 검증한 뒤 같은 코드로 이 업종을 짰다.
+ * 결과는 이 시리즈에서 가장 «긴» 쪽이다 — 안경원(5.9년)보다도 길고, 1년 안에 닫은 곳이 0%인
+ * 첫 사례다. 단, 표본이 16곳뿐으로 이 시리즈에서 가장 작다 — 그대로 밝힌다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/ranking-insurance-agency-brand-2026.json';
+
+const 자료 = 원본 as any;
+const 순위출처 = 자료.순위출처;
+const top5 = 자료.top5 as any[];
+const 실측 = 자료.실측대조;
+const 일위 = top5[0];
+
+const desc =
+  `${순위출처.이름}에서 ${일위.브랜드}가 1위입니다. ` +
+  `100yearmap이 실측한 보험 대리 및 중개업 업종 전체의 사업장 수명 중앙값은 ${실측.수명중앙값_년}년으로, ` +
+  `이 시리즈에서 가장 길지만 표본은 ${실측.닫은곳}곳뿐입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 독립보험대리점(GA) 브랜드 순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${순위출처.이름}를 그대로 인용했습니다. ${순위출처['⚠원자료']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '보험 대리점은 왜 이 시리즈에서 가장 오래 가나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: (자료.이자료가못가르는것 as string[])[3] + ' ' + (자료.이자료가못가르는것 as string[])[0],
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`독립보험대리점 브랜드평판 1위는 ${일위.브랜드} — 보험 대리업 수명 중앙값은 이 시리즈에서 가장 긴 ${실측.수명중앙값_년}년입니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    독립보험대리점(GA) 브랜드평판 1위는 {일위.브랜드}<br class="pcbr" />
+    보험 대리 및 중개업 수명 중앙값은 {실측.수명중앙값_년}년 — 이 시리즈 최장입니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {순위출처.이름}({순위출처.발표일} 보도)를 그대로 인용했습니다. {순위출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    한국기업평판연구소 빅데이터 분석에서 <strong>{일위.브랜드}</strong>가
+    독립보험대리점(GA) 부문 <strong>2026년 9월 1위</strong>(브랜드평판지수 {일위.브랜드평판지수?.toLocaleString()})로
+    나왔습니다. 2위는 {top5[1]?.브랜드}, 3위는 {top5[2]?.브랜드}입니다.
+  </p>
+  <p class="note">⚠ {자료.top5주}</p>
+
+  <h2>업종 전체는 이 시리즈에서 «가장 오래» 갑니다 — 그리고 표본이 작습니다</h2>
+  <p>{실측.무엇}입니다.</p>
+  <div class="warn">
+    <p>
+      보험 대리 및 중개업 사업장 <strong>{실측.닫은곳.toLocaleString()}곳</strong>이 국민연금
+      가입 자격을 잃었고(2026년 6월 기준), {실측.쓰는말}의 중앙값은
+      <strong>{실측.수명중앙값_년}년</strong>입니다.
+      <strong>{실측.일년내_퍼센트}%</strong>가 1년 안에, <strong>{실측.삼년내_퍼센트}%</strong>가
+      3년 안에 이 명단에 들었습니다 — 이 시리즈의 안경원(5.9년)보다도 길고, 1년 안에 닫은
+      곳이 <strong>0%</strong>인 첫 사례입니다.
+    </p>
+  </div>
+  <p class="note">⚠ {실측.쓰면안되는말}</p>
+  <p class="note">⚠ {실측.주의}</p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 두 공개 자료를 나란히
+    {' '}놓아 보여줄 뿐, 어느 브랜드가 더 좋은지 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 브랜드평판: 한국기업평판연구소({순위출처.url}) · 실측: 국민연금공단 국민연금
+    {' '}가입 사업장 내역(공공데이터포털 15083277)
+  </p>
+
+  <p class="note">
+    <a href="/ranking-eyewear-brand">← 안경 브랜드평판 1위, 안경원 업종 수명 중앙값은 5.9년으로 이 편 전까지 이 시리즈에서 가장 길었습니다</a>
+    <br />
+    <a href="/ranking-cosmetics-brand">← 화장품 전문점 브랜드평판 1위, 화장품 소매업 수명 중앙값은 2.5년입니다</a>
+  </p>
+
+  <HundredAgeWalk 키="ranking-insurance-agency-brand" />
+
+  <NextQuestionBrief 모은것="한국기업평판연구소 독립보험대리점 브랜드평판 + 국민연금공단 가입 사업장 내역" />
+
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-insurance-agency-brand"></div>
+</HundredYear>
