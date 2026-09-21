@@ -729,6 +729,23 @@ if (내가실행됐다) {
       : (console.log(`🔴 ⑧-2 좌석 예약    자를 돌리지 못했다 — ${String(e.message).split('\n')[0].slice(0, 120)}`), { 됐나: false, 말: '못 쟀다' });
   }
 
+  /* ⑧-3 Anthropic 지원팀 답장 — 2026-09-21 신설.
+     [왜] 사장님이 「메일을 계속 주시해라 … 알아서 좀 해라」고 하셨다. 그때까지는
+     사장님이 「메일 왔다」고 알려 주셔야 내가 열어 봤다 — 그것이 손을 빌리는 것이다.
+     ⚠ 이 자는 크롬 9222 를 쓴다. 크롬이 없으면 «못 쟀다»로 적고 넘어간다(흠으로 센다). */
+  let 지원답장 = null;
+  try {
+    const 낸것 = execFileSync('node', ['scripts/watch-anthropic-mail.mjs', '--체크리스트'], { cwd: 뿌리, encoding: 'utf8', timeout: 180000 });
+    process.stdout.write(낸것);
+    지원답장 = { 됐나: !낸것.includes('🔴'), 말: '' };
+  } catch (e) {
+    const 낸것 = (e.stdout || '') + (e.stderr || '');
+    process.stdout.write(낸것 || '');
+    지원답장 = 낸것.trim()
+      ? { 됐나: !낸것.includes('🔴'), 말: '' }
+      : (console.log(`🔴 ⑧-3 지원팀 답장   자를 돌리지 못했다 — ${String(e.message).split('\n')[0].slice(0, 100)}`), { 됐나: false, 말: '못 쟀다' });
+  }
+
   /* ⑨ klifemap 이 성한가 — 2026-09-11 신설.
      [왜] 그날 16:28 에 콘솔 환경변수가 통째로 날아가 R2 복제가 끊겼는데 «두 시간 넘게»
        아무도 몰랐다. 알아차린 것은 사장님이 로그인 화면을 눈으로 보시고 물으셨기 때문이다.
@@ -806,7 +823,7 @@ if (내가실행됐다) {
     안보냄 = { 됐나: false, 말: '안 나갔다' };
   }
 
-  const 흠 = [지시, 소통, 몫, 보고, 라이브, 진행, 좌석, 좌석예약, 케맵, 들어오기, 안보냄].filter((x) => x === null || x.됐나 === false).length;
+  const 흠 = [지시, 소통, 몫, 보고, 라이브, 진행, 좌석, 좌석예약, 지원답장, 케맵, 들어오기, 안보냄].filter((x) => x === null || x.됐나 === false).length;
   console.log(`\n${흠 ? `⛔ 손댈 것 ${흠}개 — 위에서 🔴·⬜ 를 먼저 한다.` : '✅ 열한 자리 다 섰다.'}`);
   console.log('⚠ ③이 뒤처졌는데 다른 일을 하고 있으면 그것이 잘못이다.');
   process.exit(흠 ? 1 : 0);
