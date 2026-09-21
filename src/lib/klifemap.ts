@@ -235,6 +235,8 @@ export const 붙일수있는갈래 = [
   /* [2026-09-22 · 5번] 낱장으로 난 지면이라 폴더가 없다 — 이름을 손으로 올린다.
      ⛔ 기타로 쌓이면 어느 지면이 손님을 데려왔는지 소급해서 못 가른다. */
   'housework-view-vs-reality',
+  /* [2026-09-22 · 1번] 같은 까닭으로 오늘 새로 낸 낱장 둘을 더 올린다. */
+  'housework-spectrum-by-age', 'parent-support-view-by-age',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary', 'tutoring', 'tutoring-region', 'tutoring-income',
   /* 🔴 2026-09-11 3번 신설 — 사장님 지시. 학생자살 사망사안 보고서(한겨레 인용) */
