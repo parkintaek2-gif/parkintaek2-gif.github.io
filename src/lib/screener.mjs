@@ -44,6 +44,10 @@ export const 시장들 = [
   { code: 'N', name: 'KONEX', country: 'Korea', ccy: 'KRW' },
   { code: 'ADX', name: 'ADX — Abu Dhabi', country: 'UAE', ccy: 'AED' },
   { code: 'DFM', name: 'DFM — Dubai', country: 'UAE', ccy: 'AED' },
+  /* 🔴 [2026-09-22 · 5번] 일본을 넣었다 — 그날 재무제표 3,672사를 열었다(상장의 96.2%).
+     ⚠ 시가총액·PER·PBR 은 «아직 없다» — 주가 우물을 안 열었다. 0 으로 메꾸지 않았으므로
+       그 칸으로 거르면 일본이 통째로 빠진다. 지면이 「빈 칸으로 빠진 수」를 따로 보인다. */
+  { code: 'TSE', name: 'TSE — Tokyo', country: 'Japan', ccy: 'JPY' },
 ];
 
 /** 시장 코드 → 사람이 읽는 이름 */

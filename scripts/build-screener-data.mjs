@@ -53,6 +53,8 @@ import { pathToFileURL } from 'node:url';
 
 const 한국탭 = 'src/data/korea-valuation-tape.json';
 const UAE탭 = 'src/data/uae-financials-tape.json';
+/* 🔴 [2026-09-22 · 5번] 일본 — EDINET 유가증권보고서에서 지은 탭(3,672사) */
+const 일본탭 = 'src/data/japan-financials-tape.json';
 const ADX사람 = 'archive/raw/uae-adx-people';
 /* 🔴 [2026-09-16 · 5번] ADX «공식» 시가총액. 여기 오기 전에는 「아부다비가 안 낸다」고
    손님에게 적어 두었었다 — 사실이 아니었다. 우리가 «-delayed» 옆 문을 부르고 있었다.
@@ -169,15 +171,22 @@ export function 환율읽기(글들) {
     const 그날 = 날[날짜들[i]];
     const usd = 그날.find((x) => /^US Dollar$/i.test(String(x.currency).trim()));
     const krw = 그날.find((x) => /Korean Won/i.test(String(x.currency)));
+    /* 🔴 [2026-09-22 · 5번] 엔을 더했다 — 일본 3,672사를 스크리너에 넣으면서.
+       ⛔ 엔이 없으면 «일본만» 빠진다. 한국·UAE 는 그대로 나간다 — 아래에서 따로 본다. */
+    const jpy = 그날.find((x) => /Japanese Yen/i.test(String(x.currency)));
     const u = usd && 수(usd.rateVsAed);
     const k = krw && 수(krw.rateVsAed);
+    const j = jpy && 수(jpy.rateVsAed);
     if (u && k && u > 0 && k > 0) {
       return {
         날짜: 날짜들[i],
         usdVsAed: u,
         krwVsAed: k,
+        jpyVsAed: j && j > 0 ? j : null,
         AED당달러: 1 / u,          /* 1 AED = ? USD */
         KRW당달러: k / u,          /* 1 KRW = ? USD */
+        /* ⛔ 고시에 엔이 없으면 null 이다. 지어내지 않는다 */
+        JPY당달러: j && j > 0 ? j / u : null,
       };
     }
   }
@@ -556,7 +565,34 @@ async function 본일() {
   const 이름표 = 이름표만들기(폴더읽기(ADX사람), 폴더읽기(DFM회사), ADX시총것.표);
   const UAE = UAE를추린다(UAE원본.rows || [], 이름표, 환.AED당달러);
 
-  const 추린것 = [...한국, ...UAE];
+  /* 4. 일본 — 🔴 [2026-09-22 · 5번] 그날 재무제표 3,672사를 열어 스크리너에 넣었다.
+   * ⚠ **시가총액·PER·PBR·EPS 는 아직 없다.** 일본 주가 우물을 안 열었다.
+   *   ⛔ 0 으로 메꾸지 않는다 — 0 은 「없다」가 아니라 「영이다」다(강령 ③).
+   *   ⇒ 그 칸으로 거르면 일본이 통째로 빠진다. 지면이 「빈 칸으로 빠진 수」를 따로 보인다.
+   * ⚠ 엔은 달러로 바꿔 담는다 — 원·디르함·엔을 섞어 두면 「1,000 이상」이 무슨 뜻인지 모른다. */
+  const 일본 = (() => {
+    let 원본;
+    try { 원본 = JSON.parse(readFileSync(path.resolve(일본탭), 'utf8')); }
+    catch { console.log('   ⚠ 일본 탭이 없다 — 일본 없이 짓는다'); return []; }
+    const JPY당달러 = 환.JPY당달러 ?? null;
+    if (!JPY당달러) { console.log('   ⚠ 엔 환율이 없다 — 일본을 안 싣는다(0 으로 메꾸지 않는다)'); return []; }
+    return (원본.rows || []).map((r) => ({
+      m: 'TSE',
+      t: r.code,
+      n: r.name_en || null,          /* ⛔ 손님 화면은 영문이다. 일본어 이름은 k 로만 둔다 */
+      k: r.name || null,
+      i: r.sector || null,
+      c: null, e: null, p: null, b: null,        /* 주가가 없어 못 재는 칸 — 비워 둔다 */
+      v: 자름(곱(r.revenue_jpy, JPY당달러)),
+      np: 자름(곱(r.net_profit_jpy, JPY당달러)),
+      r: null, d: null,
+      nc: null,
+      as: r.period_end || null,
+    })).filter((r) => r.t);
+  })();
+  console.log(`   일본 ${일본.length}곳 (시가총액·PER·PBR 은 아직 없다 — 주가 우물 미개통)`);
+
+  const 추린것 = [...한국, ...UAE, ...일본];
 
   /* 🔴 관문 — 손님 화면에 나가는 칸(n·i·x·as)에 한국어가 «한 글자라도» 있으면 멈춘다.
    *   사장님 지시: 「화면에 한국어를 안 낸다」(손님이 영어권이다).

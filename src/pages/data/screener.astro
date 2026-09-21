@@ -60,6 +60,10 @@ const UAE줄 = 시장목록.filter((m) => m.country === 'UAE').reduce((a, m) => 
 /* 🔴 걸프에 시가총액이 «있는» 곳. 예전엔 0 이었고, 그래서 지면이 「그쪽이 안 낸다」고
    말하고 있었다. 이제 받아 오므로 수가 산다 — 수가 바뀌면 문장도 저절로 따라간다. */
 const UAE시총 = 시장목록.filter((m) => m.country === 'UAE').reduce((a, m) => a + m.filled.c, 0);
+/* 🔴 [2026-09-22 · 5번] 일본을 넣으면서 — 손님에게 «왜 비었는지»를 말해야 한다.
+   일본은 재무제표는 다 있는데 주가 우물을 안 열어 시총·PER·PBR·EPS 가 통째로 없다.
+   ⛔ 빈 칸을 말없이 두면 손님이 조건 하나에 3,672곳을 잃고도 모른다. */
+const 일본줄 = 시장목록.filter((m) => m.country === "Japan").reduce((a, m) => a + m.rows, 0);
 /* 🔴 [2026-09-17] 걸프에 PBR 이 섰다. 지면이 그 사실을 말하게 한다 —
  *   아래 글은 「걸프는 PER 을 못 낸다」까지만 말하고 있었다. 그건 지금도 맞지만,
  *   그 옆에 «그래도 PBR 은 낸다»가 빠지면 손님은 걸프 칸이 통째로 빈 줄 안다.
@@ -113,14 +117,20 @@ const jsonLd = {
         because the figure <i>does not exist</i> — not because it failed your test — we count those
         companies and say so, in red, above the table. A PER screen on its own removes{' '}
         <b>{PER없는곳.toLocaleString('en-US')}</b> of {줄수.toLocaleString('en-US')} companies that
-        way, and that includes <b>every one of the {UAE줄} Gulf listings</b>. Two separate reasons
-        sit behind that, and we name both rather than let one stand for the other. What Gulf
-        companies file is <i>quarterly</i>, so a PER built on one quarter of earnings and
+        way, and that includes <b>every one of the {UAE줄} Gulf listings</b> and{' '}
+        <b>every one of the {일본줄.toLocaleString('en-US')} Tokyo listings</b>. The reasons differ
+        by market, and we name each one rather than let a single excuse stand for all of them.
+        What Gulf companies file is <i>quarterly</i>, so a PER built on one quarter of earnings and
         today&rsquo;s price would be a number we could not stand behind. And market capitalisation
         reaches us for <b>{UAE시총}</b> of the {UAE줄}: Dubai companies state it in their own filings,
         which we carry, while Abu Dhabi publishes it only on the exchange&rsquo;s own market-data
         board, whose terms of use bar systematic retrieval of site content to compile a database —
-        so we do not republish it. Every empty cell says which of the two it is, on the row itself.
+        so we do not republish it. Tokyo is a different case again: we hold the audited statements
+        every listed company files with the Financial Services Agency, which is where revenue,
+        profit, assets and equity come from, but we do not yet carry Japanese share prices — so
+        market capitalisation, PER, PBR and EPS are absent for all {일본줄.toLocaleString('en-US')} of
+        them, and we leave those cells empty rather than fill them with a number we did not measure.
+        Every empty cell says which of these it is, on the row itself.
         Most screeners drop these companies in silence, and the market then looks smaller and tidier
         than it really is.
       </p>
