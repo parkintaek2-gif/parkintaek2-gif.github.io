@@ -1,4 +1,4 @@
-# 채널 문안 — A Pianist Made a 90-Second TV Cameo. His Wikipedia Reading Jumped 30 Times.
+# 채널 문안 — A Pianist Made a Cameo on a Korean Drama. His Wikipedia Reading Jumped 30 Times.
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/yekwon-sunwoo-piano-reading-spiked-30x-afte
 
 ## Threads
 ```
-A Pianist Made a 90-Second TV Cameo. His Wikipedia Reading Jumped 30 Times.
+A Pianist Made a Cameo on a Korean Drama. His Wikipedia Reading Jumped 30 Times.
 
 The day his cameo aired on a Korean classical-music drama, that jumped to 315. The day after, it hit 447 — 30 times his baseline.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-A Pianist Made a 90-Second TV Cameo. His Wikipedia Reading Jumped 30 Times.
+A Pianist Made a Cameo on a Korean Drama. His Wikipedia Reading Jumped 30 Times.
 
 · Yekwon Sunwoo averaged 15 English Wikipedia reads a day for a week.
 · The day his cameo aired on a Korean classical-music drama, that jumped to 315.

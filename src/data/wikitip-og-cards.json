@@ -7,6 +7,31 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "garfield-alone-explains-a-fifth-of-when-the-source-wins": {
+   "figure": "3",
+   "label": "Garfield adaptations among the 14 pairs where the source read more",
+   "왜": "글머리 첫 수는 '14'(전체 원작우세 건수)라 이 기사의 진짜 요점(가필드 3편)을 못 담는다. 표 칸에는 3을 쓴다"
+  },
+  "two-of-the-days-top-1000-english-wikipedia-pages-were-korean": {
+   "figure": "2",
+   "label": "Korean titles in one day's English Wikipedia top-1,000 list",
+   "왜": "글머리 첫 수는 '30'(날짜)이라 딴 뜻이다. 이 기사의 핵심 대조수는 2(찾은 한국 작품 수)다"
+  },
+  "more-netflix-appearances-looked-steadier-we-could-not-confirm-it": {
+   "figure": "11.2%",
+   "label": "Share of noise-only redraws that matched the steadier group's spread",
+   "왜": "글머리 첫 수는 '7'(제목의 「7+」)이라 약하다. 이 기사의 핵심 대조수는 11.2%(잡음시험 결과)다"
+  },
+  "korean-groups-look-shortest-lived-but-the-cohorts-are-31-years-apart": {
+   "figure": "31",
+   "label": "Years apart the recorded-ended Korean and UK group cohorts were founded",
+   "왜": "글머리 첫 수는 없다(나라 이름뿐). 이 기사의 핵심 대조수는 31(설립연도 벌어짐, 2011-1980)이다"
+  },
+  "doing-both-music-and-acting-triples-the-odds-of-being-read-in-english": {
+   "figure": "47.5%",
+   "label": "Crossover stars: 47.5% measurably read, vs 12.6%/14% single-craft",
+   "왜": "글머리 첫 수는 '3,671'(명부 크기)이라 딴 뜻이다. 이 기사의 핵심 대조수는 47.5%(둘다 그룹의 잡힌몫)다"
+  },
   "korean-esports-reading-jumped-9x-as-the-asian-games-opened": {
    "figure": "9.2x",
    "label": "Korean esports reading rose 9.2x as the Asian Games opened",
