@@ -36,6 +36,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 접힌자리 } from './lib/도는자리.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
 
@@ -190,8 +191,10 @@ function 자가시험() {
      빨간불이었다. ⛔ 자리를 옮기면 그 자리를 보는 시험까지 따라간다. */
   본다('매경은 5번이 본다 (6번 접힘)', (() => { const m = 신문들.find((s) => s.매체 === '매일경제').몫; return m.length === 1 && m[0] === '5번'; })());
   본다('동아일보도 5번이 본다 (3번 접힘)', (() => { const m = 신문들.find((s) => s.매체 === '동아일보').몫; return m.length === 1 && m[0] === '5번'; })());
-  본다('⛔ 접힌 자리(3번·4번·6번)가 몫에 남아 있지 않다',
-    신문들.every((s) => !s.몫.some((u) => ['3번', '4번', '6번'].includes(u))));
+  /* ⛔ 자리 목록을 여기 다시 적지 않는다 — 정본은 scripts/lib/도는자리.mjs 하나다
+       (check-자리목록-한곳.mjs 가 그것을 잰다. 내가 방금 그 자에 걸렸다) */
+  본다('⛔ 접힌 자리가 몫에 남아 있지 않다',
+    신문들.every((s) => !s.몫.some((u) => 접힌자리.includes(u))));
   본다('K컬처는 5번 몫이 둘', 신문들.filter((s) => s.갈래 === 'K컬처').length === 2 && 신문들.filter((s) => s.갈래 === 'K컬처').every((s) => s.몫[0] === '5번'));
   본다('몫이 전부 배열이다(한 매체를 여러 유닛이 본다)', 신문들.every((s) => Array.isArray(s.몫)));
 
