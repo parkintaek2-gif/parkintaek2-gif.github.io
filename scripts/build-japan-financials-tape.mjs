@@ -31,6 +31,31 @@ const 자료방 = path.join(뿌리, 'archive', 'raw', 'japan-edinet-financials')
 const 낼곳 = path.join(뿌리, 'src', 'data', 'japan-financials-tape.json');
 const 적는다 = process.argv.includes('--적는다');
 
+/**
+ * 🔴 [2026-09-22] **서류가 적어 낸 영문명에 HTML 기호가 그대로 들어 있다.**
+ *
+ * 라이브 화면에 「MITSUI &amp;amp; CO., LTD.」로 나갔다. 원자료를 보니 EDINET CSV 가
+ * 이미 `&amp;` 로 적어 보낸다 — 75곳이 그렇다(K&O·AKIKAWA FOODS & FARMS …).
+ * 그걸 그대로 두고 지면이 한 번 더 감싸니 손님 눈에 `&amp;` 가 보인다.
+ *
+ * ⛔ 지면 쪽 감싸기를 끄지 않는다 — 그것을 끄면 다른 이름으로 태그를 심을 수 있다.
+ * ✅ **들어올 때 푼다.** 자료에는 사람이 읽는 글자를 담고, 감싸기는 지면이 한 번만 한다.
+ */
+export function 엔티티풀기(s) {
+  if (s == null) return null;
+  const 표 = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+  let 글 = String(s);
+  /* 두 겹(`&amp;amp;`)도 있으므로 더 안 바뀔 때까지 푼다. ⛔ 무한히 돌지 않게 횟수를 묶는다 */
+  for (let n = 0; n < 4; n++) {
+    const 전 = 글;
+    글 = 글.replace(/&(amp|lt|gt|quot|apos|nbsp);/g, (_, k) => 표[k])
+      .replace(/&#(\d{1,6});/g, (_, d) => String.fromCodePoint(Number(d)))
+      .replace(/&#x([0-9a-fA-F]{1,6});/g, (_, h) => String.fromCodePoint(parseInt(h, 16)));
+    if (글 === 전) break;
+  }
+  return 글.trim() || null;
+}
+
 /** 결산 연도 — period_end 의 앞 네 자리 */
 export function 결산해(period_end) {
   const m = /^(\d{4})-/.exec(String(period_end || ''));
@@ -132,7 +157,7 @@ export function 한줄(d, 명부 = new Map()) {
        그래서 스크리너 400줄이 일본어 이름으로 나가고 있었다(영어권 손님 지면인데).
        서류 안 `jpdei_cor:FilerNameInEnglishDEI` 가 그 자리를 메운다.
        ⛔ 그래도 없으면 null 로 둔다 — 지면이 종목코드를 쓴다. 우리가 음차해 짓지 않는다. */
-    name_en: d.name_en || 딸림.name_en || null,
+    name_en: 엔티티풀기(d.name_en) || 엔티티풀기(딸림.name_en) || null,
     market: 딸림.market ?? null,
     sector: 딸림.sector ?? null,
     year: 결산해(d.period_end),
@@ -175,6 +200,16 @@ const 내가진입점 = process.argv[1] && fileURLToPath(import.meta.url) === pa
 if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.includes('--selftest'))) {
   const 잰다 = [];
   const 검 = (이름, 참) => 잰다.push([이름, !!참]);
+
+  /* 🔴 HTML 기호가 든 이름 — 라이브에 「MITSUI &amp;amp; CO.」로 나갔던 자리 */
+  검('&amp; 를 & 로 푼다', 엔티티풀기('MITSUI &amp; CO., LTD.') === 'MITSUI & CO., LTD.');
+  검('두 겹으로 싸인 것도 푼다', 엔티티풀기('K&amp;amp;O Energy') === 'K&O Energy');
+  검('숫자 기호도 푼다', 엔티티풀기('A&#38;B') === 'A&B');
+  검('평범한 이름은 그대로', 엔티티풀기('TOYOTA MOTOR CORPORATION') === 'TOYOTA MOTOR CORPORATION');
+  검('앞뒤 빈칸을 턴다', 엔티티풀기('  Yappli,Inc.  ') === 'Yappli,Inc.');
+  검('⛔ 빈 것은 null', 엔티티풀기('') === null && 엔티티풀기(null) === null);
+  검('⛔ 태그를 만들어 내지 않는다 — 푼 뒤에도 지면이 한 번 감싼다',
+    엔티티풀기('&lt;script&gt;') === '<script>');
 
   검('결산 해를 뽑는다', 결산해('2026-06-30') === 2026);
   검('⛔ 없으면 null — 0 으로 메꾸지 않는다', 결산해(null) === null);
