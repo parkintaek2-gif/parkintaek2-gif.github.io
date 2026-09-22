@@ -1,0 +1,127 @@
+---
+/**
+ * /100y/ranking-capital-brand — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 · 캐피탈 편)
+ *
+ * 한국기업평판연구소 2026년 9월 캐피탈(여신전문금융회사) 브랜드평판 1위(현대캐피탈)를 그대로 인용한다.
+ * 100yearmap이 새로 순위를 매기지 않는다.
+ *
+ * 실측(국민연금 「그 외 기타 여신 금융업」)은 화장품·중고차 편과 같은 방식으로
+ * scripts/build-100y-nps-survival-by-ksic.mjs 로 계산했다(화장품 편 재현 검증 통과).
+ * ⚠ 닫은 사업장이 7곳뿐이다 — 이 시리즈에서 가장 얇은 표본이다. 지면에 그대로 못박는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
+import 원본 from '../../../data/100yearmap/ranking-capital-brand-2026.json';
+
+const 자료 = 원본 as any;
+const 순위출처 = 자료.순위출처;
+const top5 = 자료.top5 as any[];
+const 실측 = 자료.실측대조;
+const 일위 = top5[0];
+
+const desc =
+  `${순위출처.이름}에서 ${일위.브랜드}가 1위입니다. ` +
+  `100yearmap이 실측한 여신 금융업 전체의 사업장 수명 중앙값은 ${실측.수명중앙값_년}년입니다(표본 ${실측.닫은곳}곳 — 이 시리즈에서 가장 얇습니다).`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 캐피탈 브랜드 순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${순위출처.이름}를 그대로 인용했습니다. ${순위출처['⚠원자료']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '왜 이 편의 표본이 다른 편보다 작은가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 실측.주의,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`캐피탈 브랜드평판 1위는 ${일위.브랜드} — 여신 금융업 수명 중앙값은 ${실측.수명중앙값_년}년(표본 ${실측.닫은곳}곳뿐)입니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    캐피탈 브랜드평판 1위는 {일위.브랜드}<br class="pcbr" />
+    여신 금융업 수명 중앙값은 {실측.수명중앙값_년}년입니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {순위출처.이름}(조사기간 {순위출처.분석기간})를 그대로 인용했습니다. {순위출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    한국기업평판연구소 빅데이터 분석에서 <strong>{일위.브랜드}</strong>가
+    캐피탈 부문 <strong>2026년 9월 1위</strong>(브랜드평판지수 {일위.브랜드평판지수?.toLocaleString()})로
+    나왔습니다. 2위는 {top5[1]?.브랜드}, 3위는 {top5[2]?.브랜드}입니다.
+  </p>
+  <p class="note">⚠ {자료.top5주}</p>
+
+  <h2>업종 전체는 이 시리즈에서 가장 얇은 표본입니다</h2>
+  <p>{실측.무엇}입니다.</p>
+  <div class="warn">
+    <p>
+      여신 금융업 사업장 <strong>{실측.닫은곳}곳</strong>이 국민연금
+      가입 자격을 잃었고(2026년 6월 기준), {실측.쓰는말}의 중앙값은{' '}
+      <strong>{실측.수명중앙값_년}년</strong>입니다.{' '}
+      <strong>{실측.일년내_퍼센트}%</strong>가 1년 안에, <strong>{실측.삼년내_퍼센트}%</strong>가
+      3년 안에 이 명단에 들었습니다.
+    </p>
+  </div>
+  <p class="note">⚠ {실측.쓰면안되는말}</p>
+  <p class="note">⚠ {실측.주의}</p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 두 공개 자료를 나란히
+    {' '}놓아 보여줄 뿐, 어느 브랜드가 더 좋은지 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 브랜드평판: 한국기업평판연구소({순위출처.url}) · 실측: 국민연금공단 국민연금
+    {' '}가입 사업장 내역(공공데이터포털 15083277)
+  </p>
+
+  <p class="note">
+    <a href="/ranking-usedcar-brand">← 중고차 브랜드평판 1위, 중고 자동차 판매업 수명 중앙값은 3.54년입니다</a>
+    <br />
+    <a href="/ranking-insurance-agency-brand">← 독립보험대리점(GA) 브랜드평판 1위, 보험 대리업 수명 중앙값은 이 시리즈에서 가장 긴 8.3년입니다</a>
+  </p>
+
+  <HundredCardnews 벌="캐피탈여신금융수명" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
+
+  <HundredAgeWalk 키="ranking-capital-brand" />
+
+  <NextQuestionBrief 모은것="한국기업평판연구소 캐피탈 브랜드평판 + 국민연금공단 가입 사업장 내역" />
+
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-capital-brand"></div>
+</HundredYear>
