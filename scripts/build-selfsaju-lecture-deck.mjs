@@ -48,10 +48,17 @@ export const 스타일원본 = [
   'C:/Users/User/OneDrive/문서/0. 명리학 강의 및 교재/셀프사주 1권-이마트 세종.pptx',
 ];
 
-/** 한 장에 넣을 «본문 줄» 최대 — 넘치면 장을 넘긴다 */
-export const 한장줄수 = 6;
+/**
+ * 한 장에 넣을 «본문 줄» 최대 — 넘치면 장을 넘긴다.
+ * 🔴 [2026-09-22 · 사장님] 「**설명은 짧게. 원래 ppt는 그림 1-2개로만 슬라이드 구성해야 함**」
+ *   6 줄이면 강의 화면이 «대본»이 된다. 3 줄로 줄였다 — 나머지 말씀은 입으로 하신다.
+ */
+export const 한장줄수 = 3;
 /** 한 줄이 이보다 길면 강의 화면에서 두 줄로 흐른다 */
-export const 한줄글자 = 34;
+export const 한줄글자 = 28;
+
+/** 한 절에서 슬라이드에 올릴 «산문» 토막 수 — 나머지 설명은 교재에 있다 */
+export const 절산문최대 = 2;
 
 /* ── 원고를 토막으로 가른다 ─────────────────────────────────────── */
 
@@ -140,7 +147,16 @@ export function 원고가르기(글) {
     if (/^#\s+/.test(t)) { 것.push({ 종류: '장제목', 값: t.replace(/^#\s+/, '').trim() }); continue; }
     if (!앞머리끝났나) continue;
     if (/^##+\s+/.test(t)) { 것.push({ 종류: '절제목', 값: t.replace(/^#+\s+/, '').trim() }); continue; }
-    if (/^\|/.test(t)) continue;                       /* 표는 슬라이드에서 따로 짠다 — 지금은 안 싣는다 */
+    /* 🔴 [2026-09-22 · 사장님] 표를 «버리지» 않는다 — 강의에서 제일 잘 보이는 것이 표다.
+       그동안 이 한 줄이 원고의 표를 통째로 지우고 있었다. 이제 진짜 표로 싣는다. */
+    if (/^\|/.test(t)) {
+      if (/^\s*\|?\s*:?-{2,}/.test(t)) continue;       /* |---|---| 가름줄은 버린다 */
+      const 칸 = t.replace(/^\||\|$/g, '').split('|').map((x) => 표시벗기기(x.trim()));
+      const 앞 = 것[것.length - 1];
+      if (앞 && 앞.종류 === '표') 앞.행들.push(칸);
+      else 것.push({ 종류: '표', 행들: [칸] });
+      continue;
+    }
     if (/^>/.test(t)) {
       const 속 = t.replace(/^>+\s?/, '').trim();
       if (!속) continue;
@@ -165,35 +181,71 @@ export function 슬라이드나누기(토막들) {
   let 지금절 = null;
   let 담을것 = [];
   let 센줄 = 0;
+  let 절산문수 = 0;
+  /* 슬라이드에서 뺀 설명 — 그 절의 «마지막 장» 노트에 붙인다. ⛔ 버리지 않는다 */
+  let 남은설명 = [];
+  const 노트붙이기 = () => {
+    if (!남은설명.length) return;
+    const 끝 = 장들[장들.length - 1];
+    if (끝) { 끝.노트 = [...(끝.노트 || []), ...남은설명]; }
+    남은설명 = [];
+  };
   const 비우기 = () => {
-    if (!담을것.length) return;
+    if (!담을것.length) { 노트붙이기(); return; }
     장들.push({ 종류: '내용', 제목: 지금절 || '', 줄들: 담을것 });
     담을것 = []; 센줄 = 0;
+    노트붙이기();
   };
   for (let i = 0; i < (토막들 || []).length; i++) {
     const 토 = 토막들[i];
-    if (토.종류 === '장제목') { 비우기(); 장들.push({ 종류: '장여는장', 제목: 표시벗기기(토.값) }); 지금절 = null; continue; }
-    if (토.종류 === '절제목') { 비우기(); 지금절 = 표시벗기기(토.값); continue; }
+    if (토.종류 === '장제목') { 비우기(); 장들.push({ 종류: '장여는장', 제목: 표시벗기기(토.값) }); 지금절 = null; 절산문수 = 0; continue; }
+    if (토.종류 === '절제목') { 비우기(); 지금절 = 표시벗기기(토.값); 절산문수 = 0; continue; }
     if (토.종류 === '원문') {
       비우기();
-      const 옮김 = [];
+      /* 🔴 [2026-09-22] 원문이 «여러 줄»인 인용에서, 첫 줄만 한 장을 쓰고 옮김은 다음 장에
+         붙어 «빈 상자»가 그려졌다. PDF 로 떠서 눈으로 보고 잡았다.
+         ⇒ 잇달아 오는 원문 줄은 «한 인용»으로 묶는다. */
+      const 원문들 = [표시벗기기(토.값)];
       let j = i + 1;
+      while (j < 토막들.length && 토막들[j].종류 === '원문') { 원문들.push(표시벗기기(토막들[j].값)); j++; }
+      const 옮김 = [];
       while (j < 토막들.length && 토막들[j].종류 === '옮김') { 옮김.push(표시벗기기(토막들[j].값)); j++; }
       장들.push({
-        종류: '원전', 제목: 지금절 || '', 원문: 표시벗기기(토.값), 옮김,
+        종류: '원전', 제목: 지금절 || '', 원문: 원문들.join(' '), 옮김,
         출전: 토.출전 || (토막들[j - 1] && 토막들[j - 1].출전) || null,
       });
       i = j - 1;
       continue;
     }
-    const 꼴 = 토.종류 === '짚을것' ? '짚을것' : (토.종류 === '옮김' ? '인용' : '글');
+    /* 🔴 표는 «한 장을 통째로» 쓴다 — 강의에서 제일 잘 보이는 그림이다 */
+    if (토.종류 === '표') {
+      비우기();
+      장들.push({ 종류: '표', 제목: 지금절 || '', 행들: 토.행들 });
+      continue;
+    }
+    /* 🔴 ⭐🔴⛔⚠ 로 짚은 한 줄은 «강조 카드» 한 장으로 — 글 목록에 섞지 않는다 */
+    if (토.종류 === '짚을것') {
+      비우기();
+      장들.push({ 종류: '강조', 제목: 지금절 || '', 글: 표시이모지벗기기(표시벗기기(토.값)) });
+      continue;
+    }
+    /* 🔴 [2026-09-22 · 사장님] 「설명은 짧게」
+     *   산문을 다 실으면 슬라이드가 «대본»이 된다. 3줄로 끊어 봤더니 557장이 나왔다 —
+     *   잘게 쪼갠다고 강의가 되는 것이 아니다.
+     *   ⇒ 한 절의 산문은 «앞 두 줄»만 올린다. 그것이 그 절의 요점이다.
+     *     나머지 설명은 교재에 있고, 강의에서는 사장님이 입으로 하신다.
+     *   ⛔ 원전·표·짚을것은 «다» 싣는다 — 그것이 보여 줄 것이다. */
+    const 꼴 = 토.종류 === '옮김' ? '인용' : '글';
     const 값 = 표시이모지벗기기(표시벗기기(토.값));
+    if (꼴 === '글' && 절산문수 >= 절산문최대) { 남은설명.push(값); continue; }
+    if (꼴 === '글') 절산문수++;
     const n = 흐르는줄수(값);
     if (센줄 + n > 한장줄수) 비우기();
     담을것.push({ 꼴, 글: 값 });
     센줄 += n;
   }
   비우기();
+  노트붙이기();
   return 장들;
 }
 
@@ -220,6 +272,107 @@ export function 문단XML(글, { 크기 = 1800, 굵게 = false, 색 = null, 점 
     + `<a:t>${엑스엠엘(글)}</a:t></a:r></a:p>`;
 }
 
+/* ══════════════════════════════════════════════════════════════════
+ * 보는 것들 — 표 · 카드 · 두 칸
+ *
+ * 🔴 사장님 지시 (2026-09-22, 원문)
+ *   「**내가 만든 ppt는 이미지가 많잖아. 너가 만든 건 텍스트만 있고.
+ *    너무 성의없고, 수강생이 집중할 수도 없고, 내가 가르치기에도 갑갑하다**」
+ *   「**visual 요소 대폭 강화, 설명은 짧게. 원래 ppt는 그림 1-2개로만 슬라이드 구성해야 함**」
+ *
+ * ── 사장님 1권 강의 PPT 를 열어 재 보니 ──────────────────────────
+ *   슬라이드 부품 1,177 · 그림 **139장**. 대부분이 명리 책 지면을 «찍은 사진»이다.
+ *   한 장에 그림 하나가 크게 있고, 말씀은 입으로 하신다.
+ *   내가 지은 것은 그림 **0장**이었다. 강의 자료가 아니라 «대본」이었다.
+ *
+ * ── 그래서 무엇을 그리나 ────────────────────────────────────────
+ *   남의 책을 찍어 넣지 않는다(우리 상품에 쓰면 저작권이 걸린다).
+ *   대신 **우리가 그린다** — 파워포인트 «도형과 표»로 그리면 사진보다 선명하고,
+ *   사장님이 강의 중에 직접 고치실 수도 있다.
+ *     표      원고의 표를 진짜 파워포인트 표로   ← 그동안 «통째로 버리고» 있었다
+ *     카드    원전 한 토막을 색 상자에 크게
+ *     두 칸   순용 ↔ 역용 처럼 맞대는 것
+ * ══════════════════════════════════════════════════════════════════ */
+
+/** 16:9 — 12192000 × 6858000 EMU. 본문이 앉는 자리 */
+export const 판 = { 폭: 12192000, 높이: 6858000, 왼: 838200, 위: 1600200, 속폭: 10515600, 속높이: 4400000 };
+export const 표스타일 = '{5C22544A-7EE6-4342-B048-85BDC9FD1C3A}';
+
+/** 도형·표 칸 안의 글 한 줄 */
+function 칸글(글, { 크기 = 1600, 굵게 = false, 색 = null, 가운데 = false } = {}) {
+  const 칠 = 색 ? `<a:solidFill><a:srgbClr val="${색}"/></a:solidFill>` : '';
+  return `<a:p><a:pPr${가운데 ? ' algn="ctr"' : ''}/><a:r>`
+    + `<a:rPr lang="ko-KR" altLang="en-US" sz="${크기}"${굵게 ? ' b="1"' : ''} dirty="0">${칠}</a:rPr>`
+    + `<a:t>${엑스엠엘(글)}</a:t></a:r></a:p>`;
+}
+
+/**
+ * 원고의 표 → **진짜 파워포인트 표**.
+ * ⛔ 그동안 `if (/^\|/.test(t)) continue;` 로 표를 버리고 있었다 — 강의에서 제일 잘 보이는 것을 버린 셈이다.
+ */
+export function 표그림XML(행들, id = 10) {
+  const 줄 = (행들 || []).filter((r) => r && r.length);
+  if (!줄.length) return '';
+  const 칸수 = Math.max(...줄.map((r) => r.length));
+  const 칸폭 = Math.floor(판.속폭 / 칸수);
+  const 그리드 = Array.from({ length: 칸수 }, () => `<a:gridCol w="${칸폭}"/>`).join('');
+  const 높이 = Math.min(500000, Math.floor(판.속높이 / Math.max(줄.length, 1)));
+  const 행 = 줄.map((칸들, i) => {
+    const 머리 = i === 0;
+    const 칸 = Array.from({ length: 칸수 }, (_, j) => {
+      const 글 = 칸들[j] ?? '';
+      const 속 = 칸글(글, { 크기: 머리 ? 1500 : 1400, 굵게: 머리, 색: 머리 ? 'FFFFFF' : null });
+      const 바탕 = 머리 ? '<a:solidFill><a:srgbClr val="1F3864"/></a:solidFill>'
+        : (i % 2 === 0 ? '<a:solidFill><a:srgbClr val="F2F4F8"/></a:solidFill>' : '');
+      return `<a:tc><a:txBody><a:bodyPr/><a:lstStyle/>${속}</a:txBody>`
+        + `<a:tcPr marL="68580" marR="68580" marT="34290" marB="34290" anchor="ctr">${바탕}</a:tcPr></a:tc>`;
+    }).join('');
+    return `<a:tr h="${높이}">${칸}</a:tr>`;
+  }).join('');
+  return `<p:graphicFrame><p:nvGraphicFramePr><p:cNvPr id="${id}" name="표"/>`
+    + '<p:cNvGraphicFramePr><a:graphicFrameLocks noGrp="1"/></p:cNvGraphicFramePr><p:nvPr/></p:nvGraphicFramePr>'
+    + `<p:xfrm><a:off x="${판.왼}" y="${판.위}"/><a:ext cx="${판.속폭}" cy="${높이 * 줄.length}"/></p:xfrm>`
+    + '<a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/table"><a:tbl>'
+    + `<a:tblPr firstRow="1" bandRow="1"><a:tableStyleId>${표스타일}</a:tableStyleId></a:tblPr>`
+    + `<a:tblGrid>${그리드}</a:tblGrid>${행}</a:tbl></a:graphicData></a:graphic></p:graphicFrame>`;
+}
+
+/** 색 상자 하나 — 원전 카드·강조 카드에 쓴다 */
+export function 상자XML(문단들, { id = 20, x, y, cx, cy, 채움 = 'F2F4F8', 선 = 'C7CEDB' } = {}) {
+  return `<p:sp><p:nvSpPr><p:cNvPr id="${id}" name="상자${id}"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr>`
+    + `<p:spPr><a:xfrm><a:off x="${x}" y="${y}"/><a:ext cx="${cx}" cy="${cy}"/></a:xfrm>`
+    + '<a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val 6000"/></a:avLst></a:prstGeom>'
+    + `<a:solidFill><a:srgbClr val="${채움}"/></a:solidFill>`
+    + `<a:ln w="12700"><a:solidFill><a:srgbClr val="${선}"/></a:solidFill></a:ln></p:spPr>`
+    + '<p:txBody><a:bodyPr lIns="182880" tIns="137160" rIns="182880" bIns="137160" anchor="ctr">'
+    /* 🔴 [2026-09-22] 빈 카드에서 «문단이 하나도 없는» txBody 가 나와 파워포인트가
+       「파일을 열 수 없습니다」로 거부했다. XML 은 멀쩡한데 «규격»이 아니었다 —
+       a:txBody 에는 a:p 가 적어도 하나 있어야 한다. 갈라서 재 보고 잡은 자리다. */
+    + `<a:normAutofit/></a:bodyPr><a:lstStyle/>${문단들 || '<a:p/>'}</p:txBody></p:sp>`;
+}
+
+/**
+ * **발표자 노트 한 장.**
+ * 슬라이드에서 뺀 설명이 여기로 간다 — 강의 중에 사장님만 보신다. 손님 화면에는 안 나온다.
+ * ⛔ 버리지 않는다. 옛 규칙 「조용히 줄이면 빠진 줄 모른다」가 여기서 지켜진다.
+ */
+export function 노트장XML(줄들) {
+  const 문단 = (줄들 || []).map((t) => 칸글(t, { 크기: 1200 })).join('');
+  return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
+    + `<p:notes ${NS}><p:cSld><p:spTree>`
+    + '<p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>'
+    + '<p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/>'
+    + '<a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>'
+    + '<p:sp><p:nvSpPr><p:cNvPr id="2" name="슬라이드 이미지 개체 틀 1"/>'
+    + '<p:cNvSpPr><a:spLocks noGrp="1" noRot="1" noChangeAspect="1"/></p:cNvSpPr>'
+    + '<p:nvPr><p:ph type="sldImg"/></p:nvPr></p:nvSpPr><p:spPr/></p:sp>'
+    + '<p:sp><p:nvSpPr><p:cNvPr id="3" name="슬라이드 노트 개체 틀 2"/>'
+    + '<p:cNvSpPr><a:spLocks noGrp="1"/></p:cNvSpPr>'
+    + '<p:nvPr><p:ph type="body" idx="1"/></p:nvPr></p:nvSpPr><p:spPr/>'
+    + `<p:txBody><a:bodyPr/><a:lstStyle/>${문단 || '<a:p/>'}</p:txBody></p:sp>`
+    + '</p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:notes>';
+}
+
 /** 자리표(placeholder) 하나 */
 function 자리XML(id, 이름, ph, 문단들) {
   return `<p:sp><p:nvSpPr><p:cNvPr id="${id}" name="${엑스엠엘(이름)}"/>`
@@ -232,17 +385,41 @@ export function 슬라이드XML(장) {
   let 몸 = '';
   if (장.종류 === '장여는장') {
     몸 = 자리XML(2, '제목 1', '<p:ph type="title"/>', 문단XML(장.제목, { 크기: 4000, 굵게: true }));
+  } else if (장.종류 === '표') {
+    /* 🔴 표 한 장 — 제목 한 줄 + 표 하나. 「그림 1~2개로만」의 그 그림이다 */
+    몸 = 자리XML(2, '제목 1', '<p:ph type="title"/>', 문단XML(장.제목 || '표', { 크기: 2800, 굵게: true }))
+      + 표그림XML(장.행들, 10);
+  } else if (장.종류 === '강조') {
+    /* 짚을 것 한 줄 — 색 카드에 크게. 강의에서 「여기를 보십시오」 하는 자리다 */
+    const 속 = 줄접기(장.글, 24).map((t, i) =>
+      칸글(t, { 크기: i === 0 ? 2800 : 2400, 굵게: true, 색: '1F3864', 가운데: true })).join('');
+    몸 = 자리XML(2, '제목 1', '<p:ph type="title"/>', 문단XML(장.제목 || '', { 크기: 2400, 굵게: true }))
+      + 상자XML(속, { id: 20, x: 판.왼, y: 판.위 + 300000, cx: 판.속폭, cy: 2400000, 채움: 'FFF6E5', 선: 'E0B252' });
   } else if (장.종류 === '원전') {
-    /* 원문은 한문이라 한 줄에 덜 들어간다 — 좁게 접는다 */
-    const 문단 = [
-      ...줄접기(장.원문, 26).map((t) => 문단XML(t, { 크기: 2000 })),
-      ...장.옮김.flatMap((t) => 줄접기(t, 32).map((x) => 문단XML(x, { 크기: 1800, 기울임: true }))),
-      ...(장.출전 ? [문단XML('— ' + 출전줄임(장.출전), { 크기: 1000, 색: '6B7280' })] : []),
-    ].join('');
-    몸 = 자리XML(2, '제목 1', '<p:ph type="title"/>', 문단XML(장.제목 || '원전', { 크기: 2800, 굵게: true }))
-      + 자리XML(3, '내용 개체 틀 2', '<p:ph idx="1"/>', 문단);
+    /* 🔴 원전은 «카드»로 — 한문 원문을 크게, 옮김은 그 아래 작게, 출전은 더 작게.
+       그냥 글줄로 두면 강의 화면에서 다른 슬라이드와 구별이 안 된다 */
+    const 원문속 = 줄접기(장.원문, 24).map((t) =>
+      칸글(t, { 크기: 2400, 굵게: true, 색: '1F3864', 가운데: true })).join('');
+    const 옮김속 = 장.옮김.flatMap((t) => 줄접기(t, 30))
+      .map((t) => 칸글(t, { 크기: 1700, 색: '333333', 가운데: true })).join('');
+    const 출전속 = 장.출전 ? 칸글('— ' + 출전줄임(장.출전), { 크기: 1100, 색: '6B7280', 가운데: true }) : '';
+    /* ⛔ 아랫 상자가 «비면» 그리지 않는다 — 빈 네모가 화면에 남는다(2026-09-22 눈으로 잡음) */
+    const 아래있나 = !!(옮김속 + 출전속);
+    몸 = 자리XML(2, '제목 1', '<p:ph type="title"/>', 문단XML(장.제목 || '원전', { 크기: 2600, 굵게: true }))
+      + 상자XML(원문속, {
+        id: 20, x: 판.왼, y: 판.위, cx: 판.속폭,
+        cy: 아래있나 ? 1700000 : 3900000, 채움: 'EAF0FA', 선: '9DB4D8',
+      })
+      + (아래있나
+        ? 상자XML(옮김속 + 출전속, { id: 21, x: 판.왼, y: 판.위 + 1850000, cx: 판.속폭, cy: 2200000, 채움: 'FFFFFF', 선: 'D8DEE8' })
+        : '');
   } else {
-    const 문단 = 장.줄들.flatMap((r) => 줄접기(r.글).map((t, i) => 문단XML(t, {
+    /* ⚠ 표·강조 장에는 「줄들」이 없다 — 여기로 떨어져도 안 터지게 꼴을 맞춰 준다 */
+    const 줄들 = 장.줄들
+      || (장.종류 === '표' ? (장.행들 || []).map((r) => ({ 꼴: '글', 글: r.join(' · ') }))
+        : 장.글 ? [{ 꼴: '짚을것', 글: 장.글 }]
+          : [{ 꼴: '글', 글: [장.원문, ...(장.옮김 || [])].filter(Boolean).join(' ') }]);
+    const 문단 = 줄들.flatMap((r) => 줄접기(r.글).map((t, i) => 문단XML(t, {
       크기: r.꼴 === '짚을것' ? 1900 : 1800,
       굵게: r.꼴 === '짚을것',
       기울임: r.꼴 === '인용',
@@ -334,10 +511,20 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
     장.filter((s) => s.종류 === '내용').every((s) => s.줄들.reduce((a, r) => a + 흐르는줄수(r.글), 0) <= 한장줄수));
   검('⛔ 빈 원고에도 안 터진다', 슬라이드나누기(원고가르기('')).length === 0);
 
-  const 긴것 = 슬라이드나누기(원고가르기('# 장\n\n---\n\n## 절\n\n'
-    + Array.from({ length: 9 }, (_, i) => `${i + 1}번째 줄이다.`).join('\n\n'))).filter((s) => s.종류 === '내용');
-  검('넘치면 장을 넘긴다', 긴것.length >= 2);
-  검('⛔ 넘겨도 줄을 안 버린다', 긴것.reduce((a, s) => a + s.줄들.length, 0) === 9);
+  /* 🔴 [2026-09-22] 사장님이 「설명은 짧게」라 하셔서 한 절의 산문을 두 토막만 «화면»에 올린다.
+     ⛔ 그렇다고 버리지는 않는다 — 나머지는 «발표자 노트»로 간다. 옛 규칙
+       「조용히 줄이면 빠진 줄 모른다」가 여기서 지켜진다. 아홉 줄을 넣어 세어 본다. */
+  const 긴판 = 슬라이드나누기(원고가르기('# 장\n\n---\n\n## 절\n\n'
+    + Array.from({ length: 9 }, (_, i) => `${i + 1}번째 줄이다.`).join('\n\n')));
+  const 긴것 = 긴판.filter((s) => s.종류 === '내용');
+  const 화면줄 = 긴것.reduce((a, s) => a + s.줄들.length, 0);
+  const 노트줄 = 긴판.reduce((a, s) => a + (s.노트 ? s.노트.length : 0), 0);
+  검('화면에는 두 토막만 올린다', 화면줄 === 절산문최대);
+  검('🔴 나머지는 «노트»로 간다 — 한 줄도 안 버린다', 화면줄 + 노트줄 === 9);
+  검('노트가 실제로 붙는다', 노트줄 === 7);
+  검('노트 XML 이 p:notes 다', /<p:notes /.test(노트장XML(['가', '나'])));
+  검('노트에 글이 들어간다', 노트장XML(['첫 줄']).includes('첫 줄'));
+  검('⛔ 빈 노트에도 안 터진다', /<a:p\/>/.test(노트장XML([])));
 
   검('장 번호를 파일 이름에서 읽는다', 장번호('2권-원고-11-억부론-희신기신구신.md') === 11);
   검('못 읽으면 맨 뒤로', 장번호('딴것.md') === 999);
@@ -347,11 +534,51 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
   const x = 슬라이드XML(장.find((s) => s.종류 === '원전'));
   검('슬라이드 XML 이 p:sld 로 시작한다', /<p:sld /.test(x));
   검('원문이 XML 에 그대로 들어간다', x.includes('書雲'));
-  검('자리표를 쓴다 — 좌표를 우리가 안 정한다', /<p:ph type="title"\/>/.test(x) && /<p:ph idx="1"\/>/.test(x));
-  검('⛔ 좌표(a:off)를 슬라이드에 안 박는다', !/<a:off x="\d{5,}"/.test(x));
+  검('제목은 자리표를 쓴다', /<p:ph type="title"\/>/.test(x));
+  /* ⚠ [2026-09-22] 「좌표를 슬라이드에 안 박는다」를 걷었다 — 사장님이 «그림»을 넣으라 하셨고,
+     도형·표는 좌표 없이 못 놓는다. 글 슬라이드는 그대로 자리표를 쓴다. */
+  검('원전은 «카드»로 그린다 — 좌표가 든다', /<a:prstGeom prst="roundRect"/.test(x));
+  검('글 슬라이드는 여전히 자리표를 쓴다', (() => {
+    const g = 장.find((s) => s.종류 === '내용');
+    return !g || /<p:ph idx="1"\/>/.test(슬라이드XML(g));
+  })());
   검('XML 글자를 벗긴다', 문단XML('a & b < c').includes('a &amp; b &lt; c'));
   검('⛔ & 를 두 번 안 바꾼다', 엑스엠엘('&lt;') === '&amp;lt;');
-  검('짚을것은 굵게', /b="1"/.test(슬라이드XML(장.find((s) => s.종류 === '내용' && s.줄들.some((r) => r.꼴 === '짚을것')))));
+
+  /* 🔴 [2026-09-22 · 사장님] 「visual 요소 대폭 강화, 설명은 짧게」 */
+  {
+    const 표원고 = 원고가르기('# 장\n\n---\n\n## 표 절\n\n| 낱말 | 뜻 |\n|---|---|\n| 상신 | 격을 세운다 |\n| 기신 | 격을 막는다 |\n');
+    검('🔴 표를 «버리지» 않는다', 표원고.some((t) => t.종류 === '표'));
+    검('가름줄은 버린다', 표원고.find((t) => t.종류 === '표').행들.length === 3);
+    const 표장 = 슬라이드나누기(표원고).find((s) => s.종류 === '표');
+    검('표가 «한 장»을 쓴다', !!표장);
+    const 표x = 슬라이드XML(표장);
+    검('🔴 진짜 파워포인트 표로 나온다', /<a:tbl>/.test(표x) && /graphicframe|graphicFrame/i.test(표x));
+    검('표 칸에 글이 들어간다', 표x.includes('상신') && 표x.includes('격을 세운다'));
+    검('머리 줄에 색이 든다', /1F3864/.test(표x));
+
+    const 짚원고 = 원고가르기('# 장\n\n---\n\n## 절\n\n⭐ 이것이 핵심이다\n');
+    const 짚장 = 슬라이드나누기(짚원고).find((s) => s.종류 === '강조');
+    검('짚을 것은 «강조 카드» 한 장이다', !!짚장);
+    검('강조 카드가 색 상자로 나온다', /roundRect/.test(슬라이드XML(짚장)) && /FFF6E5/.test(슬라이드XML(짚장)));
+    검('⛔ 이모지는 화면에 안 낸다', !슬라이드XML(짚장).includes('⭐'));
+
+    검('설명은 짧게 — 한 장 3줄', 한장줄수 === 3);
+    검('한 줄도 짧게', 한줄글자 === 28);
+    검('⛔ 빈 표에는 아무것도 안 그린다', 표그림XML([]) === '');
+    /* 🔴 [2026-09-22] 파워포인트가 파일을 «못 열었다» — 빈 카드의 txBody 에 a:p 가 없었다.
+       XML 은 멀쩡한데 규격이 아니었다. 가르고 재서 잡은 자리다. */
+    검('🔴 빈 카드에도 문단이 하나는 있다', /<a:p\/>/.test(상자XML('', { x: 0, y: 0, cx: 100, cy: 100 })));
+    /* 🔴 원문이 여러 줄이면 «한 인용»으로 묶는다 — 안 묶으면 옮김 상자가 빈 채로 그려졌다 */
+    const 두줄원문 = 슬라이드나누기(원고가르기(
+      '# 장\n\n---\n\n## 절\n\n> 何謂成？如官逢財印，\n> 又無刑衝破害，官格成也。\n> 「무엇을 성이라 하는가」\n> — 『子平真詮評註』 論用神\n'));
+    const 원전장들 = 두줄원문.filter((s) => s.종류 === '원전');
+    검('🔴 잇단 원문을 한 장으로 묶는다', 원전장들.length === 1);
+    검('그 장에 옮김이 붙는다', 원전장들[0].옮김.length === 1);
+    검('⛔ 옮김이 없으면 아랫 상자를 안 그린다',
+      (슬라이드XML({ 종류: '원전', 제목: 'ㄱ', 원문: '天', 옮김: [], 출전: null })
+        .match(/roundRect/g) || []).length === 1);
+  }
   검('장 여는 장은 layout3', 레이아웃번호({ 종류: '장여는장' }) === 3);
   검('내용 장은 layout2', 레이아웃번호({ 종류: '내용' }) === 2);
   검('표지는 layout1', 레이아웃번호({ 종류: '표지' }) === 1);
@@ -447,13 +674,28 @@ if (내가진입점 && process.argv.includes('--짓는다')) {
     const n = i + 1;
     const L = 레이아웃번호(장);
     부품.push({ 이름: `ppt/slides/slide${n}.xml`, 몸: 장.종류 === '표지' ? 표지XML : 슬라이드XML(장) });
+    /* 🔴 슬라이드에서 뺀 설명은 «발표자 노트»로 내린다 — 버리지 않는다.
+       사장님: 「설명은 짧게」 + 옛 규칙 「조용히 줄이면 빠진 줄 모른다」 — 둘 다 지키는 길이다. */
+    const 노트 = (장.노트 || []).filter(Boolean);
     부품.push({
       이름: `ppt/slides/_rels/slide${n}.xml.rels`,
       몸: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
         + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
         + `<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout${L}.xml"/>`
+        + (노트.length ? `<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide" Target="../notesSlides/notesSlide${n}.xml"/>` : '')
         + '</Relationships>',
     });
+    if (노트.length) {
+      부품.push({ 이름: `ppt/notesSlides/notesSlide${n}.xml`, 몸: 노트장XML(노트) });
+      부품.push({
+        이름: `ppt/notesSlides/_rels/notesSlide${n}.xml.rels`,
+        몸: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
+          + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+          + '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesMaster" Target="../notesMasters/notesMaster1.xml"/>'
+          + `<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="../slides/slide${n}.xml"/>`
+          + '</Relationships>',
+      });
+    }
   });
 
   /* ③ presentation.xml — 슬라이드 목록만 새로 쓴다 */
@@ -496,6 +738,8 @@ if (내가진입점 && process.argv.includes('--짓는다')) {
     else if (/^ppt\/slideMasters\/slideMaster\d+\.xml$/.test(x.이름)) 덮을것.push([x.이름, 'application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml']);
     else if (/^ppt\/theme\/theme\d+\.xml$/.test(x.이름)) 덮을것.push([x.이름, 'application/vnd.openxmlformats-officedocument.theme+xml']);
     else if (/^ppt\/notesMasters\/notesMaster\d+\.xml$/.test(x.이름)) 덮을것.push([x.이름, 'application/vnd.openxmlformats-officedocument.presentationml.notesMaster+xml']);
+    /* ⛔ 노트 장을 여기 안 적으면 파워포인트가 「손상됐다」고 한다 — 부품만 넣어서는 안 된다 */
+    else if (/^ppt\/notesSlides\/notesSlide\d+\.xml$/.test(x.이름)) 덮을것.push([x.이름, 'application/vnd.openxmlformats-officedocument.presentationml.notesSlide+xml']);
     else if (/^ppt\/handoutMasters\/handoutMaster\d+\.xml$/.test(x.이름)) 덮을것.push([x.이름, 'application/vnd.openxmlformats-officedocument.presentationml.handoutMaster+xml']);
   }
   덮을것.push(['/ppt/presentation.xml', 'application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml']);
