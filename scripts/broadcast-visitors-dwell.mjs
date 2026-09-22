@@ -380,7 +380,23 @@ console.log('\n## ①-2 ⭐ 진짜 손님만 — **2026-08-29 부터 이 수가 
     console.log('   먼저: node scripts/measure-real-readers.mjs --잰다 --적는다=src/data/real-readers.json');
   } else {
     const d = JSON.parse(readFileSync(자료길, 'utf8'));
+    /* 🔴 [2026-09-22 22:2x · 5번] **이 자가 «열흘 낡은» 수를 밤마다 방송하고 있었다.**
+     *   잰 날이 09-12 인 채로 09-22 에 뿌려졌다. 아무도 그 줄을 안 봤다 —
+     *   날짜가 화면에 «찍혀» 있었는데도 그렇다. 찍는 것과 «막는 것»은 다르다.
+     *   같은 날 사장님께 「방문자가 늘었다」고 잘못 답한 것도 뿌리가 같다(낡은 수).
+     * ⇒ 사흘을 넘으면 그 자리에서 빨강으로 말하고 «되살리는 명령»을 함께 낸다.
+     * ⛔ 낡았다고 수를 숨기지는 않는다 — 숨기면 「못 쟀다」가 되어 더 나쁘다.
+     *   낡았다는 사실을 수와 «나란히» 낸다. 보는 사람이 판단한다. */
+    const 잰날 = d.generated ? new Date(String(d.generated).slice(0, 10)) : null;
+    const 며칠묵었나 = 잰날 && !Number.isNaN(잰날.getTime())
+      ? Math.floor((new Date(new Date().toLocaleDateString('sv-SE')) - 잰날) / 86400000) : null;
     console.log(`   잰 날 ${d.generated ?? '모름'} · 창 ${d.days ?? '?'}일`);
+    if (며칠묵었나 == null) {
+      console.log('   🔴 **잰 날을 모른다** — 이 수가 언제 것인지 알 수 없다. 다시 재고 방송한다.');
+    } else if (며칠묵었나 > 3) {
+      console.log(`   🔴 **이 수는 ${며칠묵었나}일 묵었다.** 오늘 것이 아니다 — 그대로 읽지 마십시오.`);
+      console.log('      되살리는 법: node scripts/measure-real-readers.mjs --잰다 --적는다=src/data/real-readers.json');
+    }
     /* 🔴 [2026-09-16] 사장님: 「**방문자수 당일, 하루평균 달라 했잖아. 또 두번이상 말하게 하네**」
      *
      * 여기가 «28일 창의 총합»만 내고 있었다. 사장님이 보시려는 것은 그 총합이 아니라
