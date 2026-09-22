@@ -1,0 +1,365 @@
+---
+/*
+ * `/data/gulf-economies` — **「걸프가 다변화했나」를 한 자료로 «두 번» 잰다.**
+ * (seoulmarkets.com/data/gulf-economies)
+ *
+ * ── 🔴 왜 (2026-09-22 · 5번) ────────────────────────────────────────────
+ *   사장님 지시 — 「모은 자료는 반드시 지면이나 콘텐트로 낸다」.
+ *   `archive/raw/gccstat` 국민계정 25,813줄이 쌓여만 있었고 읽는 지면이 없었다.
+ *
+ * ── ⭐ 이 지면이 남들과 다른 자리 ──────────────────────────────────────
+ *   「비석유 비중이 올랐다 ⇒ 다변화했다」가 어디서나 쓰이는 문장이다. 그런데 그 비중은
+ *   **유가가 떨어지면 저절로 오른다.** 실제로 2014~2016 에 걸프 전체 비중이 59.7% →
+ *   78.0% 로 «18.3%p» 뛰었다가, 유가가 돌아온 2022 에 66.8% 로 도로 내려갔다.
+ *   같은 기간 «불변가격 비석유 크기»는 한 번도 안 줄고 129.7 → 166.0 으로 늘기만 했다.
+ *   ⇒ 비중은 유가 온도계에 가깝고, 크기가 다변화에 가깝다. 둘을 나란히 낸다.
+ *
+ * ⛔ 불변가격 «수준»을 나라끼리 맞대지 않는다 — 기준해가 넷이다. 지면이 그것을 말한다.
+ * ⛔ 「좋아졌다·성공했다」로 적지 않는다. 오르고 내린 것만 적는다.
+ * ⛔ 화면에 한국어를 내지 않는다.
+ * 🔴 Astro 앞말(--- 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import feed from '../../data/gulf-macro.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+type 줄 = {
+  code: string; name: string; years: string[];
+  nonoil_share: Array<number | null>; nonoil_index: Array<number | null>;
+  oil_index: Array<number | null>; gdp_usd_m: Array<number | null>;
+};
+
+const f = feed as any;
+const 줄들 = (f.rows as 줄[]);
+const 나라들 = 줄들.filter((r) => r.code !== 'Gulf Cooperation Council');
+const 합계 = 줄들.find((r) => r.code === 'Gulf Cooperation Council') || null;
+
+const num = (n: number | null) => (n == null ? '—' : Math.round(n).toLocaleString('en-GB'));
+const 소수 = (n: number | null) => (n == null ? '—' : (Math.round(n * 10) / 10).toLocaleString('en-GB', { minimumFractionDigits: 1 }));
+
+/** 어떤 해의 값 — 없으면 null. ⛔ 앞뒤로 메우지 않는다 */
+function 그해(r: 줄, 칸: 'nonoil_share' | 'nonoil_index' | 'oil_index' | 'gdp_usd_m', 해: string) {
+  const i = r.years.indexOf(해);
+  return i < 0 ? null : (r[칸][i] ?? null);
+}
+function 첫해(r: 줄) { return r.years[0]; }
+function 끝해(r: 줄) { return r.years[r.years.length - 1]; }
+
+const 처음 = 줄들.reduce((a, r) => (r.years[0] < a ? r.years[0] : a), '9999');
+const 마지막 = 줄들.reduce((a, r) => (끝해(r) > a ? 끝해(r) : a), '0000');
+
+/* 보여 줄 해 — 유가가 무너진 2014→2016, 회복한 2022, 그리고 끝 */
+const 볼해 = ['2010', '2014', '2016', '2019', '2022', 마지막].filter((y, i, a) => a.indexOf(y) === i);
+
+/* 🔴 이 지면의 이야기 — 합계로 셈한다 */
+const 비중14 = 합계 ? 그해(합계, 'nonoil_share', '2014') : null;
+const 비중16 = 합계 ? 그해(합계, 'nonoil_share', '2016') : null;
+const 비중22 = 합계 ? 그해(합계, 'nonoil_share', '2022') : null;
+const 지수14 = 합계 ? 그해(합계, 'nonoil_index', '2014') : null;
+const 지수16 = 합계 ? 그해(합계, 'nonoil_index', '2016') : null;
+const 지수22 = 합계 ? 그해(합계, 'nonoil_index', '2022') : null;
+const 뛴폭 = 비중14 != null && 비중16 != null ? 비중16 - 비중14 : null;
+const 되돌린폭 = 비중16 != null && 비중22 != null ? 비중16 - 비중22 : null;
+
+/* 석유 부문이 «실물로» 줄어든 나라 — 지어낸 분류가 아니라 지수가 100 아래인 곳 */
+const 석유줄어든곳 = 나라들.filter((r) => {
+  const v = 그해(r, 'oil_index', 끝해(r));
+  return v != null && v < 100;
+});
+
+const 기준해쌍 = Object.entries(f.기준해 as Record<string, string>)
+  .filter(([k]) => k !== 'GCC (all six)')
+  .map(([k, v]) => [k, String(v).replace('Constant prices ', '').replace('Chain-linked, ', 'chain-linked ')]);
+const 기준가짓수 = new Set(기준해쌍.map(([, v]) => v)).size;
+
+const TITLE = 'Has the Gulf actually diversified? The same data answers twice';
+const DESC = 'Oil and non-oil GDP for Saudi Arabia, the UAE, Qatar, Kuwait, Oman and Bahrain, '
+  + processed(처음) + '–' + 마지막 + ', as the GCC’s own statistics office splits it. The non-oil '
+  + 'share of GDP rises whenever the oil price falls, so we publish the real size of the non-oil '
+  + 'economy beside it. The two measures do not tell the same story.';
+function processed(s: string) { return s; }
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Gulf oil and non-oil GDP, 2010–' + 마지막,
+  description: DESC,
+  url: SITE_URL + '/data/gulf-economies',
+  keywords: ['Gulf', 'GCC', 'Saudi Arabia', 'UAE', 'Qatar', 'Kuwait', 'Oman', 'Bahrain',
+    'diversification', 'non-oil GDP', 'oil GDP', 'Vision 2030', 'GDP by sector', 'GCC-Stat'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  isAccessibleForFree: true,
+  spatialCoverage: ['Saudi Arabia', 'United Arab Emirates', 'Qatar', 'Kuwait', 'Oman', 'Bahrain'],
+  temporalCoverage: 처음 + '/' + 마지막,
+  variableMeasured: ['oil GDP', 'non-oil GDP', 'GDP at current prices', 'GDP at constant prices'],
+};
+
+const faq: Array<[string, string]> = [
+  ['Why does the non-oil share of GDP rise when the oil price falls?',
+    'Because the share is a ratio, and the oil price moves the denominator. If oil revenue halves and '
+    + 'nothing else changes, the non-oil share rises sharply without a single new factory being built. '
+    + 'That is exactly what the Gulf numbers show in 2014–2016, and the share then fell back when oil '
+    + 'recovered. We publish the real size of the non-oil economy next to the share so you can see '
+    + 'which movements are real and which are arithmetic.'],
+  ['Can I compare the constant-price figures across countries?',
+    'No, and we say so on the page rather than quietly letting you. The six statistics offices use '
+    + 기준가짓수 + ' different constant-price bases, so the levels are not on the same scale. Each '
+    + 'country’s index here is set to 100 in its own first year, which makes it a fair record of that '
+    + 'country against its own past — not a ranking against its neighbours. For cross-country '
+    + 'comparison use the current-price shares.'],
+  ['Where do the oil and non-oil definitions come from?',
+    'From the GCC Statistical Centre itself. The split is published as its own series — we did not '
+    + 'assign sectors to buckets or estimate anything. That matters, because “non-oil” drawn by an '
+    + 'outsider usually smuggles in refining, petrochemicals or state spending funded by oil.'],
+  ['Is a rising non-oil economy good news?',
+    'We do not say. A larger non-oil economy can be state-funded construction as easily as it can be '
+    + 'exportable services, and this dataset does not separate the two. What we can tell you is which '
+    + 'direction each number moved and by how much. This is not investment advice.'],
+  ['How current is this?',
+    'The latest year the source publishes is ' + 마지막 + ', and we captured the file on ' + f.받은날 + '. '
+    + 'Annual figures for recent years are revised, so a number here can change when GCC-Stat revises '
+    + 'it; we re-collect rather than freeze a copy.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+const jsonLd = [datasetLd, faqLd];
+const 아직 = 'This page is the free read. The full series — by sector, quarterly, with the trade and '
+  + 'consumer-price files — is part of the Gulf dataset.';
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>Has the Gulf actually diversified?</h1>
+    <p class="lead">
+      The usual answer is a single number: the non-oil share of GDP, which has risen almost
+      everywhere in the Gulf. <b>That number rises whenever the oil price falls.</b> Here is the
+      same official data measured a second way — the real size of the non-oil economy — for
+      <b>Saudi Arabia, the UAE, Qatar, Kuwait, Oman and Bahrain</b>, {처음}–{마지막}.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false} 아직={아직} />
+
+    {합계 && (
+      <section class="stats">
+        <div class="stat"><b>{소수(그해(합계, 'nonoil_share', 처음))} %</b><span>non-oil share, {처음}</span></div>
+        <div class="stat"><b>{소수(그해(합계, 'nonoil_share', 마지막))} %</b><span>non-oil share, {마지막}</span></div>
+        <div class="stat"><b>{소수(그해(합계, 'nonoil_index', 마지막))}</b><span>real non-oil economy, {처음} = 100</span></div>
+        <div class="stat"><b>{소수(그해(합계, 'oil_index', 마지막))}</b><span>real oil economy, {처음} = 100</span></div>
+      </section>
+    )}
+
+    <section>
+      <h2>The trap: watch the share do something the economy did not</h2>
+      {합계 && 뛴폭 != null && 되돌린폭 != null && (
+        <p>
+          Between 2014 and 2016 the oil price roughly halved. The Gulf’s non-oil share of GDP jumped
+          from <b>{소수(비중14)} %</b> to <b>{소수(비중16)} %</b> — <b>{소수(뛴폭)} points in two years</b>,
+          a move that in any other context would be read as rapid structural change. Then it went
+          <i>backwards</i>: by 2022, with oil expensive again, it was {소수(비중22)} %, giving back
+          {' '}{소수(되돌린폭)} points.
+        </p>
+      )}
+      {합계 && (
+        <p>
+          The real non-oil economy did none of that. Measured at constant prices it went
+          {' '}<b>{소수(지수14)} → {소수(지수16)} → {소수(지수22)}</b> over the same three dates
+          ({처음} = 100). It grew through the crash, grew through the recovery, and never fell.
+        </p>
+      )}
+      <p class="warn">
+        <b>So the share is closer to an oil-price thermometer than to a diversification measure.</b>
+        It is not wrong — it is a real ratio of real numbers — but it answers “how much of this
+        year’s output was oil”, not “how much non-oil capacity has this country built”. Those are
+        different questions and the Gulf data happens to separate them cleanly.
+      </p>
+    </section>
+
+    <section>
+      <h2>Non-oil share of GDP, at current prices</h2>
+      <p>
+        This is the comparable-across-countries measure, and the one that moves with the oil price.
+        Read it across a row to see the 2014–2016 bulge and the partial reversal after it.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Country</th>{볼해.map((y) => <th class="n">{y}</th>)}</tr>
+          </thead>
+          <tbody>
+            {줄들.map((r) => (
+              <tr class={r.code === 'Gulf Cooperation Council' ? 'sum' : ''}>
+                <td>{r.name}</td>
+                {볼해.map((y) => <td class="n">{그해(r, 'nonoil_share', y) == null ? '—' : 소수(그해(r, 'nonoil_share', y)) + ' %'}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Dashes are years the source does not publish for that country, not zeros — Qatar’s series
+        starts in {나라들.find((r) => r.code === 'Qatar') ? 첫해(나라들.find((r) => r.code === 'Qatar') as 줄) : '2011'}.
+      </p>
+    </section>
+
+    <section>
+      <h2>Real size of the non-oil economy, each country = 100 in its own first year</h2>
+      <p>
+        This is the measure the oil price cannot move. It is <b>not</b> comparable between countries —
+        see the caveat below — but within a country it is an honest record of growth.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Country</th><th class="n">Base year</th>{볼해.map((y) => <th class="n">{y}</th>)}</tr>
+          </thead>
+          <tbody>
+            {줄들.map((r) => (
+              <tr class={r.code === 'Gulf Cooperation Council' ? 'sum' : ''}>
+                <td>{r.name}</td>
+                <td class="n">{첫해(r)}</td>
+                {볼해.map((y) => <td class="n">{소수(그해(r, 'nonoil_index', y))}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>And the oil economy itself, on the same basis</h2>
+      <p>
+        Published far less often than the non-oil number, and it is where the surprises are.
+        {석유줄어든곳.length > 0 && (
+          <span>
+            {' '}In real terms the oil sector is <b>smaller in {마지막} than in its own base year</b>
+            {' '}in {석유줄어든곳.length === 1 ? 'one country' : 석유줄어든곳.length + ' countries'}:{' '}
+            <b>{석유줄어든곳.map((r) => r.name).join(', ')}</b>.
+          </span>
+        )}
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Country</th><th class="n">Base year</th>{볼해.map((y) => <th class="n">{y}</th>)}</tr>
+          </thead>
+          <tbody>
+            {줄들.map((r) => (
+              <tr class={r.code === 'Gulf Cooperation Council' ? 'sum' : ''}>
+                <td>{r.name}</td>
+                <td class="n">{첫해(r)}</td>
+                {볼해.map((y) => <td class="n">{소수(그해(r, 'oil_index', y))}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Production quotas, not depletion, drive most of the recent movement here — OPEC+ cuts land in
+        this series as a shrinking oil sector. We report the number; we do not model the reason.
+      </p>
+    </section>
+
+    <section>
+      <h2>Size, for scale</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Country</th><th class="n">GDP {마지막}, US$m</th><th class="n">Years held</th></tr>
+          </thead>
+          <tbody>
+            {줄들.map((r) => (
+              <tr class={r.code === 'Gulf Cooperation Council' ? 'sum' : ''}>
+                <td>{r.name}</td>
+                <td class="n">{num(그해(r, 'gdp_usd_m', 마지막))}</td>
+                <td class="n">{첫해(r)}–{끝해(r)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Read this before you use it</h2>
+      <ul>
+        <li><b>The constant-price levels are not comparable across countries.</b> The six offices use
+          {' '}{기준가짓수} different bases —{' '}
+          {기준해쌍.map(([k, v], i) => (
+            <span>{i ? '; ' : ''}{k} <i>{v}</i></span>
+          ))}. That is why every index on this page is set to 100 in each country&rsquo;s own first
+          year rather than printed as a level.</li>
+        <li><b>“Non-oil” is the source&rsquo;s own line, not our bucket.</b> We did not assign
+          industries. An outsider&rsquo;s “non-oil” usually smuggles in refining, petrochemicals or
+          state spending funded by oil; this one is whatever GCC-Stat publishes under that name.</li>
+        <li><b>Dashes are missing years, not zeros.</b> We do not fill gaps from neighbouring years.</li>
+        <li><b>Recent years get revised.</b> {마지막} is the latest annual figure the source
+          publishes; we captured this file on {f.받은날} and re-collect rather than freeze it.</li>
+        <li><b>No quarterly detail here yet, and no sector breakdown.</b> The source carries both —
+          agriculture through public administration, and quarterly back to 2010. That is the next build.</li>
+        <li><b>No view on whether any of this is good news.</b> That is yours to form.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        GCC Statistical Centre (GCC-Stat), national accounts, via its SDMX API —{' '}
+        <a href="https://gccstat.org" rel="nofollow noopener" target="_blank">gccstat.org</a>.
+        Figures are in US dollars as published. The wording on this page is ours; the split between
+        oil and non-oil is theirs.
+      </p>
+      <p class="note">
+        This page reports published statistics. It is not investment advice and not a recommendation
+        to buy or sell anything.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        <a href="/data/screener">Screen Abu Dhabi and Dubai listed companies</a> ·{' '}
+        <a href="/data/disclosures">Material disclosures, Korea and Japan</a> ·{' '}
+        <a href="/data">the rest of the catalogue</a>.
+      </p>
+    </section>
+
+    <BuyBar 자리="bottom" 살수있나={false} 아직={아직} />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n, th.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  tr.sum td { font-weight: 650; border-top: 2px solid var(--line, #ddd); }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  li { margin: .35rem 0; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+    tr.sum td { border-top-color: #444; }
+  }
+</style>

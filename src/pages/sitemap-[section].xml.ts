@@ -130,6 +130,7 @@ export const GET: APIRoute = async ({ params }) => {
       /* [2026-09-22] 한국 중대공시 — 날마다 줄이 늘어난다(자리지킴이가 매시 쌓는다) */
       { loc: '/data/korea-disclosures', changefreq: 'daily', priority: '0.8' },
       { loc: '/data/disclosures', changefreq: 'daily', priority: '0.8' },
+      { loc: '/data/gulf-economies', changefreq: 'monthly', priority: '0.8' },
       { loc: '/rankings/market-cap', changefreq: 'weekly', priority: '0.8' },
       { loc: '/rankings/pbr', changefreq: 'weekly', priority: '0.8' },
       { loc: '/rankings/interest-cover', changefreq: 'weekly', priority: '0.8' },
