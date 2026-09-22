@@ -1,0 +1,8 @@
+잰 때   2026. 9. 22. 오전 9:36:17
+잰 자리  2번
+판정    팔린다
+결제사   토스(국내 원화)
+clientKey live_gck_ma60RZblrqBJQXq5Jx9M8wzYWBn1 (enabled=true · live=true)
+서비스   saju·regionSet 모두 live 키 (2026-08-31 지나 둘 다 열림)
+checkout /checkout.html?service=saju 200 · requestPayment/tosspayments SDK 로딩 확인
+결제 승인(capture)은 안 불렀다 — 돈이 오가는 자리다
