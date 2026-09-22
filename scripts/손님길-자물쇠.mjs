@@ -244,6 +244,23 @@ export function 자가시험() {
   const 때 = (h, m) => new Date(2026, 8, 15, h, m);
 
   재다('유료 사이트는 둘이다', 유료사이트.length === 2);
+
+  /* 🔴 [2026-09-22] `--사이트=klifemap` 이 조용히 seoulmarkets 로 떨어졌다 */
+  재다('--사이트 klifemap (띄어쓴 꼴)',
+    인자읽기('--사이트', ['node', 'x', '--잰다', '--사이트', 'klifemap']) === 'klifemap');
+  재다('🔴 --사이트=klifemap (= 꼴) — 이것을 못 읽어 사고가 났다',
+    인자읽기('--사이트', ['node', 'x', '--잰다', '--사이트=klifemap']) === 'klifemap');
+  재다('--누구 도 두 꼴 다 읽는다',
+    인자읽기('--누구', ['node', 'x', '--누구=5번']) === '5번'
+    && 인자읽기('--누구', ['node', 'x', '--누구', '5번']) === '5번');
+  재다('⛔ 없으면 null', 인자읽기('--사이트', ['node', 'x', '--잰다']) === null);
+  재다('⛔ 다음 것이 또 다른 깃발이면 값이 아니다',
+    인자읽기('--사이트', ['node', 'x', '--사이트', '--누구', '5번']) === null);
+  재다('⛔ 빈 값은 null', 인자읽기('--사이트', ['node', 'x', '--사이트=']) === null);
+  재다('⛔ 줄이 없어도 안 터진다',
+    인자읽기('--사이트', null) === null && 인자읽기('--사이트', []) === null);
+  재다('⛔ 남의 깃발을 잘못 집지 않는다',
+    인자읽기('--사이트', ['node', 'x', '--사이트말고=klifemap']) === null);
   재다('담당은 6번·2번이다',
     유료사이트.find((s) => s.코드 === 'seoulmarkets').담당 === '6번'
     && 유료사이트.find((s) => s.코드 === 'klifemap').담당 === '2번');
@@ -298,10 +315,26 @@ export function 자가시험() {
   return 실패.length === 0;
 }
 
-const 인자 = (이름) => {
-  const i = process.argv.indexOf(이름);
-  return i > 0 ? (process.argv[i + 1] ?? null) : null;
-};
+/**
+ * 인자 읽기 — **`--사이트 klifemap` 과 `--사이트=klifemap` 을 둘 다 받는다.**
+ *
+ * 🔴 [2026-09-22 21:3x · 5번] `=` 꼴을 안 받아서 **조용히 seoulmarkets 를 쟀다.**
+ *   `--사이트=klifemap` 이라고 쳤는데 자가 그 인자를 «못 보고» 기본값으로 떨어졌고,
+ *   화면에는 「SeoulMarkets 결제 점검」이 떴다. 대장에도 seoulmarkets 로 적혔다.
+ *   ⇒ **KLifeMap 을 쟀다고 믿고 넘어갈 뻔했다.** 매출이 나는 서비스다.
+ *   이 저장소가 `ctype undeploy` 로 한 번 물린 것과 같은 병이다 —
+ *   **조용히 성공한 척하는 것이 제일 나쁘다.**
+ * ⛔ 그래서 두 꼴을 다 받고, 아래에서 «모르는 사이트»는 기본값으로 떨어뜨리지 않는다.
+ */
+export function 인자읽기(이름, 줄들) {
+  const a = Array.isArray(줄들) ? 줄들 : [];
+  const i = a.indexOf(이름);
+  if (i > 0 && a[i + 1] && !String(a[i + 1]).startsWith('--')) return a[i + 1];
+  const 붙은것 = a.find((x) => String(x).startsWith(이름 + '='));
+  if (붙은것) return 붙은것.slice(이름.length + 1) || null;
+  return null;
+}
+const 인자 = (이름) => 인자읽기(이름, process.argv);
 
 if (process.argv.includes('--자가시험')) process.exit(자가시험() ? 0 : 1);
 else if (process.argv[1] && process.argv[1].endsWith('손님길-자물쇠.mjs')) {
