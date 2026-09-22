@@ -1,0 +1,148 @@
+---
+/**
+ * /100y/retirement-prep-by-age — 노후 준비, 「안 한다」는 20대와 80대가 같은 말이 아니다
+ *
+ * 이슈  KOSIS 사회조사 원표(DT_1SSWE133R, 노후 준비방법·주된응답·19세 이상 인구)를
+ *       직접 받아 나이띠별로 갈랐다. 2년 주기 조사라 2025년 한 시점만 받았다 — 10년
+ *       추이 비교는 항목선택 UI가 자동화로 연도를 안 바꿔 못 받았다(솔직히 적어 둔다).
+ * 우리 축  「노후 준비를 안 한다」는 응답 비율은 19~29세(55.6%)와 80세 이상(55.0%)이
+ *         거의 같다. 그런데 안 하는 «까닭»은 정반대다 — 20대는 「아직 생각 안 해봤다」가
+ *         가장 크고(42.8%), 80대는 「준비할 능력이 없다」가 가장 크다(53.6%).
+ * 받은 경로  OpenAPI 는 err 30. kosis.kr/statHtml 웹지면의 다운로드 팝업을 실제
+ *           마우스클릭(#ico_download→CSV 라디오→confirmBtn)으로 눌러 CSV 로 받았다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/retirement-prep-by-age.json';
+
+const 자료 = 원본 as any;
+const 전체 = 자료.전체;
+const 나이띠 = 자료.나이띠별 as any[];
+
+const 준비율최고 = 나이띠.reduce((a: any, b: any) => (b.준비함 > a.준비함 ? b : a));
+const 준비율최저 = 나이띠.reduce((a: any, b: any) => (b.준비함 < a.준비함 ? b : a));
+const 이십대 = 나이띠.find((r: any) => r.띠 === '19~29세');
+const 팔십대 = 나이띠.find((r: any) => r.띠 === '80세 이상');
+
+const desc =
+  `국가데이터처 사회조사 원표를 나이띠별로 가르니, 노후 준비를 「안 한다」는 응답이 ` +
+  `19~29세(${이십대.준비안함}%)와 80세 이상(${팔십대.준비안함}%)이 거의 같습니다. 그런데 ` +
+  `안 하는 까닭은 정반대입니다 — 20대는 「아직 생각 안 해봤다」가 가장 크고 ` +
+  `(${이십대.안한이유_아직생각안함}%), 80대는 「준비할 능력이 없다」가 가장 큽니다 ` +
+  `(${팔십대.안한이유_준비능력부족}%).`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '노후 준비방법 — 나이띠별, 2025',
+  description: desc,
+  temporalCoverage: '2025',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['노후 준비 여부', '노후 준비 안 하는 까닭'],
+};
+---
+
+<HundredYear
+  title={`노후 준비 안 한다는 20대·80대, 비율은 같아도 까닭은 다릅니다 — ${이십대.안한이유_아직생각안함}% vs ${팔십대.안한이유_준비능력부족}%`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>노후 준비를 「안 한다」— 20대와 80대,<br />비율은 같아도 까닭은 정반대입니다</h1>
+  <p class="sub">
+    KOSIS 사회조사 원표(노후 준비방법·주된응답·19세 이상 인구)를 직접 받아 나이띠별로
+    {' '}가릅니다. 2년 주기 조사라 이번엔 가장 최근 시점(2025) 한 장만 받았습니다 — 10년
+    {' '}추이 비교는 다음에 다시 시도합니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">「노후 준비를 안 한다」— 19~29세 vs 80세 이상, 2025</p>
+    <p class="answer-num">{이십대.준비안함}% ≈ {팔십대.준비안함}%</p>
+    <p class="answer-sub">비율은 거의 같다 — 이것은 통계이지 당신이 아닙니다</p>
+  </div>
+
+  <h2>나이띠마다 「준비함」 비율이 다릅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이띠</th><th>준비함</th><th>준비 안 함</th></tr></thead>
+      <tbody>
+        {나이띠.map((r) => (
+          <tr>
+            <td>{r.띠}</td>
+            <td>{r.준비함}%</td>
+            <td>{r.준비안함}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    「준비함」 비율이 가장 높은 나이띠는 {준비율최고.띠}로 {준비율최고.준비함}%입니다.
+    {' '}가장 낮은 나이띠는 {준비율최저.띠}로 {준비율최저.준비함}%에 그칩니다. 준비율은
+    {' '}40~50대에서 정점을 찍고 그 뒤로 다시 낮아집니다 — 준비를 «안 하는» 이유가
+    {' '}나이마다 다르기 때문입니다.
+  </p>
+
+  <h2>같은 「안 한다」도 까닭은 나이마다 다릅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이띠</th><th>아직 생각 안 해봤다</th><th>준비할 능력이 없다</th></tr></thead>
+      <tbody>
+        {나이띠.map((r) => (
+          <tr>
+            <td>{r.띠}</td>
+            <td>{r.안한이유_아직생각안함}%</td>
+            <td>{r.안한이유_준비능력부족}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    19~29세는 「아직 생각 안 해봤다」가 {이십대.안한이유_아직생각안함}%로 가장 큽니다 —
+    {' '}아직 시간이 있다고 보는 것입니다. 반대로 80세 이상은 「준비할 능력이 없다」가
+    {' '}{팔십대.안한이유_준비능력부족}%로 가장 큽니다 — 더는 미룰 시간이 없는 상태에서
+    {' '}못 하는 것입니다. 두 나이띠의 「준비 안 함」 비율은 비슷해도, 그 안의 사정은
+    {' '}전혀 다릅니다.
+  </p>
+
+  <h2>준비하는 사람들은 무엇으로 준비하나?</h2>
+  <p>
+    전국 평균으로 「준비함」에 든 사람 중 국민연금이 {자료.준비방법_전체.국민연금}%로
+    {' '}가장 큰 몫을 차지합니다. 그다음이 예금·적금·저축성보험({자료.준비방법_전체.예금적금저축성보험}%),
+    {' '}직역연금({자료.준비방법_전체.직역연금}%) 순입니다. 부동산 운용은
+    {' '}{자료.준비방법_전체.부동산운용}%, 주식·채권 등은 {자료.준비방법_전체.주식채권등}%에
+    {' '}그칩니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {자료.이자료가못가르는것.map((줄: string) => <li>{줄}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 나이띠별로 노후 준비 여부와 그 까닭이
+    {' '}어떻게 갈리는지가 저희가 놓을 수 있는 전부입니다. 「이 나이면 이래야 한다」로 읽을
+    {' '}근거는 이 표에 없습니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관}, {자료.출처.표} ({자료.출처.받은날} 받음). 받은 경로 —
+    {' '}{자료.출처.받은경로}.
+    {' '}<a href={자료.출처.창구} rel="noopener">원문 통계표</a>. {자료.출처.이용허락범위}
+  </p>
+
+  <HundredAgeWalk 키="retirement-prep-by-age" />
+
+  <NextQuestionBrief 모은것="국가데이터처 KOSIS 사회조사 원표(statHtml) 실측 — 기사 숫자 아님" />
+</HundredYear>
+
+<style>
+  .answer { margin: 1.6rem 0; padding: 1.2rem 1.4rem; border-radius: 12px; background: var(--panel, #f6f7f9); }
+  .answer-label { margin: 0 0 0.3rem; font-size: 0.9rem; opacity: 0.75; }
+  .answer-num { margin: 0; font-size: 1.6rem; font-weight: 800; }
+  .answer-sub { margin: 0.3rem 0 0; font-size: 0.92rem; opacity: 0.8; }
+  .tablewrap { overflow-x: auto; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.94rem; }
+  th, td { padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--line, #e6e8ec); text-align: left; }
+  .note { font-size: 0.9rem; opacity: 0.85; }
+</style>

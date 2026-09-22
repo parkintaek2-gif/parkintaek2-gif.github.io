@@ -237,6 +237,8 @@ export const 붙일수있는갈래 = [
   'housework-view-vs-reality',
   /* [2026-09-22 · 1번] 같은 까닭으로 오늘 새로 낸 낱장 둘을 더 올린다. */
   'housework-spectrum-by-age', 'parent-support-view-by-age',
+  /* [2026-09-22 · 1번] 같은 까닭으로 오늘 낸 낱장 하나 더 — 노후 준비방법 */
+  'retirement-prep-by-age',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary', 'tutoring', 'tutoring-region', 'tutoring-income',
   /* 🔴 2026-09-11 3번 신설 — 사장님 지시. 학생자살 사망사안 보고서(한겨레 인용) */
