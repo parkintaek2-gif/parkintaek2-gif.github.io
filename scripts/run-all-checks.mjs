@@ -382,6 +382,16 @@ export const 단계들 = [
      그 규칙은 저장소가 아니라 claude.ai 예약작업 아홉의 프롬프트에 산다. 고치는 자를
      두어 손으로 아홉 번 고치지 않는다. ⚠ 시험은 «고치는 셈»만 잰다(브라우저를 안 붙는다). */
   "node scripts/set-jbnews-sports-prompt.mjs --자가시험",
+  /* 🔴 [2026-09-22] 사장님 「기사 보내지마」·「5시가 마지막」 — 세 겹으로 박았고 셋 다 잰다.
+     ① 수집기의 회차 표(09~16시)와 보낼때인가() ② 예약 창이 17시를 안 넘나(윈도 쪽이라
+     git 밖에 있다 — 옛 명령으로 다시 걸면 조용히 되살아난다) */
+  "node scripts/collect-jbnews-sports-articles.mjs --자가시험",
+  "node scripts/check-jbnews-sports-schedule.mjs --자가시험",
+  "node scripts/check-jbnews-sports-schedule.mjs",
+  /* 🔴 [2026-09-22] 교재를 다듬을 때 원전 한문·전문용어·옮김을 잃지 않나.
+     ⚠ 자가시험만 문다 — 실측은 형제 저장소(../klifemap)의 원고를 git 과 맞대므로
+     그 저장소가 없는 자리에서 헛빨강이 된다. */
+  "node scripts/check-교재-다듬기.mjs --자가시험",
   /* 기사·자료 대조기가 «기사가 잰 날»의 스냅숏을 고르는지 — 이것이 깨지면 지난 기사가
      자료를 다시 받을 때마다 통째로 빨강이 된다(2026-09-22 에 겪었다). */
   "node scripts/lib/그날자료.mjs --자가시험",

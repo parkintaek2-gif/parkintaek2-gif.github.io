@@ -11,10 +11,18 @@ rem
 rem  ⚠ 크롬이 9222 로 떠 있어야 한다 — 수집기가 로그인된 창에 붙어 대화를 읽는다.
 rem  ⚠ 두 번 돌아도 안전하다 — 이미 보낸 회차는 «보낸 자국»을 보고 건너뛴다.
 rem
+rem  🔴🔴 [2026-09-22 17:2x] **창을 16:23 에서 끊었다** — 사장님 지시
+rem      「기사 보내지마」 · 「5시가 마지막」
+rem    그 전에는 /du 0008:10 이라 09:23~17:23 여덟 번이 돌았고, 마지막 17:23 이
+rem    17시 회차를 보내려던 «도중»에 멈추라는 말씀을 받았다.
+rem    ⇒ /du 0007:10 — 09:23 부터 16:23 까지 여덟 번(09~16시)에서 끝난다.
+rem    ⭐ 자는 두 겹이다. 여기 창을 누가 다시 늘려도 수집기가 17시부터는 안 보낸다
+rem      (collect-jbnews-sports-articles.mjs 의 보낼때인가()). 한 겹만 믿지 않는다.
+rem
 rem  거는 법 (관리자 아님)
 rem    schtasks /create /tn "SeoulMarkets-중부매일스포츠-거두기" ^
 rem      /tr "\"C:\Users\User\Documents\GitHub\dataeconomics\scripts\run-jbnews-sports-collect.cmd\"" ^
-rem      /sc daily /st 09:23 /ri 60 /du 0008:10 /f
+rem      /sc daily /st 09:23 /ri 60 /du 0007:10 /f
 rem  푸는 법
 rem    schtasks /delete /tn "SeoulMarkets-중부매일스포츠-거두기" /f
 rem  손으로 한 번
