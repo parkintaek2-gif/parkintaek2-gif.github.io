@@ -4,6 +4,12 @@ import { SITE_URL, CATEGORIES } from '../consts';
 import { publishedArticles } from '../lib/articles';
 import { getPagedTags } from '../lib/tags';
 import countryProfiles from '../data/country-trade-profiles.json';
+/* 🔴 [2026-09-22 · 5번] 회사·업종 지면 2,575장 — 사이트맵에 없으면 구글이 못 찾는다.
+   지면을 찍는 «까닭»이 색인이므로, 여기 빠지면 2,575장을 지은 뜻이 없다. */
+import fin from '../data/korea-financials-tape.json';
+import { 주소표만들기 } from '../lib/company-slug.mjs';
+import { 낼만한가 } from '../lib/company-page.mjs';
+import { 업종주소 } from '../lib/sector-en.mjs';
 
 type Video = { title: string; description: string; thumbnail: string; content: string };
 type Image = { loc: string; title: string };
@@ -13,7 +19,11 @@ type Url = { loc: string; lastmod?: Date; priority: string; changefreq: string; 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 export function getStaticPaths() {
-  return [{ params: { section: 'pages' } }, ...CATEGORIES.map((c) => ({ params: { section: c.slug } }))];
+  return [
+    { params: { section: 'pages' } },
+    { params: { section: 'companies' } },
+    ...CATEGORIES.map((c) => ({ params: { section: c.slug } })),
+  ];
 }
 
 const xml = (urls: Url[]) => `<?xml version="1.0" encoding="UTF-8"?>
@@ -45,7 +55,30 @@ export const GET: APIRoute = async ({ params }) => {
   const section = params.section!;
   let urls: Url[];
 
-  if (section === 'pages') {
+  if (section === 'companies') {
+    /* 회사 2,515 + 업종 60 + 목록 1. ⛔ 지면을 «안 만든» 회사는 여기에도 안 넣는다 —
+       사이트맵이 404 를 가리키면 그 사이트맵 전체의 신뢰가 깎인다. */
+    const 행들 = (fin as any).rows as any[];
+    const 묶음 = new Map<string, any[]>();
+    for (const r of 행들) {
+      if (!묶음.has(r.code)) 묶음.set(r.code, []);
+      묶음.get(r.code)!.push(r);
+    }
+    const 회사머리 = [...묶음.entries()].map(([code, rs]) => ({ code, ...rs[0] }));
+    const 주소표 = 주소표만들기(회사머리);
+    const 업종들 = new Set<string>();
+    const 것: Url[] = [{ loc: '/companies', changefreq: 'weekly', priority: '0.9' }];
+    for (const h of 회사머리) {
+      if (!낼만한가(묶음.get(h.code))) continue;
+      것.push({ loc: '/company/' + 주소표.get(h.code), changefreq: 'monthly', priority: '0.6' });
+      const s2 = 업종주소(h.sector);
+      if (s2) 업종들.add(s2);
+    }
+    for (const s2 of [...업종들].sort()) {
+      것.push({ loc: '/sector/' + s2, changefreq: 'weekly', priority: '0.7' });
+    }
+    urls = 것;
+  } else if (section === 'pages') {
     const all = await publishedArticles();
     const newest = all[0]?.data.pubDate;
     urls = [

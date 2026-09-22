@@ -1,0 +1,140 @@
+---
+/*
+ * `/companies` — **회사 지면 2,515장과 업종 61갈래로 들어가는 문.**
+ *
+ * ── 🔴 왜 (2026-09-22 · 5번) ────────────────────────────────────────────
+ * 백년지도 노하우 ④ — 두 축이 서로를 가리킨다. 지면을 수천 장 찍어도 «들어가는 문»이
+ * 없으면 검색엔진이 그 장들을 못 찾는다. 백년지도도 /school 2,525장 위에 목록 지면을 둔다.
+ *
+ * ⛔ 2,515개를 한 장에 다 늘어놓지 않는다 — 무겁고, 광고 심사가 「얇은 목록」으로 본다.
+ *   업종 61갈래로 접어서 내고, 회사 낱장으로는 업종 지면을 거쳐 간다.
+ * ⛔ 업종을 회사 수나 매출로 «줄 세우지 않는다». 이름 차례로 늘어놓는다.
+ * ⛔ 화면에 한국어를 내지 않는다.
+ */
+import Base from '../layouts/Base.astro';
+import { SITE_URL } from '../consts';
+import fin from '../data/korea-financials-tape.json';
+import { 낼만한가, 조원억 } from '../lib/company-page.mjs';
+import { 업종말, 업종주소 } from '../lib/sector-en.mjs';
+
+const 행들 = (fin as any).rows as any[];
+const 묶음 = new Map<string, any[]>();
+for (const r of 행들) {
+  if (!묶음.has(r.code)) 묶음.set(r.code, []);
+  묶음.get(r.code)!.push(r);
+}
+
+const 갈래 = new Map<string, { en: string; 수: number; 매출: number }>();
+let 낸회사 = 0;
+let 통매출 = 0;
+for (const [code, rs] of 묶음) {
+  if (!낼만한가(rs)) continue;
+  낸회사 += 1;
+  const en = 업종말(rs[0].sector);
+  const slug = 업종주소(rs[0].sector);
+  const 최근 = [...rs].sort((a, b) => b.year - a.year)[0];
+  const rev = 조원억(최근.revenue_krw) ?? 0;
+  통매출 += rev;
+  if (!en || !slug) continue;
+  if (!갈래.has(slug)) 갈래.set(slug, { en, 수: 0, 매출: 0 });
+  const g = 갈래.get(slug)!;
+  g.수 += 1;
+  g.매출 += rev;
+}
+const 갈래목록 = [...갈래.entries()].map(([slug, v]) => ({ slug, ...v }))
+  .sort((a, b) => a.en.localeCompare(b.en, 'en'));
+
+const 해들 = [...new Set(행들.map((r) => r.year))].sort();
+
+const bn = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 0 });
+
+const title = 'Korean listed companies — filed financials, company by company';
+const description = `Reported revenue, operating profit, net profit, assets and equity for ${낸회사.toLocaleString('en-GB')} companies listed in Korea, ${해들[0]}–${해들[해들.length - 1]}, taken from the regulator's own disclosure database. One page per company, ${갈래목록.length} industry classifications.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE_URL}/companies#collection`,
+  name: title,
+  description,
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <header>
+      <h1>Korean listed companies</h1>
+      <p class="lede">
+        What {낸회사.toLocaleString('en-GB')} companies listed in Korea actually filed —
+        revenue, operating profit, net profit, assets and equity for {해들[0]}–{해들[해들.length - 1]},
+        one page each. The figures are the companies' own, as lodged with the regulator.
+        We do not rank them.
+      </p>
+    </header>
+
+    <section class="stats">
+      <div><span class="k">Companies</span><span class="v">{낸회사.toLocaleString('en-GB')}</span></div>
+      <div><span class="k">Industry classifications</span><span class="v">{갈래목록.length}</span></div>
+      <div><span class="k">Years filed</span><span class="v">{해들[0]}–{해들[해들.length - 1]}</span></div>
+      <div><span class="k">Combined revenue</span><span class="v">KRW {bn(통매출)}bn</span></div>
+    </section>
+
+    <section>
+      <h2>By industry</h2>
+      <p class="note">
+        Listed alphabetically, not by size. Each classification is the one the company itself files
+        under, so a holding company sits under finance rather than under what it owns.
+      </p>
+      <ul class="grid">
+        {갈래목록.map((g) => (
+          <li>
+            <a href={`/sector/${g.slug}`}>
+              <span class="nm">{g.en}</span>
+              <span class="n">{g.수}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> Financial statements as filed with Korea's Financial Supervisory Service and
+        published through its DART disclosure system (Korea Open Government Licence, Type 1 —
+        attribution). Companies that filed no revenue in any of the three years have no page, because
+        there would be nothing on it.
+      </p>
+      <p>
+        <b>Not investment advice.</b> These pages report what was filed. They contain no
+        recommendation and no opinion on whether any figure is good or bad.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 64rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  h1 { font-size: 2rem; margin: 0 0 .6rem; }
+  .lede { font-size: 1.08rem; color: #334; margin: 0 0 1.6rem; max-width: 46rem; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+           gap: .8rem; margin: 0 0 2rem; }
+  .stats > div { background: #f6f8fb; border-radius: .5rem; padding: .7rem .9rem; }
+  .stats .k { display: block; font-size: .78rem; color: #667; }
+  .stats .v { display: block; font-size: 1.2rem; font-weight: 600; color: #223;
+              font-variant-numeric: tabular-nums; margin-top: .15rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.25rem; margin: 0 0 .5rem; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 .9rem; max-width: 44rem; }
+  .grid { list-style: none; padding: 0; margin: 0;
+          display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: .4rem; }
+  .grid a { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem;
+            padding: .5rem .7rem; border: 1px solid #e6e9ef; border-radius: .4rem;
+            text-decoration: none; color: #2a4d8f; font-size: .93rem; }
+  .grid a:hover { background: #f4f7fc; border-color: #ccd6e6; }
+  .grid .n { color: #889; font-size: .82rem; font-variant-numeric: tabular-nums; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
+         font-size: .84rem; color: #556; }
+  .src p { margin: .5rem 0; }
+  @media (max-width: 640px) { h1 { font-size: 1.5rem; } .wrap { padding: 1rem .8rem 3rem; } }
+</style>

@@ -1,0 +1,324 @@
+---
+/*
+ * `/company/[slug]` — **한국 상장사 한 곳의 재무·규모 지면.** 한 자료로 2,515장이 선다.
+ * (seoulmarkets.com/company/hite-jinro · /company/cj-logistics …)
+ *
+ * ── 🔴 왜 이 지면이 생겼나 (2026-09-22 · 5번) ──────────────────────────
+ * 사장님 지시 — 「**백년지도의 노하우 적용은 케이라이프맵과 에스마켓에 일단 해.
+ * 이 두 사이트가 중요하다**」
+ *
+ * 그날 진짜 손님(우리 트래픽을 걷어낸 수)을 재 보니 네 사이트 가운데 백년지도만 늘어
+ * 있었다(7명 → 16명). 까닭은 **한 자료로 지면 수천 장을 찍은 것**이었다 —
+ * /school 2,525장 · /college-major 837장. 1~2명씩 들어와도 장 수가 많아 합계가 는다.
+ * 그런데 서울마켓츠는 자료가 더 많은데(상장사 2,709 × 3년) 회사 지면이 «0장»이었다.
+ *
+ * ── 백년지도에서 그대로 가져온 것 넷 ───────────────────────────────────
+ * ① 겹치는 이름에만 구분자를 붙인다      → company-slug.mjs (2,709 중 8곳만 코드를 붙였다)
+ * ② 낼 내용이 없는 곳은 «지면을 안 만든다» → 낼만한가(). 매출이 없는 194곳을 뺐다
+ * ③ 등수를 매기지 않는다                 → 「우량」·「상위」를 쓰지 않는다. 사실만 적는다
+ * ④ 두 축이 서로를 가리킨다              → 회사 ↔ 업종. 안에서 돌아야 색인이 돈다
+ *
+ * ── ⛔ 이 지면이 지키는 것 ─────────────────────────────────────────────
+ * ⛔ **화면에 한국어를 내지 않는다.** 영문 매체다 — 예외가 없다.
+ *   ⚠ [2026-09-22] 처음에 회사 한글명을 «식별용»이라며 화면에 병기했다가
+ *     check-seoulmarkets-korean-leak 가 2,478장에서 잡았다. 앞선 세션이 세워 둔 자이고
+ *     사장님 지시와도 맞다. **검사를 약하게 하지 않고 화면에서 뺐다.**
+ *   ⇒ 한글명은 JSON-LD 의 alternateName 에만 둔다. 그것은 «기계가 읽는 자리»라
+ *     화면에 안 뜨면서 검색에는 그대로 잡힌다. 잃는 것 없이 규칙을 지킨다.
+ * ⛔ **주력은 재무, 사람은 곁들이다**(사장님 2026-09-09·09-14). 사람 표는 맨 아래에 둔다.
+ * ⛔ **못 잰 칸을 0 으로 채우지 않는다.** 「—」로 두고 왜 없는지 한 줄 적는다.
+ * ⛔ **투자 판단을 적지 않는다.** 비율은 계산일 뿐이고 좋고 나쁨은 우리가 안 정한다.
+ * ⛔ 출처를 반드시 적는다 — DART 재무제표는 공공누리 1유형(출처표시)이다.
+ * 🔴 Astro 앞말(--- 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import fin from '../../data/korea-financials-tape.json';
+import ppl from '../../data/korea-people-tape.json';
+import { 주소표만들기 } from '../../lib/company-slug.mjs';
+import { 재무줄, 사람줄, 늘어난비, 시장말, 낼만한가 } from '../../lib/company-page.mjs';
+/* 🔴 화면에 한국어를 내지 않는다 — 자료의 업종이 한글이라 그대로 새던 자리다 */
+import { 업종말, 업종주소 } from '../../lib/sector-en.mjs';
+
+export async function getStaticPaths() {
+  const 행들 = (fin as any).rows as any[];
+  const 사람들 = (ppl as any).rows as any[];
+
+  /* 회사별로 묶는다. ⚠ 지면마다 filter 를 돌리면 2,515 × 8,127 번이 된다 */
+  const 묶음 = new Map<string, any[]>();
+  for (const r of 행들) {
+    if (!묶음.has(r.code)) 묶음.set(r.code, []);
+    묶음.get(r.code)!.push(r);
+  }
+  const 사람표 = new Map<string, any>();
+  for (const p of 사람들) 사람표.set(String(p.ticker), p);
+
+  const 회사머리 = [...묶음.entries()].map(([code, rs]) => ({ code, ...rs[0] }));
+  const 주소표 = 주소표만들기(회사머리);
+
+  /* 업종별 회사 — 「두 축이 서로 가리킨다」. 한 번만 만들고 2,515장이 나눠 쓴다 */
+  const 업종별 = new Map<string, Array<{ code: string; slug: string; name: string }>>();
+  for (const h of 회사머리) {
+    if (!낼만한가(묶음.get(h.code))) continue;
+    const s = h.sector || 'Unclassified';
+    if (!업종별.has(s)) 업종별.set(s, []);
+    업종별.get(s)!.push({ code: h.code, slug: 주소표.get(h.code)!, name: h.name_en });
+  }
+  for (const v of 업종별.values()) v.sort((a, b) => a.name.localeCompare(b.name, 'en'));
+
+  const 길 = [];
+  for (const h of 회사머리) {
+    const rs = 묶음.get(h.code)!;
+    if (!낼만한가(rs)) continue;                    /* ② 낼 내용이 없으면 지면을 안 만든다 */
+    const 같은업종 = (업종별.get(h.sector || 'Unclassified') ?? [])
+      .filter((x) => x.code !== h.code).slice(0, 12);
+    길.push({
+      params: { slug: 주소표.get(h.code)! },
+      props: {
+        code: h.code,
+        nameEn: String(h.name_en || '').trim(),
+        nameKo: String(h.name || '').trim(),
+        market: 시장말(h.market),
+        sector: 업종말(h.sector),          /* 영문. 모르면 null — 지면이 그 줄을 안 그린다 */
+        sectorSlug: 업종주소(h.sector),
+        줄들: 재무줄(rs),
+        사람: 사람줄(사람표.get(h.code)),
+        같은업종,
+        업종회사수: (업종별.get(h.sector || 'Unclassified') ?? []).length,
+      },
+    });
+  }
+  return 길;
+}
+
+const { code, nameEn, nameKo, market, sector, sectorSlug, 줄들, 사람, 같은업종, 업종회사수 } = Astro.props as any;
+
+const 마지막 = 줄들[줄들.length - 1] ?? null;
+const 처음해 = 줄들[0]?.year ?? null;
+const 끝해 = 마지막?.year ?? null;
+const 매출증감 = 늘어난비(줄들, 'revenue');
+
+const bn = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 0 });
+const pct = (n: number | null) =>
+  n == null ? '—' : `${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
+const num = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 0 });
+const yr = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
+
+const title = `${nameEn} — financials, size and workforce`;
+const 설명줄 = 마지막 && 마지막.revenue != null
+  ? `${nameEn} (${code}${market ? `, ${market}` : ''}) reported KRW ${bn(마지막.revenue)}bn revenue in ${끝해}.`
+  : `${nameEn} (${code}${market ? `, ${market}` : ''}) — reported financials from Korean regulatory filings.`;
+const description = `${설명줄} Three years of filed revenue, operating profit, net profit, assets and equity, from the Korean regulator's own disclosure database.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Corporation',
+  '@id': `${SITE_URL}/company/${Astro.params.slug}#corporation`,
+  name: nameEn,
+  alternateName: nameKo || undefined,
+  tickerSymbol: code,
+  url: `${SITE_URL}/company/${Astro.params.slug}`,
+  ...(sector ? { industry: sector } : {}),
+  ...(사람?.headcount ? { numberOfEmployees: { '@type': 'QuantitativeValue', value: 사람.headcount } } : {}),
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs">
+      <a href="/">SeoulMarkets</a> <span>›</span> <a href="/companies">Companies</a>
+      {sector && sectorSlug && (<> <span>›</span> <a href={`/sector/${sectorSlug}`}>{sector}</a></>)}
+    </nav>
+
+    <header>
+      <h1>{nameEn}</h1>
+      <p class="sub">
+        <span class="chip">{code}</span>
+        {market && <span class="chip">{market}</span>}
+        {sector && sectorSlug && <a class="chip link" href={`/sector/${sectorSlug}`}>{sector}</a>}
+      </p>
+      <p class="lede">{설명줄}</p>
+    </header>
+
+    <section>
+      <h2>Reported financials</h2>
+      <p class="note">
+        Figures are as filed with the Korean regulator, in billions of won (KRW bn).
+        We do not convert to dollars — an exchange rate would be a number we made up, not one the
+        company reported.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th><th>Revenue</th><th>Operating profit</th><th>Net profit</th>
+              <th>Assets</th><th>Equity</th><th>Basis</th>
+            </tr>
+          </thead>
+          <tbody>
+            {줄들.map((r: any) => (
+              <tr>
+                <td>{r.year}</td>
+                <td>{bn(r.revenue)}</td>
+                <td class={r.operating != null && r.operating < 0 ? 'neg' : ''}>{bn(r.operating)}</td>
+                <td class={r.net != null && r.net < 0 ? 'neg' : ''}>{bn(r.net)}</td>
+                <td>{bn(r.assets)}</td>
+                <td>{bn(r.equity)}</td>
+                <td class="dim">{r.basis === 'CFS' ? 'Consolidated' : r.basis === 'OFS' ? 'Separate' : '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Ratios, year by year</h2>
+      <p class="note">
+        Each ratio is computed inside its own year. A dash means the input was missing or the
+        denominator was zero — <b>not</b> that the value is zero.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Year</th><th>Operating margin</th><th>Net margin</th><th>Equity / assets</th><th>Return on equity</th></tr>
+          </thead>
+          <tbody>
+            {줄들.map((r: any) => (
+              <tr>
+                <td>{r.year}</td>
+                <td class={r.영업이익률 != null && r.영업이익률 < 0 ? 'neg' : ''}>{pct(r.영업이익률)}</td>
+                <td class={r.순이익률 != null && r.순이익률 < 0 ? 'neg' : ''}>{pct(r.순이익률)}</td>
+                <td>{pct(r.자기자본비율)}</td>
+                <td class={r.ROE != null && r.ROE < 0 ? 'neg' : ''}>{pct(r.ROE)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {매출증감 != null && 처음해 && 끝해 && (
+        <p class="fact">
+          Revenue moved <b>{pct(매출증감)}</b> between {처음해} and {끝해}.
+        </p>
+      )}
+      <p class="warn">
+        These are arithmetic, not judgements. We do not say whether a margin is good or bad, and we
+        do not rank companies against each other.
+      </p>
+    </section>
+
+    {사람 && (사람.marketCap != null || 사람.close != null) && (
+      <section>
+        <h2>Market size</h2>
+        <div class="scroll">
+          <table>
+            <tbody>
+              <tr><th>Market capitalisation</th><td>{사람.marketCap == null ? '—' : `KRW ${bn(사람.marketCap)}bn`}</td></tr>
+              <tr><th>Close price</th><td>{사람.close == null ? '—' : `KRW ${num(사람.close)}`}</td></tr>
+              <tr><th>Listed shares</th><td>{num(사람.shares)}</td></tr>
+              {사람.priceAsOf && <tr><th>Price as of</th><td>{사람.priceAsOf}</td></tr>}
+            </tbody>
+          </table>
+        </div>
+        <p class="warn">
+          Market capitalisation is what buyers are betting the company is worth. It is not something
+          the company produced, so we never present it as output or productivity.
+        </p>
+      </section>
+    )}
+
+    {사람 && 사람.headcount != null && (
+      <section>
+        <h2>Workforce <span class="aside">— a side measure, not the main one</span></h2>
+        <div class="scroll">
+          <table>
+            <tbody>
+              <tr><th>Employees{사람.year ? ` (${사람.year})` : ''}</th><td>{num(사람.headcount)}</td></tr>
+              {사람.women != null && (<tr><th>Women</th><td>{num(사람.women)} ({pct(사람.womenShare)})</td></tr>)}
+              {사람.tenure != null && (<tr><th>Average tenure</th><td>{yr(사람.tenure)} years</td></tr>)}
+              {사람.payMen != null && (<tr><th>Annual pay, men</th><td>KRW {num(사람.payMen)}</td></tr>)}
+              {사람.payWomen != null && (<tr><th>Annual pay, women</th><td>KRW {num(사람.payWomen)}</td></tr>)}
+              {사람.payRatio != null && (<tr><th>Pay ratio, women to men</th><td>{pct(사람.payRatio)}</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+        {사람.withheld && (
+          <p class="note">The company gave this reason for not disclosing a pay figure: {사람.withheld}</p>
+        )}
+      </section>
+    )}
+
+    {같은업종.length > 0 && (
+      <section>
+        <h2>Other companies in {sector ?? "the same classification"}</h2>
+        <p class="note">
+          {업종회사수} listed companies file under this classification. Showing {같은업종.length}.
+        </p>
+        <ul class="peers">
+          {같은업종.map((p: any) => (<li><a href={`/company/${p.slug}`}>{p.name}</a></li>))}
+        </ul>
+        {sectorSlug && <p><a class="more" href={`/sector/${sectorSlug}`}>See the whole {sector} list →</a></p>}
+      </section>
+    )}
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> Financial statements and workforce figures are as filed by the company with
+        Korea's Financial Supervisory Service and published through its DART disclosure system
+        (Korea Open Government Licence, Type 1 — attribution). Price and market capitalisation are
+        from the Financial Services Commission's public market-price dataset via data.go.kr.
+      </p>
+      <p>
+        <b>Not investment advice.</b> This page reports what was filed. It contains no
+        recommendation to buy, hold or sell, and no opinion on whether any figure is good or bad.
+      </p>
+      <p class="dim">
+        Figures can be restated by the filer after publication. Where a company did not report a
+        line, we leave it blank rather than writing zero.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .crumbs { font-size: .85rem; color: #667; margin-bottom: 1rem; }
+  .crumbs a { color: #445; text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  .crumbs span { margin: 0 .35rem; color: #aab; }
+  h1 { font-size: 1.85rem; line-height: 1.25; margin: 0 0 .5rem; }
+  .sub { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin: 0 0 .9rem; }
+  .ko { color: #556; font-size: .95rem; margin-right: .25rem; }
+  .chip { display: inline-block; font-size: .78rem; padding: .16rem .5rem; border-radius: 999px;
+          background: #eef1f6; color: #445; }
+  .chip.link { text-decoration: none; }
+  .chip.link:hover { background: #e2e8f2; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.5rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+  .aside { font-weight: 400; font-size: .85rem; color: #778; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 .7rem; }
+  .fact { font-size: .98rem; margin: .8rem 0 0; }
+  .warn { font-size: .85rem; color: #665; background: #fbfaf4; border-left: 3px solid #ddd6b8;
+          padding: .55rem .8rem; margin: .8rem 0 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: .45rem .6rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  thead th { text-align: right; font-size: .82rem; color: #556; border-bottom: 2px solid #d8dbe2; }
+  thead th:first-child, tbody td:first-child, tbody th { text-align: left; }
+  tbody th { font-weight: 500; color: #445; }
+  td.neg { color: #a33; }
+  td.dim, .dim { color: #889; }
+  .peers { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+           gap: .3rem 1rem; list-style: none; padding: 0; margin: .5rem 0 0; }
+  .peers a { font-size: .92rem; color: #2a4d8f; text-decoration: none; }
+  .peers a:hover { text-decoration: underline; }
+  .more { font-size: .92rem; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
+         font-size: .84rem; color: #556; }
+  .src p { margin: .5rem 0; }
+  @media (max-width: 640px) { h1 { font-size: 1.45rem; } .wrap { padding: 1rem .8rem 3rem; } }
+</style>

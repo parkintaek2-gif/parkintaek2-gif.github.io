@@ -1,0 +1,207 @@
+---
+/*
+ * `/sector/[slug]` — **업종 한 갈래에 속한 상장사 전부.** 61장이 선다.
+ * (seoulmarkets.com/sector/beverages · /sector/pharmaceuticals …)
+ *
+ * ── 🔴 왜 (2026-09-22 · 5번) ────────────────────────────────────────────
+ * 백년지도 노하우 ④ — **두 축이 서로를 가리킨다.** 백년지도는 학과 ↔ 학교가 서로를
+ * 가리켜서 사람이 한 장에 들어와도 다음 장으로 넘어가고, 검색엔진도 그 길을 타고 돈다.
+ * 회사 지면 2,515장만 있고 묶는 지면이 없으면 **서로 닿지 않는 섬 2,515개**가 된다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ─────────────────────────────────────────────
+ * ⛔ **등수를 매기지 않는다.** 매출로 줄 세우지 않고 «이름 차례»로 늘어놓는다.
+ *   합계와 가운데값은 규모의 사실이라 적는다 — 그것으로 등수를 만들지는 않는다.
+ * ⛔ **평균을 앞세우지 않는다.** 한 곳이 업종 전체를 끌고 가는 일이 흔하다.
+ *   그래서 평균 대신 «가운데값»과 «가장 큰 곳의 몫»을 적는다.
+ * ⛔ 화면에 한국어를 내지 않는다 — 업종 이름은 sector-en.mjs 가 영문으로 준다.
+ * 🔴 Astro 앞말(--- 사이)은 TypeScript 다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import fin from '../../data/korea-financials-tape.json';
+import { 주소표만들기 } from '../../lib/company-slug.mjs';
+import { 낼만한가, 시장말, 조원억 } from '../../lib/company-page.mjs';
+import { 업종말, 업종주소 } from '../../lib/sector-en.mjs';
+
+export async function getStaticPaths() {
+  const 행들 = (fin as any).rows as any[];
+  const 묶음 = new Map<string, any[]>();
+  for (const r of 행들) {
+    if (!묶음.has(r.code)) 묶음.set(r.code, []);
+    묶음.get(r.code)!.push(r);
+  }
+  const 회사머리 = [...묶음.entries()].map(([code, rs]) => ({ code, ...rs[0] }));
+  const 주소표 = 주소표만들기(회사머리);
+
+  /* 업종 → 회사들. ⛔ 영문 이름이 없는 업종은 지면을 만들지 않는다(주소를 못 만든다) */
+  const 갈래 = new Map<string, any>();
+  for (const h of 회사머리) {
+    const rs = 묶음.get(h.code)!;
+    if (!낼만한가(rs)) continue;
+    const en = 업종말(h.sector);
+    const slug = 업종주소(h.sector);
+    if (!en || !slug) continue;
+
+    /* 그 회사의 가장 최근 해를 대표로 쓴다 */
+    const 최근 = [...rs].sort((a, b) => b.year - a.year)[0];
+    if (!갈래.has(slug)) 갈래.set(slug, { en, 회사: [] });
+    갈래.get(slug).회사.push({
+      code: h.code,
+      slug: 주소표.get(h.code)!,
+      name: String(h.name_en || '').trim(),
+      market: 시장말(h.market),
+      year: 최근.year,
+      revenue: 조원억(최근.revenue_krw),
+      operating: 조원억(최근.operating_profit_krw),
+      net: 조원억(최근.net_profit_krw),
+    });
+  }
+
+  return [...갈래.entries()].map(([slug, v]) => {
+    const 회사 = [...v.회사].sort((a, b) => a.name.localeCompare(b.name, 'en'));
+    const 매출들 = 회사.map((c: any) => c.revenue).filter((n: any) => n != null && n > 0)
+      .sort((a: number, b: number) => a - b);
+    const 합 = 매출들.reduce((a: number, b: number) => a + b, 0);
+    const 가운데 = 매출들.length
+      ? (매출들.length % 2 ? 매출들[(매출들.length - 1) / 2]
+        : (매출들[매출들.length / 2 - 1] + 매출들[매출들.length / 2]) / 2)
+      : null;
+    const 가장큰 = 매출들.length ? 매출들[매출들.length - 1] : null;
+    return {
+      params: { slug },
+      props: {
+        sector: v.en, 회사,
+        합, 가운데, 가장큰,
+        가장큰몫: 가장큰 != null && 합 > 0 ? 가장큰 / 합 : null,
+        해: 회사[0]?.year ?? null,
+      },
+    };
+  });
+}
+
+const { sector, 회사, 합, 가운데, 가장큰몫, 해 } = Astro.props as any;
+
+const bn = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 0 });
+const pct = (n: number | null) =>
+  n == null ? '—' : `${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
+
+const title = `${sector} — the listed Korean companies`;
+const description = `${회사.length} companies listed in Korea file under ${sector}. Filed revenue, operating profit and net profit for each, straight from the regulator's disclosure database.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE_URL}/sector/${Astro.params.slug}#collection`,
+  name: title,
+  description,
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs">
+      <a href="/">SeoulMarkets</a> <span>›</span> <a href="/companies">Companies</a>
+      <span>›</span> <span>{sector}</span>
+    </nav>
+
+    <header>
+      <h1>{sector}</h1>
+      <p class="lede">
+        {회사.length} companies listed in Korea file under this classification.
+        {해 && <> Figures below are each company's most recent filed year, mostly {해}.</>}
+      </p>
+    </header>
+
+    <section class="stats">
+      <div><span class="k">Companies</span><span class="v">{회사.length}</span></div>
+      <div><span class="k">Combined revenue</span><span class="v">KRW {bn(합)}bn</span></div>
+      <div><span class="k">Median revenue</span><span class="v">KRW {bn(가운데)}bn</span></div>
+      {가장큰몫 != null && (
+        <div><span class="k">Largest company's share</span><span class="v">{pct(가장큰몫)}</span></div>
+      )}
+    </section>
+    <p class="warn">
+      We show the median rather than the average because one company often carries a whole
+      classification. The largest firm's share of combined revenue is there so you can see when
+      that is happening.
+    </p>
+
+    <section>
+      <h2>All companies, by name</h2>
+      <p class="note">
+        Listed alphabetically, not ranked. We do not order companies by size or call any of them
+        leading, major or top.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Company</th><th>Market</th><th>Year</th><th>Revenue</th><th>Operating profit</th><th>Net profit</th></tr>
+          </thead>
+          <tbody>
+            {회사.map((c: any) => (
+              <tr>
+                <td class="nm">
+                  <a href={`/company/${c.slug}`}>{c.name}</a>
+                  <span class="code">{c.code}</span>
+                </td>
+                <td class="dim">{c.market ?? '—'}</td>
+                <td class="dim">{c.year}</td>
+                <td>{bn(c.revenue)}</td>
+                <td class={c.operating != null && c.operating < 0 ? 'neg' : ''}>{bn(c.operating)}</td>
+                <td class={c.net != null && c.net < 0 ? 'neg' : ''}>{bn(c.net)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> Financial statements as filed by each company with Korea's Financial
+        Supervisory Service, published through its DART disclosure system (Korea Open Government
+        Licence, Type 1 — attribution). Amounts are in billions of won.
+      </p>
+      <p>
+        <b>Not investment advice.</b> This page reports what was filed. It contains no
+        recommendation and no opinion on whether any figure is good or bad.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 68rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .crumbs { font-size: .85rem; color: #667; margin-bottom: 1rem; }
+  .crumbs a { color: #445; text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  .crumbs span { margin: 0 .35rem; color: #aab; }
+  h1 { font-size: 1.85rem; margin: 0 0 .5rem; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.4rem; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+           gap: .8rem; margin: 0 0 .8rem; }
+  .stats > div { background: #f6f8fb; border-radius: .5rem; padding: .7rem .9rem; }
+  .stats .k { display: block; font-size: .78rem; color: #667; }
+  .stats .v { display: block; font-size: 1.15rem; font-weight: 600; color: #223;
+              font-variant-numeric: tabular-nums; margin-top: .15rem; }
+  .warn { font-size: .85rem; color: #665; background: #fbfaf4; border-left: 3px solid #ddd6b8;
+          padding: .55rem .8rem; margin: 0 0 2rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 .7rem; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: .42rem .6rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  thead th { text-align: right; font-size: .82rem; color: #556; border-bottom: 2px solid #d8dbe2; }
+  thead th:first-child, tbody td:first-child { text-align: left; }
+  td.nm a { color: #2a4d8f; text-decoration: none; }
+  td.nm a:hover { text-decoration: underline; }
+  td.nm .code { color: #99a; font-size: .78rem; margin-left: .4rem; }
+  td.neg { color: #a33; }
+  .dim { color: #889; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
+         font-size: .84rem; color: #556; }
+  .src p { margin: .5rem 0; }
+  @media (max-width: 640px) { h1 { font-size: 1.45rem; } .wrap { padding: 1rem .8rem 3rem; } }
+</style>
