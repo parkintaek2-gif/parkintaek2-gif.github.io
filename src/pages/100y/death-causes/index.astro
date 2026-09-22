@@ -1,0 +1,263 @@
+---
+/**
+ * /100y/death-causes — **나이대마다 무엇으로 죽는가.**
+ *
+ * ── 🔴 왜 (2026-09-22 21:4x · 사장님이 자료를 직접 주셨다) ──────────────
+ * 사장님이 「2025년 사망원인통계 결과」(국가데이터처, 2026-09-22 발표) 기사를 통째로
+ * 주시며 백년지도로 내라고 하셨다. 그 기사가 든 수는 «전체 순위»와 «자살률» 둘이었다.
+ *
+ * ⭐ 그런데 원표(KOSIS DT_1B34E20)를 받아 나이로 쪼개니 **기사가 말하지 않은 것**이 나왔다 —
+ *   기사: 「고의적 자해는 전체 사망원인 **5위**, 3.9%」
+ *   원표: **10대·20대·30대·40대는 사망원인 «1위»가 고의적 자해다.**
+ *   전체를 한 덩이로 보면 5위지만, 나이로 가르면 네 나이대에서 1위다.
+ *   ⇒ 이것이 백년지도가 존재하는 까닭이다. 나이 축이 없으면 안 보이는 사실이다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 — 자살을 다루는 지면이다 ────────────────────
+ * ⛔ **구경거리로 만들지 않는다.** 「세계 1위」·「충격」 같은 말을 제목에 쓰지 않는다.
+ * ⛔ **까닭을 지어내지 않는다.** 왜 그런지 우리는 모른다. 무엇이 몇 위인지만 적는다.
+ * ⛔ **「이것은 통계이지 당신이 아닙니다」**를 지면에 박는다(강령 ②).
+ * ✅ **상담 전화를 반드시 낸다** — 자살예방 109 · 정신건강 1577-0199.
+ *   이것은 선택이 아니라 이 축을 다루는 지면의 «조건»이다.
+ * ✅ 출처를 반드시 적는다 — KOSIS 활용약관 제7조① 출처표시 «의무».
+ * ⛔ 못 잰 칸을 0 으로 적지 않는다. 「—」로 둔다.
+ * 🔴 Astro 앞말(--- 사이)은 TypeScript 다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import 원본 from '../../../data/100yearmap/death-causes-by-age.json';
+
+const 자료 = 원본 as any;
+const 칸들 = 자료.칸들 as any[];
+const 맞댐 = (자료.해맞대기 ?? []) as any[];
+
+const 해들 = [...new Set(칸들.map((x) => x.해))].sort((a: number, b: number) => b - a);
+const 새해 = 해들[0];
+const 앞해 = 해들[1] ?? null;
+
+/* 「계」(남녀 합계)만 쓴다. 성별은 나중에 따로 지면을 낸다 */
+const 올해 = 칸들.filter((x) => x.해 === 새해 && x.성 === '계');
+
+/**
+ * ⚠ 나이칸이 열여덟인데 그 가운데 아홉은 «겹치는 묶음»이다
+ *   (15-64세는 20대·30대·40대·50대를 다시 묶은 것).
+ *   겹친 것을 나란히 늘어놓으면 같은 사람이 두 번 세어진 것처럼 읽힌다.
+ * ⇒ 겹치지 않는 «열 살 단위»만 앞 표에 세우고, 묶음은 따로 접어 둔다.
+ */
+const 열살단위 = ['0세', '1-9세', '10-19세', '20-29세', '30-39세', '40-49세',
+  '50-59세', '60-69세', '70-79세', '80세 이상'];
+const 묶음칸 = ['전체', '15세 미만', '15-39세', '15-64세', '40-64세', '65세 이상', '65-74세', '75세 이상'];
+
+const 나이별 = 열살단위
+  .map((나이) => ({
+    나이,
+    줄: 올해.filter((x) => x.나이 === 나이 && x.순위 <= 5).sort((a, b) => a.순위 - b.순위),
+  }))
+  .filter((x) => x.줄.length);
+
+const 묶음별 = 묶음칸
+  .map((나이) => ({
+    나이,
+    줄: 올해.filter((x) => x.나이 === 나이 && x.순위 <= 5).sort((a, b) => a.순위 - b.순위),
+  }))
+  .filter((x) => x.줄.length);
+
+/* ⭐ 「1위가 고의적 자해인 나이대」 — 이 지면의 알맹이 */
+const 자해가1위 = 나이별
+  .filter((x) => x.줄[0] && /고의적 자해/.test(x.줄[0].사망원인))
+  .map((x) => x.나이);
+
+/* 두 해 사이에 순위가 «바뀐» 자리 — 겹치는 묶음은 뺀다 */
+const 바뀐것 = 맞댐.filter((x) => x.바뀌었나 && 열살단위.includes(x.나이));
+
+const 수 = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('ko-KR', { maximumFractionDigits: 1 });
+
+const 쉬운말 = (s: string) => String(s ?? '').replace(/고의적 자해\(자살\)/g, '스스로 목숨을 끊음');
+
+const title = `나이대별 사망원인 — ${새해}년`;
+const description = `${새해}년 나이대마다 사망원인 1~5위. 전체로 보면 암이 1위지만, `
+  + `${자해가1위.length ? `${자해가1위.join('·')}에서는 1위가 다릅니다. ` : ''}`
+  + `국가데이터처 사망원인통계 원표를 나이로 갈라 그대로 적었습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: title,
+  description,
+  creator: { '@type': 'GovernmentOrganization', name: '국가데이터처' },
+  isBasedOn: 'https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1B34E20',
+  temporalCoverage: 해들.slice().reverse().join('/'),
+};
+---
+
+<HundredYear title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <header>
+      <h1>{새해}년, 나이대마다 무엇으로 죽는가</h1>
+      <p class="lede">
+        전체를 한 덩이로 세면 1위는 암입니다. 그런데 나이로 가르면 답이 달라집니다.
+      </p>
+    </header>
+
+    {자해가1위.length > 0 && (
+      <section class="key">
+        <h2>나이로 가르면 1위가 바뀝니다</h2>
+        <p>
+          {새해}년 사망원인통계에서 <b>{자해가1위.join(' · ')}</b>의 사망원인 1위는{' '}
+          <b>스스로 목숨을 끊는 것</b>이었습니다. 같은 통계에서 전체 순위로는 5위입니다.
+        </p>
+        <p class="plain">
+          두 수는 어긋나지 않습니다. 전체 사망자는 나이 많은 분이 훨씬 많아서,
+          그 나이의 사망원인이 전체 순위를 끌어갑니다. 젊은 나이대는 사망 자체가 적고,
+          그 적은 수 안에서의 차례가 이 표입니다.
+        </p>
+      </section>
+    )}
+
+    <section>
+      <h2>나이대별 1~5위 — {새해}년</h2>
+      <p class="note">
+        열 살 단위로만 세웠습니다. 「15~64세」처럼 여러 나이를 다시 묶은 칸은 아래에 따로 두었습니다 —
+        섞어 놓으면 같은 사람이 두 번 세어진 것처럼 읽힙니다.
+      </p>
+      {나이별.map((칸) => (
+        <div class="age">
+          <h3>{칸.나이}</h3>
+          <div class="scroll">
+            <table>
+              <thead><tr><th>순위</th><th>사망원인</th><th>사망자 수</th><th>10만 명당</th></tr></thead>
+              <tbody>
+                {칸.줄.map((r: any) => (
+                  <tr class={/고의적 자해/.test(r.사망원인 ?? '') ? 'mark' : ''}>
+                    <td>{r.순위}</td>
+                    <td>{쉬운말(r.사망원인)}</td>
+                    <td>{수(r.사망자수)}</td>
+                    <td>{수(r.사망률)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+    </section>
+
+    {바뀐것.length > 0 && 앞해 && (
+      <section>
+        <h2>{앞해}년과 견주어 차례가 바뀐 자리</h2>
+        <p class="note">
+          해가 바뀌며 순위가 달라진 곳만 모았습니다. {바뀐것.length}곳입니다.
+          순위가 바뀌었다고 해서 그 원인이 늘었거나 줄었다는 뜻은 아닙니다 —
+          옆자리와의 차이가 작으면 작은 변화로도 자리가 바뀝니다.
+        </p>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>나이</th><th>순위</th><th>{앞해}년</th><th>{새해}년</th></tr></thead>
+            <tbody>
+              {바뀐것.map((x: any) => (
+                <tr>
+                  <td>{x.나이}</td>
+                  <td>{x.순위}위</td>
+                  <td class="dim">{쉬운말(x.앞원인)}</td>
+                  <td>{쉬운말(x.뒷원인)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+
+    {묶음별.length > 0 && (
+      <section>
+        <h2>묶어 본 나이칸</h2>
+        <p class="note">
+          통계가 함께 내는 묶음 칸입니다. 위 표와 <b>겹칩니다</b> — 더하지 마십시오.
+        </p>
+        {묶음별.map((칸) => (
+          <div class="age">
+            <h3>{칸.나이}</h3>
+            <div class="scroll">
+              <table>
+                <thead><tr><th>순위</th><th>사망원인</th><th>사망자 수</th><th>10만 명당</th></tr></thead>
+                <tbody>
+                  {칸.줄.map((r: any) => (
+                    <tr class={/고의적 자해/.test(r.사망원인 ?? '') ? 'mark' : ''}>
+                      <td>{r.순위}</td>
+                      <td>{쉬운말(r.사망원인)}</td>
+                      <td>{수(r.사망자수)}</td>
+                      <td>{수(r.사망률)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))}
+      </section>
+    )}
+
+    <aside class="help">
+      <h2>혼자 견디지 마십시오</h2>
+      <p>
+        마음이 힘들 때 기댈 곳이 있습니다. 무슨 말을 해야 할지 몰라도 괜찮습니다.
+      </p>
+      <ul>
+        <li><b>자살예방 상담전화 <a href="tel:109">109</a></b> — 24시간, 무료</li>
+        <li><b>정신건강 상담전화 <a href="tel:1577-0199">1577-0199</a></b> — 24시간</li>
+        <li><b>희망의전화 <a href="tel:129">129</a></b> · <b>생명의전화 <a href="tel:1588-9191">1588-9191</a></b></li>
+      </ul>
+      <p class="plain">주변 사람이 걱정된다면, 물어봐도 됩니다. 묻는다고 없던 생각이 생기지는 않습니다.</p>
+    </aside>
+
+    <footer class="src">
+      <p class="warn">
+        <b>이것은 통계이지 당신이 아닙니다.</b> 이 표는 한 해 동안 어떤 일이 몇 건 있었는지를
+        세어 놓은 것입니다. 어느 나이에 무엇이 1위라는 것은 그 나이의 누구에게도
+        일어날 일을 말하지 않습니다.
+      </p>
+      <p>
+        <b>출처</b> — KOSIS 국가통계포털(국가데이터처, 사망원인통계), 표 DT_1B34E20
+        「연령대별 사망원인 순위」. 담은 해 {해들.slice().reverse().join('·')}년.
+      </p>
+      <p class="dim">
+        「사망자 수」는 그 해 그 나이대에서 그 원인으로 숨진 사람 수이고,
+        「10만 명당」은 그 나이 인구 10만 명당으로 고친 값입니다. 나이대가 다르면
+        사람 수가 달라서, 나이대끼리는 10만 명당 값으로 견주어야 합니다.
+        빈칸(—)은 값이 0 이라는 뜻이 아니라 통계가 그 칸을 내지 않았다는 뜻입니다.
+      </p>
+    </footer>
+  </article>
+</HundredYear>
+
+<style>
+  .wrap { max-width: 44rem; margin: 0 auto; padding: 1.2rem 1rem 4rem; }
+  h1 { font-size: 1.75rem; line-height: 1.35; margin: .4rem 0 .6rem; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.6rem; }
+  section { margin: 2.2rem 0; }
+  h2 { font-size: 1.15rem; margin: 0 0 .6rem; }
+  h3 { font-size: .98rem; margin: 1.4rem 0 .4rem; color: #334; }
+  .key { background: #f7f9fc; border-left: 4px solid #5b7bb5; padding: 1rem 1.1rem; border-radius: 0 .5rem .5rem 0; }
+  .key h2 { margin-top: 0; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 .8rem; }
+  .plain { font-size: .93rem; color: #445; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .93rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: .42rem .55rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  thead th { font-size: .8rem; color: #556; border-bottom: 2px solid #d8dbe2; }
+  thead th:nth-child(2), tbody td:nth-child(2) { text-align: left; }
+  thead th:first-child, tbody td:first-child { text-align: left; width: 3.2rem; }
+  tr.mark td { background: #fdf6f6; }
+  .dim { color: #889; }
+  .help { background: #f4f8f4; border: 1px solid #d9e6d9; border-radius: .6rem;
+          padding: 1.1rem 1.2rem; margin: 2.5rem 0 1.5rem; }
+  .help h2 { margin-top: 0; }
+  .help ul { margin: .6rem 0; padding-left: 1.1rem; }
+  .help li { margin: .3rem 0; font-size: .95rem; }
+  .help a { color: #2a4d8f; }
+  .warn { background: #fbfaf4; border-left: 3px solid #ddd6b8; padding: .7rem .9rem;
+          font-size: .9rem; color: #554; }
+  .src { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
+         font-size: .85rem; color: #556; }
+  .src p { margin: .6rem 0; }
+  @media (max-width: 560px) { h1 { font-size: 1.4rem; } .wrap { padding: 1rem .8rem 3rem; } }
+</style>
