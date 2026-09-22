@@ -392,6 +392,11 @@ export const 단계들 = [
      ⚠ 자가시험만 문다 — 실측은 형제 저장소(../klifemap)의 원고를 git 과 맞대므로
      그 저장소가 없는 자리에서 헛빨강이 된다. */
   "node scripts/check-교재-다듬기.mjs --자가시험",
+  /* 🔴 [2026-09-22] 한국은행 「통계정보이용지침」 원문을 읽어 보니 판정이 «계열마다» 갈린다 —
+     한국은행 작성은 상업적 이용 자유, 타 기관 작성은 그 기관 승인이 먼저다.
+     901Y124(은행연합회)와 판정 못 낸 셋이 지면에 새지 않게 막는다. */
+  "node scripts/check-ecos-series-not-published.mjs --자가시험",
+  "node scripts/check-ecos-series-not-published.mjs",
   /* 기사·자료 대조기가 «기사가 잰 날»의 스냅숏을 고르는지 — 이것이 깨지면 지난 기사가
      자료를 다시 받을 때마다 통째로 빨강이 된다(2026-09-22 에 겪었다). */
   "node scripts/lib/그날자료.mjs --자가시험",
