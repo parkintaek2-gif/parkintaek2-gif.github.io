@@ -1,0 +1,229 @@
+---
+/*
+ * `/data/profit-streaks` — **「몇 해를 잇달아 흑자였나」를 대기업이 아니라 «전 상장사»로 센다.**
+ * (seoulmarkets.com/data/profit-streaks)
+ *
+ * ── 🔴 왜 (2026-09-23 · 5번) ────────────────────────────────────────────
+ * 사장님이 연합뉴스 「대기업 33% 5년 이상 흑자행진…'100분기 이상' 연속흑자 11곳」
+ * (2026-09-23 06:01)을 주셨다.
+ *
+ * ⭐ 남들이 안 세는 자리 — 그런 조사는 «대기업»만 센다. 표본이 몇백 곳이다.
+ *   우리는 규제기관에 신고된 **상장사 전수**를 가지고 있다. 같은 물음에 더 넓게 답한다.
+ *   그리고 답이 사뭇 다르다 — 전수로 보면 3년 내내 흑자는 절반이 안 된다.
+ *
+ * ⛔ **우리 자료는 아직 3년(2023·2024·2025)이다.** 「5년 연속」·「100분기 연속」은 못 잰다.
+ *   지면이 그것을 «먼저» 말한다. 못 잰 것을 잰 것처럼 보이게 하지 않는다.
+ * ⛔ **등수를 매기지 않는다.** 회사 이름을 「알짜」·「우량」으로 부르지 않는다.
+ *   잇달아 흑자였다는 것은 사실이고, 그것이 좋은 회사라는 뜻은 우리가 안 붙인다.
+ * ⛔ 투자 판단을 적지 않는다. 화면에 한국어를 내지 않는다.
+ * 🔴 Astro 앞말(--- 사이)은 TypeScript 다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import fin from '../../data/korea-financials-tape.json';
+import { 통계내기, 이은흑자해, 해마다늘었나, 셀만한가, 몫, 해줄 } from '../../lib/profit-streak.mjs';
+import { 주소표만들기 } from '../../lib/company-slug.mjs';
+import { 낼만한가, 조원억 } from '../../lib/company-page.mjs';
+import { 업종말, 업종주소 } from '../../lib/sector-en.mjs';
+
+const 행들 = (fin as any).rows as any[];
+const 묶음 = new Map<string, any[]>();
+for (const r of 행들) {
+  if (!묶음.has(r.code)) 묶음.set(r.code, []);
+  묶음.get(r.code)!.push(r);
+}
+const 회사머리 = [...묶음.entries()].map(([code, rs]) => ({ code, ...rs[0] }));
+const 주소표 = 주소표만들기(회사머리);
+
+const 해들 = [...new Set(행들.map((r) => r.year))].sort();
+const 셈 = 통계내기([...묶음.values()], 해들.length);
+
+/* 업종마다 — 어느 갈래가 잇달아 흑자인가. ⛔ 줄 세우지 않고 이름 차례로 낸다 */
+const 업종셈 = new Map<string, { en: string; slug: string; 전체: number; 내내흑자: number }>();
+for (const [code, rs] of 묶음) {
+  if (!셀만한가(rs, 해들.length)) continue;
+  const h = 묶음.get(code)![0];
+  const en = 업종말(h.sector);
+  const slug = 업종주소(h.sector);
+  if (!en || !slug) continue;
+  if (!업종셈.has(slug)) 업종셈.set(slug, { en, slug, 전체: 0, 내내흑자: 0 });
+  const g = 업종셈.get(slug)!;
+  g.전체 += 1;
+  /* 🔴 «내내»는 모든 해를 본다 — 앞뒤만 보면 가운데가 적자인 회사가 섞인다(2026-09-23 사고) */
+  if (해줄(rs).every((r: any) => r.net_profit_krw > 0)) g.내내흑자 += 1;
+}
+/* 표본이 너무 작으면 비율이 흔들린다 — 열 곳 미만은 따로 적고 표에서 뺀다 */
+const 업종목록 = [...업종셈.values()].filter((g) => g.전체 >= 10)
+  .sort((a, b) => a.en.localeCompare(b.en, 'en'));
+const 작은업종 = [...업종셈.values()].filter((g) => g.전체 < 10).length;
+
+/* 세 해 내내 흑자이면서 순이익이 해마다 늘기까지 한 곳 — 매출 큰 차례로 몇 곳만 */
+const 늘기까지 = [...묶음.entries()]
+  .filter(([, rs]) => 낼만한가(rs) && 셀만한가(rs, 해들.length)
+    && 이은흑자해(rs) >= 해들.length && 해마다늘었나(rs, 'net_profit_krw'))
+  .map(([code, rs]) => {
+    const 끝 = [...rs].sort((a, b) => b.year - a.year)[0];
+    return {
+      slug: 주소표.get(code)!, name: String(끝.name_en || '').trim(),
+      revenue: 조원억(끝.revenue_krw), net: 조원억(끝.net_profit_krw),
+      sector: 업종말(끝.sector),
+    };
+  })
+  .sort((a, b) => (b.revenue ?? 0) - (a.revenue ?? 0));
+
+const pct = (n: number | null) =>
+  n == null ? '—' : `${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
+const num = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 0 });
+
+const 첫해 = 해들[0];
+const 끝해 = 해들[해들.length - 1];
+
+const title = `How many Korean listed companies stayed profitable, ${첫해}–${끝해}`;
+const description = `Of ${num(셈.센회사)} companies listed in Korea that filed a net profit in all `
+  + `${해들.length} years, ${num(셈.내내흑자)} (${pct(몫(셈.내내흑자, 셈.센회사))}) were profitable every year `
+  + `and ${num(셈.내내적자)} (${pct(몫(셈.내내적자, 셈.센회사))}) lost money every year. `
+  + `Counted across the whole market, not just the large caps.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: title,
+  description,
+  temporalCoverage: `${첫해}/${끝해}`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets' },
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <header>
+      <h1>Who actually stayed profitable</h1>
+      <p class="lede">
+        Studies of profit streaks usually count large companies. This counts every company
+        listed in Korea that filed a net profit in all {해들.length} years — {num(셈.센회사)} of them.
+        The answer is different when you count the whole market.
+      </p>
+    </header>
+
+    <section class="stats">
+      <div><span class="k">Profitable every year</span><span class="v">{pct(몫(셈.내내흑자, 셈.센회사))}</span><span class="s">{num(셈.내내흑자)} companies</span></div>
+      <div><span class="k">Lost money every year</span><span class="v">{pct(몫(셈.내내적자, 셈.센회사))}</span><span class="s">{num(셈.내내적자)} companies</span></div>
+      <div><span class="k">Slipped into loss</span><span class="v">{pct(몫(셈.흑자에서적자, 셈.센회사))}</span><span class="s">{num(셈.흑자에서적자)} companies</span></div>
+      <div><span class="k">Climbed out of loss</span><span class="v">{pct(몫(셈.적자에서흑자, 셈.센회사))}</span><span class="s">{num(셈.적자에서흑자)} companies</span></div>
+    </section>
+
+    <p class="warn">
+      <b>We can only see {해들.length} years.</b> Our filed-accounts tape covers {첫해}–{끝해}, so we
+      cannot say who has been profitable for five years, or for a hundred quarters. Where a
+      company did not file a net profit in one of these years we left it out entirely
+      ({num(셈.못센회사)} companies) rather than reading the gap as a loss.
+    </p>
+
+    <section>
+      <h2>Profit alone is a low bar</h2>
+      <p>
+        Being in the black every year is one thing. Growing the profit every year is another.
+        Of the {num(셈.내내흑자)} companies that never lost money,{' '}
+        <b>{num(늘기까지.length)}</b> also increased net profit in each successive year —
+        {pct(몫(늘기까지.length, 셈.센회사))} of everyone we could count.
+        Revenue rose every year at {num(셈.매출계속늚)} companies.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Company</th><th>Classification</th><th>Revenue {끝해}</th><th>Net profit {끝해}</th></tr>
+          </thead>
+          <tbody>
+            {늘기까지.slice(0, 25).map((c) => (
+              <tr>
+                <td class="nm"><a href={`/company/${c.slug}`}>{c.name}</a></td>
+                <td class="dim">{c.sector ?? '—'}</td>
+                <td>{num(c.revenue)}</td>
+                <td>{num(c.net)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Amounts in billions of won. Ordered by revenue so the table has a fixed order — this is
+        not a ranking, and appearing here is not a judgement about the company.
+        {늘기까지.length > 25 && <> Showing 25 of {num(늘기까지.length)}.</>}
+      </p>
+    </section>
+
+    <section>
+      <h2>By classification</h2>
+      <p class="note">
+        Share of each classification that was profitable in all {해들.length} years. Listed
+        alphabetically, not ranked. Classifications with fewer than 10 companies are left out
+        because the share swings on one or two firms — {작은업종} of them.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Classification</th><th>Companies</th><th>Profitable every year</th><th>Share</th></tr></thead>
+          <tbody>
+            {업종목록.map((g) => (
+              <tr>
+                <td class="nm"><a href={`/sector/${g.slug}`}>{g.en}</a></td>
+                <td>{num(g.전체)}</td>
+                <td>{num(g.내내흑자)}</td>
+                <td>{pct(몫(g.내내흑자, g.전체))}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> Financial statements as filed by each company with Korea's Financial
+        Supervisory Service and published through its DART disclosure system (Korea Open
+        Government Licence, Type 1 — attribution). Covers {첫해}–{끝해}.
+      </p>
+      <p>
+        <b>How we counted.</b> A company counts as profitable in a year if its filed net profit is
+        above zero; exactly zero is not counted as a profit. A company is only included if it filed
+        a net profit figure in every one of the {해들.length} years. We do not extrapolate, and we do
+        not treat a missing filing as a loss.
+      </p>
+      <p>
+        <b>Not investment advice.</b> This page reports what was filed. Staying profitable is a
+        fact about the past; it is not a statement about any company's quality or prospects, and
+        nothing here is a recommendation.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  h1 { font-size: 2rem; margin: 0 0 .6rem; }
+  .lede { font-size: 1.08rem; color: #334; margin: 0 0 1.6rem; max-width: 46rem; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+           gap: .8rem; margin: 0 0 1rem; }
+  .stats > div { background: #f6f8fb; border-radius: .5rem; padding: .8rem .9rem; }
+  .stats .k { display: block; font-size: .78rem; color: #667; }
+  .stats .v { display: block; font-size: 1.5rem; font-weight: 600; color: #223;
+              font-variant-numeric: tabular-nums; margin: .1rem 0; }
+  .stats .s { display: block; font-size: .78rem; color: #889; }
+  .warn { font-size: .88rem; color: #554; background: #fbfaf4; border-left: 3px solid #ddd6b8;
+          padding: .7rem .9rem; margin: 0 0 2rem; }
+  section { margin: 2.2rem 0; }
+  h2 { font-size: 1.25rem; margin: 0 0 .5rem; }
+  .note { font-size: .86rem; color: #667; margin: .7rem 0 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: .42rem .6rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  thead th { text-align: right; font-size: .82rem; color: #556; border-bottom: 2px solid #d8dbe2; }
+  thead th:first-child, tbody td:first-child, thead th:nth-child(2), tbody td:nth-child(2) { text-align: left; }
+  td.nm a { color: #2a4d8f; text-decoration: none; }
+  td.nm a:hover { text-decoration: underline; }
+  .dim { color: #889; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
+         font-size: .84rem; color: #556; }
+  .src p { margin: .6rem 0; }
+  @media (max-width: 640px) { h1 { font-size: 1.5rem; } .wrap { padding: 1rem .8rem 3rem; } }
+</style>

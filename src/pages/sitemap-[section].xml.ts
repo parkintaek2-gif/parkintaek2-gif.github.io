@@ -111,6 +111,8 @@ export const GET: APIRoute = async ({ params }) => {
        *   ⛔ 지면을 만들면 «같은 커밋에서» 이 목록에 넣는다. */
       /* 무료 스크리너 — 손님이 «자기 물음»을 넣는 지면이라 색인 우선순위를 높게 둔다 */
       { loc: '/data/screener', changefreq: 'weekly', priority: '0.9' },
+      /* 🔴 [2026-09-23] 새 지면을 «같은 커밋»에서 넣는다 — 안 넣으면 구글이 못 찾는다 */
+      { loc: '/data/profit-streaks', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/financials', changefreq: 'weekly', priority: '0.9' },
       { loc: '/data/valuation', changefreq: 'weekly', priority: '0.9' },
       { loc: '/data/indices', changefreq: 'weekly', priority: '0.9' },
