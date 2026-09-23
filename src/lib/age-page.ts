@@ -126,3 +126,32 @@ export function 임금꼭대기(자료: 나이자료) {
   for (const 칸 of 줄) if (!으뜸 || (칸[1].월급여천원 ?? 0) > (으뜸[1].월급여천원 ?? 0)) 으뜸 = 칸;
   return 으뜸 ? { 띠: 으뜸[0], 띠말: 띠말(으뜸[0]), 월급: 월급말(으뜸[1].월급여천원) } : null;
 }
+
+/**
+ * 사망원인통계(death-causes-by-age.json)의 열 살 단위 띠 이름.
+ * ⚠ 이 자료는 극히 민감하다(자살 포함) — /100y/death-causes 지면이 지키는 것과
+ *   같은 원칙을 여기서도 지킨다: 구경거리로 안 만든다 · 까닭을 안 지어낸다.
+ */
+export function 사망원인띠(나이: number): string {
+  if (나이 < 1) return '0세';
+  if (나이 < 10) return '1-9세';
+  if (나이 < 20) return '10-19세';
+  if (나이 >= 80) return '80세 이상';
+  const 아래 = Math.floor(나이 / 10) * 10;
+  return `${아래}-${아래 + 9}세`;
+}
+
+/** 그 나이띠의 사망원인 1~5위(계, 최신 해) — 자료가 없으면 null */
+export function 사망원인값(자료: any, 나이: number, 상위 = 5) {
+  const 띠 = 사망원인띠(나이);
+  const 칸들 = (자료?.칸들 ?? []) as any[];
+  if (!칸들.length) return null;
+  const 해들 = [...new Set(칸들.map((x: any) => x.해))].sort((a: number, b: number) => b - a);
+  const 새해 = 해들[0];
+  const 줄 = 칸들
+    .filter((x: any) => x.해 === 새해 && x.성 === '계' && x.나이 === 띠 && x.순위 <= 상위)
+    .sort((a: any, b: any) => a.순위 - b.순위);
+  if (!줄.length) return null;
+  const 자해있나 = 줄.some((r: any) => /고의적 자해/.test(r.사망원인 ?? ''));
+  return { 띠, 해: 새해, 줄, 자해있나 };
+}
