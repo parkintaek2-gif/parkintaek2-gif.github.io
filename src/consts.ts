@@ -35,7 +35,7 @@ export const SITE = {
      ⚠ 사이트 «이름»은 SeoulMarkets 그대로다. 이름이 아니라 «파는 범위»가 넓어진 것이다. */
   tagline: 'Asian and Gulf markets, explained with data.',
   description:
-    'Filings data from Asia and the Gulf, in English under one schema — Korea (KRX / DART) and the United Arab Emirates (ADX and DFM) live, with China, Hong Kong, India, Saudi Arabia, Taiwan and Tokyo in build. Equities, currencies, bonds, commodities and macroeconomics, every figure carrying its source and timestamp.',
+    'Filings data from Asia and the Gulf, in English under one schema — Korea (KRX / DART), Japan (EDINET), Taiwan (TWSE) and the United Arab Emirates (ADX and DFM) live, with China, Hong Kong, India and Saudi Arabia in build. Equities, currencies, bonds, commodities and macroeconomics, every figure carrying its source and timestamp.',
   locale: 'en-US',
   lang: 'en',
 } as const;

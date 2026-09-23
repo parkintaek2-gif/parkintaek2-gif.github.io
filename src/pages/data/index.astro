@@ -70,6 +70,7 @@ const 시장표 = [
   { key: 'korea', 이름: 'Seoul', 나라: 'Korea', 찾을말: /korea|krx|dart|kospi|kosdaq|konex|seoul|won/i },
   { key: 'uae', 이름: 'Abu Dhabi · Dubai', 나라: 'UAE', 찾을말: /uae|adx|dfm|abu dhabi|dubai|gulf|dirham/i },
   { key: 'japan', 이름: 'Tokyo', 나라: 'Japan', 찾을말: /japan|jpx|edinet|tokyo|topix|yen/i },
+  { key: 'taiwan', 이름: 'Taipei', 나라: 'Taiwan', 찾을말: /taiwan|twse|taipei|new taiwan dollar|twd/i },
 ];
 
 /** 한 상품이 어느 시장 것인가. ⛔ 못 가리면 «비워 둔다» — 짐작으로 한국에 넣지 않는다 */
@@ -543,8 +544,8 @@ const 묶음 = [
           손님이 제일 먼저 묻는 것이 그것인데 지금까지 어디에도 없었다.
           ⛔ 「Asia」라고만 적지 않는다 — 지금 열린 것을 그대로 적는다. */}
       <p class="coverage">
-        <b>Live</b> — Korea (KRX / DART) · United Arab Emirates (ADX and DFM).{' '}
-        <b>In build</b> — China A-shares, Hong Kong, India, Saudi Arabia, Taiwan and Tokyo.{' '}
+        <b>Live</b> — Korea (KRX / DART) · Japan (EDINET) · Taiwan (TWSE) · United Arab Emirates (ADX and DFM).{' '}
+        <b>In build</b> — China A-shares, Hong Kong, India and Saudi Arabia.{' '}
         <span>Same schema, same licence, same price. A new market is not a new contract.</span>
       </p>
       {/* 🔴 [2026-09-15 · 사장님 지시] 시장을 «첫 줄»에 올린다 —
@@ -558,7 +559,7 @@ const 묶음 = [
             {m.이름} <em data-count={m.key}>0</em>
           </button>
         ))}
-        <span class="mkts__soon">In build — Shanghai · Hong Kong · India · Saudi Arabia · Taiwan · Tokyo</span>
+        <span class="mkts__soon">In build — Shanghai · Hong Kong · India · Saudi Arabia</span>
       </nav>
 
       <p class="lead">
