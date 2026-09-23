@@ -1,0 +1,121 @@
+---
+/*
+ * `/japan/companies` — **일본 상장사 지면으로 들어가는 문.**
+ *
+ * 지면 3,672장을 찍어 놓고 들어가는 문이 없으면 검색엔진이 그 안으로 못 들어간다.
+ * 백년지도가 그렇게 돌고 있다 — 문 한 장이 수천 장을 먹여 살린다.
+ * ⛔ 등수를 매기지 않는다. 업종은 이름 차례다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/japan-financials-tape.json';
+import { 낼만한가, 업종주소 } from '../../lib/japan-company-page.mjs';
+
+const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
+const meta = (tape as any)._meta ?? {};
+
+const 업종별 = new Map<string, number>();
+for (const r of 행들) {
+  const s = String(r.sector || '').trim();
+  if (!s) continue;
+  업종별.set(s, (업종별.get(s) ?? 0) + 1);
+}
+const 업종들 = [...업종별.entries()]
+  .map(([이름, 수]) => ({ 이름, 수, slug: 업종주소(이름) }))
+  .filter((x) => x.slug)
+  .sort((a, b) => a.이름.localeCompare(b.이름, 'en'));
+
+const 업종모름 = 행들.length - [...업종별.values()].reduce((a, b) => a + b, 0);
+
+const title = 'Japanese listed companies — financials as filed';
+const description = `${행들.length.toLocaleString('en-GB')} Japanese listed companies, one page each, built from annual securities reports filed through EDINET. Revenue, profit, assets, equity and the ratios computed from them.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE_URL}/japan/companies#collection`,
+  name: title,
+  url: `${SITE_URL}/japan/companies`,
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs"><a href="/">SeoulMarkets</a> <span>›</span> Japan companies</nav>
+
+    <header>
+      <h1>Japanese listed companies</h1>
+      <p class="lede">
+        {행들.length.toLocaleString('en-GB')} companies, one page each, taken from the annual
+        securities reports they filed themselves. Revenue, operating profit, net profit, assets and
+        equity — in yen, with no exchange rate applied.
+      </p>
+    </header>
+
+    <section>
+      <h2>By classification</h2>
+      <p class="note">
+        {업종들.length} classifications. Listed by name, not by size — we do not rank them.
+        {업종모름 > 0 && <> {업종모름} companies file without a classification we could read; they have
+        company pages but do not appear under a classification.</>}
+      </p>
+      <ul class="grid">
+        {업종들.map((s) => (
+          <li>
+            <a href={`/japan/sector/${s.slug}`}>{s.이름}</a>
+            <span class="cnt">{s.수}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
+      <h2>Korea is on the same site</h2>
+      <p class="note">
+        The Korean listed universe is built the same way, from filings to the Korean regulator.
+      </p>
+      <p><a class="more" href="/companies">Korean listed companies →</a></p>
+    </section>
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> {meta.출처 ? 'Japan Financial Services Agency, EDINET (annual securities reports).' : 'Japan Financial Services Agency, EDINET.'}{' '}
+        Public Data Licence 1.0 — commercial use permitted with attribution.
+        {meta.지은때 && <span class="dim"> Collected {String(meta.지은때).slice(0, 12)}.</span>}
+      </p>
+      <p>
+        <b>Not investment advice.</b> These pages report what was filed. They contain no
+        recommendation and no opinion on whether any figure is good or bad.
+      </p>
+      <p class="dim">
+        One filing per company — the most recent on file. Where a company did not report a line, we
+        leave it blank rather than writing zero.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .crumbs { font-size: .85rem; color: #667; margin-bottom: 1rem; }
+  .crumbs a { color: #445; text-decoration: none; }
+  .crumbs span { margin: 0 .35rem; color: #aab; }
+  h1 { font-size: 1.95rem; line-height: 1.25; margin: 0 0 .6rem; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.5rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 .8rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+          gap: .35rem 1.2rem; list-style: none; padding: 0; margin: 0; }
+  .grid li { display: flex; justify-content: space-between; gap: .6rem;
+             border-bottom: 1px solid #eef0f4; padding: .3rem 0; }
+  .grid a { color: #2a4d8f; text-decoration: none; font-size: .95rem; }
+  .grid a:hover { text-decoration: underline; }
+  .cnt { color: #889; font-size: .85rem; font-variant-numeric: tabular-nums; }
+  .more { font-size: .95rem; }
+  .dim { color: #889; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
+         font-size: .84rem; color: #556; }
+  .src p { margin: .5rem 0; }
+  @media (max-width: 640px) { h1 { font-size: 1.5rem; } .wrap { padding: 1rem .8rem 3rem; } }
+</style>

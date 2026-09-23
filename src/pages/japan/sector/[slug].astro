@@ -1,0 +1,203 @@
+---
+/*
+ * `/japan/sector/[slug]` — **일본 상장사를 업종으로 묶어 본다.** 34장.
+ *
+ * ── 왜 평균이 아니라 «가운데값»인가 ────────────────────────────────────
+ * 회사 규모는 한쪽으로 심하게 쏠려 있다. 토요타 한 곳이 평균을 통째로 끌어올리면
+ * 「이 업종의 보통 회사」가 화면에서 사라진다. 회사 강령 그대로다 —
+ * **「평균이 규범이 되는 순간 나침반이 아니라 압박이 된다.」**
+ * ⇒ 가운데값을 앞에 두고, 쏠림은 «가장 큰 곳의 몫»으로 따로 적는다.
+ *
+ * ⛔ 등수를 매기지 않는다. 회사는 이름 차례로 늘어놓는다.
+ * ⛔ 회사 상호를 일본어로 화면에 내지 않는다 — 영문 매체다. (출처 문서의 공식 원어명은 각주에 병기한다)
+ * ⛔ 환율을 만들어 곱하지 않는다. 엔은 엔으로 적는다.
+ */
+import Base from '../../../layouts/Base.astro';
+import { SITE_URL } from '../../../consts';
+import tape from '../../../data/japan-financials-tape.json';
+import { 주소표만들기 } from '../../../lib/company-slug.mjs';
+/* 🔴 `가운데값` 을 여기 앞말에 두었다가 빌드가 「가운데값 is not defined」로 죽었다.
+   Astro 의 getStaticPaths() 는 «격리되어» 돌아 같은 파일의 선언을 못 본다.
+   그 안에서 쓸 것은 반드시 모듈에 두고 import 한다. */
+import { 재무줄, 낼만한가, 업종주소, 가운데값 } from '../../../lib/japan-company-page.mjs';
+
+export async function getStaticPaths() {
+  const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
+  const 주소표 = 주소표만들기(행들);
+
+  const 업종별 = new Map<string, any[]>();
+  for (const r of 행들) {
+    const s = String(r.sector || '').trim();
+    if (!s) continue;                       /* ⛔ 업종을 모르는 곳으로 지면을 만들지 않는다 */
+    if (!업종별.has(s)) 업종별.set(s, []);
+    업종별.get(s)!.push(r);
+  }
+
+  const 길 = [];
+  for (const [업종, rs] of 업종별) {
+    const slug = 업종주소(업종);
+    if (!slug) continue;
+    const 회사 = rs.map((r) => {
+      const 줄 = 재무줄(r);
+      return {
+        code: String(r.code),
+        slug: 주소표.get(String(r.code))!,
+        name: String(r.name_en),
+        revenue: 줄!.revenue,
+        net: 줄!.net,
+        순이익률: 줄!.순이익률,
+        year: 줄!.year,
+      };
+    }).sort((a, b) => a.name.localeCompare(b.name, 'en'));
+
+    const 매출들 = 회사.map((c) => c.revenue).filter((n): n is number => n != null);
+    const 합 = 매출들.reduce((a, b) => a + b, 0);
+    const 가장큰 = 매출들.length ? Math.max(...매출들) : null;
+    길.push({
+      params: { slug },
+      props: {
+        업종,
+        회사,
+        회사수: 회사.length,
+        매출잰곳: 매출들.length,
+        매출가운데: 가운데값(매출들),
+        이익률가운데: 가운데값(회사.map((c) => c.순이익률).filter((n): n is number => n != null)),
+        이익률잰곳: 회사.filter((c) => c.순이익률 != null).length,
+        가장큰몫: 가장큰 != null && 합 > 0 ? 가장큰 / 합 : null,
+        가장큰이름: 가장큰 == null ? null : (회사.find((c) => c.revenue === 가장큰)?.name ?? null),
+      },
+    });
+  }
+  return 길;
+}
+
+const { 업종, 회사, 회사수, 매출잰곳, 매출가운데, 이익률가운데, 이익률잰곳, 가장큰몫, 가장큰이름 } = Astro.props as any;
+
+const bn = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
+const pct = (n: number | null) =>
+  n == null ? '—' : `${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
+
+const title = `${업종} — Japanese listed companies`;
+const description = `${회사수} Japanese listed companies file under ${업종}. Median revenue, median net margin and the full list, from annual securities reports filed through EDINET.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE_URL}/japan/sector/${Astro.params.slug}#collection`,
+  name: title,
+  url: `${SITE_URL}/japan/sector/${Astro.params.slug}`,
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs">
+      <a href="/">SeoulMarkets</a> <span>›</span> <a href="/japan/companies">Japan companies</a>
+      <span>›</span> {업종}
+    </nav>
+
+    <header>
+      <h1>{업종}</h1>
+      <p class="lede">
+        {회사수} listed companies file under this classification in Japan.
+      </p>
+    </header>
+
+    <section>
+      <h2>The middle of this classification</h2>
+      <p class="note">
+        We show the median, not the average. One very large filer would pull an average so far up
+        that the ordinary company in this classification would disappear from the page.
+      </p>
+      <div class="scroll">
+        <table>
+          <tbody>
+            <tr>
+              <th>Median revenue</th>
+              <td>{매출가운데 == null ? '—' : `JPY ${bn(매출가운데)}bn`}</td>
+              <td class="dim">{매출잰곳} of {회사수} reported a revenue line</td>
+            </tr>
+            <tr>
+              <th>Median net margin</th>
+              <td>{pct(이익률가운데)}</td>
+              <td class="dim">{이익률잰곳} of {회사수} had both inputs</td>
+            </tr>
+            {가장큰몫 != null && (
+              <tr>
+                <th>Largest filer's share of reported revenue</th>
+                <td>{pct(가장큰몫)}</td>
+                <td class="dim">{가장큰이름}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <p class="warn">
+        This is a description of the filings, not a ranking. We do not say which company is better
+        placed, and a large share of revenue is not by itself good or bad.
+      </p>
+    </section>
+
+    <section>
+      <h2>Every company in this classification</h2>
+      <p class="note">Listed by name, not by size — we do not rank them.</p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Company</th><th>Revenue (JPY bn)</th><th>Net profit (JPY bn)</th><th>Net margin</th><th>FY</th></tr>
+          </thead>
+          <tbody>
+            {회사.map((c: any) => (
+              <tr>
+                <td class="nm"><a href={`/japan/company/${c.slug}`}>{c.name}</a></td>
+                <td>{bn(c.revenue)}</td>
+                <td class={c.net != null && c.net < 0 ? 'neg' : ''}>{bn(c.net)}</td>
+                <td class={c.순이익률 != null && c.순이익률 < 0 ? 'neg' : ''}>{pct(c.순이익률)}</td>
+                <td class="dim">{c.year ?? '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> Annual securities reports (有価証券報告書) filed with Japan's Financial
+        Services Agency and published through EDINET — Public Data Licence 1.0, commercial use
+        permitted with attribution. Classification is the filer's own industry code.
+      </p>
+      <p><b>Not investment advice.</b> This page reports what was filed.</p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 68rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .crumbs { font-size: .85rem; color: #667; margin-bottom: 1rem; }
+  .crumbs a { color: #445; text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  .crumbs span { margin: 0 .35rem; color: #aab; }
+  h1 { font-size: 1.85rem; line-height: 1.25; margin: 0 0 .5rem; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.5rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 .7rem; }
+  .warn { font-size: .85rem; color: #665; background: #fbfaf4; border-left: 3px solid #ddd6b8;
+          padding: .55rem .8rem; margin: .8rem 0 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: .45rem .6rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  thead th { text-align: right; font-size: .82rem; color: #556; border-bottom: 2px solid #d8dbe2; }
+  thead th:first-child, tbody td.nm, tbody th { text-align: left; }
+  tbody th { font-weight: 500; color: #445; }
+  td.nm a { color: #2a4d8f; text-decoration: none; }
+  td.nm a:hover { text-decoration: underline; }
+  td.neg { color: #a33; }
+  .dim { color: #889; font-size: .85rem; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
+         font-size: .84rem; color: #556; }
+  .src p { margin: .5rem 0; }
+  @media (max-width: 640px) { h1 { font-size: 1.45rem; } .wrap { padding: 1rem .8rem 3rem; } }
+</style>

@@ -1,0 +1,266 @@
+---
+/*
+ * `/japan/company/[slug]` — **일본 상장사 한 곳의 재무 지면.** 한 자료로 3,672장이 선다.
+ * (seoulmarkets.com/japan/company/kyokuyo · /japan/company/toyota-motor …)
+ *
+ * ── 🔴 왜 이 지면이 생겼나 (2026-09-23 · 5번) ──────────────────────────
+ * 사장님 지시 — 「백년지도의 노하우 적용은 케이라이프맵과 에스마켓에 일단 해」
+ * 그 노하우는 **한 자료로 지면 수천 장을 찍는 것**이다. 한국은 2,515장을 냈는데,
+ * 같은 저장소에 **일본 상장사 3,672곳**(EDINET 유가증권보고서)이 지면 없이 쌓여 있었다.
+ * 한국보다 크고, 영문 데이터 벤더가 얇은 자리다 — 사장님: 「나라 확장은 경쟁공백 기준」.
+ *
+ * ── 백년지도에서 그대로 가져온 것 넷 ───────────────────────────────────
+ * ① 겹치는 이름에만 구분자를 붙인다      → company-slug.mjs (겹칠 때만 증권코드)
+ * ② 낼 내용이 없는 곳은 «지면을 안 만든다» → 낼만한가()
+ * ③ 등수를 매기지 않는다                 → 「우량」·「상위」를 쓰지 않는다
+ * ④ 두 축이 서로를 가리킨다              → 회사 ↔ 업종
+ *
+ * ── ⛔ 이 지면이 지키는 것 ─────────────────────────────────────────────
+ * ⛔ **회사 상호를 일본어로 화면에 내지 않는다.** 영문 매체다 — 한국 지면에서 한글명을 뺀 것과 같다.
+ *   ⚠ 출처 문서의 공식 원어명(有価証券報告書)은 각주에 병기한다. 그것은 «그 문서의 이름»이라
+ *     영문으로 바꾸면 찾아가지 못한다. 상호를 원어로 내는 것과 다른 일이다.
+ *   ⇒ 일본어 상호는 JSON-LD 의 alternateName 에만 둔다. 기계는 읽고 화면엔 안 뜬다.
+ * ⛔ **환율을 만들어 곱하지 않는다.** 엔은 엔으로 적는다 — 환율은 회사가 낸 수가 아니다.
+ * ⛔ **못 잰 칸을 0 으로 채우지 않는다.** 「—」로 두고 왜 없는지 적는다.
+ * ⛔ **투자 판단을 적지 않는다.** 비율은 계산일 뿐이고 좋고 나쁨은 우리가 안 정한다.
+ * ⚠ 이 자료는 회사마다 **가장 최근 결산 한 줄**이다. 한국처럼 해마다 줄이 서지 않으므로
+ *   「몇 년 사이 얼마 늘었다」를 적지 않는다 — 없는 이력을 있는 것처럼 그리지 않는다.
+ * 🔴 Astro 앞말(--- 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ */
+import Base from '../../../layouts/Base.astro';
+import { SITE_URL } from '../../../consts';
+import tape from '../../../data/japan-financials-tape.json';
+import { 주소표만들기 } from '../../../lib/company-slug.mjs';
+import { 재무줄, 시장줄, 낼만한가, 업종주소 } from '../../../lib/japan-company-page.mjs';
+
+export async function getStaticPaths() {
+  const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
+  const 주소표 = 주소표만들기(행들);
+
+  /* 업종별 회사 — 「두 축이 서로 가리킨다」. 한 번만 만들고 3,672장이 나눠 쓴다 */
+  const 업종별 = new Map<string, Array<{ code: string; slug: string; name: string }>>();
+  for (const r of 행들) {
+    const s = String(r.sector || '').trim() || 'Unclassified';
+    if (!업종별.has(s)) 업종별.set(s, []);
+    업종별.get(s)!.push({ code: String(r.code), slug: 주소표.get(String(r.code))!, name: String(r.name_en) });
+  }
+  for (const v of 업종별.values()) v.sort((a, b) => a.name.localeCompare(b.name, 'en'));
+
+  return 행들.map((r) => {
+    const 업종 = String(r.sector || '').trim() || 'Unclassified';
+    const 한벌 = 업종별.get(업종) ?? [];
+    return {
+      params: { slug: 주소표.get(String(r.code))! },
+      props: {
+        code: String(r.code),
+        nameEn: String(r.name_en).trim(),
+        nameJa: String(r.name || '').trim(),
+        sector: 업종 === 'Unclassified' ? null : 업종,
+        sectorSlug: 업종 === 'Unclassified' ? null : 업종주소(업종),
+        줄: 재무줄(r),
+        시장: 시장줄(r),
+        같은업종: 한벌.filter((x) => x.code !== String(r.code)).slice(0, 12),
+        업종회사수: 한벌.length,
+      },
+    };
+  });
+}
+
+const { code, nameEn, nameJa, sector, sectorSlug, 줄, 시장, 같은업종, 업종회사수 } = Astro.props as any;
+
+const bn = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
+const pct = (n: number | null) =>
+  n == null ? '—' : `${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
+const num = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 0 });
+const x2 = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 2 });
+
+const 결산 = 줄?.periodEnd ?? null;
+const title = `${nameEn} — reported financials (Japan)`;
+const 설명줄 = 줄 && 줄.revenue != null
+  ? `${nameEn} (${code}) reported JPY ${bn(줄.revenue)}bn of revenue in the financial year ended ${결산 ?? 줄.year}.`
+  : `${nameEn} (${code}) — financials as filed with Japan's Financial Services Agency.`;
+const description = `${설명줄} Revenue, operating profit, net profit, assets and equity as filed through EDINET, with the ratios computed from those figures.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Corporation',
+  '@id': `${SITE_URL}/japan/company/${Astro.params.slug}#corporation`,
+  name: nameEn,
+  alternateName: nameJa || undefined,
+  tickerSymbol: code,
+  url: `${SITE_URL}/japan/company/${Astro.params.slug}`,
+  ...(sector ? { industry: sector } : {}),
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs">
+      <a href="/">SeoulMarkets</a> <span>›</span> <a href="/japan/companies">Japan companies</a>
+      {sector && sectorSlug && (<> <span>›</span> <a href={`/japan/sector/${sectorSlug}`}>{sector}</a></>)}
+    </nav>
+
+    <header>
+      <h1>{nameEn}</h1>
+      <p class="sub">
+        <span class="chip">{code}</span>
+        <span class="chip">Japan</span>
+        {sector && sectorSlug && <a class="chip link" href={`/japan/sector/${sectorSlug}`}>{sector}</a>}
+      </p>
+      <p class="lede">{설명줄}</p>
+    </header>
+
+    <section>
+      <h2>Reported financials</h2>
+      <p class="note">
+        Figures are as filed, in billions of yen (JPY bn). We do not convert to dollars — an
+        exchange rate would be a number we made up, not one the company reported.
+        {줄?.basis && <> Statements are on a <b>{줄.basis}</b> basis.</>}
+      </p>
+      <div class="scroll">
+        <table>
+          <tbody>
+            <tr><th>Financial year ended</th><td>{결산 ?? (줄?.year ?? '—')}</td></tr>
+            <tr><th>Revenue</th><td>{bn(줄?.revenue ?? null)}</td></tr>
+            <tr>
+              <th>Operating profit</th>
+              <td class={줄?.operating != null && 줄.operating < 0 ? 'neg' : ''}>{bn(줄?.operating ?? null)}</td>
+            </tr>
+            <tr>
+              <th>Net profit</th>
+              <td class={줄?.net != null && 줄.net < 0 ? 'neg' : ''}>{bn(줄?.net ?? null)}</td>
+            </tr>
+            <tr><th>Total assets</th><td>{bn(줄?.assets ?? null)}</td></tr>
+            <tr><th>Equity</th><td>{bn(줄?.equity ?? null)}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Ratios from those figures</h2>
+      <p class="note">
+        Each ratio is computed from the two lines above it. A dash means an input was missing or the
+        denominator was zero — <b>not</b> that the value is zero.
+      </p>
+      <div class="scroll">
+        <table>
+          <tbody>
+            <tr>
+              <th>Operating margin</th>
+              <td class={줄?.영업이익률 != null && 줄.영업이익률 < 0 ? 'neg' : ''}>{pct(줄?.영업이익률 ?? null)}</td>
+            </tr>
+            <tr>
+              <th>Net margin</th>
+              <td class={줄?.순이익률 != null && 줄.순이익률 < 0 ? 'neg' : ''}>{pct(줄?.순이익률 ?? null)}</td>
+            </tr>
+            <tr><th>Equity / assets</th><td>{pct(줄?.자기자본비율 ?? null)}</td></tr>
+            <tr>
+              <th>Return on equity</th>
+              <td class={줄?.ROE != null && 줄.ROE < 0 ? 'neg' : ''}>{pct(줄?.ROE ?? null)}</td>
+            </tr>
+            <tr><th>Asset turnover</th><td>{x2(줄?.총자산회전율 ?? null)}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="warn">
+        These are arithmetic, not judgements. We do not say whether a margin is good or bad, and we
+        do not rank companies against each other.
+      </p>
+    </section>
+
+    {시장 && (
+      <section>
+        <h2>What the market puts on it</h2>
+        <div class="scroll">
+          <table>
+            <tbody>
+              <tr><th>Market capitalisation</th><td>{시장.marketCap == null ? '—' : `JPY ${bn(시장.marketCap)}bn`}</td></tr>
+              <tr><th>Share price</th><td>{시장.price == null ? '—' : `JPY ${x2(시장.price)}`}</td></tr>
+              <tr><th>Shares</th><td>{num(시장.shares)}</td></tr>
+              <tr><th>Earnings per share</th><td>{시장.eps == null ? '—' : `JPY ${x2(시장.eps)}`}</td></tr>
+              <tr><th>Book value per share</th><td>{시장.bps == null ? '—' : `JPY ${x2(시장.bps)}`}</td></tr>
+              <tr><th>Price / earnings</th><td>{x2(시장.per)}</td></tr>
+              <tr><th>Price / book</th><td>{x2(시장.pbr)}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        {시장.pbr == null && 시장.pbr못낸까닭 && (
+          <p class="note">We could not compute price to book here. Reason recorded at collection: {시장.pbr못낸까닭}</p>
+        )}
+        <p class="warn">
+          Market capitalisation is what buyers are betting the company is worth. It is not something
+          the company produced, so we never present it as output or productivity.
+        </p>
+      </section>
+    )}
+
+    {같은업종.length > 0 && (
+      <section>
+        <h2>Other companies in {sector ?? "the same classification"}</h2>
+        <p class="note">
+          {업종회사수} listed companies file under this classification. Showing {같은업종.length}.
+        </p>
+        <ul class="peers">
+          {같은업종.map((p: any) => (<li><a href={`/japan/company/${p.slug}`}>{p.name}</a></li>))}
+        </ul>
+        {sectorSlug && <p><a class="more" href={`/japan/sector/${sectorSlug}`}>See the whole {sector} list →</a></p>}
+      </section>
+    )}
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> Annual securities reports (有価証券報告書) filed with Japan's Financial
+        Services Agency and published through EDINET, which places them under the Public Data
+        Licence 1.0 — commercial use permitted with attribution.
+      </p>
+      <p>
+        <b>Not investment advice.</b> This page reports what was filed. It contains no
+        recommendation to buy, hold or sell, and no opinion on whether any figure is good or bad.
+      </p>
+      <p class="dim">
+        One filing per company — the most recent one on file. Figures can be restated by the filer
+        after publication. Where a company did not report a line, we leave it blank rather than
+        writing zero.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .crumbs { font-size: .85rem; color: #667; margin-bottom: 1rem; }
+  .crumbs a { color: #445; text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  .crumbs span { margin: 0 .35rem; color: #aab; }
+  h1 { font-size: 1.85rem; line-height: 1.25; margin: 0 0 .5rem; }
+  .sub { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin: 0 0 .9rem; }
+  .chip { display: inline-block; font-size: .78rem; padding: .16rem .5rem; border-radius: 999px;
+          background: #eef1f6; color: #445; }
+  .chip.link { text-decoration: none; }
+  .chip.link:hover { background: #e2e8f2; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.5rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 .7rem; }
+  .warn { font-size: .85rem; color: #665; background: #fbfaf4; border-left: 3px solid #ddd6b8;
+          padding: .55rem .8rem; margin: .8rem 0 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: .45rem .6rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  tbody th { text-align: left; font-weight: 500; color: #445; }
+  td.neg { color: #a33; }
+  .dim { color: #889; }
+  .peers { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+           gap: .3rem 1rem; list-style: none; padding: 0; margin: .5rem 0 0; }
+  .peers a { font-size: .92rem; color: #2a4d8f; text-decoration: none; }
+  .peers a:hover { text-decoration: underline; }
+  .more { font-size: .92rem; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
+         font-size: .84rem; color: #556; }
+  .src p { margin: .5rem 0; }
+  @media (max-width: 640px) { h1 { font-size: 1.45rem; } .wrap { padding: 1rem .8rem 3rem; } }
+</style>

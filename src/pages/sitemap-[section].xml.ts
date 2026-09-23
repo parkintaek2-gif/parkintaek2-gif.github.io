@@ -10,6 +10,9 @@ import fin from '../data/korea-financials-tape.json';
 import { 주소표만들기 } from '../lib/company-slug.mjs';
 import { 낼만한가 } from '../lib/company-page.mjs';
 import { 업종주소 } from '../lib/sector-en.mjs';
+/* 🔴 [2026-09-23 · 5번] 일본 상장사 지면 3,707장. 같은 까닭으로 여기에 넣는다 */
+import jp from '../data/japan-financials-tape.json';
+import { 낼만한가 as jp낼만한가, 업종주소 as jp업종주소 } from '../lib/japan-company-page.mjs';
 
 type Video = { title: string; description: string; thumbnail: string; content: string };
 type Image = { loc: string; title: string };
@@ -22,6 +25,7 @@ export function getStaticPaths() {
   return [
     { params: { section: 'pages' } },
     { params: { section: 'companies' } },
+    { params: { section: 'japan' } },
     ...CATEGORIES.map((c) => ({ params: { section: c.slug } })),
   ];
 }
@@ -76,6 +80,23 @@ export const GET: APIRoute = async ({ params }) => {
     }
     for (const s2 of [...업종들].sort()) {
       것.push({ loc: '/sector/' + s2, changefreq: 'weekly', priority: '0.7' });
+    }
+    urls = 것;
+  } else if (section === 'japan') {
+    /* 🔴 [2026-09-23 · 5번] 일본 상장사 지면 3,672 + 업종 34 + 목록 1.
+       ⛔ 지면을 «안 만든» 회사는 여기에도 안 넣는다 — 사이트맵이 404 를 가리키면
+         그 사이트맵 전체의 신뢰가 깎인다. 그래서 지면과 «같은 자»(낼만한가)로 거른다. */
+    const 행들 = ((jp as any).rows as any[]).filter((r) => jp낼만한가(r));
+    const 주소표 = 주소표만들기(행들);
+    const 업종들 = new Set<string>();
+    const 것: Url[] = [{ loc: '/japan/companies', changefreq: 'weekly', priority: '0.9' }];
+    for (const r of 행들) {
+      것.push({ loc: '/japan/company/' + 주소표.get(String(r.code)), changefreq: 'monthly', priority: '0.6' });
+      const s2 = jp업종주소(r.sector);
+      if (s2) 업종들.add(s2);
+    }
+    for (const s2 of [...업종들].sort()) {
+      것.push({ loc: '/japan/sector/' + s2, changefreq: 'weekly', priority: '0.7' });
     }
     urls = 것;
   } else if (section === 'pages') {
