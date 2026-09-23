@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-23T17:21+09:00",
+  "generated": "2026-09-24T07:42+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -289,6 +289,13 @@
       "uploadDate": "2026-09-03",
       "thumb": "/video/thumb/signs-voiced.jpg",
       "src": "/video/signs-voiced.mp4"
+    },
+    {
+      "set": "sopa-alumni-are-fewer-but-read-in-more-languages-per-person-voiced",
+      "seconds": 17,
+      "uploadDate": "2026-09-24",
+      "thumb": "/video/thumb/sopa-alumni-are-fewer-but-read-in-more-languages-per-person-voiced.jpg",
+      "src": "/video/sopa-alumni-are-fewer-but-read-in-more-languages-per-person-voiced.mp4"
     },
     {
       "set": "spike-hearts2hearts-voiced",

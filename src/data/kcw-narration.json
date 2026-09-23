@@ -202,6 +202,11 @@
    "제목": "Nearly half of Korean Netflix top ten titles only ever charted in one country",
    "내레이션": "Nine hundred seventy four Korean titles have placed in Netflix's weekly top ten somewhere, across five years of charts. Four hundred forty seven of them — nearly half — never charted anywhere but a single country.",
    "설명": "This counts chart placement, not catalogue availability. A title not charting elsewhere may simply have been outside the top ten there."
+  },
+  "sopa-alumni-are-fewer-but-read-in-more-languages-per-person": {
+   "제목": "A school with a third the alumni has more than double the Wikipedia reach per person",
+   "내레이션": "School of Performing Arts Seoul has one hundred twenty five credited alumni on Wikidata. Their English Wikipedia articles exist in a median of thirteen language editions. Seoul Institute of the Arts has three hundred fifty two alumni — nearly three times as many — at a median of six.",
+   "설명": "This cannot separate a school's own effect from who chooses to attend it. Alumni size and per-person reach are not the same measurement."
   }
  }
 }

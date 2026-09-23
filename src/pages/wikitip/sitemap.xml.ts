@@ -306,6 +306,14 @@ const videoSets = [
       + 'across five years of charts in 93 markets. 447 of them — nearly half — never charted '
       + 'anywhere but a single country.',
   },
+  {
+    set: 'sopa-alumni-are-fewer-but-read-in-more-languages-per-person-voiced',
+    page: '/what-moves-english-reading',
+    title: "A School With a Third the Alumni Has More Than Double the Wikipedia Reach Per Person",
+    description: '17 seconds: School of Performing Arts Seoul has 125 credited alumni on Wikidata, '
+      + 'a median of 13 English Wikipedia language editions each. Seoul Institute of the Arts has '
+      + '352 alumni — nearly 3x as many — at a median of 6.',
+  },
   /*
    * 🔴 [2026-08-29] **어제·오늘 만든 영상 넷이 이 목록에 없었다.**
    *   목록에 없으면 ① 영상 사이트맵에 안 들어가고 ② 올릴 문안(upload-kit)이 안 만들어진다.
