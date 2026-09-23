@@ -1,0 +1,5429 @@
+{
+ "_meta": {
+  "product": "UAE listed-company facts — one record per company, ready for a page",
+  "builtAt": "2026-09-24T07:14:52",
+  "companies": 111,
+  "sources": [
+   "src/data/uae-financials-tape.json (ADX/DFM filed statements)",
+   "archive/raw/dubai-dfm-companies (DFM public company profile)"
+  ],
+  "marketCapNote": "Market capitalisation is deliberately NOT carried in this file. ADX terms of use do not permit republishing exchange market data; it is used only internally, to decide whether a balance sheet is stated in dirhams or thousands."
+ },
+ "companies": [
+  {
+   "symbol": "ADNHC",
+   "exchange": "ADX",
+   "name": "A D N H Catering plc",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-17 00:00:00.0",
+    "revenue_aed": 921515000,
+    "net_profit_aed": 60399000,
+    "eps": 0.026,
+    "cash_aed": 174140000,
+    "total_assets_aed": 1251994901,
+    "total_liabilities_aed": 638039859,
+    "total_equity_aed": 613955042,
+    "balanceScale": 1,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5192988"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 1265000000,
+     "net_profit_aed": 124000000,
+     "eps": 0.056
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 1743000000,
+     "net_profit_aed": 176000000,
+     "eps": 0.078
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 464401000,
+     "net_profit_aed": 31382000,
+     "eps": 0.014
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 921515000,
+     "net_profit_aed": 60399000,
+     "eps": 0.026
+    }
+   ]
+  },
+  {
+   "symbol": "ADAVIATION",
+   "exchange": "ADX",
+   "name": "Abu Dhabi Aviation Co.",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-06 00:00:00.0",
+    "revenue_aed": 4662000000,
+    "net_profit_aed": 421000000,
+    "eps": 0.29,
+    "cash_aed": 1813000000,
+    "total_assets_aed": 16141287000,
+    "total_liabilities_aed": 7261125000,
+    "total_equity_aed": 8880162000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": false,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5241433"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 5547000000,
+     "net_profit_aed": 698000000,
+     "eps": 0.516
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 7819000000,
+     "net_profit_aed": 1066000000,
+     "eps": 0.785
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 2007000000,
+     "net_profit_aed": 124000000,
+     "eps": 0.07
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 4662000000,
+     "net_profit_aed": 421000000,
+     "eps": 0.29
+    }
+   ]
+  },
+  {
+   "symbol": "ADCB",
+   "exchange": "ADX",
+   "name": "Abu Dhabi Commercial Bank",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-23 00:00:00.0",
+    "revenue_aed": 22022000000,
+    "net_profit_aed": 6737000000,
+    "eps": 0.82,
+    "cash_aed": 72514000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "따로 다룸",
+    "balanceScaleWhy": "백만 단위다",
+    "reconciled": true,
+    "unitHint": "AED million",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5211994"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 31813000000,
+     "net_profit_aed": 8103999999.999999,
+     "eps": 1.04
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 42618000000,
+     "net_profit_aed": 11445000000,
+     "eps": 1.45
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 10746000000,
+     "net_profit_aed": 3361000000,
+     "eps": 0.4
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 22022000000,
+     "net_profit_aed": 6737000000,
+     "eps": 0.82
+    }
+   ]
+  },
+  {
+   "symbol": "ADIB",
+   "exchange": "ADX",
+   "name": "Abu Dhabi Islamic Bank",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q3 2025",
+    "priorPeriod": "Q3 2024",
+    "date": "2025-10-22 00:00:00.0",
+    "revenue_aed": 13207000000,
+    "net_profit_aed": 5316000000,
+    "eps": 1.307,
+    "cash_aed": 18555000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4567270"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 13207000000,
+     "net_profit_aed": 5316000000,
+     "eps": 1.307
+    }
+   ]
+  },
+  {
+   "symbol": "BILDCO",
+   "exchange": "ADX",
+   "name": "Abu Dhabi National Co. for Building Materials",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-12 00:00:00.0",
+    "revenue_aed": 34150000,
+    "net_profit_aed": -95658000,
+    "eps": -0.065,
+    "cash_aed": 4910000,
+    "total_assets_aed": 2430200535,
+    "total_liabilities_aed": 323151033,
+    "total_equity_aed": 2107049502,
+    "balanceScale": 1,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5260869"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 33622000,
+     "net_profit_aed": -20477000,
+     "eps": -0.07
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 46078000,
+     "net_profit_aed": -26770000,
+     "eps": -0.09
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 16722999.999999998,
+     "net_profit_aed": -103523000,
+     "eps": -0.072
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 34150000,
+     "net_profit_aed": -95658000,
+     "eps": -0.065
+    }
+   ]
+  },
+  {
+   "symbol": "ADNH",
+   "exchange": "ADX",
+   "name": "Abu Dhabi National Hotels Co.",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-23 00:00:00.0",
+    "revenue_aed": 1546000000,
+    "net_profit_aed": 102000000,
+    "eps": 0,
+    "cash_aed": 685000000,
+    "total_assets_aed": 14108238000,
+    "total_liabilities_aed": 2915010000,
+    "total_equity_aed": 11193228000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5211831"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 2444000000,
+     "net_profit_aed": 348000000,
+     "eps": 0.024
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 3486000000,
+     "net_profit_aed": 1146000000,
+     "eps": 0.09
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 863300000,
+     "net_profit_aed": 108321000,
+     "eps": 0.008
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 1546000000,
+     "net_profit_aed": 102000000,
+     "eps": 0
+    }
+   ]
+  },
+  {
+   "symbol": "ADNIC",
+   "exchange": "ADX",
+   "name": "Abu Dhabi National Insurance Company",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-12 00:00:00.0",
+    "revenue_aed": 4088000000,
+    "net_profit_aed": 201000000,
+    "eps": 0.37,
+    "cash_aed": 520000000,
+    "total_assets_aed": 12968244000,
+    "total_liabilities_aed": 9303392000,
+    "total_equity_aed": 3664852000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5256799"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 6087000000,
+     "net_profit_aed": 355000000,
+     "eps": 0.61
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 8254000000,
+     "net_profit_aed": 480000000,
+     "eps": 0.83
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 1888000000,
+     "net_profit_aed": 88000000,
+     "eps": 0.17
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 4088000000,
+     "net_profit_aed": 201000000,
+     "eps": 0.37
+    }
+   ]
+  },
+  {
+   "symbol": "ADNOCDIST",
+   "exchange": "ADX",
+   "name": "Abu Dhabi National Oil Company For Distribution",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-05 00:00:00.0",
+    "revenue_aed": 22035000000,
+    "net_profit_aed": 2128000000,
+    "eps": 0.167,
+    "cash_aed": 2191000000,
+    "total_assets_aed": 20353199000,
+    "total_liabilities_aed": 16781533000,
+    "total_equity_aed": 3571666000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5238692"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 26437000000,
+     "net_profit_aed": 2167000000,
+     "eps": 0.17
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 35897000000,
+     "net_profit_aed": 2851000000,
+     "eps": 0.224
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 8834000000,
+     "net_profit_aed": 786000000,
+     "eps": 0.062
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 22035000000,
+     "net_profit_aed": 2128000000,
+     "eps": 0.167
+    }
+   ]
+  },
+  {
+   "symbol": "TKFL",
+   "exchange": "ADX",
+   "name": "Abu Dhabi National Takaful Co.",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-13 00:00:00.0",
+    "revenue_aed": 526010999.99999994,
+    "net_profit_aed": 64143000,
+    "eps": 0.61,
+    "cash_aed": 81869000,
+    "total_assets_aed": 1695266514,
+    "total_liabilities_aed": 1063739484,
+    "total_equity_aed": 633587039,
+    "balanceScale": 1,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5266748"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 676666000,
+     "net_profit_aed": 89304000,
+     "eps": 0.85
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 962581000,
+     "net_profit_aed": 132805000,
+     "eps": 1.26
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 260611000,
+     "net_profit_aed": 35927000,
+     "eps": 0.34
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 526010999.99999994,
+     "net_profit_aed": 64143000,
+     "eps": 0.61
+    }
+   ]
+  },
+  {
+   "symbol": "ADPORTS",
+   "exchange": "ADX",
+   "name": "Abu Dhabi Ports Company PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-14 00:00:00.0",
+    "revenue_aed": 12834000000,
+    "net_profit_aed": 1489000000,
+    "eps": 0.22,
+    "cash_aed": 2788000000,
+    "total_assets_aed": 75781119000,
+    "total_liabilities_aed": 45715825000,
+    "total_equity_aed": 30065294000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5266207"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 14811000000,
+     "net_profit_aed": 1504000000,
+     "eps": 0.23
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 20765000000,
+     "net_profit_aed": 2071000000.0000002,
+     "eps": 0.32
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 5750000000,
+     "net_profit_aed": 653000000,
+     "eps": 0.1
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 12834000000,
+     "net_profit_aed": 1489000000,
+     "eps": 0.22
+    }
+   ]
+  },
+  {
+   "symbol": "ADSB",
+   "exchange": "ADX",
+   "name": "Abu Dhabi Ship Building Co.",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-12 00:00:00.0",
+    "revenue_aed": 665770000,
+    "net_profit_aed": -96671000,
+    "eps": -0.456,
+    "cash_aed": 867311000,
+    "total_assets_aed": 4300931000,
+    "total_liabilities_aed": 4117688000,
+    "total_equity_aed": 183243000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5261162"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 820000000,
+     "net_profit_aed": -10000000,
+     "eps": -0.05
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 1408000000,
+     "net_profit_aed": 30000000,
+     "eps": 0.14
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 426017000,
+     "net_profit_aed": 6345000,
+     "eps": 0.03
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 665770000,
+     "net_profit_aed": -96671000,
+     "eps": -0.456
+    }
+   ]
+  },
+  {
+   "symbol": "ADNOCDRILL",
+   "exchange": "ADX",
+   "name": "ADNOC Drilling Company PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-30 00:00:00.0",
+    "revenue_aed": 2460000000,
+    "net_profit_aed": 706000000,
+    "eps": 0.044,
+    "cash_aed": 355000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "따로 다룸",
+    "balanceScaleWhy": "통화가 달러다",
+    "reconciled": true,
+    "unitHint": "USD'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5225656"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 3626000000,
+     "net_profit_aed": 1060000000,
+     "eps": 0.066
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 4903000000,
+     "net_profit_aed": 1449000000,
+     "eps": 0.091
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 1228000000,
+     "net_profit_aed": 347000000,
+     "eps": 0.022
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 2460000000,
+     "net_profit_aed": 706000000,
+     "eps": 0.044
+    }
+   ]
+  },
+  {
+   "symbol": "ADNOCGAS",
+   "exchange": "ADX",
+   "name": "ADNOC Gas plc",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-10 00:00:00.0",
+    "revenue_aed": 7146000000,
+    "net_profit_aed": 1744000000,
+    "eps": 0.023,
+    "cash_aed": 1485000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "따로 다룸",
+    "balanceScaleWhy": "통화가 달러다",
+    "reconciled": true,
+    "unitHint": "USD'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5251658"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 14183000000,
+     "net_profit_aed": 3993000000,
+     "eps": 0.052
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 18509000000,
+     "net_profit_aed": 5166000000,
+     "eps": 0.067
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 4034000000,
+     "net_profit_aed": 1079000000,
+     "eps": 0.014
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 7146000000,
+     "net_profit_aed": 1744000000,
+     "eps": 0.023
+    }
+   ]
+  },
+  {
+   "symbol": "ADNOCLS",
+   "exchange": "ADX",
+   "name": "ADNOC Logistics & Services plc",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-11 00:00:00.0",
+    "revenue_aed": 3667000000,
+    "net_profit_aed": 1173000000,
+    "eps": 0.15,
+    "cash_aed": 543000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "따로 다룸",
+    "balanceScaleWhy": "통화가 달러다",
+    "reconciled": true,
+    "unitHint": "USD'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5254960"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 3705000000,
+     "net_profit_aed": 631000000,
+     "eps": 0.08
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 5016000000,
+     "net_profit_aed": 863000000,
+     "eps": 0.11
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 1083000000,
+     "net_profit_aed": 222000000,
+     "eps": 0.03
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 3667000000,
+     "net_profit_aed": 1173000000,
+     "eps": 0.15
+    }
+   ]
+  },
+  {
+   "symbol": "AGILITY",
+   "exchange": "ADX",
+   "name": "Agility Global PLC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-06 00:00:00.0",
+    "revenue_aed": 2922000000,
+    "net_profit_aed": 97000000,
+    "eps": 0.73,
+    "cash_aed": 563000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "따로 다룸",
+    "balanceScaleWhy": "통화가 달러다",
+    "reconciled": true,
+    "unitHint": "USD'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5244855"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 3652000000,
+     "net_profit_aed": 143000000,
+     "eps": 0.98
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 5073000000,
+     "net_profit_aed": 305000000,
+     "eps": 2.45
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 1410000000,
+     "net_profit_aed": 40000000,
+     "eps": 0.26
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 2922000000,
+     "net_profit_aed": 97000000,
+     "eps": 0.73
+    }
+   ]
+  },
+  {
+   "symbol": "AGTHIA",
+   "exchange": "ADX",
+   "name": "AGTHIA Group",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-04 00:00:00.0",
+    "revenue_aed": 2602000000,
+    "net_profit_aed": 121000000,
+    "eps": 0.135,
+    "cash_aed": 800000000,
+    "total_assets_aed": 6472844000,
+    "total_liabilities_aed": 3670709000,
+    "total_equity_aed": 2802135000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5237962"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 3560000000,
+     "net_profit_aed": 53000000,
+     "eps": 0.05
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 4846000000,
+     "net_profit_aed": 101000000,
+     "eps": 0.103
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 1327000000,
+     "net_profit_aed": 97000000,
+     "eps": 0.111
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 2602000000,
+     "net_profit_aed": 121000000,
+     "eps": 0.135
+    }
+   ]
+  },
+  {
+   "symbol": "AIRARABIA",
+   "exchange": "DFM",
+   "name": "Air Arabia PJSC",
+   "sector": "Industrials",
+   "isin": "AEA003001012",
+   "auditor": "KPMG",
+   "listedOn": "2007-07-16",
+   "최근": {
+    "period": "Yearly 2025",
+    "priorPeriod": null,
+    "date": "Feb 13, 2026 08:57:00",
+    "revenue_aed": 7787581,
+    "net_profit_aed": null,
+    "eps": 0.35,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/Feb/13/73b5a981-71a4-47f1-b4fd-b4944d8ef172/Air%20Arabia%20FS%202025%20130226%200127PM_.pdf"
+   },
+   "이력": [
+    {
+     "period": "Yearly 2025",
+     "revenue_aed": 7787581,
+     "net_profit_aed": null,
+     "eps": 0.35
+    }
+   ]
+  },
+  {
+   "symbol": "AJMANBANK",
+   "exchange": "DFM",
+   "name": "AJMAN BANK PJSC",
+   "sector": "Financials",
+   "isin": "AEA003201018",
+   "auditor": "Deloitte",
+   "listedOn": "2008-06-21",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Jul 23, 2026 16:23:00",
+    "revenue_aed": null,
+    "net_profit_aed": 116848,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": 33865319000,
+    "total_liabilities_aed": 30449775000,
+    "total_equity_aed": 3415544000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/Jul/23/17d895e4-740a-4120-9636-3a49a1476dc8/AJMANBANK%20FS%20Q2%20E%2023%2007%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 129565,
+     "eps": 0.048
+    },
+    {
+     "period": "Yearly 2025",
+     "revenue_aed": null,
+     "net_profit_aed": null,
+     "eps": 0.203
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 116848,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "ALAIN",
+   "exchange": "ADX",
+   "name": "Al Ain Alahlia Insurance Co.",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-12 00:00:00.0",
+    "revenue_aed": 547011000,
+    "net_profit_aed": -9103000,
+    "eps": -0.61,
+    "cash_aed": 65107000,
+    "total_assets_aed": 3230781000,
+    "total_liabilities_aed": 1856717000,
+    "total_equity_aed": 1374064000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5256605"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 874000000,
+     "net_profit_aed": 6000000,
+     "eps": 0.38
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 1157000000,
+     "net_profit_aed": 28000000,
+     "eps": 1.85
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 272260000,
+     "net_profit_aed": 8057000,
+     "eps": 0.54
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 547011000,
+     "net_profit_aed": -9103000,
+     "eps": -0.61
+    }
+   ]
+  },
+  {
+   "symbol": "ALANSARI",
+   "exchange": "DFM",
+   "name": "Al Ansari Financial Services PJSC",
+   "sector": "Financials",
+   "isin": "AEE01198A238",
+   "auditor": "Deloitte & Touche (M.E.)",
+   "listedOn": "2023-04-06",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 15, 2026 08:45:00",
+    "revenue_aed": 326649,
+    "net_profit_aed": null,
+    "eps": 0.0103,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/15/1fa0c05b-7618-4ff9-865c-04c2be95e58e/AAFS%20FS%20Q1%202026%20Financial%20Statements%20EN.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 320844,
+     "net_profit_aed": null,
+     "eps": 0.0098
+    },
+    {
+     "period": "Yearly 2025",
+     "revenue_aed": 1325720,
+     "net_profit_aed": null,
+     "eps": 0.0536
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 326649,
+     "net_profit_aed": null,
+     "eps": 0.0103
+    }
+   ]
+  },
+  {
+   "symbol": "ABNIC",
+   "exchange": "ADX",
+   "name": "Al Buhaira National Insurance Company",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-14 00:00:00.0",
+    "revenue_aed": 873357000,
+    "net_profit_aed": 77235000,
+    "eps": 30.89,
+    "cash_aed": 57983000,
+    "total_assets_aed": 1549874948,
+    "total_liabilities_aed": 985674984,
+    "total_equity_aed": 564199964,
+    "balanceScale": 1,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5268915"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 1238000000,
+     "net_profit_aed": 58000000,
+     "eps": 23.037
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 1646000000,
+     "net_profit_aed": 6000000,
+     "eps": 2.27
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 431541000,
+     "net_profit_aed": 30969000,
+     "eps": 12.39
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 873357000,
+     "net_profit_aed": 77235000,
+     "eps": 30.89
+    }
+   ]
+  },
+  {
+   "symbol": "MAZAYA",
+   "exchange": "DFM",
+   "name": "Al Mazaya Holding Company",
+   "sector": "Real Estate",
+   "isin": "KW0EQ0401764",
+   "auditor": "Dr. Shuaib A. Shuaib - RSM Albazie & Co. ",
+   "listedOn": "2006-02-19",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Jul 29, 2026 20:13:00",
+    "revenue_aed": 152264,
+    "net_profit_aed": null,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "못 가름",
+    "balanceScaleWhy": "보고서에 단위 표기가 없고 시가총액도 없다",
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/Jul/29/48c23e0f-d3f4-4bbd-ae0f-d6772cb26be8/Mazaya%20FS%20%20E%20Q2%2031%2003%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": null,
+     "eps": null
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 152264,
+     "net_profit_aed": null,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "ALRAMZ",
+   "exchange": "DFM",
+   "name": "Al Ramz Corporation Investment and Development PJSC",
+   "sector": "Financials",
+   "isin": "AED000801012",
+   "auditor": "Ernest & Young",
+   "listedOn": "2007-03-04",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 11, 2026 18:53:00",
+    "revenue_aed": 41578,
+    "net_profit_aed": 12082,
+    "eps": 0.022,
+    "cash_aed": null,
+    "total_assets_aed": 1931797000,
+    "total_liabilities_aed": 1336577000,
+    "total_equity_aed": 595220000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/11/13f0e7eb-1094-404a-bf68-4d9bc4366fb5/ENFS%20Al%20Ramz%20Corporation%20PJSC%20%20%20Q1%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 64333,
+     "net_profit_aed": 23750,
+     "eps": 0.043
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 41578,
+     "net_profit_aed": 12082,
+     "eps": 0.022
+    }
+   ]
+  },
+  {
+   "symbol": "ASNIC",
+   "exchange": "DFM",
+   "name": "Al Sagr National Insurance Company PJSC",
+   "sector": "Financials",
+   "isin": "AEA002101011",
+   "auditor": "CROWE MAK",
+   "listedOn": "2005-12-04",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 15, 2026 20:21:00",
+    "revenue_aed": null,
+    "net_profit_aed": 2294911,
+    "eps": 0.01,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/15/0b2b9d94-9397-4f71-9928-02ce16900bc4/Financials%2031%20%2003%202026%20English.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": null,
+     "eps": -0.17
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 2294911,
+     "eps": 0.01
+    }
+   ]
+  },
+  {
+   "symbol": "ASM",
+   "exchange": "ADX",
+   "name": "Al Seer Marine Supplies & Equipment Company P.J.S.C",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-28 00:00:00.0",
+    "revenue_aed": 578938000,
+    "net_profit_aed": -233453000,
+    "eps": -0.23,
+    "cash_aed": 493882000,
+    "total_assets_aed": 7830388000,
+    "total_liabilities_aed": 3931223000,
+    "total_equity_aed": 3899165000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": false,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223862"
+   },
+   "이력": [
+    {
+     "period": "2025",
+     "revenue_aed": 1348000000,
+     "net_profit_aed": -293000000,
+     "eps": -0.293
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 578938000,
+     "net_profit_aed": -233453000,
+     "eps": -0.23
+    }
+   ]
+  },
+  {
+   "symbol": "ALDAR",
+   "exchange": "ADX",
+   "name": "Aldar Properties PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-29 00:00:00.0",
+    "revenue_aed": 16843000000,
+    "net_profit_aed": 4860000000,
+    "eps": 0.529,
+    "cash_aed": 16831000000,
+    "total_assets_aed": 125523772000,
+    "total_liabilities_aed": 73724703000,
+    "total_equity_aed": 51799069000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223228"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 23553000000,
+     "net_profit_aed": 5966000000,
+     "eps": 0.644
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 33817999999.999996,
+     "net_profit_aed": 8834000000,
+     "eps": 0.955
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 8734000000,
+     "net_profit_aed": 2291000000,
+     "eps": 0.254
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 16843000000,
+     "net_profit_aed": 4860000000,
+     "eps": 0.529
+    }
+   ]
+  },
+  {
+   "symbol": "ALEC",
+   "exchange": "DFM",
+   "name": "ALEC Holdings PJSC",
+   "sector": "Industrials",
+   "isin": "AEE01710A255",
+   "auditor": "Deloitte & Touche (M.E.)",
+   "listedOn": "2025-10-15",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 08, 2026 16:33:07",
+    "revenue_aed": null,
+    "net_profit_aed": 230464,
+    "eps": 0.046,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/8/99657f6f-4fda-43fe-9cca-a0800dc4ca82/ALEC%20Holdings%20LLC%20%20%20%20CFS%20Q1%202026%20English.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 237805,
+     "eps": null
+    },
+    {
+     "period": "Yearly 2025",
+     "revenue_aed": null,
+     "net_profit_aed": null,
+     "eps": 0.137
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 230464,
+     "eps": 0.046
+    }
+   ]
+  },
+  {
+   "symbol": "ALEFEDT",
+   "exchange": "ADX",
+   "name": "Alef Education Holding plc",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-05 00:00:00.0",
+    "revenue_aed": 361561000,
+    "net_profit_aed": 236355000,
+    "eps": 3.38,
+    "cash_aed": 644943000,
+    "total_assets_aed": 1110540216,
+    "total_liabilities_aed": 267833867,
+    "total_equity_aed": 842706349,
+    "balanceScale": 1,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5240413"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 572765000,
+     "net_profit_aed": 364707000,
+     "eps": 5.21
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 769473000,
+     "net_profit_aed": 481082000,
+     "eps": 6.87
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 180757000,
+     "net_profit_aed": 118141000,
+     "eps": 1.69
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 361561000,
+     "net_profit_aed": 236355000,
+     "eps": 3.38
+    }
+   ]
+  },
+  {
+   "symbol": "ALPHADATA",
+   "exchange": "ADX",
+   "name": "Alpha Data PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-04 00:00:00.0",
+    "revenue_aed": 1456000000,
+    "net_profit_aed": 80000000,
+    "eps": 0.08,
+    "cash_aed": 79000000,
+    "total_assets_aed": 1283534761,
+    "total_liabilities_aed": 964428979,
+    "total_equity_aed": 319105782,
+    "balanceScale": 1,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5238145"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 1842000000,
+     "net_profit_aed": 98000000,
+     "eps": 0.1
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 2487000000,
+     "net_profit_aed": 143000000,
+     "eps": 0.14
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 649839000,
+     "net_profit_aed": 35501000,
+     "eps": 0.04
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 1456000000,
+     "net_profit_aed": 80000000,
+     "eps": 0.08
+    }
+   ]
+  },
+  {
+   "symbol": "ALPHADHABI",
+   "exchange": "ADX",
+   "name": "Alpha Dhabi Holding PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-03 00:00:00.0",
+    "revenue_aed": 37579000000,
+    "net_profit_aed": 9790000000,
+    "eps": 0.65,
+    "cash_aed": 28727000000,
+    "total_assets_aed": 230058800000,
+    "total_liabilities_aed": 120013625000,
+    "total_equity_aed": 110045175000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5233822"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 54940000000,
+     "net_profit_aed": 10422000000,
+     "eps": 0.54
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 78775000000,
+     "net_profit_aed": 15032000000,
+     "eps": 0.79
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 18792000000,
+     "net_profit_aed": 3801000000,
+     "eps": 0.22
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 37579000000,
+     "net_profit_aed": 9790000000,
+     "eps": 0.65
+    }
+   ]
+  },
+  {
+   "symbol": "AMR",
+   "exchange": "ADX",
+   "name": "Americana Restaurants International PLC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-29 00:00:00.0",
+    "revenue_aed": 1365000000,
+    "net_profit_aed": 147000000,
+    "eps": 0.018,
+    "cash_aed": 140000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "못 가름",
+    "balanceScaleWhy": "시가총액으로도 못 갈랐다 — 실단위 PBR 46105.094, 천단위 PBR 46.105 둘 다 0.15~15 밖이다",
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223533"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 1840000000,
+     "net_profit_aed": 135000000,
+     "eps": 0.016
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 2509000000,
+     "net_profit_aed": 218000000,
+     "eps": 0.026
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 649736000,
+     "net_profit_aed": 63050000,
+     "eps": 0.007
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 1365000000,
+     "net_profit_aed": 147000000,
+     "eps": 0.018
+    }
+   ]
+  },
+  {
+   "symbol": "AMLAK",
+   "exchange": "DFM",
+   "name": "Amlak Finance PJSC",
+   "sector": "Financials",
+   "isin": "AEA001201010",
+   "auditor": "M/s KPMG",
+   "listedOn": "2004-03-20",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 12, 2026 15:32:21",
+    "revenue_aed": 25342,
+    "net_profit_aed": 28214,
+    "eps": 0.0344,
+    "cash_aed": null,
+    "total_assets_aed": 3461445000,
+    "total_liabilities_aed": 288302000,
+    "total_equity_aed": 3173143000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/12/eb20ee08-b078-4242-a875-175f73ee4eec/Amlak%20Finance%20PJSC%2031%20March%202026%20Consolidated%20%20%20En.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 22550,
+     "net_profit_aed": 15716,
+     "eps": 0.0161
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 25342,
+     "net_profit_aed": 28214,
+     "eps": 0.0344
+    }
+   ]
+  },
+  {
+   "symbol": "ANAN",
+   "exchange": "ADX",
+   "name": "ANAN INVESTMENT HOLDING P.J.S.C",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-13 00:00:00.0",
+    "revenue_aed": 423949000,
+    "net_profit_aed": 33672000,
+    "eps": 0.015,
+    "cash_aed": 199241000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5261043"
+   },
+   "이력": [
+    {
+     "period": "2025",
+     "revenue_aed": 385835000,
+     "net_profit_aed": 47599000,
+     "eps": 0.021
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 423949000,
+     "net_profit_aed": 33672000,
+     "eps": 0.015
+    }
+   ]
+  },
+  {
+   "symbol": "APEX",
+   "exchange": "ADX",
+   "name": "APEX INVESTMENT P.S.C",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-27 00:00:00.0",
+    "revenue_aed": 421341000,
+    "net_profit_aed": -26753000,
+    "eps": -0.007,
+    "cash_aed": 495703000,
+    "total_assets_aed": 2396445801,
+    "total_liabilities_aed": 379467278,
+    "total_equity_aed": 2016978523,
+    "balanceScale": 1,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5221065"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 633020000,
+     "net_profit_aed": 54435000,
+     "eps": 0.015
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 865158000,
+     "net_profit_aed": 37999000,
+     "eps": 0.011
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 210706000,
+     "net_profit_aed": -94625000,
+     "eps": -0.027
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 421341000,
+     "net_profit_aed": -26753000,
+     "eps": -0.007
+    }
+   ]
+  },
+  {
+   "symbol": "ARAM",
+   "exchange": "ADX",
+   "name": "Aram Group",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-10 00:00:00.0",
+    "revenue_aed": 6590000,
+    "net_profit_aed": 849000,
+    "eps": 0.011,
+    "cash_aed": 6313000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5254422"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 8639000,
+     "net_profit_aed": 3035000,
+     "eps": 0.038
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 21883000,
+     "net_profit_aed": 13175000,
+     "eps": 0.167
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 3049000,
+     "net_profit_aed": 1147000,
+     "eps": 0.015
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 6590000,
+     "net_profit_aed": 849000,
+     "eps": 0.011
+    }
+   ]
+  },
+  {
+   "symbol": "ARMX",
+   "exchange": "DFM",
+   "name": "ARAMEX PJSC",
+   "sector": "Industrials",
+   "isin": "AEA002301017",
+   "auditor": "Ernst & Young",
+   "listedOn": "2005-07-12",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 08, 2026 19:55:48",
+    "revenue_aed": null,
+    "net_profit_aed": 16844,
+    "eps": 0.012,
+    "cash_aed": null,
+    "total_assets_aed": 5936312000,
+    "total_liabilities_aed": 3385251000,
+    "total_equity_aed": 2551061000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/8/bd16e382-1d27-46ca-b8df-a9bd20755633/ARMX%20FS%20Q1%202026%20E%2008%2005%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 64391,
+     "eps": 0.032
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 16844,
+     "eps": 0.012
+    }
+   ]
+  },
+  {
+   "symbol": "BOS",
+   "exchange": "ADX",
+   "name": "Bank of Sharjah",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-16 00:00:00.0",
+    "revenue_aed": 544688000,
+    "net_profit_aed": 361912000,
+    "eps": 0.121,
+    "cash_aed": 209294000,
+    "total_assets_aed": 53210427000,
+    "total_liabilities_aed": 48423907000,
+    "total_equity_aed": 4786520000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5187390"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 1987000000,
+     "net_profit_aed": 435000000,
+     "eps": 0.145
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 2842000000,
+     "net_profit_aed": 729000000,
+     "eps": 0.24
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 663000000,
+     "net_profit_aed": 151000000,
+     "eps": 0.05
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 544688000,
+     "net_profit_aed": 361912000,
+     "eps": 0.121
+    }
+   ]
+  },
+  {
+   "symbol": "BHMCAPITAL",
+   "exchange": "DFM",
+   "name": "BHM Capital Financial Services PSC",
+   "sector": "Private Joint Stock Companies (PrJSC)",
+   "isin": "AEA006001019",
+   "auditor": "Forvis Mazars Chartered Accountants L.L.C",
+   "listedOn": "2015-11-26",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Aug 06, 2026 17:47:00",
+    "revenue_aed": null,
+    "net_profit_aed": 11389978,
+    "eps": 0.06,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "못 가름",
+    "balanceScaleWhy": "보고서에 단위 표기가 없고 시가총액도 없다",
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/Aug/6/b15e3c2a-7eae-4bc0-9e37-32a4638318ce/BHM%20Capital%20Financials%20English%20%20%20Consolidated%20Inte.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 11389978,
+     "eps": 0.06
+    }
+   ]
+  },
+  {
+   "symbol": "BOROUGE",
+   "exchange": "ADX",
+   "name": "Borouge PLC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-31 00:00:00.0",
+    "revenue_aed": 2581000000,
+    "net_profit_aed": 347000000,
+    "eps": 0.01,
+    "cash_aed": 194000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "따로 다룸",
+    "balanceScaleWhy": "통화가 달러다",
+    "reconciled": true,
+    "unitHint": "USD'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5228462"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 4171999999.9999995,
+     "net_profit_aed": 769000000,
+     "eps": 0.03
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 5848000000,
+     "net_profit_aed": 1099000000,
+     "eps": 0.04
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 1175000000,
+     "net_profit_aed": 156000000,
+     "eps": 0.01
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 2581000000,
+     "net_profit_aed": 347000000,
+     "eps": 0.01
+    }
+   ]
+  },
+  {
+   "symbol": "BURJEEL",
+   "exchange": "ADX",
+   "name": "BURJEEL HOLDINGS PLC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q3 2025",
+    "priorPeriod": "Q3 2024",
+    "date": "2025-11-03 00:00:00.0",
+    "revenue_aed": 4099000000,
+    "net_profit_aed": 362000000,
+    "eps": 0.07,
+    "cash_aed": 146000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/4586504"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 4099000000,
+     "net_profit_aed": 362000000,
+     "eps": 0.07
+    }
+   ]
+  },
+  {
+   "symbol": "CBD",
+   "exchange": "DFM",
+   "name": "Commercial Bank of Dubai PJSC",
+   "sector": "Financials",
+   "isin": "AEC000201017",
+   "auditor": "Deloitte & Touche (M.E.)",
+   "listedOn": "2003-03-31",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Jul 22, 2026 15:02:10",
+    "revenue_aed": null,
+    "net_profit_aed": 885582,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": 154504921000,
+    "total_liabilities_aed": 137536617000,
+    "total_equity_aed": 16968304000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/Jul/22/982c8e48-0b80-44cf-8b5c-31eedba0fa0e/CBD%20Financial%20Statements%2030%20June%202026%20English.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 830030,
+     "eps": 0.28
+    },
+    {
+     "period": "Yearly 2025",
+     "revenue_aed": null,
+     "net_profit_aed": null,
+     "eps": 1.13
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 885582,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "DAMAC",
+   "exchange": "DFM",
+   "name": "DAMAC PROPERTIES DUBAI CO PJSC",
+   "sector": null,
+   "isin": "AED001301012",
+   "auditor": "Deloitte & Touche",
+   "listedOn": "2015-01-12",
+   "최근": {
+    "period": "Yearly 2021",
+    "priorPeriod": null,
+    "date": "Mar 25, 2022 08:41:07",
+    "revenue_aed": 2967132,
+    "net_profit_aed": null,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2022/Mar/25/a0b76672-f231-4968-a4ac-59cf3300028e/DAMAC_FS_2021_E_24_03_2021.pdf"
+   },
+   "이력": [
+    {
+     "period": "Yearly 2021",
+     "revenue_aed": 2967132,
+     "net_profit_aed": null,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "DANA",
+   "exchange": "ADX",
+   "name": "DANA GAS PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-07 00:00:00.0",
+    "revenue_aed": 224000000,
+    "net_profit_aed": 107000000,
+    "eps": 0.055,
+    "cash_aed": 194000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5245890"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 255000000,
+     "net_profit_aed": 103000000,
+     "eps": 0.054
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 348000000,
+     "net_profit_aed": 130000000,
+     "eps": 0.068
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 145000000,
+     "net_profit_aed": 74000000,
+     "eps": 0.039
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 224000000,
+     "net_profit_aed": 107000000,
+     "eps": 0.055
+    }
+   ]
+  },
+  {
+   "symbol": "DEYAAR",
+   "exchange": "DFM",
+   "name": "Deyaar Development PJSC",
+   "sector": "Real Estate",
+   "isin": "AED001001018",
+   "auditor": "KPMG",
+   "listedOn": "2007-09-04",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 12, 2026 08:31:00",
+    "revenue_aed": 447084,
+    "net_profit_aed": 130157,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/11/bdb1b58d-4106-44e7-a58b-ebc4950e6244/Deyaar%20Development%20PJSC%20FS%2031%20Mar%202026%20English.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 505494,
+     "net_profit_aed": 168139,
+     "eps": null
+    },
+    {
+     "period": "Yearly 2025",
+     "revenue_aed": 1972114,
+     "net_profit_aed": null,
+     "eps": null
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 447084,
+     "net_profit_aed": 130157,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "DSI",
+   "exchange": "DFM",
+   "name": "Drake & Scull International PJSC",
+   "sector": "Industrials",
+   "isin": "AED001101016",
+   "auditor": "forvis Mazars",
+   "listedOn": "2009-03-15",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Aug 07, 2026 17:30:40",
+    "revenue_aed": 136743,
+    "net_profit_aed": null,
+    "eps": 0.002,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/Aug/7/735700f5-c1ee-41e6-ad47-dc62e3ea0955/DSI%20FS%20E%207%208%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 136743,
+     "net_profit_aed": null,
+     "eps": 0.002
+    }
+   ]
+  },
+  {
+   "symbol": "DEWA",
+   "exchange": "DFM",
+   "name": "Dubai Electricity & Water Authority PJSC",
+   "sector": "Utilities",
+   "isin": "AED001801011",
+   "auditor": "KPMG Lower Gulf Limited",
+   "listedOn": "2022-04-12",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 12, 2026 12:08:04",
+    "revenue_aed": 6451762,
+    "net_profit_aed": 941061,
+    "eps": 0.018,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/12/cd67f020-9be5-42a8-8f89-3045202fde9c/DEWA.ENG.Q1.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 8412995,
+     "net_profit_aed": 3328285,
+     "eps": 0.046
+    },
+    {
+     "period": "Yearly 2025",
+     "revenue_aed": null,
+     "net_profit_aed": null,
+     "eps": 0.167
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 6451762,
+     "net_profit_aed": 941061,
+     "eps": 0.018
+    }
+   ]
+  },
+  {
+   "symbol": "DIN",
+   "exchange": "DFM",
+   "name": "Dubai Insurance Co. PJSC",
+   "sector": "Financials",
+   "isin": "AED000301013",
+   "auditor": "Ernst & Young",
+   "listedOn": "2000-08-04",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 11, 2026 17:12:00",
+    "revenue_aed": null,
+    "net_profit_aed": 70438,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": 4308063000,
+    "total_liabilities_aed": 3174109000,
+    "total_equity_aed": 1133954000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/11/5b7031f6-24c7-4345-803f-dd25afcd0e2d/DIN%201Q%20E%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Yearly 2025",
+     "revenue_aed": null,
+     "net_profit_aed": null,
+     "eps": 1.906
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 41360,
+     "eps": null
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 70438,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "DIC",
+   "exchange": "DFM",
+   "name": "Dubai Investments PJSC",
+   "sector": "Industrials",
+   "isin": "AED000601016",
+   "auditor": "KPMG Lower Gulf Limited ",
+   "listedOn": "2000-03-25",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 11, 2026 19:39:53",
+    "revenue_aed": 765730,
+    "net_profit_aed": null,
+    "eps": 0.04,
+    "cash_aed": null,
+    "total_assets_aed": 23431040000,
+    "total_liabilities_aed": 8044667000,
+    "total_equity_aed": 15386373000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/11/ec2c0cc3-7960-4b36-ba5f-0d037d47e14f/DIC%20FS%20E%20Q1%202026%2011%2005%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 1272789,
+     "net_profit_aed": 642441,
+     "eps": 0.11
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 765730,
+     "net_profit_aed": null,
+     "eps": 0.04
+    }
+   ]
+  },
+  {
+   "symbol": "DIB",
+   "exchange": "DFM",
+   "name": "Dubai Islamic Bank PJSC",
+   "sector": "Financials",
+   "isin": "AED000201015",
+   "auditor": "KPMG",
+   "listedOn": "2000-03-25",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Jul 14, 2026 19:04:22",
+    "revenue_aed": 6142992,
+    "net_profit_aed": 1937578,
+    "eps": 0.25,
+    "cash_aed": null,
+    "total_assets_aed": 423169651000,
+    "total_liabilities_aed": 369279768000,
+    "total_equity_aed": 53889885000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/Jul/14/3d84c08e-4f2d-42f0-9707-656a294349b8/DIB%20FS%20E%2014%2007%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 6295942,
+     "net_profit_aed": 1798730,
+     "eps": 0.24
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 6142992,
+     "net_profit_aed": 1937578,
+     "eps": 0.25
+    }
+   ]
+  },
+  {
+   "symbol": "AMAN",
+   "exchange": "DFM",
+   "name": "Dubai Islamic Insurance and Reinsurance Co. PJSC",
+   "sector": "Financials",
+   "isin": "AED000401011",
+   "auditor": "Crowe Mak",
+   "listedOn": "2004-07-18",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Aug 14, 2026 18:08:01",
+    "revenue_aed": 4909047,
+    "net_profit_aed": null,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/Aug/14/bfd059b7-dd4a-42bc-afb2-92682a778ffc/AMAN%20FS%20Q2%20E%2014.08.2026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Yearly 2025",
+     "revenue_aed": 20345521,
+     "net_profit_aed": null,
+     "eps": null
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 4909047,
+     "net_profit_aed": null,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "DTC",
+   "exchange": "DFM",
+   "name": "Dubai Taxi Company PJSC",
+   "sector": "Industrials",
+   "isin": "AEE01356D236",
+   "auditor": "Deloitte",
+   "listedOn": "2023-12-07",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Jul 23, 2026 19:51:13",
+    "revenue_aed": null,
+    "net_profit_aed": 10414364,
+    "eps": 0.0042,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "못 가름",
+    "balanceScaleWhy": "보고서에 단위 표기가 없고 시가총액도 없다",
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/Jul/23/c42cfa3d-7eb3-4196-9f1e-b67a711176ad/DTC%20FS%20Q2%20E%2023%2007%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 10414364,
+     "eps": 0.0042
+    }
+   ]
+  },
+  {
+   "symbol": "E7",
+   "exchange": "ADX",
+   "name": "E7 Group PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-10 00:00:00.0",
+    "revenue_aed": 358209000,
+    "net_profit_aed": 60976000,
+    "eps": 0.03,
+    "cash_aed": 143389000,
+    "total_assets_aed": 1373174000,
+    "total_liabilities_aed": 373004000,
+    "total_equity_aed": 1000170000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5253654"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 465000000,
+     "net_profit_aed": 59000000,
+     "eps": 0.03
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 675645000,
+     "net_profit_aed": 104175000,
+     "eps": 0.05
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 169340000,
+     "net_profit_aed": 28058000,
+     "eps": 0.01
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 358209000,
+     "net_profit_aed": 60976000,
+     "eps": 0.03
+    }
+   ]
+  },
+  {
+   "symbol": "EASYLEASE",
+   "exchange": "ADX",
+   "name": "Easy Lease Motorcycle Rental PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-23 00:00:00.0",
+    "revenue_aed": 398441000,
+    "net_profit_aed": 44869000,
+    "eps": 1.31,
+    "cash_aed": 82264000,
+    "total_assets_aed": 1078951797,
+    "total_liabilities_aed": 694592323,
+    "total_equity_aed": 384359474,
+    "balanceScale": 1,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5211340"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 516097999.99999994,
+     "net_profit_aed": 47722000,
+     "eps": 1.29
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 713168000,
+     "net_profit_aed": 90086000,
+     "eps": 2.35
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 189724000,
+     "net_profit_aed": 20703000,
+     "eps": 0.59
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 398441000,
+     "net_profit_aed": 44869000,
+     "eps": 1.31
+    }
+   ]
+  },
+  {
+   "symbol": "EMAAR",
+   "exchange": "DFM",
+   "name": "Emaar Properties PJSC",
+   "sector": "Real Estate",
+   "isin": "AEE000301011",
+   "auditor": "Ernst & Young Middle East",
+   "listedOn": "2000-03-25",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 11, 2026 08:07:27",
+    "revenue_aed": 12398012,
+    "net_profit_aed": 6412121,
+    "eps": 0.57,
+    "cash_aed": null,
+    "total_assets_aed": 195293707000,
+    "total_liabilities_aed": 91701546000,
+    "total_equity_aed": 103592161000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/11/ca83f2b5-7d91-4674-86d5-810f5ee11c99/FS%20%20%20Emaar%20Properties%20PJSC%20And%20Its%20Subsidiaries%2031.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 11509517,
+     "net_profit_aed": 4736545,
+     "eps": 0.42
+    },
+    {
+     "period": "Yearly 2025",
+     "revenue_aed": 49557263,
+     "net_profit_aed": null,
+     "eps": 1.99
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 12398012,
+     "net_profit_aed": 6412121,
+     "eps": 0.57
+    }
+   ]
+  },
+  {
+   "symbol": "EMPOWER",
+   "exchange": "DFM",
+   "name": "Emirates Central Cooling Systems Corporation PJSC",
+   "sector": "Utilities",
+   "isin": "AEE01134E227",
+   "auditor": "PricewaterhouseCoopers",
+   "listedOn": "2022-11-15",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Aug 06, 2026 09:13:12",
+    "revenue_aed": 888842,
+    "net_profit_aed": null,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": 12267233000,
+    "total_liabilities_aed": 8711788000,
+    "total_equity_aed": 3528330000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/Aug/6/e99ef8e9-6bcc-443d-997e-229f82408bb0/EMPOWER%20FS%20Q2%20E%2005%2008%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 888842,
+     "net_profit_aed": null,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "DU",
+   "exchange": "DFM",
+   "name": "Emirates Integrated Telecommunications Company PJSC",
+   "sector": "Communication Services",
+   "isin": "AEE000701012",
+   "auditor": "KPMG",
+   "listedOn": "2006-04-21",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Jul 22, 2026 18:48:52",
+    "revenue_aed": 1800875,
+    "net_profit_aed": 1449267,
+    "eps": 0.18,
+    "cash_aed": null,
+    "total_assets_aed": 17620927000,
+    "total_liabilities_aed": 7653803000,
+    "total_equity_aed": 9967124000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/Jul/22/9136b93c-0ec5-4923-b223-9fe7b0c3438c/EITC%20Consolidated%20Financial%20Statements%20For%20The%20Per.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 1845439,
+     "net_profit_aed": 722499,
+     "eps": 0.18
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 1800875,
+     "net_profit_aed": 1449267,
+     "eps": 0.18
+    }
+   ]
+  },
+  {
+   "symbol": "EMOBILITY",
+   "exchange": "ADX",
+   "name": "Emirates Mobility Company",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-22 00:00:00.0",
+    "revenue_aed": 360625000,
+    "net_profit_aed": 144682000,
+    "eps": 0.13,
+    "cash_aed": 137772000,
+    "total_assets_aed": 1936480000,
+    "total_liabilities_aed": 510038000,
+    "total_equity_aed": 1426442000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5209007"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 562662000,
+     "net_profit_aed": 271896000,
+     "eps": 0.24
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 770487000,
+     "net_profit_aed": 345861000,
+     "eps": 0.31
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 188974000,
+     "net_profit_aed": 74562000,
+     "eps": 0.07
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 360625000,
+     "net_profit_aed": 144682000,
+     "eps": 0.13
+    }
+   ]
+  },
+  {
+   "symbol": "EAND",
+   "exchange": "ADX",
+   "name": "Emirates Telecom. Group Company PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-30 00:00:00.0",
+    "revenue_aed": 38143000000,
+    "net_profit_aed": 7007000000,
+    "eps": 0.69,
+    "cash_aed": 8496000000,
+    "total_assets_aed": 200866965000,
+    "total_liabilities_aed": 137306923000,
+    "total_equity_aed": 63560042000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5226967"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 53539000000,
+     "net_profit_aed": 13183000000,
+     "eps": 1.36
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 72858000000,
+     "net_profit_aed": 16155999999.999998,
+     "eps": 1.65
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 19417000000,
+     "net_profit_aed": 3372000000,
+     "eps": 0.33
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 38143000000,
+     "net_profit_aed": 7007000000,
+     "eps": 0.69
+    }
+   ]
+  },
+  {
+   "symbol": "EMSTEEL",
+   "exchange": "ADX",
+   "name": "EMSTEEL BUILDING MATERIALS PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-31 00:00:00.0",
+    "revenue_aed": 4558000000,
+    "net_profit_aed": 560000000,
+    "eps": 0.082,
+    "cash_aed": 1639000000,
+    "total_assets_aed": 11760618000,
+    "total_liabilities_aed": 1956354000,
+    "total_equity_aed": 9804264000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5228348"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 6469000000,
+     "net_profit_aed": 283000000,
+     "eps": 0.041
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 8941000000,
+     "net_profit_aed": 523000000,
+     "eps": 0.076
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 2168000000,
+     "net_profit_aed": 299000000,
+     "eps": 0.044
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 4558000000,
+     "net_profit_aed": 560000000,
+     "eps": 0.082
+    }
+   ]
+  },
+  {
+   "symbol": "ESG",
+   "exchange": "ADX",
+   "name": "ESG EMIRATES STALLIONS GROUP P.J.S.C",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-28 00:00:00.0",
+    "revenue_aed": 766693000,
+    "net_profit_aed": 166303000,
+    "eps": 0.57,
+    "cash_aed": 403515000,
+    "total_assets_aed": 4788491000,
+    "total_liabilities_aed": 1585966000,
+    "total_equity_aed": 3202525000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223163"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 1067000000,
+     "net_profit_aed": 188000000,
+     "eps": 0.64
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 1771000000,
+     "net_profit_aed": 342000000,
+     "eps": 1.2
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 370063000,
+     "net_profit_aed": 68647000,
+     "eps": 0.21
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 766693000,
+     "net_profit_aed": 166303000,
+     "eps": 0.57
+    }
+   ]
+  },
+  {
+   "symbol": "ESHRAQ",
+   "exchange": "ADX",
+   "name": "ESHRAQ INVESTMENTS P.J.S.C",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-12 00:00:00.0",
+    "revenue_aed": 91979000,
+    "net_profit_aed": 75299000,
+    "eps": 0.028,
+    "cash_aed": 115994000,
+    "total_assets_aed": 1839969000,
+    "total_liabilities_aed": 138059000,
+    "total_equity_aed": 1701910000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5267796"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 11711000,
+     "net_profit_aed": 42706000,
+     "eps": 0.016
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 15883000,
+     "net_profit_aed": 64040000.00000001,
+     "eps": 0.024
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 4492000,
+     "net_profit_aed": -3663000,
+     "eps": -0.001
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 91979000,
+     "net_profit_aed": 75299000,
+     "eps": 0.028
+    }
+   ]
+  },
+  {
+   "symbol": "FERTIGLB",
+   "exchange": "ADX",
+   "name": "Fertiglobe plc",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-28 00:00:00.0",
+    "revenue_aed": 2001000000,
+    "net_profit_aed": 470000000,
+    "eps": 0.038,
+    "cash_aed": 1368000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "못 가름",
+    "balanceScaleWhy": "시가총액으로도 못 갈랐다 — 실단위 PBR 9708022.964, 천단위 PBR 9708.023 둘 다 0.15~15 밖이다",
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5221366"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 2019000000.0000002,
+     "net_profit_aed": 423600000000000,
+     "eps": 0.04
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 2827000000,
+     "net_profit_aed": 588500000000000,
+     "eps": 0.053
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 915000000,
+     "net_profit_aed": 267900000000000,
+     "eps": 0.024
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 2001000000,
+     "net_profit_aed": 470000000,
+     "eps": 0.038
+    }
+   ]
+  },
+  {
+   "symbol": "FAB",
+   "exchange": "ADX",
+   "name": "First Abu Dhabi Bank",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-23 00:00:00.0",
+    "revenue_aed": 39393000000,
+    "net_profit_aed": 10765000000,
+    "eps": 0.93,
+    "cash_aed": 280425000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5210881"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 59565000000,
+     "net_profit_aed": 16056000000,
+     "eps": 1.39
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 79174000000,
+     "net_profit_aed": 21189000000,
+     "eps": 1.85
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 19184000000,
+     "net_profit_aed": 5034000000,
+     "eps": 0.43
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 39393000000,
+     "net_profit_aed": 10765000000,
+     "eps": 0.93
+    }
+   ]
+  },
+  {
+   "symbol": "FBI",
+   "exchange": "ADX",
+   "name": "Fujairah Building Industries P.S.C",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-06 00:00:00.0",
+    "revenue_aed": 132514999.99999999,
+    "net_profit_aed": 32610999.999999996,
+    "eps": 0.24,
+    "cash_aed": 17349000,
+    "total_assets_aed": 386905146,
+    "total_liabilities_aed": 100050810,
+    "total_equity_aed": 286854336,
+    "balanceScale": 1,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5244244"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 195776000,
+     "net_profit_aed": 31459000,
+     "eps": 0.231
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 254843000,
+     "net_profit_aed": 38104000,
+     "eps": 0.28
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 67692000,
+     "net_profit_aed": 17132000,
+     "eps": 0.13
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 132514999.99999999,
+     "net_profit_aed": 32610999.999999996,
+     "eps": 0.24
+    }
+   ]
+  },
+  {
+   "symbol": "FCI",
+   "exchange": "ADX",
+   "name": "Fujairah Cement Industries",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-30 00:00:00.0",
+    "revenue_aed": 275196000,
+    "net_profit_aed": -2272000,
+    "eps": -0.006,
+    "cash_aed": -22989000,
+    "total_assets_aed": 1154372824,
+    "total_liabilities_aed": 1014608617,
+    "total_equity_aed": 139764207,
+    "balanceScale": 1,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5227749"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 18645000,
+     "net_profit_aed": -84521000,
+     "eps": -0.241
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 114989000,
+     "net_profit_aed": -91225000,
+     "eps": -0.256
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 158742000,
+     "net_profit_aed": 5678000,
+     "eps": 0.016
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 275196000,
+     "net_profit_aed": -2272000,
+     "eps": -0.006
+    }
+   ]
+  },
+  {
+   "symbol": "GFH",
+   "exchange": "DFM",
+   "name": "GFH Bank B.S.C.",
+   "sector": "Financials",
+   "isin": "BH000A0CAQK6",
+   "auditor": "KPMG Fakhro Audit",
+   "listedOn": "2006-05-13",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 14, 2026 19:50:27",
+    "revenue_aed": null,
+    "net_profit_aed": 34340,
+    "eps": 1.01,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/14/65c678ac-66e7-4b8d-b32a-be6f3554ab95/GFH%20Q1%20%202026%20English%20FS%20Full%20Set.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 557000000,
+     "net_profit_aed": 105000000,
+     "eps": 2.83
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 719000000,
+     "net_profit_aed": 146000000,
+     "eps": 3.92
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 152000000,
+     "net_profit_aed": 34000000,
+     "eps": 1.01
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 310000000,
+     "net_profit_aed": 77000000,
+     "eps": 2.21
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 158819,
+     "net_profit_aed": 42231,
+     "eps": 17
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 34340,
+     "eps": 1.01
+    }
+   ]
+  },
+  {
+   "symbol": "GHITHA",
+   "exchange": "ADX",
+   "name": "GHITHA HOLDING P.J.S.C.",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-28 00:00:00.0",
+    "revenue_aed": 3355000000,
+    "net_profit_aed": 128000000,
+    "eps": 0.34,
+    "cash_aed": 609000000,
+    "total_assets_aed": 10272062000,
+    "total_liabilities_aed": 3302117000,
+    "total_equity_aed": 6969945000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223873"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 4003000000,
+     "net_profit_aed": 80000000,
+     "eps": 0.2
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 5580000000,
+     "net_profit_aed": 90000000,
+     "eps": 0.15
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 1623000000,
+     "net_profit_aed": 60000000,
+     "eps": 0.14
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 3355000000,
+     "net_profit_aed": 128000000,
+     "eps": 0.34
+    }
+   ]
+  },
+  {
+   "symbol": "GCEM",
+   "exchange": "ADX",
+   "name": "Gulf Cement Co.",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-03 00:00:00.0",
+    "revenue_aed": 329818000,
+    "net_profit_aed": 13211000,
+    "eps": 0.03,
+    "cash_aed": 7205000,
+    "total_assets_aed": 818112057,
+    "total_liabilities_aed": 305949683,
+    "total_equity_aed": 512162374,
+    "balanceScale": 1,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5234352"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 394851000,
+     "net_profit_aed": -9460000,
+     "eps": -0.02
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 551569000,
+     "net_profit_aed": -7993000,
+     "eps": -0.02
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 157312000,
+     "net_profit_aed": 22577000,
+     "eps": 0.05
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 329818000,
+     "net_profit_aed": 13211000,
+     "eps": 0.03
+    }
+   ]
+  },
+  {
+   "symbol": "GMPC",
+   "exchange": "ADX",
+   "name": "Gulf Medical Projects Company",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-13 00:00:00.0",
+    "revenue_aed": 405239000,
+    "net_profit_aed": 68468000,
+    "eps": 0.08,
+    "cash_aed": 20673000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5266566"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 553754000,
+     "net_profit_aed": 96661000,
+     "eps": 0.112
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 767523000,
+     "net_profit_aed": 135167000,
+     "eps": 0.155
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 194389000,
+     "net_profit_aed": 26679000,
+     "eps": 0.03
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 405239000,
+     "net_profit_aed": 68468000,
+     "eps": 0.08
+    }
+   ]
+  },
+  {
+   "symbol": "JULPHAR",
+   "exchange": "ADX",
+   "name": "Gulf Pharmaceutical Industries",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-13 00:00:00.0",
+    "revenue_aed": 573000000,
+    "net_profit_aed": 54000000,
+    "eps": 0.049,
+    "cash_aed": 199000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "따로 다룸",
+    "balanceScaleWhy": "백만 단위다",
+    "reconciled": true,
+    "unitHint": "AED million",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5266446"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 796000000,
+     "net_profit_aed": 167300000000000,
+     "eps": 0.144
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 1075000000,
+     "net_profit_aed": 173000000,
+     "eps": 14.91
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 273000000,
+     "net_profit_aed": 35100000000000,
+     "eps": 0.03
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 573000000,
+     "net_profit_aed": 54000000,
+     "eps": 0.049
+    }
+   ]
+  },
+  {
+   "symbol": "HAYAH",
+   "exchange": "ADX",
+   "name": "Hayah Insurance Company P.J.S.C",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-13 00:00:00.0",
+    "revenue_aed": 91265000,
+    "net_profit_aed": 306000,
+    "eps": 0.002,
+    "cash_aed": 46962000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5261460"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 86575000,
+     "net_profit_aed": -2821000,
+     "eps": -0.014
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 127482000,
+     "net_profit_aed": 1670000,
+     "eps": 0.008
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 42681000,
+     "net_profit_aed": 1247000,
+     "eps": 0.006
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 91265000,
+     "net_profit_aed": 306000,
+     "eps": 0.002
+    }
+   ]
+  },
+  {
+   "symbol": "IHC",
+   "exchange": "ADX",
+   "name": "International Holding Company PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-05 00:00:00.0",
+    "revenue_aed": 64855999999.99999,
+    "net_profit_aed": 26225000000,
+    "eps": 8.21,
+    "cash_aed": 42744000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5240972"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 84638000000,
+     "net_profit_aed": 19500000000,
+     "eps": 4.63
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 111401000000,
+     "net_profit_aed": 34715000000,
+     "eps": 9.93
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 31445000000,
+     "net_profit_aed": 8186999999.999999,
+     "eps": 2.32
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 64855999999.99999,
+     "net_profit_aed": 26225000000,
+     "eps": 8.21
+    }
+   ]
+  },
+  {
+   "symbol": "INB",
+   "exchange": "ADX",
+   "name": "Invest Bank",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-06 00:00:00.0",
+    "revenue_aed": 448000000,
+    "net_profit_aed": 75000000,
+    "eps": 0,
+    "cash_aed": 2978000000,
+    "total_assets_aed": 16132173000,
+    "total_liabilities_aed": 14414258000,
+    "total_equity_aed": 1717915000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5243376"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 514000000,
+     "net_profit_aed": 100000000,
+     "eps": 0
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 802000000,
+     "net_profit_aed": 161000000,
+     "eps": 0.001
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 208000000,
+     "net_profit_aed": 22000000,
+     "eps": 0
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 448000000,
+     "net_profit_aed": 75000000,
+     "eps": 0
+    }
+   ]
+  },
+  {
+   "symbol": "ICAP",
+   "exchange": "ADX",
+   "name": "Investcorp Capital PLC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "2026",
+    "priorPeriod": "2025",
+    "date": "2026-07-30 00:00:00.0",
+    "revenue_aed": 94000000,
+    "net_profit_aed": 44000000,
+    "eps": 2.02,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "따로 다룸",
+    "balanceScaleWhy": "통화가 달러다",
+    "reconciled": true,
+    "unitHint": "USD million",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5228608"
+   },
+   "이력": [
+    {
+     "period": "2025",
+     "revenue_aed": 124000000,
+     "net_profit_aed": 81000000,
+     "eps": 3.7
+    },
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 24000000,
+     "net_profit_aed": 12000000,
+     "eps": -0.55
+    },
+    {
+     "period": "Q2 2025",
+     "revenue_aed": 52000000,
+     "net_profit_aed": 27000000,
+     "eps": 1.24
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 72000000,
+     "net_profit_aed": 35000000,
+     "eps": 1.6
+    },
+    {
+     "period": "2026",
+     "revenue_aed": 94000000,
+     "net_profit_aed": 44000000,
+     "eps": 2.02
+    }
+   ]
+  },
+  {
+   "symbol": "INVICTUS",
+   "exchange": "ADX",
+   "name": "Invictus Investment Company PLC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-02 00:00:00.0",
+    "revenue_aed": 6147000000,
+    "net_profit_aed": 26000000,
+    "eps": 0.027,
+    "cash_aed": 407000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5234374"
+   },
+   "이력": [
+    {
+     "period": "2025",
+     "revenue_aed": 13256000000,
+     "net_profit_aed": 228000000,
+     "eps": 0.2
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 6147000000,
+     "net_profit_aed": 26000000,
+     "eps": 0.027
+    }
+   ]
+  },
+  {
+   "symbol": "SALAMA",
+   "exchange": "DFM",
+   "name": "Islamic Arab Insurance Company PJSC",
+   "sector": "Financials",
+   "isin": "AEI000301012",
+   "auditor": "Ernst & Young",
+   "listedOn": "2005-09-16",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 15, 2026 19:41:29",
+    "revenue_aed": null,
+    "net_profit_aed": 13960,
+    "eps": 0.023,
+    "cash_aed": null,
+    "total_assets_aed": 3224914000,
+    "total_liabilities_aed": 2719893000,
+    "total_equity_aed": 505021000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/15/6dd5bea4-6c6a-4cfd-b0e4-64a0f4a710ac/Salama%20FS%20IFRS%2017%20Q1%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 14307,
+     "eps": 0.021
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 13960,
+     "eps": 0.023
+    }
+   ]
+  },
+  {
+   "symbol": "ITHMR",
+   "exchange": "DFM",
+   "name": "Ithmaar Holding B.S.C",
+   "sector": "Financials",
+   "isin": "BH000A0J2499",
+   "auditor": "KPMG Fakhro",
+   "listedOn": "2018-01-29",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 13, 2026 17:15:15",
+    "revenue_aed": 180398,
+    "net_profit_aed": null,
+    "eps": 0.04,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/13/816f0564-f779-4427-8171-e1d343f33fc2/05132026%20Financials%20Ithmaar%20Holding%2031%20March%202026%20.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 186869,
+     "net_profit_aed": null,
+     "eps": null
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 180398,
+     "net_profit_aed": null,
+     "eps": 0.04
+    }
+   ]
+  },
+  {
+   "symbol": "LULU",
+   "exchange": "ADX",
+   "name": "Lulu Retail Holdings PLC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-13 00:00:00.0",
+    "revenue_aed": 3991000000,
+    "net_profit_aed": 89000000,
+    "eps": 0.86,
+    "cash_aed": 299000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5266770"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 5994000000,
+     "net_profit_aed": 163000000,
+     "eps": 1.58
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 7934000000,
+     "net_profit_aed": 205000000,
+     "eps": 1.98
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 2020000000,
+     "net_profit_aed": 47000000,
+     "eps": 0.45
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 3991000000,
+     "net_profit_aed": 89000000,
+     "eps": 0.86
+    }
+   ]
+  },
+  {
+   "symbol": "MAIR",
+   "exchange": "ADX",
+   "name": "MAIR GROUP - P.J.S.C.",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-12 00:00:00.0",
+    "revenue_aed": 1080000000,
+    "net_profit_aed": 94000000,
+    "eps": 0.042,
+    "cash_aed": 119000000,
+    "total_assets_aed": 5954265000,
+    "total_liabilities_aed": 1605419000,
+    "total_equity_aed": 4348846000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5261075"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 1480000000,
+     "net_profit_aed": 106000000,
+     "eps": 0.05
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 1956000000,
+     "net_profit_aed": 191000000,
+     "eps": 0.086
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 564157000,
+     "net_profit_aed": 51954000,
+     "eps": 0.023
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 1080000000,
+     "net_profit_aed": 94000000,
+     "eps": 0.042
+    }
+   ]
+  },
+  {
+   "symbol": "MARKA",
+   "exchange": "DFM",
+   "name": "Marka PJSC",
+   "sector": null,
+   "isin": "AEM000401012",
+   "auditor": null,
+   "listedOn": "2014-09-25",
+   "최근": {
+    "period": "Yearly 2018",
+    "priorPeriod": null,
+    "date": "May 30, 2019 14:36:00",
+    "revenue_aed": 76025,
+    "net_profit_aed": null,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2019/May/30/04b34cce-26b1-49d3-9e01-b2651e0e7d13/MARKA_FS_ANN_2018_E_13_05_2019.pdf"
+   },
+   "이력": [
+    {
+     "period": "Yearly 2018",
+     "revenue_aed": 76025,
+     "net_profit_aed": null,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "MASQ",
+   "exchange": "DFM",
+   "name": "Mashreqbank PJSC",
+   "sector": "Financials",
+   "isin": "AEM000101018",
+   "auditor": "Deloitte & Touche M.E",
+   "listedOn": "2000-03-31",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Jul 30, 2026 15:03:02",
+    "revenue_aed": null,
+    "net_profit_aed": 2120901,
+    "eps": 19.16,
+    "cash_aed": null,
+    "total_assets_aed": 365747852000,
+    "total_liabilities_aed": 321703180000,
+    "total_equity_aed": 44044672000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/Jul/30/be3df509-10b4-4d31-8314-696369c596ce/Mashreqbank%20PSC%20CFS%202026Q2%20English.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 1926668,
+     "eps": 9.15
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 2120901,
+     "eps": 19.16
+    }
+   ]
+  },
+  {
+   "symbol": "MODON",
+   "exchange": "ADX",
+   "name": "Modon Holding PSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-29 00:00:00.0",
+    "revenue_aed": 9188000000,
+    "net_profit_aed": 2202000000,
+    "eps": 0.132,
+    "cash_aed": 8478999999.999999,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5225942"
+   },
+   "이력": [
+    {
+     "period": "2025",
+     "revenue_aed": 13829000000,
+     "net_profit_aed": 3926000000,
+     "eps": 0.25
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 9188000000,
+     "net_profit_aed": 2202000000,
+     "eps": 0.132
+    }
+   ]
+  },
+  {
+   "symbol": "NCTH",
+   "exchange": "ADX",
+   "name": "National Corporation for Tourism & Hotels",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-28 00:00:00.0",
+    "revenue_aed": 1125000000,
+    "net_profit_aed": 138000000,
+    "eps": 0.06,
+    "cash_aed": 367000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5222426"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 1534000000,
+     "net_profit_aed": 333000000,
+     "eps": 0.15
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 2183000000,
+     "net_profit_aed": 401000000,
+     "eps": 0.18
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 615867000,
+     "net_profit_aed": 96560000,
+     "eps": 0.04
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 1125000000,
+     "net_profit_aed": 138000000,
+     "eps": 0.06
+    }
+   ]
+  },
+  {
+   "symbol": "NMDCENR",
+   "exchange": "ADX",
+   "name": "NMDC Energy P.J.S.C.",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-28 00:00:00.0",
+    "revenue_aed": 9483000000,
+    "net_profit_aed": 251000000,
+    "eps": 0.05,
+    "cash_aed": 3288000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223876"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 13012000000,
+     "net_profit_aed": 951000000,
+     "eps": 0.19
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 18662000000,
+     "net_profit_aed": 1602000000,
+     "eps": 0.32
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 4964000000,
+     "net_profit_aed": 80000000,
+     "eps": 0.016
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 9483000000,
+     "net_profit_aed": 251000000,
+     "eps": 0.05
+    }
+   ]
+  },
+  {
+   "symbol": "NMDC",
+   "exchange": "ADX",
+   "name": "NMDC Group PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-30 00:00:00.0",
+    "revenue_aed": 14133000000,
+    "net_profit_aed": 1606000000,
+    "eps": 1.83,
+    "cash_aed": 5411000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5226813"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 20545000000,
+     "net_profit_aed": 2764000000,
+     "eps": 3.01
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 28811000000,
+     "net_profit_aed": 4002000000,
+     "eps": 4.29
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 6645000000,
+     "net_profit_aed": 387000000,
+     "eps": 0.43
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 14133000000,
+     "net_profit_aed": 1606000000,
+     "eps": 1.83
+    }
+   ]
+  },
+  {
+   "symbol": "OEIHC",
+   "exchange": "ADX",
+   "name": "Oman & Emirates Investment Holding Co",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-11 00:00:00.0",
+    "revenue_aed": -1204000,
+    "net_profit_aed": -1621000,
+    "eps": -0.013,
+    "cash_aed": 2298000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5255293"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 3561000,
+     "net_profit_aed": 1092000,
+     "eps": 0.013
+    },
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 3561000,
+     "net_profit_aed": 1092000,
+     "eps": 0.013
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 4091000,
+     "net_profit_aed": 736000,
+     "eps": 0.011
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 8000000,
+     "net_profit_aed": 4000000,
+     "eps": 0.037
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": -1204000,
+     "net_profit_aed": -1621000,
+     "eps": -0.013
+    }
+   ]
+  },
+  {
+   "symbol": "ORDS",
+   "exchange": "ADX",
+   "name": "OOREDOO",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-28 00:00:00.0",
+    "revenue_aed": 12457000000,
+    "net_profit_aed": 2146999999.9999998,
+    "eps": 0.58,
+    "cash_aed": 9935000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223860"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 18177000000,
+     "net_profit_aed": 3687000000,
+     "eps": 0.96
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 24604000000,
+     "net_profit_aed": 4612000000,
+     "eps": 1.21
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 6199000000,
+     "net_profit_aed": 1187000000,
+     "eps": 0.31
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 12457000000,
+     "net_profit_aed": 2146999999.9999998,
+     "eps": 0.58
+    }
+   ]
+  },
+  {
+   "symbol": "ORAS",
+   "exchange": "ADX",
+   "name": "ORASCOM CONSTRUCTION PLC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-14 00:00:00.0",
+    "revenue_aed": 2978000000,
+    "net_profit_aed": 127000000,
+    "eps": 1.05,
+    "cash_aed": 1230000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5266117"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 3428000000,
+     "net_profit_aed": 137199999999.99998,
+     "eps": 1.21
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 5049000000,
+     "net_profit_aed": 205700000000000,
+     "eps": 1.77
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 1468000000,
+     "net_profit_aed": 58000000000000,
+     "eps": 0.48
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 2978000000,
+     "net_profit_aed": 127000000,
+     "eps": 1.05
+    }
+   ]
+  },
+  {
+   "symbol": "ORIENTTKAFUL",
+   "exchange": "DFM",
+   "name": "Orient Takaful PJSC",
+   "sector": "Financials",
+   "isin": "AEO000301010",
+   "auditor": "Ernst & Young",
+   "listedOn": "2017-06-22",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 12, 2026 19:12:00",
+    "revenue_aed": null,
+    "net_profit_aed": 22700,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/12/5af44ff5-6a28-44b3-aff3-d51198f1c4c5/ORIENTTKAFUL%20FS%20Q1%20E%2012.05.2026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 28355,
+     "eps": null
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 22700,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "PALMS",
+   "exchange": "ADX",
+   "name": "PALMS SPORTS PrJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-21 00:00:00.0",
+    "revenue_aed": 568949000,
+    "net_profit_aed": 43088000,
+    "eps": 0.29,
+    "cash_aed": 100873000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5205874"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 841929000,
+     "net_profit_aed": 83556000,
+     "eps": 0.56
+    },
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 841929000,
+     "net_profit_aed": 83556000,
+     "eps": 0.56
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 1162000000,
+     "net_profit_aed": 114000000,
+     "eps": 0.77
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 288528000,
+     "net_profit_aed": 18298000,
+     "eps": 0.12
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 568949000,
+     "net_profit_aed": 43088000,
+     "eps": 0.29
+    }
+   ]
+  },
+  {
+   "symbol": "PARKIN",
+   "exchange": "DFM",
+   "name": "Parkin Company PJSC",
+   "sector": "Industrials",
+   "isin": "AEE01370P249",
+   "auditor": "PricewaterhouseCoopers Limited Partnership",
+   "listedOn": "2024-03-21",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 06, 2026 19:38:27",
+    "revenue_aed": 379359,
+    "net_profit_aed": null,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/6/ffffcfe8-fdc6-4f65-b93d-35b3b4a0313a/Q1%202026%20FS%20ENG%206%20May%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 359675,
+     "net_profit_aed": null,
+     "eps": null
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 379359,
+     "net_profit_aed": null,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "PHX",
+   "exchange": "ADX",
+   "name": "PHOENIX GROUP PLC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-16 00:00:00.0",
+    "revenue_aed": 42320000,
+    "net_profit_aed": -91027000,
+    "eps": -0.015,
+    "cash_aed": 11728000,
+    "total_assets_aed": 592660000,
+    "total_liabilities_aed": 50676000,
+    "total_equity_aed": 541984000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5189022"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 92328000,
+     "net_profit_aed": -229133000,
+     "eps": -0.038
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 117744000,
+     "net_profit_aed": -271654000,
+     "eps": -0.045
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 23309000,
+     "net_profit_aed": -81036000,
+     "eps": -0.013
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 42320000,
+     "net_profit_aed": -91027000,
+     "eps": -0.015
+    }
+   ]
+  },
+  {
+   "symbol": "PRESIGHT",
+   "exchange": "ADX",
+   "name": "Presight AI Holding PLC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-11 00:00:00.0",
+    "revenue_aed": 1402000000,
+    "net_profit_aed": 251000000,
+    "eps": 0.04,
+    "cash_aed": 2005000000,
+    "total_assets_aed": 6560481000,
+    "total_liabilities_aed": 1832351000,
+    "total_equity_aed": 4728130000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5255691"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 1741000000,
+     "net_profit_aed": 320000000,
+     "eps": 0.05
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 3030000000,
+     "net_profit_aed": 665000000,
+     "eps": 0.1
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 689000000,
+     "net_profit_aed": 134000000.00000001,
+     "eps": 0.02
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 1402000000,
+     "net_profit_aed": 251000000,
+     "eps": 0.04
+    }
+   ]
+  },
+  {
+   "symbol": "PUREHEALTH",
+   "exchange": "ADX",
+   "name": "Pure Health Holding PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-31 00:00:00.0",
+    "revenue_aed": 14851000000,
+    "net_profit_aed": 1236000000,
+    "eps": 0.11,
+    "cash_aed": 2553000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5228744"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 20101000000,
+     "net_profit_aed": 1550000000,
+     "eps": 0.14
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 27312000000,
+     "net_profit_aed": 2020000000,
+     "eps": 0.18
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 7262000000,
+     "net_profit_aed": 415000000,
+     "eps": 0.03
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 14851000000,
+     "net_profit_aed": 1236000000,
+     "eps": 0.11
+    }
+   ]
+  },
+  {
+   "symbol": "RAKCEC",
+   "exchange": "ADX",
+   "name": "RAK Ceramics PJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-05 00:00:00.0",
+    "revenue_aed": 1584000000,
+    "net_profit_aed": 107000000,
+    "eps": 0.103,
+    "cash_aed": 156000000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5241086"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 824000000,
+     "net_profit_aed": 182700000000000,
+     "eps": 0.18
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 3185000000,
+     "net_profit_aed": 248000000,
+     "eps": 0.245
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 760686000,
+     "net_profit_aed": 38216000,
+     "eps": 0.036
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 1584000000,
+     "net_profit_aed": 107000000,
+     "eps": 0.103
+    }
+   ]
+  },
+  {
+   "symbol": "RAKPROP",
+   "exchange": "ADX",
+   "name": "RAK Properties",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-06 00:00:00.0",
+    "revenue_aed": 533139000,
+    "net_profit_aed": 76654000,
+    "eps": 0.026,
+    "cash_aed": 163198000,
+    "total_assets_aed": 8706168000,
+    "total_liabilities_aed": 2764198000,
+    "total_equity_aed": 5941970000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5244377"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 1165000000,
+     "net_profit_aed": 217000000,
+     "eps": 0.073
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 1837000000,
+     "net_profit_aed": 404000000,
+     "eps": 0.135
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 277985000,
+     "net_profit_aed": 40091000,
+     "eps": 0.013
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 533139000,
+     "net_profit_aed": 76654000,
+     "eps": 0.026
+    }
+   ]
+  },
+  {
+   "symbol": "RPM",
+   "exchange": "ADX",
+   "name": "Response Plus Holding PrJSC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-28 00:00:00.0",
+    "revenue_aed": 390061000,
+    "net_profit_aed": 39840000,
+    "eps": 0.2,
+    "cash_aed": 22212000,
+    "total_assets_aed": 387220578,
+    "total_liabilities_aed": 141434069,
+    "total_equity_aed": 245786609,
+    "balanceScale": 1,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223756"
+   },
+   "이력": [
+    {
+     "period": "2025",
+     "revenue_aed": 516054999.99999994,
+     "net_profit_aed": 49956000,
+     "eps": 0.25
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 390061000,
+     "net_profit_aed": 39840000,
+     "eps": 0.2
+    }
+   ]
+  },
+  {
+   "symbol": "SALIK",
+   "exchange": "DFM",
+   "name": "Salik Company PJSC",
+   "sector": "Industrials",
+   "isin": "AEE01110S227",
+   "auditor": "PWC",
+   "listedOn": "2022-09-29",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 11, 2026 09:17:11",
+    "revenue_aed": 728886,
+    "net_profit_aed": 369277,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": 7871500000,
+    "total_liabilities_aed": 6652834000,
+    "total_equity_aed": 1218666000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/11/b2881521-d6af-456b-8a95-de3a2b91477a/EN%20%20%20SALIK%20Q1%202026%20%20%20Signed%20Financials.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 728886,
+     "net_profit_aed": 369277,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "SCIDC",
+   "exchange": "ADX",
+   "name": "Sharjah Cement and Industrial Development Co.",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-12 00:00:00.0",
+    "revenue_aed": 485455000,
+    "net_profit_aed": 77397000,
+    "eps": 0.127,
+    "cash_aed": 101841000,
+    "total_assets_aed": 2186198000,
+    "total_liabilities_aed": 721640000,
+    "total_equity_aed": 1464558000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5261089"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 554925000,
+     "net_profit_aed": 59197000,
+     "eps": 0.097
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 782600000,
+     "net_profit_aed": 105891000,
+     "eps": 0.174
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 227866000,
+     "net_profit_aed": 37492000,
+     "eps": 0.062
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 485455000,
+     "net_profit_aed": 77397000,
+     "eps": 0.127
+    }
+   ]
+  },
+  {
+   "symbol": "SIB",
+   "exchange": "ADX",
+   "name": "Sharjah Islamic Bank",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-13 00:00:00.0",
+    "revenue_aed": 1401999999.9999998,
+    "net_profit_aed": 804000000,
+    "eps": 0.21,
+    "cash_aed": 7988000000,
+    "total_assets_aed": 94545094000,
+    "total_liabilities_aed": 82367727000,
+    "total_equity_aed": 12177368000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "시가총액 검산",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5168450"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 3663000000,
+     "net_profit_aed": 1105000000,
+     "eps": 0.33
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 4930000000,
+     "net_profit_aed": 1317000000,
+     "eps": 0.38
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 1259000000,
+     "net_profit_aed": 381000000,
+     "eps": 0.12
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 1401999999.9999998,
+     "net_profit_aed": 804000000,
+     "eps": 0.21
+    }
+   ]
+  },
+  {
+   "symbol": "SPACE42",
+   "exchange": "ADX",
+   "name": "SPACE42 PLC",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-05 00:00:00.0",
+    "revenue_aed": 260000000,
+    "net_profit_aed": 15000000,
+    "eps": 0.384,
+    "cash_aed": 1151000000,
+    "total_assets_aed": 3757863000,
+    "total_liabilities_aed": 1958187000,
+    "total_equity_aed": 1799676000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5241374"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 362646000,
+     "net_profit_aed": 56060000,
+     "eps": 0.79
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 576667000,
+     "net_profit_aed": -55434000,
+     "eps": -1.752
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 116000000,
+     "net_profit_aed": 3000000,
+     "eps": 0.097
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 260000000,
+     "net_profit_aed": 15000000,
+     "eps": 0.384
+    }
+   ]
+  },
+  {
+   "symbol": "SPINNEYS",
+   "exchange": "DFM",
+   "name": "Spinneys 1961 Holding PLC",
+   "sector": "Consumer Staples",
+   "isin": "AEE01377S248",
+   "auditor": "Ernst & Young – Middle East (Dubai Branch)",
+   "listedOn": "2024-05-09",
+   "최근": {
+    "period": "Q1 2026",
+    "priorPeriod": null,
+    "date": "May 11, 2026 17:25:37",
+    "revenue_aed": 1014191,
+    "net_profit_aed": 86834,
+    "eps": 0.025,
+    "cash_aed": null,
+    "total_assets_aed": 2426919000,
+    "total_liabilities_aed": 2066172000,
+    "total_equity_aed": 360747000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/May/11/64f91f8f-42b4-4f78-b709-bb07da448e70/Spinneys%201961%20AFS%20Q1%202026%20English.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 895147,
+     "net_profit_aed": 87686,
+     "eps": 0.025
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 1014191,
+     "net_profit_aed": 86834,
+     "eps": 0.025
+    }
+   ]
+  },
+  {
+   "symbol": "SUDATEL",
+   "exchange": "ADX",
+   "name": "Sudatel Telecommunications Group Company Limited",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-08-04 00:00:00.0",
+    "revenue_aed": 278890000,
+    "net_profit_aed": 14359000,
+    "eps": 0.011,
+    "cash_aed": 42762000,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5237525"
+   },
+   "이력": [
+    {
+     "period": "Q2 2025",
+     "revenue_aed": 214850000,
+     "net_profit_aed": 39525000,
+     "eps": 0.029
+    },
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 327921000,
+     "net_profit_aed": 71082000,
+     "eps": 0.051
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 452475000,
+     "net_profit_aed": 117535000,
+     "eps": 0.085
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 140336000,
+     "net_profit_aed": 5734000,
+     "eps": 0.004
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 278890000,
+     "net_profit_aed": 14359000,
+     "eps": 0.011
+    }
+   ]
+  },
+  {
+   "symbol": "SUKOON",
+   "exchange": "DFM",
+   "name": "Sukoon Insurance PJSC",
+   "sector": "Financials",
+   "isin": "AEO000101014",
+   "auditor": "Deloitte & Touche (M.E.)",
+   "listedOn": "2004-10-01",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Jul 29, 2026 15:07:21",
+    "revenue_aed": null,
+    "net_profit_aed": 191354,
+    "eps": 0.3,
+    "cash_aed": null,
+    "total_assets_aed": 11552070000,
+    "total_liabilities_aed": 8019242000,
+    "total_equity_aed": 3532828000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://feeds.dfm.ae/documents/2026/Jul/29/95069979-cfdc-4227-891c-54678c937332/Sukoon%20Insurance%20PJSC%20%20%20FS%2030%20Jun%202026%20EN.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": null,
+     "eps": 0.26
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 191354,
+     "eps": 0.3
+    }
+   ]
+  },
+  {
+   "symbol": "SUKOONTAKAFL",
+   "exchange": "DFM",
+   "name": "Sukoon Takaful PJSC",
+   "sector": "Financials",
+   "isin": "AEA001401016",
+   "auditor": "Ernst & Young Middle East (Dubai Branch)",
+   "listedOn": "2005-07-12",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Jul 29, 2026 17:05:32",
+    "revenue_aed": null,
+    "net_profit_aed": 14458,
+    "eps": 0.043,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/Jul/29/46b54c17-1bed-432b-a438-eb2e1d0b28b3/Sukoon%20Takaful%20Q2%202026%20FS%20%20EN.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q1 2026",
+     "revenue_aed": null,
+     "net_profit_aed": null,
+     "eps": 0.051
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": null,
+     "net_profit_aed": 14458,
+     "eps": 0.043
+    }
+   ]
+  },
+  {
+   "symbol": "TAALEEM",
+   "exchange": "DFM",
+   "name": "Taaleem Holdings PJSC",
+   "sector": "Consumer Discretionary",
+   "isin": "AEE01136T220",
+   "auditor": "Ernst & Young Middle East (Dubai Branch)",
+   "listedOn": "2022-11-29",
+   "최근": {
+    "period": "Q2 2025",
+    "priorPeriod": null,
+    "date": "Mar 26, 2026 21:04:54",
+    "revenue_aed": 396421587,
+    "net_profit_aed": 106234814,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "못 가름",
+    "balanceScaleWhy": "보고서에 단위 표기가 없고 시가총액도 없다",
+    "reconciled": true,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/Mar/26/9eda19aa-45bd-4569-bede-3e7bb59b037c/Taaleem%20Holdings%20Con.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q1 2025",
+     "revenue_aed": 369917446,
+     "net_profit_aed": 71322016,
+     "eps": null
+    },
+    {
+     "period": "Q3 2026",
+     "revenue_aed": null,
+     "net_profit_aed": null,
+     "eps": null
+    },
+    {
+     "period": "Q2 2025",
+     "revenue_aed": 396421587,
+     "net_profit_aed": 106234814,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "TECOM",
+   "exchange": "DFM",
+   "name": "TECOM GROUP PJSC",
+   "sector": "Real Estate",
+   "isin": "AEE01081T004",
+   "auditor": "PwC Middle East",
+   "listedOn": "2022-07-05",
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": null,
+    "date": "Jul 29, 2026 23:26:32",
+    "revenue_aed": 785699,
+    "net_profit_aed": 401250,
+    "eps": null,
+    "cash_aed": null,
+    "total_assets_aed": null,
+    "total_liabilities_aed": null,
+    "total_equity_aed": null,
+    "balanceScale": null,
+    "balanceScaleHow": "자료 없음",
+    "balanceScaleWhy": "자본이 0 이하다",
+    "reconciled": false,
+    "unitHint": null,
+    "pdf": "https://feeds.dfm.ae/documents/2026/Jul/29/d115daea-b109-421a-951c-73e3e0e0fb67/TECOM%20FS%20Q2%20E%2029%2007%202026.Pdf.pdf"
+   },
+   "이력": [
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 754622,
+     "net_profit_aed": 403428,
+     "eps": null
+    },
+    {
+     "period": "Yearly 2025",
+     "revenue_aed": 2857895,
+     "net_profit_aed": null,
+     "eps": null
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 785699,
+     "net_profit_aed": 401250,
+     "eps": null
+    }
+   ]
+  },
+  {
+   "symbol": "RAKBANK",
+   "exchange": "ADX",
+   "name": "The National Bank of Ras Al Khaimah",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-23 00:00:00.0",
+    "revenue_aed": 4477000000,
+    "net_profit_aed": 1713000000,
+    "eps": 0.85,
+    "cash_aed": 10462000000,
+    "total_assets_aed": 108611423000,
+    "total_liabilities_aed": 93592725000,
+    "total_equity_aed": 15018698000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5212297"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 5809000000,
+     "net_profit_aed": 2080000000,
+     "eps": 1.03
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 7701000000,
+     "net_profit_aed": 2609000000,
+     "eps": 1.29
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 2461000000,
+     "net_profit_aed": 1008000000,
+     "eps": 0.5
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 4477000000,
+     "net_profit_aed": 1713000000,
+     "eps": 0.85
+    }
+   ]
+  },
+  {
+   "symbol": "2POINTZERO",
+   "exchange": "ADX",
+   "name": "TWO POINT ZERO GROUP - P.J.S.C",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-30 00:00:00.0",
+    "revenue_aed": 21854000000,
+    "net_profit_aed": 7729000000,
+    "eps": 0.206,
+    "cash_aed": 11245000000,
+    "total_assets_aed": 146821745000,
+    "total_liabilities_aed": 50918140000,
+    "total_equity_aed": 95903605000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5229012"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 2241000000,
+     "net_profit_aed": 2691000000,
+     "eps": 0.24
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 7004000000,
+     "net_profit_aed": 3628000000,
+     "eps": 0.246
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 9942000000,
+     "net_profit_aed": 2285000000,
+     "eps": 0.056
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 21854000000,
+     "net_profit_aed": 7729000000,
+     "eps": 0.206
+    }
+   ]
+  },
+  {
+   "symbol": "UAB",
+   "exchange": "ADX",
+   "name": "United Arab Bank",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-22 00:00:00.0",
+    "revenue_aed": 784000000,
+    "net_profit_aed": 201000000,
+    "eps": 0.06,
+    "cash_aed": 1205000000,
+    "total_assets_aed": 27748079000,
+    "total_liabilities_aed": 23709321000,
+    "total_equity_aed": 4038758000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5209959"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 1113000000,
+     "net_profit_aed": 316000000,
+     "eps": 0.14
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 1508000000,
+     "net_profit_aed": 438000000,
+     "eps": 0.18
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 423000000,
+     "net_profit_aed": 75000000,
+     "eps": 0.02
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 784000000,
+     "net_profit_aed": 201000000,
+     "eps": 0.06
+    }
+   ]
+  },
+  {
+   "symbol": "WAHA",
+   "exchange": "ADX",
+   "name": "Waha Capital Company",
+   "sector": null,
+   "isin": null,
+   "auditor": null,
+   "listedOn": null,
+   "최근": {
+    "period": "Q2 2026",
+    "priorPeriod": "Q2 2025",
+    "date": "2026-07-28 00:00:00.0",
+    "revenue_aed": 478000000,
+    "net_profit_aed": 338000000,
+    "eps": 0.18,
+    "cash_aed": 291000000,
+    "total_assets_aed": 5668631000,
+    "total_liabilities_aed": 727032000,
+    "total_equity_aed": 4941599000,
+    "balanceScale": 1000,
+    "balanceScaleHow": "보고서 표기",
+    "balanceScaleWhy": null,
+    "reconciled": true,
+    "unitHint": "AED'000",
+    "pdf": "https://apigateway.adx.ae/adx/cdn/1.0/content/download/5223555"
+   },
+   "이력": [
+    {
+     "period": "Q3 2025",
+     "revenue_aed": 1084000000,
+     "net_profit_aed": 608000000,
+     "eps": 0.184
+    },
+    {
+     "period": "2025",
+     "revenue_aed": 1897000000,
+     "net_profit_aed": 1277000000,
+     "eps": 0.542
+    },
+    {
+     "period": "Q1 2026",
+     "revenue_aed": 113000000,
+     "net_profit_aed": 57000000,
+     "eps": 0.03
+    },
+    {
+     "period": "Q2 2026",
+     "revenue_aed": 478000000,
+     "net_profit_aed": 338000000,
+     "eps": 0.18
+    }
+   ]
+  }
+ ]
+}
