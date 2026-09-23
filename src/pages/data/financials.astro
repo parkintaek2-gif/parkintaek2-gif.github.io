@@ -137,8 +137,16 @@ const faq: Array<[string, string]> = [
     `${num(lossMaking)} of the ${num(joined.length)} companies with a readable filing reported net `
     + `income of zero or less for ${fiscalYear} — ${pct(lossMaking, joined.length)}. That is why the `
     + 'valuation tape leaves a price-earnings ratio empty rather than printing a negative one.'],
+  /* ⚠ [2026-09-23] 이 지면은 «한 회계연도의 커버리지»를 보는 곳이라 그대로 맞다.
+     다만 손님이 「우리는 한 해치밖에 없다」로 읽으면 갖고 있는 것을 작게 말하는 셈이라
+     아래에 다섯 해가 있다는 사실을 함께 적는다. */
+  ['How many years do you hold?',
+    'Five, fiscal 2021 through fiscal 2025 — 13,545 company-year rows in all. This coverage page '
+    + 'reports one fiscal year at a time, because coverage differs by year: a company newly listed '
+    + 'in 2024 has no 2021 filing, and averaging that away would hide it. The multi-year counts '
+    + 'built from the same tape are on the profit-streaks page.'],
   ['What is not in this data?',
-    'It is annual, so quarterly and half-year figures are not here. It is one fiscal year at a time. '
+    'It is annual, so quarterly and half-year figures are not here. '
     + 'It carries the headline accounts — assets, equity, revenue, operating profit, net income — not '
     + 'the full note-level detail of a filing. And it does not include companies that filed nothing.'],
 ];
