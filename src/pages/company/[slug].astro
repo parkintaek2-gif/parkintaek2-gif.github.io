@@ -37,6 +37,10 @@ import fin from '../../data/korea-financials-tape.json';
 import ppl from '../../data/korea-people-tape.json';
 import { 주소표만들기 } from '../../lib/company-slug.mjs';
 import { 재무줄, 사람줄, 늘어난비, 시장말, 낼만한가 } from '../../lib/company-page.mjs';
+/* 🔴 [2026-09-23] 자료를 2021년까지 소급해 다섯 해가 됐다. 그 전에는 세 해뿐이라
+   「몇 해를 잇달아」가 낱장에서 말이 되지 않았는데, 이제 이 칸이 선다.
+   ⚠ 「잇달아」는 «가장 최근부터» 센다 — 옛날에 흑자였다가 지금 적자면 그 줄은 끊긴 것이다. */
+import { 이은흑자해, 이은적자해, 해마다늘었나, 해줄 } from '../../lib/profit-streak.mjs';
 /* 🔴 화면에 한국어를 내지 않는다 — 자료의 업종이 한글이라 그대로 새던 자리다 */
 import { 업종말, 업종주소 } from '../../lib/sector-en.mjs';
 
@@ -82,6 +86,13 @@ export async function getStaticPaths() {
         sector: 업종말(h.sector),          /* 영문. 모르면 null — 지면이 그 줄을 안 그린다 */
         sectorSlug: 업종주소(h.sector),
         줄들: 재무줄(rs),
+        /* ⛔ 순이익을 신고한 해만 센다. 빠진 해를 적자로 읽지 않는다 */
+        흑자기록: {
+          잰해: 해줄(rs).length,
+          이은흑자: 이은흑자해(rs),
+          이은적자: 이은적자해(rs),
+          해마다늘었나: 해마다늘었나(rs, 'net_profit_krw'),
+        },
         사람: 사람줄(사람표.get(h.code)),
         같은업종,
         업종회사수: (업종별.get(h.sector || 'Unclassified') ?? []).length,
@@ -91,7 +102,7 @@ export async function getStaticPaths() {
   return 길;
 }
 
-const { code, nameEn, nameKo, market, sector, sectorSlug, 줄들, 사람, 같은업종, 업종회사수 } = Astro.props as any;
+const { code, nameEn, nameKo, market, sector, sectorSlug, 줄들, 흑자기록, 사람, 같은업종, 업종회사수 } = Astro.props as any;
 
 const 마지막 = 줄들[줄들.length - 1] ?? null;
 const 처음해 = 줄들[0]?.year ?? null;
@@ -202,6 +213,30 @@ const jsonLd = {
       {매출증감 != null && 처음해 && 끝해 && (
         <p class="fact">
           Revenue moved <b>{pct(매출증감)}</b> between {처음해} and {끝해}.
+        </p>
+      )}
+      {흑자기록 && 흑자기록.잰해 >= 2 && (
+        <p class="fact">
+          {흑자기록.이은흑자 > 0 ? (
+            <>
+              Net profit was positive in the <b>{흑자기록.이은흑자}</b> most recent
+              {흑자기록.이은흑자 === 1 ? ' year' : ' consecutive years'} on file
+              {흑자기록.이은흑자 === 흑자기록.잰해 && <> — every year we hold</>}.
+              {흑자기록.해마다늘었나 && 흑자기록.잰해 >= 3 && (
+                <> It also grew in every one of those years, which {' '}
+                <a href="/data/profit-streaks">40 of 2,049 companies</a> managed.</>
+              )}
+            </>
+          ) : 흑자기록.이은적자 > 0 ? (
+            <>
+              Net profit was negative in the <b>{흑자기록.이은적자}</b> most recent
+              {흑자기록.이은적자 === 1 ? ' year' : ' consecutive years'} on file.
+            </>
+          ) : (
+            <>Net profit was exactly zero in the most recent year on file.</>
+          )}
+          {' '}Counted from the {흑자기록.잰해} year{흑자기록.잰해 === 1 ? '' : 's'} in which the
+          company filed a net-profit line — a year with no filing is skipped, not read as a loss.
         </p>
       )}
       <p class="warn">
