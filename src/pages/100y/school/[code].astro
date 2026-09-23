@@ -29,6 +29,10 @@ import NextQuestion from '../../../components/NextQuestion.astro';
 import { 빈까닭찾기, 칸빈까닭 } from '../../../lib/school-gap';
 /* 🔴 이 학교가 어느 지역 한 벌에 드는가 — 가르는 자와 목록은 **한 곳**에서 온다 */
 import { 지역가르기 } from '../../../lib/school-area';
+/* 🔴 [2026-09-23] 「검색에 올릴 만한가」도 **한 곳**에서 온다.
+   애드센스가 이 사이트를 「가치가 별로 없는 콘텐츠」로 막았고, 재 보니 진로 자료가 없는
+   지면 686장이 「못 찾았습니다」로 차 있었다. 지면·사이트맵·이미지사이트맵이 같은 자를 쓴다. */
+import { 검색에올릴만한가 } from '../../../lib/school-worth-indexing.mjs';
 import 지역단위 from '../../../data/100yearmap/areas.json';
 import majors from '../../../data/100yearmap/pages-major.json';
 import universities from '../../../data/100yearmap/pages-university.json';
@@ -326,14 +330,30 @@ const 받은날 = String((요약 as any).원천수집시각 ?? '').slice(0, 10);
      열림   학과가 있거나 · 학업중단 수치가 있는 지면   2,441장
      닫힘   둘 다 없는 지면                          84장
 
+  🔴 **[2026-09-23] 그 문턱이 너무 낮았다.** 애드센스가 이 사이트를
+     「가치가 별로 없는 콘텐츠」로 막았다(2026-09-21). 광고는 이 사이트의 유일한 매출이다.
+     재 보니 «진로(졸업 후 어디로 갔나)»가 없는 지면이 686장이었고, 그 지면들은 본문의
+     큰 자리를 「졸업생이 어디로 갔는지 찾지 못했습니다」가 차지하고 있었다
+     (실측 — 가곡고등학교 본문 1,974자 · 「—」 11개).
+
+     ⇒ 문턱을 올렸다. **진로가 있거나, (직업계고처럼) 학과가 있고 수치가 붙은 지면**만 연다.
+     ⛔ 지면을 «지우지 않는다» — 검색에만 안 올린다. 링크로 온 손님에게는
+       「우리도 못 찾았다」는 사실 자체가 답이다. 그것이 우리 강령이다.
+     ⭐ 「한 자료로 지면 수천 장」이 틀린 것이 아니다. 그 노하우의 둘째 규칙
+       —「낼 내용이 없으면 지면을 안 만든다」— 를 우리가 안 지킨 것이다.
+
   ⚠ **사이트맵도 조건이 같아야 한다**(`sitemap.xml.ts`). 한쪽만 고치면 구글에 모순된
-    신호를 준다. `check:100y:launch` 의 「연 지면이 사이트맵에 다 있나」가 지킨다.
+    신호를 준다. ⇒ 이제 셋이 `lib/school-worth-indexing.mjs` 한 자를 나눠 쓴다.
 */}
 <HundredYear
   title={제목}
   description={desc}
   jsonLd={jsonLd}
-  noindex={학과.length === 0 && !중단 && !학급}
+  noindex={!검색에올릴만한가(school, {
+    진로: new Set(진로 ? [school.code] : []),
+    중단: new Set(중단 ? [school.code] : []),
+    학급: new Set(학급 ? [school.code] : []),
+  })}
   ogImage={카드주소}
 >
   <h1>{school.title}</h1>

@@ -5,6 +5,11 @@ import { fileURLToPath } from 'node:url';
 import schools from '../../data/100yearmap/pages-school.json';
 import 지역단위 from '../../data/100yearmap/areas.json';
 import 중단자료 from '../../data/100yearmap/school-dropout.json';
+/* 🔴 [2026-09-23] 「검색에 올릴 만한가」는 이제 «한 곳»에서 온다 — 애드센스가
+   100yearmap 을 「가치가 별로 없는 콘텐츠」로 막았다. 지면·사이트맵·이미지사이트맵이
+   조건을 따로 적으면 반드시 갈라진다. */
+import 진로자료 from '../../data/100yearmap/school-career.json';
+import { 검색에올릴만한가 } from '../../lib/school-worth-indexing.mjs';
 import 학급자료 from '../../data/100yearmap/school-class-size.json';
 import { 한벌로팔만한가 } from '../../lib/school-area';
 import { 파는지면검색 } from '../../lib/price';
@@ -12,6 +17,9 @@ import { 파는지면검색 } from '../../lib/price';
 /** ⚠ `sitemap.xml.ts` · `school/[code].astro` 와 **같은 집합**이라야 한다 */
 const 중단있는코드 = new Set(((중단자료 as any).자료 as any[]).map((r) => r.code));
 const 학급있는코드 = new Set(((학급자료 as any).자료 as any[]).map((r) => r.code));
+const 진로있는코드 = new Set(((진로자료 as any).자료 as any[]).map((r: any) => String(r.code)));
+/** 🔴 지면·사이트맵·이미지사이트맵이 나눠 쓰는 «한 벌» — 세 곳이 갈라지면 구글에 모순된 신호가 간다 */
+const 있나 = { 진로: 진로있는코드, 중단: 중단있는코드, 학급: 학급있는코드 };
 
 /**
  * 백년지도 **이미지 사이트맵** — `/sitemap-image.xml`
@@ -118,7 +126,7 @@ export const GET: APIRoute = () => {
    * ⛔ 조건을 여기 새로 적지 않는다. `sitemap.xml.ts` 와 같은 자료로 같은 집합을 만든다.
    */
   for (const s of schools as any[]) {
-    if (!((s.학과 ?? []).length > 0 || 중단있는코드.has(s.code) || 학급있는코드.has(s.code))) continue;
+    if (!검색에올릴만한가(s, 있나)) continue;
     짝들.push({
       지면: s.url as string,
       그림: `/og/school-${s.code}.png`,

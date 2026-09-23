@@ -3,6 +3,11 @@ import majors from '../../data/100yearmap/pages-major.json';
 import schools from '../../data/100yearmap/pages-school.json';
 import universities from '../../data/100yearmap/pages-university.json';
 import 중단자료 from '../../data/100yearmap/school-dropout.json';
+/* 🔴 [2026-09-23] 「검색에 올릴 만한가」는 이제 «한 곳»에서 온다 — 애드센스가
+   100yearmap 을 「가치가 별로 없는 콘텐츠」로 막았다. 지면·사이트맵·이미지사이트맵이
+   조건을 따로 적으면 반드시 갈라진다. */
+import 진로자료 from '../../data/100yearmap/school-career.json';
+import { 검색에올릴만한가 } from '../../lib/school-worth-indexing.mjs';
 import 학급자료 from '../../data/100yearmap/school-class-size.json';
 import 대학학과 from '../../data/100yearmap/major-outcomes.json';
 import { 학과슬러그 } from '../../lib/college-major';
@@ -25,6 +30,9 @@ const 중단있는코드 = new Set(((중단자료 as any).자료 as any[]).map((
  *  ⚠ 지금은 두 자료의 학교 집합이 정확히 같다(2,371곳 · 실측). 그래도 조건을 같이 늘려 둔다 —
  *    한쪽 자료만 다시 받으면 갈라지고, 그때 조건이 어긋나면 모순된 신호가 나간다 */
 const 학급있는코드 = new Set(((학급자료 as any).자료 as any[]).map((r) => r.code));
+const 진로있는코드 = new Set(((진로자료 as any).자료 as any[]).map((r: any) => String(r.code)));
+/** 🔴 지면·사이트맵·이미지사이트맵이 나눠 쓰는 «한 벌» */
+const 있나 = { 진로: 진로있는코드, 중단: 중단있는코드, 학급: 학급있는코드 };
 
 /** 지역 지면의 주소는 `짧은지역명` 이다. `region/[slug].astro` 의 getStaticPaths 와 **같은 데서 뽑는다** —
  *  한쪽에 손으로 적어 두면 지역 이름이 바뀔 때 사이트맵만 옛 주소를 가리키게 된다 */
@@ -497,8 +505,7 @@ export const GET: APIRoute = () => {
          실측 — 학교 2,525 = 학과 있음 1,172 + 학과 없지만 수치 있음 1,269 + 둘 다 없음 84 */
     ...(schools as any[])
       .filter(
-        (s) =>
-          (s.학과 ?? []).length > 0 || 중단있는코드.has(s.code) || 학급있는코드.has(s.code),
+        (s) => 검색에올릴만한가(s, 있나),
       )
       .map((s) => ({
         path: s.url as string,
