@@ -1,0 +1,154 @@
+---
+/**
+ * /100y/work-family-priority-by-age — 일이 먼저냐 가정이 먼저냐, 10년 새 뒤집혔다 — 그중 30대가 가장 크게 바뀌었다
+ *
+ * 이슈  09-21에 받아 둔 KOSIS 사회조사 원표(DT_1SSLA050R) 중 아직 지면으로 못 낸 것.
+ *       가사분담(누가 하는가)을 다룬 09-21·09-23 지면과 다른 질문 — 「일과 가정생활 중
+ *       어느 쪽을 우선시하는가」를 5단계로 물은 표다.
+ * 우리 축  나이띠별로, 10년(2015→2025) 사이 「일 우선」·「가정 우선」 응답이 얼마나
+ *          바뀌었는지를 본다. 두 시점 다 있는 것은 이 표(연령 교차표)가 유일했다.
+ * 받은 경로  OpenAPI err 30 — kosis.kr/statHtml 웹지면 내부 AJAX(statHtmlContent.do →
+ *           downGrid.do → downNormal.do)를 크롬 9222로 직접 밟아 CSV로 받았다(09-21).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
+import 원본 from '../../../data/100yearmap/work-family-priority-by-age.json';
+
+const 자료 = 원본 as any;
+const 전체 = 자료.전체;
+const 나이띠 = 자료.나이띠별 as any[];
+
+const 일우선폭 = (r: any) => r.일우선_2015 - r.일우선_2025;
+const 가정우선폭 = (r: any) => r.가정우선_2025 - r.가정우선_2015;
+const 가장크게바뀜 = 나이띠.reduce((a: any, b: any) =>
+  (일우선폭(b) + 가정우선폭(b) > 일우선폭(a) + 가정우선폭(a) ? b : a));
+const 가장적게바뀜 = 나이띠.reduce((a: any, b: any) =>
+  (일우선폭(b) + 가정우선폭(b) < 일우선폭(a) + 가정우선폭(a) ? b : a));
+
+const desc =
+  `국가데이터처 사회조사 원표(일과 가정생활의 우선도, 연령별)를 나이띠별로 갈라 보니, ` +
+  `「일을 우선시 한다」는 응답이 2015년 전국 ${전체.일우선_2015}%에서 2025년 ` +
+  `${전체.일우선_2025}%로 줄고 「가정을 우선시 한다」는 ${전체.가정우선_2015}%에서 ` +
+  `${전체.가정우선_2025}%로 늘었습니다. 바뀐 폭은 ${가장크게바뀜.띠}에서 가장 크고, ` +
+  `${가장적게바뀜.띠}에서 가장 작습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '일-가정 우선도 — 나이띠별, 2015·2025',
+  description: desc,
+  temporalCoverage: '2015/2025',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['일 우선시 응답 비율', '가정 우선시 응답 비율'],
+};
+---
+
+<HundredYear
+  title={`일 우선 응답, 10년 새 ${전체.일우선_2015}%→${전체.일우선_2025}% (나이띠마다 바뀐 폭이 다르다)`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>일이 먼저냐 가정이 먼저냐,<br />10년 새 뒤집혔습니다</h1>
+  <p class="sub">
+    가사분담(누가 하는가)을 다룬 지면과는 다른 질문입니다 — 이 지면은
+    {' '}「일과 가정생활 중 어느 쪽을 우선시하는가」를 다섯 단계로 물은 원표(DT_1SSLA050R)를
+    {' '}씁니다. 2015년과 2025년, 두 시점만 있습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">「일을 우선시 한다」— 전국, 2015 vs 2025</p>
+    <p class="answer-num">{전체.일우선_2015}% → {전체.일우선_2025}%</p>
+    <p class="answer-sub">
+      -{(전체.일우선_2015 - 전체.일우선_2025).toFixed(1)}%p · 같은 기간 「가정을 우선시 한다」는
+      {' '}{전체.가정우선_2015}%→{전체.가정우선_2025}%로 늘었습니다 — 이것은 통계이지 당신이 아닙니다
+    </p>
+  </div>
+
+  <h2>나이띠마다 바뀐 폭이 다릅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>나이띠</th><th>일 우선 2015</th><th>일 우선 2025</th>
+          <th>가정 우선 2015</th><th>가정 우선 2025</th>
+        </tr>
+      </thead>
+      <tbody>
+        {나이띠.map((r) => (
+          <tr>
+            <td>{r.띠}</td>
+            <td>{r.일우선_2015}%</td>
+            <td><strong>{r.일우선_2025}%</strong></td>
+            <td>{r.가정우선_2015}%</td>
+            <td><strong>{r.가정우선_2025}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    모든 나이띠에서 「일 우선」은 줄고 「가정 우선」은 늘었습니다 — 방향은 같습니다.
+    {' '}다만 폭이 나이띠마다 다릅니다. 가장 크게 바뀐 것은 {가장크게바뀜.띠}로,
+    {' '}일 우선이 {가장크게바뀜.일우선_2015}%에서 {가장크게바뀜.일우선_2025}%로
+    {' '}-{일우선폭(가장크게바뀜).toFixed(1)}%p, 가정 우선이 {가장크게바뀜.가정우선_2015}%에서
+    {' '}{가장크게바뀜.가정우선_2025}%로 +{가정우선폭(가장크게바뀜).toFixed(1)}%p 움직였습니다.
+    {' '}가장 작게 바뀐 것은 {가장적게바뀜.띠}입니다.
+  </p>
+
+  <h2>「둘 다 비슷하게」는 모든 나이띠에서 가장 큰 응답이 됐습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이띠</th><th>둘 다 비슷 2015</th><th>둘 다 비슷 2025</th></tr></thead>
+      <tbody>
+        {나이띠.map((r) => (
+          <tr>
+            <td>{r.띠}</td>
+            <td>{r.둘다비슷_2015}%</td>
+            <td>{r.둘다비슷_2025}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    전국 평균으로 「둘 다 비슷하게 생각한다」는 {전체.둘다비슷_2015}%(2015)에서
+    {' '}{전체.둘다비슷_2025}%(2025)로 늘었습니다. 2015년에는 모든 나이띠에서 「일 우선」이
+    {' '}가장 큰 응답이었지만, 2025년에는 모든 나이띠에서 「둘 다 비슷」이 가장 큰 응답으로
+    {' '}바뀌었습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {자료.이자료가못가르는것.map((줄: string) => <li>{줄}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 나이띠별로 응답이 10년 사이 어떻게
+    {' '}갈렸는지가 저희가 놓을 수 있는 전부입니다. 「이 나이면 이래야 한다」로 읽을 근거는
+    {' '}이 표에 없습니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관}, {자료.출처.표} ({자료.출처.받은날} 받음). 받은 경로 —
+    {' '}{자료.출처.받은경로}.
+    {' '}<a href={자료.출처.창구} rel="noopener">원문 통계표</a>. {자료.출처.이용허락범위}
+  </p>
+
+  <HundredCardnews 벌="일가정우선도-10년" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
+
+  <HundredAgeWalk 키="work-family-priority-by-age" />
+
+  <NextQuestionBrief 모은것="국가데이터처 KOSIS 사회조사 원표(statHtml) 실측 — 기사 숫자 아님" />
+</HundredYear>
+
+<style>
+  .answer { margin: 1.6rem 0; padding: 1.2rem 1.4rem; border-radius: 12px; background: var(--panel, #f6f7f9); }
+  .answer-label { margin: 0 0 0.3rem; font-size: 0.9rem; opacity: 0.75; }
+  .answer-num { margin: 0; font-size: 1.6rem; font-weight: 800; }
+  .answer-sub { margin: 0.3rem 0 0; font-size: 0.92rem; opacity: 0.8; }
+  .tablewrap { overflow-x: auto; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.94rem; }
+  th, td { padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--line, #e6e8ec); text-align: left; }
+  .note { font-size: 0.9rem; opacity: 0.85; }
+</style>
