@@ -55,6 +55,8 @@ const 한국탭 = 'src/data/korea-valuation-tape.json';
 const UAE탭 = 'src/data/uae-financials-tape.json';
 /* 🔴 [2026-09-22 · 5번] 일본 — EDINET 유가증권보고서에서 지은 탭(3,672사) */
 const 일본탭 = 'src/data/japan-financials-tape.json';
+/* 🔴 [2026-09-23 · 5번] 대만 — TWSE OpenAPI 로 지은 탭(1,057사). 시세·PER·PBR 까지 있다 */
+const 대만탭 = 'src/data/taiwan-financials-tape.json';
 const ADX사람 = 'archive/raw/uae-adx-people';
 /* 🔴 [2026-09-16 · 5번] ADX «공식» 시가총액. 여기 오기 전에는 「아부다비가 안 낸다」고
    손님에게 적어 두었었다 — 사실이 아니었다. 우리가 «-delayed» 옆 문을 부르고 있었다.
@@ -187,9 +189,13 @@ export function 환율읽기(글들) {
     /* 🔴 [2026-09-22 · 5번] 엔을 더했다 — 일본 3,672사를 스크리너에 넣으면서.
        ⛔ 엔이 없으면 «일본만» 빠진다. 한국·UAE 는 그대로 나간다 — 아래에서 따로 본다. */
     const jpy = 그날.find((x) => /Japanese Yen/i.test(String(x.currency)));
+    /* 🔴 [2026-09-23 · 5번] 대만달러를 더했다 — 대만 1,057사를 스크리너에 넣으면서.
+       고시의 이름은 «Taiwan Dollar» 다(New Taiwan Dollar 가 아니다 — 고시 원문을 보고 맞췄다). */
+    const twd = 그날.find((x) => /Taiwan Dollar/i.test(String(x.currency)));
     const u = usd && 수(usd.rateVsAed);
     const k = krw && 수(krw.rateVsAed);
     const j = jpy && 수(jpy.rateVsAed);
+    const w = twd && 수(twd.rateVsAed);
     if (u && k && u > 0 && k > 0) {
       return {
         날짜: 날짜들[i],
@@ -200,6 +206,8 @@ export function 환율읽기(글들) {
         KRW당달러: k / u,          /* 1 KRW = ? USD */
         /* ⛔ 고시에 엔이 없으면 null 이다. 지어내지 않는다 */
         JPY당달러: j && j > 0 ? j / u : null,
+        twdVsAed: w && w > 0 ? w : null,
+        TWD당달러: w && w > 0 ? w / u : null,
       };
     }
   }
@@ -616,7 +624,45 @@ async function 본일() {
   console.log(`   일본 ${일본.length}곳 — 시가총액·PER·PBR 은 «결산일» 값이다`
     + ' (유가증권보고서의 주가수익률 × 주당이익으로 되짚었다. ⛔ 현재가가 아니다)');
 
-  const 추린것 = [...한국, ...UAE, ...일본];
+  /* 5. 대만 — 🔴 [2026-09-23 · 5번] TWSE OpenAPI 로 1,057사를 열었다.
+   * ⭐ 일본과 달리 **시가총액·PER·PBR 이 «진짜 시세»에서 온다.** 거래소가 일별 종가를
+   *   그대로 내준다(exchangeReport/STOCK_DAY_ALL). 일본은 유가증권보고서의 결산일 값을
+   *   되짚은 것이라 성격이 다르다 — as 칸(기준일)이 그 차이를 말한다.
+   * 🔴 **손익은 «연초부터 누계»다.** 季別=2 는 상반기 여섯 달이다(中華電信으로 검산했다).
+   *   ⇒ 한국·일본의 «열두 달»과 기간이 다르므로 매출·순이익을 나란히 읽으면 안 된다.
+   *     x 칸에 그 사실을 실어 지면이 손님에게 말한다.
+   * ⛔ ROE 는 «반년 누계 ÷ 시점 자본»이라 연율이 아니다. 그대로 담되 뜻을 밝힌다.
+   * ⛔ 0 으로 메꾸지 않는다. 환율이 없으면 대만을 «안 싣는다». */
+  const 대만 = (() => {
+    let 원본;
+    try { 원본 = JSON.parse(readFileSync(path.resolve(대만탭), 'utf8')); }
+    catch { console.log('   ⚠ 대만 탭이 없다 — 대만 없이 짓는다'); return []; }
+    const TWD당달러 = 환.TWD당달러 ?? null;
+    if (!TWD당달러) { console.log('   ⚠ 대만달러 환율이 없다 — 대만을 안 싣는다(0 으로 메꾸지 않는다)'); return []; }
+    return (원본.rows || []).map((r) => ({
+      m: 'TWSE',
+      t: String(r.code),
+      n: r.name_en || null,        /* ⛔ 손님 화면은 영문이다. 한자 이름은 k 로만 둔다 */
+      k: r.name || null,
+      i: r.industry_en || null,    /* ⛔ 옮긴 이름이 없으면 null — 한자를 화면에 안 낸다 */
+      c: 자름(곱(r.market_cap_twd, TWD당달러)),
+      p: 자름(r.per, 2),
+      b: 자름(r.pbr, 2),
+      v: 자름(곱(r.revenue_twd, TWD당달러)),
+      np: 자름(곱(r.net_profit_twd, TWD당달러)),
+      r: 자름(백분율(비(r.net_profit_twd, r.equity_twd)), 2),
+      d: 자름(백분율(비(빼기(r.assets_twd, r.equity_twd), r.equity_twd)), 2),
+      nc: 자름(r.market_cap_twd),
+      nv: 자름(r.revenue_twd),
+      as: r.price_date || null,
+      /* 🔴 기간이 다르다는 사실을 줄마다 싣는다 — 지면이 이것을 그대로 보인다 */
+      x: r.year && r.quarter ? `Income statement covers ${r.year} Q1-Q${r.quarter} cumulative` : null,
+    })).filter((r) => r.t);
+  })();
+  console.log(`   대만 ${대만.length}곳 — 시가총액·PER·PBR 은 «거래소 일별 종가»에서 왔다`
+    + ' (⚠ 손익은 연초부터 누계다 — 한국·일본의 열두 달과 기간이 다르다)');
+
+  const 추린것 = [...한국, ...UAE, ...일본, ...대만];
 
   /* 🔴 관문 — 손님 화면에 나가는 칸(n·i·x·as)에 한국어가 «한 글자라도» 있으면 멈춘다.
    *   사장님 지시: 「화면에 한국어를 안 낸다」(손님이 영어권이다).
