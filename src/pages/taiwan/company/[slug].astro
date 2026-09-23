@@ -21,7 +21,7 @@ import Base from '../../../layouts/Base.astro';
 import { SITE_URL } from '../../../consts';
 import tape from '../../../data/taiwan-financials-tape.json';
 import { 주소표만들기 } from '../../../lib/company-slug.mjs';
-import { 재무줄, 회사줄, 낼만한가, 분기말 } from '../../../lib/taiwan-company-page.mjs';
+import { 재무줄, 회사줄, 낼만한가, 분기말, 누계기간 } from '../../../lib/taiwan-company-page.mjs';
 
 export async function getStaticPaths() {
   const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
@@ -52,6 +52,8 @@ export async function getStaticPaths() {
         줄: 재무줄(r),
         회사: 회사줄(r),
         기간: 분기말(r),
+        /* 🔴 손익은 «그 분기»가 아니라 연초부터의 누계다 — 지면이 그렇게 말한다 */
+        덮는기간: 누계기간(r),
         같은갈래: 한벌.filter((x) => x.code !== String(r.code)).slice(0, 12),
         갈래회사수: 한벌.length,
       },
@@ -59,7 +61,7 @@ export async function getStaticPaths() {
   });
 }
 
-const { code, nameEn, nameZh, chairman, 줄, 회사, 기간, 같은갈래, 갈래회사수 } = Astro.props as any;
+const { code, nameEn, nameZh, chairman, 줄, 회사, 기간, 덮는기간, 같은갈래, 갈래회사수 } = Astro.props as any;
 
 const bn = (n: number | null) =>
   n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
@@ -72,7 +74,7 @@ const x2 = (n: number | null) =>
 
 const title = `${nameEn} — reported financials (Taiwan)`;
 const 설명줄 = 줄 && 줄.revenue != null
-  ? `${nameEn} (${code}) reported TWD ${bn(줄.revenue)}bn of revenue in its ${기간 ?? 'latest'} filing.`
+  ? `${nameEn} (${code}) reported TWD ${bn(줄.revenue)}bn of revenue over ${덮는기간?.길게 ?? 'the period covered by its latest filing'}.`
   : `${nameEn} (${code}) — financials as filed with the Taiwan Stock Exchange.`;
 const description = `${설명줄} Revenue, operating profit, net profit, assets, liabilities and equity as filed through the TWSE open data service, with the ratios computed from those figures.`;
 
@@ -98,16 +100,18 @@ const jsonLd = {
       <p class="sub">
         <span class="chip">{code}</span>
         <span class="chip">Taiwan</span>
-        {기간 && <span class="chip">{기간}</span>}
+        {덮는기간 ? <span class="chip">{덮는기간.짧게}</span> : 기간 && <span class="chip">{기간}</span>}
       </p>
       <p class="lede">{설명줄}</p>
     </header>
 
     <p class="warn top">
-      <b>These are quarterly figures.</b> The Taiwan Stock Exchange publishes company accounts by
-      quarter, so this page is not directly comparable with the annual figures on our Korean and
-      Japanese company pages. Compare it with another Taiwanese filing, or with the same company's
-      earlier quarters.
+      <b>These figures run from the start of the financial year.</b> The Taiwan Stock Exchange
+      files income-statement lines cumulatively, so a Q2 filing covers
+      {덮는기간 ? ` ${덮는기간.길게}` : ' the year to date'} — not three months on their own. Balance-sheet
+      lines are the position on the closing date instead. That makes this page not directly
+      comparable with the annual figures on our Korean and Japanese company pages; compare it with
+      another Taiwanese filing covering the same months.
     </p>
 
     <section>
@@ -115,11 +119,13 @@ const jsonLd = {
       <p class="note">
         Figures are as filed, in billions of New Taiwan dollars (TWD bn). We do not convert to
         dollars — an exchange rate would be a number we made up, not one the company reported.
+        Income-statement lines cover the whole period named below; balance-sheet lines are the
+        position on its closing date.
       </p>
       <div class="scroll">
         <table>
           <tbody>
-            <tr><th>Period</th><td>{기간 ?? '—'}</td></tr>
+            <tr><th>Period covered <span class="aside">(income statement)</span></th><td>{덮는기간?.짧게 ?? 기간 ?? '—'}</td></tr>
             <tr><th>Revenue</th><td>{bn(줄?.revenue ?? null)}</td></tr>
             <tr>
               <th>Operating profit</th>
@@ -133,7 +139,7 @@ const jsonLd = {
               <th>Net profit</th>
               <td class={줄?.net != null && 줄.net < 0 ? 'neg' : ''}>{bn(줄?.net ?? null)}</td>
             </tr>
-            <tr><th>Total assets</th><td>{bn(줄?.assets ?? null)}</td></tr>
+            <tr><th>Total assets <span class="aside">(at the closing date)</span></th><td>{bn(줄?.assets ?? null)}</td></tr>
             <tr><th>Total liabilities</th><td>{bn(줄?.liabilities ?? null)}</td></tr>
             <tr><th>Equity</th><td>{bn(줄?.equity ?? null)}</td></tr>
             <tr><th>Net asset value per share</th><td>{줄?.bps == null ? '—' : `TWD ${x2(줄.bps)}`}</td></tr>
@@ -146,7 +152,8 @@ const jsonLd = {
       <h2>Ratios from those figures</h2>
       <p class="note">
         Each ratio is computed from the two lines above it. A dash means an input was missing or the
-        denominator was zero — <b>not</b> that the value is zero.
+        denominator was zero — <b>not</b> that the value is zero. Return on equity divides a
+        year-to-date profit by equity at one date, so it is not an annual rate.
       </p>
       <div class="scroll">
         <table>
@@ -162,7 +169,7 @@ const jsonLd = {
             <tr><th>Equity / assets</th><td>{pct(줄?.자기자본비율 ?? null)}</td></tr>
             <tr><th>Liabilities / equity</th><td>{x2(줄?.부채비율 ?? null)}</td></tr>
             <tr>
-              <th>Return on equity <span class="aside">(this quarter, not annualised)</span></th>
+              <th>Return on equity <span class="aside">(year to date, not annualised)</span></th>
               <td class={줄?.ROE != null && 줄.ROE < 0 ? 'neg' : ''}>{pct(줄?.ROE ?? null)}</td>
             </tr>
           </tbody>

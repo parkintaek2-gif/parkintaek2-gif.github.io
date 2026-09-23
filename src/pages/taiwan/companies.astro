@@ -10,7 +10,7 @@ import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import tape from '../../data/taiwan-financials-tape.json';
 import { 주소표만들기 } from '../../lib/company-slug.mjs';
-import { 재무줄, 낼만한가, 가운데값, 분기말 } from '../../lib/taiwan-company-page.mjs';
+import { 재무줄, 낼만한가, 가운데값, 누계기간 } from '../../lib/taiwan-company-page.mjs';
 
 const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
 const meta = (tape as any)._meta ?? {};
@@ -25,7 +25,8 @@ const 회사 = 행들.map((r) => {
     revenue: 줄!.revenue,
     net: 줄!.net,
     순이익률: 줄!.순이익률,
-    기간: 분기말(r),
+    /* 🔴 손익은 그 분기가 아니라 연초부터의 누계다 — 「Q2」가 아니라 「H1」로 적는다 */
+    기간: 누계기간(r)?.짧게 ?? null,
   };
 }).sort((a, b) => a.name.localeCompare(b.name, 'en'));
 
@@ -43,7 +44,7 @@ const pc = (n: number | null) =>
   n == null ? '—' : `${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
 
 const title = 'Taiwanese listed companies — financials as filed';
-const description = `${회사.length.toLocaleString('en-GB')} Taiwanese listed companies, one page each, built from quarterly accounts filed with the Taiwan Stock Exchange. Revenue, profit, assets, liabilities, equity and the ratios computed from them — in New Taiwan dollars.`;
+const description = `${회사.length.toLocaleString('en-GB')} Taiwanese listed companies, one page each, built from the year-to-date accounts they file with the Taiwan Stock Exchange. Revenue, profit, assets, liabilities, equity and the ratios computed from them — in New Taiwan dollars.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -61,16 +62,18 @@ const jsonLd = {
     <header>
       <h1>Taiwanese listed companies</h1>
       <p class="lede">
-        {회사.length.toLocaleString('en-GB')} companies, one page each, taken from the quarterly
+        {회사.length.toLocaleString('en-GB')} companies, one page each, taken from the year-to-date
         accounts they filed with the Taiwan Stock Exchange. In New Taiwan dollars, with no exchange
         rate applied.
       </p>
     </header>
 
     <p class="warn">
-      <b>These are quarterly figures{기간들.length === 1 ? `, all from ${기간들[0]}` : ''}.</b>{' '}
-      Taiwan publishes company accounts by quarter, while our Korean and Japanese pages carry annual
-      accounts. Reading a Taiwanese margin next to a Korean one compares three months against twelve.
+      <b>These figures run from the start of the financial year{기간들.length === 1 ? `, all covering ${기간들[0]}` : ''}.</b>{' '}
+      The Taiwan Stock Exchange files income-statement lines cumulatively, so a Q2 filing covers six
+      months rather than three; balance-sheet lines are the position on the closing date. Our Korean
+      and Japanese pages carry twelve-month accounts, so reading a Taiwanese margin next to a Korean
+      one compares unequal spans.
     </p>
 
     <section class="stats">

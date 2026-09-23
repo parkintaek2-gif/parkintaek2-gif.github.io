@@ -274,6 +274,9 @@ export const 단계들 = [
   /* 새 나라 지면을 내놓고 출처를 안 적었나 — 출처 표시는 예의가 아니라 라이선스 의무다 */
   "node scripts/check-country-sources-disclosed.mjs --자가시험",
   "node scripts/check-country-sources-disclosed.mjs",
+  /* 🔴 누계 자료를 「분기」라고 부르면 그 지면의 모든 수가 한꺼번에 틀린다 (대만에서 실제로 났다) */
+  "node scripts/check-period-labels.mjs --자가시험",
+  "node scripts/check-period-labels.mjs",
   "node scripts/check-internal-comment-leak.mjs --자가시험",
   "node scripts/check-internal-comment-leak.mjs",
   "node scripts/check-seat-config.mjs --자가시험",
