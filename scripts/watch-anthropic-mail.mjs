@@ -60,10 +60,48 @@ export function 지원팀줄인가(줄) {
   return true;
 }
 
+/**
+ * 🔴 [2026-09-23 · 5번] **내가 «방금 보낸» 메일을 「새 답장」으로 세고 있었다.**
+ * 오늘 10:16 에 앤트로픽에 보낸 편지가 스레드에 들어가자 보낸이가 「나, Fin」이 되고
+ * 열쇠가 바뀌어 매시 점검 ⑧-3 이 빨갛게 켜졌다. 답장은 오지 않았는데도.
+ * ⛔ 헛알림은 자를 죽인다 — 진짜 답이 왔을 때 사람이 안 보게 된다(같은 자가 이미 두 번 데였다).
+ *
+ * ⚠ 제목만으로 영영 걸러 버리면 «제목을 그대로 두고 답하는» 답장을 놓친다.
+ *   그래서 **막 보낸 동안만** 건너뛴다. 그 시간이 지나면 다시 알린다 — 사람이 보고 판단한다.
+ */
+export const 막보낸시간 = 2 * 60 * 60 * 1000;   /* 2시간 */
+
+/** 우리가 보낸 제목과 «정확히» 같고, 그 발송이 막 전이면 내 것이다 */
+export function 내가방금보낸것인가(줄, 우리가보낸것, 이제 = Date.now()) {
+  const 제목 = String(줄?.제목 || '').trim();
+  if (!제목) return false;
+  return (우리가보낸것 ?? []).some((x) => {
+    if (String(x?.제목 || '').trim() !== 제목) return false;
+    const 때 = Number(x?.때);
+    if (!Number.isFinite(때)) return false;
+    return 이제 - 때 >= 0 && 이제 - 때 < 막보낸시간;
+  });
+}
+
 /** 지난번에 본 것보다 새 것만 남긴다 */
-export function 새것만(줄들, 본자국) {
+export function 새것만(줄들, 본자국, 우리가보낸것 = [], 이제 = Date.now()) {
   const 본것 = new Set((본자국 && 본자국.본것) || []);
-  return 줄들.filter((r) => 지원팀줄인가(r)).filter((r) => !본것.has(r.열쇠));
+  return 줄들.filter((r) => 지원팀줄인가(r))
+    .filter((r) => !본것.has(r.열쇠))
+    .filter((r) => !내가방금보낸것인가(r, 우리가보낸것, 이제));
+}
+
+/** 보낸메일 대장에서 «앤트로픽에 보낸» 것만 뽑는다. 날짜\t보내는이\t받는이\t제목\tid */
+export function 우리가보낸것읽기(글) {
+  return String(글 ?? '').split(/\r?\n/).map((l) => l.split('\t'))
+    .filter((c) => c.length >= 4 && /anthropic/i.test(c[2] || ''))
+    .map((c) => {
+      const m = String(c[0]).match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
+      /* ⛔ toISOString 을 쓰지 않는다 — 이 PC 는 이미 한국시간이다 */
+      const 때 = m ? new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]).getTime() : NaN;
+      return { 때, 제목: String(c[3] || '').trim() };
+    })
+    .filter((x) => x.제목);
 }
 
 export function 본자국읽기(길 = 본자국길) {
@@ -192,6 +230,28 @@ function 자가시험() {
   잰다('다 봤으면 없다', 새것만(줄들, { 본것: ['a', 'b'] }).length, 0);
   잰다('본자국이 없어도 돈다', 새것만(줄들, null).map((r) => r.열쇠), ['a', 'b']);
 
+  /* 🔴 [2026-09-23] 내가 «방금 보낸» 편지를 답장으로 세던 자리 */
+  const 이제 = new Date(2026, 8, 23, 11, 30).getTime();
+  const 방금 = [{ 때: new Date(2026, 8, 23, 10, 16).getTime(), 제목: 'Conv 215476021858427 - please cancel' }];
+  const 내줄 = { 열쇠: 'x', 보낸이: '나, Fin', 제목: 'Conv 215476021858427 - please cancel' };
+  잰다('🔴 내가 방금 보낸 것은 답장이 아니다', 내가방금보낸것인가(내줄, 방금, 이제), true);
+  잰다('🔴 그래서 새 것으로 세지 않는다',
+    새것만([내줄], { 본것: [] }, 방금, 이제).length, 0);
+  잰다('⚠ 오래되면 다시 알린다 — 제목을 그대로 두고 오는 답장을 놓치지 않으려고',
+    내가방금보낸것인가(내줄, 방금, 이제 + 3 * 60 * 60 * 1000), false);
+  잰다('⛔ 제목이 다르면 내 것이 아니다',
+    내가방금보낸것인가({ 제목: 'Re: 무엇' }, 방금, 이제), false);
+  잰다('⛔ 보낸 기록이 없으면 거르지 않는다',
+    새것만([내줄], { 본것: [] }, [], 이제).length, 1);
+  잰다('⛔ 빈 것에 안 터진다', 내가방금보낸것인가(null, null), false);
+
+  const 대장 = ['2026-09-23 10:16\tadmin@klifedesign.net\tsupport@anthropic.com\tConv 215476021858427 - please cancel\tid1',
+    '2026-09-23 09:57\tu5@klifedesign.net\tparkintaek@naver.com\t[스포츠] 어쩌고\tid2'].join('\n');
+  잰다('대장에서 앤트로픽에 보낸 것만 뽑는다', 우리가보낸것읽기(대장).length, 1);
+  잰다('제목을 제대로 읽는다', 우리가보낸것읽기(대장)[0].제목, 'Conv 215476021858427 - please cancel');
+  잰다('때를 KST 로 읽는다', 우리가보낸것읽기(대장)[0].때, new Date(2026, 8, 23, 10, 16).getTime());
+  잰다('⛔ 빈 대장에 안 터진다', 우리가보낸것읽기('').length, 0);
+
   console.log('── 시각');
   잰다('KST 를 두 자리로 적는다', 지금글(new Date(2026, 8, 21, 8, 5)), '2026-09-21 08:05');
 
@@ -214,7 +274,13 @@ if (인자.includes('--자가시험') || 인자.includes('--selftest')) {
     process.exit(1);
   }
   const 본자국 = 본자국읽기();
-  const 새것 = 새것만(결과.줄들, 본자국);
+  /* 🔴 내가 «방금 보낸» 편지를 답장으로 세지 않는다 — 보낸메일 대장과 맞대어 본다 */
+  let 우리가보낸것 = [];
+  try {
+    우리가보낸것 = 우리가보낸것읽기(
+      fs.readFileSync(path.join(뿌리, 'docs', '보낸메일.tsv'), 'utf8'));
+  } catch { 우리가보낸것 = []; }
+  const 새것 = 새것만(결과.줄들, 본자국, 우리가보낸것);
 
   if (체크) {
     console.log(새것.length
