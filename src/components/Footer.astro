@@ -42,6 +42,17 @@ const year = new Date().getFullYear();
               >Bank of Korea statistics</a
             >
           </li>
+          {/**
+            * 🔴 [2026-09-23 · 5번] 일본 상장사 지면 3,707장을 내면서 **이 목록에 일본이
+            *   없었다.** 지면 각주에는 EDINET 을 적어 두고 사이트 꼬리말은 「한국 공공데이터」
+            *   두 곳만 말하고 있었다 — 손님이 보는 두 자리가 서로 다른 말을 한 것이다.
+            * ⛔ 새 나라의 자료로 지면을 내면 **이 목록과 아래 고지를 같은 커밋에서 고친다.**
+            */}
+          <li>
+            <a href="https://disclosure.edinet-fsa.go.jp" rel="external noopener" target="_blank"
+              >Japan FSA — EDINET filings</a
+            >
+          </li>
           <li><a href="/about#sources">Full source list</a></li>
         </ul>
       </div>
@@ -97,10 +108,10 @@ const year = new Date().getFullYear();
         <strong>{DISCLAIMER.short}</strong>{' '}{DISCLAIMER.long}
       </p>
       <p>
-        Market and economic figures are derived from open data published by Korean government
-        agencies. Government open-data feeds are not real time; each article states the exact
-        as-of timestamp of the data it uses. {SITE.name} is not affiliated with, endorsed by, or
-        licensed by the Korea Exchange.
+        Market and economic figures are derived from open data published by government agencies
+        and regulators in the markets we cover, including Korea and Japan. Government open-data
+        feeds are not real time; each article states the exact as-of timestamp of the data it
+        uses. {SITE.name} is not affiliated with, endorsed by, or licensed by the Korea Exchange.
       </p>
       <p>&copy; {year} {PUBLISHER_SM.legalName}. All rights reserved.</p>
     </div>

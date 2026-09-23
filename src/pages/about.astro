@@ -84,6 +84,26 @@ const jsonLd = {
             <strong>Listing and issuance reference data</strong> — Financial Services Commission
             listed-securities datasets.
           </li>
+          {/**
+            * 🔴 [2026-09-23 · 5번] 이 목록에 «없던» 두 줄을 더했다.
+            *   ① 회사 재무 지면 2,515장이 DART 에서 나오는데 이 목록에 재무제표가 없었다
+            *   ② 일본 상장사 지면 3,707장을 냈는데 목록이 「한국」만 말하고 있었다
+            * ⛔ 새 우물로 지면을 내면 **이 목록과 꼬리말을 같은 커밋에서 고친다.**
+            *   손님이 보는 두 자리가 서로 다른 말을 하면, 맞는 쪽까지 같이 의심받는다.
+            */}
+          <li>
+            <strong>Korean company financials and filings</strong> — annual and interim reports
+            filed with Korea's Financial Supervisory Service and published through its{' '}
+            <a href="https://opendart.fss.or.kr" rel="external noopener" target="_blank">DART</a>{' '}
+            disclosure system, under the Korea Open Government Licence, Type 1 (attribution).
+          </li>
+          <li>
+            <strong>Japanese company financials</strong> — annual securities reports filed with
+            Japan's Financial Services Agency and published through{' '}
+            <a href="https://disclosure.edinet-fsa.go.jp" rel="external noopener" target="_blank"
+              >EDINET</a
+            >, under the Public Data Licence 1.0, which permits commercial use with attribution.
+          </li>
         </ul>
         <p>
           One market we do <em>not</em> cover is domestic cryptocurrency trading. Korean exchange

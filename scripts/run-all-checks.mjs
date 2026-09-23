@@ -271,6 +271,9 @@ export const 단계들 = [
   "node scripts/check-sitemap-lastmod-honest.mjs --자가시험",
   /* 「오늘 낸 글」을 lastmod 가 아니라 «새로 난 주소»로 센다 — 1,468 이 세어지던 자리 */
   "node scripts/lib/sitemap-new-urls.mjs --자가시험",
+  /* 새 나라 지면을 내놓고 출처를 안 적었나 — 출처 표시는 예의가 아니라 라이선스 의무다 */
+  "node scripts/check-country-sources-disclosed.mjs --자가시험",
+  "node scripts/check-country-sources-disclosed.mjs",
   "node scripts/check-internal-comment-leak.mjs --자가시험",
   "node scripts/check-internal-comment-leak.mjs",
   "node scripts/check-seat-config.mjs --자가시험",

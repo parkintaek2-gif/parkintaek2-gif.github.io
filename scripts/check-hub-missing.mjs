@@ -102,8 +102,21 @@ export function 허브노릇하나(낱장수, 거는수) {
 }
 
 /** 사이트맵 주소 가운데 «한 겹짜리»(/region 처럼)만 — 허브는 거의 언제나 여기에 있다 */
-export function 한겹주소(주소들, 밑 = '') {
+/**
+ * 허브일 수 있는 «얕은» 주소들.
+ *
+ * 🔴 [2026-09-23 · 5번] 여기에 한 겹만 담았더니 **일본 지면에서 헛울렸다.**
+ *   `/japan/sector` 낱장 33장의 허브는 `/japan/companies` 인데, 그것이 «두 겹»이라
+ *   후보에서 통째로 빠져 「거는 지면이 하나도 없다」가 떴다.
+ * ⚠ 나라를 하나씩 열수록 주소가 `/<나라>/<갈래>` 꼴로 한 겹 깊어진다 —
+ *   그래서 **갈래와 첫 마디가 같은 두 겹 주소**까지 후보로 본다.
+ * ⛔ 아무 두 겹 주소나 담지 않는다. 그러면 수천 개를 두드리게 된다.
+ */
+export function 한겹주소(주소들, 밑 = '', 갈래 = '') {
   const 것 = [];
+  /* 갈래가 `/japan/sector` 면 첫 마디는 `japan` — 그 아래 두 겹 주소도 허브일 수 있다 */
+  const 첫마디 = String(갈래 ?? '').split('/').filter(Boolean);
+  const 나라 = 첫마디.length >= 2 ? 첫마디[0] : null;
   for (const u of 주소들 ?? []) {
     /* ⚠ 사이트맵에는 «온전한» 주소만 온다. 상대경로로 풀면 쓰레기까지 주소가 돼 버린다 —
        new URL('%%%', 밑) 는 던지지 않고 '/%%%' 를 내준다 */
@@ -111,6 +124,7 @@ export function 한겹주소(주소들, 밑 = '') {
     try { 길 = new URL(String(u)).pathname; } catch { continue; }
     const 조각 = 길.split('/').filter(Boolean);
     if (조각.length === 1) 것.push('/' + 조각[0]);
+    else if (조각.length === 2 && 나라 && 조각[0] === 나라) 것.push('/' + 조각.join('/'));
   }
   return [...new Set(것)];
 }
@@ -183,6 +197,11 @@ function 자가시험() {
   잰다('허브노릇 — 낱장이 0이면 판정하지 않는다', 허브노릇하나(0, 5), false);
   잰다('한겹주소 — 한 겹만 고른다',
     한겹주소(['https://a.com/region', 'https://a.com/report/area/x', 'https://a.com/']), ['/region']);
+  잰다('🔴 한겹주소 — 갈래가 두 겹이면 같은 나라의 두 겹 주소도 후보다',
+    한겹주소(['https://a.com/japan/companies', 'https://a.com/korea/companies', 'https://a.com/x'], '', '/japan/sector'),
+    ['/japan/companies', '/x']);
+  잰다('⛔ 갈래가 한 겹이면 두 겹은 안 담는다 — 수천 개를 두드리게 된다',
+    한겹주소(['https://a.com/japan/companies', 'https://a.com/x'], '', '/sector'), ['/x']);
   잰다('한겹주소 — 같은 것은 한 번만', 한겹주소(['https://a.com/x', 'https://a.com/x']).length, 1);
   잰다('한겹주소 — 주소가 아니면 조용히 건너뛴다', 한겹주소(['%%%', 'https://a.com/y']), ['/y']);
 
@@ -259,7 +278,7 @@ for (const [이름, 밑] of 사이트들) {
       let 으뜸 = 0;
       /* ⚠ 자르는 수를 80 으로 뒀다가 또 헛울렸다 — KCW 는 한 겹 주소가 그보다 많아서
          정작 허브인 /hometowns 가 잘려 나갔다. 「덜 보고 없다고 하는 것」이 이 자의 병이다 */
-      for (const 후보 of 한겹주소(주소, 밑)) {
+      for (const 후보 of 한겹주소(주소, 밑, 갈래)) {
         const x = await 받기(밑 + 후보);
         if (!살았나(x.코드)) continue;
         const 맞 = x.글.match(new RegExp(`href="${갈래}/[^"#]+"`, 'g'));
