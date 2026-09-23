@@ -35,6 +35,7 @@ const 뿌리 = path.resolve(fileURLToPath(import.meta.url), '..', '..');
  */
 export const 나라표 = [
   { 나라: 'Japan', 지면폴더: 'src/pages/japan', 있어야할말: ['EDINET'] },
+  { 나라: 'Taiwan', 지면폴더: 'src/pages/taiwan', 있어야할말: ['twse'] },
 ];
 
 /** 고지에 반드시 있어야 하는 것 — 나라 지면과 무관하게 늘 본다 */

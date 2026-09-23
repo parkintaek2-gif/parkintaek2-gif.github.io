@@ -1,0 +1,176 @@
+---
+/*
+ * `/taiwan/companies` — **대만 상장사 지면으로 들어가는 문.**
+ *
+ * 지면을 찍어 놓고 문이 없으면 검색엔진이 그 안으로 못 들어간다.
+ * ⛔ 등수를 매기지 않는다. 회사는 이름 차례다.
+ * ⛔ 업종 코드에 이름을 «짐작해» 붙이지 않는다 — TWSE 가 코드만 주고 이름을 안 준다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/taiwan-financials-tape.json';
+import { 주소표만들기 } from '../../lib/company-slug.mjs';
+import { 재무줄, 낼만한가, 가운데값, 분기말 } from '../../lib/taiwan-company-page.mjs';
+
+const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
+const meta = (tape as any)._meta ?? {};
+const 주소표 = 주소표만들기(행들);
+
+const 회사 = 행들.map((r) => {
+  const 줄 = 재무줄(r);
+  return {
+    code: String(r.code),
+    slug: 주소표.get(String(r.code))!,
+    name: String(r.name_en),
+    revenue: 줄!.revenue,
+    net: 줄!.net,
+    순이익률: 줄!.순이익률,
+    기간: 분기말(r),
+  };
+}).sort((a, b) => a.name.localeCompare(b.name, 'en'));
+
+const 매출들 = 회사.map((c) => c.revenue).filter((n): n is number => n != null);
+const 이익률들 = 회사.map((c) => c.순이익률).filter((n): n is number => n != null);
+const 적자 = 회사.filter((c) => c.net != null && c.net < 0).length;
+const 순익잰곳 = 회사.filter((c) => c.net != null).length;
+const 기간들 = [...new Set(회사.map((c) => c.기간).filter(Boolean))];
+
+const bn = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
+const pct = (a: number, b: number) =>
+  b === 0 ? '—' : `${((a / b) * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
+const pc = (n: number | null) =>
+  n == null ? '—' : `${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
+
+const title = 'Taiwanese listed companies — financials as filed';
+const description = `${회사.length.toLocaleString('en-GB')} Taiwanese listed companies, one page each, built from quarterly accounts filed with the Taiwan Stock Exchange. Revenue, profit, assets, liabilities, equity and the ratios computed from them — in New Taiwan dollars.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE_URL}/taiwan/companies#collection`,
+  name: title,
+  url: `${SITE_URL}/taiwan/companies`,
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs"><a href="/">SeoulMarkets</a> <span>›</span> Taiwan companies</nav>
+
+    <header>
+      <h1>Taiwanese listed companies</h1>
+      <p class="lede">
+        {회사.length.toLocaleString('en-GB')} companies, one page each, taken from the quarterly
+        accounts they filed with the Taiwan Stock Exchange. In New Taiwan dollars, with no exchange
+        rate applied.
+      </p>
+    </header>
+
+    <p class="warn">
+      <b>These are quarterly figures{기간들.length === 1 ? `, all from ${기간들[0]}` : ''}.</b>{' '}
+      Taiwan publishes company accounts by quarter, while our Korean and Japanese pages carry annual
+      accounts. Reading a Taiwanese margin next to a Korean one compares three months against twelve.
+    </p>
+
+    <section class="stats">
+      <div><span class="k">Reported a net loss</span><span class="v">{pct(적자, 순익잰곳)}</span><span class="s">{적자} of {순익잰곳}</span></div>
+      <div><span class="k">Median revenue</span><span class="v">{bn(가운데값(매출들))}</span><span class="s">TWD bn · {매출들.length} companies</span></div>
+      <div><span class="k">Median net margin</span><span class="v">{pc(가운데값(이익률들))}</span><span class="s">{이익률들.length} had both inputs</span></div>
+    </section>
+
+    <p class="note">
+      We show medians, not averages. One very large filer would pull an average far enough to hide
+      the ordinary company — and in this market that filer is unusually large.
+    </p>
+
+    <section>
+      <h2>Every company</h2>
+      <p class="note">Listed by name, not by size — we do not rank them.</p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Company</th><th>Code</th><th>Revenue (TWD bn)</th><th>Net profit (TWD bn)</th><th>Net margin</th></tr>
+          </thead>
+          <tbody>
+            {회사.map((c) => (
+              <tr>
+                <td class="nm"><a href={`/taiwan/company/${c.slug}`}>{c.name}</a></td>
+                <td class="dim">{c.code}</td>
+                <td>{bn(c.revenue)}</td>
+                <td class={c.net != null && c.net < 0 ? 'neg' : ''}>{bn(c.net)}</td>
+                <td class={c.순이익률 != null && c.순이익률 < 0 ? 'neg' : ''}>{pc(c.순이익률)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>The other markets on this site</h2>
+      <p class="note">Each is built the same way, from filings to that market's own regulator.</p>
+      <ul class="more">
+        <li><a href="/companies">Korean listed companies</a> — annual accounts, five years</li>
+        <li><a href="/japan/companies">Japanese listed companies</a> — annual securities reports</li>
+        <li><a href="/data/screener">Asia &amp; Gulf screener</a> — filter across markets in US dollars</li>
+      </ul>
+    </section>
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> Taiwan Stock Exchange (TWSE) open data service, released through Taiwan's
+        Open Government Data platform under the Open Government Data License, version 1.0 —
+        commercial use permitted with attribution.
+        {meta.지은때 && <span class="dim"> Collected {String(meta.지은때).slice(0, 12)}.</span>}
+      </p>
+      <p>
+        <b>Not investment advice.</b> These pages report what was filed. They contain no
+        recommendation and no opinion on whether any figure is good or bad.
+      </p>
+      <p class="dim">
+        The exchange publishes these figures in thousands of New Taiwan dollars; we multiply by
+        1,000 so every market on this site is stated in whole currency units. We confirmed the unit
+        by dividing each company's paid-in capital, published in whole dollars, by its balance-sheet
+        capital stock: 388 of 396 came to exactly 1,000.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 68rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .crumbs { font-size: .85rem; color: #667; margin-bottom: 1rem; }
+  .crumbs a { color: #445; text-decoration: none; }
+  .crumbs span { margin: 0 .35rem; color: #aab; }
+  h1 { font-size: 1.95rem; line-height: 1.25; margin: 0 0 .6rem; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.2rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 .8rem; }
+  .warn { font-size: .88rem; color: #665; background: #fbfaf4; border-left: 3px solid #ddd6b8;
+          padding: .6rem .85rem; margin: 0 0 1.6rem; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+           gap: 1rem; margin: 0 0 .8rem; }
+  .stats > div { display: grid; gap: .15rem; padding: .9rem 1rem;
+                 border: 1px solid #e6e9ef; border-radius: 4px; }
+  .stats .k { font-size: .8rem; color: #667; }
+  .stats .v { font-size: 1.55rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stats .s { font-size: .78rem; color: #889; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: .42rem .6rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  thead th { text-align: right; font-size: .82rem; color: #556; border-bottom: 2px solid #d8dbe2; }
+  thead th:first-child, tbody td.nm { text-align: left; }
+  td.nm a { color: #2a4d8f; text-decoration: none; }
+  td.nm a:hover { text-decoration: underline; }
+  td.neg { color: #a33; }
+  .dim { color: #889; }
+  .more { list-style: none; padding: 0; margin: 0; display: grid; gap: .35rem; }
+  .more a { color: #2a4d8f; text-decoration: none; }
+  .more a:hover { text-decoration: underline; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
+         font-size: .84rem; color: #556; }
+  .src p { margin: .5rem 0; }
+  @media (max-width: 640px) { h1 { font-size: 1.5rem; } .wrap { padding: 1rem .8rem 3rem; } }
+</style>

@@ -12,6 +12,9 @@ import { 낼만한가 } from '../lib/company-page.mjs';
 import { 업종주소 } from '../lib/sector-en.mjs';
 /* 🔴 [2026-09-23 · 5번] 일본 상장사 지면 3,707장. 같은 까닭으로 여기에 넣는다 */
 import jp from '../data/japan-financials-tape.json';
+/* 🔴 [2026-09-23 · 5번] 대만 상장사 지면. 같은 까닭으로 여기에 넣는다 */
+import tw from '../data/taiwan-financials-tape.json';
+import { 낼만한가 as tw낼만한가 } from '../lib/taiwan-company-page.mjs';
 import { 낼만한가 as jp낼만한가, 업종주소 as jp업종주소 } from '../lib/japan-company-page.mjs';
 
 type Video = { title: string; description: string; thumbnail: string; content: string };
@@ -26,6 +29,7 @@ export function getStaticPaths() {
     { params: { section: 'pages' } },
     { params: { section: 'companies' } },
     { params: { section: 'japan' } },
+    { params: { section: 'taiwan' } },
     ...CATEGORIES.map((c) => ({ params: { section: c.slug } })),
   ];
 }
@@ -97,6 +101,17 @@ export const GET: APIRoute = async ({ params }) => {
     }
     for (const s2 of [...업종들].sort()) {
       것.push({ loc: '/japan/sector/' + s2, changefreq: 'weekly', priority: '0.7' });
+    }
+    urls = 것;
+  } else if (section === 'taiwan') {
+    /* 🔴 [2026-09-23 · 5번] 대만 상장사 지면 + 목록 1.
+       ⚠ 업종 지면은 아직 없다 — TWSE 가 업종 «코드»만 주고 이름을 안 준다.
+         코드에 영문 이름을 짐작해 붙이지 않는다. 사전이 생기면 그때 더한다. */
+    const 행들 = ((tw as any).rows as any[]).filter((r) => tw낼만한가(r));
+    const 주소표 = 주소표만들기(행들);
+    const 것: Url[] = [{ loc: '/taiwan/companies', changefreq: 'weekly', priority: '0.9' }];
+    for (const r of 행들) {
+      것.push({ loc: '/taiwan/company/' + 주소표.get(String(r.code)), changefreq: 'weekly', priority: '0.6' });
     }
     urls = 것;
   } else if (section === 'pages') {

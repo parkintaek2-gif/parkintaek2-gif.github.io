@@ -1,0 +1,264 @@
+---
+/*
+ * `/taiwan/company/[slug]` — **대만 상장사 한 곳의 재무 지면.** 한 자료로 1,000장 남짓이 선다.
+ *
+ * ── 🔴 왜 (2026-09-23 · 5번) ──────────────────────────────────────────
+ * 사장님: 「사우디, 상하이 외 할 곳은?」 → 재서 대만을 1순위로 올렸고 「응」을 받았다.
+ * TWSE 가 OpenAPI 를 열쇠 없이 열었는데 **항목·회사명이 중국어**다 —
+ * 한국 DART 와 똑같은 「언어 장벽형 기회」다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ─────────────────────────────────────────────
+ * ⛔ **회사 상호를 중국어로 화면에 내지 않는다.** 영문 매체다.
+ *   ⇒ 중국어 상호는 JSON-LD 의 alternateName 에만 둔다.
+ * ⛔ **환율을 만들어 곱하지 않는다.** 대만달러는 대만달러로 적는다.
+ * ⛔ **못 잰 칸을 0 으로 채우지 않는다.**
+ * ⛔ **투자 판단을 적지 않는다.**
+ * 🔴 **이 자료는 «분기» 재무제표다.** 한국·일본(연간)과 기간이 다르다 —
+ *   지면이 그것을 먼저 말한다. 남의 나라 수와 나란히 놓을 때 읽는 사람이 속지 않게.
+ * 🔴 출처표시는 라이선스의 «의무»다(OGDL 三(二)) — 빠뜨리면 허락 자체가 없던 것이 된다.
+ */
+import Base from '../../../layouts/Base.astro';
+import { SITE_URL } from '../../../consts';
+import tape from '../../../data/taiwan-financials-tape.json';
+import { 주소표만들기 } from '../../../lib/company-slug.mjs';
+import { 재무줄, 회사줄, 낼만한가, 분기말 } from '../../../lib/taiwan-company-page.mjs';
+
+export async function getStaticPaths() {
+  const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
+  const 주소표 = 주소표만들기(행들);
+
+  /* 업종 코드로 묶는다 — ⚠ TWSE 는 코드(「24」)만 주고 이름을 안 준다.
+     ⛔ 코드를 영문 업종명으로 «짐작해» 옮기지 않는다. 그래서 업종 «지면»은 아직 안 만들고,
+       같은 코드를 쓰는 회사끼리 서로 가리키게만 해 둔다. 사전이 생기면 그때 이름을 붙인다. */
+  const 갈래별 = new Map<string, Array<{ code: string; slug: string; name: string }>>();
+  for (const r of 행들) {
+    const s = String(r.industry_code || '').trim();
+    if (!s) continue;
+    if (!갈래별.has(s)) 갈래별.set(s, []);
+    갈래별.get(s)!.push({ code: String(r.code), slug: 주소표.get(String(r.code))!, name: String(r.name_en) });
+  }
+  for (const v of 갈래별.values()) v.sort((a, b) => a.name.localeCompare(b.name, 'en'));
+
+  return 행들.map((r) => {
+    const 갈래 = String(r.industry_code || '').trim();
+    const 한벌 = 갈래 ? (갈래별.get(갈래) ?? []) : [];
+    return {
+      params: { slug: 주소표.get(String(r.code))! },
+      props: {
+        code: String(r.code),
+        nameEn: String(r.name_en).trim(),
+        nameZh: String(r.name || '').trim(),
+        chairman: r.chairman || null,
+        줄: 재무줄(r),
+        회사: 회사줄(r),
+        기간: 분기말(r),
+        같은갈래: 한벌.filter((x) => x.code !== String(r.code)).slice(0, 12),
+        갈래회사수: 한벌.length,
+      },
+    };
+  });
+}
+
+const { code, nameEn, nameZh, chairman, 줄, 회사, 기간, 같은갈래, 갈래회사수 } = Astro.props as any;
+
+const bn = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
+const pct = (n: number | null) =>
+  n == null ? '—' : `${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
+const num = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 0 });
+const x2 = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 2 });
+
+const title = `${nameEn} — reported financials (Taiwan)`;
+const 설명줄 = 줄 && 줄.revenue != null
+  ? `${nameEn} (${code}) reported TWD ${bn(줄.revenue)}bn of revenue in its ${기간 ?? 'latest'} filing.`
+  : `${nameEn} (${code}) — financials as filed with the Taiwan Stock Exchange.`;
+const description = `${설명줄} Revenue, operating profit, net profit, assets, liabilities and equity as filed through the TWSE open data service, with the ratios computed from those figures.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Corporation',
+  '@id': `${SITE_URL}/taiwan/company/${Astro.params.slug}#corporation`,
+  name: nameEn,
+  alternateName: nameZh || undefined,
+  tickerSymbol: code,
+  url: `${SITE_URL}/taiwan/company/${Astro.params.slug}`,
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs">
+      <a href="/">SeoulMarkets</a> <span>›</span> <a href="/taiwan/companies">Taiwan companies</a>
+    </nav>
+
+    <header>
+      <h1>{nameEn}</h1>
+      <p class="sub">
+        <span class="chip">{code}</span>
+        <span class="chip">Taiwan</span>
+        {기간 && <span class="chip">{기간}</span>}
+      </p>
+      <p class="lede">{설명줄}</p>
+    </header>
+
+    <p class="warn top">
+      <b>These are quarterly figures.</b> The Taiwan Stock Exchange publishes company accounts by
+      quarter, so this page is not directly comparable with the annual figures on our Korean and
+      Japanese company pages. Compare it with another Taiwanese filing, or with the same company's
+      earlier quarters.
+    </p>
+
+    <section>
+      <h2>Reported financials</h2>
+      <p class="note">
+        Figures are as filed, in billions of New Taiwan dollars (TWD bn). We do not convert to
+        dollars — an exchange rate would be a number we made up, not one the company reported.
+      </p>
+      <div class="scroll">
+        <table>
+          <tbody>
+            <tr><th>Period</th><td>{기간 ?? '—'}</td></tr>
+            <tr><th>Revenue</th><td>{bn(줄?.revenue ?? null)}</td></tr>
+            <tr>
+              <th>Operating profit</th>
+              <td class={줄?.operating != null && 줄.operating < 0 ? 'neg' : ''}>{bn(줄?.operating ?? null)}</td>
+            </tr>
+            <tr>
+              <th>Pre-tax profit</th>
+              <td class={줄?.pretax != null && 줄.pretax < 0 ? 'neg' : ''}>{bn(줄?.pretax ?? null)}</td>
+            </tr>
+            <tr>
+              <th>Net profit</th>
+              <td class={줄?.net != null && 줄.net < 0 ? 'neg' : ''}>{bn(줄?.net ?? null)}</td>
+            </tr>
+            <tr><th>Total assets</th><td>{bn(줄?.assets ?? null)}</td></tr>
+            <tr><th>Total liabilities</th><td>{bn(줄?.liabilities ?? null)}</td></tr>
+            <tr><th>Equity</th><td>{bn(줄?.equity ?? null)}</td></tr>
+            <tr><th>Net asset value per share</th><td>{줄?.bps == null ? '—' : `TWD ${x2(줄.bps)}`}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Ratios from those figures</h2>
+      <p class="note">
+        Each ratio is computed from the two lines above it. A dash means an input was missing or the
+        denominator was zero — <b>not</b> that the value is zero.
+      </p>
+      <div class="scroll">
+        <table>
+          <tbody>
+            <tr>
+              <th>Operating margin</th>
+              <td class={줄?.영업이익률 != null && 줄.영업이익률 < 0 ? 'neg' : ''}>{pct(줄?.영업이익률 ?? null)}</td>
+            </tr>
+            <tr>
+              <th>Net margin</th>
+              <td class={줄?.순이익률 != null && 줄.순이익률 < 0 ? 'neg' : ''}>{pct(줄?.순이익률 ?? null)}</td>
+            </tr>
+            <tr><th>Equity / assets</th><td>{pct(줄?.자기자본비율 ?? null)}</td></tr>
+            <tr><th>Liabilities / equity</th><td>{x2(줄?.부채비율 ?? null)}</td></tr>
+            <tr>
+              <th>Return on equity <span class="aside">(this quarter, not annualised)</span></th>
+              <td class={줄?.ROE != null && 줄.ROE < 0 ? 'neg' : ''}>{pct(줄?.ROE ?? null)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="warn">
+        These are arithmetic, not judgements. We do not say whether a margin is good or bad, and we
+        do not rank companies against each other.
+      </p>
+    </section>
+
+    {회사 && (
+      <section>
+        <h2>The company itself</h2>
+        <div class="scroll">
+          <table>
+            <tbody>
+              <tr><th>Shares outstanding</th><td>{num(회사.shares)}</td></tr>
+              <tr><th>Paid-in capital</th><td>{회사.paidIn == null ? '—' : `TWD ${bn(회사.paidIn)}bn`}</td></tr>
+              {chairman && <tr><th>Chair</th><td>{chairman}</td></tr>}
+              {회사.website && (
+                <tr>
+                  <th>Company site</th>
+                  <td><a href={회사.website} rel="external noopener" target="_blank">{회사.website.replace(/^https?:\/\//, '')}</a></td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+
+    {같은갈래.length > 0 && (
+      <section>
+        <h2>Other companies under the same industry code</h2>
+        <p class="note">
+          {갈래회사수} listed companies file under this code. Showing {같은갈래.length}.
+          The exchange publishes the code but not a name for it, so we show the companies rather
+          than invent a label.
+        </p>
+        <ul class="peers">
+          {같은갈래.map((p: any) => (<li><a href={`/taiwan/company/${p.slug}`}>{p.name}</a></li>))}
+        </ul>
+      </section>
+    )}
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> Taiwan Stock Exchange (TWSE) open data service, released through Taiwan's
+        Open Government Data platform under the Open Government Data License, version 1.0 —
+        commercial use permitted with attribution.
+      </p>
+      <p>
+        <b>Not investment advice.</b> This page reports what was filed. It contains no
+        recommendation to buy, hold or sell, and no opinion on whether any figure is good or bad.
+      </p>
+      <p class="dim">
+        The exchange publishes income-statement and balance-sheet figures in thousands of New Taiwan
+        dollars; we multiply by 1,000 so every market on this site is stated in whole currency units.
+        Where a company did not report a line, we leave it blank rather than writing zero.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .crumbs { font-size: .85rem; color: #667; margin-bottom: 1rem; }
+  .crumbs a { color: #445; text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  .crumbs span { margin: 0 .35rem; color: #aab; }
+  h1 { font-size: 1.85rem; line-height: 1.25; margin: 0 0 .5rem; }
+  .sub { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin: 0 0 .9rem; }
+  .chip { display: inline-block; font-size: .78rem; padding: .16rem .5rem; border-radius: 999px;
+          background: #eef1f6; color: #445; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.2rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+  .aside { font-weight: 400; font-size: .82rem; color: #778; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 .7rem; }
+  .warn { font-size: .85rem; color: #665; background: #fbfaf4; border-left: 3px solid #ddd6b8;
+          padding: .55rem .8rem; margin: .8rem 0 0; }
+  .warn.top { margin: 0 0 1.5rem; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: .45rem .6rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  tbody th { text-align: left; font-weight: 500; color: #445; }
+  td a { color: #2a4d8f; }
+  td.neg { color: #a33; }
+  .dim { color: #889; }
+  .peers { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+           gap: .3rem 1rem; list-style: none; padding: 0; margin: .5rem 0 0; }
+  .peers a { font-size: .92rem; color: #2a4d8f; text-decoration: none; }
+  .peers a:hover { text-decoration: underline; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
+         font-size: .84rem; color: #556; }
+  .src p { margin: .5rem 0; }
+  @media (max-width: 640px) { h1 { font-size: 1.45rem; } .wrap { padding: 1rem .8rem 3rem; } }
+</style>
