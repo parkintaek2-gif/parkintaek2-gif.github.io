@@ -1,0 +1,191 @@
+---
+/**
+ * /100y/nps-cap-size — 국민연금 상한에 눌린 사람, 회사 규모가 클수록 많다
+ *
+ * ⛔ 3자 순위 인용이 아니다 — 국민연금 가입 사업장 내역(공공데이터포털)을
+ *   100yearmap이 직접 집계한 «이슈 메이킹» 지면이다. /nps-cap-region 과 같은
+ *   원자료(nps-cap-share.json)의 다른 축(규모)이다 — 지역 지면과 겹치지 않는다.
+ * ⛔ 판정하지 않는다 — 큰 회사가 "좋다"고 말하지 않는다. 인과도 확정하지 않는다.
+ * ⚠ 업종 표는 표본이 얇으면 순위가 우연으로 흔들린다 — 사람 5,000명 이상인
+ *   업종만 골라 낸다(그 밑은 표에서 뺀다고 지면에 적는다).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
+import 원본 from '../../../data/100yearmap/nps-cap-share.json';
+
+const 자료 = 원본 as any;
+const 출처 = 자료.출처;
+const 전체 = 자료.전체;
+
+const 규모 = ([...자료.규모] as any[]).sort((a, b) => b.상한걸린비율 - a.상한걸린비율);
+const 일위 = 규모[0];
+const 꼴찌 = 규모[규모.length - 1];
+
+const 최소표본 = 5000;
+const 업종전체 = 자료.업종 as any[];
+const 업종 = [...업종전체].filter((r) => r.사람 >= 최소표본).sort((a, b) => b.상한걸린비율 - a.상한걸린비율).slice(0, 5);
+
+const desc =
+  `국민연금 가입 사업장 내역으로 재면, 상한(월 573,300원)에 눌린 사람 비율이 ` +
+  `${일위.규모} 회사에서 ${일위.상한걸린비율}%로 ${꼴찌.규모} 회사(${꼴찌.상한걸린비율}%)의 ` +
+  `${Math.round(일위.상한걸린비율 / 꼴찌.상한걸린비율)}배입니다. 전국 평균은 ${전체.상한걸린비율}%입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '회사가 크면 국민연금 상한에 눌린 사람이 정말 더 많나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${일위.규모} 회사는 ${일위.상한걸린비율}%, ${꼴찌.규모} 회사는 ${꼴찌.상한걸린비율}%입니다 — 규모가 커질수록 비율이 꾸준히 올라갑니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '이게 큰 회사가 더 좋다는 뜻인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '아닙니다. 이 지면은 상한에 걸린 사람의 비율만 셀 뿐, 만족도나 근무환경을 재지 않습니다. 상한에 걸렸다는 것은 「사업장 평균 고지액이 573,300원 이상」이라는 뜻이지 개개인의 형편을 말하지 않습니다.',
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`국민연금 상한에 눌린 사람, ${일위.규모} 회사가 ${일위.상한걸린비율}%입니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    국민연금 상한에 눌린 사람<br class="pcbr" />
+    회사 규모가 클수록 많습니다
+  </h1>
+
+  <p class="sub">
+    {출처.이름}({출처.데이터셋 ? '데이터셋 ' + 출처.데이터셋 : ''})를 100yearmap이 직접 집계했습니다.
+    전국 <strong>{전체.사람.toLocaleString()}명</strong> 중{' '}
+    <strong>{전체.눌린사람.toLocaleString()}명({전체.상한걸린비율}%)</strong>이
+    월 고지액 상한(<strong>573,300원</strong>)에 걸린 사업장 소속입니다.
+  </p>
+
+  <div class="warn">
+    <p>
+      규모별로 나누면 <strong>{일위.규모}</strong> 회사가 <strong>{일위.상한걸린비율}%</strong>로
+      가장 높고, <strong>{꼴찌.규모}</strong> 회사({꼴찌.상한걸린비율}%)가 가장 낮습니다 —
+      {Math.round(일위.상한걸린비율 / 꼴찌.상한걸린비율)}배 차이입니다. 일곱 구간이 규모 순서
+      그대로 오르내려, 중간에 뒤집히는 곳이 없습니다.
+    </p>
+  </div>
+
+  <h2>회사 규모별 — 일곱 구간</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>순위</th><th>규모</th><th>상한걸린비율</th><th>가입자 수</th></tr></thead>
+      <tbody>
+        {규모.map((r, i) => (
+          <tr>
+            <td>{i + 1}위</td>
+            <td>{r.규모}</td>
+            <td><strong>{r.상한걸린비율}%</strong></td>
+            <td>{r.사람.toLocaleString()}명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 규모는 그 사업장에 등록된 가입자 수로 가른 것입니다. {일위.규모} 회사는{' '}
+    {일위.사업장.toLocaleString()}곳뿐인데 가입자는 {일위.사람.toLocaleString()}명입니다 —
+    사업장 수는 적어도 사람 수는 가장 큰 구간입니다.
+  </p>
+
+  <h2>업종으로 보면 — 사람 {최소표본.toLocaleString()}명 이상인 업종만</h2>
+  <p class="note">
+    업종은 {업종전체.length.toLocaleString()}개나 되고, 그중 다수는 가입자가 몇십~몇백 명뿐이라
+    비율이 우연으로 크게 흔들립니다. 그래서 사람 {최소표본.toLocaleString()}명이 안 되는 업종은
+    이 표에서 뺐습니다 — 그래도 {업종전체.filter((r: any) => r.사람 >= 최소표본).length}개가 남습니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>순위</th><th>업종</th><th>상한걸린비율</th><th>가입자 수</th></tr></thead>
+      <tbody>
+        {업종.map((r, i) => (
+          <tr>
+            <td>{i + 1}위</td>
+            <td>{r.업종}</td>
+            <td><strong>{r.상한걸린비율}%</strong></td>
+            <td>{r.사람.toLocaleString()}명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 1위 «{업종[0].업종}»은 가입자 {업종[0].사람.toLocaleString()}명 중 {업종[0].상한걸린비율}%가
+    상한에 걸립니다 — 이 업종은{' '}
+    <a href="/nps-cap-region">지역별 지면</a>의 업종 표에도 1위로 나와 있습니다(같은 원자료,
+    다른 축을 보여드리는 것뿐입니다).
+  </p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    <li>회사 규모가 개인의 실제 월급을 말하지 않습니다 — «사업장 평균 고지액»이 상한에 닿았다는 뜻입니다.</li>
+    <li>왜 큰 회사일수록 비율이 높은지 이 자료로는 알 수 없습니다 — 업종 구성·연차 구조 등 여러 원인이 섞여 있을 수 있고, 저희는 원인을 지어내지 않습니다.</li>
+    <li>{(자료.덮는범위 as string)}</li>
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 국민연금 가입 자료를
+    {' '}집계해 보여줄 뿐, 어느 회사 규모가 더 좋은지 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — {출처.이름} · 이용허락범위: {출처.이용허락범위}
+  </p>
+
+  <p class="note">
+    <a href="/nps-cap-region">← 같은 자료의 지역·업종 축은 여기서 봅니다</a>
+  </p>
+
+  <HundredCardnews 벌="국민연금상한-회사규모" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
+
+  <HundredAgeWalk 키="nps-cap-size" />
+
+  <NextQuestionBrief 모은것="국민연금공단 국민연금 가입 사업장 내역" />
+
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/nps-cap-size"></div>
+</HundredYear>
+
+<style>
+  .pcbr { display: none; }
+  @media (min-width: 640px) { .pcbr { display: inline; } }
+  .sub { font-size: 1.05rem; line-height: 1.7; }
+  .warn {
+    background: rgba(211, 74, 74, 0.06);
+    border-left: 3px solid rgba(211, 74, 74, 0.4);
+    padding: .9rem 1.05rem;
+    border-radius: 0 .5rem .5rem 0;
+    margin: 1.2rem 0;
+  }
+  .tablewrap { overflow-x: auto; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  th, td { padding: .5rem .6rem; border-bottom: 1px solid rgba(128,128,128,.2); text-align: right; }
+  thead th { font-size: .82rem; opacity: .65; border-bottom: 2px solid rgba(128,128,128,.35); }
+  thead th:nth-child(2), tbody td:nth-child(2) { text-align: left; }
+  thead th:first-child, tbody td:first-child { text-align: left; width: 3rem; }
+  .note { font-size: .9rem; opacity: .75; margin: .6rem 0; }
+</style>
