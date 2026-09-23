@@ -21,18 +21,21 @@ import Base from '../../../layouts/Base.astro';
 import { SITE_URL } from '../../../consts';
 import tape from '../../../data/taiwan-financials-tape.json';
 import { 주소표만들기 } from '../../../lib/company-slug.mjs';
-import { 재무줄, 회사줄, 낼만한가, 분기말, 누계기간 } from '../../../lib/taiwan-company-page.mjs';
+import {
+  재무줄, 회사줄, 시장줄, 낼만한가, 분기말, 누계기간, 업종주소, 많이어긋났나,
+} from '../../../lib/taiwan-company-page.mjs';
 
 export async function getStaticPaths() {
   const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
   const 주소표 = 주소표만들기(행들);
 
-  /* 업종 코드로 묶는다 — ⚠ TWSE 는 코드(「24」)만 주고 이름을 안 준다.
-     ⛔ 코드를 영문 업종명으로 «짐작해» 옮기지 않는다. 그래서 업종 «지면»은 아직 안 만들고,
-       같은 코드를 쓰는 회사끼리 서로 가리키게만 해 둔다. 사전이 생기면 그때 이름을 붙인다. */
+  /* 업종으로 묶는다.
+     🔴 첫 판에서는 코드(「24」)뿐이라 「거래소가 이름을 안 준다」고 적고 업종 지면을 안 만들었다.
+       틀렸다 — 같은 API 의 t187ap14_L 이 「水泥工業」처럼 이름을 준다. 우리가 안 찾은 것이었다.
+     ⚠ 이제 묶는 기준이 «코드»가 아니라 «이름»이다. 이름을 못 옮긴 회사는 묶이지 않는다. */
   const 갈래별 = new Map<string, Array<{ code: string; slug: string; name: string }>>();
   for (const r of 행들) {
-    const s = String(r.industry_code || '').trim();
+    const s = String(r.industry_en || '').trim();
     if (!s) continue;
     if (!갈래별.has(s)) 갈래별.set(s, []);
     갈래별.get(s)!.push({ code: String(r.code), slug: 주소표.get(String(r.code))!, name: String(r.name_en) });
@@ -40,7 +43,7 @@ export async function getStaticPaths() {
   for (const v of 갈래별.values()) v.sort((a, b) => a.name.localeCompare(b.name, 'en'));
 
   return 행들.map((r) => {
-    const 갈래 = String(r.industry_code || '').trim();
+    const 갈래 = String(r.industry_en || '').trim();
     const 한벌 = 갈래 ? (갈래별.get(갈래) ?? []) : [];
     return {
       params: { slug: 주소표.get(String(r.code))! },
@@ -54,6 +57,11 @@ export async function getStaticPaths() {
         기간: 분기말(r),
         /* 🔴 손익은 «그 분기»가 아니라 연초부터의 누계다 — 지면이 그렇게 말한다 */
         덮는기간: 누계기간(r),
+        시장: 시장줄(r),
+        어긋났나: 많이어긋났나(시장줄(r)),
+        업종: 갈래 || null,
+        업종한자: String(r.industry_zh || '') || null,
+        업종주소값: 갈래 ? 업종주소(갈래) : null,
         같은갈래: 한벌.filter((x) => x.code !== String(r.code)).slice(0, 12),
         갈래회사수: 한벌.length,
       },
@@ -61,10 +69,14 @@ export async function getStaticPaths() {
   });
 }
 
-const { code, nameEn, nameZh, chairman, 줄, 회사, 기간, 덮는기간, 같은갈래, 갈래회사수 } = Astro.props as any;
+const {
+  code, nameEn, nameZh, chairman, 줄, 회사, 기간, 덮는기간, 시장, 어긋났나,
+  업종, 업종한자, 업종주소값, 같은갈래, 갈래회사수,
+} = Astro.props as any;
 
 const bn = (n: number | null) =>
-  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
+  /* ⛔ -0.04 가 「-0」 으로 찍혀 «0인데 음수»처럼 보였다. 소수 한 자리를 늘 남긴다 */
+  n == null ? '—' : n.toLocaleString('en-GB', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const pct = (n: number | null) =>
   n == null ? '—' : `${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
 const num = (n: number | null) =>
@@ -100,6 +112,7 @@ const jsonLd = {
       <p class="sub">
         <span class="chip">{code}</span>
         <span class="chip">Taiwan</span>
+        {업종주소값 && <a class="chip link" href={`/taiwan/sector/${업종주소값}`}>{업종}</a>}
         {덮는기간 ? <span class="chip">{덮는기간.짧게}</span> : 기간 && <span class="chip">{기간}</span>}
       </p>
       <p class="lede">{설명줄}</p>
@@ -181,6 +194,54 @@ const jsonLd = {
       </p>
     </section>
 
+    {시장 && (
+      <section>
+        <h2>
+          What the market paid
+          {시장.priceDate && <span class="aside"> — close on {시장.priceDate}</span>}
+        </h2>
+        <p class="note">
+          A closing price is one moment; the figures above cover a whole period. We put them on the
+          same page because both are filed by the exchange, not because they are measured the same
+          way.
+        </p>
+        <div class="scroll">
+          <table>
+            <tbody>
+              <tr><th>Closing price</th><td>{시장.close == null ? '—' : `TWD ${x2(시장.close)}`}</td></tr>
+              <tr>
+                <th>Market value <span class="aside">(close × shares outstanding)</span></th>
+                <td>{시장.marketCap == null ? '—' : `TWD ${bn(시장.marketCap)}bn`}</td>
+              </tr>
+              <tr>
+                <th>Price / earnings</th>
+                <td>{x2(시장.per)}</td>
+              </tr>
+              <tr><th>Price / book</th><td>{x2(시장.pbr)}</td></tr>
+              <tr>
+                <th>Dividend yield</th>
+                <td>{시장.dividendYield == null ? '—' : `${x2(시장.dividendYield)}%`}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          The exchange leaves price / earnings blank for a company with no trailing profit, so a
+          dash there is not a zero.
+        </p>
+        {어긋났나 && (
+          <p class="warn">
+            <b>These two figures disagree, and we have not resolved it.</b> The closing price is
+            TWD {x2(시장.close)}, but price / book ({x2(시장.pbr)}) multiplied by net asset value
+            per share ({x2(줄?.bps ?? null)}) implies about
+            TWD {x2(시장.pbr != null && 줄?.bps != null ? 시장.pbr * 줄.bps : null)}. Both come from
+            the exchange. We report both rather than pick one, and the market value above uses the
+            closing price. Treat it with care until the filing is corrected.
+          </p>
+        )}
+      </section>
+    )}
+
     {회사 && (
       <section>
         <h2>The company itself</h2>
@@ -204,11 +265,14 @@ const jsonLd = {
 
     {같은갈래.length > 0 && (
       <section>
-        <h2>Other companies under the same industry code</h2>
+        <h2>
+          Other companies in {업종 ?? 'the same classification'}
+          {업종한자 && <span class="aside" lang="zh-Hant"> {업종한자}</span>}
+        </h2>
         <p class="note">
-          {갈래회사수} listed companies file under this code. Showing {같은갈래.length}.
-          The exchange publishes the code but not a name for it, so we show the companies rather
-          than invent a label.
+          {갈래회사수} listed companies file under this classification. Showing {같은갈래.length}.
+          {업종주소값 && <> See <a href={`/taiwan/sector/${업종주소값}`}>all {갈래회사수}, with the
+          medians for the classification</a>.</>}
         </p>
         <ul class="peers">
           {같은갈래.map((p: any) => (<li><a href={`/taiwan/company/${p.slug}`}>{p.name}</a></li>))}
@@ -245,6 +309,9 @@ const jsonLd = {
   .sub { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin: 0 0 .9rem; }
   .chip { display: inline-block; font-size: .78rem; padding: .16rem .5rem; border-radius: 999px;
           background: #eef1f6; color: #445; }
+  .chip.link { color: #2a4d8f; text-decoration: none; }
+  .chip.link:hover { text-decoration: underline; }
+  .note a { color: #2a4d8f; }
   .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.2rem; }
   section { margin: 2rem 0; }
   h2 { font-size: 1.2rem; margin: 0 0 .5rem; }

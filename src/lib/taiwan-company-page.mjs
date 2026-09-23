@@ -74,6 +74,47 @@ export function 재무줄(행) {
   };
 }
 
+/**
+ * 시장이 매긴 값 — 종가·시가총액·PER·PBR·배당수익률.
+ *
+ * 🔴 **시가총액은 거래소가 준 종가에 발행주식수를 곱한 것**이지, 우리가 만든 수가 아니다.
+ *   그리고 «PBR × 주당순자산»이라는 다른 길로 검산해 둔 값을 함께 들고 온다 —
+ *   두 길이 5% 넘게 어긋나면 지면이 그 사실을 «말한다». ⛔ 어긋난다고 수를 고치지 않는다.
+ *   1,070곳을 맞대어 보니 어긋난 곳은 1곳뿐이었다(6949 PELL BMT).
+ *
+ * ⚠ 이 수는 «어느 날짜의» 값이다. 손익(반년 누계)과 기간이 다르므로 지면이 날짜를 적는다.
+ */
+export function 시장줄(행) {
+  if (!행) return null;
+  const 것 = {
+    close: 행.close_twd == null ? null : Number(행.close_twd),
+    priceDate: 행.price_date || null,
+    marketCap: 십억(행.market_cap_twd),
+    per: 행.per == null ? null : Number(행.per),
+    pbr: 행.pbr == null ? null : Number(행.pbr),
+    dividendYield: 행.dividend_yield_pct == null ? null : Number(행.dividend_yield_pct),
+    crossCheck: 행.price_cross_check == null ? null : Number(행.price_cross_check),
+  };
+  return Object.values(것).some((v) => v != null) ? 것 : null;
+}
+
+/** 두 길로 잰 주가가 많이 어긋났나 — 지면이 그때만 말한다 */
+export const 어긋남선 = 0.05;
+export function 많이어긋났나(시장) {
+  return !!시장 && 시장.crossCheck != null && 시장.crossCheck > 어긋남선;
+}
+
+/**
+ * 업종 영문 이름 → 주소 조각. ⛔ 옮긴 이름이 없으면 null — 주소를 지어내지 않는다.
+ * ⚠ 이름이 곧 주소이므로, 사전의 영문 이름을 바꾸면 그 지면의 주소가 바뀐다.
+ */
+export function 업종주소(이름) {
+  const s = String(이름 ?? '').trim().toLowerCase();
+  if (!s) return null;
+  const 주소 = s.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  return 주소 || null;
+}
+
 /** 회사 됨됨이 — 재무가 아닌 것. 사람은 «곁들이»라 이름 한 줄만 둔다 */
 export function 회사줄(행) {
   if (!행) return null;
@@ -191,6 +232,23 @@ if (process.argv?.[1]?.endsWith('taiwan-company-page.mjs') && process.argv.inclu
   본다('Q4 는 한 해 전부', 누계기간({ year: 2026, quarter: 4 }).달수 === 12);
   본다('⛔ 분기를 못 쟀으면 기간도 없다', 누계기간({ year: 2026 }) === null && 누계기간(null) === null);
   본다('⛔ 없는 분기 번호를 만들지 않는다', 누계기간({ year: 2026, quarter: 9 }) === null);
+
+  /* ── 시장이 매긴 값 ── */
+  const 시 = 시장줄({
+    close_twd: 2460, price_date: '2026-09-22', market_cap_twd: 63793630364820,
+    per: 28.52, pbr: 9.92, dividend_yield_pct: 1.23, price_cross_check: 0.0003,
+  });
+  본다('종가·시가총액을 낸다', 시.close === 2460 && Math.abs(시.marketCap - 63793.63036482) < 1e-6);
+  본다('날짜를 남긴다 — 손익과 기간이 다르다', 시.priceDate === '2026-09-22');
+  본다('⛔ 아무것도 없으면 null', 시장줄({ code: 'x' }) === null && 시장줄(null) === null);
+  본다('🔴 두 길이 맞으면 조용하다', 많이어긋났나(시) === false);
+  본다('🔴 5% 넘게 어긋나면 지면이 말한다', 많이어긋났나(시장줄({ price_cross_check: 0.95 })) === true);
+  본다('⛔ 못 쟀으면 말하지 않는다', 많이어긋났나(시장줄({ close_twd: 1 })) === false);
+
+  본다('업종 주소를 만든다', 업종주소('Iron and steel') === 'iron-and-steel');
+  본다('쉼표도 한 이음으로', 업종주소('Tourism, hotels and catering') === 'tourism-hotels-and-catering');
+  본다('⛔ 이름이 없으면 주소도 없다', 업종주소(null) === null && 업종주소('  ') === null);
+  본다('⛔ 한자만이면 주소를 지어내지 않는다', 업종주소('水泥工業') === null);
 
   const 진 = 잰다.filter(([, v]) => !v);
   for (const [이름, v] of 잰다) console.log(`${v ? '✅' : '🔴'} ${이름}`);

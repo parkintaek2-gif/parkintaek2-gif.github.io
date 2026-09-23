@@ -4,13 +4,15 @@
  *
  * 지면을 찍어 놓고 문이 없으면 검색엔진이 그 안으로 못 들어간다.
  * ⛔ 등수를 매기지 않는다. 회사는 이름 차례다.
- * ⛔ 업종 코드에 이름을 «짐작해» 붙이지 않는다 — TWSE 가 코드만 주고 이름을 안 준다.
+ * 🔴 처음에 「TWSE 가 업종 코드만 주고 이름을 안 준다」고 적었다. 틀렸다 —
+ *   같은 API 의 t187ap14_L 이 「水泥工業」처럼 이름을 준다. 우리가 안 찾은 것이었다.
+ * ⛔ 그래도 사전에 없는 이름은 여전히 null 이다. 짐작해서 붙이지 않는다.
  */
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import tape from '../../data/taiwan-financials-tape.json';
 import { 주소표만들기 } from '../../lib/company-slug.mjs';
-import { 재무줄, 낼만한가, 가운데값, 누계기간 } from '../../lib/taiwan-company-page.mjs';
+import { 재무줄, 시장줄, 낼만한가, 가운데값, 누계기간, 업종주소 } from '../../lib/taiwan-company-page.mjs';
 
 const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
 const meta = (tape as any)._meta ?? {};
@@ -25,6 +27,8 @@ const 회사 = 행들.map((r) => {
     revenue: 줄!.revenue,
     net: 줄!.net,
     순이익률: 줄!.순이익률,
+    marketCap: 시장줄(r)?.marketCap ?? null,
+    업종: String(r.industry_en || '') || null,
     /* 🔴 손익은 그 분기가 아니라 연초부터의 누계다 — 「Q2」가 아니라 「H1」로 적는다 */
     기간: 누계기간(r)?.짧게 ?? null,
   };
@@ -35,9 +39,22 @@ const 이익률들 = 회사.map((c) => c.순이익률).filter((n): n is number =
 const 적자 = 회사.filter((c) => c.net != null && c.net < 0).length;
 const 순익잰곳 = 회사.filter((c) => c.net != null).length;
 const 기간들 = [...new Set(회사.map((c) => c.기간).filter(Boolean))];
+const 시총들 = 회사.map((c) => c.marketCap).filter((n): n is number => n != null);
+const 시총합 = 시총들.reduce((a, b) => a + b, 0);
+/* 업종 문 — 이름이 있는 곳만. ⛔ 못 옮긴 이름으로 지면을 만들지 않았으니 여기도 안 건다 */
+const 업종문 = [...회사.reduce((m, c) => {
+  if (!c.업종) return m;
+  m.set(c.업종, (m.get(c.업종) ?? 0) + 1);
+  return m;
+}, new Map<string, number>())]
+  .map(([이름, 수]) => ({ 이름, 수, 주소: 업종주소(이름) }))
+  .filter((x) => x.주소)
+  .sort((a, b) => a.이름.localeCompare(b.이름, 'en'));
+const 업종없는곳 = 회사.filter((c) => !c.업종).length;
 
 const bn = (n: number | null) =>
-  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
+  /* ⛔ -0.04 가 「-0」 으로 찍혀 «0인데 음수»처럼 보였다. 소수 한 자리를 늘 남긴다 */
+  n == null ? '—' : n.toLocaleString('en-GB', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const pct = (a: number, b: number) =>
   b === 0 ? '—' : `${((a / b) * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
 const pc = (n: number | null) =>
@@ -80,6 +97,8 @@ const jsonLd = {
       <div><span class="k">Reported a net loss</span><span class="v">{pct(적자, 순익잰곳)}</span><span class="s">{적자} of {순익잰곳}</span></div>
       <div><span class="k">Median revenue</span><span class="v">{bn(가운데값(매출들))}</span><span class="s">TWD bn · {매출들.length} companies</span></div>
       <div><span class="k">Median net margin</span><span class="v">{pc(가운데값(이익률들))}</span><span class="s">{이익률들.length} had both inputs</span></div>
+      <div><span class="k">Median market value</span><span class="v">{bn(가운데값(시총들))}</span><span class="s">TWD bn · {시총들.length} companies</span></div>
+      <div><span class="k">Combined market value</span><span class="v">{bn(시총합 > 0 ? 시총합 / 1000 : null)}</span><span class="s">TWD trn · the {시총들.length} above, added up</span></div>
     </section>
 
     <p class="note">
@@ -88,18 +107,33 @@ const jsonLd = {
     </p>
 
     <section>
+      <h2>By classification</h2>
+      <p class="note">
+        {업종문.length} classifications, named by the exchange itself — we translated the names and
+        keep the Chinese on each page.
+        {업종없는곳 > 0 && ` ${업종없는곳} companies are not shown here because the exchange did not publish a classification for them; their own pages are still in the list below.`}
+      </p>
+      <ul class="sectors">
+        {업종문.map((s) => (
+          <li><a href={`/taiwan/sector/${s.주소}`}>{s.이름}</a> <span class="dim">{s.수}</span></li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
       <h2>Every company</h2>
       <p class="note">Listed by name, not by size — we do not rank them.</p>
       <div class="scroll">
         <table>
           <thead>
-            <tr><th>Company</th><th>Code</th><th>Revenue (TWD bn)</th><th>Net profit (TWD bn)</th><th>Net margin</th></tr>
+            <tr><th>Company</th><th>Code</th><th>Market value (TWD bn)</th><th>Revenue (TWD bn)</th><th>Net profit (TWD bn)</th><th>Net margin</th></tr>
           </thead>
           <tbody>
             {회사.map((c) => (
               <tr>
                 <td class="nm"><a href={`/taiwan/company/${c.slug}`}>{c.name}</a></td>
                 <td class="dim">{c.code}</td>
+                <td>{bn(c.marketCap)}</td>
                 <td>{bn(c.revenue)}</td>
                 <td class={c.net != null && c.net < 0 ? 'neg' : ''}>{bn(c.net)}</td>
                 <td class={c.순이익률 != null && c.순이익률 < 0 ? 'neg' : ''}>{pc(c.순이익률)}</td>
@@ -169,6 +203,11 @@ const jsonLd = {
   td.nm a:hover { text-decoration: underline; }
   td.neg { color: #a33; }
   .dim { color: #889; }
+  .sectors { list-style: none; padding: 0; margin: .5rem 0 0; display: grid; gap: .3rem 1rem;
+             grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); }
+  .sectors a { color: #2a4d8f; text-decoration: none; font-size: .95rem; }
+  .sectors a:hover { text-decoration: underline; }
+  .sectors .dim { margin-left: .35rem; }
   .more { list-style: none; padding: 0; margin: 0; display: grid; gap: .35rem; }
   .more a { color: #2a4d8f; text-decoration: none; }
   .more a:hover { text-decoration: underline; }

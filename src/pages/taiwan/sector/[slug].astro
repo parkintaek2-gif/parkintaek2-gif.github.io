@@ -1,0 +1,294 @@
+---
+/*
+ * `/taiwan/sector/[slug]` — **대만 상장사를 업종으로 묶어 본다.** 32장.
+ *
+ * ── 🔴 이 지면이 늦게 선 까닭 ─────────────────────────────────────────
+ * 첫 판에서 이 지면을 «안 만들었다». 기본정보의 `產業別` 이 「24」 같은 코드뿐이라
+ * 「거래소가 업종 이름을 안 준다」고 적고 넘어갔다. **틀린 판정이었다.**
+ * 같은 API 의 `t187ap14_L`(各產業EPS統計)이 같은 회사에 「水泥工業」처럼 이름을 준다.
+ *
+ * ⭐ 강령 그대로다 — **「우리가 못 찾은 것을 그쪽 탓으로 적지 않는다.」**
+ *   ADX 시가총액 때와 같은 잘못이었다. ⇒ 「그쪽이 안 준다」를 적기 전에 목록을 끝까지 읽는다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ───────────────────────────────────────────
+ * ⛔ 평균이 아니라 «가운데값»을 앞에 둔다. TSMC 한 곳이 평균을 통째로 끌어올린다 —
+ *   실제로 반도체 96곳의 시가총액 합에서 TSMC 가 대부분을 가진다.
+ *   「평균이 규범이 되는 순간 나침반이 아니라 압박이 된다.」
+ * ⛔ 등수를 매기지 않는다. 회사는 이름 차례로 늘어놓는다.
+ * ⛔ 환율을 만들어 곱하지 않는다. 대만달러는 대만달러로 적는다.
+ * ⚠ 업종 이름은 거래소가 낸 한자를 영문으로 옮긴 것이다 — 한자를 «함께» 내보여,
+ *   옮긴 말이 미덥지 않으면 손님이 원래 이름으로 확인할 수 있게 한다.
+ * ⚠ 손익은 «연초부터 누계»이고 시가총액은 «어느 하루»의 값이다. 기간이 다르다고 먼저 말한다.
+ */
+import Base from '../../../layouts/Base.astro';
+import { SITE_URL } from '../../../consts';
+import tape from '../../../data/taiwan-financials-tape.json';
+import { 주소표만들기 } from '../../../lib/company-slug.mjs';
+/* ⚠ getStaticPaths() 는 «격리되어» 돌아 이 파일 앞말의 선언을 못 본다 — 쓸 것은 다 모듈에서 가져온다 */
+import {
+  재무줄, 시장줄, 낼만한가, 가운데값, 업종주소, 누계기간,
+} from '../../../lib/taiwan-company-page.mjs';
+
+export async function getStaticPaths() {
+  const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
+  const 주소표 = 주소표만들기(행들);
+
+  const 업종별 = new Map<string, any[]>();
+  for (const r of 행들) {
+    const s = String(r.industry_en || '').trim();
+    if (!s) continue;                   /* ⛔ 옮긴 이름이 없는 곳으로 지면을 만들지 않는다 */
+    if (!업종별.has(s)) 업종별.set(s, []);
+    업종별.get(s)!.push(r);
+  }
+
+  const 길 = [];
+  for (const [업종, rs] of 업종별) {
+    const slug = 업종주소(업종);
+    if (!slug) continue;
+
+    const 회사 = rs.map((r) => {
+      const 줄 = 재무줄(r);
+      const 시 = 시장줄(r);
+      return {
+        code: String(r.code),
+        slug: 주소표.get(String(r.code))!,
+        name: String(r.name_en),
+        revenue: 줄!.revenue,
+        net: 줄!.net,
+        순이익률: 줄!.순이익률,
+        marketCap: 시?.marketCap ?? null,
+        per: 시?.per ?? null,
+        pbr: 시?.pbr ?? null,
+      };
+    }).sort((a, b) => a.name.localeCompare(b.name, 'en'));
+
+    const 시총들 = 회사.map((c) => c.marketCap).filter((n): n is number => n != null);
+    const 시총합 = 시총들.reduce((a, b) => a + b, 0);
+    const 가장큰 = 시총들.length ? Math.max(...시총들) : null;
+    const 기간 = 누계기간(rs[0]);
+
+    길.push({
+      params: { slug },
+      props: {
+        업종,
+        업종한자: String(rs[0]?.industry_zh ?? '') || null,
+        기간짧게: 기간?.짧게 ?? null,
+        시세날: rs.map((r) => r.price_date).find(Boolean) ?? null,
+        회사,
+        회사수: 회사.length,
+        시총잰곳: 시총들.length,
+        시총합: 시총합 > 0 ? 시총합 : null,
+        시총가운데: 가운데값(시총들),
+        매출가운데: 가운데값(회사.map((c) => c.revenue).filter((n): n is number => n != null)),
+        매출잰곳: 회사.filter((c) => c.revenue != null).length,
+        이익률가운데: 가운데값(회사.map((c) => c.순이익률).filter((n): n is number => n != null)),
+        이익률잰곳: 회사.filter((c) => c.순이익률 != null).length,
+        PER가운데: 가운데값(회사.map((c) => c.per).filter((n): n is number => n != null)),
+        PER잰곳: 회사.filter((c) => c.per != null).length,
+        적자: 회사.filter((c) => c.net != null && c.net < 0).length,
+        순익잰곳: 회사.filter((c) => c.net != null).length,
+        가장큰몫: 가장큰 != null && 시총합 > 0 ? 가장큰 / 시총합 : null,
+        가장큰이름: 가장큰 == null ? null : (회사.find((c) => c.marketCap === 가장큰)?.name ?? null),
+      },
+    });
+  }
+  return 길;
+}
+
+const {
+  업종, 업종한자, 기간짧게, 시세날, 회사, 회사수, 시총잰곳, 시총합, 시총가운데,
+  매출가운데, 매출잰곳, 이익률가운데, 이익률잰곳, PER가운데, PER잰곳,
+  적자, 순익잰곳, 가장큰몫, 가장큰이름,
+} = Astro.props as any;
+
+const bn = (n: number | null) =>
+  /* ⛔ -0.04 가 「-0」 으로 찍혀 «0인데 음수»처럼 보였다. 소수 한 자리를 늘 남긴다 */
+  n == null ? '—' : n.toLocaleString('en-GB', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const pc = (n: number | null) =>
+  n == null ? '—' : `${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
+const x2 = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 2 });
+const 몫 = (a: number, b: number) =>
+  b === 0 ? '—' : `${((a / b) * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
+
+const title = `${업종} — Taiwanese listed companies`;
+const description = `${회사수} companies listed in Taipei file under ${업종}. Median market value, median revenue, median net margin and the full list, from Taiwan Stock Exchange open data.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE_URL}/taiwan/sector/${Astro.params.slug}#collection`,
+  name: title,
+  url: `${SITE_URL}/taiwan/sector/${Astro.params.slug}`,
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs">
+      <a href="/">SeoulMarkets</a> <span>›</span> <a href="/taiwan/companies">Taiwan companies</a>
+      <span>›</span> {업종}
+    </nav>
+
+    <header>
+      <h1>{업종}</h1>
+      <p class="sub">
+        {업종한자 && <span class="chip" lang="zh-Hant">{업종한자}</span>}
+        <span class="chip">Taiwan</span>
+        {기간짧게 && <span class="chip">{기간짧게}</span>}
+      </p>
+      <p class="lede">
+        {회사수} companies listed on the Taiwan Stock Exchange file under this classification.
+      </p>
+    </header>
+
+    <p class="warn top">
+      <b>Two different clocks on this page.</b> Revenue and profit run from the start of the
+      financial year{기간짧게 ? ` (${기간짧게})` : ''}, because the exchange files those lines
+      cumulatively. Market value is the closing price on
+      {시세날 ? ` ${시세날}` : ' a single day'} multiplied by shares outstanding. Reading one
+      against the other compares a period with a moment.
+    </p>
+
+    <section>
+      <h2>The middle of this classification</h2>
+      <p class="note">
+        We show the median, not the average. One very large company would pull an average so far up
+        that the ordinary company in this classification would disappear from the page.
+      </p>
+      <div class="scroll">
+        <table>
+          <tbody>
+            <tr>
+              <th>Median market value</th>
+              <td>{시총가운데 == null ? '—' : `TWD ${bn(시총가운데)}bn`}</td>
+              <td class="dim">{시총잰곳} of {회사수} had a closing price and a share count</td>
+            </tr>
+            <tr>
+              <th>Combined market value</th>
+              <td>{시총합 == null ? '—' : `TWD ${bn(시총합)}bn`}</td>
+              <td class="dim">the {시총잰곳} companies above, added up</td>
+            </tr>
+            <tr>
+              <th>Median revenue <span class="aside">(year to date)</span></th>
+              <td>{매출가운데 == null ? '—' : `TWD ${bn(매출가운데)}bn`}</td>
+              <td class="dim">{매출잰곳} of {회사수} reported a revenue line</td>
+            </tr>
+            <tr>
+              <th>Median net margin</th>
+              <td>{pc(이익률가운데)}</td>
+              <td class="dim">{이익률잰곳} of {회사수} had both inputs</td>
+            </tr>
+            <tr>
+              <th>Median price / earnings</th>
+              <td>{x2(PER가운데)}</td>
+              <td class="dim">{PER잰곳} of {회사수} — the exchange leaves it blank for loss-makers</td>
+            </tr>
+            <tr>
+              <th>Reported a net loss</th>
+              <td>{순익잰곳 === 0 ? '—' : 몫(적자, 순익잰곳)}</td>
+              <td class="dim">{적자} of the {순익잰곳} that reported a profit line</td>
+            </tr>
+            {가장큰몫 != null && (
+              <tr>
+                <th>Largest company's share of the combined value</th>
+                <td>{pc(가장큰몫)}</td>
+                <td class="dim">{가장큰이름}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <p class="warn">
+        This describes the filings, not a ranking. We do not say which company is better placed, and
+        a large share of the sector's value is not by itself good or bad.
+      </p>
+    </section>
+
+    <section>
+      <h2>Every company in this classification</h2>
+      <p class="note">Listed by name, not by size — we do not rank them.</p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Market value (TWD bn)</th>
+              <th>Revenue (TWD bn)</th>
+              <th>Net profit (TWD bn)</th>
+              <th>Net margin</th>
+              <th>P/E</th>
+              <th>P/B</th>
+            </tr>
+          </thead>
+          <tbody>
+            {회사.map((c: any) => (
+              <tr>
+                <td class="nm"><a href={`/taiwan/company/${c.slug}`}>{c.name}</a></td>
+                <td>{bn(c.marketCap)}</td>
+                <td>{bn(c.revenue)}</td>
+                <td class={c.net != null && c.net < 0 ? 'neg' : ''}>{bn(c.net)}</td>
+                <td class={c.순이익률 != null && c.순이익률 < 0 ? 'neg' : ''}>{pc(c.순이익률)}</td>
+                <td>{x2(c.per)}</td>
+                <td>{x2(c.pbr)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        A dash means the exchange did not publish that line for this company — not that the value
+        is zero.
+      </p>
+    </section>
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> Taiwan Stock Exchange (TWSE) open data service, released through Taiwan's
+        Open Government Data platform under the Open Government Data License, version 1.0 —
+        commercial use permitted with attribution. The classification and its Chinese name
+        {업종한자 ? <span> (<span lang="zh-Hant">{업종한자}</span>)</span> : null} are the
+        exchange's own; the English wording is ours.
+      </p>
+      <p>
+        <b>Not investment advice.</b> This page reports what was filed and what the market closed
+        at. It contains no recommendation to buy, hold or sell.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 72rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .crumbs { font-size: .85rem; color: #667; margin-bottom: 1rem; }
+  .crumbs a { color: #445; text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  .crumbs span { margin: 0 .35rem; color: #aab; }
+  h1 { font-size: 1.85rem; line-height: 1.25; margin: 0 0 .5rem; }
+  .sub { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin: 0 0 .9rem; }
+  .chip { display: inline-block; font-size: .78rem; color: #445; background: #eef1f6;
+          border-radius: 999px; padding: .16rem .5rem; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.2rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+  .aside { font-size: .82rem; color: #778; font-weight: 400; }
+  .note { font-size: .88rem; color: #667; margin: .7rem 0 0; }
+  section > .note:first-of-type { margin: 0 0 .7rem; }
+  .warn { font-size: .85rem; color: #665; background: #fbfaf4; border-left: 3px solid #ddd6b8;
+          padding: .55rem .8rem; margin: .8rem 0 0; }
+  .warn.top { margin: 0 0 1.5rem; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: .45rem .6rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  thead th { text-align: right; font-size: .82rem; color: #556; border-bottom: 2px solid #d8dbe2; }
+  thead th:first-child, tbody td.nm, tbody th { text-align: left; }
+  tbody th { font-weight: 500; color: #445; }
+  td.nm a { color: #2a4d8f; text-decoration: none; }
+  td.nm a:hover { text-decoration: underline; }
+  td.neg { color: #a33; }
+  .dim { color: #889; font-size: .85rem; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
+         font-size: .84rem; color: #556; }
+  .src p { margin: .5rem 0; }
+  @media (max-width: 640px) { h1 { font-size: 1.45rem; } .wrap { padding: 1rem .8rem 3rem; } }
+</style>

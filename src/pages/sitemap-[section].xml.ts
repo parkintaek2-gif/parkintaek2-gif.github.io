@@ -14,7 +14,7 @@ import { 업종주소 } from '../lib/sector-en.mjs';
 import jp from '../data/japan-financials-tape.json';
 /* 🔴 [2026-09-23 · 5번] 대만 상장사 지면. 같은 까닭으로 여기에 넣는다 */
 import tw from '../data/taiwan-financials-tape.json';
-import { 낼만한가 as tw낼만한가 } from '../lib/taiwan-company-page.mjs';
+import { 낼만한가 as tw낼만한가, 업종주소 as tw업종주소 } from '../lib/taiwan-company-page.mjs';
 import { 낼만한가 as jp낼만한가, 업종주소 as jp업종주소 } from '../lib/japan-company-page.mjs';
 
 type Video = { title: string; description: string; thumbnail: string; content: string };
@@ -104,12 +104,18 @@ export const GET: APIRoute = async ({ params }) => {
     }
     urls = 것;
   } else if (section === 'taiwan') {
-    /* 🔴 [2026-09-23 · 5번] 대만 상장사 지면 + 목록 1.
-       ⚠ 업종 지면은 아직 없다 — TWSE 가 업종 «코드»만 주고 이름을 안 준다.
-         코드에 영문 이름을 짐작해 붙이지 않는다. 사전이 생기면 그때 더한다. */
+    /* 🔴 [2026-09-23 · 5번] 대만 상장사 지면 + 업종 지면 + 목록 1.
+       ⚠ 여기 「업종 지면은 아직 없다 — TWSE 가 코드만 주고 이름을 안 준다」고 적혀 있었다.
+         틀렸다. 같은 API 의 t187ap14_L 이 「水泥工業」처럼 이름을 준다 — 우리가 안 찾은 것이었다.
+       ⛔ 그래도 사전에 없는 이름은 여전히 null 이고, 그런 곳으로는 지면도 주소도 만들지 않는다. */
     const 행들 = ((tw as any).rows as any[]).filter((r) => tw낼만한가(r));
     const 주소표 = 주소표만들기(행들);
     const 것: Url[] = [{ loc: '/taiwan/companies', changefreq: 'weekly', priority: '0.9' }];
+    const 업종본것 = new Set<string>();
+    for (const r of 행들) {
+      const s = tw업종주소(String((r as any).industry_en || ''));
+      if (s && !업종본것.has(s)) { 업종본것.add(s); 것.push({ loc: '/taiwan/sector/' + s, changefreq: 'weekly', priority: '0.7' }); }
+    }
     for (const r of 행들) {
       것.push({ loc: '/taiwan/company/' + 주소표.get(String(r.code)), changefreq: 'weekly', priority: '0.6' });
     }

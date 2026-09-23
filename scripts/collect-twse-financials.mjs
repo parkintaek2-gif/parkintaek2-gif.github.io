@@ -52,6 +52,23 @@ export const 대차길 = [
 ];
 export const 기본길 = '/opendata/t187ap03_L';
 
+/**
+ * 🔴 **업종 이름은 「없다」가 아니었다 — 내가 안 찾은 것이었다.** (2026-09-23 밤)
+ *
+ * 첫 판을 낼 때 기본정보의 `產業別` 이 「24」 같은 «코드»만이라, 업종 지면을 아예 안 만들고
+ * 「거래소가 이름을 안 준다」고 적었다. 그 뒤 143 엔드포인트 목록을 다시 훑다가 찾았다 —
+ * `t187ap14_L`(各產業EPS統計) 이 같은 회사에 **`產業別`을 「水泥工業」처럼 «이름»으로** 준다.
+ *
+ * ⭐ 강령 그대로다 — **「우리가 못 찾은 것을 그쪽 탓으로 적지 않는다.」**
+ *   ADX 시가총액 때와 똑같은 일을 또 했다. 그때도 「아부다비가 시총을 안 낸다」고 적었었다.
+ *   ⇒ 「그 출처가 안 준다」를 적기 전에 **그 출처의 엔드포인트 목록을 끝까지 읽는다.**
+ */
+export const 업종길 = '/opendata/t187ap14_L';
+
+/** 시세·밸류에이션 — 이것이 붙어야 시가총액 축이 선다 */
+export const 시세길 = '/exchangeReport/STOCK_DAY_ALL';
+export const 밸류길 = '/exchangeReport/BWIBBU_ALL';
+
 /** 숫자로 바꾼다. ⛔ 빈 칸·「-」를 0 으로 읽지 않는다 */
 export function 수읽기(v) {
   if (v == null) return null;
@@ -133,6 +150,116 @@ export function 대차줄(r) {
   };
 }
 
+/**
+ * 업종 이름 한자 → 영문. **거래소가 낸 이름을 옮기는 것**이지 코드에 이름을 «붙이는» 것이 아니다.
+ * ⛔ 사전에 없는 한자 이름은 null 로 둔다 — 지면은 한자를 그대로 내보인다. 지어내지 않는다.
+ * ⚠ 한자 이름을 지면에 «함께» 남긴다. 옮긴 말이 틀렸을 때 손님이 원래 이름으로 확인할 수 있다.
+ */
+export const 업종사전 = {
+  水泥工業: 'Cement',
+  食品工業: 'Food',
+  塑膠工業: 'Plastics',
+  紡織纖維: 'Textiles',
+  電機機械: 'Electrical machinery',
+  電器電纜: 'Electrical appliances and cable',
+  化學工業: 'Chemicals',
+  生技醫療業: 'Biotechnology and healthcare',
+  玻璃陶瓷: 'Glass and ceramics',
+  造紙工業: 'Paper and pulp',
+  鋼鐵工業: 'Iron and steel',
+  橡膠工業: 'Rubber',
+  汽車工業: 'Automobiles',
+  半導體業: 'Semiconductors',
+  電腦及週邊設備業: 'Computers and peripherals',
+  光電業: 'Optoelectronics',
+  通信網路業: 'Communications and networking',
+  電子零組件業: 'Electronic components',
+  電子通路業: 'Electronics distribution',
+  資訊服務業: 'Information services',
+  其他電子業: 'Other electronics',
+  建材營造: 'Building materials and construction',
+  航運業: 'Shipping and transport',
+  觀光餐旅: 'Tourism, hotels and catering',
+  金融保險業: 'Finance and insurance',
+  貿易百貨: 'Trading and department stores',
+  油電燃氣業: 'Oil, gas and electricity',
+  綠能環保: 'Green energy and environmental services',
+  數位雲端: 'Digital and cloud services',
+  運動休閒: 'Sport and leisure',
+  居家生活: 'Home and living',
+  其他: 'Other',
+};
+
+/**
+ * 원자료에 **글자가 깨진 이름이 섞여 온다** — 오늘 「���技醫療業」 한 줄이 왔다(1,084 중 1곳).
+ * 깨진 앞머리를 빼고 뒤를 맞춰 본다. **꼭 하나만 걸릴 때에만** 그것으로 본다 —
+ * 둘 이상 걸리면 못 쟀다고 적고 null 로 둔다. ⛔ 「비슷하니까」로 고르지 않는다.
+ */
+export function 업종이름고치기(이름, 사전 = 업종사전) {
+  const s = String(이름 ?? '').trim();
+  if (!s) return null;
+  if (Object.prototype.hasOwnProperty.call(사전, s)) return s;
+  const 성한꼬리 = s.replace(/^[^\p{Script=Han}]+/u, '');
+  if (!성한꼬리 || 성한꼬리 === s) return null;
+  const 맞는것 = Object.keys(사전).filter((k) => k.endsWith(성한꼬리));
+  return 맞는것.length === 1 ? 맞는것[0] : null;
+}
+
+/** 업종 한 줄 → { code, industry_zh, industry_en } */
+export function 업종줄(r, 사전 = 업종사전) {
+  if (!r || !r.公司代號) return null;
+  const 고친 = 업종이름고치기(r.產業別, 사전);
+  return {
+    code: String(r.公司代號).trim(),
+    industry_zh: 고친,
+    industry_en: 고친 ? (사전[고친] ?? null) : null,
+  };
+}
+
+/** 시세 한 줄 → { code, close_twd, price_date, trade_value_twd } */
+export function 시세줄(r) {
+  if (!r || !r.Code) return null;
+  return {
+    code: String(r.Code).trim(),
+    close_twd: 수읽기(r.ClosingPrice),
+    price_date: 민국날짜(r.Date),
+    trade_value_twd: 수읽기(r.TradeValue),
+  };
+}
+
+/** 밸류에이션 한 줄 → { code, per, pbr, dividend_yield_pct } */
+export function 밸류줄(r) {
+  if (!r || !r.Code) return null;
+  return {
+    code: String(r.Code).trim(),
+    per: 수읽기(r.PEratio),
+    pbr: 수읽기(r.PBratio),
+    dividend_yield_pct: 수읽기(r.DividendYield),
+  };
+}
+
+/**
+ * 시가총액 = 종가 × 발행주식수. ⛔ 둘 중 하나라도 없으면 null — 만들지 않는다.
+ *
+ * 🔴 그리고 **낸 값을 다른 길로 한 번 검산한다.** 주가는 PBR × 주당순자산으로도 서는데,
+ *   두 길이 크게 어긋나면 어느 한쪽이 틀린 것이다(주식수가 옛것이거나 우선주가 섞였거나).
+ *   실측 — TSMC 종가 2,460.00 · PBR 9.92 × 주당순자산 248.05 = 2,460.7. 0.03% 차이였다.
+ *   ⇒ 어긋남이 큰 곳은 «수를 고치지 않고» 표시만 남긴다. 고치면 그것이 지어낸 수가 된다.
+ */
+export function 시가총액(종가, 주식수) {
+  if (종가 == null || 주식수 == null) return null;
+  if (!Number.isFinite(종가) || !Number.isFinite(주식수) || 종가 <= 0 || 주식수 <= 0) return null;
+  return 종가 * 주식수;
+}
+
+/** 두 길로 잰 주가가 얼마나 어긋나나. 못 재면 null */
+export function 주가어긋남(종가, pbr, bps) {
+  if (종가 == null || pbr == null || bps == null) return null;
+  const 딴길 = pbr * bps;
+  if (!Number.isFinite(딴길) || 딴길 <= 0 || !Number.isFinite(종가) || 종가 <= 0) return null;
+  return Math.abs(종가 - 딴길) / 딴길;
+}
+
 /** 회사 기본정보 한 줄 → 우리 칸. ⛔ 영문 이름이 없으면 null — 지어내지 않는다 */
 export function 기본줄(r) {
   if (!r || !r.公司代號) return null;
@@ -151,8 +278,11 @@ export function 기본줄(r) {
   };
 }
 
-/** 종목코드로 묶어 한 줄로 만든다 */
-export function 합치기(기본들, 손익들, 대차들) {
+/**
+ * 종목코드로 묶어 한 줄로 만든다.
+ * ⚠ 뒤에 오는 벌은 «있는 칸만» 덮어쓴다 — null 로 앞의 값을 지우지 않는다.
+ */
+export function 합치기(기본들, 손익들, 대차들, 곁들 = []) {
   const 표 = new Map();
   for (const b of (기본들 ?? [])) { if (b?.code) 표.set(b.code, { ...b }); }
   for (const i of (손익들 ?? [])) {
@@ -165,6 +295,16 @@ export function 합치기(기본들, 손익들, 대차들) {
     const 것 = 표.get(b.code);
     if (!것) { 표.set(b.code, { ...b }); continue; }
     표.set(b.code, { ...것, ...b, year: 것.year ?? b.year, quarter: 것.quarter ?? b.quarter });
+  }
+  /* 곁벌(업종 이름·시세·밸류) — ⛔ 상장만 하고 재무를 안 낸 종목은 «새로 만들지 않는다».
+     시세 벌에는 ETF·수익증권까지 1,381 종목이 들어 있어, 새로 만들면 회사가 아닌 것이 섞인다. */
+  for (const 벌 of (곁들 ?? [])) {
+    for (const x of (벌 ?? [])) {
+      if (!x?.code) continue;
+      const 것 = 표.get(x.code);
+      if (!것) continue;
+      for (const [k, v] of Object.entries(x)) { if (k !== 'code' && v != null) 것[k] = v; }
+    }
   }
   return [...표.values()].sort((a, b) => String(a.code).localeCompare(String(b.code)));
 }
@@ -239,6 +379,53 @@ if (process.argv.includes('--자가시험')) {
   본다('⛔ openapi 만 부른다 — www 를 긁지 않는다',
     밑.startsWith('https://openapi.twse.com.tw') && !/\/\/www\./.test(밑));
 
+  /* ── 업종 이름 ── */
+  본다('🔴 업종 이름을 한자로 받아 영문으로 옮긴다',
+    업종줄({ 公司代號: '1101', 產業別: '水泥工業' }).industry_en === 'Cement');
+  본다('한자 이름을 함께 남긴다',
+    업종줄({ 公司代號: '1101', 產業別: '水泥工業' }).industry_zh === '水泥工業');
+  본다('🔴 깨진 이름도 «꼭 하나»만 걸리면 살린다',
+    업종이름고치기('���技醫療業') === '生技醫療業');
+  본다('🔴 ⛔ 둘 이상 걸리면 못 쟀다 — 비슷하다고 고르지 않는다',
+    업종이름고치기('�工業', { 水泥工業: 'A', 化學工業: 'B' }) === null);
+  본다('⛔ 사전에 없는 이름은 null — 지어내지 않는다',
+    업종줄({ 公司代號: 'x', 產業別: '없는업종' }).industry_en === null);
+  본다('⛔ 빈 것에 안 터진다', 업종줄(null) === null && 업종이름고치기(null) === null);
+  /* 오늘 원자료의 서로 다른 產業別 33 가지 가운데 하나는 «글자가 깨진» 生技醫療業이다.
+     그래서 성한 이름은 32 가지이고 사전도 32 개다. ⛔ 33 으로 세지 않는다. */
+  본다('사전이 성한 이름 32 갈래를 다 덮는다', Object.keys(업종사전).length === 32);
+
+  /* ── 시세·밸류 ── */
+  const 시 = 시세줄({ Code: '2330', ClosingPrice: '2460.00', Date: '1150922', TradeValue: '54678491997' });
+  본다('🔴 종가를 읽는다', 시.close_twd === 2460 && 시.price_date === '2026-09-22');
+  본다('⛔ 빈 종가는 null — 0 으로 안 읽는다', 시세줄({ Code: 'x', ClosingPrice: '' }).close_twd === null);
+  const 밸 = 밸류줄({ Code: '2330', PEratio: '28.52', PBratio: '9.92', DividendYield: '1.23' });
+  본다('PER·PBR·배당수익률을 읽는다', 밸.per === 28.52 && 밸.pbr === 9.92 && 밸.dividend_yield_pct === 1.23);
+  본다('⛔ PER 이 빈 곳이 있다 — null 로 둔다', 밸류줄({ Code: 'x', PEratio: '' }).per === null);
+
+  /* ── 시가총액과 그 검산 ── */
+  본다('시가총액 = 종가 × 주식수', 시가총액(2460, 25932370067) === 2460 * 25932370067);
+  본다('🔴 ⛔ 하나라도 없으면 null — 만들지 않는다',
+    시가총액(null, 100) === null && 시가총액(2460, null) === null);
+  본다('⛔ 0 이나 음수면 null', 시가총액(0, 100) === null && 시가총액(-1, 100) === null);
+  본다('🔴 두 길로 잰 주가가 맞는지 본다 — TSMC 는 0.1% 안이었다',
+    주가어긋남(2460, 9.92, 248.05) < 0.001);
+  본다('많이 어긋나면 그 수가 나온다', 주가어긋남(100, 1, 200) === 0.5);
+  본다('⛔ 못 재면 null', 주가어긋남(null, 1, 2) === null && 주가어긋남(100, null, 2) === null);
+
+  /* ── 합치기 ── */
+  const 곁합 = 합치기(
+    [{ code: '1101', name_en: 'TCC' }],
+    [{ code: '1101', revenue_twd: 1 }],
+    [{ code: '1101', bps_twd: 30.86 }],
+    [[{ code: '1101', industry_en: 'Cement' }], [{ code: '9999', close_twd: 1 }]],
+  );
+  본다('곁벌이 붙는다', 곁합.length === 1 && 곁합[0].industry_en === 'Cement');
+  본다('🔴 ⛔ 재무가 없는 종목을 곁벌이 «새로 만들지» 않는다 (시세 벌엔 ETF 가 섞인다)',
+    !곁합.some((r) => r.code === '9999'));
+  본다('⛔ 곁벌의 null 이 앞의 값을 지우지 않는다',
+    합치기([{ code: 'a', name_en: 'A' }], [], [], [[{ code: 'a', name_en: null }]])[0].name_en === 'A');
+
   const 진 = 잰다.filter(([, v]) => !v);
   for (const [이름, v] of 잰다) console.log(`${v ? '✅' : '🔴'} ${이름}`);
   console.log(진.length ? `\n🔴 ${진.length}/${잰다.length} 떨어졌다` : `\n✅ 자가시험 ${잰다.length} 통과`);
@@ -284,24 +471,56 @@ if (process.argv.includes('--자가시험')) {
     if (j) 대차원.push(...j);
   }
 
+  const 업종원 = await 받기(업종길);
+  console.log(`  업종 이름   ${업종원 ? String(업종원.length).padStart(5) + '행' : '🔴 못 받았다'}`);
+  const 시세원 = await 받기(시세길);
+  console.log(`  시세        ${시세원 ? String(시세원.length).padStart(5) + '행' : '🔴 못 받았다'}`);
+  const 밸류원 = await 받기(밸류길);
+  console.log(`  PER·PBR     ${밸류원 ? String(밸류원.length).padStart(5) + '행' : '🔴 못 받았다'}`);
+
   const 줄들 = 합치기(
     기본원.map(기본줄).filter(Boolean),
     손익원.map(손익줄).filter(Boolean),
     대차원.map(대차줄).filter(Boolean),
+    [
+      (업종원 ?? []).map((r) => 업종줄(r)).filter(Boolean),
+      (시세원 ?? []).map(시세줄).filter(Boolean),
+      (밸류원 ?? []).map(밸류줄).filter(Boolean),
+    ],
   );
 
+  /* 시가총액 — ⛔ 둘 중 하나라도 없으면 null. 그리고 다른 길로 검산해 어긋남을 «표시만» 남긴다 */
+  let 많이어긋남 = 0;
+  for (const r of 줄들) {
+    r.market_cap_twd = 시가총액(r.close_twd ?? null, r.shares ?? null);
+    const 어긋 = 주가어긋남(r.close_twd ?? null, r.pbr ?? null, r.bps_twd ?? null);
+    r.price_cross_check = 어긋 == null ? null : Number(어긋.toFixed(4));
+    if (어긋 != null && 어긋 > 0.05) 많이어긋남 += 1;
+  }
+
   /* ⛔ 「대부분 받았다」로 적지 않는다 — 붙은 수 / 전체 수 */
-  const 매출있음 = 줄들.filter((r) => r.revenue_twd != null).length;
-  const 자산있음 = 줄들.filter((r) => r.assets_twd != null).length;
-  const 영문있음 = 줄들.filter((r) => r.name_en).length;
+  const 잰다 = (f) => 줄들.filter(f).length;
+  const 매출있음 = 잰다((r) => r.revenue_twd != null);
+  const 자산있음 = 잰다((r) => r.assets_twd != null);
+  const 영문있음 = 잰다((r) => r.name_en);
+  const 업종있음 = 잰다((r) => r.industry_zh);
+  const 영문업종 = 잰다((r) => r.industry_en);
+  const 종가있음 = 잰다((r) => r.close_twd != null);
+  const 시총있음 = 잰다((r) => r.market_cap_twd != null);
+  const PER있음 = 잰다((r) => r.per != null);
+  const 검산한곳 = 잰다((r) => r.price_cross_check != null);
   console.log(`\n■ 합쳐서 ${줄들.length}곳`);
-  console.log(`   매출이 붙은 곳 ${매출있음}/${줄들.length} · 자산 ${자산있음}/${줄들.length} · 영문 이름 ${영문있음}/${줄들.length}`);
+  console.log(`   매출 ${매출있음}/${줄들.length} · 자산 ${자산있음}/${줄들.length} · 영문 이름 ${영문있음}/${줄들.length}`);
+  console.log(`   업종 이름 ${업종있음}/${줄들.length} (영문으로 옮긴 곳 ${영문업종})`);
+  console.log(`   종가 ${종가있음}/${줄들.length} · 시가총액 ${시총있음}/${줄들.length} · PER ${PER있음}/${줄들.length}`);
+  console.log(`   🔴 주가 검산 — ${검산한곳}곳을 «종가» 대 «PBR × 주당순자산» 두 길로 맞대어 봤다`);
+  console.log(`      5% 넘게 어긋난 곳 ${많이어긋남}곳 — ⛔ 수를 고치지 않고 표시만 남긴다`);
 
   const 오늘 = new Date().toLocaleDateString('sv-SE');
   const 원본방 = path.join(뿌리, 'archive', 'raw', 'twse-financials');
   fs.mkdirSync(원본방, { recursive: true });
   fs.writeFileSync(path.join(원본방, `twse-${오늘.replace(/-/g, '')}.json`),
-    JSON.stringify({ 기본: 기본원, 손익: 손익원, 대차: 대차원 }), 'utf8');
+    JSON.stringify({ 기본: 기본원, 손익: 손익원, 대차: 대차원, 업종: 업종원, 시세: 시세원, 밸류: 밸류원 }), 'utf8');
 
   const 테이프 = {
     _meta: {
@@ -314,6 +533,15 @@ if (process.argv.includes('--자가시험')) {
         + '기본정보의 實收資本額(원)과 대차대조표의 股本(같은 자본금)을 396곳에서 나눠 보니 '
         + '388곳이 정확히 1000.00 이었다. 그래서 손익·대차에 1000을 곱해 원 단위로 통일했다. '
         + '⛔ 每股參考淨值(주당 순자산)는 원래 원 단위라 곱하지 않았다.',
+      기간주석: '🔴 손익은 «그 분기»가 아니라 «연초부터의 누계»다. 季別=2 는 상반기 여섯 달이다. '
+        + '대차는 그 분기 «말» 시점 값이다. 中華電信(연 매출 약 230bn)이 121.4bn 으로 나와 판정했다 — '
+        + '한 분기라면 58bn 이어야 한다.',
+      시가총액주석: '시가총액 = 종가 × 발행주식수. 둘 중 하나가 없으면 null 이고 만들지 않았다. '
+        + '낸 값을 «PBR × 주당순자산»이라는 다른 길로 검산해 price_cross_check 에 어긋난 비율을 남겼다 — '
+        + '⛔ 어긋나도 수를 고치지 않는다. 고치면 그것이 지어낸 수가 된다.',
+      업종주석: '업종 이름은 t187ap14_L(各產業EPS統計)이 한자로 준다. 우리는 그 이름을 영문으로 옮겨 '
+        + 'industry_en 에 담고, 원래 한자를 industry_zh 에 남겨 지면에 함께 낸다. '
+        + '⛔ 사전에 없는 이름은 null 이다 — 코드에 업종명을 짐작해 붙이지 않는다.',
       메모: '회사마다 가장 최근 분기 한 줄. 빈 칸은 null 이고 0 으로 메꾸지 않았다. '
         + '손익·대차는 업종 갈래 다섯(일반·금융지주·증권선물·보험·이업종)을 모두 받아 합쳤다.',
     },
