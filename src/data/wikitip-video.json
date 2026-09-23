@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-22T07:48+09:00",
+  "generated": "2026-09-23T17:21+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -177,6 +177,13 @@
       "uploadDate": "2026-09-21",
       "thumb": "/video/thumb/nanaspike-voiced.jpg",
       "src": "/video/nanaspike-voiced.mp4"
+    },
+    {
+      "set": "nearly-half-of-korean-netflix-top-10-titles-only-ever-charted-in-one-country-voiced",
+      "seconds": 12.7,
+      "uploadDate": "2026-09-23",
+      "thumb": "/video/thumb/nearly-half-of-korean-netflix-top-10-titles-only-ever-charted-in-one-country-voiced.jpg",
+      "src": "/video/nearly-half-of-korean-netflix-top-10-titles-only-ever-charted-in-one-country-voiced.mp4"
     },
     {
       "set": "numberone",

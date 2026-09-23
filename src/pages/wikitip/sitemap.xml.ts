@@ -298,6 +298,14 @@ const videoSets = [
       + 'in early September. The day after the opening ceremony, that hit 2,537 reads — 9.2 times '
       + 'the baseline, part of a two-week build rather than a single-day spike.',
   },
+  {
+    set: 'nearly-half-of-korean-netflix-top-10-titles-only-ever-charted-in-one-country-voiced',
+    page: '/what-moves-english-reading',
+    title: 'Nearly Half of Korean Netflix Top 10 Titles Only Ever Charted in One Country',
+    description: '17 seconds: 974 Korean titles have placed in Netflix’s weekly Top 10 somewhere, '
+      + 'across five years of charts in 93 markets. 447 of them — nearly half — never charted '
+      + 'anywhere but a single country.',
+  },
   /*
    * 🔴 [2026-08-29] **어제·오늘 만든 영상 넷이 이 목록에 없었다.**
    *   목록에 없으면 ① 영상 사이트맵에 안 들어가고 ② 올릴 문안(upload-kit)이 안 만들어진다.

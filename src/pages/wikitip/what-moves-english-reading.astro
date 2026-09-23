@@ -77,6 +77,12 @@ const 원인스파이크 = [
   { 사람: 'Korean esports', 사건: '2026 Asian Games opening ceremony (two-week build, not a single day)',
     기준: '276.3/day', 정점: '2,537',
     배수: '9.2x', 링크: '/article/korean-esports-reading-jumped-9x-as-the-asian-games-opened' },
+  { 사람: 'Yeo Seo-jeong', 사건: 'Topped vault qualifying at the 2026 Asian Games, first final in 8 years',
+    기준: '7.8/day', 정점: '78',
+    배수: '10x', 링크: '/article/yeo-seo-jeongs-vault-final-berth-moved-her-wikipedia-reading-10x' },
+  { 사람: 'Hwang Sun-woo', 사건: '100m freestyle heat, advanced to final at the 2026 Asian Games',
+    기준: '14.9/day', 정점: '307',
+    배수: '20.6x', 링크: '/article/hwang-sun-woos-freestyle-heat-jumped-his-wikipedia-reading-20-times' },
 ];
 /**
  * 「더 확인한 24편」 — 단일 원인 스파이크(원인스파이크)와 달리, 「안 움직였다」·
@@ -143,6 +149,14 @@ const 더확인한것 = [
     값: '2', 링크: '/article/two-of-the-days-top-1000-english-wikipedia-pages-were-korean' },
   { 사람: 'Garfield (3 adaptations)', 무엇: "Of 14 comic-to-screen pairs where the source comic read more than its adaptation, Garfield's three lower-profile spin-offs accounted for",
     값: '3', 링크: '/article/garfield-alone-explains-a-fifth-of-when-the-source-wins' },
+  { 사람: '774 Korean music acts', 무엇: 'Median months from peak English Wikipedia reading month to falling to half that peak or below (731 of 774 measured acts have already crossed that line)',
+    값: '2', 링크: '/article/a-korean-groups-peak-wikipedia-reading-typically-halves-within-2-months' },
+  { 사람: '8-group 4th-gen girl group panel', 무엇: 'Groups reading lower in the most recent 12 months than in their own second year after debut (all of them, -9% to -53%)',
+    값: '8', 링크: '/article/all-eight-of-the-panels-fourth-generation-girl-groups-read-less-now-than-in-year-two' },
+  { 사람: '9,249 Korean public figures', 무엇: 'Broad-list birth-month randomness test — odds this month-to-month spread (Feb high, Jun low) is chance, per a 10,000-draw resample',
+    값: '9,249', 링크: '/article/korean-celebrities-are-not-born-evenly-across-the-year-idols-alone-we-cant-tell' },
+  { 사람: '974 Korean Netflix Top 10 titles', 무엇: 'Titles that placed top 10 in exactly one country across 269 weeks of charts (never charted anywhere else)',
+    값: '447', 링크: '/article/nearly-half-of-korean-netflix-top-10-titles-only-ever-charted-in-one-country' },
 ];
 
 const 움직임글 = (e: 사건) => {
@@ -392,6 +406,11 @@ const jsonLd = {
   <KcwShorts
     set="korean-esports-reading-jumped-9x-as-the-asian-games-opened-voiced"
     says="The Asian Games esports page averaged 276 reads a day in early September. The day after the opening ceremony, that hit 2,537 reads — 9.2 times the baseline."
+  />
+
+  <KcwShorts
+    set="nearly-half-of-korean-netflix-top-10-titles-only-ever-charted-in-one-country-voiced"
+    says="974 Korean titles have placed in Netflix's weekly top 10 somewhere, across five years of charts. 447 of them — nearly half — never charted anywhere but a single country."
   />
 
   <KcwRelatedArticles page="/what-moves-english-reading" />

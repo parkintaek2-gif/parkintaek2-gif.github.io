@@ -7,6 +7,36 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "nearly-half-of-korean-netflix-top-10-titles-only-ever-charted-in-one-country": {
+   "figure": "447",
+   "label": "of 974 Korean Netflix Top 10 titles charted in one country only",
+   "왜": "글머리 첫 수는 '269'(주 수)라 약하다. 이 기사의 핵심 대조수는 447(한 나라에서만 든 편수)이다"
+  },
+  "korean-celebrities-are-not-born-evenly-across-the-year-idols-alone-we-cant-tell": {
+   "figure": "9,249",
+   "label": "Korean public figures in the birth-month randomness test",
+   "왜": "글머리 첫 수가 '9,249'로 이미 핵심 대조수와 같다 — 확인용으로 명시해 둔다"
+  },
+  "all-eight-of-the-panels-fourth-generation-girl-groups-read-less-now-than-in-year-two": {
+   "figure": "8",
+   "label": "of 8 panel groups read less now than in their own year two",
+   "왜": "글머리 첫 수는 없다(그룹 이름들뿐). 이 기사의 핵심 대조수는 8(패널 전원 하락)이다"
+  },
+  "a-korean-groups-peak-wikipedia-reading-typically-halves-within-2-months": {
+   "figure": "2",
+   "label": "months — median time from peak reading to half that peak",
+   "왜": "글머리 첫 수는 '774'(잰 팀 수)라 이 기사의 핵심(반토막까지 걸린 달)을 못 담는다. 핵심 대조수는 2(중앙값 개월)다"
+  },
+  "hwang-sun-woos-freestyle-heat-jumped-his-wikipedia-reading-20-times": {
+   "figure": "20.6x",
+   "label": "Hwang Sun-woo's reading jump the day he advanced in the 100m free",
+   "왜": "글머리 첫 수는 '14.9'(기준선)이라 약하다. 이 기사의 핵심 대조수는 20.6x(9/20 열람 307 ÷ 기준 14.9)다"
+  },
+  "yeo-seo-jeongs-vault-final-berth-moved-her-wikipedia-reading-10x": {
+   "figure": "10x",
+   "label": "Yeo Seo-jeong's reading jump the day she topped vault qualifying",
+   "왜": "글머리 첫 수는 '7.8'(기준선)이라 약하다. 이 기사의 핵심 대조수는 10x(9/22 열람 78 ÷ 기준 7.8)다"
+  },
   "garfield-alone-explains-a-fifth-of-when-the-source-wins": {
    "figure": "3",
    "label": "Garfield adaptations among the 14 pairs where the source read more",
