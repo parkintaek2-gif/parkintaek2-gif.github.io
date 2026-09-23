@@ -998,8 +998,39 @@ if (내가실행됐다) {
     안보냄 = { 됐나: false, 말: '안 나갔다' };
   }
 
-  const 흠 = [지시, 소통, 몫, 보고, 라이브, 진행, 좌석, 좌석예약, 지원답장, 케맵, 들어오기, 안보냄].filter((x) => x === null || x.됐나 === false).length;
-  console.log(`\n${흠 ? `⛔ 손댈 것 ${흠}개 — 위에서 🔴·⬜ 를 먼저 한다.` : '✅ 열한 자리 다 섰다.'}`);
+  /* ⑫ 사이트맵이 「오늘 다 고쳤다」고 날마다 거짓말하나 — 2026-09-23 신설.
+     [왜] 생일 지면 1,468장의 lastmod 에 날마다 «오늘»을 찍고 있었다. 내용은 안 바뀌는데
+       날짜만 매일 새로 나갔다. 구글은 그런 lastmod 를 «아예 무시»하기 시작한다 —
+       그러면 진짜로 고친 날에 알릴 길이 사라진다. 우리가 우리 신호를 죽이는 것이다.
+       게다가 총괄의 「오늘 낸 글」 셈이 1,468편으로 부풀어 헛수가 보고에 올라갈 뻔했다.
+     ⚠ 하루 한 번만 «실제로» 잰다 — 판정에 며칠치 기록이 필요하고, 하루치로는 못 가린다.
+       기록에 오늘 줄이 이미 있으면 건너뛴다. */
+  let 사이트맵정직;
+  try {
+    const 오늘날 = new Date().toLocaleDateString('sv-SE');
+    let 이미 = false;
+    try {
+      이미 = fs.readFileSync(path.join(뿌리, 'docs', '사이트맵-lastmod-기록.tsv'), 'utf8')
+        .split(/\r?\n/).some((l) => l.startsWith(`${오늘날}\t`));
+    } catch { 이미 = false; }
+    if (이미) {
+      console.log('✅ ⑫ 사이트맵     오늘 이미 쟀다 — 날마다 한 번만 잰다');
+      사이트맵정직 = { 됐나: true, 말: '' };
+    } else {
+      execFileSync('node', ['scripts/check-sitemap-lastmod-honest.mjs'], { cwd: 뿌리, encoding: 'utf8' });
+      console.log('✅ ⑫ 사이트맵     날마다 거짓말하는 lastmod 없다');
+      사이트맵정직 = { 됐나: true, 말: '' };
+    }
+  } catch (e) {
+    const 낸것 = (e.stdout || '') + (e.stderr || '');
+    console.log('🔴 ⑫ 사이트맵     «날마다» 「전부 오늘 고쳤다」고 말하고 있다');
+    for (const 줄 of (낸것.match(/^ {3}🔴 [^\n]*$/gm) || [])) console.log('     ' + 줄.trim());
+    console.log('     ✅ 자료가 안 바뀌는 지면은 lastmod 를 «만든 날»로 고정한다');
+    사이트맵정직 = { 됐나: false, 말: '거짓말한다' };
+  }
+
+  const 흠 = [지시, 소통, 몫, 보고, 라이브, 진행, 좌석, 좌석예약, 지원답장, 케맵, 들어오기, 안보냄, 사이트맵정직].filter((x) => x === null || x.됐나 === false).length;
+  console.log(`\n${흠 ? `⛔ 손댈 것 ${흠}개 — 위에서 🔴·⬜ 를 먼저 한다.` : '✅ 열두 자리 다 섰다.'}`);
   console.log('⚠ ③이 뒤처졌는데 다른 일을 하고 있으면 그것이 잘못이다.');
   process.exit(흠 ? 1 : 0);
 }

@@ -266,6 +266,9 @@ export const 단계들 = [
   "node scripts/check-seoulmarkets-korean-leak.mjs --selftest",
   "node scripts/check-sitemap-page-coverage.mjs --자가시험",
   "node scripts/check-sitemap-page-coverage.mjs",
+  /* ⚠ 자가시험만 문다 — 라이브 재기는 네트워크가 필요하고 «며칠치 기록»이 있어야 판정된다.
+     라이브는 매시 점검(check-2h)이 돌린다 */
+  "node scripts/check-sitemap-lastmod-honest.mjs --자가시험",
   "node scripts/check-internal-comment-leak.mjs --자가시험",
   "node scripts/check-internal-comment-leak.mjs",
   "node scripts/check-seat-config.mjs --자가시험",
