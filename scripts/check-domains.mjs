@@ -37,6 +37,40 @@ export const 손님주소 = [
 ];
 
 /**
+ * 🔴 **`/ads.txt` 는 «리디렉션 없이» 200 이어야 한다** (2026-09-23 · 5번)
+ *
+ * 애드센스 콘솔이 kculturewire.com 을 「Ads.txt 상태: 찾을 수 없음」으로 두고 있었고,
+ * 그 때문에 계정 전체에 「수익 손실 위험 — ads.txt 파일 문제」 경고가 떠 있었다.
+ * 파일은 멀쩡히 있었다 — 다만 non-www 로 부르면 301 로 www 에 가서야 200 이 됐다.
+ *
+ * ⚠ 애드센스는 www 와 non-www 를 «한 사이트»로 본다 — 실측했다.
+ *   콘솔에 www 를 새 사이트로 넣어 봤더니 목록이 그대로 4개였다.
+ *   그러니 「www 를 따로 등록해서 푼다」는 길이 없고, **그 주소에서 파일이 바로 나와야 한다.**
+ *
+ * ⛔ 이 목록에는 «손님이 칠 수 있는 모든 꼴»을 넣는다. 한 꼴만 재면 나머지가 조용히 썩는다.
+ */
+export const ads주소 = [
+  'https://seoulmarkets.com/ads.txt',
+  'https://www.seoulmarkets.com/ads.txt',
+  'https://kculturewire.com/ads.txt',
+  'https://www.kculturewire.com/ads.txt',
+  'https://100yearmap.com/ads.txt',
+  'https://www.100yearmap.com/ads.txt',
+];
+
+/** 리디렉션을 «따라가지 않고» 잰 값이 200 인가. 301/302 면 애드센스가 못 찾을 수 있다 */
+export function ads판정(코드) {
+  const n = Number(코드);
+  if (n === 200) return { 됐나: true, 왜: '200 — 리디렉션 없이 바로 나온다' };
+  if (n === 301 || n === 302) {
+    return { 됐나: false, 왜: n + ' — 리디렉션이다. 애드센스가 「찾을 수 없음」으로 볼 수 있다' };
+  }
+  if (n === 404) return { 됐나: false, 왜: '404 — 파일이 없다' };
+  if (n === 0 || Number.isNaN(n)) return { 됐나: false, 왜: '붙지 못함' };
+  return { 됐나: false, 왜: String(n) };
+}
+
+/**
  * 답 하나를 판정한다. 순수함수라 시험할 수 있다.
  * ⚠ 301·302 는 «괜찮다» — kculturewire.com 은 www 로 넘긴다. 따라간 끝이 200 이면 산 것이다.
  * ⛔ 000(=붙지도 못함)과 404 를 가른다. 404 는 도메인이 «떨어진» 꼴이고,
@@ -80,12 +114,32 @@ export function 자가시험() {
   재다('🔴 기본주소가 살아 있어도 손님주소 404 면 깨진 것이다',
     판정(200).산다 === true && 판정(404).산다 === false);
 
+  /* 🔴 [2026-09-23] ads.txt 가 301 이라 애드센스가 「찾을 수 없음」으로 두고 있었다 */
+  재다('ads.txt 200 은 통과다', ads판정(200).됐나 === true);
+  재다('🔴 301 은 통과가 아니다 — 애드센스가 못 찾을 수 있다', ads판정(301).됐나 === false);
+  재다('🔴 302 도 마찬가지다', ads판정(302).됐나 === false);
+  재다('404 는 파일이 없는 것이다', /파일이 없다/.test(ads판정(404).왜));
+  재다('⛔ 빈 값에 안 터진다', ads판정('').됐나 === false && ads판정(null).됐나 === false);
+  재다('ads 주소가 여섯이다 — 꼭지와 www 를 다 센다', ads주소.length === 6);
+  재다('ads 주소도 꼭지·www 짝이 다 있다',
+    ['100yearmap.com', 'kculturewire.com', 'seoulmarkets.com'].every((d) =>
+      ads주소.includes('https://' + d + '/ads.txt')
+      && ads주소.includes('https://www.' + d + '/ads.txt')));
+
   return { 흠, 잰수 };
 }
 
 async function 재기(주소) {
   try {
     const r = await fetch(주소, { redirect: 'follow', signal: AbortSignal.timeout(20000) });
+    return r.status;
+  } catch (e) { return 0; }
+}
+
+/** 🔴 ads.txt 는 «리디렉션을 안 따라가고» 잰다 — 따라가면 301 도 200 으로 보인다 */
+async function 안따라가고재기(주소) {
+  try {
+    const r = await fetch(주소, { redirect: 'manual', signal: AbortSignal.timeout(20000) });
     return r.status;
   } catch (e) { return 0; }
 }
@@ -105,7 +159,26 @@ async function 본일() {
     if (!p.산다) 깨진것.push({ ...x, ...p });
   }
 
-  if (!깨진것.length) { console.log('\n✅ ' + 손님주소.length + '개 주소 다 살아 있다.'); return; }
+  /* 🔴 ads.txt — 리디렉션을 «안 따라가고» 잰다. 따라가면 301 도 200 으로 보인다 */
+  console.log('\n■ ads.txt 가 리디렉션 없이 바로 나오나 (애드센스가 여기서 「찾을 수 없음」을 냈다)');
+  const ads깨진것 = [];
+  for (const u of ads주소) {
+    const 코드 = await 안따라가고재기(u);
+    const p = ads판정(코드);
+    console.log('  ' + (p.됐나 ? '✅' : '🔴') + ' ' + u.padEnd(42, ' ') + p.왜);
+    if (!p.됐나) ads깨진것.push({ 주소: u, ...p });
+  }
+
+  if (!깨진것.length && !ads깨진것.length) {
+    console.log('\n✅ 손님 주소 ' + 손님주소.length + '개 · ads.txt ' + ads주소.length + '개 다 살아 있다.');
+    return;
+  }
+  if (!깨진것.length && ads깨진것.length) {
+    console.log('\n🔴 ads.txt 가 리디렉션인 주소 ' + ads깨진것.length + '개 — 애드센스 수익이 걸린 자리다');
+    console.log('   ✅ 고치는 법 — server.mjs 의 정본호스트 301 에서 `/ads.txt` 만 예외로 둔다.');
+    console.log('      (다른 경로의 301 은 그대로 둔다 — 두 주소로 같은 글이 뜨면 둘 다 약해진다)');
+    process.exit(1);
+  }
 
   console.log('\n🔴🔴 손님이 못 들어오는 주소가 ' + 깨진것.length + '개다 — **다른 일을 하기 전에 이것부터 고친다**');
   for (const x of 깨진것) console.log('   · ' + x.사이트 + ' (' + x.자리 + ') — ' + x.왜);

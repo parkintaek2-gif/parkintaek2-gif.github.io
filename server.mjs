@@ -328,7 +328,22 @@ const handle = async (req, res) => {
   };
   const 날호스트 = String(req.headers.host ?? '').split(':')[0].toLowerCase();
   const 정본 = 정본호스트[날호스트];
-  if (정본 && (req.method === 'GET' || req.method === 'HEAD')) {
+  /*
+   * 🔴 [2026-09-23 · 5번] **`/ads.txt` 만은 301 을 걸지 않는다.**
+   *
+   * 애드센스 콘솔이 kculturewire.com 을 「Ads.txt 상태: 찾을 수 없음」으로 두고 있었고,
+   * 그 때문에 계정 전체에 「수익 손실 위험 — ads.txt 파일 문제」 경고가 떠 있었다.
+   * 파일은 멀쩡히 있다 — 다만 non-www 로 부르면 301 로 www 에 가서야 200 이 된다.
+   * ⇒ 크롤러가 리디렉션 한 번을 안 따라가면 「없다」가 된다. 그 한 번을 없앤다.
+   *
+   * ⚠ 애드센스는 www 와 non-www 를 «한 사이트»로 본다 — 실측했다(2026-09-23 23:1x).
+   *   콘솔에 www 를 새 사이트로 넣어 봤더니 목록이 그대로 4개였다.
+   *   그러니 「www 를 따로 등록해서 푼다」는 길은 없다. 파일이 그 주소에서 바로 나와야 한다.
+   * ⛔ 다른 경로의 301 은 그대로 둔다 — 두 주소로 같은 글이 뜨면 둘 다 약해진다(2026-09-07 실측).
+   */
+  if (정본 && /^\/ads\.txt(\?|$)/i.test(req.url ?? '')) {
+    /* 301 을 건너뛰고 아래 정상 처리로 내려보낸다 */
+  } else if (정본 && (req.method === 'GET' || req.method === 'HEAD')) {
     res.writeHead(301, {
       Location: `https://${정본}${req.url ?? '/'}`,
       'Cache-Control': 'public, max-age=3600',
