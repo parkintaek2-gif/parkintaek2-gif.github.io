@@ -269,6 +269,8 @@ export const 단계들 = [
   /* ⚠ 자가시험만 문다 — 라이브 재기는 네트워크가 필요하고 «며칠치 기록»이 있어야 판정된다.
      라이브는 매시 점검(check-2h)이 돌린다 */
   "node scripts/check-sitemap-lastmod-honest.mjs --자가시험",
+  /* 「오늘 낸 글」을 lastmod 가 아니라 «새로 난 주소»로 센다 — 1,468 이 세어지던 자리 */
+  "node scripts/lib/sitemap-new-urls.mjs --자가시험",
   "node scripts/check-internal-comment-leak.mjs --자가시험",
   "node scripts/check-internal-comment-leak.mjs",
   "node scripts/check-seat-config.mjs --자가시험",
