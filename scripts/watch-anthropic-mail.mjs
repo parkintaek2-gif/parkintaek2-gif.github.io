@@ -56,8 +56,29 @@ export function 지원팀줄인가(줄) {
    * ⇒ 사장님이 「메일 왔다」고 세 번 알려 주셨는데 세 번 다 이것이었다.
    * ⛔ 헛알림은 자를 죽인다 — 진짜 답이 왔을 때 사람이 안 보게 된다. */
   const 미리 = String(줄.미리보기 || '');
-  if (/^-?\s*Rate your conversation/i.test(미리.trim())) return false;
+  if (평가요청인가(줄)) return false;
   return true;
+}
+
+/**
+ * 🔴 [2026-09-23 · 5번] **평가 요청을 「없는 것」으로 넘기면 «대화가 닫혔다»를 못 본다.**
+ * 오늘 사장님이 「클로드 측에서 메일 왔다」고 하셨는데 이 자는 「새 것 없다」고 했다.
+ * 자는 제대로 돌았다 — 온 것이 평가 요청 둘(13:57·14:11)뿐이었기 때문이다.
+ * 그런데 **그것이 왔다는 사실 자체가 정보다.** Fin 이 대화를 닫으면서 보내는 편지이고,
+ * 닫혔다는 것은 우리 요청이 처리 대기줄에 «없을 수도» 있다는 뜻이다.
+ * ⇒ 빨간불은 그대로 안 켠다(헛알림이 자를 죽인다). 대신 «조용한 한 줄»로 남긴다.
+ */
+export function 평가요청인가(줄) {
+  const 미리 = String(줄?.미리보기 || '').trim();
+  return /^-?\s*Rate your conversation/i.test(미리);
+}
+
+/** 오늘 온 평가 요청 — 대화가 닫힌 자국이다 */
+export function 닫힌자국(줄들) {
+  return (줄들 ?? []).filter((r) => {
+    const 보낸이 = [r.보낸이, r.보낸이글자, r.보낸이속성].filter(Boolean).join(' ');
+    return /Anthropic|Fin/i.test(보낸이) && 평가요청인가(r);
+  });
 }
 
 /**
@@ -191,6 +212,18 @@ function 자가시험() {
   잰다('남남은 안 센다', 지원팀줄인가({ 보낸이: '구글', 제목: 'Re: refund' }), false);
   잰다('빈 줄은 안 센다', 지원팀줄인가({ 보낸이: '', 제목: 'Re: refund' }), false);
 
+  /* 🔴 [2026-09-23] 사장님이 「클로드 측에서 메일 왔다」고 하셨는데 자는 「없다」고 했다.
+     자는 제대로 돌았다 — 온 것이 평가 요청뿐이었다. 그러나 그것이 왔다는 «사실»은 정보다. */
+  const 평가줄 = { 보낸이: '나, Fin', 제목: 'Re: 무엇', 미리보기: '- Rate your conversation Terrible Bad OK' };
+  잰다('평가 요청을 알아본다', 평가요청인가(평가줄), true);
+  잰다('⛔ 평가 요청은 여전히 빨간불이 아니다', 지원팀줄인가(평가줄), false);
+  잰다('🔴 그래도 «닫힌 자국»으로는 남긴다', 닫힌자국([평가줄]).length, 1);
+  잰다('⛔ 남남의 평가 요청은 세지 않는다',
+    닫힌자국([{ 보낸이: '구글', 미리보기: 'Rate your conversation' }]).length, 0);
+  잰다('⛔ 내용이 있는 답장은 닫힌 자국이 아니다',
+    닫힌자국([{ 보낸이: '나, Fin', 미리보기: 'We have queued the refund' }]).length, 0);
+  잰다('⛔ 빈 것에 안 터진다', 닫힌자국(null).length, 0);
+
   console.log('── 🔴 실제로 놓쳤던 꼴 (2026-09-21 13:5x)');
   /* 주고받은 스레드는 화면 글자가 「나, Fin」인데 email 속성에는 «우리 주소»가 박힌다.
      속성만 보면 「Anthropic 이 아니다」로 걸러져 답장을 통째로 놓친다. */
@@ -281,14 +314,25 @@ if (인자.includes('--자가시험') || 인자.includes('--selftest')) {
       fs.readFileSync(path.join(뿌리, 'docs', '보낸메일.tsv'), 'utf8'));
   } catch { 우리가보낸것 = []; }
   const 새것 = 새것만(결과.줄들, 본자국, 우리가보낸것);
+  /* ⚠ 평가 요청은 빨간불이 아니다 — 그러나 「대화가 닫혔다」는 자국이라 «보이게» 남긴다 */
+  const 닫힘 = 닫힌자국(결과.줄들);
 
   if (체크) {
     console.log(새것.length
       ? `🔴 ⑧-3 지원팀 답장   새 답장 ${새것.length}건 — ${새것[0].제목.slice(0, 50)}`
       : `✅ ⑧-3 지원팀 답장   새 것 없다 (${지금글()} 잼)`);
+    if (!새것.length && 닫힘.length) {
+      console.log(`     ⚠ 다만 대화 평가 요청이 ${닫힘.length}건 — Fin 이 대화를 «닫았다»는 자국이다.`);
+      console.log('       답을 기다리는 건이 있으면 닫힌 채로 묻힌다. 새로 열어야 하는지 본다.');
+    }
   } else {
     console.log(`■ Anthropic 지원팀 답장 — ${지금글()}\n`);
-    if (!새것.length) console.log('   새 답장 없다.');
+    if (닫힘.length) {
+      console.log(`   ⚠ 대화 평가 요청 ${닫힘.length}건 — Fin 이 대화를 닫은 자국이다`);
+      for (const r of 닫힘) console.log(`     · ${r.때} ${r.제목.slice(0, 60)}`);
+      console.log('');
+    }
+    if (!새것.length) console.log('   내용이 있는 새 답장은 없다.');
     else {
       for (const r of 새것) {
         console.log(`   ● ${r.때} · ${r.보낸이}\n     제목 ${r.제목}\n     미리 ${r.미리보기}\n`);
