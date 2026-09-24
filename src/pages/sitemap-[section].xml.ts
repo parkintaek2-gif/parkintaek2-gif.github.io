@@ -16,6 +16,12 @@ import jp from '../data/japan-financials-tape.json';
 import tw from '../data/taiwan-financials-tape.json';
 import { 낼만한가 as tw낼만한가, 업종주소 as tw업종주소 } from '../lib/taiwan-company-page.mjs';
 import { 낼만한가 as jp낼만한가, 업종주소 as jp업종주소 } from '../lib/japan-company-page.mjs';
+/* 🔴 [2026-09-24 · 5번] UAE 상장사 지면 104 + 목록 1.
+   사장님: 「에스마켓츠 나라별 작업을 빨리 끝내게 우선 서둘러」
+   재 보니 일본 3,706 · 한국 2,582 · 대만 1,090 이 서 있는데 UAE 는 «한 장도» 없었다.
+   자료는 회사 111곳이 쌓여 있었다 — 모으고 안 낸 것이다. */
+import uae from '../data/uae-company-facts.json';
+import { 낼만한가 as uae낼만한가, 주소표만들기 as uae주소표만들기 } from '../lib/uae-company-page.mjs';
 
 type Video = { title: string; description: string; thumbnail: string; content: string };
 type Image = { loc: string; title: string };
@@ -30,6 +36,7 @@ export function getStaticPaths() {
     { params: { section: 'companies' } },
     { params: { section: 'japan' } },
     { params: { section: 'taiwan' } },
+    { params: { section: 'uae' } },
     ...CATEGORIES.map((c) => ({ params: { section: c.slug } })),
   ];
 }
@@ -101,6 +108,20 @@ export const GET: APIRoute = async ({ params }) => {
     }
     for (const s2 of [...업종들].sort()) {
       것.push({ loc: '/japan/sector/' + s2, changefreq: 'weekly', priority: '0.7' });
+    }
+    urls = 것;
+  } else if (section === 'uae') {
+    /* 🔴 [2026-09-24 · 5번] UAE 상장사 지면 104 + 목록 1.
+       ⛔ 지면을 «안 만든» 회사는 여기에도 안 넣는다 — 사이트맵이 404 를 가리키면
+         그 사이트맵 전체의 신뢰가 깎인다. 지면과 «같은 자»(낼만한가)로 거른다.
+       ⚠ 업종 지면은 아직 없다 — 자료의 sector 가 대부분 null 이라 만들 것이 없다.
+         ⛔ 없는 것을 사이트맵에 적지 않는다. 채워지면 그때 넣는다. */
+    const 회사들 = ((uae as any).companies as any[]).filter((c) => uae낼만한가(c));
+    const 주소표 = uae주소표만들기(회사들);
+    const 것: Url[] = [{ loc: '/uae/companies', changefreq: 'weekly', priority: '0.9' }];
+    for (const c of 회사들) {
+      const s = 주소표.get(c.symbol);
+      if (s) 것.push({ loc: '/uae/company/' + s, changefreq: 'monthly', priority: '0.6' });
     }
     urls = 것;
   } else if (section === 'taiwan') {
