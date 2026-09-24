@@ -589,7 +589,9 @@
     "parent-support-view-by-age.json",
     "retirement-prep-by-age.json",
     "work-family-priority-by-age.json",
-    "social-trust-by-age.json"
+    "social-trust-by-age.json",
+    "academy-lifespan-by-type.json",
+    "kids-activity-lifespan.json"
   ],
   "3번감수": {
     "언제": "2026-08-08 14:5x",

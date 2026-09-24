@@ -1,0 +1,152 @@
+---
+/**
+ * /100y/kids-activity-lifespan — 태권도장 등 아동 체육·교육기관 사업장 수명 (국민연금 자료 직접 집계)
+ *
+ * ⛔ 3자 순위 인용이 아니다 — 국민연금 가입 사업장 내역(공공데이터포털)을
+ *   100yearmap이 직접 집계한 «이슈 메이킹» 지면이다. build-100y-nps-survival-by-ksic.mjs
+ *   재사용(화장품 편 재현 검증 통과). academy-lifespan 과 같은 결(우리가 직접 센 비교표).
+ * ⛔ 판정하지 않는다 — 어느 곳이 "좋다"고 말하지 않는다. 인과도 확정하지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
+import 원본 from '../../../data/100yearmap/kids-activity-lifespan.json';
+
+const 자료 = 원본 as any;
+const 출처 = 자료.출처;
+const 표 = ([...자료.자료] as any[]).sort((a, b) => b.수명중앙값 - a.수명중앙값);
+const 가장긺 = 표[0];
+const 가장짧음 = 표[표.length - 1];
+const 배수 = Math.round((가장긺.수명중앙값 / 가장짧음.수명중앙값) * 10) / 10;
+const 태권도 = 표.find((r) => r.업종 === '태권도 및 무술 교육기관');
+
+const desc =
+  `국민연금 가입 사업장 내역을 100yearmap이 직접 집계하면, 태권도 및 무술 교육기관의 사업장 수명 ` +
+  `중앙값은 ${태권도?.수명중앙값}년으로 세 업종 중 가장 짧습니다. ${가장긺.업종}은 ${가장긺.수명중앙값}년입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '태권도장 수명이 짧다는 것이 그 도장이 나쁘다는 뜻인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '아닙니다. 이 지면은 국민연금 가입 사업장이 자격을 잃은 시점을 셀 뿐, 교육의 질이나 만족도를 재지 않습니다. 관장 혼자 계속 가르치는 경우도 「사업장 종료」로 잡힙니다.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '이 세 업종의 경계가 정확한가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '「기타 스포츠 교육기관」에 어떤 종목이 얼마나 섞였는지는 이 자료로 가를 수 없습니다. KSIC(한국표준산업분류) 업종명 그대로 셌습니다.',
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`태권도장 수명 중앙값 ${태권도?.수명중앙값}년 — 아동 체육·교육기관 3종, 국민연금 자료로 비교`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    태권도장 등 아동 체육·교육기관<br class="pcbr" />
+    사업장 수명을 국민연금 자료로 셌습니다
+  </h1>
+
+  <p class="sub">
+    {출처.이름}(데이터셋 {출처.데이터셋})를 100yearmap이 직접 집계했습니다. KSIC 업종명이 갈리는
+    아동 체육·교육기관 세 가지의 사업장 수명 중앙값을 나란히 놓았습니다.
+  </p>
+
+  <div class="warn">
+    <p>
+      <strong>{가장긺.업종}</strong>이 수명 중앙값 <strong>{가장긺.수명중앙값}년</strong>으로
+      가장 길고, <strong>{가장짧음.업종}</strong>이 <strong>{가장짧음.수명중앙값}년</strong>으로
+      가장 짧습니다 — {배수}배 차이입니다. {태권도?.업종}은 3년 안에 <strong>{태권도?.삼년내}%</strong>가
+      이 명단에 들었습니다.
+    </p>
+  </div>
+
+  <h2>세 업종 — 수명 긴 순</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>순위</th><th>업종</th><th>수명 중앙값</th><th>1년 내</th><th>3년 내</th><th>표본</th></tr></thead>
+      <tbody>
+        {표.map((r, i) => (
+          <tr>
+            <td>{i + 1}위</td>
+            <td>{r.업종}</td>
+            <td><strong>{r.수명중앙값}년</strong></td>
+            <td>{r.일년내}%</td>
+            <td>{r.삼년내}%</td>
+            <td>{r.닫은곳}곳</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">⚠ {(자료.기준 as string)}</p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 국민연금 가입 자료를
+    {' '}집계해 보여줄 뿐, 어느 업종이 더 좋은지 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — {출처.이름} · 이용허락범위: {출처.이용허락범위}
+  </p>
+
+  <p class="note">
+    <a href="/academy-lifespan">← 학원 종류별(일반교과·음악·외국어·미술) 사업장 수명은 여기서 봅니다</a>
+    <br />
+    <a href="/how-long">← 33개 업종 전체의 사업장 수명은 여기서 봅니다</a>
+  </p>
+
+  <HundredCardnews 벌="아동체육기관수명" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
+
+  <HundredAgeWalk 키="kids-activity-lifespan" />
+
+  <NextQuestionBrief 모은것="국민연금공단 국민연금 가입 사업장 내역" />
+
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/kids-activity-lifespan"></div>
+</HundredYear>
+
+<style>
+  .pcbr { display: none; }
+  @media (min-width: 640px) { .pcbr { display: inline; } }
+  .sub { font-size: 1.05rem; line-height: 1.7; }
+  .warn {
+    background: rgba(211, 74, 74, 0.06);
+    border-left: 3px solid rgba(211, 74, 74, 0.4);
+    padding: .9rem 1.05rem;
+    border-radius: 0 .5rem .5rem 0;
+    margin: 1.2rem 0;
+  }
+  .tablewrap { overflow-x: auto; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  th, td { padding: .5rem .6rem; border-bottom: 1px solid rgba(128,128,128,.2); text-align: right; }
+  thead th { font-size: .82rem; opacity: .65; border-bottom: 2px solid rgba(128,128,128,.35); }
+  thead th:nth-child(2), tbody td:nth-child(2) { text-align: left; }
+  thead th:first-child, tbody td:first-child { text-align: left; width: 3rem; }
+  .note { font-size: .9rem; opacity: .75; margin: .6rem 0; }
+</style>

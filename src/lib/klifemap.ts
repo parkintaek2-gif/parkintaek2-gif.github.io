@@ -112,6 +112,8 @@ export const 어른갈래: ReadonlySet<string> = new Set([
   'marriage-age', 'home', 'spending', 'healthy-years', 'years-left', 'real-wage', 'idle-youth', 'wealth-gap', 'youth-budget-2027', 'nonmarital-birth', 'korea-japan-youth', 'ranking-university', 'ranking-university-founding', 'ranking-university-region', 'ranking-university-level', 'ranking-stock-wealth', 'ranking-apartment-value', 'ranking-hagwon', 'ranking-medical-quota', 'ranking-lawmaker-wealth', 'ranking-kbo-salary', 'ranking-apartment-brand', 'ranking-convenience-brand', 'ranking-tax-delinquent', 'ranking-good-company', 'ranking-vleague-salary', 'ranking-university-nature-index', 'ranking-university-brand', 'ranking-city-brand', 'ranking-sangjo-brand', 'rankings', 'ranking-chicken-brand', 'ranking-coffee-brand', 'ranking-bakery-brand', 'ranking-hairsalon-brand', 'ranking-pizza-brand', 'ranking-petsupply-brand', 'ranking-eyewear-brand', 'ranking-juniorcollege-brand', 'ranking-cosmetics-brand', 'ranking-insurance-agency-brand', 'ranking-usedcar-brand', 'ranking-capital-brand', 'ranking-developer-brand', 'nps-cap-region', 'nps-cap-size', 'sandwich-generation', 'school-type-gap', 'ranking-university-global', 'oecd-elderly-poverty', 'happiness-ranking', 'salary-ranking', 'mental-health', 'senior-doctor', 'high-value-home-age', 'wage-education', 'wage-distribution', 'divorce-age', 'remarriage', 'multicultural-marriage', 'birth-sex-ratio', 'fertility-rate',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'qual-duration', 'qual-age',
+  /* [2026-09-24 · 1번] nps-cap-size 와 같은 결(국민연금 자료 직접 집계, 학원·아동체육기관) */
+  'academy-lifespan', 'kids-activity-lifespan',
   /* 🔴 2026-09-10 3번 신설 — wage-education·wage-distribution과 같은 결(임금 비교) */
   'industry-region-cross', 'industry-size-cross',
   /* 🔴 2026-09-10 3번 신설 — 같은 원자료의 이직 추정치를 공식 통계와 대조(판정 없음) */
@@ -243,6 +245,8 @@ export const 붙일수있는갈래 = [
   'work-family-priority-by-age',
   /* [2026-09-24 · 1번] 같은 까닭 — 우리 사회 신뢰도, 나이띠별(2025 단면) */
   'social-trust-by-age',
+  /* [2026-09-24 · 1번] 같은 까닭 — 학원 종류별·아동 체육기관 사업장 수명(국민연금 직접 집계) */
+  'academy-lifespan', 'kids-activity-lifespan',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary', 'tutoring', 'tutoring-region', 'tutoring-income',
   /* 🔴 2026-09-11 3번 신설 — 사장님 지시. 학생자살 사망사안 보고서(한겨레 인용) */
