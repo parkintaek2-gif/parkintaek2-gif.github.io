@@ -1,0 +1,247 @@
+---
+/*
+ * `/uae/company/[slug]` — **UAE 상장사 한 곳의 재무 지면.** 한 자료로 104장이 선다.
+ * (seoulmarkets.com/uae/company/abu-dhabi-commercial-bank …)
+ *
+ * ── 🔴 왜 이 지면이 생겼나 (2026-09-24 · 5번) ──────────────────────────
+ * 사장님 — 「**에스마켓츠 나라별 작업을 빨리 끝내게 우선 서둘러.
+ *   그래야 네가 많은 시간을 케이라이프맵에 쓸 수 있잖아**」
+ * 재 보니 일본 3,706장 · 한국 2,582장 · 대만 1,090장이 서 있는데 **UAE 는 한 장도 없었다.**
+ * 자료는 회사 111곳·재무 398줄이 쌓여 있었다 — 모으고 안 낸 것이다.
+ *
+ * ── 일본 지면에서 그대로 가져온 것 ─────────────────────────────────────
+ * ① 겹치는 이름에만 구분자를 붙인다   ② 낼 내용이 없으면 지면을 안 만든다
+ * ③ 등수를 매기지 않는다             ④ 두 축이 서로를 가리킨다(회사 ↔ 거래소)
+ *
+ * ── ⚠ UAE 만 다른 것 — 여기를 일본처럼 쓰면 거짓이 된다 ─────────────────
+ * ⚠ 이 자료는 **분기 공시**다(Q2 2026). 일본은 연 결산이었다.
+ *   ⛔ 「한 해 매출」이라 적지 않는다. 그 분기의 수다.
+ * ⚠ `liabilities_derived` 가 true 면 부채를 **빼서 만든 값**이다 — 회사가 낸 수가 아니다.
+ *   그 사실을 지면에 밝힌다. 숨기면 우리가 만든 수를 회사 수인 척하는 것이다.
+ * ⚠ `balance_sheet_reconciled` 가 false 면 자산 = 부채 + 자본이 안 맞는다.
+ *   ⛔ 맞는 것처럼 내지 않는다.
+ * ⛔ 디르함을 달러로 바꾸지 않는다 — 환율은 회사가 낸 수가 아니다.
+ * 🔴 Astro 앞말(--- 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ */
+import Base from '../../../layouts/Base.astro';
+import { SITE_URL } from '../../../consts';
+import facts from '../../../data/uae-company-facts.json';
+import { 재무줄, 낼만한가, 주소표만들기, 거래소이름 } from '../../../lib/uae-company-page.mjs';
+
+export async function getStaticPaths() {
+  const 회사들 = ((facts as any).companies as any[]).filter((c) => 낼만한가(c));
+  const 주소표 = 주소표만들기(회사들);
+
+  /* 거래소별 회사 — 「두 축이 서로 가리킨다」. 한 번만 만들고 104장이 나눠 쓴다 */
+  const 거래소별 = new Map<string, Array<{ symbol: string; slug: string; name: string }>>();
+  for (const c of 회사들) {
+    const e = String(c.exchange || '').trim() || 'Unlisted';
+    if (!거래소별.has(e)) 거래소별.set(e, []);
+    거래소별.get(e)!.push({ symbol: String(c.symbol), slug: 주소표.get(c.symbol)!, name: String(c.name) });
+  }
+  for (const v of 거래소별.values()) v.sort((a, b) => a.name.localeCompare(b.name, 'en'));
+
+  return 회사들.map((c) => {
+    const 거래소 = String(c.exchange || '').trim() || 'Unlisted';
+    const 한벌 = 거래소별.get(거래소) ?? [];
+    return {
+      params: { slug: 주소표.get(c.symbol)! },
+      props: {
+        symbol: String(c.symbol),
+        name: String(c.name).trim(),
+        exchange: 거래소,
+        exchangeName: 거래소이름(거래소),
+        sector: c.sector || null,
+        auditor: c.auditor || null,
+        줄: 재무줄(c.최근 ?? c.latest ?? null),
+        같은거래소: 한벌.filter((x) => x.symbol !== String(c.symbol)).slice(0, 12),
+        거래소회사수: 한벌.length,
+      },
+    };
+  });
+}
+
+const { symbol, name, exchange, exchangeName, sector, auditor, 줄, 같은거래소, 거래소회사수 } =
+  Astro.props as any;
+
+const mn = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
+const pct = (n: number | null) =>
+  n == null ? '—' : `${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
+const x2 = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 2 });
+const x3 = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 3 });
+
+const 분기 = 줄?.period ?? null;
+const title = `${name} — reported financials (UAE)`;
+const 설명줄 = 줄 && 줄.revenue != null
+  ? `${name} (${symbol}) reported AED ${mn(줄.revenue)}mn of revenue in ${분기 ?? 'its latest filed quarter'}.`
+  : `${name} (${symbol}) — financials as filed with the ${exchangeName ?? 'exchange'}.`;
+const description = `${설명줄} Revenue, net profit, assets, liabilities and equity exactly as filed, with the ratios computed from those figures. Quarterly filing, not an annual result.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Corporation',
+  '@id': `${SITE_URL}/uae/company/${Astro.params.slug}#corporation`,
+  name,
+  tickerSymbol: symbol,
+  url: `${SITE_URL}/uae/company/${Astro.params.slug}`,
+  ...(sector ? { industry: sector } : {}),
+  address: { '@type': 'PostalAddress', addressCountry: 'AE' },
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs">
+      <a href="/">SeoulMarkets</a> <span>›</span> <a href="/uae/companies">UAE companies</a>
+    </nav>
+
+    <header>
+      <h1>{name}</h1>
+      <p class="sub">
+        <span class="chip">{symbol}</span>
+        <span class="chip">United Arab Emirates</span>
+        {exchangeName && <span class="chip">{exchange}</span>}
+        {sector && <span class="chip">{sector}</span>}
+      </p>
+      <p class="lede">{설명줄}</p>
+    </header>
+
+    <section>
+      <h2>Reported financials</h2>
+      <p class="note">
+        Figures are as filed, in millions of dirhams (AED mn). We do not convert to dollars — an
+        exchange rate would be a number we made up, not one the company reported.
+        <b> This is a quarterly filing, not a full-year result.</b>
+        {줄?.priorPeriod && <> The company reports it against <b>{줄.priorPeriod}</b>.</>}
+      </p>
+      <div class="scroll">
+        <table>
+          <tbody>
+            <tr><th>Period</th><td>{분기 ?? '—'}</td></tr>
+            <tr><th>Revenue</th><td>{mn(줄?.revenue ?? null)}</td></tr>
+            <tr>
+              <th>Net profit</th>
+              <td class={줄?.net != null && 줄.net < 0 ? 'neg' : ''}>{mn(줄?.net ?? null)}</td>
+            </tr>
+            <tr><th>Earnings per share (AED)</th><td>{x3(줄?.eps ?? null)}</td></tr>
+            <tr><th>Cash and equivalents</th><td>{mn(줄?.cash ?? null)}</td></tr>
+            <tr><th>Total assets</th><td>{mn(줄?.assets ?? null)}</td></tr>
+            <tr><th>Total liabilities</th><td>{mn(줄?.liabilities ?? null)}</td></tr>
+            <tr><th>Total equity</th><td>{mn(줄?.equity ?? null)}</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      {줄?.부채를빼서만들었나 && (
+        <p class="warn">
+          <b>How the liabilities figure was obtained.</b> This company did not state total
+          liabilities directly in the filing we read. The figure above is assets minus equity — a
+          subtraction we performed, not a line the company reported. We show it so the balance
+          sheet is complete, and we label it so you know which is which.
+        </p>
+      )}
+      {줄?.재무상태표맞나 === false && (
+        <p class="warn">
+          <b>These balance sheet lines do not reconcile.</b> Assets do not equal liabilities plus
+          equity in the filing as we read it{줄?.재무상태표까닭 ? <>: {줄.재무상태표까닭}</> : <>.</>}
+          {' '}We report the figures as filed rather than adjusting them to balance.
+        </p>
+      )}
+    </section>
+
+    <section>
+      <h2>Ratios from those figures</h2>
+      <p class="note">
+        Each ratio is computed from the lines above it. A dash means an input was missing or the
+        denominator was zero — <b>not</b> that the value is zero.
+      </p>
+      <div class="scroll">
+        <table>
+          <tbody>
+            <tr>
+              <th>Net margin</th>
+              <td class={줄?.순이익률 != null && 줄.순이익률 < 0 ? 'neg' : ''}>{pct(줄?.순이익률 ?? null)}</td>
+            </tr>
+            <tr><th>Equity / assets</th><td>{pct(줄?.자기자본비율 ?? null)}</td></tr>
+            <tr>
+              <th>Return on equity</th>
+              <td class={줄?.ROE != null && 줄.ROE < 0 ? 'neg' : ''}>{pct(줄?.ROE ?? null)}</td>
+            </tr>
+            <tr><th>Liabilities / equity</th><td>{x2(줄?.부채비율 ?? null)}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="warn">
+        These are arithmetic, not judgements. We do not say whether a margin is good or bad, and we
+        do not rank companies against each other. Return on equity from a single quarter is not an
+        annual return — we have not annualised it, because that would be our assumption, not the
+        company's figure.
+      </p>
+    </section>
+
+    {같은거래소.length > 0 && (
+      <section>
+        <h2>Other companies on {exchangeName ?? exchange}</h2>
+        <p class="note">
+          {거래소회사수} listed companies file here with figures we could read. Showing {같은거래소.length}.
+        </p>
+        <ul class="peers">
+          {같은거래소.map((p: any) => (<li><a href={`/uae/company/${p.slug}`}>{p.name}</a></li>))}
+        </ul>
+        <p><a class="more" href="/uae/companies">See the whole UAE list →</a></p>
+      </section>
+    )}
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> Quarterly and annual results filed by the company with the
+        {' '}{exchangeName ?? 'exchange'} and published on the exchange's disclosure service.
+        {auditor && <> Auditor as stated in the filing: {auditor}.</>}
+      </p>
+      <p>
+        <b>Not investment advice.</b> This page reports what was filed. It contains no
+        recommendation to buy, hold or sell, and no opinion on whether any figure is good or bad.
+      </p>
+      <p class="dim">
+        One filing per company — the most recent one we hold. Figures can be restated by the filer
+        after publication. Where a company did not report a line, we leave it blank rather than
+        writing zero.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .crumbs { font-size: .85rem; color: #667; margin-bottom: 1rem; }
+  .crumbs a { color: #445; text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  .crumbs span { margin: 0 .35rem; color: #aab; }
+  h1 { font-size: 1.85rem; line-height: 1.25; margin: 0 0 .5rem; }
+  .sub { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin: 0 0 .9rem; }
+  .chip { display: inline-block; font-size: .78rem; padding: .16rem .5rem; border-radius: 999px;
+          background: #eef1f6; color: #445; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.5rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 .7rem; }
+  .warn { font-size: .85rem; color: #665; background: #fbfaf4; border-left: 3px solid #ddd6b8;
+          padding: .55rem .8rem; margin: .8rem 0 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: .45rem .6rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  tbody th { text-align: left; font-weight: 500; color: #445; }
+  td.neg { color: #a33; }
+  .dim { color: #889; }
+  .peers { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+           gap: .3rem 1rem; list-style: none; padding: 0; margin: .5rem 0 0; }
+  .peers a { font-size: .92rem; color: #2a4d8f; text-decoration: none; }
+  .peers a:hover { text-decoration: underline; }
+  .more { font-size: .9rem; color: #2a4d8f; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e8eaef;
+         font-size: .85rem; color: #667; }
+  .src p { margin: 0 0 .5rem; }
+</style>

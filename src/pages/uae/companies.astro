@@ -1,0 +1,114 @@
+---
+/*
+ * `/uae/companies` — **UAE 상장사 목록.** 회사 지면 104장으로 가는 문이다.
+ * (2026-09-24 · 5번 · 사장님: 「에스마켓츠 나라별 작업을 빨리 끝내게 우선 서둘러」)
+ *
+ * ⭐ 이 목록 지면이 있어야 크롤러가 104장을 «찾는다».
+ *   같은 날 케이라이프맵에서 배운 것이다 — 지면 527장이 있어도 목록으로 가는 길이
+ *   자바스크립트에만 있으면 넉 장만 색인됐다.
+ * ⛔ 등수를 매기지 않는다. 이름 차례로만 세운다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import facts from '../../data/uae-company-facts.json';
+import { 낼만한가, 주소표만들기, 거래소이름, 재무줄 } from '../../lib/uae-company-page.mjs';
+
+const 회사들 = ((facts as any).companies as any[]).filter((c) => 낼만한가(c));
+const 주소표 = 주소표만들기(회사들);
+const meta = (facts as any)._meta ?? {};
+
+const 거래소별 = new Map<string, Array<any>>();
+for (const c of 회사들) {
+  const e = String(c.exchange || '').trim() || 'Unlisted';
+  if (!거래소별.has(e)) 거래소별.set(e, []);
+  거래소별.get(e)!.push(c);
+}
+for (const v of 거래소별.values()) v.sort((a, b) => String(a.name).localeCompare(String(b.name), 'en'));
+const 거래소들 = [...거래소별.entries()].sort((a, b) => b[1].length - a[1].length);
+
+/* 몇 곳이 부채를 «빼서 만든» 값인지 — 정직하게 위에 적는다 */
+const 유도부채 = 회사들.filter((c) => {
+  const r = 재무줄(c.최근 ?? c.latest ?? null);
+  return r && r.부채를빼서만들었나;
+}).length;
+
+const title = 'UAE listed companies — financials as filed';
+const description = `Reported revenue, net profit, assets and equity for ${회사들.length} companies listed in Abu Dhabi and Dubai, exactly as filed with the exchanges. Figures in dirhams, no conversion, no ranking, no investment advice.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE_URL}/uae/companies#collection`,
+  name: title,
+  description,
+  url: `${SITE_URL}/uae/companies`,
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs"><a href="/">SeoulMarkets</a> <span>›</span> UAE companies</nav>
+
+    <header>
+      <h1>UAE listed companies</h1>
+      <p class="lede">
+        Financials for {회사들.length} companies listed on the Abu Dhabi Securities Exchange and the
+        Dubai Financial Market, exactly as filed. Figures are in dirhams — we do not convert to
+        dollars, because an exchange rate is a number we would be making up.
+      </p>
+      <p class="note">
+        <b>These are quarterly filings, not annual results.</b> Each company page shows the most
+        recent filing we hold and the period it covers.
+        {유도부채 > 0 && (
+          <> For {유도부채} of these companies the total liabilities line was not stated in
+          the filing; we show assets minus equity instead and label it on the page.</>
+        )}
+      </p>
+    </header>
+
+    {거래소들.map(([거래소, 목록]) => (
+      <section>
+        <h2>{거래소이름(거래소) ?? 거래소} <span class="count">{목록.length}</span></h2>
+        <ul class="peers">
+          {목록.map((c: any) => (
+            <li><a href={`/uae/company/${주소표.get(c.symbol)}`}>{c.name}</a> <span class="tick">{c.symbol}</span></li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> Results filed by each company with its exchange and published on the
+        exchange's disclosure service.
+        {meta.받은날 && <> Collected {meta.받은날}.</>}
+      </p>
+      <p>
+        <b>Not investment advice.</b> These pages report what was filed. They contain no
+        recommendation and no opinion on whether any figure is good or bad, and companies are not
+        ranked against one another.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .crumbs { font-size: .85rem; color: #667; margin-bottom: 1rem; }
+  .crumbs a { color: #445; text-decoration: none; }
+  .crumbs span { margin: 0 .35rem; color: #aab; }
+  h1 { font-size: 1.85rem; line-height: 1.25; margin: 0 0 .5rem; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 .8rem; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 1.4rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.15rem; margin: 0 0 .6rem; }
+  .count { font-size: .8rem; color: #889; font-weight: 400; }
+  .peers { display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+           gap: .35rem 1rem; list-style: none; padding: 0; margin: 0; }
+  .peers a { font-size: .92rem; color: #2a4d8f; text-decoration: none; }
+  .peers a:hover { text-decoration: underline; }
+  .tick { font-size: .75rem; color: #99a; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e8eaef;
+         font-size: .85rem; color: #667; }
+  .src p { margin: 0 0 .5rem; }
+</style>
