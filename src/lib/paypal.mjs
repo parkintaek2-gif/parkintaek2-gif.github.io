@@ -153,17 +153,64 @@ export function 승인읽기(답, 상품) {
 }
 
 /**
- * 이미 낸 주문인가를 «다시» 확인한다 — 다운로드 때 쓴다.
+ * 페이팔 «구독» 답을 읽어 «지금도 유효한가」를 가른다. 순수함수 — 시험할 수 있다.
+ *
+ * 🔴 [2026-09-24 · 2번이 잡음] 월 정기결제(single_monthly·all_monthly)는 지면·주문
+ *   생성(`actions.subscription.create`)까지 다 붙어 있었는데, «다운로드 확인» 쪽은
+ *   그대로 승인읽기() 를 썼다. 승인읽기() 는 v2/checkout/orders(일회성 주문) 응답
+ *   모양(status:COMPLETED·purchase_units…)만 읽는다 — 구독 응답(v1/billing/
+ *   subscriptions, status:ACTIVE·plan_id…)은 모양이 달라 **항상 「not completed」로
+ *   떨어졌다.** 즉 월 구독으로 결제한 손님은 페이팔에 돈을 내고도 다운로드가
+ *   전원 402(거절)였다 — 아무도 안 사 봐서 아무도 못 봤다.
+ * ⚠ 금액 대조 대신 **요금제(plan_id) 대조**를 쓴다 — 구독 응답에는 그 결제주기의
+ *   낱개 금액이 없고(정기 결제 이력은 별도 API다), 요금제 자체가 「무엇을 얼마에
+ *   파는가」를 이미 페이팔 쪽에 고정해 둔 것이라 이것으로 충분하다.
+ */
+export function 구독읽기(답, 상품) {
+  if (!상품 || !상품.planId) return { ok: false, 왜: 'unknown product' };
+  if (!답 || !답.status) return { ok: false, 왜: 'provider error' };
+  if (답.status !== 'ACTIVE') return { ok: false, 왜: 'subscription not active (' + 답.status + ')' };
+  if (답.plan_id !== 상품.planId) {
+    return { ok: false, 왜: 'wrong plan: got ' + 답.plan_id + ', expected ' + 상품.planId };
+  }
+  const 구독자 = 답.subscriber || {};
+  const 이름칸 = 구독자.name || {};
+  const 산사람이름 = [이름칸.given_name, 이름칸.surname].filter(Boolean).join(' ') || null;
+  return {
+    ok: true,
+    결제번호: 답.id || null,
+    금액: 상품.usd,
+    산사람메일: 구독자.email_address || null,
+    산사람이름,
+  };
+}
+
+/** 구독이 «지금 유효한가»를 페이팔에 되묻는다(v1/billing/subscriptions). 산주문인가() 가 월 상품일 때 부른다 */
+export async function 구독확인(구독번호, 상품, 부르기 = fetch) {
+  if (!구독번호 || !/^[A-Za-z0-9-]{6,64}$/.test(String(구독번호))) return { ok: false, 왜: 'bad subscription id' };
+  if (!상품 || !상품.planId) return { ok: false, 왜: 'unknown product' };
+  const t = await 토큰받기();
+  const r = await 부르기(밑주소() + '/v1/billing/subscriptions/' + 구독번호, {
+    headers: { Authorization: 'Bearer ' + t },
+  });
+  const j = await r.json().catch(() => ({}));
+  return 구독읽기(j, 상품);
+}
+
+/**
+ * 이미 낸 주문/구독인가를 «다시» 확인한다 — 다운로드 때 쓴다.
  *
  * ⭐ 왜 이렇게 하나 — 서울마켓츠엔 DB 가 없다. 그래서 «누가 샀나»를 우리가 저장하지 않고
  *   **페이팔에 물어본다.** 페이팔이 진실의 근원이다.
  *   · 저장소가 필요 없다        · 링크가 만료되지 않는다(지면의 약속 그대로)
  *   · 위조할 수 없다            · 우리가 손님 정보를 들고 있지 않아도 된다
  * ⚠ 다운로드마다 페이팔을 한 번 부른다. 다운로드는 드물어 괜찮다.
+ * ⚠ 상품.기간 이 'month' 면 «주문」이 아니라 «구독」이다 — 다른 API 로 되묻는다.
  */
 export async function 산주문인가(주문번호, 상품, 부르기 = fetch) {
   if (!주문번호 || !/^[A-Za-z0-9-]{6,64}$/.test(String(주문번호))) return { ok: false, 왜: 'bad order id' };
   if (!상품) return { ok: false, 왜: 'unknown product' };
+  if (상품.기간 === 'month') return 구독확인(주문번호, 상품, 부르기);
   const t = await 토큰받기();
   const r = await 부르기(밑주소() + '/v2/checkout/orders/' + 주문번호, {
     headers: { Authorization: 'Bearer ' + t },

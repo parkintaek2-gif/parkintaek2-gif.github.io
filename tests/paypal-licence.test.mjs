@@ -15,7 +15,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { 상품, 상품찾기, 값글 } from '../src/data/licence-products.mjs';
-import { 센트, 승인읽기, 켜졌나, 진짜돈인가, 밑주소, 화면에낼것, _토큰비우기 } from '../src/lib/paypal.mjs';
+import { 센트, 승인읽기, 구독읽기, 켜졌나, 진짜돈인가, 밑주소, 화면에낼것, _토큰비우기 } from '../src/lib/paypal.mjs';
 
 /* ── 상품표 ───────────────────────────────────────────────── */
 
@@ -193,4 +193,54 @@ test('🔴 PAYPAL_MODE 가 정확히 live 일 때만 진짜 돈이다 — 오타
     assert.match(밑주소(), /sandbox/);
     delete process.env.PAYPAL_MODE;     assert.equal(진짜돈인가(), false, '안 적었으면 진짜 돈이 아니다');
   } finally { if (옛) process.env.PAYPAL_MODE = 옛; else delete process.env.PAYPAL_MODE; }
+});
+
+/* ── 구독읽기 — 🔴 [2026-09-24] 월 정기결제는 팔면서 확인은 «주문」 응답 모양으로 읽고
+     있었다. 그래서 구독으로 낸 손님은 전원 다운로드가 402 였다. 되돌려서 막는다 ── */
+
+const 잘된구독 = (planId = 상품.single_monthly.planId) => ({
+  id: 'I-BW452GLLEP1G', status: 'ACTIVE', plan_id: planId,
+});
+
+test('✅ 구독읽기: 상태 ACTIVE·요금제가 맞으면 통과한다', () => {
+  const r = 구독읽기(잘된구독(), 상품.single_monthly);
+  assert.equal(r.ok, true);
+  assert.equal(r.결제번호, 'I-BW452GLLEP1G');
+});
+
+test('🔴 구독읽기: status 가 ACTIVE 가 아니면 막는다(취소·정지·승인대기 등)', () => {
+  for (const s of ['CANCELLED', 'SUSPENDED', 'APPROVAL_PENDING', 'EXPIRED']) {
+    const r = 구독읽기({ ...잘된구독(), status: s }, 상품.single_monthly);
+    assert.equal(r.ok, false, s + ' 인데 통과했다');
+    assert.match(r.왜, /not active/);
+  }
+});
+
+test('🔴 구독읽기: plan_id 가 다르면 막는다 — $99 짜리 요금제로 $299 짜리를 못 받는다', () => {
+  const r = 구독읽기(잘된구독(상품.single_monthly.planId), 상품.all_monthly);
+  assert.equal(r.ok, false);
+  assert.match(r.왜, /wrong plan/);
+});
+
+test('🔴 구독읽기: 상품이 없거나 planId 가 없으면(연 상품 등) 막는다', () => {
+  assert.equal(구독읽기(잘된구독(), null).ok, false);
+  assert.equal(구독읽기(잘된구독(), 상품.single).ok, false, '연 상품은 planId 가 없다');
+});
+
+test('🔴 구독읽기: 페이팔이 오류를 주면(빈 답·status 없음) 막는다', () => {
+  assert.equal(구독읽기(null, 상품.single_monthly).ok, false);
+  assert.equal(구독읽기({}, 상품.single_monthly).ok, false);
+});
+
+test('✅ 구독읽기: 구독자 메일·이름을 함께 낸다(회원가입 없이 편지 보내는 통로)', () => {
+  const 답 = { ...잘된구독(), subscriber: { email_address: 'sub@example.com', name: { given_name: 'Jane', surname: 'Doe' } } };
+  const r = 구독읽기(답, 상품.single_monthly);
+  assert.equal(r.산사람메일, 'sub@example.com');
+  assert.equal(r.산사람이름, 'Jane Doe');
+});
+
+test('⛔ 구독읽기: 구독자 정보가 없어도 결제 자체는 성공이고 메일칸은 null 이다', () => {
+  const r = 구독읽기(잘된구독(), 상품.single_monthly);
+  assert.equal(r.ok, true);
+  assert.equal(r.산사람메일, null);
 });
