@@ -99,6 +99,15 @@ export function buildLive(stats) {
       what: 'Revenue, net profit, EPS and (where reconciled) balance sheet for ADX and DFM filers.',
       example: '/v1/uae-financials?symbol=ALDAR',
     },
+    /* ⭐ [2026-09-24 · 2번] src/lib/api.mjs 의 handleApi() 는 tradeExports() 를 실제로
+       부르고 있었다(KOSIS 360 국가×월 통관통계, R2 없이 git 번들 데이터) — 그런데
+       이 문서는 여전히 「soon」으로 적어 손님에게 「아직 없다」고 말하고 있었다.
+       라이브에서 실제로 200·실 데이터 확인하고 옮긴다(국가별 필터는 --country=). */
+    {
+      path: '/v1/trade/exports',
+      what: "Korea's monthly exports and imports, by partner country (Customs Service, via KOSIS) — national total or one of 243 partners.",
+      example: '/v1/trade/exports?country=vietnam&limit=3',
+    },
   ];
 }
 
@@ -106,9 +115,5 @@ export const soon = [
   {
     path: '/v1/trade/flash',
     what: "Korea's 10-day provisional trade figures, by product. Released 1st, 11th and 21st at 09:00 KST.",
-  },
-  {
-    path: '/v1/trade/exports',
-    what: 'Exports and imports by HS code and partner country, monthly, back to the start of our archive.',
   },
 ];
