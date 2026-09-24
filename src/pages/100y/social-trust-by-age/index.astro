@@ -1,0 +1,129 @@
+---
+/**
+ * /100y/social-trust-by-age — 「우리 사회를 믿나」는 나이마다 다르다, 30대만 불신이 신뢰를 앞선다
+ *
+ * 이슈  KOSIS 사회조사(DT_1SSSP040R) 웹지면(kosis.kr/statHtml)을 나이띠별로 열어 보니,
+ *       30~39세만 「믿을 수 없다」(50.9%)가 「믿을 수 있다」(49.1%)보다 많다. 다른 모든
+ *       나이띠는 「믿을 수 있다」가 앞선다 — 13~19세(59.6%)와 80세 이상(60.9%)이 가장 높다.
+ * 받은 경로  OpenAPI err30(데이터 없음). 다운로드 자동화(downGrid.do→downNormal.do)도
+ *           이 표에서는 다운로드 팝업이 안 열려 실패했다 — 화면에 표시된 값(2025년 한 해분)을
+ *           그대로 옮겼다. 계산·추정하지 않았다.
+ * ⚠ 단면(2025년) 자료다. 10년 추세는 이 자료로 못 본다 — 정직하게 그렇게 적는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
+import 원본 from '../../../data/100yearmap/social-trust-by-age.json';
+
+const 자료 = 원본 as any;
+const 전체 = 자료.전체;
+const 나이띠 = 자료.나이띠별 as any[];
+
+const 신뢰 = (r: any) => Math.round((r.매우 + r.약간) * 10) / 10;
+const 불신 = (r: any) => Math.round((r.별로 + r.전혀) * 10) / 10;
+
+const 계산됨 = 나이띠.map((r) => ({ ...r, 신뢰: 신뢰(r), 불신: 불신(r) }));
+const 전국신뢰 = 신뢰(전체);
+const 가장불신 = 계산됨.reduce((a, b) => (b.불신 > a.불신 ? b : a));
+const 가장신뢰 = 계산됨.reduce((a, b) => (b.신뢰 > a.신뢰 ? b : a));
+const 불신이신뢰넘는띠 = 계산됨.filter((r) => r.불신 > r.신뢰);
+
+const desc =
+  `국가데이터처 사회조사(2025년)를 나이띠별로 갈라 보니, 전국 평균은 「믿을 수 있다」가 ` +
+  `${전국신뢰}%로 앞섭니다. 그런데 ${가장불신.띠}만 「믿을 수 없다」(${가장불신.불신}%)가 ` +
+  `「믿을 수 있다」(${가장불신.신뢰}%)보다 많습니다. 가장 믿는 나이띠는 ${가장신뢰.띠}(${가장신뢰.신뢰}%)입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '우리 사회에 대한 신뢰도 — 나이띠별, 2025년',
+  description: desc,
+  temporalCoverage: '2025',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['사회 신뢰도(매우/약간/별로/전혀)'],
+};
+---
+
+<HundredYear
+  title={`우리 사회를 믿나 — ${가장불신.띠}만 「믿을 수 없다」가 앞섭니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>우리 사회를 얼마나 믿나 —<br />나이마다 다르고, 서른 즈음이 가장 낮습니다</h1>
+  <p class="sub">
+    KOSIS 사회조사(2025년) 원표를 나이띠별로 갈라 봤습니다. 「우리 사회를 얼마나 믿을 수
+    {' '}있다고 보십니까」라는 물음에 전국 평균은 「믿을 수 있다」가 앞서지만, 나이띠 하나만
+    {' '}방향이 뒤집힙니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">전국 평균 — 「믿을 수 있다」 vs 「믿을 수 없다」</p>
+    <p class="answer-num">{전국신뢰}% <span class="vs">대</span> {(100 - 전국신뢰).toFixed(1)}%</p>
+    <p class="answer-sub">이것은 통계이지 당신이 아닙니다</p>
+  </div>
+
+  <h2>나이띠마다 다릅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이띠</th><th>믿을 수 있다</th><th>믿을 수 없다</th></tr></thead>
+      <tbody>
+        {계산됨.map((r) => (
+          <tr class={r.불신 > r.신뢰 ? 'mark' : ''}>
+            <td>{r.띠}</td>
+            <td>{r.신뢰}%</td>
+            <td>{r.불신}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  {불신이신뢰넘는띠.length > 0 && (
+    <p>
+      <strong>{불신이신뢰넘는띠.map((r) => r.띠).join('·')}만</strong> 「믿을 수 없다」가
+      {' '}「믿을 수 있다」보다 큽니다. 다른 모든 나이띠는 「믿을 수 있다」가 앞섭니다 —
+      {' '}가장 크게 앞서는 곳은 {가장신뢰.띠}({가장신뢰.신뢰}%)입니다.
+    </p>
+  )}
+  <p class="note">
+    나이가 많을수록 덜 믿는 것도, 어릴수록 더 믿는 것도 아닙니다. 13~19세({계산됨[0].신뢰}%)와
+    {' '}80세 이상({가장신뢰.신뢰}%)이 가장 높고, 20~30대가 가장 낮습니다 — 일직선이 아니라
+    {' '}가운데가 꺼진 모양입니다.
+  </p>
+
+  <HundredCardnews 벌="social-trust-by-age" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {자료.이자료가못가르는것.map((줄: string) => <li>{줄}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 나이띠별로 「우리 사회를 믿나」에 대한
+    {' '}2025년 한 해의 응답 분포가 저희가 놓을 수 있는 전부입니다. 「이 나이면 이렇게
+    {' '}믿어야 한다」로 읽을 근거는 이 표에 없습니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관}, {자료.출처.표} ({자료.출처.받은날} 받음). 받은 경로 —
+    {' '}{자료.출처.받은경로}
+    {' '}<a href={자료.출처.창구} rel="noopener">원문 통계표</a>. {자료.출처.이용허락범위}
+  </p>
+
+  <HundredAgeWalk 키="social-trust-by-age" />
+
+  <NextQuestionBrief 모은것="국가데이터처 KOSIS 사회조사 원표(statHtml) 실측 — 기사 숫자 아님" />
+</HundredYear>
+
+<style>
+  .answer { margin: 1.6rem 0; padding: 1.2rem 1.4rem; border-radius: 12px; background: var(--panel, #f6f7f9); }
+  .answer-label { margin: 0 0 0.3rem; font-size: 0.9rem; opacity: 0.75; }
+  .answer-num { margin: 0; font-size: 1.6rem; font-weight: 800; }
+  .answer-num .vs { font-size: 1rem; font-weight: 400; opacity: 0.6; margin: 0 0.3rem; }
+  .answer-sub { margin: 0.3rem 0 0; font-size: 0.92rem; opacity: 0.8; }
+  .tablewrap { overflow-x: auto; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.94rem; }
+  th, td { padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--line, #e6e8ec); text-align: left; }
+  tr.mark td { background: rgba(211, 74, 74, 0.06); }
+  .note { font-size: 0.9rem; opacity: 0.85; }
+</style>

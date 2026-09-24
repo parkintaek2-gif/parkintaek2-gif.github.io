@@ -241,6 +241,8 @@ export const 붙일수있는갈래 = [
   'retirement-prep-by-age',
   /* [2026-09-24 · 1번] 같은 까닭 — 일-가정 우선도, 나이·10년(2015→2025) */
   'work-family-priority-by-age',
+  /* [2026-09-24 · 1번] 같은 까닭 — 우리 사회 신뢰도, 나이띠별(2025 단면) */
+  'social-trust-by-age',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary', 'tutoring', 'tutoring-region', 'tutoring-income',
   /* 🔴 2026-09-11 3번 신설 — 사장님 지시. 학생자살 사망사안 보고서(한겨레 인용) */
