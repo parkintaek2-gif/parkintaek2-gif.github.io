@@ -277,7 +277,7 @@ const handle = async (req, res) => {
    *   사장님 지시: 「투표할 수 있는 걸 만들어줘야지... 집계도 실시간으로」. */
   /* 🔴 [2026-09-18 · 2번] 손님 계정(회원가입·로그인) 두 자리도 POST 다 — 결제와 같은 이유. */
   const POST허용 = req.method === 'POST' && (parsed.pathname === '/v1/subscribe' || parsed.pathname === '/api/comments' || parsed.pathname === '/v1/keys'
-    || parsed.pathname === '/api/pay/order' || parsed.pathname === '/api/pay/capture' || parsed.pathname === '/api/vote'
+    || parsed.pathname === '/api/pay/order' || parsed.pathname === '/api/pay/capture' || parsed.pathname === '/api/pay/subscription-confirm' || parsed.pathname === '/api/vote'
     || parsed.pathname === '/api/account/signup' || parsed.pathname === '/api/account/login');
   if (req.method !== 'GET' && req.method !== 'HEAD' && !POST허용) {
     res.writeHead(405, { ...BASE_HEADERS, Allow: 'GET, HEAD' }).end('Method Not Allowed');
@@ -482,6 +482,7 @@ const handle = async (req, res) => {
     const 본문읽을경로 = (p) => p === '/v1' || p.startsWith('/v1/')
       || p === '/api/comments' || p === '/api/vote'
       || p === '/api/pay/order' || p === '/api/pay/capture'   /* 🔴 빠져 있던 둘 */
+      || p === '/api/pay/subscription-confirm'   /* 🔴 [2026-09-24·2번] 같은 함정, 미리 막음 */
       || p === '/api/account/signup' || p === '/api/account/login';   /* 🔴 [2026-09-18·2번] 같은 함정, 미리 막음 */
     let 본문 = null;
     if (req.method === 'POST' && 본문읽을경로(pathname)) {
@@ -778,6 +779,107 @@ const handle = async (req, res) => {
               ].join('\n'),
             }).then((r) => {
               if (!r.ok) console.error('[pay-mail] order ' + 입력.orderID + ' — 편지를 못 보냈다: ' + r.왜);
+            }).catch(() => { /* 메일보내기() 는 던지지 않는다 — 방어용 */ });
+          }
+        }
+        return;
+      } catch (e) {
+        console.error('[pay] ' + pathname + ' —', e?.message ?? e);
+        res.writeHead(502, 헤더);
+        res.end(JSON.stringify({ ok: false, error: 'payment provider error' }));
+        return;
+      }
+    }
+
+    /* ── 정기결제(구독) 승인 확인 — 일회성 주문의 /api/pay/capture 짝 ──────────
+     * 🔴 [2026-09-24 · 2번] 월 구독(single_monthly·all_monthly)은 지면이 페이팔
+     *   구독을 «직접» 만들고(actions.subscription.create) 곧바로 /api/download 로
+     *   갔다 — 서버를 한 번도 거치지 않았다. 그래서 일회성 주문과 달리 **영수증
+     *   편지가 한 통도 안 나갔다**. 구독자는 화면에 한 번 뜬 링크를 놓치면
+     *   /recover 로 스스로 찾아와야 했다(페이팔이 보내는 구독 확인 메일에는
+     *   우리 다운로드 링크가 없다). 이 자리가 그 짝이다 — 지면이 onApprove 에서
+     *   한 번 불러 주면, 여기서 페이팔에 «되물어»(구독확인) 확인하고 같은 꼴의
+     *   영수증 편지를 보낸다. ⛔ 구독을 만들거나 승인(capture)하지 않는다 — 이미
+     *   페이팔이 승인한 구독을 «다시 확인만» 한다. */
+    if (pathname === '/api/pay/subscription-confirm') {
+      const 헤더 = { ...BASE_HEADERS, 'Content-Type': 'application/json; charset=utf-8', 'X-Robots-Tag': 'noindex' };
+      if (!페이팔.켜졌나()) {
+        res.writeHead(503, 헤더);
+        res.end(JSON.stringify({ ok: false, error: 'payments are not configured' }));
+        return;
+      }
+      let 입력 = {};
+      try { 입력 = JSON.parse(본문 ?? '{}'); } catch { 입력 = {}; }
+      const 품 = 상품찾기(입력.product);
+      if (!품) {
+        res.writeHead(400, 헤더);
+        res.end(JSON.stringify({ ok: false, error: 'unknown product' }));
+        return;
+      }
+      const 골른것 = 입력.dataset ? 데이터셋찾기(입력.dataset) : null;
+      if (골라야하나(품.코드) && !골른것) {
+        res.writeHead(400, 헤더);
+        res.end(JSON.stringify({ ok: false, error: 'choose a dataset first' }));
+        return;
+      }
+      try {
+        const 결과 = await 페이팔.구독확인(입력.subscriptionID, 품);
+        if (!결과.ok) {
+          console.error('[pay] subscription-confirm rejected —', 결과.왜);
+          res.writeHead(402, 헤더);
+          res.end(JSON.stringify({ ok: false, error: 'subscription not confirmed' }));
+          return;
+        }
+        const 받는곳 = '/api/download?order=' + encodeURIComponent(입력.subscriptionID) + '&product=' + encodeURIComponent(품.코드)
+          + (골른것 ? '&dataset=' + encodeURIComponent(골른것.코드) : '');
+        res.writeHead(200, 헤더);
+        res.end(JSON.stringify({ ok: true, downloadUrl: 받는곳, receipt: 결과.결제번호 }));
+
+        /* 아래는 일회성 주문의 /api/pay/capture 와 같은 편지 규칙(2026-09-15/16 지시)을
+           그대로 따른다 — 주소 결정·샌드박스 차단·반송 방지 전부 동일하다. */
+        const 체크아웃메일 = (() => {
+          const e = String(입력.email ?? '').trim();
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) ? e : null;
+        })();
+        const 받을주소들 = [체크아웃메일, 결과.산사람메일].filter(Boolean)
+          .filter((v, i, arr) => arr.findIndex((x) => x.toLowerCase() === v.toLowerCase()) === i)
+          .filter((주소) => {
+            if (!페이팔.진짜돈인가()) {
+              console.log(`[pay] 편지를 안 보냈다 — 샌드박스 모드다 (구독 ${입력.subscriptionID})`);
+              return false;
+            }
+            const 왜 = 못닿는주소인가(주소);
+            if (왜) console.log(`[pay] 편지를 안 보냈다 — ${왜} (구독 ${입력.subscriptionID})`);
+            return !왜;
+          });
+        if (받을주소들.length) {
+          const 상품이름 = 품.이름 + (골른것 ? ' — ' + 골른것.이름 : '');
+          const 받을링크 = 'https://seoulmarkets.com' + 받는곳;
+          for (const 주소 of 받을주소들) {
+            메일보내기({
+              받는곳: 주소,
+              제목: 'Your SMarkets subscription — ' + 상품이름,
+              글: [
+                (결과.산사람이름 && 주소 === 결과.산사람메일 ? `Hi ${결과.산사람이름},` : 'Hi,'),
+                '',
+                `Thank you for subscribing — ${상품이름}.`,
+                '',
+                `Download your files: ${받을링크}`,
+                '',
+                `Subscription ID: ${입력.subscriptionID}`,
+                '',
+                'This link does not expire while your subscription is active. If you ever',
+                'lose it, go to https://seoulmarkets.com/recover and enter the subscription',
+                'ID above — PayPal also emailed you this same ID when you subscribed.',
+                '',
+                'Cancel any time in your PayPal account.',
+                '',
+                'Questions? Write to admin@klifedesign.net',
+                '',
+                '— SMarkets (seoulmarkets.com)',
+              ].join('\n'),
+            }).then((r) => {
+              if (!r.ok) console.error('[pay-mail] subscription ' + 입력.subscriptionID + ' — 편지를 못 보냈다: ' + r.왜);
             }).catch(() => { /* 메일보내기() 는 던지지 않는다 — 방어용 */ });
           }
         }

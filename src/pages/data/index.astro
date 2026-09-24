@@ -1039,12 +1039,36 @@ const 묶음 = [
         });
       };
       옵션.onApprove = function (data) {
-        끝났다('your subscription is active.',
-          '/api/download?order=' + encodeURIComponent(data.subscriptionID) +
-          '&product=' + encodeURIComponent(고른품.코드) +
-          (고른셋 ? '&dataset=' + encodeURIComponent(고른셋.코드) : ''),
-          'Subscription ' + data.subscriptionID +
-          '. Cancel any time in your PayPal account. Trouble? admin@klifedesign.net');
+        글(알림, 'Confirming your subscription...');
+        /* 🔴 [2026-09-24 · 2번] 예전엔 여기서 서버를 한 번도 안 거치고 바로 링크를
+           만들었다 — 그래서 구독자에게는 영수증 편지가 한 통도 안 나갔다. 이제
+           일회성 주문(/api/pay/capture)과 같은 짝(/api/pay/subscription-confirm)을
+           불러 페이팔에 다시 확인시키고, 같은 편지를 보낸다. */
+        return fetch('/api/pay/subscription-confirm', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            subscriptionID: data.subscriptionID, product: 고른품.코드,
+            dataset: 고른셋 ? 고른셋.코드 : null, email: (메일칸 && 메일칸.value || '').trim(),
+          }),
+        }).then(function (r) { return r.json(); })
+          .then(function (j) {
+            if (!j.ok) throw new Error(j.error || 'not confirmed');
+            끝났다('your subscription is active.', j.downloadUrl,
+              'Subscription ' + data.subscriptionID +
+              '. Cancel any time in your PayPal account. Trouble? admin@klifedesign.net');
+          })
+          .catch(function () {
+            /* ⛔ 페이팔은 이미 구독을 승인했다 — 여기서 실패해도 손님은 이미 낸 돈의
+               권리가 있다. 다시 확인이 안 되면 링크만 임시로 만들어 그대로 드린다
+               (다음에 /api/download 를 부르면 그때 다시 확인된다). */
+            글(알림, '');
+            끝났다('your subscription is active.',
+              '/api/download?order=' + encodeURIComponent(data.subscriptionID) +
+              '&product=' + encodeURIComponent(고른품.코드) +
+              (고른셋 ? '&dataset=' + encodeURIComponent(고른셋.코드) : ''),
+              'Subscription ' + data.subscriptionID +
+              '. Cancel any time in your PayPal account. Trouble? admin@klifedesign.net');
+          });
       };
     } else {
       옵션.createOrder = function () {
