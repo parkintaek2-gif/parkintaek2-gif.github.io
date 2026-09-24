@@ -34,9 +34,47 @@ const 뿌리 = path.resolve(fileURLToPath(import.meta.url), '..', '..');
  * ⚠ 새 나라를 열면 여기에 한 줄을 더한다. 안 더하면 이 자는 그 나라를 «안 본다».
  */
 export const 나라표 = [
-  { 나라: 'Japan', 지면폴더: 'src/pages/japan', 있어야할말: ['EDINET'], 손님이부르는이름: ['Japan', 'Tokyo'] },
-  { 나라: 'Taiwan', 지면폴더: 'src/pages/taiwan', 있어야할말: ['twse'], 손님이부르는이름: ['Taiwan', 'Taipei'] },
+  { 나라: 'Japan', 구역: 'japan', 지면폴더: 'src/pages/japan', 있어야할말: ['EDINET'], 손님이부르는이름: ['Japan', 'Tokyo'] },
+  { 나라: 'Taiwan', 구역: 'taiwan', 지면폴더: 'src/pages/taiwan', 있어야할말: ['twse'], 손님이부르는이름: ['Taiwan', 'Taipei'] },
+  { 나라: 'UAE', 구역: 'uae', 지면폴더: 'src/pages/uae', 있어야할말: ['Abu Dhabi'], 손님이부르는이름: ['UAE', 'Abu Dhabi', 'Dubai'] },
 ];
+
+/**
+ * 🔴 **[2026-09-24 · 5번] 위 나라표는 «사람이 한 줄을 더해야» 도는 자였다 — 그래서 또 샜다.**
+ *
+ * 이 자를 만든 어제(09-23) 주석에 「나라를 하나 열 때마다 한 줄을 더한다」고 적어 두었다.
+ * 그런데 오늘 UAE 104장을 내면서 **그 줄을 안 더했고**, 이 검사는 조용히 통과했다.
+ * 꼬리말에 UAE 가 없는 것은 라이브 지면을 «눈으로» 보고서야 알았다.
+ *
+ * ⭐ 결함의 이름 — **「표에 없으면 안 본다」.** 자가 무엇을 볼지를 사람 기억이 정하면,
+ *   빠뜨린 그날부터 그 자는 그 자리에서 눈을 감는다. 조용한 검사와 결함 없음은 다르다.
+ *
+ * ⇒ 그래서 «표가 다 찼나»를 자가 스스로 잰다. 정본은 `src/pages/sitemap.xml.ts` 의
+ *   `files` 배열이다 — 사이트맵에 실린 구역이 곧 우리가 «낸» 시장이다(사이트맵에 없으면
+ *   아무도 못 찾으니 낸 것이 아니다). 그 구역 가운데 나라표에도 나라아닌것에도 없는
+ *   이름이 있으면 **빨강**이다. 모르는 채로 지나가지 않게 한다.
+ */
+export const 나라아닌구역 = new Set([
+  'pages', 'companies',
+  'equities', 'fx', 'rates', 'commodities', 'funds', 'macro',
+]);
+
+export const 사이트맵색인파일 = 'src/pages/sitemap.xml.ts';
+
+/** sitemap.xml.ts 의 files 배열에서 구역 이름을 뽑는다. ⛔ 못 뽑으면 0 이 아니라 null */
+export function 사이트맵구역들(글) {
+  const m = String(글 ?? '').match(/const\s+files\s*=\s*\[([^\]]*)\]/);
+  if (!m) return null;
+  const 것 = [...m[1].matchAll(/'([^']+)'/g)].map((x) => x[1]);
+  return 것.length ? 것 : null;
+}
+
+/** 나라표가 사이트맵의 나라 구역을 다 덮나 → 모르는 구역 이름들 */
+export function 표에없는구역(구역들, 표 = 나라표, 아닌것 = 나라아닌구역) {
+  if (!구역들) return null;                      /* 못 읽었으면 「다 덮었다」로 치지 않는다 */
+  const 아는것 = new Set((표 ?? []).map((r) => r.구역).filter(Boolean));
+  return 구역들.filter((s) => !아닌것.has(s) && !아는것.has(s));
+}
 
 /**
  * 🔴 **연 나라가 「In build」 칸에 남아 있나** (2026-09-23 · 사장님 지적)
@@ -72,9 +110,33 @@ export const 파는말파일 = [
  *   ① 「In build — China, Hong Kong…」        나라가 «뒤»에 온다  (첫 화면·요금)
  *   ② 「…with China, Hong Kong… in build.」   나라가 «앞»에 온다  (consts 의 description)
  */
+/**
+ * 🔴 **[2026-09-24 · 5번] 태그를 «전부» 빈칸으로 바꾸면 문단 경계가 사라진다 — 헛빨간불이 났다.**
+ *
+ * `In build — Shanghai · Hong Kong · India · Saudi Arabia` 뒤에 마침표가 없어서,
+ * `[^.\n]*` 가 `</span></p>` 를 지나 **다음 문단까지 먹었다.** 그 문단은 UAE 를
+ * 「now the UAE (ADX+DFM)」라고 «라이브»로 말하고 있었는데, 자는 그것을 「짓는 중에
+ * UAE 가 남아 있다」로 읽었다.
+ *
+ * ⭐ 헛빨간불은 빨간불을 죽인다 — 이 자가 같은 날 잡아 낸 «진짜» 결함(about 에 출처 없음)
+ *   옆에 가짜가 하나 서면, 다음 사람이 둘 다 「또 그 소리」로 넘긴다.
+ *
+ * ⇒ 그래서 태그를 두 갈래로 가른다.
+ *   ⬜ 인라인(b·span·a·em·strong·i·small) 은 빈칸 — `<b>In build</b> — India` 가 한 문장이다
+ *   🔴 블록(p·div·li·ul·ol·nav·section·h1~6·br·td·tr) 은 «줄바꿈» — 거기서 말이 끊긴다
+ */
+export const 인라인태그 = ['b', 'strong', 'i', 'em', 'span', 'a', 'small', 'code', 'sup', 'sub', 'u'];
+
+/** 태그를 걷되 문단 경계는 줄바꿈으로 «남긴다» */
+export function 태그걷기(글) {
+  return String(글 ?? '').replace(/<\/?([a-zA-Z][a-zA-Z0-9]*)\b[^>]*>/g, (전체, 이름) =>
+    인라인태그.includes(String(이름).toLowerCase()) ? ' ' : '\n');
+}
+
 export function 짓는중줄들(글) {
   if (typeof 글 !== 'string') return [];
-  const 민글 = 글.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
+  /* ⛔ 줄바꿈을 빈칸으로 뭉개지 않는다 — 그 줄바꿈이 문단 경계다 */
+  const 민글 = 태그걷기(글).replace(/[^\S\n]+/g, ' ');
   const 벌 = [];
   /* ① 뒤에 오는 꼴 */
   for (const m of 민글.matchAll(/[Ii]n build\s*[—\-–:]?\s*([^.\n]*)/g)) {
@@ -164,6 +226,36 @@ if (process.argv.includes('--자가시험')) {
     짓는중에남았나('<b>Live</b> — Taiwan (TWSE). <b>In build</b> — India.', ['Taiwan']).length === 0);
   본다('파는 말 파일 넷을 본다', 파는말파일.length === 4);
 
+  /* 🔴 [2026-09-24] 헛빨간불 — 마침표 없는 「In build」가 다음 «문단»까지 먹었다.
+     그 문단은 UAE 를 라이브로 말하고 있었는데 「짓는 중에 남았다」로 읽혔다 */
+  본다('🔴 블록 경계에서 끊는다 (마침표가 없어도)',
+    짓는중에남았나(
+      '<span>In build — Shanghai · Hong Kong · India</span></p>\n<p>now the UAE (ADX+DFM)</p>',
+      ['UAE']).length === 0);
+  본다('⛔ 인라인 태그는 문장을 끊지 않는다',
+    짓는중에남았나('<b>In build</b> — India, <em>Taiwan</em> and Tokyo.', ['Taiwan']).length === 1);
+  본다('🔴 같은 문단 안이면 그대로 잡는다',
+    짓는중에남았나('<span>In build — India and the UAE</span>', ['UAE']).length === 1);
+  본다('⛔ 태그걷기가 블록은 줄바꿈, 인라인은 빈칸으로 바꾼다',
+    태그걷기('<b>a</b><p>b</p>').includes('\n') && !태그걷기('<b>a</b>').includes('\n'));
+
+  /* 🔴 [2026-09-24] 「표에 없으면 안 본다」 — UAE 를 빠뜨려 이 자가 조용했던 자리 */
+  본다('사이트맵에서 구역을 뽑는다',
+    JSON.stringify(사이트맵구역들("const files = ['pages', 'uae', ...CATEGORIES.map((c) => c.slug)];"))
+      === JSON.stringify(['pages', 'uae']));
+  본다('⛔ 꼴이 바뀌어 못 뽑으면 null — 「0개」로 치지 않는다',
+    사이트맵구역들('const 무엇 = 1;') === null && 사이트맵구역들('const files = [];') === null);
+  본다('🔴 표에 없는 나라 구역을 잡는다',
+    JSON.stringify(표에없는구역(['pages', 'japan', 'saudi'])) === JSON.stringify(['saudi']));
+  본다('⛔ 나라가 아닌 구역을 나라로 잡지 않는다',
+    표에없는구역(['pages', 'companies', 'equities', 'fx', 'rates', 'commodities', 'funds', 'macro']).length === 0);
+  본다('⛔ 못 읽었으면 null — 「다 덮었다」로 치지 않는다', 표에없는구역(null) === null);
+  본다('나라표의 줄마다 구역 이름이 있다', 나라표.every((x) => typeof x.구역 === 'string' && x.구역));
+  본다('⛔ 나라표와 나라아닌구역이 겹치지 않는다',
+    나라표.every((x) => !나라아닌구역.has(x.구역)));
+  본다('🔴 오늘 실제 저장소에서 표가 다 차 있다',
+    (표에없는구역(사이트맵구역들(fs.readFileSync(path.join(뿌리, 사이트맵색인파일), 'utf8'))) ?? ['못읽음']).length === 0);
+
   const 진 = 잰다.filter(([, v]) => !v);
   for (const [이름, v] of 잰다) console.log(`${v ? '✅' : '🔴'} ${이름}`);
   console.log(진.length ? `\n🔴 ${진.length}/${잰다.length} 떨어졌다` : `\n✅ 자가시험 ${잰다.length} 통과`);
@@ -178,6 +270,23 @@ if (process.argv.includes('--자가시험')) {
   console.log('■ 새 나라 지면을 내놓고 출처를 안 적었나');
   let 흠 = 0;
   let 못잼 = 0;
+
+  /* 🔴 먼저 «표가 다 찼나»를 잰다 — 표에 없으면 아래를 아무리 돌려도 그 나라는 안 보인다 */
+  {
+    const 구역들 = 사이트맵구역들(읽기(사이트맵색인파일));
+    const 모르는것 = 표에없는구역(구역들);
+    if (모르는것 == null) {
+      console.log(`   ⬜ ${사이트맵색인파일} 의 files 배열을 못 읽었다 — 「통과」로 세지 않는다`);
+      못잼 += 1;
+    } else if (모르는것.length) {
+      console.log(`   🔴 사이트맵에 구역 ${모르는것.join('·')} 가 있는데 나라표에 없다`);
+      console.log('      ⛔ 나라면 나라표에, 나라가 아니면 나라아닌구역에 더한다.');
+      console.log('      ⛔ 안 더하면 이 자는 그 나라의 출처 고지를 «영영 안 본다».');
+      흠 += 1;
+    } else {
+      console.log(`   ✅ 나라표가 사이트맵 구역 ${구역들.length}개를 다 덮는다`);
+    }
+  }
 
   for (const [이름, p] of Object.entries(고지파일)) {
     if (글[이름] == null) { console.log(`   ⬜ ${p} 를 못 읽었다 — 「통과」로 세지 않는다`); 못잼 += 1; }
