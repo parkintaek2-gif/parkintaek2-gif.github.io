@@ -32,6 +32,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 
 const 여기 = path.dirname(fileURLToPath(import.meta.url));
 export const 뿌리 = path.resolve(여기, '..');
@@ -130,6 +131,26 @@ export function 폴더줄수(방) {
   } catch { return 0; }
 }
 
+/**
+ * 🔴 상담이 «실제로» 만드는 시스템 프롬프트를 받아 온다.
+ *   klifemap 저장소 안에서 돌린다 — 그쪽 node_modules 와 data/ 를 그대로 쓰게 하기 위해서다.
+ *   못 만들면 null 을 돌려준다(그 자체가 빨간불이다 — 조용히 0 으로 만들지 않는다).
+ */
+export function 상담프롬프트를_실제로_만들어본다() {
+  const 한줄 = 'const C=require("./ai/chatCoachEngine.js");'
+    + 'const B=require("./ai/bossRules.js");'
+    + 'const K=require("./ai/classics.js");'
+    + 'const 고전=K.고전지시(K.대목찾기("용신이 뭔가요"));'
+    + 'process.stdout.write(C._forMeasure.buildSystemPrompt("없음","","","ko",고전,B.지시글("상담",{lang:"ko"})));';
+  try {
+    return execFileSync(process.execPath, ['-e', 한줄], {
+      cwd: 케맵, encoding: 'utf8', timeout: 20000, stdio: ['ignore', 'pipe', 'pipe'],
+    });
+  } catch (e) {
+    return null;
+  }
+}
+
 export function 케맵AI를잰다() {
   const 학습방 = 학습자료방();
   /* ① 고전 말뭉치 — 저장소가 아니라 OneDrive 에 있다(사장님 수집물) */
@@ -140,16 +161,14 @@ export function 케맵AI를잰다() {
   ];
   const 말뭉치 = 말뭉치자리.find((d) => { try { return fs.existsSync(d); } catch { return false; } }) || null;
 
-  /* ② 상담 프롬프트가 고전을 참조하나 */
-  const 상담자리 = path.join(케맵, 'ai', 'chatCoachEngine.js');
-  let 상담글 = '';
-  try { 상담글 = fs.readFileSync(상담자리, 'utf8'); } catch { /* 없으면 빈 것 */ }
-  const 고전참조 = /classics-refs|고전\s*인용|원전|자평진전|classicsRefs/.test(상담글) ? 1 : 0;
-
-  /* ③ 사장님 지시·수정이 프롬프트에 들어가나 */
-  const 지시대장 = path.join(뿌리, 'docs', '사장님-지시-대장.md');
-  const 지시학습자 = path.join(케맵, 'ai', 'ownerRules.js');
-  const 지시학습 = fs.existsSync(지시학습자) ? 1 : 0;
+  /* ②③ 🔴 파일이 «있나»가 아니라 **프롬프트에 실제로 실리나**를 잰다.
+     ⚠ 2026-09-24 에 이 자가 `ai/ownerRules.js` 라는 «파일 이름»을 찾고 있었다.
+       파일 이름을 맞춰 두면 초록불이 켜지는데, 그 파일이 프롬프트에 안 실려도 모른다.
+       같은 병을 감명서에서 겪었다 — sajuFullReport 가 items 를 안 넘겨 상신이 계속 비었고
+       내 시험은 items 를 넘겨서 불러 초록불이었다. **실제로 부르는 꼴로 잰다.** */
+  const 프롬프트 = 상담프롬프트를_실제로_만들어본다();
+  const 고전참조 = 프롬프트 && 프롬프트.includes('[고전 원문') ? 1 : 0;
+  const 지시학습 = 프롬프트 && 프롬프트.includes('[사장님이 정하신 것') ? 1 : 0;
 
   /* ④ 손님 질문 — 🔴 사장님 (2026-09-24): 「**손님 질문은 커뮤니티에서 찾아와야지.
      네이버는 지식인, 네이트나 이런 국내 사이트만 보지말고 각 언어권의 커뮤니티를 봐야지.**」
@@ -180,10 +199,15 @@ export function 케맵AI를잰다() {
       칸('① 재료가 있나 — 고전 말뭉치', 말뭉치 ? 1 : 0, 1,
         말뭉치 ? `있다 — ${말뭉치}` : '⛔ 못 찾았다'),
       칸('② 그것을 읽나 — 상담이 고전을 참조', 고전참조, 1,
-        고전참조 ? 'chatCoachEngine 이 고전을 참조한다' : '⛔ 상담 프롬프트에 고전이 한 줄도 없다'),
+        고전참조 ? '상담 프롬프트에 「고전 원문」 칸이 실린다'
+          : (프롬프트 === null
+            ? '⛔ 상담 프롬프트를 만들어 보지도 못했다'
+            : '⛔ 상담 프롬프트에 고전이 한 줄도 없다')),
       칸('③ 사장님 지시·수정을 배우나', 지시학습, 1,
-        지시학습 ? 'ai/ownerRules.js 가 있다'
-          : `⛔ 없다 — 지시 대장(${fs.existsSync(지시대장) ? '있음' : '없음'})이 프롬프트로 안 간다`),
+        지시학습 ? '상담 프롬프트에 「사장님이 정하신 것」 칸이 실린다'
+          : (프롬프트 === null
+            ? '⛔ 상담 프롬프트를 만들어 보지도 못했다 — 상담이 지금 깨져 있다'
+            : '⛔ 사장님 지시가 프롬프트에 한 줄도 안 실린다')),
       칸('④ 커뮤니티에서 온 질문', 커뮤니티질문, 500,
         커뮤니티질문 ? `${커뮤니티질문}줄`
           : `⛔ 0 — 쌓인 ${자동완성}줄은 google 자동완성이다(검색어이지 질문이 아니다). `

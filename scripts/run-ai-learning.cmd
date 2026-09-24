@@ -23,10 +23,15 @@ echo ---------- %DATE% %TIME% ---------->> "%LOG%"
 rem 1) invest AI: read our market data, write "what kind of stock is this" signals
 node scripts\invest-ai\read-market-data.mjs --save >> "%LOG%" 2>&1
 
-rem 2) measure whether both AIs are actually learning
+rem 2) KLifeMap AI: harvest real customer questions from each language's community
+rem    Owner 2026-09-24: "look at the communities of each language, not just Korean sites"
+rem    Questions ONLY - never the answers. See the file header for why.
+node "%~dp0..\..\klifemap\tools\collect-community-questions.mjs" >> "%LOG%" 2>&1
+
+rem 3) measure whether both AIs are actually learning
 node scripts\check-ai-learning.mjs >> "%LOG%" 2>&1
 
-rem 3) keep the log from growing without bound
+rem 4) keep the log from growing without bound
 powershell -NoProfile -Command "$p='logs\ai-learning.log'; if (Test-Path $p) { $l=Get-Content $p -Tail 2000; Set-Content $p $l -Encoding utf8 }"
 
 endlocal
