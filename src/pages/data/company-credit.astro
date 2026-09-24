@@ -278,7 +278,8 @@ const jsonLd = [datasetLd, faqLd];
       </p>
     </section>
 
-    <BuyBar 자리="mid" 살수있나={false} 아직="The grade is computed but not yet on sale — today it covers 0 of 2,709 companies, and this page names the line items we still need." />
+    <BuyBar 자리="mid" 살수있나={false} 아직={'The grade is computed but not yet on sale — today it covers '
+      + num(등급받은수) + ' of ' + num(총수) + ' companies, and this page names the line items we still need.'} />
     <section>
       <h2>The Altman Z is not ours</h2>
       <p>
@@ -355,7 +356,8 @@ const jsonLd = [datasetLd, faqLd];
         <a href="/data#licence">See licence options</a>.
       </p>
     </aside>
-  <BuyBar 자리="bottom" 살수있나={false} 아직="The grade is computed but not yet on sale — today it covers 0 of 2,709 companies, and this page names the line items we still need." />
+  <BuyBar 자리="bottom" 살수있나={false} 아직={'The grade is computed but not yet on sale — today it covers '
+    + num(등급받은수) + ' of ' + num(총수) + ' companies, and this page names the line items we still need.'} />
   </article>
 </Base>
 
