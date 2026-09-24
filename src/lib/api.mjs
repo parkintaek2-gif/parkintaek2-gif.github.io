@@ -1369,7 +1369,7 @@ async function root() {
         'Dated history of KRX index levels — one row per index per trading day. ?name= for one index, ?family= to filter by series, ?since= / ?until= to trim, ?list=names for every index name we carry. This is the time series; /v1/index-tape is the single most-recent snapshot with English names.',
     },
     licence: 'Source data published by Korean agencies under an unrestricted-use licence.',
-    contact: 'sibcheongan@gmail.com',
+    contact: 'admin@klifedesign.net',
   });
 }
 
