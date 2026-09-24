@@ -114,6 +114,8 @@ export const 어른갈래: ReadonlySet<string> = new Set([
   'qual-duration', 'qual-age',
   /* [2026-09-24 · 1번] nps-cap-size 와 같은 결(국민연금 자료 직접 집계, 학원·아동체육기관) */
   'academy-lifespan', 'kids-activity-lifespan',
+  /* [2026-09-25 · 1번] 같은 결 — 동네 가게 여섯 업종(수의업·당구장·세탁업 등) 사업장 수명 */
+  'neighborhood-shop-lifespan',
   /* 🔴 2026-09-10 3번 신설 — wage-education·wage-distribution과 같은 결(임금 비교) */
   'industry-region-cross', 'industry-size-cross',
   /* 🔴 2026-09-10 3번 신설 — 같은 원자료의 이직 추정치를 공식 통계와 대조(판정 없음) */
@@ -247,6 +249,8 @@ export const 붙일수있는갈래 = [
   'social-trust-by-age',
   /* [2026-09-24 · 1번] 같은 까닭 — 학원 종류별·아동 체육기관 사업장 수명(국민연금 직접 집계) */
   'academy-lifespan', 'kids-activity-lifespan',
+  /* [2026-09-25 · 1번] 같은 까닭 — 동네 가게 여섯 업종(수의업·당구장·세탁업 등) 사업장 수명 */
+  'neighborhood-shop-lifespan',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary', 'tutoring', 'tutoring-region', 'tutoring-income',
   /* 🔴 2026-09-11 3번 신설 — 사장님 지시. 학생자살 사망사안 보고서(한겨레 인용) */
