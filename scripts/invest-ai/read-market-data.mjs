@@ -370,7 +370,10 @@ if (직접돌리나) {
   console.log('   갈래별 —', [...셈.entries()].sort((a, b) => b[1] - a[1])
     .map(([k, v]) => `${k} ${v}`).join(' · '));
 
-  if (process.argv.includes('--적는다')) {
+  /* ⚠ `--save` 는 `--적는다` 와 같다. 윈도 작업 스케줄러의 .cmd 안에서는 한글 인자가
+     CP949 로 깨지며 «뒷글자까지 먹는다» — 2026-09-24 에 실제로 겪었다. 예약은 exit 0 을
+     내는데 아무 일도 안 일어났다. ⇒ 예약에서 부를 때는 반드시 영문 인자를 쓴다. */
+  if (process.argv.includes('--적는다') || process.argv.includes('--save')) {
     const 방 = path.join(뿌리, 'src', 'data', 'invest-ai');
     fs.mkdirSync(방, { recursive: true });
     const 길 = path.join(방, `signals-${날}.jsonl`);
