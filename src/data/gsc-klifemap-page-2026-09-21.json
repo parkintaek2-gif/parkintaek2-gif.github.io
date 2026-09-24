@@ -1,0 +1,36 @@
+{
+  "site": "sc-domain:klifemap.ai",
+  "dimension": "page",
+  "window": {
+    "from": "2026-08-24",
+    "to": "2026-09-21",
+    "days": 28
+  },
+  "rowLimit": 25000,
+  "rows": [
+    {
+      "key": "https://klifemap.ai/",
+      "impressions": 4,
+      "clicks": 1,
+      "position": 3.25
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-2026-08-01",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 6.333333333333333
+    },
+    {
+      "key": "https://klifemap.ai/ilzin.html",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 3
+    },
+    {
+      "key": "https://klifemap.ai/saju.html?lang=ja",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 2
+    }
+  ]
+}
