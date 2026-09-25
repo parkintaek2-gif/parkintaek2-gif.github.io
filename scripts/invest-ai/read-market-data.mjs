@@ -260,6 +260,102 @@ export function 다읽는다({ 밸류, 재무, 공시 }, 날 = 오늘8자리(), 
   return { 신호, 못잰것 };
 }
 
+/* ═══════════════════ 4-2. 어제와 견준다 ═══════════════════
+ * 🔴🔴 [2026-09-25 · 사장님] 「**투자AI 폴더를 읽고 어떻게 해야 할 지 방법을 강구해**」
+ *
+ * [무엇이 잘못돼 있었나 — 재서 알았다]
+ *   멱등이 «같은 날 파일 안»에서만 걸려 있었다. 날이 바뀌면 새 파일이라
+ *   **2,233건이 통째로 다시 적혔다.** 그래서 signals-20260924 와 20260925 가
+ *   **글자 하나까지 같았다**(각 801KB). 날마다 같은 것을 다시 쓰고 있었던 것이다.
+ *
+ * ⛔ 그것은 「배우는 것」이 아니다. 「오늘 상태를 다시 적는 것」이다.
+ *   사장님이 짚으셨다 — 「**이름과 하는 일이 다르다**」.
+ *
+ * [무엇이 신호인가 — 회사가 이미 정해 둔 답이 있었다]
+ *   CLAUDE.md 「주력과 서비스」 절 —
+ *   > 「명단을 팔려는 것이 아니라, 어제와 맞대어 «바뀐 사람»을 잡으려는 것이다」
+ *   ⭐ 같은 원리가 여기에도 그대로 맞는다. **어제와 다른 것이 신호다.**
+ *   PBR 이 어제 0.35 였는데 오늘도 0.35 이면 그것은 소식이 아니다.
+ *
+ * [그래서 둘로 가른다]
+ *   signals-<날>.jsonl   «바뀐 것»만 — 날마다 쌓인다. 이것이 신호다
+ *   state-latest.jsonl    오늘의 «전체 상태» 한 벌 — 덮어쓴다. 용량이 안 는다
+ *
+ * ⛔ 「안 바뀌었으니 안 적는다」를 「멈췄다」와 헷갈리지 않게, 적을 때마다
+ *   state-latest.jsonl 의 머리줄에 «언제 읽었나»를 남긴다. 재는 자가 그것을 본다.
+ */
+
+/** 오늘보다 앞선 signals-*.jsonl 가운데 가장 최근 것 — 없으면 null */
+export function 지난판찾기(방, 오늘날) {
+  let 것들 = [];
+  try { 것들 = fs.readdirSync(방); } catch { return null; }
+  const 날들 = 것들
+    .map((f) => (f.match(/^signals-(\d{8})\.jsonl$/) || [])[1])
+    .filter(Boolean)
+    .filter((d) => d < String(오늘날))
+    .sort();
+  return 날들.length ? path.join(방, `signals-${날들[날들.length - 1]}.jsonl`) : null;
+}
+
+/**
+ * 🔴 견주는 «열쇠» — sourceId 를 그대로 쓰면 안 된다.
+ *
+ * 상태 신호의 sourceId 는 `mkt:<코드>:<해>:<시세판날짜>` 꼴이다. 시세 판이 바뀌면
+ * sourceId 가 통째로 바뀌어 **2,166건이 전부 「새것」으로 잡힌다**(2026-09-25 실측).
+ * ⇒ 견줄 때는 «어느 회사인가»만 남긴다. 판 날짜는 되짚기용이지 견주기용이 아니다.
+ */
+export function 견줌열쇠(s) {
+  const id = String(s?.sourceId ?? '');
+  const m = id.match(/^mkt:([^:]+):/);
+  return m ? `mkt:${m[1]}` : id;
+}
+
+/**
+ * 🔴 견주는 «값» — evidence 를 통째로 견주면 안 된다.
+ *
+ * 시세는 날마다 움직인다. PBR 0.35 → 0.36 은 **소식이 아니다.**
+ * 소식은 「PBR 1.05 → 0.95 로 내려가 **저PBR 이 됐다**」처럼 그 회사의 «성격»이 바뀐 것이다.
+ * 사장님 지시도 숫자가 아니라 성격이었다 — 「**그걸로 어떤 종목인 지 판단할 수 있게**」.
+ * ⇒ 상태 신호는 딱지(`[저PBR·유동성주의]`)만 견준다. 공시는 사건이므로 evidence 를 그대로 본다.
+ */
+export function 견줌값(s) {
+  const ev = String(s?.evidence ?? '');
+  if (String(s?.kind) !== '실적') return ev;
+  const m = ev.match(/\[([^\]]*)\]/);
+  return m ? m[1] : '(딱지없음)';
+}
+
+/** 파일에서 «견줌열쇠 → 견줌값» 지도를 만든다 (깨진 줄은 조용히 건너뛴다) */
+export function 지도만들기(길) {
+  const m = new Map();
+  if (!길) return m;
+  let 글 = '';
+  try { 글 = fs.readFileSync(길, 'utf8'); } catch { return m; }
+  for (const l of 글.split('\n')) {
+    if (!l.trim()) continue;
+    try {
+      const o = JSON.parse(l);
+      if (o && o.sourceId && !o._state) m.set(견줌열쇠(o), 견줌값(o));
+    } catch { /* 넘어간다 */ }
+  }
+  return m;
+}
+
+/**
+ * 어제 지도와 견주어 «말할 것이 있는 것»만 고른다.
+ * ⛔ 「없던 것」과 「달라진 것」 둘 다 신호다. 없던 것만 고르면 성격이 바뀐 회사를 놓친다.
+ */
+export function 바뀐것만(신호, 지난지도) {
+  const 새것 = [], 달라진것 = [], 그대로 = [];
+  for (const s of 신호) {
+    const k = 견줌열쇠(s);
+    if (!지난지도.has(k)) { 새것.push(s); continue; }
+    if (지난지도.get(k) !== 견줌값(s)) 달라진것.push({ ...s, 지난딱지: 지난지도.get(k) });
+    else 그대로.push(s);
+  }
+  return { 새것, 달라진것, 그대로, 적을것: [...새것, ...달라진것] };
+}
+
 /* ═══════════════════ 5. 돌린다 ═══════════════════ */
 const 직접돌리나 = (() => {
   try {
@@ -321,6 +417,44 @@ if (직접돌리나 && process.argv.includes('--자가시험')) {
       .replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/[^\n]*/g, '$1')
       .includes(`toISO${'String()'}`));
 
+  /* 🔴 [2026-09-25] 어제와 견주기 — 이것이 없어서 signals-20260924 와 20260925 가
+     «글자 하나까지» 같았다(각 801KB). 날마다 같은 것을 다시 쓰고 있었다. */
+  /* 🔴 열쇠에 판 날짜가 들어가면 판이 바뀔 때 2,166건이 전부 「새것」이 된다 (실측) */
+  본다('🔴 견줌열쇠는 시세 판 날짜를 뗀다', 견줌열쇠({ sourceId: 'mkt:005930:2025:20260914' }) === 'mkt:005930'
+    && 견줌열쇠({ sourceId: 'mkt:005930:2025:20260922' }) === 'mkt:005930');
+  본다('공시는 사건이라 sourceId 를 그대로 쓴다', 견줌열쇠({ sourceId: 'dart:20260923900528' }) === 'dart:20260923900528');
+
+  /* 🔴 시세는 날마다 움직인다. 숫자를 견주면 날마다 2,166건이 «달라진 것»이 된다 */
+  const 어제상태 = { kind: '실적', sourceId: 'mkt:x:2025:20260914', evidence: '가나다 [저PBR·적자] PBR 0.35 · ROE -1%' };
+  const 오늘같은성격 = { kind: '실적', sourceId: 'mkt:x:2025:20260922', evidence: '가나다 [저PBR·적자] PBR 0.36 · ROE -1.1%' };
+  const 오늘딴성격 = { kind: '실적', sourceId: 'mkt:x:2025:20260922', evidence: '가나다 [고ROE·고마진] PBR 1.90 · ROE 21%' };
+  본다('🔴 숫자만 움직인 것은 소식이 아니다 — 딱지를 견준다', 견줌값(어제상태) === 견줌값(오늘같은성격));
+  본다('🔴 성격(딱지)이 바뀐 것은 소식이다', 견줌값(어제상태) !== 견줌값(오늘딴성격));
+  본다('공시는 evidence 를 그대로 견준다', 견줌값({ kind: '공시', evidence: '아무개 상장폐지' }) === '아무개 상장폐지');
+
+  const 지난 = new Map([['mkt:x', '저PBR·적자'], ['mkt:y', '고ROE']]);
+  const 결 = 바뀐것만([
+    오늘같은성격,                                                                    /* 그대로 */
+    { kind: '실적', sourceId: 'mkt:y:2025:20260922', evidence: 'ㄴ [저PBR] PBR 0.4' }, /* 성격이 바뀌었다 */
+    { kind: '실적', sourceId: 'mkt:z:2025:20260922', evidence: 'ㄷ [고마진] PBR 2.0' }, /* 새로 생겼다 */
+  ], 지난);
+  본다('🔴 어제와 같은 성격은 안 적는다 — 같은 것은 소식이 아니다', 결.그대로.length === 1);
+  본다('🔴 성격이 달라진 것은 적는다 — 없던 것만 고르면 바뀐 회사를 놓친다', 결.달라진것.length === 1);
+  본다('🔴 달라진 것에는 «어제 무엇이었나»를 함께 적는다', 결.달라진것[0].지난딱지 === '고ROE');
+  본다('🔴 새로 생긴 것은 적는다', 결.새것.length === 1);
+  본다('🔴 적을 것은 «달라진 것 + 새것» 둘이다', 결.적을것.length === 2);
+  본다('견줄 지난 판이 없으면 전부 새것이다 (첫 판)', 바뀐것만([{ kind: '실적', sourceId: 'mkt:q:2025:1', evidence: 'ㄹ [적자]' }], new Map()).적을것.length === 1);
+  본다('⛔ 깨진 줄이 있어도 지도가 서고 터지지 않는다', (() => {
+    const 임시 = path.join(뿌리, 'src', 'data', 'invest-ai', '.selftest-깨진줄.jsonl');
+    try {
+      fs.mkdirSync(path.dirname(임시), { recursive: true });
+      fs.writeFileSync(임시, '{"sourceId":"k","evidence":"e"}\n이건 JSON 이 아니다\n\n', 'utf8');
+      const m = 지도만들기(임시);
+      return m.size === 1 && m.get('k') === 'e';
+    } finally { try { fs.unlinkSync(임시); } catch { /* 없으면 그만 */ } }
+  })());
+  본다('⛔ 없는 파일을 지도로 만들어도 터지지 않는다', 지도만들기(path.join(뿌리, '없는파일.jsonl')).size === 0);
+
   const 떨 = 잰다.filter(([, v]) => !v);
   for (const [이, v] of 잰다) console.log(`${v ? '✅' : '🔴'} ${이}`);
   console.log(떨.length ? `\n🔴 ${떨.length}/${잰다.length} 떨어졌다` : `\n✅ 자가시험 ${잰다.length} 통과`);
@@ -377,17 +511,31 @@ if (직접돌리나) {
     const 방 = path.join(뿌리, 'src', 'data', 'invest-ai');
     fs.mkdirSync(방, { recursive: true });
     const 길 = path.join(방, `signals-${날}.jsonl`);
-    /* 멱등 — 같은 sourceId 는 한 번만 */
-    const 이미 = new Set();
-    try {
-      for (const l of fs.readFileSync(길, 'utf8').split('\n')) {
-        if (!l.trim()) continue;
-        try { 이미.add(JSON.parse(l).sourceId); } catch { /* 넘어간다 */ }
-      }
-    } catch { /* 처음이면 없다 */ }
-    const 새것 = 신호.filter((s) => !이미.has(s.sourceId));
-    fs.appendFileSync(길, 새것.map((s) => JSON.stringify(s)).join('\n') + (새것.length ? '\n' : ''), 'utf8');
-    console.log(`\n✅ ${길} — 새로 ${새것.length}건 적었다 (이미 있던 것 ${이미.size}건은 건너뛰었다)`);
+
+    /* ① 오늘 파일 안의 멱등 — 하루에 여러 번 돌려도 같은 것이 두 번 안 들어간다 */
+    const 오늘이미 = 지도만들기(길);
+
+    /* ② 🔴 어제와 견준다 — 이것이 없어서 날마다 2,233건이 통째로 다시 적혔다 */
+    const 지난길 = 지난판찾기(방, 날);
+    const 지난지도 = 지도만들기(지난길);
+    const { 새것, 달라진것, 그대로, 적을것 } = 바뀐것만(신호, 지난지도);
+    const 적는다 = 적을것.filter((s) => 오늘이미.get(견줌열쇠(s)) !== 견줌값(s));
+
+    fs.appendFileSync(길, 적는다.map((s) => JSON.stringify(s)).join('\n') + (적는다.length ? '\n' : ''), 'utf8');
+
+    /* ③ 전체 상태는 «한 벌»만 둔다 — 날마다 801KB 를 쌓지 않는다.
+       ⛔ 안 바뀐 날에도 이 파일의 머리줄이 갱신된다. 재는 자가 「멈췄나」를 여기서 본다. */
+    const 상태길 = path.join(방, 'state-latest.jsonl');
+    const 머리 = { _state: true, 읽은날: 날, 읽은때: new Date().toLocaleString('ko-KR'), 건수: 신호.length };
+    fs.writeFileSync(상태길, [JSON.stringify(머리), ...신호.map((s) => JSON.stringify(s))].join('\n') + '\n', 'utf8');
+
+    console.log('');
+    console.log(`✅ ${길}`);
+    console.log(`   새로 생긴 것   ${새것.length}건`);
+    console.log(`   값이 달라진 것  ${달라진것.length}건`);
+    console.log(`   어제와 같은 것  ${그대로.length}건 — ⛔ 적지 않는다. 같은 것은 소식이 아니다`);
+    console.log(`   실제로 적은 것  ${적는다.length}건${지난길 ? ` (견준 판: ${path.basename(지난길)})` : ' (견줄 지난 판이 없다 — 첫 판이다)'}`);
+    console.log(`✅ ${상태길} — 오늘 전체 상태 ${신호.length}건을 «한 벌»로 덮어썼다`);
   } else {
     console.log('\n⬜ --적는다 를 붙이면 signals-<오늘>.jsonl 에 저장한다');
   }

@@ -370,7 +370,11 @@ if (process.argv.includes('--자가시험')) {
 if (!자가시험()) { console.log('🔴 자가시험이 깨졌다 — 만들지 않는다.'); process.exit(1); }
 console.log('');
 
-const 적는다 = process.argv.includes('--적는다');
+/* ⚠ [2026-09-25] `--save` 도 같은 뜻이다. 윈도 작업 스케줄러의 .cmd 안에서는 한글 인자가
+   CP949 로 깨지며 «뒷글자까지 먹는다» — 2026-09-24 에 실제로 겪었다(예약은 exit 0 을 내는데
+   아무 일도 안 일어났다). ⇒ 예약에서 부를 때는 반드시 영문 인자를 쓴다.
+   ⛔ 이 줄을 한글만 받게 되돌리지 말 것. 되돌리면 매시 갱신이 «조용히» 멈춘다. */
+const 적는다 = process.argv.includes('--적는다') || process.argv.includes('--save');
 
 /* 재무제표 — 가장 최근 판 */
 let 재무목록 = null;

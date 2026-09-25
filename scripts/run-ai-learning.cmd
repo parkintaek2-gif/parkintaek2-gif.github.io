@@ -20,6 +20,12 @@ set LOG=logs\ai-learning.log
 
 echo ---------- %DATE% %TIME% ---------->> "%LOG%"
 
+rem 0) refresh the source tape FIRST - the reader can only see what the tape holds.
+rem    2026-09-25: the valuation tape sat at the 20260914 price snapshot for 11 days.
+rem    Nobody noticed, because the reader kept re-writing the same signals every day and
+rem    that looked like work. Reading a frozen tape is not learning. Rebuild, then read.
+node scripts\build-korea-valuation-tape.mjs --save >> "%LOG%" 2>&1
+
 rem 1) invest AI: read our market data, write "what kind of stock is this" signals
 node scripts\invest-ai\read-market-data.mjs --save >> "%LOG%" 2>&1
 

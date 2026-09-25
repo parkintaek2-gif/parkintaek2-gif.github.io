@@ -399,6 +399,15 @@ export const 단계들 = [
   "node scripts/collect-jbnews-sports-articles.mjs --자가시험",
   "node scripts/check-jbnews-sports-schedule.mjs --자가시험",
   "node scripts/check-jbnews-sports-schedule.mjs",
+  /* 🔴 [2026-09-25] AI 자료판독 — 예약은 git 밖(이 PC 안)에 있어 조용히 사라진다.
+     실제로 2026-09-15 부터 9일 동안 멈춘 것을 아무도 몰랐다. 기계가 등록값을 읽어 잰다. */
+  "node scripts/invest-ai/read-market-data.mjs --자가시험",
+  "node scripts/check-ai-learning-schedule.mjs --자가시험",
+  "node scripts/check-ai-learning-schedule.mjs",
+  /* 🔴🔴 [2026-09-25] 투자 AI 는 중기부 공모에 낸 아이템이다. 우리가 «밖에 대고 낸 말»이
+     오늘도 사실인지 잰다 — 사장님 「결국 …담당 세션이 거짓을 보고한거다」. */
+  "node scripts/check-invest-ai-claims.mjs --자가시험",
+  "node scripts/check-invest-ai-claims.mjs",
   /* 🔴 [2026-09-22] 교재를 다듬을 때 원전 한문·전문용어·옮김을 잃지 않나.
      ⚠ 자가시험만 문다 — 실측은 형제 저장소(../klifemap)의 원고를 git 과 맞대므로
      그 저장소가 없는 자리에서 헛빨강이 된다. */
