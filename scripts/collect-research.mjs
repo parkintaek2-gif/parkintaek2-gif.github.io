@@ -78,6 +78,36 @@
  *
  * (한경 컨센서스·FnGuide 도 `Disallow: /` 다. 확인하고 뺐다 — 이건 맞았다.)
  * 요청 간격을 두고, 신원을 밝히는 User-Agent 를 쓴다.
+ *
+ * ── 🔴 2026-09-26 KST — finance.naver.com 이 리서치 목록을 stock.naver.com 으로
+ *    이관했다. 옛 주소는 **302 로 리다이렉트**만 하고 내용이 없어, 옛 파서가
+ *    「0건」을 아무 오류 없이 돌려주고 있었다(조용히 멈춘 것 — 스케줄 작업조차 없어
+ *    2026-08-03 이후 8주 가까이 아무도 몰랐다. `src/data/research-stats.json`
+ *    latest_day 가 그 증거다).
+ *
+ *    새 주소의 화면(`https://stock.naver.com/research/company`)은 SPA 라 정적
+ *    HTML 에 알맹이가 없다. 개발자도구 네트워크 탭 대신 puppeteer 로 요청을
+ *    가로채 실제 API 를 찾았다 —
+ *
+ *      GET https://stock.naver.com/api/stockSecurity/researches/v2/company
+ *          ?index=<0부터, 최신이 0>&size=<최대 50>
+ *
+ *    응답에 **목록과 상세가 한 번에** 들어 있다 — nid·itemCode·itemName·
+ *    brokerName·writeDate·goalPrice·opinionText·opinionType. 옛 구조(목록 →
+ *    9만 번 상세 재조회)가 통째로 필요 없어졌다. UTF-8 이라 EUC-KR 디코딩도 없다.
+ *
+ *    robots.txt 도 다시 확인했다 — `https://stock.naver.com/robots.txt` 는
+ *    옛 도메인과 같은 모양이다(`User-agent: *` → `Disallow: /`,
+ *    `User-agent: Yeti` 에만 `Allow: /research`). **사장님이 2026-08-03 에
+ *    내리신 판단(사실은 가져오되 네이버 가공정보는 안 쓴다)이 그대로 적용된다** —
+ *    새로 여쭙지 않았다. 경계도 그대로다: `readCount` 없음(새 API 자체에 그
+ *    필드가 없다) · PDF 주소 없음(있고 없고도 새 API 에 힌트가 없어 이번엔 null
+ *    로 둔다) · `content`(본문)는 절대 저장하지 않는다.
+ *
+ *    옛 `finance.naver.com` 경로(BASE·fetchKr·parseList·parseDetail·fill)는
+ *    지우지 않고 그대로 남긴다 — 새 API 가 다시 막히면 되짚어 볼 근거이자,
+ *    2011년대 이전 이력(새 API 는 index 16,000대 ≈2011-01 부근에서 끊기는 것을
+ *    실측함)이 필요해지면 재사용할 수 있다. 다만 **main() 은 이제 새 API 만 쓴다.**
  */
 
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
@@ -87,6 +117,11 @@ import { put, storeStatus, remoteEnabled } from '../src/lib/store.mjs';
 const BASE = 'https://finance.naver.com/research';
 const UA = 'Mozilla/5.0 (compatible; SeoulMarketsBot/0.1; +https://seoulmarkets.com/about)';
 const ARCHIVE = path.resolve(process.env.ARCHIVE_DIR ?? 'archive');
+
+/** 2026-09-26 부터 — 새 주소. main() 은 이제 이것만 쓴다. */
+const NEW_API = 'https://stock.naver.com/api/stockSecurity/researches/v2/company';
+/** 새 API 가 한 번에 주는 최대 건수(50 초과는 too_big 오류). */
+const NEW_API_PAGE_SIZE = 50;
 
 const argv = process.argv.slice(2);
 const DRY = argv.includes('--dry');
@@ -105,6 +140,31 @@ const FILL = argv.includes('--fill');
 const LIMIT = Number(argv.find((a) => a.startsWith('--limit='))?.slice(8)) || Infinity;
 /** --fill 순서. 기본은 최신 날짜부터 — 오늘 쓸 수 있는 데이터가 먼저 쌓인다. */
 const OLDEST_FIRST = argv.includes('--oldest');
+/**
+ * 어디까지 이미 있나 — 로컬 디스크의 existsSync 를 믿지 않는다.
+ * 아카이브 실물은 R2 에 있고 로컬 archive/ 는 얇은 개발용 캐시라
+ * 로컬만 보면 「전부 새 것」으로 보인다(2026-09-26 실측 — 로컬엔 300개뿐인데
+ * 실물은 66,071개). 대신 미리 만들어 둔 색인(src/data/research-stats.json)의
+ * latest_day 를 읽어 그 며칠 전부터 다시 받는다(겹쳐 받아도 nid 로 걸러진다
+ * — 과하게 받는 것이 놓치는 것보다 낫다).
+ */
+function 기본SINCE() {
+  try {
+    const j = JSON.parse(readFileSync(path.resolve('src/data/research-stats.json'), 'utf8'));
+    if (j.latest_day) {
+      // ⚠ toISOString() 을 쓰지 않는다 — KST 로컬시각을 그걸로 뽑으면 UTC 로
+      // 변환되며 하루가 앞으로 밀린다(이 저장소에 이미 있는 사고 패턴).
+      // 대신 UTC 자정을 기준점으로 잡고 그 안에서만 날짜 계산을 한다 —
+      // 실행 PC 의 로컬 타임존이 무엇이든 결과가 흔들리지 않는다.
+      const [y, m, d0] = j.latest_day.split('-').map(Number);
+      const d = new Date(Date.UTC(y, m - 1, d0));
+      d.setUTCDate(d.getUTCDate() - 3); // 안전 여유 3일
+      return d.toISOString().slice(0, 10);
+    }
+  } catch {}
+  return '2026-08-01'; // 색인을 못 읽으면 넉넉히 잡는다
+}
+const SINCE = argv.find((a) => a.startsWith('--since='))?.slice(8) || 기본SINCE();
 
 /*
  * ── 소급 가능 범위 (2026-08-01 실측) ──────────────────────────
@@ -265,6 +325,42 @@ function parseDetail(html) {
  * 「상세 파일이 있으면 건너뛴다」가 곧 진행 상태다. 상태 파일은 실제와 어긋나는 순간
  * 더 나쁘다.
  */
+/**
+ * 새 API 한 쪽. UTF-8 이라 EUC-KR 디코딩이 필요 없다.
+ */
+async function fetchNewApiPage(index, size = NEW_API_PAGE_SIZE) {
+  const res = await fetch(`${NEW_API}?index=${index}&size=${size}`, {
+    headers: { 'user-agent': UA, accept: 'application/json' },
+    signal: AbortSignal.timeout(20_000),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status} index=${index}`);
+  return res.json();
+}
+
+/**
+ * 새 API 항목 → 우리 저장 형식. 옛 parseList+parseDetail 을 합친 모양과
+ * 필드 이름을 그대로 맞춘다 — 아래 갈래훑기(build-research-index.mjs 등)가
+ * r.house·r.stock·r.code·r.targetPrice·r.opinion·r.analyst 를 그대로 읽는다.
+ */
+function mapNaverItem(it) {
+  const price = it.goalPrice != null ? Number(it.goalPrice) : null;
+  return {
+    nid: String(it.nid),
+    code: it.itemCode || null,
+    stock: it.itemName || null,
+    title: it.title || null,
+    house: it.brokerName || null,
+    date: it.writeDate, // 이미 YYYY-MM-DD
+    // 새 API 는 PDF 유무 힌트가 없다. 모른다고 0(=없음)으로 적지 않는다.
+    hasPdf: null,
+    targetPrice: Number.isFinite(price) && price > 0 ? price : null,
+    // "없음"/"" 은 의견이 없는 리포트다. null 로 정직하게 둔다.
+    opinion: it.opinionText && it.opinionText !== '없음' ? it.opinionText : null,
+    // 새 API 도 애널리스트명을 안 준다 — 옛 정책 그대로 null(추정 금지).
+    analyst: null,
+  };
+}
+
 async function fill() {
   const listRoot = path.join(ARCHIVE, 'raw/research-list');
   if (!existsSync(listRoot)) {
@@ -347,6 +443,115 @@ async function fill() {
 }
 
 async function main() {
+  if (FILL) return fill();
+
+  const runStamp = stamp();
+  console.log(`  ${SINCE} 이후를 받는다 (새 API, index=${(FROM - 1) * NEW_API_PAGE_SIZE} 부터)`);
+
+  const collected = [];
+  let calls = 0;
+  const startIndex = (FROM - 1) * NEW_API_PAGE_SIZE;
+  /*
+   * ⚠ 2026-09-26 실측 — 이 API 는 index 가 **고정된 목록이 아니다.**
+   *   같은 index 를 몇 분 간격으로 다시 부르면 완전히 다른 날짜가 나온다
+   *   (예: index=50 이 어느 호출엔 2026-09-21, 바로 다음 시도엔 2026-06-30).
+   *   그래서 **한 쪽이 SINCE 아래로 보인다고 바로 멈추지 않는다** — 우연히
+   *   한 쪽만 묵은 데이터를 받았을 수 있다. 연속으로 **3쪽 내리** SINCE 아래인
+   *   것만 신뢰해 중단한다. 페이지 안에서도 SINCE 위인 항목은 순서와 무관하게
+   *   전부 담는다(정렬을 완전히 믿지 않는다). 겹쳐 받는 손해보다 놓치는 손해가 크다.
+   */
+  let emptyStreak = 0;
+
+  for (let i = 0; i < PAGES; i++) {
+    const index = startIndex + i * NEW_API_PAGE_SIZE;
+    calls++;
+    let page;
+    try {
+      page = await fetchNewApiPage(index);
+    } catch (e) {
+      console.log(`  index=${index} 실패: ${e.message}`);
+      await sleep(700);
+      continue;
+    }
+    const rows = (page.items ?? []).map(mapNaverItem);
+    if (rows.length === 0) {
+      console.log(`  index=${index} — 더 없음 (hasNext=${page.hasNext})`);
+      break;
+    }
+    const fresh = rows.filter((r) => !r.date || r.date > SINCE);
+    collected.push(...fresh);
+    if (fresh.length === 0) {
+      emptyStreak++;
+    } else {
+      emptyStreak = 0;
+    }
+    if (calls % 10 === 0 || i === 0 || fresh.length === 0) {
+      console.log(
+        `  index=${index} — ${rows.length}건 (${rows[0]?.date ?? '-'}~${rows[rows.length - 1]?.date ?? '-'})` +
+          `  새것 ${fresh.length}  누적 ${collected.length}  연속빈쪽 ${emptyStreak}`,
+      );
+    }
+    if (emptyStreak >= 3) {
+      console.log(`  ${SINCE} 아래가 3쪽 연속 — 중단 (호출 ${calls}회)`);
+      break;
+    }
+    if (page.hasNext === false) {
+      console.log('  마지막 쪽 — 중단');
+      break;
+    }
+    await sleep(700); // 예의. 남의 서버를 몰아치지 않는다
+  }
+
+  const uniq = [...new Map(collected.map((r) => [r.nid, r])).values()];
+  console.log(`\n  수집 대상 ${uniq.length}건 (중복 제거 후, 호출 ${calls}회)`);
+
+  if (DRY) {
+    console.table(uniq.slice(0, 8));
+    console.log('\n  --dry — 저장을 건너뜁니다.');
+    return;
+  }
+
+  let saved = 0;
+  let skipped = 0;
+  let withTarget = 0;
+  for (const r of uniq) {
+    // 새 API 는 상세가 이미 함께 온다 — 옛 2단계(목록→상세 재조회)가 필요 없다.
+    const key = `raw/research/${r.date}/${r.nid}.json`;
+    if (existsSync(path.join(ARCHIVE, key))) {
+      skipped++;
+      continue;
+    }
+    if (r.targetPrice) withTarget++;
+    await put(key, JSON.stringify({ ...r, collectedAt: runStamp }, null, 2), 'application/json');
+    if (LIST_ONLY) {
+      await put(`raw/research-list/${r.date}/${r.nid}.json`, JSON.stringify(r, null, 2), 'application/json');
+    }
+    saved++;
+  }
+
+  await put(
+    `manifest/research/${runStamp}.json`,
+    JSON.stringify(
+      { runStamp, source: 'stock.naver.com/api/v2', since: SINCE, calls, found: uniq.length, saved, withTarget, store: storeStatus() },
+      null,
+      2,
+    ),
+    'application/json',
+  );
+
+  console.log(`\n  새로 저장 ${saved} · 이미 있음 ${skipped} · 목표주가 확보 ${withTarget}`);
+  if (!remoteEnabled) {
+    console.log('\n  ⚠ 원격 저장이 꺼져 있습니다. 재배포하면 사라집니다.');
+  }
+}
+
+/**
+ * 옛 main() — finance.naver.com HTML 스크레이퍼. 2026-09-26 부로 부르지 않는다
+ * (그 도메인이 stock.naver.com 으로 302 리다이렉트만 한다). 지우지 않고 남긴다 —
+ * 새 API 가 다시 막히거나, 새 API 가 못 미치는 2011년 이전 이력이 필요해지면
+ * 이 경로가 근거가 된다. 위 헤더 주석의 2026-09-26 절 참고.
+ */
+async function legacyMainHtml() {
   if (FILL) return fill();
 
   const runStamp = stamp();
