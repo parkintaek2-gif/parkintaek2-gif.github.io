@@ -93,9 +93,31 @@ const 회차 = [
  */
 export const 마지막보내는시 = 17;
 export const 그만둔회차 = [['17', 'trig_01J9heFLe6AvUJtgd6LXSxsN']];  /* 예약은 살아 있다. 우리가 안 거둘 뿐 */
+
+/**
+ * 🔴🔴 [2026-09-25 · 사장님] **오늘과 내일만, 18시 회차를 연다.**
+ *
+ * 사장님 원문 —
+ *   「**오늘, 내일 18시에도 아시안게임종합-오늘경기 기사도 작성하게 해라.**」
+ *   이어서: 「**오늘과 내일만**」
+ *
+ * ⚠ 이것은 위 「5시가 마지막」과 부딪힌다. **새 말씀이 이긴다** — 다만 «이틀만» 이긴다.
+ *   사장님이 스스로 「오늘과 내일만」이라고 선을 그으셨으므로 그 선을 자에 박는다.
+ *   ⛔ 날짜를 늘리지 않는다. 9/27 부터는 저절로 옛 규칙(17시)으로 돌아간다.
+ *   ⭐ 「기억해서 되돌리자」로 두지 않는다 — 사람이 잊으면 18시 기사가 영영 나간다.
+ */
+export const 열여덟시여는날 = ['2026-09-25', '2026-09-26'];
+export const 열여덟시회차 = ['18', 'trig_01J9heFLe6AvUJtgd6LXSxsN'];  /* 그만둔 17시 예약을 이틀만 빌려 쓴다 */
+export function 열여덟시여는가(이제 = new Date()) {
+  if (!(이제 instanceof Date) || Number.isNaN(이제.getTime())) return false;
+  const 날 = `${이제.getFullYear()}-${String(이제.getMonth() + 1).padStart(2, '0')}-${String(이제.getDate()).padStart(2, '0')}`;
+  return 열여덟시여는날.includes(날);
+}
 export function 보낼때인가(이제 = new Date()) {
   const h = 이제 instanceof Date && !Number.isNaN(이제.getTime()) ? 이제.getHours() : null;
   if (h === null) return false;                    /* 시각을 못 재면 «안 보낸다». 두 번 보내는 쪽이 더 나쁘다 */
+  /* 이틀 동안만 19시까지 연다 — 18시 회차가 돌고 거둘 틈을 준다 */
+  if (열여덟시여는가(이제)) return h < 19;
   return h < 마지막보내는시;
 }
 
@@ -953,6 +975,23 @@ if (process.argv.includes('--자가시험')) {
   본다('회차는 여덟이다 (09~16시)', 회차.length === 8);
   본다('그만둔 17시의 예약 번호는 적어 둔다 — 되살리라 하시면 찾을 수 있게',
     그만둔회차.length === 1 && 그만둔회차[0][0] === '17' && /^trig_/.test(그만둔회차[0][1]));
+
+  /* 🔴 [2026-09-25 · 사장님] 「오늘, 내일 18시에도 … 기사도 작성하게 해라」 · 「오늘과 내일만」 */
+  본다('🔴 9/25 은 18시를 연다', 열여덟시여는가(new Date(2026, 8, 25, 12, 0)) === true);
+  본다('🔴 9/26 도 18시를 연다', 열여덟시여는가(new Date(2026, 8, 26, 12, 0)) === true);
+  본다('⛔ 9/27 부터는 안 연다 — 사장님이 「오늘과 내일만」이라 하셨다',
+    열여덟시여는가(new Date(2026, 8, 27, 12, 0)) === false);
+  본다('⛔ 9/24 에도 안 열렸다', 열여덟시여는가(new Date(2026, 8, 24, 12, 0)) === false);
+  본다('🔴 그 이틀에는 18시 18:30 에도 보낸다',
+    보낼때인가(new Date(2026, 8, 25, 18, 30)) === true);
+  본다('⛔ 그 이틀에도 19시를 넘기면 안 보낸다',
+    보낼때인가(new Date(2026, 8, 25, 19, 0)) === false);
+  본다('⛔ 다른 날은 그대로 17시가 선이다',
+    보낼때인가(new Date(2026, 8, 27, 18, 30)) === false);
+  본다('18시 회차는 그만둔 17시 예약을 빌려 쓴다',
+    열여덟시회차[0] === '18' && 열여덟시회차[1] === 그만둔회차[0][1]);
+  본다('⛔ 날짜를 못 재면 18시를 안 연다',
+    열여덟시여는가(null) === false && 열여덟시여는가(new Date('x')) === false);
   const 진 = 잰다.filter(([, v]) => !v);
   for (const [이름, v] of 잰다) console.log(`${v ? '✅' : '🔴'} ${이름}`);
   console.log(진.length ? `\n🔴 ${진.length}/${잰다.length} 떨어졌다` : `\n✅ ${잰다.length}가지 모두 통과`);
@@ -1025,7 +1064,11 @@ const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
 let 거둠 = 0, 건너 = 0, 없음 = 0;
 try {
   await page.setViewport({ width: 1500, height: 1200 });
-  for (const [시, trig] of 회차) {
+  /* 🔴 [2026-09-25 · 사장님] 「오늘, 내일 18시에도 아시안게임종합-오늘경기 기사도 작성하게 해라」
+     ⇒ 이틀 동안만 18시 회차를 회차 표 뒤에 붙인다. 9/27 부터는 저절로 빠진다. */
+  const 오늘회차 = 열여덟시여는가() ? [...회차, 열여덟시회차] : 회차;
+  if (열여덟시여는가()) console.log('■ 오늘은 18시 회차도 거둔다 — 사장님 지시(오늘과 내일만)');
+  for (const [시, trig] of 오늘회차) {
     await page.goto(`https://claude.ai/scheduled-task/${trig}`, { waitUntil: 'domcontentloaded', timeout: 90000 });
     for (let i = 0; i < 20; i++) { await 잠깐(2000); if (await page.evaluate(() => /지금 실행/.test(document.body.innerText))) break; }
     await 잠깐(2000);
