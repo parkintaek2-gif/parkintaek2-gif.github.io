@@ -225,19 +225,36 @@ export const 그림들 = [
     이름: '06-운은-열해를-묶어-본다',
     쓸곳: '제8장 2절 — 운은 열 해를 묶어 본다',
     그리기() {
+      /* 🔴 빈 상자 열 개만 그려 놓았다가 2026-09-26 에 교재를 떠서 보고 잡았다 —
+         칸이 비어 있으면 「열 해」인지 무엇인지 그림만 봐서는 알 수 없다.
+         해마다 번호를 적고, 「앞 오 년·뒤 오 년」으로 끊는 잘못된 읽기를 함께 보인다. */
       let s = 제목칸('운은 열 해를', '묶어 본다', { 크기: 54 });
-      /* 한 글자로 끊지 않는다 — 열 칸을 한 덩이로 그린다 */
       for (let i = 0; i < 10; i++) {
         const x = 300 + i * 84;
-        s += `<rect x="${x}" y="380" width="72" height="120" fill="#F2F2F2"`
+        /* 앞 오 년은 천간, 뒤 오 년은 지지 — 사람들이 여기서 끊어 읽는다 */
+        s += `<rect x="${x}" y="380" width="72" height="120" fill="${i < 5 ? '#F2F2F2' : '#E4E4E4'}"`
           + ` stroke="#1C1E21" stroke-width="2.5"/>`;
+        s += `<text x="${x + 36}" y="428" font-family="${글꼴}" font-size="30" font-weight="900"`
+          + ` fill="#1C1E21" text-anchor="middle">${i + 1}</text>`;
+        s += `<text x="${x + 36}" y="472" font-family="${글꼴}" font-size="22" font-weight="700"`
+          + ` fill="#6B6B6B" text-anchor="middle">해</text>`;
       }
+      /* 끊어 읽는 자리 — 점선으로만 보인다. 이 선이 «틀린» 것이다 */
+      s += `<line x1="718" y1="352" x2="718" y2="528" stroke="#9A9A9A" stroke-width="3"`
+        + ` stroke-dasharray="10 8"/>`;
+      s += `<text x="508" y="338" font-family="${글꼴}" font-size="26" font-weight="700"`
+        + ` fill="#6B6B6B" text-anchor="middle">앞 오 년 — 천간</text>`;
+      s += `<text x="928" y="338" font-family="${글꼴}" font-size="26" font-weight="700"`
+        + ` fill="#6B6B6B" text-anchor="middle">뒤 오 년 — 지지</text>`;
+      /* 빨간 테두리가 열 칸을 통째로 묶는다 — 이것이 맞는 읽기다 */
       s += `<rect x="296" y="376" width="844" height="128" fill="none"`
         + ` stroke="#FF0000" stroke-width="6"/>`;
-      s += `<text x="718" y="560" font-family="${글꼴}" font-size="34" font-weight="900"`
+      s += `<text x="718" y="570" font-family="${글꼴}" font-size="34" font-weight="900"`
         + ` fill="#FF0000" text-anchor="middle">열 해가 한 덩이다</text>`;
-      s += `<text x="718" y="660" font-family="${글꼴}" font-size="32" font-weight="700"`
-        + ` fill="#1C1E21" text-anchor="middle">천간 다섯 해 · 지지 다섯 해로 끊지 않는다</text>`;
+      s += `<text x="718" y="650" font-family="${글꼴}" font-size="30" font-weight="700"`
+        + ` fill="#1C1E21" text-anchor="middle">점선에서 끊어 「앞은 천간, 뒤는 지지」로 읽으면 틀린다</text>`;
+      s += `<text x="718" y="700" font-family="${글꼴}" font-size="30" font-weight="700"`
+        + ` fill="#1C1E21" text-anchor="middle">열 해를 아울러 좋고 나쁨을 가린다</text>`;
       return 판(s);
     },
   },
