@@ -33,10 +33,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 🔴 자리 목록의 정본 — 자리를 늘리거나 줄일 때 고치는 곳은 그 파일 하나다 */
+import { 자리번호 } from './lib/seats.mjs';
 
 const 입구 = 'C:/Users/USER/Desktop/00_세션입구';
 const 현재 = path.join(입구, '_현재');
-const 자리들 = ['1', '2', '3', '4', '5', '6'];
+/* 🔴 [2026-09-27 · 사장님] 「현재 없는 3, 4, 6번은 빼라」
+   ⇒ scripts/lib/seats.mjs 가 정본이다. 여기서 따로 세지 않는다 —
+     없는 자리를 세면 「단추를 못 찾았다」가 여섯 줄씩 찍혀 진짜 결함을 덮는다. */
+const 자리들 = 자리번호.map(String);
 
 /** 단추(.cmd)가 정한 설정폴더를 읽는다 */
 export function 단추폴더(cmd글) {
@@ -184,7 +189,9 @@ if (내가실행됐다) {
     console.log('\n⬜ 못 쟀다 (0 으로 치지 않는다)');
     for (const s of 못잰것) console.log(`   · ${s}`);
   }
-  if (!흠.length) { console.log('\n✅ 여섯 자리가 다 제 폴더를 본다'); process.exit(0); }
+  /* ⛔ 「여섯 자리가」로 박아 두었더니 자리가 셋으로 줄어든 뒤에도 여섯이라고 찍었다.
+     자의 «말»이 실제와 다르면 그 초록불이 그대로 보고서에 실려 거짓 보고가 된다. */
+  if (!흠.length) { console.log(`\n✅ ${자리들.length}자리가 다 제 폴더를 본다 — ${자리들.join('·')}번`); process.exit(0); }
   console.error(`\n🔴 어긋난 자리 ${흠.length}건`);
   for (const s of 흠) console.error(`   · ${s}`);
   console.error('\n⛔ 이대로 두면 단추를 눌러도 빈 자리가 열리고, 그 사이 대화는 남의 폴더에 쌓인다.');

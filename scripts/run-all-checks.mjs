@@ -281,6 +281,14 @@ export const 단계들 = [
   "node scripts/check-internal-comment-leak.mjs",
   "node scripts/check-seat-config.mjs --자가시험",
   "node scripts/check-seat-resume-id.mjs --자가시험",
+  /* 🔴 [2026-09-27 · 사장님] 「세션입구가 제대로 작동하는 지 꼭 테스트해봐」
+   *   그날 아침 실측 — 바탕화면 단추가 통째로 사라져 있었고, 백업 단추에는
+   *   CLAUDE_CONFIG_DIR 이 없어 누르면 «빈 창»이 열릴 참이었으며, 마지막 수단인
+   *   세션ID 찾기는 «남의 자리 ID» 를 주고 있었다(1번을 물으면 2번을 주었다).
+   *   ⛔ 한 번 눌러 보는 것으로는 다음 달에 또 어긋난다. 그래서 관문에 올린다. */
+  "node scripts/check-session-entry.mjs --자가시험",
+  "node scripts/check-session-entry.mjs",
+  "node scripts/build-session-entry.mjs --자가시험",
   "node scripts/_article-drift.mjs --자가시험",
   /* 🔴 [2026-09-10 · 6번] 5번이 만든 검사가 npm test 에 안 물려 있었다 —
    *   check-tests-wired.mjs 가 「안 부르는 검사 0→1」로 잡았다. 만든 사람이 물려야 하는데

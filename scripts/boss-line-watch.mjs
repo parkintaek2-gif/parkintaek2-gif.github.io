@@ -27,6 +27,8 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, appendFileSync, mkdirSync } from 'node:fs';
 import { execFile, execFileSync } from 'node:child_process';
 import path from 'node:path';
+/* 🔴 자리 목록의 정본 — 자리를 늘리거나 줄일 때 고치는 곳은 그 파일 하나다 */
+import { 대화록뿌리들 as 자리뿌리들 } from './lib/seats.mjs';
 
 const 저장소 = 'C:/Users/USER/Documents/GitHub/dataeconomics';
 const 말씀파일 = path.join(저장소, 'docs/사장님-휴대폰.md');
@@ -36,10 +38,9 @@ const 표 = path.join(현재, '사장님말씀.state');
 const 로그 = path.join(현재, '사장님말씀.log');
 
 /** 대화록이 어느 폴더에 있는지 모르니 자리 폴더를 다 뒤진다 — 그리고 «제일 새것»을 쓴다 */
-const 대화록뿌리들 = [
-  'C:/Users/USER/.claude/projects',
-  ...[1, 2, 3, 4, 5, 6].map((n) => `C:/Users/USER/.claude-u${n}/projects`),
-];
+/* 🔴 [2026-09-27 · 사장님] 「현재 없는 3, 4, 6번은 빼라」
+   ⇒ 자리 목록은 scripts/lib/seats.mjs 가 정본이다. 여기서 따로 세지 않는다. */
+const 대화록뿌리들 = 자리뿌리들();
 
 const 마른실행 = process.argv.includes('--dry');
 const 찍기 = (s) => {
