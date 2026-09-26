@@ -408,6 +408,9 @@ export const 단계들 = [
      오늘도 사실인지 잰다 — 사장님 「결국 …담당 세션이 거짓을 보고한거다」. */
   "node scripts/check-invest-ai-claims.mjs --자가시험",
   "node scripts/check-invest-ai-claims.mjs",
+  /* 🔴 [2026-09-26] 우리가 만든 자가 사장님 화면에 창을 띄워 두 달 가까이 방해했다 */
+  "node scripts/check-no-popup-scripts.mjs --자가시험",
+  "node scripts/check-no-popup-scripts.mjs",
   /* 🔴 [2026-09-22] 교재를 다듬을 때 원전 한문·전문용어·옮김을 잃지 않나.
      ⚠ 자가시험만 문다 — 실측은 형제 저장소(../klifemap)의 원고를 git 과 맞대므로
      그 저장소가 없는 자리에서 헛빨강이 된다. */
