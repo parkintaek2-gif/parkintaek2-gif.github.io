@@ -1,8 +1,8 @@
 {
- "builtOn": "2026-09-20",
+ "builtOn": "2026-09-26",
  "windowFirstDay": "2026-08-10",
- "windowLastDay": "2026-09-18",
- "publishingDays": 29,
+ "windowLastDay": "2026-09-23",
+ "publishingDays": 32,
  "source": "Hankyung Consensus report list, collected daily by us. English broker names from our own institution dictionary.",
  "whatThisIs": "Every equity report on the Hankyung consensus list, sorted by whether the analyst moved the target price, kept it, opened coverage, or published no target at all.",
  "whatThisIsNot": [
@@ -11,24 +11,24 @@
   "Not a complete window. The source list is capped at roughly one month, so history exists only because we save it daily.",
   "Not an accuracy measure. Whether these targets were met is a different page."
  ],
- "reports": 840,
+ "reports": 942,
  "counts": {
-  "raised": 63,
-  "cut": 65,
-  "unchanged": 81,
-  "initiated": 36,
-  "noTarget": 595
+  "raised": 66,
+  "cut": 74,
+  "unchanged": 89,
+  "initiated": 54,
+  "noTarget": 659
  },
- "reportsWithATarget": 245,
- "movedCount": 128,
- "movedShareOfWithTarget": 52.2,
- "distinctAnalystNames": 203,
- "distinctTickers": 195,
+ "reportsWithATarget": 283,
+ "movedCount": 140,
+ "movedShareOfWithTarget": 49.5,
+ "distinctAnalystNames": 207,
+ "distinctTickers": 216,
  "brokers": [
   {
    "broker_en": "IBK Investment & Securities",
    "broker_en_missing": false,
-   "reports": 120,
+   "reports": 129,
    "withTarget": 8,
    "raised": 3,
    "cut": 2,
@@ -37,79 +37,79 @@
   {
    "broker_en": "SK Securities",
    "broker_en_missing": false,
-   "reports": 112,
-   "withTarget": 27,
+   "reports": 128,
+   "withTarget": 33,
    "raised": 7,
-   "cut": 2,
-   "movedShareOfWithTarget": 33.3
+   "cut": 5,
+   "movedShareOfWithTarget": 36.4
   },
   {
    "broker_en": "Yuanta Securities Korea",
    "broker_en_missing": false,
-   "reports": 98,
-   "withTarget": 30,
+   "reports": 115,
+   "withTarget": 40,
    "raised": 4,
-   "cut": 7,
-   "movedShareOfWithTarget": 36.7
+   "cut": 8,
+   "movedShareOfWithTarget": 30
   },
   {
    "broker_en": "Eugene Investment & Securities",
    "broker_en_missing": false,
-   "reports": 97,
-   "withTarget": 31,
+   "reports": 111,
+   "withTarget": 32,
    "raised": 4,
    "cut": 15,
-   "movedShareOfWithTarget": 61.3
-  },
-  {
-   "broker_en": "LS Securities",
-   "broker_en_missing": false,
-   "reports": 92,
-   "withTarget": 47,
-   "raised": 13,
-   "cut": 15,
-   "movedShareOfWithTarget": 59.6
+   "movedShareOfWithTarget": 59.4
   },
   {
    "broker_en": "Meritz Securities",
    "broker_en_missing": false,
-   "reports": 85,
-   "withTarget": 18,
+   "reports": 100,
+   "withTarget": 26,
    "raised": 4,
-   "cut": 7,
-   "movedShareOfWithTarget": 61.1
+   "cut": 8,
+   "movedShareOfWithTarget": 46.2
+  },
+  {
+   "broker_en": "LS Securities",
+   "broker_en_missing": false,
+   "reports": 96,
+   "withTarget": 48,
+   "raised": 13,
+   "cut": 16,
+   "movedShareOfWithTarget": 60.4
   },
   {
    "broker_en": "Hanwha Investment & Securities",
    "broker_en_missing": false,
-   "reports": 60,
-   "withTarget": 20,
-   "raised": 13,
+   "reports": 67,
+   "withTarget": 22,
+   "raised": 15,
    "cut": 1,
-   "movedShareOfWithTarget": 70
+   "movedShareOfWithTarget": 72.7
   },
   {
    "broker_en": "iM Securities",
    "broker_en_missing": false,
-   "reports": 57,
-   "withTarget": 44,
-   "raised": 10,
-   "cut": 11,
-   "movedShareOfWithTarget": 47.7
+   "reports": 64,
+   "withTarget": 50,
+   "raised": 11,
+   "cut": 13,
+   "movedShareOfWithTarget": 48
   },
   {
    "broker_en": "Daishin Securities",
    "broker_en_missing": false,
-   "reports": 55,
-   "withTarget": 19,
+   "reports": 61,
+   "withTarget": 22,
    "raised": 5,
-   "cut": 5,
-   "movedShareOfWithTarget": 52.6
+   "cut": 6,
+   "movedShareOfWithTarget": 50
   },
   {
    "broker_en": "Woori Bank",
    "broker_en_missing": false,
-   "reports": 27,
+   "reports": 30,
    "withTarget": 0,
    "raised": 0,
    "cut": 0,
@@ -118,7 +118,7 @@
   {
    "broker_en": "Korea IR Service",
    "broker_en_missing": false,
-   "reports": 25,
+   "reports": 28,
    "withTarget": 0,
    "raised": 0,
    "cut": 0,
@@ -127,8 +127,8 @@
   {
    "broker_en": "Sangsangin Investment & Securities",
    "broker_en_missing": false,
-   "reports": 12,
-   "withTarget": 1,
+   "reports": 13,
+   "withTarget": 2,
    "raised": 0,
    "cut": 0,
    "movedShareOfWithTarget": 0
@@ -136,6 +136,138 @@
  ],
  "brokersWithNoEnglishName": 0,
  "moves": [
+  {
+   "ticker": "145020",
+   "broker_en": "Daishin Securities",
+   "broker_en_missing": false,
+   "published_on": "2026-09-23",
+   "direction": "Cut",
+   "previous_krw": 400000,
+   "target_krw": 340000,
+   "change_pct": -15,
+   "rating": "Buy"
+  },
+  {
+   "ticker": "051910",
+   "broker_en": "LS Securities",
+   "broker_en_missing": false,
+   "published_on": "2026-09-22",
+   "direction": "Cut",
+   "previous_krw": 403000,
+   "target_krw": 235000,
+   "change_pct": -41.7,
+   "rating": "Hold"
+  },
+  {
+   "ticker": "035900",
+   "broker_en": "SK Securities",
+   "broker_en_missing": false,
+   "published_on": "2026-09-22",
+   "direction": "Cut",
+   "previous_krw": 75000,
+   "target_krw": 66000,
+   "change_pct": -12,
+   "rating": "Buy"
+  },
+  {
+   "ticker": "352820",
+   "broker_en": "SK Securities",
+   "broker_en_missing": false,
+   "published_on": "2026-09-22",
+   "direction": "Cut",
+   "previous_krw": 350000,
+   "target_krw": 290000,
+   "change_pct": -17.1,
+   "rating": "Buy"
+  },
+  {
+   "ticker": "020000",
+   "broker_en": "Hanwha Investment & Securities",
+   "broker_en_missing": false,
+   "published_on": "2026-09-22",
+   "direction": "Raised",
+   "previous_krw": 28000,
+   "target_krw": 36000,
+   "change_pct": 28.6,
+   "rating": "Buy"
+  },
+  {
+   "ticker": "183300",
+   "broker_en": "SK Securities",
+   "broker_en_missing": false,
+   "published_on": "2026-09-21",
+   "direction": "Cut",
+   "previous_krw": 100000,
+   "target_krw": 40000,
+   "change_pct": -60,
+   "rating": "Buy"
+  },
+  {
+   "ticker": "000720",
+   "broker_en": "Yuanta Securities Korea",
+   "broker_en_missing": false,
+   "published_on": "2026-09-21",
+   "direction": "Cut",
+   "previous_krw": 223000,
+   "target_krw": 205000,
+   "change_pct": -8.1,
+   "rating": "Buy"
+  },
+  {
+   "ticker": "047050",
+   "broker_en": "iM Securities",
+   "broker_en_missing": false,
+   "published_on": "2026-09-21",
+   "direction": "Cut",
+   "previous_krw": 94000,
+   "target_krw": 90000,
+   "change_pct": -4.3,
+   "rating": "Buy"
+  },
+  {
+   "ticker": "034220",
+   "broker_en": "iM Securities",
+   "broker_en_missing": false,
+   "published_on": "2026-09-21",
+   "direction": "Cut",
+   "previous_krw": 14000,
+   "target_krw": 11500,
+   "change_pct": -17.9,
+   "rating": "Buy"
+  },
+  {
+   "ticker": "006400",
+   "broker_en": "iM Securities",
+   "broker_en_missing": false,
+   "published_on": "2026-09-21",
+   "direction": "Raised",
+   "previous_krw": 590000,
+   "target_krw": 800000,
+   "change_pct": 35.6,
+   "rating": "Buy"
+  },
+  {
+   "ticker": "280360",
+   "broker_en": "Hanwha Investment & Securities",
+   "broker_en_missing": false,
+   "published_on": "2026-09-21",
+   "direction": "Raised",
+   "previous_krw": 170000,
+   "target_krw": 200000,
+   "change_pct": 17.6,
+   "rating": "Buy"
+  },
+  {
+   "ticker": "011070",
+   "broker_en": "Meritz Securities",
+   "broker_en_missing": false,
+   "published_on": "2026-09-21",
+   "direction": "Cut",
+   "previous_krw": 1200000,
+   "target_krw": 1000000,
+   "change_pct": -16.7,
+   "rating": "Buy"
+  },
   {
    "ticker": "009150",
    "broker_en": "iM Securities",
