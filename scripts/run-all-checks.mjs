@@ -365,6 +365,11 @@ export const 단계들 = [
      ⭐ 대장을 넓힌 사람이 지킬 자를 같이 만들지 않으면 그 판단은 다음 세션에서 무너진다. */
   "node scripts/check-india-rating-leak.mjs --자가시험",
   "node scripts/check-india-rating-leak.mjs",
+  /* 🔴 [2026-09-26] 기사에 박힌 수가 자료를 안 따라와 «손님이 옛 수를 읽고 있었다».
+     자료는 9/26 으로 갱신됐는데 기사는 9/20 의 22,295건·2,629를 말하고 있었다.
+     ⇒ 어긋나면 그 자리에서 막는다. 「틀린 숫자 하나가 옳은 스물셋을 같이 의심받게 한다」 */
+  "node scripts/sync-india-article-numbers.mjs --자가시험",
+  "node scripts/sync-india-article-numbers.mjs --검사",
   /* 🔴 [2026-09-21] 「막혔다」고 문서에 적힌 우물이 정말 막혀 있나를 기계가 잰다.
      그날 EDINET 열쇠가 이미 나와 있는데 옛 문서를 그대로 옮겨 사장님께
      「막혔다」고 보고했다. 문서는 스스로 낡는데 아무도 다시 안 잰다. */

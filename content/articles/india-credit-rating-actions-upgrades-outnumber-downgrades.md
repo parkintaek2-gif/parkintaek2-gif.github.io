@@ -1,6 +1,6 @@
 ---
 title: "India's listed companies: credit-rating upgrades have outnumbered downgrades 3.6 to 1"
-dek: "Across 22,295 rating actions logged for NSE-listed and SME companies, 2,629 were upgrades against 736 downgrades — a first look at a market SeoulMarkets has not covered before."
+dek: "Across 22,747 rating actions logged for NSE-listed and SME companies, 2,735 were upgrades against 762 downgrades — a first look at a market SeoulMarkets has not covered before."
 category: equities
 pubDate: 2026-09-19
 dataAsOf: 2026-09-18T00:00:00+09:00
@@ -15,7 +15,7 @@ sources:
     api: "Daily scrape of the NSE credit-rating-actions disclosure feed (collect-india-nse-credit-rating.mjs)"
     url: "https://seoulmarkets.com"
 crossChecks:
-  - "22,295 rows cover both the equities segment (21,330 actions) and the SME segment (965 actions) of NSE"
+  - "22,747 rows cover both the equities segment (21,740 actions) and the SME segment (1,007 actions) of NSE"
   - "Re-affirmations are excluded by design — the disclosure feed itself only carries rating changes, not confirmations of an existing rating, so this is not an artifact of our own filtering"
   - "Action counts come directly from each filing's own \"action\" field as filed by the rating agency (India Ratings, CRISIL, CARE, ICRA, and others), not from us reading rating letters and inferring direction"
 excluded:
@@ -25,20 +25,20 @@ excluded:
 draft: false
 ---
 
-Among 22,295 credit-rating actions logged for companies listed on India's National Stock
-Exchange, 2,629 were upgrades and 736 were downgrades — a ratio of 3.6 upgrades for every
+Among 22,747 credit-rating actions logged for companies listed on India's National Stock
+Exchange, 2,735 were upgrades and 762 were downgrades — a ratio of 3.6 upgrades for every
 downgrade. This is SeoulMarkets' first published look at Indian credit-rating data.
 
 ## What the feed holds
 
 | Action | Count |
 |---|---:|
-| Other (reissue, withdrawal, outlook-only change) | 17,318 |
-| Upgrade | 2,629 |
-| New rating assigned | 1,610 |
-| Downgrade | 736 |
+| Other (reissue, withdrawal, outlook-only change) | 17,588 |
+| Upgrade | 2,735 |
+| New rating assigned | 1,660 |
+| Downgrade | 762 |
 | Unclassified | 2 |
-| **Total actions** | **22,295** |
+| **Total actions** | **22,747** |
 
 The feed comes from NSE's own system-driven disclosure channel, built under India's securities
 regulator (SEBI) Listing Obligations and Disclosure Requirements, Regulation 30. Credit rating
