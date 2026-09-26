@@ -66,7 +66,7 @@ export function 다시보낼회차(인자들) {
 }
 const 다시볼것 = 다시보낼회차(process.argv);
 
-const 온회차 = [
+export const 온회차 = [
   ['09', 'trig_01GeyrdjqmGjtu3cCt6ynZHm'], ['10', 'trig_01QLALBiamUfmxWngeTULv12'],
   ['11', 'trig_01X5A3DCXwYi2T3bBosKTQnk'], ['12', 'trig_01L4CHPogx1YQCCASeDdDpYe'],
   ['13', 'trig_01RbRLHyxfzAausuMhwqT27F'], ['14', 'trig_01RgAwm6L1q4nBhanUgz3s8N'],
@@ -627,7 +627,13 @@ export function 며칠된기사인가(본문, 오늘 = new Date()) {
 export const 어제종합회차 = ["09", "10", "13"];
 export const 참는날 = 2;
 export function 회차참는날(시) { return 어제종합회차.includes(String(시)) ? 2 : 1; }
-if (process.argv.includes('--자가시험')) {
+/* 🔴 [2026-09-26] **진입점 가드가 반쪽이었다.** 2026-09-22 에 «보내는 일»만 가드 안으로
+   넣고 이 자가시험 덩이는 밖에 두었다. 그래서 이 파일을 `import` 하는 다른 자를
+   `--자가시험` 으로 돌리면 «이쪽» 시험이 돌고 `process.exit` 까지 해 버렸다 —
+   부르는 쪽 시험은 한 줄도 안 돌았는데 화면은 「✅ 190가지 모두 통과」라고 말한다.
+   ⛔ 조용히 남의 답을 내는 것이 제일 나쁘다. 가드는 파일 «전체»에 건다. */
+const 시험이진입점 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (시험이진입점 && process.argv.includes('--자가시험')) {
   const 잰다 = [];
   const 본다 = (이름, 참) => 잰다.push([이름, !!참]);
   본다('오늘날짜가 KST 로 나온다', 오늘날짜(new Date(2026, 8, 21)) === '2026-09-21');
