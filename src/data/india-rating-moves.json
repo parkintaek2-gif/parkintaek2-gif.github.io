@@ -1,8 +1,8 @@
 {
  "_meta": {
   "product": "India rating moves — our own counts over exchange-disseminated rating actions",
-  "builtAt": "2026-09-21T13:45:18.293Z",
-  "basedOn": "archive\\raw\\india-nse-credit-rating\\20260920.json.gz",
+  "builtAt": "2026-09-26T09:06:16.331Z",
+  "basedOn": "archive\\raw\\india-nse-credit-rating\\20260926.json.gz",
   "source": "NSE system-driven disclosure of credit ratings (SEBI LODR Reg 30)",
   "notThis": [
    "Not a copy of the exchange table. These are counts we computed.",
@@ -12,48 +12,48 @@
   ],
   "publishGate": "⛔ NSE 약관 판단을 사장님께 여쭸다(2026-09-15 메일). 답 전에는 지면에 안 낸다."
  },
- "eventsStored": 22344,
- "movesCounted": 3379,
- "upgrades": 2639,
- "downgrades": 740,
- "downgradeShare": 21.9,
- "notCountedBecauseActionUnclear": 17351,
+ "eventsStored": 22747,
+ "movesCounted": 3497,
+ "upgrades": 2735,
+ "downgrades": 762,
+ "downgradeShare": 21.8,
+ "notCountedBecauseActionUnclear": 17590,
  "datesNotTrusted": 2,
  "byAgency": [
   {
    "agency": "CRISIL",
-   "upgrades": 1299,
-   "downgrades": 260,
-   "moves": 1559,
-   "downgradeShare": 16.7
+   "upgrades": 1347,
+   "downgrades": 277,
+   "moves": 1624,
+   "downgradeShare": 17.1
   },
   {
    "agency": "ICRA",
-   "upgrades": 568,
+   "upgrades": 609,
    "downgrades": 87,
-   "moves": 655,
-   "downgradeShare": 13.3
+   "moves": 696,
+   "downgradeShare": 12.5
   },
   {
    "agency": "CARE",
-   "upgrades": 410,
+   "upgrades": 413,
    "downgrades": 199,
-   "moves": 609,
-   "downgradeShare": 32.7
+   "moves": 612,
+   "downgradeShare": 32.5
   },
   {
    "agency": "India",
    "upgrades": 217,
-   "downgrades": 64,
-   "moves": 281,
-   "downgradeShare": 22.8
+   "downgrades": 65,
+   "moves": 282,
+   "downgradeShare": 23
   },
   {
    "agency": "Infomerics",
-   "upgrades": 86,
-   "downgrades": 83,
-   "moves": 169,
-   "downgradeShare": 49.1
+   "upgrades": 90,
+   "downgrades": 87,
+   "moves": 177,
+   "downgradeShare": 49.2
   },
   {
    "agency": "Acuite",
@@ -151,9 +151,9 @@
   },
   {
    "month": "2026-09",
-   "upgrades": 110,
-   "downgrades": 35,
-   "ratio": 3.1
+   "upgrades": 206,
+   "downgrades": 57,
+   "ratio": 3.6
   }
  ],
  "repeatDowngrades": [
@@ -232,6 +232,19 @@
    ],
    "firstDate": "2026-06-10",
    "lastDate": "2026-06-19"
+  },
+  {
+   "symbol": "KRITIKA",
+   "company": "Kritika Wires Limited",
+   "listing": "equities",
+   "downgradeActions": 12,
+   "downgradeOccasions": 3,
+   "agencies": [
+    "Acuite",
+    "Infomerics"
+   ],
+   "firstDate": "2025-08-26",
+   "lastDate": "2026-09-22"
   },
   {
    "symbol": "SHAREINDIA",
@@ -358,19 +371,6 @@
    ],
    "firstDate": "2025-11-25",
    "lastDate": "2026-06-30"
-  },
-  {
-   "symbol": "KRITIKA",
-   "company": "Kritika Wires Limited",
-   "listing": "equities",
-   "downgradeActions": 8,
-   "downgradeOccasions": 2,
-   "agencies": [
-    "Acuite",
-    "Infomerics"
-   ],
-   "firstDate": "2025-08-26",
-   "lastDate": "2026-07-28"
   },
   {
    "symbol": "SDBL",
@@ -569,6 +569,18 @@
    ],
    "firstDate": "2025-12-29",
    "lastDate": "2025-12-29"
+  },
+  {
+   "symbol": "JAIBALAJI",
+   "company": "Jai Balaji Industries Limited",
+   "listing": "equities",
+   "downgradeActions": 15,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-09-21",
+   "lastDate": "2026-09-21"
   },
   {
    "symbol": "VASCONEQ",
@@ -1267,6 +1279,18 @@
    "lastDate": "2026-05-27"
   },
   {
+   "symbol": "AGL",
+   "company": "Allcargo Global Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-09-23",
+   "lastDate": "2026-09-23"
+  },
+  {
    "symbol": "ARCHIES",
    "company": "Archies Limited",
    "listing": "equities",
@@ -1760,7 +1784,7 @@
   }
  ],
  "withdrawn": {
-  "rows": 1884,
-  "companies": 315
+  "rows": 1925,
+  "companies": 318
  }
 }
