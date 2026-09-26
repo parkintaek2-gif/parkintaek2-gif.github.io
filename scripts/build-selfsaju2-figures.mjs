@@ -152,11 +152,11 @@ export const 그림들 = [
         + 동그라미(420, y, R, '', { 칠: '#A8D18D', 글: '#1C1E21' })
         + 동그라미(420, y, r, '패', { 칠: '#FF7C4D', 글: '#FFFFFF' }, 40)
         + `<text x="420" y="${y + R + 58}" font-family="${글꼴}" font-size="32" font-weight="700"`
-        + ` fill="#1C1E21" text-anchor="middle">선 격 안에도 깨질 자리가 있다</text>`
+        + ` fill="#1C1E21" text-anchor="middle">선 격 안에도 깨질 데가 있다</text>`
         + 동그라미(980, y, R, '', { 칠: '#FF7C4D', 글: '#FFFFFF' })
         + 동그라미(980, y, r, '성', { 칠: '#A8D18D', 글: '#1C1E21' }, 40)
         + `<text x="980" y="${y + R + 58}" font-family="${글꼴}" font-size="32" font-weight="700"`
-        + ` fill="#1C1E21" text-anchor="middle">깨진 격 안에도 살릴 자리가 있다</text>`,
+        + ` fill="#1C1E21" text-anchor="middle">깨진 격 안에도 살릴 데가 있다</text>`,
       );
     },
   },
@@ -168,10 +168,16 @@ export const 그림들 = [
         제목칸('상신', '相神', { 붉은글: '相상' })
         + 동그라미(520, 400, 130, '용신\n用神', { 칠: '#FFC000', 글: '#1C1E21' }, 44)
         + 동그라미(900, 400, 130, '상신\n相神', { 칠: '#0070C0', 글: '#FFFFFF' }, 44)
-        + `<path d="M 660 400 L 760 400" stroke="#1C1E21" stroke-width="7"`
+        /* 🔴 화살촉은 «용신 쪽»을 가리킨다 — 상신이 용신을 보좌하는 것이지 그 반대가 아니다.
+           2026-09-26 에 그려 놓고 보니 방향이 거꾸로였다. */
+        + `<path d="M 762 400 L 682 400" stroke="#1C1E21" stroke-width="7"`
         + ` marker-end="url(#촉)"/>`
-        + `<defs><marker id="촉" markerWidth="12" markerHeight="12" refX="9" refY="6"`
-        + ` orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#1C1E21"/></marker></defs>`
+        /* ⚠ markerUnits 를 안 적으면 촉이 stroke-width 배로 커져 선을 삼킨다 */
+        + `<defs><marker id="촉" markerUnits="userSpaceOnUse" markerWidth="26" markerHeight="26"`
+        + ` refX="24" refY="13" orient="auto">`
+        + `<path d="M0,3 L24,13 L0,23 z" fill="#1C1E21"/></marker></defs>`
+        + `<text x="715" y="330" font-family="${글꼴}" font-size="28" font-weight="700"`
+        + ` fill="#1C1E21" text-anchor="middle">보좌한다</text>`
         + `<text x="520" y="590" font-family="${글꼴}" font-size="32" font-weight="700"`
         + ` fill="#1C1E21" text-anchor="middle">임금</text>`
         + `<text x="900" y="590" font-family="${글꼴}" font-size="32" font-weight="700"`
@@ -216,7 +222,9 @@ export const 그림들 = [
         + 칸(400, '사길격', '따라 쓴다 — 순용', ['정관', '재성', '인수', '식신'],
           { 칠: '#A8D18D', 글: '#1C1E21' })
         + `<line x1="700" y1="220" x2="700" y2="720" stroke="#1C1E21" stroke-width="3"/>`
-        + 칸(1000, '사흉격', '거슬러 쓴다 — 역용', ['칠살', '상관', '양인', '겁재'],
+        /* 🔴 「양인」이 아니라 «효신(편인)»이다 — 원고가 사흉격을 「살·상·인·겁」으로 적는다
+           (2권-원고-08-행운법-순용과-역용.md 152줄). 양인격은 록겁격과 함께 따로 다룬다. */
+        + 칸(1000, '사흉격', '거슬러 쓴다 — 역용', ['칠살', '상관', '효신', '겁재'],
           { 칠: '#FF7C4D', 글: '#FFFFFF' }),
       );
     },
@@ -301,11 +309,11 @@ export const 그림들 = [
         + 동그라미(700, 430, 125, '기신\n忌神', { 칠: '#FF7C4D', 글: '#FFFFFF' }, 40)
         + 동그라미(1070, 430, 125, '구신\n仇神', { 칠: '#3B3B3B', 글: '#FFFFFF' }, 40)
         + `<text x="330" y="620" font-family="${글꼴}" font-size="30" font-weight="700"`
-        + ` fill="#1C1E21" text-anchor="middle">도와주는 것</text>`
+        + ` fill="#1C1E21" text-anchor="middle">용신을 도와주는 것</text>`
         + `<text x="700" y="620" font-family="${글꼴}" font-size="30" font-weight="700"`
-        + ` fill="#1C1E21" text-anchor="middle">막는 것</text>`
+        + ` fill="#1C1E21" text-anchor="middle">용신을 막는 것</text>`
         + `<text x="1070" y="620" font-family="${글꼴}" font-size="30" font-weight="700"`
-        + ` fill="#1C1E21" text-anchor="middle">기신을 돕는 것</text>`,
+        + ` fill="#1C1E21" text-anchor="middle">기신을 도와주는 것</text>`,
       );
     },
   },
@@ -313,16 +321,20 @@ export const 그림들 = [
     이름: '10-조후-네-계절',
     쓸곳: '제12장 — 조후론',
     그리기() {
+      /* ⚠ 한자만 적어 두면 배우는 사람이 못 읽는다 — 독음을 한 줄 아래에 붙인다.
+         교재는 전문용어를 «넣되» 읽을 수 있게 한다(2026-09-22 사장님). */
       const 계절 = [
-        ['봄', '寅卯辰', 오행색.목], ['여름', '巳午未', 오행색.화],
-        ['가을', '申酉戌', 오행색.금], ['겨울', '亥子丑', 오행색.수],
+        ['봄', '寅卯辰', '인묘진', 오행색.목], ['여름', '巳午未', '사오미', 오행색.화],
+        ['가을', '申酉戌', '신유술', 오행색.금], ['겨울', '亥子丑', '해자축', 오행색.수],
       ];
       let s = 제목칸('조후', '調候', { 붉은글: '候후' });
-      계절.forEach(([한, 한자, 색], i) => {
+      계절.forEach(([한, 한자, 독음, 색], i) => {
         const x = 290 + i * 280;
         s += 동그라미(x, 420, 118, 한, 색, 46);
         s += `<text x="${x}" y="600" font-family="${글꼴}" font-size="40" font-weight="900"`
           + ` fill="#1C1E21" text-anchor="middle">${안전글(한자)}</text>`;
+        s += `<text x="${x}" y="642" font-family="${글꼴}" font-size="28" font-weight="700"`
+          + ` fill="#6B6B6B" text-anchor="middle">${안전글(독음)}</text>`;
       });
       s += `<text x="710" y="710" font-family="${글꼴}" font-size="32" font-weight="900"`
         + ` fill="#FF0000" text-anchor="middle">추우면 덥히고, 더우면 식힌다</text>`;
