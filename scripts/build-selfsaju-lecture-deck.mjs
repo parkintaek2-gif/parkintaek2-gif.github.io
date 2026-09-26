@@ -49,13 +49,58 @@ export const 스타일원본 = [
 ];
 
 /**
+ * 🔴🔴 [2026-09-26 · 사장님] 「**ppt를 먼저 만들고 거기서 활용한 이미지를
+ *   교재에도 해당부분에 똑같이 사용하라고 했었다**」
+ *
+ * 9/22 에 나는 순서를 거꾸로 했고(교재 먼저), 둘이 그림을 나눠 쓰지도 않았다.
+ * ⇒ 그림은 `build-selfsaju2-figures.mjs` 가 «한 곳»에서 만든다.
+ *   이 자와 교재 짓는 자가 **같은 PNG** 를 쓴다. 그것이 사장님 지시의 핵심이다.
+ *
+ * ⚠ 어느 절에 어느 그림을 거나 — 그림 자의 「쓸곳」과 짝이 맞아야 한다.
+ *   절 제목에 아래 «실마리»가 들어 있으면 그 그림을 그 절머리에 넣는다.
+ */
+export const 그림방 = path.join(뿌리, 'archive', 'out', '셀프사주2-그림');
+export const 그림걸이 = [
+  { 실마리: ['성격(成格)', '격이 서는'], 이름: '01-성격과-패격' },
+  { 실마리: ['패격(敗格)', '격이 깨지는'], 이름: '01-성격과-패격' },
+  { 실마리: ['성 안에 패', '가장 중요한 두 문장'], 이름: '02-성-안에-패-패-안에-성' },
+  { 실마리: ['상신(相神)'], 이름: '03-상신은-재상이다' },
+  { 실마리: ['상신을 다치는'], 이름: '04-상신을-다치면' },
+  { 실마리: ['순용 격국의 행운', '사길격'], 이름: '05-사길격과-사흉격' },
+  { 실마리: ['역용 격국의 행운', '사흉격'], 이름: '05-사길격과-사흉격' },
+  { 실마리: ['열 해', '운은 「열 해」'], 이름: '06-운은-열해를-묶어-본다' },
+  { 실마리: ['월령이 못 맡을 때', '외격'], 이름: '07-종격은-월령이-못-맡을-때' },
+  { 실마리: ['진종', '가종'], 이름: '08-진종과-가종' },
+  /* ⚠ 실마리를 넓게 잡았다가 6장 「기신(忌神)과 구응신」에 먼저 걸려,
+     정작 이 그림이 필요한 11장(억부론)이 비었다. 11장에만 있는 말로 좁힌다. */
+  { 실마리: ['용신을 잡은 «뒤»에 넷을 잡는다', '넷을 잡는다'], 이름: '09-희신-기신-구신' },
+  { 실마리: ['조후'], 이름: '10-조후-네-계절' },
+];
+
+/** 절 제목에 걸린 그림을 찾는다. ⛔ 같은 그림을 두 번 넣지 않는다 */
+const 이미쓴그림 = new Set();
+export function 그림찾기(절제목, 걸이 = 그림걸이, 쓴것 = 이미쓴그림) {
+  const t = String(절제목 ?? '');
+  if (!t) return null;
+  for (const g of 걸이 ?? []) {
+    if (!(g.실마리 ?? []).some((s) => t.includes(s))) continue;
+    if (쓴것.has(g.이름)) return null;          /* 한 번만 */
+    const 길 = path.join(그림방, `${g.이름}.png`);
+    if (!fs.existsSync(길)) return null;        /* 아직 안 그렸으면 조용히 건너뛴다 */
+    쓴것.add(g.이름);
+    return { 이름: g.이름, 길 };
+  }
+  return null;
+}
+
+/**
  * 한 장에 넣을 «본문 줄» 최대 — 넘치면 장을 넘긴다.
  * 🔴 [2026-09-22 · 사장님] 「**설명은 짧게. 원래 ppt는 그림 1-2개로만 슬라이드 구성해야 함**」
  *   6 줄이면 강의 화면이 «대본»이 된다. 3 줄로 줄였다 — 나머지 말씀은 입으로 하신다.
  */
 export const 한장줄수 = 3;
 /** 한 줄이 이보다 길면 강의 화면에서 두 줄로 흐른다 */
-export const 한줄글자 = 28;
+export const 한줄글자 = 20;
 
 /** 한 절에서 슬라이드에 올릴 «산문» 토막 수 — 나머지 설명은 교재에 있다 */
 export const 절산문최대 = 2;
@@ -235,7 +280,19 @@ export function 슬라이드나누기(토막들) {
   for (let i = 0; i < (토막들 || []).length; i++) {
     const 토 = 토막들[i];
     if (토.종류 === '장제목') { 비우기(); 장들.push({ 종류: '장여는장', 제목: 표시벗기기(토.값) }); 지금절 = null; 절산문수 = 0; continue; }
-    if (토.종류 === '절제목') { 비우기(); 지금절 = 표시벗기기(토.값); 절산문수 = 0; continue; }
+    if (토.종류 === '절제목') {
+      비우기();
+      지금절 = 표시벗기기(토.값);
+      절산문수 = 0;
+      /* 🔴🔴 [2026-09-26 · 사장님] 「**ppt를 먼저 만들고 거기서 활용한 이미지를
+         교재에도 해당부분에 똑같이 사용하라고 했었다**」
+         ⇒ 그 절에 걸린 그림이 있으면 «절이 열리는 자리»에 한 장으로 넣는다.
+           1권이 그렇게 한다 — 그림이 먼저 크게 뜨고, 말씀은 입으로 하신다.
+         ⛔ 그림을 글 뒤에 붙이지 않는다. 그러면 아무도 안 본다. */
+      const 걸린그림 = 그림찾기(지금절);
+      if (걸린그림) 장들.push({ 종류: '그림', 제목: 지금절, 그림: 걸린그림 });
+      continue;
+    }
     if (토.종류 === '원문') {
       비우기();
       /* 🔴 [2026-09-22] 원문이 «여러 줄»인 인용에서, 첫 줄만 한 장을 쓰고 옮김은 다음 장에
@@ -410,16 +467,40 @@ export function 노트장XML(줄들) {
 }
 
 /** 자리표(placeholder) 하나 */
-function 자리XML(id, 이름, ph, 문단들) {
+function 자리XML(id, 이름, ph, 문단들, { 세로가운데 = false } = {}) {
+  /* 🔴 [2026-09-26] 본문 글자를 키우고 나니 화면 «아래쪽이 텅» 비었다 —
+     자리표가 글을 위에 붙여 놓기 때문이다. 강의 화면은 한가운데가 눈이 가는 자리다.
+     ⚠ 자리표의 «좌표»는 그대로 둔다(1권 레이아웃을 존중한다). 글이 그 상자 안에서
+       세로 가운데로 앉게만 한다 — anchor="ctr". */
+  const 몸 = 세로가운데 ? '<a:bodyPr anchor="ctr"><a:normAutofit/></a:bodyPr>'
+    : '<a:bodyPr><a:normAutofit/></a:bodyPr>';
   return `<p:sp><p:nvSpPr><p:cNvPr id="${id}" name="${엑스엠엘(이름)}"/>`
     + `<p:cNvSpPr><a:spLocks noGrp="1"/></p:cNvSpPr><p:nvPr>${ph}</p:nvPr></p:nvSpPr>`
-    + `<p:spPr/><p:txBody><a:bodyPr><a:normAutofit/></a:bodyPr><a:lstStyle/>${문단들}</p:txBody></p:sp>`;
+    + `<p:spPr/><p:txBody>${몸}<a:lstStyle/>${문단들}</p:txBody></p:sp>`;
 }
 
 /** 슬라이드 하나를 XML 로. ⛔ 원본 레이아웃의 자리표를 쓴다 — 좌표를 우리가 정하지 않는다 */
+/**
+ * 🔴 그림 한 장 — 화면을 «거의 다» 쓴다.
+ * 1권이 그렇게 한다(150장 = 사진 두 장이 화면을 가득 채움). 설명을 곁들이지 않는다.
+ * ⚠ 그림은 이미 16:9 로 그려졌으므로 판에 꽉 맞춘다 — 늘이거나 자르지 않는다.
+ */
+export function 그림XML(rId) {
+  return '<p:pic><p:nvPicPr>'
+    + '<p:cNvPr id="9" name="그림"/><p:cNvPicPr><a:picLocks noChangeAspect="1"/></p:cNvPicPr>'
+    + '<p:nvPr/></p:nvPicPr>'
+    + `<p:blipFill><a:blip r:embed="${rId}"/><a:stretch><a:fillRect/></a:stretch></p:blipFill>`
+    + '<p:spPr><a:xfrm><a:off x="0" y="0"/>'
+    + `<a:ext cx="${판.폭}" cy="${판.높이}"/></a:xfrm>`
+    + '<a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr></p:pic>';
+}
+
 export function 슬라이드XML(장) {
   let 몸 = '';
-  if (장.종류 === '장여는장') {
+  if (장.종류 === '그림') {
+    /* ⛔ 제목을 덧붙이지 않는다 — 그림 안에 이미 제목이 들어 있다(1권과 같은 꼴) */
+    몸 = 그림XML('rIdImg');
+  } else if (장.종류 === '장여는장') {
     몸 = 자리XML(2, '제목 1', '<p:ph type="title"/>', 문단XML(장.제목, { 크기: 4000, 굵게: true }));
   } else if (장.종류 === '표') {
     /* 🔴 표 한 장 — 제목 한 줄 + 표 하나. 「그림 1~2개로만」의 그 그림이다 */
@@ -474,14 +555,19 @@ export function 슬라이드XML(장) {
         : 장.글 ? [{ 꼴: '짚을것', 글: 장.글 }]
           : [{ 꼴: '글', 글: [장.원문, ...(장.옮김 || [])].filter(Boolean).join(' ') }]);
     const 문단 = 줄들.flatMap((r) => 줄접기(r.글).map((t, i) => 문단XML(t, {
-      크기: r.꼴 === '짚을것' ? 1900 : 1800,
+      /* 🔴🔴 [2026-09-26 · 사장님] 「**1권과 똑같은 스타일, 디자인으로**」
+         1권을 뜯어서 재니 본문이 22·24·28pt 였다. 18pt 는 «대본»이지 강의 화면이 아니다 —
+         뒷자리에서 안 보인다. 1권이 실제로 쓰는 크기로 올린다.
+         ⚠ 크기를 올리면 한 장에 덜 들어간다. 그것이 맞다 — 1권도 한 장에 몇 줄뿐이다.
+           넘치는 줄은 조용히 줄이지 않고 «장을 넘긴다»(아래 한장줄수). */
+      크기: r.꼴 === '짚을것' ? 2600 : 2400,
       굵게: r.꼴 === '짚을것',
       기울임: r.꼴 === '인용',
       점: r.꼴 === '글' && i === 0,      /* 접힌 둘째 줄부터는 점을 안 찍는다 */
       이어짐: i > 0,                     /* 대신 첫 줄 글자 아래로 들여 쓴다 */
     }))).join('');
     몸 = 자리XML(2, '제목 1', '<p:ph type="title"/>', 문단XML(장.제목 || ' ', { 크기: 2800, 굵게: true }))
-      + 자리XML(3, '내용 개체 틀 2', '<p:ph idx="1"/>', 문단);
+      + 자리XML(3, '내용 개체 틀 2', '<p:ph idx="1"/>', 문단, { 세로가운데: true });
   }
   return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
     + `<p:sld ${NS}><p:cSld><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>`
@@ -493,6 +579,10 @@ export function 슬라이드XML(장) {
 export function 레이아웃번호(장) {
   if (장.종류 === '표지') return 1;      /* 제목 슬라이드 */
   if (장.종류 === '장여는장') return 3;   /* 구역 머리글 */
+  /* 🔴 그림 장은 «빈 화면»(layout7)이다 — 1권이 그림 장에 199번이나 이것을 썼다.
+     ⛔ 제목 틀이 있는 레이아웃에 그림을 깔면 빈 제목 상자가 그림 위에 얹힌다.
+     ⚠ 번호는 «이름»으로 확인하고 적었다 — layout7 = 「빈 화면」(2026-09-26 실측). */
+  if (장.종류 === '그림') return 7;
   return 2;                              /* 제목 및 내용 */
 }
 
@@ -618,7 +708,9 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
     검('⛔ 이모지는 화면에 안 낸다', !슬라이드XML(짚장).includes('⭐'));
 
     검('설명은 짧게 — 한 장 3줄', 한장줄수 === 3);
-    검('한 줄도 짧게', 한줄글자 === 28);
+    /* 🔴 [2026-09-26] 본문을 18pt → 24pt 로 키우면서 한 줄에 드는 글자도 줄였다.
+       1권이 22·24·28pt 를 쓴다(실측). 글자를 키우고 줄 길이를 그대로 두면 화면을 넘친다. */
+    검('한 줄도 짧게 — 글자를 키운 만큼 줄였다', 한줄글자 === 20);
     검('⛔ 빈 표에는 아무것도 안 그린다', 표그림XML([]) === '');
     /* 🔴 [2026-09-22] 파워포인트가 파일을 «못 열었다» — 빈 카드의 txBody 에 a:p 가 없었다.
        XML 은 멀쩡한데 규격이 아니었다. 가르고 재서 잡은 자리다. */
@@ -759,12 +851,23 @@ if (내가진입점 && process.argv.includes('--짓는다')) {
     /* 🔴 슬라이드에서 뺀 설명은 «발표자 노트»로 내린다 — 버리지 않는다.
        사장님: 「설명은 짧게」 + 옛 규칙 「조용히 줄이면 빠진 줄 모른다」 — 둘 다 지키는 길이다. */
     const 노트 = (장.노트 || []).filter(Boolean);
+    /* 🔴🔴 [2026-09-26] 그림을 꾸러미에 «넣고» 슬라이드에서 가리킨다.
+       ⛔ 슬라이드 XML 에 <p:pic> 만 적고 media 를 안 넣으면 파워포인트가 「손상됐다」고 한다.
+         부품·관계·Content_Types 셋이 다 맞아야 열린다. */
+    let 그림관계 = '';
+    if (장.종류 === '그림' && 장.그림) {
+      const 낼이름 = `ppt/media/fig${n}.png`;
+      부품.push({ 이름: 낼이름, 몸: fs.readFileSync(장.그림.길) });
+      그림관계 = '<Relationship Id="rIdImg" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image"'
+        + ` Target="../media/fig${n}.png"/>`;
+    }
     부품.push({
       이름: `ppt/slides/_rels/slide${n}.xml.rels`,
       몸: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
         + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
         + `<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout${L}.xml"/>`
         + (노트.length ? `<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesSlide" Target="../notesSlides/notesSlide${n}.xml"/>` : '')
+        + 그림관계
         + '</Relationships>',
     });
     if (노트.length) {
