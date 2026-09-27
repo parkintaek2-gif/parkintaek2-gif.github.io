@@ -95,8 +95,10 @@ export const 나라들 = [
     /* 🎯 [2026-09-27 · 2번] 공시도 뚫었다 — www1.hkexnews.hk/search/titleSearchServlet.do 를
        title 키워드(중대사건 구절)로 온 시장에 돌리고, 위 OpenFIGI 종목표로 «우리 것만»
        걸러냈다(거래소 약관이 막는 «전량 systematic retrieval»이 아니라 중대사건 몇 갈래만). */
-    명부: 'hongkong-openfigi-companies', 재무: null, 공시: 'hongkong-hkex-disclosures', 시세: null,
-    대본길: { 명부: ['거래소 공개 API', '나라 밖 공개 식별자'], 공시: ['거래소 공개 API'] },
+    /* 🎯 [2026-09-28 · 2번] 재무도 같은 우물 — title="annual report"·"interim report" 로
+       30일치 184건(연차 85·반기 99) 확보. collect-hongkong-hkex-financials.mjs. */
+    명부: 'hongkong-openfigi-companies', 재무: 'hongkong-hkex-financials', 공시: 'hongkong-hkex-disclosures', 시세: null,
+    대본길: { 명부: ['거래소 공개 API', '나라 밖 공개 식별자'], 공시: ['거래소 공개 API'], 재무: ['거래소 공개 API'] },
   },
 ];
 
