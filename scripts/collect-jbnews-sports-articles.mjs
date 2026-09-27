@@ -1140,7 +1140,7 @@ const 앞선소재 = (() => {
 })();
 if (앞선소재.length) console.log(`■ 그 가운데 ${앞선소재.length}건은 «소재»까지 맞대어 본다`);
 
-const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 30 * 60_000 });
 const page = await b.newPage();
 const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
 let 거둠 = 0, 건너 = 0, 없음 = 0;
@@ -1283,7 +1283,12 @@ try {
       }
     } catch (e) {
       보낼글 = `🔴 데스킹을 못 거쳤습니다 — ${String(e?.message ?? e).slice(0, 120)}\n   아래는 데스킹 «전» 원문입니다.\n\n${보낼글}`;
-      데스킹머리 = '🔴 데스킹 실패 (자가 터졌다)';
+      /* 🔴 [2026-09-27] 여기가 「자가 터졌다」만 찍고 «무엇이» 터졌는지는 안 남겼다.
+         그래서 2026-09-27 09시 회차가 데스킹 없이 나갔는데 까닭을 못 쟀다.
+         ⛔ 삼킨 예외는 다음에 또 난다. 까닭과 자리를 화면에 남긴다 —
+           사장님이 데스킹을 만들라 하신 것은 「팩트가 틀리는 경우가 많다」 때문이다. */
+      데스킹머리 = `🔴 데스킹 실패 — ${String(e?.message ?? e).slice(0, 160)}`;
+      console.log(`  ${시}시 ⛔ 데스킹 예외 자리:\n${String(e?.stack ?? '').split('\n').slice(0, 4).map((s) => '      ' + s).join('\n')}`);
     }
     console.log(`  ${시}시 🗞 ${데스킹머리}`);
 

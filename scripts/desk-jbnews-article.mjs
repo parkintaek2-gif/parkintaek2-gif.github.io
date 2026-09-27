@@ -407,7 +407,15 @@ export async function 혼자데스킹(본문, 이름) {
   const { createRequire } = await import('node:module');
   const require = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
   const puppeteer = require('puppeteer-core');
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+  /* 🔴🔴 [2026-09-27 · 사장님이 오류 원문을 주셨다]
+       「Runtime.callFunctionOn timed out. Increase the 'protocolTimeout' setting…」
+     ⇒ 그날 09시 아시안게임 기사가 **데스킹을 못 거치고** 나갔다.
+     까닭 — `한마디보내기()` 가 evaluate «안»에서 SSE 스트림을 끝까지 읽는다.
+       데스킹은 웹 검색을 하므로 3~10분이 걸리는데, puppeteer 의 protocolTimeout
+       기본값이 **180초**다. 그 선을 넘으면 evaluate 가 통째로 터진다.
+     ⛔ 이 값을 지우거나 줄이지 않는다. 줄이면 데스킹이 «조용히» 안 걸리고,
+       사장님이 「팩트가 틀린다」고 하셔서 만든 관문이 그대로 뚫린다. */
+  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 30 * 60_000 });
   const page = await b.newPage();
   try {
     await page.goto(`https://claude.ai/project/${데스킹프로젝트}`, { waitUntil: 'domcontentloaded', timeout: 90000 });
