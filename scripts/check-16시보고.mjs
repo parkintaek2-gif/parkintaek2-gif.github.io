@@ -80,7 +80,7 @@ export function 잰다(글, 이제 = new Date()) {
   return {
     상태: 'missing',
     말: '🔴 오늘 ' + 보고시 + '시 업무보고가 «안 나갔다» — 바빠도 이것부터 보낸다'
-      + ' (node scripts/send-mail.mjs --받는곳=parkintaek@naver.com --제목="[5번] … 업무보고" --글=<파일> --보낸다)',
+      + ' (node scripts/send-mail.mjs --받는곳=parkintaek2@gmail.com --제목="[5번] … 업무보고" --글=<파일> --보낸다)',
   };
 }
 
@@ -123,9 +123,9 @@ export function 자가시험() {
   재다('⛔ 업무보고인가: 아무 메일이나 아니다',
     업무보고인가('2026-09-15 12:12\t…\t[5번] 신용등급 — 인도가 열려 있습니다') === false);
 
-  const 있는날 = '2026-09-15 17:38\tparkintaek@naver.com\t[5번] 9월 15일 업무보고 (늦었습니다)';
-  const 딴날 = '2026-09-14 16:01\tparkintaek@naver.com\t[5번] 9월 14일 업무보고';
-  const 딴메일 = '2026-09-15 12:12\tparkintaek@naver.com\t[5번] 신용등급 건';
+  const 있는날 = '2026-09-15 17:38\tparkintaek2@gmail.com\t[5번] 9월 15일 업무보고 (늦었습니다)';
+  const 딴날 = '2026-09-14 16:01\tparkintaek2@gmail.com\t[5번] 9월 14일 업무보고';
+  const 딴메일 = '2026-09-15 12:12\tparkintaek2@gmail.com\t[5번] 신용등급 건';
 
   재다('✅ 오늘 보고가 있으면 ok', 잰다([딴날, 있는날].join('\n'), 오후).상태 === 'ok');
   재다('⚠ 늦게 나간 것은 늦었다고 적는다', /넘겨서 나갔다/.test(잰다(있는날, 오후).말));

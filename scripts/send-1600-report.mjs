@@ -39,7 +39,7 @@ import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 업무폴더 = 'C:/Users/User/OneDrive/업무보고';
-export const 받는곳 = 'parkintaek@naver.com';
+export const 받는곳 = 'parkintaek2@gmail.com';
 export const 표식방 = path.join(뿌리, 'archive/보고표식');
 
 /** 오늘 날짜 (KST) — ⚠ 이 PC 가 이미 KST 다. toISOString 을 쓰지 않는다 */
@@ -175,7 +175,7 @@ export function 자가시험() {
     && fs.existsSync(path.join(뿌리, 'scripts', 그릴자(['--흐름글']).자)));
 
   검('업무폴더가 원드라이브 «업무보고» 다', /OneDrive\/업무보고$/.test(업무폴더));
-  검('⛔ 받는곳이 사장님 주소다', 받는곳 === 'parkintaek@naver.com');
+  검('⛔ 받는곳이 사장님 주소다', 받는곳 === 'parkintaek2@gmail.com');
 
   console.log(`16시 보고 발송 — 자가시험 ${통}/${통 + 실.length}`);
   실.forEach((x) => console.log(`   X ${x}`));

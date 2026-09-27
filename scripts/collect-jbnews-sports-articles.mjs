@@ -2,7 +2,7 @@
  *
  * 🔴 [2026-09-21 바뀜] 사장님 지시 —
  *   「스포츠기사 자동발행되면 나한테 메일로 보내는 걸로 하자. **원드라이브에 저장하지는 말고.**
- *    메일주소는 **언제든 바꿀 수 있게** 해놓고. parkintaek@naver.com 으로 일단」
+ *    메일주소는 **언제든 바꿀 수 있게** 해놓고. parkintaek2@gmail.com 으로 일단」
  *
  *   ⇒ 그 전에는 `C:\Users\User\OneDrive\중부 스포츠보도` 에 .md 로 넣었다. 그것을 걷었다.
  *   ⇒ 받는 주소는 **`docs/중부매일-스포츠-받는곳.txt` 맨 윗줄**에 있다.
@@ -886,7 +886,7 @@ if (시험이진입점 && process.argv.includes('--자가시험')) {
 
   /* 🔴 [2026-09-21] 사장님 — 「메일주소는 언제든 바꿀 수 있게 해놓고」 */
   본다('받는 곳을 첫 줄에서 읽는다',
-    받는곳읽기('parkintaek@naver.com\n# 주석').join() === 'parkintaek@naver.com');
+    받는곳읽기('parkintaek2@gmail.com\n# 주석').join() === 'parkintaek2@gmail.com');
   본다('주석 줄은 셈에서 뺀다', 받는곳읽기('# a@b.com\nc@d.com').join() === 'c@d.com');
   본다('빈 줄도 뺀다', 받는곳읽기('\n\nc@d.com\n\n').join() === 'c@d.com');
   본다('쉼표로 여럿을 받는다', 받는곳읽기('a@b.com, c@d.com').length === 2);

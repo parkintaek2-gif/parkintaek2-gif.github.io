@@ -38,7 +38,7 @@ const 여기 = path.dirname(fileURLToPath(import.meta.url));
 const 뿌리 = path.resolve(여기, '..');
 const 보낸메일 = path.join(뿌리, 'docs', '보낸메일.tsv');
 const 마커방 = path.join(뿌리, 'docs', '고정업무-마커');
-const 받는곳 = 'parkintaek@naver.com';
+const 받는곳 = 'parkintaek2@gmail.com';
 
 /** 오늘 날짜 — ⛔ toISOString() 금지. 이 PC 가 이미 KST 다 */
 export function 오늘날짜(d = new Date()) {

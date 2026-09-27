@@ -188,6 +188,6 @@ if (내가진입점) {
       : '   ⛔ 돈이 안 오간다 — 묻지 말고 «판단해서 하고 결과만» 적는다');
   }
   console.log('\n⛔ 사장님은 원격으로 보신다. 메모·터미널 글은 닿지 않는다.');
-  console.log('✅ 승인이 정말 필요하면 — node scripts/send-mail.mjs --받는곳=parkintaek@naver.com …');
+  console.log('✅ 승인이 정말 필요하면 — node scripts/send-mail.mjs --받는곳=parkintaek2@gmail.com …');
   process.exit(1);
 }
