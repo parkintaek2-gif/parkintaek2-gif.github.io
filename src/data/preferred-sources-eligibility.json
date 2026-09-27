@@ -1,0 +1,35 @@
+{
+  "잰때": "2026. 9. 27. 오후 2:46:36",
+  "잰것": [
+    {
+      "도메인": "seoulmarkets.com",
+      "우리것": true,
+      "대조군": false,
+      "뜨나": false
+    },
+    {
+      "도메인": "kculturewire.com",
+      "우리것": true,
+      "대조군": false,
+      "뜨나": false
+    },
+    {
+      "도메인": "100yearmap.com",
+      "우리것": true,
+      "대조군": false,
+      "뜨나": true
+    },
+    {
+      "도메인": "klifemap.ai",
+      "우리것": true,
+      "대조군": false,
+      "뜨나": true
+    },
+    {
+      "도메인": "hankyung.com",
+      "우리것": false,
+      "대조군": true,
+      "뜨나": true
+    }
+  ]
+}
