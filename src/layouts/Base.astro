@@ -2,6 +2,7 @@
 import Masthead from '../components/Masthead.astro';
 import Analytics from '../components/Analytics.astro';
 import Footer from '../components/Footer.astro';
+import PreferredSource from '../components/선호출처.astro';
 import { SITE, SITE_URL, PUBLISHER, ADS, PUBLISHER_SM } from '../consts';
 import { cleanPath } from '../lib/format';
 import '../styles/global.css';
@@ -161,6 +162,8 @@ const orgLd = {
     <main id="main">
       <slot />
     </main>
+    {/* 구글 「선호 출처」 — 자격이 서는 날 저절로 켜진다. 안 서면 아무것도 안 낸다 */}
+    <div style="max-width:min(1100px,92vw); margin:0 auto;"><PreferredSource lang="en" /></div>
     <Footer />
     {/*
       인쇄본에만 나오는 발행 정보. 화면에서는 보이지 않는다.

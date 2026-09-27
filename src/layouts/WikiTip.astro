@@ -23,6 +23,7 @@ import Analytics from '../components/Analytics.astro';
 /* 🔴 [2026-08-28] 자매 사이트 링크에 딱지를 단다 — 안 달면 우리끼리 유입을 «못 센다».
    크로스도메인 linker 때문에 referral 로 안 잡히기 때문이다(sister-link.ts 참고). */
 import { 자매링크 } from '../lib/sister-link';
+import PreferredSource from '../components/선호출처.astro';
 import { ADS, PUBLISHER } from '../consts';
 
 export interface Props {
@@ -407,6 +408,8 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
         <a href={자매링크("https://100yearmap.com/", "footer")} hreflang="ko">100 Year Map</a> — Korean careers, mapped past
         graduation <span class="fine">(in Korean)</span>
       </p>
+      {/* 구글 「선호 출처」 — 자격이 서는 날 저절로 켜진다. 안 서면 아무것도 안 낸다 */}
+      <PreferredSource lang="en" />
     </footer>
   </div>
 </body>

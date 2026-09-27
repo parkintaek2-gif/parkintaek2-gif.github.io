@@ -5,6 +5,7 @@ import { ADS } from '../consts';
 import path from 'node:path';
 import { 자매링크 } from '../lib/sister-link';
 import ContentRail from '../components/ContentRail.astro';
+import PreferredSource from '../components/선호출처.astro';
 
 /** CSS 파일이 바뀌면 저절로 바뀌는 판 번호. ⛔ 손으로 올리지 않는다 —
  *  손으로 올리게 두면 반드시 잊는다(오늘만 규칙을 손으로 적었다가 다섯 곳이 어긋났다). */
@@ -489,6 +490,8 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
         — 한국 대중문화를 영문 데이터로 냅니다 · <a href={자매링크('https://klifemap.ai/', 'footer', '100y')} rel="noopener">KLifeMap</a>
         — 생년월일로 보는 사주·명리를 냅니다.
       </p>
+      {/* 구글 「선호 출처」 — 자격이 서는 날 저절로 켜진다. 안 서면 아무것도 안 낸다 */}
+      <PreferredSource lang="ko" />
       {/* 인쇄 전용 — 종이만 들고 있어도 다시 찾아올 수 있게 주소와 뽑은 날을 남긴다 */}
       <p class="printurl">이 지면 — {canonical}</p>
     </footer>
