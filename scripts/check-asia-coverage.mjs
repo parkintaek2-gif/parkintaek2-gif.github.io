@@ -92,8 +92,11 @@ export const 나라들 = [
        HKEX 약관이 막은 것은 «거래소 지면»이다. 사우디에서 쓴 ③번 길(나라 밖 식별자)을
        그대로 대니 그 자리에서 열렸다 — OpenFIGI exchCode=HK, 보통주 2,841건.
        ⭐ 게다가 티커가 «홍콩 종목코드 그대로»(619) 온다. 사우디에서는 못 얻던 것이다. */
-    명부: 'hongkong-openfigi-companies', 재무: null, 공시: null, 시세: null,
-    대본길: { 명부: ['거래소 공개 API', '나라 밖 공개 식별자'] },
+    /* 🎯 [2026-09-27 · 2번] 공시도 뚫었다 — www1.hkexnews.hk/search/titleSearchServlet.do 를
+       title 키워드(중대사건 구절)로 온 시장에 돌리고, 위 OpenFIGI 종목표로 «우리 것만»
+       걸러냈다(거래소 약관이 막는 «전량 systematic retrieval»이 아니라 중대사건 몇 갈래만). */
+    명부: 'hongkong-openfigi-companies', 재무: null, 공시: 'hongkong-hkex-disclosures', 시세: null,
+    대본길: { 명부: ['거래소 공개 API', '나라 밖 공개 식별자'], 공시: ['거래소 공개 API'] },
   },
 ];
 
