@@ -289,6 +289,11 @@ export const 단계들 = [
   "node scripts/check-session-entry.mjs --자가시험",
   "node scripts/check-session-entry.mjs",
   "node scripts/build-session-entry.mjs --자가시험",
+  /* 🔴 [2026-09-27 · 사장님] 「막히면 우리 노하우를 이용해 우회로를 반드시 찾는다」
+   *   이 자는 막힌 칸마다 «아직 안 대 본 길»을 함께 찍는다 —
+   *   「라이선스로 막혔다」가 닫힌 문으로 굳는 것을 막는다. */
+  "node scripts/check-asia-coverage.mjs --자가시험",
+  "node scripts/collect-openfigi-listings.mjs --자가시험",
   "node scripts/_article-drift.mjs --자가시험",
   /* 🔴 [2026-09-10 · 6번] 5번이 만든 검사가 npm test 에 안 물려 있었다 —
    *   check-tests-wired.mjs 가 「안 부르는 검사 0→1」로 잡았다. 만든 사람이 물려야 하는데
