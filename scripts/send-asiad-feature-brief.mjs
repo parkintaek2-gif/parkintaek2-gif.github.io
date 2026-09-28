@@ -200,14 +200,30 @@ if (내가진입점) {
     await 쉼(1200);
     console.log(`   ${(await page.evaluate(() => (document.querySelector('h1') || {}).innerText || '(제목 없음)'))}`);
 
-    const 눌렀나 = await page.evaluate(() => {
-      const el = [...document.querySelectorAll('button')].find((x) => /지금 실행|Run now/i.test(x.innerText || ''));
-      if (el) { el.click(); return true; }
-      return false;
-    });
-    console.log(`   「지금 실행」 ${눌렀나 ? '눌렀다' : '🔴 단추를 못 찾았다'}`);
-    await 쉼(9000);
+    /**
+     * 🔴 [2026-09-28 실측] 처음엔 여기서 「지금 실행」을 눌렀다. **그래서 실패했다.**
+     *   「지금 실행」은 그 회차의 «원래 프롬프트»(오늘 경기 종합)를 먼저 돌린다.
+     *   내 기획 지시는 그 뒤에 답글로 들어가므로, 중부매일은 경기 결과 기사를
+     *   먼저 내고 끝냈다 — 오늘 16시에 「김수지 다이빙 동메달」이 그렇게 나갔다.
+     *
+     * ⇒ **누르지 않는다.** 회차 예약이 스스로 돈 «뒤»에 그 대화창에 답글로 시킨다.
+     *   그래서 이 자는 회차 시각(16:27)보다 «늦게» 돌아야 한다.
+     *   ⛔ 「--지금실행」을 붙이지 않는 한 누르지 않는다.
+     */
+    if (인자.includes('--지금실행')) {
+      const 눌렀나 = await page.evaluate(() => {
+        const el = [...document.querySelectorAll('button')].find((x) => /지금 실행|Run now/i.test(x.innerText || ''));
+        if (el) { el.click(); return true; }
+        return false;
+      });
+      console.log(`   「지금 실행」 ${눌렀나 ? '눌렀다' : '🔴 단추를 못 찾았다'}`);
+      console.log('   ⚠ 원래 프롬프트가 먼저 돈다 — 경기 기사가 나온 뒤에 기획을 받게 된다');
+      await 쉼(9000);
+    } else {
+      console.log('   ⬜ 「지금 실행」을 누르지 않는다 — 회차가 스스로 돈 뒤 그 대화에 답글로 시킨다');
+    }
 
+    /* 맨 위(오늘 돈) 기록을 연다 — 회차가 이미 경기 기사를 쓴 그 대화다 */
     await page.evaluate(() => {
       const 것 = [...document.querySelectorAll('a, [role="button"], div[tabindex]')]
         .filter((el) => /오늘|방금|분 전|시간 전/.test(el.innerText || '') && el.getBoundingClientRect().width > 0)[0];
