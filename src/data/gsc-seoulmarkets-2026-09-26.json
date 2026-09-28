@@ -1,0 +1,522 @@
+{
+  "site": "sc-domain:seoulmarkets.com",
+  "dimension": "query",
+  "window": {
+    "from": "2026-08-29",
+    "to": "2026-09-26",
+    "days": 28
+  },
+  "rowLimit": 25000,
+  "rows": [
+    {
+      "key": "\"ksq_bydd_trd\" krx",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 8.666666666666668
+    },
+    {
+      "key": "\"ksq_bydd_trd\" krx open api",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "\"stk_bydd_trd\" krx open api",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "big companies in korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "big company in korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "big korea companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "big korean companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "big south korean companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "biggest companies in south korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "biggest companies korea",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 71.75
+    },
+    {
+      "key": "biggest companies south korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 69.5
+    },
+    {
+      "key": "biggest company in korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 62
+    },
+    {
+      "key": "biggest company in south korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "biggest korean companies",
+      "impressions": 18,
+      "clicks": 0,
+      "position": 59.611111111111114
+    },
+    {
+      "key": "biggest south korea companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "biggest south korean companies",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "biggest south korean company",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "famous south korean companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 79
+    },
+    {
+      "key": "korea big companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 76
+    },
+    {
+      "key": "korea biggest companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "korea biggest companies by market cap",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "korea biggest company",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "korea largest companies",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 62
+    },
+    {
+      "key": "korea market",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "korea most valuable companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "korea pay data reporting",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 56.5
+    },
+    {
+      "key": "korea top companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 62
+    },
+    {
+      "key": "korea trade partners",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 50
+    },
+    {
+      "key": "korea trading partners",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "korea's largest companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "korean companies",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 73.8
+    },
+    {
+      "key": "korean stock market biggest companies",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 4.333333333333334
+    },
+    {
+      "key": "korean top companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "korean treasury bonds",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 68.5
+    },
+    {
+      "key": "korean working women",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 82
+    },
+    {
+      "key": "kospi biggest companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "kospi index constituents weights",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 1
+    },
+    {
+      "key": "kospi member weights",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 1
+    },
+    {
+      "key": "large korean companies",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "largest companies in korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 62
+    },
+    {
+      "key": "largest companies in south korea",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 71.2
+    },
+    {
+      "key": "largest companies in south korea by market cap",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 60.5
+    },
+    {
+      "key": "largest companies south korea",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "largest company in korea",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "largest company in south korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 63.5
+    },
+    {
+      "key": "largest korean companies",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 56.285714285714285
+    },
+    {
+      "key": "largest korean company",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 35.5
+    },
+    {
+      "key": "largest korean stocks",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "largest south korean companies",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 64.8
+    },
+    {
+      "key": "major korean companies",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "most valuable korean companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "popular korean companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "south korea big companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "south korea biggest companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 63
+    },
+    {
+      "key": "south korea biggest trading partners",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 32.5
+    },
+    {
+      "key": "south korea companies by market cap",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 63
+    },
+    {
+      "key": "south korea exports to us",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 87
+    },
+    {
+      "key": "south korea largest companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "south korea largest trading partners",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 59.5
+    },
+    {
+      "key": "south korea top 10 companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 80
+    },
+    {
+      "key": "south korea top 100 companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 63
+    },
+    {
+      "key": "south korea top companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 65.5
+    },
+    {
+      "key": "south korea youth unemployment",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 75
+    },
+    {
+      "key": "south korea's biggest companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "south korean companies",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 77.14285714285714
+    },
+    {
+      "key": "south korean largest companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "south korean top companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 68.5
+    },
+    {
+      "key": "top 10 companies in korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "top 10 companies in south korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 71.5
+    },
+    {
+      "key": "top 10 company in south korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "top 10 korean companies",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 67.83333333333333
+    },
+    {
+      "key": "top 10 south korean companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 61.5
+    },
+    {
+      "key": "top companies in korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "top companies in south korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 79
+    },
+    {
+      "key": "top companies of south korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 75
+    },
+    {
+      "key": "top companies south korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "top company in korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "top korea companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "top korean companies",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 74.28571428571429
+    },
+    {
+      "key": "top korean company",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "top south korean companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "what about kospi",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "what are the largest companies in south korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 61.5
+    },
+    {
+      "key": "what is the biggest company in korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "what is the biggest company in south korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    }
+  ]
+}
