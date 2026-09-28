@@ -235,6 +235,18 @@ async function getRemote(key, { timeout = 30_000 } = {}) {
  * 네트워크가 죽은 날 수집이 통째로 빠지는 것보다, 디스크에라도 남는 편이 낫다.
  * 원격 실패는 던지지 않고 결과에 담아 돌려준다. 수집기가 그걸 매니페스트에 적는다.
  */
+/**
+ * ⚠🔴 [2026-09-28 · 5번] **이 자를 «로컬에서» 불러도 R2 로 나간다.**
+ *
+ * 이 파일 맨 위가 `.env` 를 «스스로» 읽어 `remoteEnabled` 를 정한다. 그래서
+ * `ARCHIVE_DIR` 만 임시 폴더로 돌려 놓고 시험해도 원격 쓰기는 그대로 일어난다.
+ * 오늘 체험신청을 시험하면서 그 길로 라이브 스토리지에 시험 기록을 두 번 넣었다
+ * (지웠다 — 남은 0건).
+ *
+ * ⇒ 새 저장 경로를 시험할 때는 **`.env` 가 없는 폴더에서 돌리거나**,
+ *   `ARCHIVE_S3_BUCKET` 을 빈 값으로 덮어 원격을 꺼 놓고 한다.
+ * ⇒ 그래도 들어갔으면 `del()` 로 «로컬과 원격 둘 다» 지운다. 로컬만 지우면 되살아난다.
+ */
 export async function put(key, body, contentType = 'application/octet-stream') {
   const out = { key, local: null, remote: null, remoteError: null };
 

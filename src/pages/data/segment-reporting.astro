@@ -1,0 +1,241 @@
+---
+/*
+ * Segment reporting — B2B 상품 지면. (seoulmarkets.com/data/segment-reporting)
+ *
+ * 🔴 왜 (2026-09-28 · 5번) — 사장님이 한경에이셀을 보라 하셨고, 그쪽이 파는 68개 가운데
+ *   「한국 상장 기업 사업부문별 손익」이 있었다. 사장님: 「네가 판단한대로 잘 만들어봐」
+ *   ⇒ 우물이 어디 있는지 재서 찾아(재무제표 창구엔 부문 계정 0개, 공시 «원문»에만 있다)
+ *     731곳을 받았다. 회사 강령: **「모은 자료는 반드시 지면이나 콘텐트로 낸다」**
+ *
+ * ⭐ 무엇을 파나 — 부문 «이름»이 아니라 «구조»다.
+ *   한국 상장사 절반이 자기를 «한 갈래»로만 보고한다. 그런데 대형주는 23%뿐이다.
+ *   그 격차가 이 자료의 이야기이고, 이것을 센 곳이 없다.
+ *
+ * ⛔ 화면에 한국어를 내지 않는다 — 부문 이름은 우리말이라 «수»로 낸다.
+ *   회사 이름은 DART 영문명만 쓰고, 없는 회사는 표에서 뺀다.
+ * ⛔ 못 잰 것을 숨기지 않는다 — 원문 못 받음·이름 못 뽑음을 지면에 그대로 적는다.
+ * ⛔ 수를 지어내지 않는다. 부문별 «금액»은 아직 못 뽑는다. 그렇게 적는다.
+ *
+ * 자료: src/data/segments.json (scripts/build-segments-data.mjs 산출)
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import data from '../../data/segments.json';
+
+const TITLE = 'How Korean companies split themselves';
+const SAMPLE = `${data.센회사.toLocaleString()} listed companies · ${data.해} annual reports · by market cap`;
+const DESC =
+  'Half of Korea\'s listed companies report themselves as a single segment — but among the largest, '
+  + 'only a quarter do. Which companies disclose their business divisions, and how finely, from every '
+  + 'company\'s own annual report.';
+
+const 구간 = data.구간;
+const 큰것 = 구간[0];
+const 작은것 = 구간[구간.length - 1];
+
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Korean listed-company segment reporting',
+  description: DESC, url: `${SITE_URL}/data/segment-reporting`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: ['single-segment share', 'distinct division names', 'division names'],
+  temporalCoverage: data.해,
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>How Korean companies split themselves</h1>
+      <p class="sample">{SAMPLE}</p>
+      <p class="lead">
+        Every listed company decides how many pieces to show you. Some report one number for the whole
+        firm; others break out five, eight, twelve divisions with revenue against each.
+        <b>Half of Korea's listed market reports itself as a single segment — but among the largest
+        companies, only {큰것.하나비율}% do.</b> That gap is what this dataset measures.
+      </p>
+
+      <ol class="five">
+        <li><b>What it is</b> — for each listed company, whether it reports business segments at all,
+          how many distinct divisions its filing names, and what they are called.</li>
+        <li><b>Why trust it</b> — every figure comes from the company's own annual report as filed
+          with the regulator, not from a vendor's reconstruction.</li>
+        <li><b>How big</b> — {data.센회사.toLocaleString()} companies for {data.해}, of which{' '}
+          {data.하나인회사.toLocaleString()} ({data.하나비율}%) report a single segment.</li>
+        <li><b>The honest caveat</b> — we do not yet extract the <em>figures</em> inside each segment
+          table. Layouts differ company by company; where we could not parse one we say so rather than
+          writing a zero.</li>
+        <li><b>The form</b> — one file: company · ticker · market · segment count · segment names ·
+          filing reference. Plus the summary below.</li>
+      </ol>
+
+      <section class="blk">
+        <h2>① Bigger companies show you more</h2>
+        <p>
+          The pattern is monotonic. Among companies above $10bn, the typical filing names{' '}
+          {큰것.갈래가운데값} distinct divisions. Below $300m, the typical filing names{' '}
+          {작은것.갈래가운데값} — that is, no breakdown at all.
+          <b> The smaller the company, the less you can see inside it.</b>
+        </p>
+        <table class="press">
+          <thead>
+            <tr><th>Market cap</th><th class="r">Cos.</th><th class="r">Single segment</th>
+              <th class="r">Median names</th></tr>
+          </thead>
+          <tbody>
+            {구간.map((r) => (
+              <tr>
+                <td class="axis">{r.이름}</td>
+                <td class="r">{r.회사}</td>
+                <td class="r"><b>{r.하나비율}%</b></td>
+                <td class="r">{r.갈래가운데값}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="fine">
+          Two things to read carefully. <b>"Single segment"</b> counts two cases together: companies
+          that say outright they have one reportable segment, and companies whose report never divides
+          the business. Both mean the same thing to a reader — there is no breakdown.
+          <b> "Names"</b> counts <em>distinct division names appearing in the filing</em>, not audited
+          reportable segments under IFRS 8. A holding company names its subsidiaries' divisions too, so
+          this is an <b>upper bound</b> on reportable segments, and we call it what it is.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>② Which filings name the most divisions</h2>
+        <p>
+          These filings name six or more distinct divisions. Read this as a measure of
+          <b> how much structure the document exposes</b>, not as a segment count — the top of this
+          list is dominated by holding companies, which describe every subsidiary's divisions as well
+          as their own. That is itself the finding: a holding company's filing is where the structure
+          is visible.
+        </p>
+        <table class="press">
+          <thead>
+            <tr><th>Company</th><th class="r">Ticker</th><th class="r">Division names</th></tr>
+          </thead>
+          <tbody>
+            {data.잘게쪼갠곳.map((r) => (
+              <tr>
+                <td class="axis">{r.이름}</td>
+                <td class="r">{r.종목}</td>
+                {/* ⛔ 우리 자가 상한에서 잘랐으면 「40+」로 적는다 —
+                    잘린 수를 그 회사의 수처럼 내면 거짓을 파는 것이다 */}
+                <td class="r"><b>{r.갈래}{r.잘렸나 ? '+' : ''}</b></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section class="blk">
+        <h2>③ What we could not measure</h2>
+        <p>
+          We publish the gaps rather than filling them. Of {data.받은줄.toLocaleString()} companies
+          attempted for {data.해}:
+        </p>
+        <table class="kv">
+          <tbody>
+            <tr><th>Filing not retrieved</th><td>{data.못잰것.원문못받음} companies — no annual report
+              for that year at the regulator, or the document would not download.</td></tr>
+            <tr><th>Segments present, names not parsed</th><td>{data.못잰것.이름못뽑음} companies — the
+              report divides the business but our parser could not name the divisions. Counted as
+              unmeasured, <b>never as zero</b>.</td></tr>
+            <tr><th>Audited segment boundaries</th><td>We count division names as written, not IFRS 8
+              reportable segments as audited. Where a filing names more divisions than it reports,
+              our count is high — an upper bound, not a match.</td></tr>
+            <tr><th>Segment figures</th><td>Not extracted yet. Segment tables are laid out differently
+              by every filer; we would rather publish no number than a wrong one.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="blk">
+        <h2>④ What you get</h2>
+        <table class="kv">
+          <tbody>
+            <tr><th>Files</th><td>One CSV — company · ticker · market · sector · reports segments
+              (y/n) · single-segment flag · distinct division names · the names themselves · filing
+              reference. Plus the by-size summary above.</td></tr>
+            <tr><th>Coverage</th><td>{data.센회사.toLocaleString()} listed companies, largest first by
+              market capitalisation. Expanding down the market.</td></tr>
+            <tr><th>Refresh</th><td>Annually, on the reporting cycle. Annual reports land in March.</td></tr>
+            <tr><th>Source</th><td>{data.출처}. We store the filed facts, not the reports themselves.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      {/* ⛔ 파는 지면에는 «살 수 있는 자리»가 있어야 한다 — 값만 적고 넘기지 않는다.
+          다만 이 자료는 아직 부문 «금액»이 없으므로 체험 신청을 앞에 세운다. */}
+      <section class="cta">
+        <h2>Ask for the dataset</h2>
+        <p class="cta__lead">
+          Want the full company-level file? We send a sample, the data dictionary and the current
+          licensing terms — no card, no account.
+        </p>
+        <p class="cta__row">
+          <a class="btn" href="/trial">Request a trial →</a>
+          <a class="btn ghost" href="/pricing">See pricing</a>
+        </p>
+      </section>
+
+      <p class="fine bottom">
+        From regulator-filed annual reports · Segment figures not yet extracted · Not investment
+        advice. Browse <a href="/data">all SeoulMarkets datasets</a>. See our{' '}
+        <a href="/terms">terms of use</a> and <a href="/refund">refund policy</a>.
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .wrap { padding: 0 1rem; }
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(127,127,127,.3); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.8rem; }
+  .pp .lead b { font-weight: 650; }
+  .five { margin: 0 0 2.4rem; padding: 1.1rem 1.2rem 1.1rem 2.4rem; background: var(--card);
+          border: 1px solid rgba(127,127,127,.3); border-radius: 8px; }
+  .five li { margin: 0 0 .5rem; font-size: .92rem; line-height: 1.6; }
+  .five li:last-child { margin-bottom: 0; }
+  .five li b { color: var(--ink); }
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+  /* ⚠ 좁은 화면에서 표가 지면을 밀지 않게 — 표만 따로 옆으로 흐른다 */
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 0 0 .8rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid rgba(127,127,127,.25); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.kv td { line-height: 1.6; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; }
+  table.press td.axis { font-weight: 600; color: var(--ink); }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .cta { margin: 2.4rem 0 0; padding: 1.3rem; border: 1px solid rgba(127,127,127,.35);
+         border-radius: 10px; background: var(--card); }
+  .cta h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+  .cta p { line-height: 1.7; font-size: .95rem; }
+  .cta__lead { margin: 0 0 1rem; }
+  .cta__row { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0; }
+  .btn { display: inline-block; padding: .6rem 1.1rem; border-radius: 7px; font-weight: 700;
+         font-size: .93rem; text-decoration: none; border-bottom: 0 !important;
+         background: var(--accent, #b4884a); color: #fff !important; }
+  .btn:hover { filter: brightness(1.08); color: #fff !important; }
+  .btn.ghost { background: transparent; color: var(--ink) !important;
+               border: 1px solid rgba(127,127,127,.5); }
+  .btn.ghost:hover { border-color: var(--accent); color: var(--accent) !important; }
+  .cta a:not(.btn), .pp a { color: var(--accent); text-decoration: none;
+                            border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .cta a:not(.btn):hover, .pp a:hover { color: var(--ink); }
+  .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+  .fine.bottom { margin: 2.4rem 0 1rem; padding-top: 1rem; border-top: 1px solid rgba(127,127,127,.3); }
+  @media (max-width: 560px) { table.kv th { white-space: normal; } .pp .sample { white-space: normal; } }
+</style>
