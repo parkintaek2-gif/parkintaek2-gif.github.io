@@ -96,6 +96,15 @@ const 사이트들 = {
     폴더: 'wikitip/',                            // dist/wikitip/
     고르기: (f) => f === 'sitemap.xml',          // 한 장
   },
+  /* 🔴 [2026-09-28 · 5번] **klifemap.ai 가 여기 없어서 한 번도 통보된 적이 없었다.**
+   *   매출이 나는 서비스인데 Bing·Yandex·Naver·Seznam 에 아무것도 안 알리고 있었다.
+   *   ⚠ 이 자는 원래 «우리 dist/» 를 읽는다. 그런데 klifemap 은 이 저장소가 아니라
+   *     형제 저장소에서 «서버가» 그려 내므로 dist 가 없다. 그래서 «라이브 사이트맵»을 읽는다.
+   *   ✅ 붙이기 전에 재 봤다 — https://klifemap.ai/<키>.txt 200 · sitemap.xml 200 · 2,850쪽 */
+  'klifemap.ai': {
+    이름: 'KLifeMap',
+    라이브: 'https://klifemap.ai/sitemap.xml',    // dist 가 없다 — 사는 지면에서 읽는다
+  },
 };
 
 const 기본사이트 = 'seoulmarkets.com';
@@ -125,6 +134,22 @@ const 돌릴것 = 전부 ? Object.keys(사이트들) : [고른호스트 ?? 기�
 // ── 사이트맵에서 URL 긁기 ────────────────────────────────────
 async function 사이트맵URL(호스트) {
   const 설정 = 사이트들[호스트];
+  /* dist 가 없는 사이트(klifemap)는 «사는 지면»의 사이트맵을 그대로 읽는다.
+     ⛔ 못 읽었을 때 조용히 0건으로 넘어가지 않는다 — 0건은 성공처럼 보인다 */
+  if (설정.라이브) {
+    try {
+      const r = await fetch(설정.라이브, { signal: AbortSignal.timeout(30000) });
+      if (!r.ok) { console.error(`⛔ ${호스트}: 라이브 사이트맵 ${r.status}`); return []; }
+      const xml = await r.text();
+      const out = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
+      if (!out.length) { console.error(`⛔ ${호스트}: 라이브 사이트맵에 <loc> 이 없다`); return []; }
+      return out;
+    } catch (e) {
+      console.error(`⛔ ${호스트}: 라이브 사이트맵을 못 읽었다 — ${String(e.message).slice(0, 60)}`);
+      return [];
+    }
+  }
+
   const dir = new URL(`../dist/${설정.폴더}`, import.meta.url);
   if (!existsSync(dir)) {
     console.error(`⛔ ${호스트}: dist/${설정.폴더} 가 없다. 먼저 빌드했는지 본다.`);
