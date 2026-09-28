@@ -192,7 +192,11 @@ if (내가진입점) {
     못잰것: { 원문못받음, 이름못뽑음, 시총못붙음 },
     구간: 구간표,
     잘게쪼갠곳: 잘게쪼갠곳.slice(0, 12),
-    출처: 'DART 사업보고서 원문 (금융감독원 전자공시시스템) · 시가총액은 KRX 일별시세',
+    /* 🔴 [2026-09-28] 여기를 우리말로 적었더니 **영문 지면에 그대로 나갔다.**
+       사장님 지시: 화면에 한국어를 내지 않는다. 손님은 영어권이다.
+       ⛔ 지면이 그대로 찍는 칸에 우리말을 넣지 않는다 — 코드 주석은 우리말이어도 된다. */
+    출처: 'DART annual reports (Financial Supervisory Service electronic disclosure system); '
+      + 'market capitalisation from KRX daily quotations',
   };
 
   const 낼길 = path.join(뿌리, 'src', 'data', 'segments.json');
