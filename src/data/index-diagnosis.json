@@ -1,5 +1,5 @@
 {
-  "잰때": "2026. 9. 28. 오전 9:44:16",
+  "잰때": "2026. 9. 28. 오후 4:30:35",
   "사이트": {
     "klifemap": [
       {
@@ -44,7 +44,7 @@
         "말": "구글이 한 번도 안 왔다",
         "갈래": "발견안됨",
         "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
+        "덮개": "URL is unknown to Google",
         "오류": null
       },
       {
@@ -62,7 +62,7 @@
         "말": "구글이 한 번도 안 왔다",
         "갈래": "발견안됨",
         "마지막크롤": null,
-        "덮개": "URL is unknown to Google",
+        "덮개": "Discovered - currently not indexed",
         "오류": null
       },
       {
@@ -74,80 +74,11 @@
         "덮개": "Discovered - currently not indexed",
         "오류": null
       }
-    ],
-    "seoulmarkets": [
-      {
-        "주소": "https://seoulmarkets.com/",
-        "빛": "🔴",
-        "말": "Crawled - currently not indexed",
-        "갈래": "왔는데색인안함",
-        "마지막크롤": "2026-08-05T20:02:57Z",
-        "덮개": "Crawled - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://seoulmarkets.com/equities",
-        "빛": "✅",
-        "말": "색인됐다",
-        "갈래": "색인됨",
-        "마지막크롤": "2026-08-20T10:40:43Z",
-        "덮개": "Submitted and indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://seoulmarkets.com/about",
-        "빛": "✅",
-        "말": "색인됐다",
-        "갈래": "색인됨",
-        "마지막크롤": "2026-09-24T17:47:09Z",
-        "덮개": "Submitted and indexed",
-        "오류": null
-      }
-    ],
-    "kcw": [
-      {
-        "주소": "https://www.kculturewire.com/",
-        "빛": "✅",
-        "말": "색인됐다",
-        "갈래": "색인됨",
-        "마지막크롤": "2026-09-25T22:17:08Z",
-        "덮개": "Submitted and indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://www.kculturewire.com/about",
-        "빛": "🔴",
-        "말": "Crawled - currently not indexed",
-        "갈래": "왔는데색인안함",
-        "마지막크롤": "2026-09-03T15:18:35Z",
-        "덮개": "Crawled - currently not indexed",
-        "오류": null
-      }
-    ],
-    "100y": [
-      {
-        "주소": "https://100yearmap.com/",
-        "빛": "✅",
-        "말": "색인됐다",
-        "갈래": "색인됨",
-        "마지막크롤": "2026-09-27T07:43:18Z",
-        "덮개": "Submitted and indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://100yearmap.com/about",
-        "빛": "✅",
-        "말": "색인됐다",
-        "갈래": "색인됨",
-        "마지막크롤": "2026-09-20T13:24:25Z",
-        "덮개": "Submitted and indexed",
-        "오류": null
-      }
     ]
   },
   "갈래셈": {
-    "색인됨": 6,
-    "왔는데색인안함": 5,
+    "색인됨": 1,
+    "왔는데색인안함": 3,
     "발견안됨": 4
   }
 }

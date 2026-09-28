@@ -29,6 +29,13 @@ const 사이트들 = {
   seoulmarkets: { site: 'sc-domain:seoulmarkets.com', map: 'https://seoulmarkets.com/sitemap.xml' },
   kculturewire: { site: 'sc-domain:kculturewire.com', map: 'https://www.kculturewire.com/sitemap.xml' },
   '100yearmap': { site: 'sc-domain:100yearmap.com', map: 'https://100yearmap.com/sitemap.xml' },
+  /* 🔴 [2026-09-28 · 5번] **klifemap 이 여기 없었다.**
+   *   같은 날 IndexNow 등록부에도 없어서 넣었는데, 구글 쪽은 이 자가 창구다.
+   *   ⇒ 매출이 나는 서비스인데 구글에 사이트맵을 «한 번도» 낸 적이 없었다.
+   *   ⚠ 실제로 구글에 물어보니 astro·tarot·horoscope·contents 넉 장이
+   *     「구글이 한 번도 안 왔다」였다 — 발견 문제다. 사이트맵이 그 문을 연다.
+   *   ✅ 서치콘솔 자산은 sc-domain:klifemap.ai 다 (check-색인-왜안되나.mjs 가 그것으로 묻고 답을 받았다). */
+  klifemap: { site: 'sc-domain:klifemap.ai', map: 'https://klifemap.ai/sitemap.xml' },
 };
 const 고른이름 = (() => {
   const i = process.argv.indexOf('--사이트');
