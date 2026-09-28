@@ -499,8 +499,16 @@ async function 새주소찾기(최대 = 3) {
 
        ✅ 그래서 빌드가 깨지면 **배포를 하지 않고 멈춘다.** 오류 글을 그대로 보여 준다.
          「판정을 못 한다」와 「구울 수가 없다」는 다른 말이다. */
+    /* 🔴 2026-09-28 · 2번이 겪고 고침 — spawnSync 기본 stdout 한도(1MB)를 astro의
+       지면별 로그(15,000+ 줄)가 넘겨 ENOBUFS 로 죽었다. r.status 는 null 이 되고
+       빌드는 실제로 성공했는데 이 자가 「빌드가 깨졌다」로 잘못 읽어 세 사이트
+       배포를 다 막았다(node -e 로 직접 재현: stdout 978,295바이트에서 SIGTERM).
+       maxBuffer 를 넉넉히 주고, ENOBUFS 는 빌드 실패와 다른 말로 알린다. */
     const r = spawnSync(process.execPath, [path.join(뿌리, 'scripts', 'build-once.mjs')],
-      { cwd: 뿌리, encoding: 'utf8' });
+      { cwd: 뿌리, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+    if (r.error && r.error.code === 'ENOBUFS') {
+      throw new Error(`빌드 판정 도구가 출력에 묻혔다(ENOBUFS) — 빌드 자체가 깨진 게 아니다. maxBuffer 를 더 올려야 한다: ${r.error.message}`);
+    }
     if (r.status !== 0) {
       const 글 = String(r.stdout || '') + String(r.stderr || '');
       throw new 빌드실패(글);
