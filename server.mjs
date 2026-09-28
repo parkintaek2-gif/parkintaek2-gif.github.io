@@ -276,7 +276,9 @@ const handle = async (req, res) => {
   /* 🔴 [2026-09-14 · 1번] 자체 투표(`/api/vote`, VS 뉴스) — comments 와 같은 이유로 POST 를 연다.
    *   사장님 지시: 「투표할 수 있는 걸 만들어줘야지... 집계도 실시간으로」. */
   /* 🔴 [2026-09-18 · 2번] 손님 계정(회원가입·로그인) 두 자리도 POST 다 — 결제와 같은 이유. */
-  const POST허용 = req.method === 'POST' && (parsed.pathname === '/v1/subscribe' || parsed.pathname === '/api/comments' || parsed.pathname === '/v1/keys'
+  /* 🔴 [2026-09-28 · 5번] `/v1/trial`(체험 신청)을 여기·본문읽을경로·공유경로 «셋 다»에 넣었다.
+     셋 가운데 하나만 빠져도 지면은 멀쩡한데 접수만 조용히 깨진다. 2026-09-15 의 결제 사고가 그것이다. */
+  const POST허용 = req.method === 'POST' && (parsed.pathname === '/v1/subscribe' || parsed.pathname === '/api/comments' || parsed.pathname === '/v1/keys' || parsed.pathname === '/v1/trial'
     || parsed.pathname === '/api/pay/order' || parsed.pathname === '/api/pay/capture' || parsed.pathname === '/api/pay/subscription-confirm' || parsed.pathname === '/api/vote'
     || parsed.pathname === '/api/account/signup' || parsed.pathname === '/api/account/login');
   if (req.method !== 'GET' && req.method !== 'HEAD' && !POST허용) {
@@ -422,7 +424,7 @@ const handle = async (req, res) => {
   /* 🔴 [2026-09-14 · 1번] `/api/vote`·`/vote-widget.js` 도 같은 사정으로 뺀다 — comments 와
    *   완전히 같은 이유(세 사이트 공용, 접두사 붙으면 다른 사이트에서 404). VS 뉴스는
    *   지금 KCW 전용이지만, 댓글처럼 다른 사이트도 나중에 같은 코드로 쓸 수 있게 둔다. */
-  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$|^\/api\/comments$|^\/comments-widget\.js$|^\/deploy-stamp\.txt$|^\/api\/vote$|^\/vote-widget\.js$/;
+  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$|^\/v1\/trial$|^\/api\/comments$|^\/comments-widget\.js$|^\/deploy-stamp\.txt$|^\/api\/vote$|^\/vote-widget\.js$/;
 
   const prefix = SITE_PREFIX[host] ?? '';
   if (prefix && !공유경로.test(pathname) && !pathname.startsWith(prefix)) {

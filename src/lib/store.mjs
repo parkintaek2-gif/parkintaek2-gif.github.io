@@ -29,7 +29,7 @@
  */
 
 import { createHash, createHmac } from 'node:crypto';
-import { mkdir, writeFile, readFile, readdir } from 'node:fs/promises';
+import { mkdir, writeFile, readFile, readdir, rm } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
@@ -171,6 +171,45 @@ async function putRemote(key, body, contentType) {
     throw new Error(`S3 PUT ${res.status}: ${detail}`);
   }
   return key;
+}
+
+/**
+ * S3 호환 DELETE.
+ *
+ * 🔴 [2026-09-28 · 5번] **지우는 길이 아예 없었다.** put·get·list 뿐이었다.
+ *   그래서 두 가지를 못 했다 —
+ *     ① 시험으로 넣은 기록을 되돌리지 못한다. 라이브 스토리지에 시험 자국이 영영 남는다
+ *     ② 🔴 **손님이 「내 신청을 지워 달라」고 할 때 못 지운다.**
+ *        우리 privacy 지면은 「답변에 필요한 동안만 보관한다」고 약속하고 있다.
+ *        지울 수 없으면 그 약속은 못 지키는 약속이다.
+ *
+ * ⚠ 없는 것을 지우는 것은 «성공»이다(S3 도 204 를 준다). 없앴다는 결과는 같다.
+ */
+async function delRemote(key, { timeout = 30_000 } = {}) {
+  const res = await signedFetch('DELETE', key, { timeout });
+  if (res.status === 404 || res.status === 204 || res.ok) return true;
+  const detail = (await res.text().catch(() => '')).slice(0, 300);
+  throw new Error(`S3 DELETE ${res.status}: ${detail}`);
+}
+
+/**
+ * 한 건을 지운다 — 로컬과 원격 «둘 다».
+ * ⛔ 한쪽만 지우지 않는다. 로컬만 지우면 다음에 원격에서 되살아난다.
+ * ⚠ 원격이 실패해도 던지지 않고 결과에 적는다 — 부르는 쪽이 「반쯤 지웠다」를 알아야 한다.
+ */
+export async function del(key) {
+  const out = { key, local: false, remote: false, remoteError: null };
+  try {
+    await rm(path.join(CFG.dir, key), { force: true });
+    out.local = true;
+  } catch (e) {
+    out.remoteError = `local: ${e.message}`;
+  }
+  if (remoteEnabled) {
+    try { out.remote = await delRemote(key); }
+    catch (e) { out.remoteError = e.message; }
+  }
+  return out;
 }
 
 /**

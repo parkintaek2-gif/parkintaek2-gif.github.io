@@ -60,6 +60,14 @@ const DESC = 'What SeoulMarkets offers, market by market — Korea, Japan, Taiwa
           <a class="tbuy" href="/data#buy">Buy →</a>
         </div>
       </div>
+      {/* 🔴 [2026-09-28 · 5번] 한경에이셀과 나란히 놓고 보니 «값을 본 다음 자리»가
+          우리에게만 없었다. 값 셋과 「Buy →」뿐이면, 카드부터 꺼내지 않는 기관 손님은
+          여기서 조용히 떠난다. 그 손님을 잡는 문이 이것이다. ⛔ 결제 단추를 대신하지 않는다 —
+          살 사람은 위에서 사고, 먼저 보고 싶은 사람만 이리로 온다. */}
+      <p class="trialline">
+        Not ready to buy? <a class="trylink" href="/trial">Request a trial →</a>
+        <span>We send a real extract, the data dictionary and the licence terms. No card, no account.</span>
+      </p>
       <p class="freeline">
         Every dataset also has a <b>free page and sample file</b> — no registration, no card.
         Read it first, then buy the full tape.
@@ -85,6 +93,8 @@ const DESC = 'What SeoulMarkets offers, market by market — Korea, Japan, Taiwa
         <a class="tbuy big" href="/data#buy">Choose a licence and pay →</a>
         <span class="closenote">PayPal · billed in US dollars · invoice on request
           (<a href="mailto:admin@klifedesign.net">admin@klifedesign.net</a>)</span>
+        <span class="closenote">Or <a href="/trial">request a trial</a> — a sample file and the
+          licence terms, before you pay anything.</span>
       </p>
 
       <p class="fine">Source data is published by Korean and UAE exchanges/agencies under licences we
@@ -118,6 +128,11 @@ const DESC = 'What SeoulMarkets offers, market by market — Korea, Japan, Taiwa
           font-size: .9rem; border-bottom: 0 !important; text-decoration: none; }
   .tbuy:hover { filter: brightness(1.08); color: #fff !important; }
   .tbuy.big { font-size: 1rem; padding: .7rem 1.3rem; }
+  .trialline { margin: 0 0 .7rem; padding: .7rem .9rem; border: 1px dashed var(--accent, #b4884a);
+               border-radius: 8px; font-size: .92rem; line-height: 1.6; font-weight: 600; }
+  .trialline span { display: block; margin-top: .25rem; font-size: .85rem; font-weight: 400;
+                    color: var(--muted); }
+  .trylink { font-weight: 700; }
   .freeline { margin: 0 0 1.6rem; font-size: .88rem; line-height: 1.6; color: var(--muted); }
   .closing { margin: 0 0 1.2rem; }
   .closenote { display: block; margin-top: .45rem; font-size: .82rem; color: var(--muted); }

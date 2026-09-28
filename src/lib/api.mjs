@@ -103,6 +103,7 @@ import UAE_FINANCIALS_TAPE from '../data/uae-financials-tape.json' with { type: 
 import { tierOf, rateCheck, LIMITS, ENFORCE_FROM, tierNote, TIER_CATALOG } from './tiers.mjs';
 import { openapi } from './openapi.mjs';
 import { subscribe } from './subscribe.mjs';
+import { 체험신청 } from './trial.mjs';
 import { 발급 as 열쇠발급 } from './apikeys.mjs';
 
 const gunzipAsync = promisify(gunzip);
@@ -1820,6 +1821,34 @@ export async function handleApi(pathname, searchParams, ctx = {}) {
      */
     const 어느사이트 = String(ctx?.headers?.host ?? '').split(':')[0].toLowerCase().replace(/^www\./, '') || null;
     const r = await subscribe({ ...body, site: 어느사이트 });
+    return 붙이기(json(r.status, r.payload, { 'Cache-Control': 'no-store' }));
+  }
+
+  /**
+   * 🔴 [2026-09-28 · 5번] `/v1/trial` — **체험 신청(Request a trial).**
+   *
+   * 사장님이 한경에이셀을 보라 하셨고, 그쪽과 우리를 나란히 놓고 보니
+   * **에이셀에 있고 우리에게만 없던 입구가 이것 하나**였다. `/pricing` 에는
+   * 값 셋과 「Buy →」만 있었다 — B2B 자료를 값만 보고 카드부터 꺼내는 손님은 드물다.
+   * 먼저 표본을 받아 보고 쓸 만하면 산다. 그 사이 단계가 없으면 손님은 조용히 떠난다.
+   *
+   * ⚠ 뉴스레터와 같은 이유로 **POST 전용**이다 — 이메일을 URL 에 싣지 않는다.
+   *   쿼리스트링에 실리면 서버 로그·리퍼러·브라우저 기록에 남는다.
+   */
+  if (pathname === '/v1/trial') {
+    if (ctx.method !== 'POST') {
+      return 붙이기(err(405, 'method_not_allowed',
+        'Use POST with a JSON body: {"email":"you@firm.com","org":"Firm","want":"korea-segments"}'));
+    }
+    let body;
+    try {
+      body = typeof ctx.body === 'string' ? JSON.parse(ctx.body) : (ctx.body ?? {});
+    } catch {
+      return 붙이기(err(400, 'invalid_json', 'Body must be JSON.'));
+    }
+    meter('trial');
+    const 어느사이트 = String(ctx?.headers?.host ?? '').split(':')[0].toLowerCase().replace(/^www\./, '') || null;
+    const r = await 체험신청({ ...body, site: 어느사이트 });
     return 붙이기(json(r.status, r.payload, { 'Cache-Control': 'no-store' }));
   }
 
