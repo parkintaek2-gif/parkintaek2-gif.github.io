@@ -107,7 +107,10 @@ if (내가진입점) {
   const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
   const page = await b.newPage();
   let 끝값 = 1;
-  try {
+  /* 🔴 [2026-09-29] 브라우저를 연 뒤의 일은 «함수 안»에 둔다.
+     최상위에서는 `return` 을 못 쓰고, 그렇다고 `process.exit()` 을 부르면
+     탭을 닫는 `finally` 가 안 돌아 탭이 남는다 — 그것이 오늘 PC 를 누른 까닭이다. */
+  const 해본다 = async () => {
     await page.setViewport({ width: 1400, height: 950 });
     await page.goto(`https://claude.ai/scheduled-task/${TRIG}`, { waitUntil: 'domcontentloaded', timeout: 90000 });
     for (let i = 0; i < 20; i++) { await 잠깐(2000); if (await page.evaluate(() => /지금 실행/.test(document.body.innerText))) break; }
@@ -173,6 +176,7 @@ if (내가진입점) {
     console.log(`✅ 시켰다 — 한 덩이 ${올랐나.length}자`);
     끝값 = 0;
     if (찍을곳) await page.screenshot({ path: 찍을곳 });
-  } finally { await page.close(); b.disconnect(); }
+  };
+  try { await 해본다(); } finally { await page.close(); b.disconnect(); }
   process.exit(끝값);
 }
