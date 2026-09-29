@@ -604,6 +604,25 @@ if (내가실행됐다) {
     console.log('  ⚠ docs/보고에-꼭-담을것.md 를 못 읽었다 — 꼭 담을 것이 있는지 이 자는 모른다\n');
   }
 
+  /* 🔴🔴 [2026-09-29] **PC 메모리가 89% 까지 차서 배경 명령 셋이 죽었다.**
+     까닭은 우리가 남긴 크롬 탭 157개였다 — 스크립트가 `process.exit()` 으로 끝나면
+     탭을 닫는 `finally` 가 안 돈다. 하나씩 쌓여 결국 PC 를 눌렀다.
+     🔴 **PC 가 멈추면 전 유닛이 멈춘다.** 그래서 이것은 살림이 아니라 운영이다.
+     ⇒ 두 시간마다 세고, 많으면 치우라고 말한다. ⛔ 저절로 닫지는 않는다 —
+       사장님이 보시던 탭이 섞여 있을 수 있어 «사람이 한 번 보고» 친다. */
+  try {
+    const r = await fetch('http://127.0.0.1:9222/json/list', { signal: AbortSignal.timeout(5000) });
+    if (r.ok) {
+      const 쪽 = (await r.json()).filter((t) => t.type === 'page');
+      const 빈탭 = 쪽.filter((t) => !t.url || t.url === 'about:blank').length;
+      if (쪽.length >= 60) {
+        console.log(`  🔴 크롬 탭이 ${쪽.length}개다 (빈 탭 ${빈탭}개) — 우리가 남긴 것이 쌓였다`);
+        console.log('     ⇒ node scripts/치운다-우리가-남긴-탭.mjs   (보고 나서 --닫는다)');
+        console.log('     🔴 PC 메모리가 차면 배경 명령이 죽고, PC 가 멈추면 전 유닛이 멈춘다\n');
+      }
+    }
+  } catch { /* 크롬이 안 떠 있으면 셀 것이 없다 — 흠으로 잡지 않는다 */ }
+
   /* ① 새 지시 */
   let 지시 = null;
   try {

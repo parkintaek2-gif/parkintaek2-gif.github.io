@@ -126,18 +126,21 @@ if (내가진입점) {
       return { 글: e.x.textContent.replace(/\s+/g, ' ').trim().slice(0, 40), x: r.x + r.width / 2, y: r.y + r.height / 2 };
     }, 회차줄인가.toString());
     /* ⛔ 오늘 그 회차가 «아직» 안 돌았으면 시킬 대화가 없다. 고장이 아니다 */
-    if (!자리) { console.log(`⬜ ${회차번호}시 회차 기록이 없다 — 그 회차가 아직 안 돌았다. 시키지 못했다`); process.exit(1); }
+    /* 🔴 [2026-09-29] 여기서 `process.exit()` 을 부르면 아래 `finally` 가 «안 돈다» —
+       그래서 탭이 남는다. 오늘 그렇게 쌓인 탭이 157개가 되어 PC 메모리가 89% 까지 찼고
+       배경 명령 셋이 죽었다. ⛔ 브라우저를 연 뒤에는 exit 하지 않는다. return 한다. */
+    if (!자리) { console.log(`⬜ ${회차번호}시 회차 기록이 없다 — 그 회차가 아직 안 돌았다. 시키지 못했다`); return; }
     console.log(`회차 줄  ${자리.글}`);
 
     const 앞 = page.url();
     await page.mouse.click(자리.x, 자리.y);
     await 잠깐(9000);
-    if (page.url() === 앞) { console.log('🔴 회차 대화가 안 열렸다'); process.exit(1); }
+    if (page.url() === 앞) { console.log('🔴 회차 대화가 안 열렸다'); return; }
     console.log(`대화     ${page.url()}`);
 
     /* 리치텍스트 입력칸 — value 를 넣으면 안 먹는다. 눌러서 «친다» */
     const 칸 = await page.$('div[contenteditable="true"]');
-    if (!칸) { console.log('🔴 입력칸을 못 찾았다'); process.exit(1); }
+    if (!칸) { console.log('🔴 입력칸을 못 찾았다'); return; }
     await 칸.click();
     await 잠깐(700);
 
@@ -154,7 +157,7 @@ if (내가진입점) {
     const 들어간비율 = 친것.replace(/\s/g, '').length / 시킬글.replace(/\s/g, '').length;
     if (들어간비율 < 0.9) {
       console.log(`🔴 글이 덜 들어갔다 (${Math.round(들어간비율 * 100)}%) — 보내지 않는다. 토막으로 나가느니 서는 것이 낫다`);
-      process.exit(1);
+      return;
     }
     console.log(`친 글    ${친것.length}자 (${Math.round(들어간비율 * 100)}%)`);
 
@@ -166,7 +169,7 @@ if (내가진입점) {
       const n = [...document.querySelectorAll('[data-testid="user-message"]')];
       return n.length ? n[n.length - 1].innerText.replace(/\s+/g, ' ').trim() : null;
     });
-    if (!올랐나) { console.log('🔴 내 말이 대화에 안 보인다'); process.exit(1); }
+    if (!올랐나) { console.log('🔴 내 말이 대화에 안 보인다'); return; }
     console.log(`✅ 시켰다 — 한 덩이 ${올랐나.length}자`);
     끝값 = 0;
     if (찍을곳) await page.screenshot({ path: 찍을곳 });
