@@ -1,0 +1,192 @@
+---
+/**
+ * /100y/oecd-tertiary-employment-gap — 한국 청년 고등교육 이수율 OECD 1위, 고용률·임금은 어떻게 움직였나
+ *
+ * 사장님이 연합뉴스 기사(OECD 교육지표 2026)를 백년지도 담당(2번)에게 직접 전달(2026-09-29).
+ * 5번이 원자료 대조·"결핍으로만 그리지 말 것"을 못박아 넘김 — docs/전달-백년지도-OECD교육지표2026.md.
+ *
+ * ⛔⛔ 판정하지 않는다 — 「대학이 소용없다」로 읽히면 안 된다(사장님 지시). 이수율·고용률·
+ *   상대임금 세 숫자를 나란히 놓을 뿐, 어느 쪽이 옳다고 말하지 않는다.
+ * ⛔⛔ 이수율과 고용률이 «같은 사람들» 안의 일인지는 이 자료로 못 가른다 — 인과로 안 읽는다.
+ * ⚠ OECD 평균 일부(대학원이수율·부모학력대물림)는 2025판(작년) 수치다 — 2026판 발표 당일이라
+ *   해당 항목이 이번 보도자료에 없어 작년 값을 쓰고, 그 사실을 지면에 그대로 밝힌다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/oecd-tertiary-employment-gap-2026.json';
+
+const 자료 = 원본 as any;
+const 출처 = 자료.출처;
+const 이수율 = 자료.이수율;
+const 대학원 = 자료.대학원이수율;
+const 고용률 = 자료.고용률;
+const 임금 = 자료.상대임금_고졸100;
+const 교육비 = 자료.공교육비;
+const 대물림 = 자료.부모학력대물림_2025판;
+
+const desc =
+  `${출처.이름}(${출처.보도일})에 따르면 한국 25~34세 고등교육 이수율은 ${이수율.한국_25_34}%로 ` +
+  `${이수율.연속연수}년째 OECD 1위입니다. 같은 해 25~64세 고용률은 ${고용률.한국_25_64_2025}%로 ` +
+  `OECD 평균(${고용률.OECD평균}%)보다 낮았습니다. 상대임금(고졸=100)은 대학 ${임금.대학}%·대학원 ${임금.대학원}%로, ` +
+  `2023년보다 격차가 줄었습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '한국 청년 고등교육 이수율이 정말 OECD 1위인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${출처.이름}에 따르면 그렇습니다 — 25~34세 ${이수율.한국_25_34}%로 ${이수율.연속연수}년째 1위입니다(2위 캐나다 ${이수율.캐나다2위}%, 3위 아일랜드 ${이수율.아일랜드3위}%).`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '이수율이 1위인데 고용률도 1위인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. 같은 발표에서 25~64세 고용률은 ${고용률.한국_25_64_2025}%로 OECD 평균(${고용률.OECD평균}%)보다 낮았습니다. 다만 이수율 통계(25~34세)와 고용률 통계(25~64세)는 나이대가 달라 같은 사람들을 재는 것이 아니라는 점을 밝힙니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '대학을 나오면 임금이 얼마나 차이 나나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${임금.기준연도}년 기준 고졸을 100으로 두면 전문대 ${임금.전문대}·대학 ${임금.대학}·대학원 ${임금.대학원}입니다. 이 격차는 2023년보다 줄었습니다.`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`한국 청년 고등교육 이수율 ${이수율.한국_25_34}%, OECD 1위 ${이수율.연속연수}년째 — 고용률·상대임금은 이렇게 움직였습니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    한국 청년 고등교육 이수율 {이수율.한국_25_34}%<br class="pcbr" />
+    OECD 1위 {이수율.연속연수}년째 — 고용률·상대임금은 이렇게 움직였습니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 숫자는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {출처.이름}({출처.보도일} 발표)를 다수 매체 게재분과 대조해 확인했습니다. {출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    OECD가 해마다 내는 이 지표에서, 한국 <strong>25~34세</strong>의 고등교육(전문대 이상) 이수율은
+    {' '}<strong>{이수율.한국_25_34}%</strong>로 {이수율.연속연수}년째 회원국 중 1위입니다
+    {' '}(2위 캐나다 {이수율.캐나다2위}%, 3위 아일랜드 {이수율.아일랜드3위}%).
+  </p>
+
+  <h2>같은 발표 안에서, 25~64세 고용률은 OECD 평균보다 낮았습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>무엇</th><th>한국</th><th>OECD 평균</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>25~64세 고용률(2025)</td>
+          <td><strong>{고용률.한국_25_64_2025}%</strong></td>
+          <td>{고용률.OECD평균}%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⛔ <strong>같은 사람들을 재는 두 숫자가 아닙니다.</strong> 이수율은 25~34세, 고용률은
+    {' '}25~64세를 봅니다 — 나이대가 다릅니다. 두 숫자가 한 화면에 나온다고 「많이 배워도
+    {' '}취업은 안 된다」는 인과로 읽으면 이 자료가 말하는 것보다 더 많이 말하는 것이 됩니다.
+    {' '}한국 25~64세 고용률은 2024년 {고용률.한국_25_64_2024}%에서 2025년 {고용률.한국_25_64_2025}%로
+    {' '}올랐습니다.
+  </p>
+
+  <h2>학력별 상대임금 — 격차는 작년보다 줄었습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학력</th><th>상대임금(고졸=100, {임금.기준연도}년)</th></tr></thead>
+      <tbody>
+        <tr><td>고졸</td><td>100</td></tr>
+        <tr><td>전문대졸</td><td><strong>{임금.전문대}</strong></td></tr>
+        <tr><td>대졸</td><td><strong>{임금.대학}</strong></td></tr>
+        <tr><td>대학원졸</td><td><strong>{임금.대학원}</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    학력이 높을수록 상대임금도 높지만, 그 격차는 2023년보다 {임금.전년대비}습니다.
+  </p>
+
+  <h2>대학원까지 가는 사람은 적습니다</h2>
+  <p>
+    2025년판 기준으로, 한국 청년 중 석·박사(또는 동등) 학위를 가진 비율은 <strong>{대학원.한국}%</strong>로
+    {' '}OECD 평균 <strong>{대학원.OECD평균}%</strong>보다 낮습니다. {대학원['⚠주의']}
+  </p>
+
+  <h2>부모의 학력이 자녀의 대학 진학과 함께 움직입니다</h2>
+  <p>
+    2025년판 기준으로, 부모 중 한 명 이상이 고등교육을 마친 25~34세는 <strong>{대물림.부모중_고등교육}%</strong>가
+    {' '}본인도 고등교육을 마쳤습니다. 부모가 고졸 미만인 경우는 <strong>{대물림.부모_고졸미만}%</strong>였습니다.
+    {' '}{대물림['⚠주의']}
+  </p>
+
+  <h2>공교육에 쓰는 돈은 줄고, 학생 1인당 고등교육비는 늘었습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>무엇</th><th>2022</th><th>2023</th></tr></thead>
+      <tbody>
+        <tr><td>공교육비/GDP</td><td>{교육비.GDP대비_2022}%</td><td>{교육비.GDP대비_2023}%</td></tr>
+        <tr><td>정부재원 공교육비/GDP</td><td>{교육비.정부재원_2022}%</td><td>{교육비.정부재원_2023}%</td></tr>
+        <tr><td>고등교육 학생 1인당 지출</td><td>${교육비.고등교육_1인당_2022_달러.toLocaleString()}</td><td>${교육비.고등교육_1인당_2023_달러.toLocaleString()}</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">GDP 대비 비율은 줄었지만, 학생 한 명에게 쓰는 고등교육비는 {교육비.학생당증가율}% 늘었습니다 — 서로 다른 잣대입니다(분모가 다릅니다).</p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 이수율·고용률·상대임금을
+    {' '}나란히 놓을 뿐, 「대학이 소용 있다/없다」를 판정하지 않습니다. 바늘은 보시는 분이 세우십시오.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — {출처.이름}({출처.url}), 2025년판 국가노트(대학원이수율·부모학력대물림 항목,
+    2026년판 발표 전 최신값)
+  </p>
+
+  <p class="note">
+    <a href="/wage-education">← 학력별로 월급여는 얼마나 다를까요?</a>
+    <br />
+    <a href="/ranking-university-global">← 서울대는 국내 맨 위·세계 38등, 그런데 취업률은요?</a>
+    <br />
+    <a href="/major">← 학과 찾기 — 그 길로 간 사람들은 어떻게 됐나요?</a>
+    <br />
+    <a href="/oecd-elderly-poverty">← 한국 노인빈곤율, OECD 회원국 중 1위</a>
+  </p>
+
+  <HundredAgeWalk 키="oecd-tertiary-employment-gap" />
+
+  <NextQuestionBrief 모은것="OECD 교육지표 2026 교육부 보도자료 + Education at a Glance 2025 국가노트" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/oecd-tertiary-employment-gap"></div>
+</HundredYear>
