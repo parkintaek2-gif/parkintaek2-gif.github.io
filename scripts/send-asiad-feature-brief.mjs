@@ -29,6 +29,20 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export const 열여섯시 = 'trig_01ErSZQm2VhuNYMRBi3MCufF';
+/** 🔴 [2026-09-29 · 사장님] 「아시안게임 이색종목 기획기사 **내일은 14시에 줘라.
+ *   오늘처럼 황당하게 늦게 주지말고. 내가 복붙하는게 아닌데 너무 늦어 힘들다**」
+ *
+ * ⭐ 사장님은 받아서 «손수 작업»하신다. 늦게 드리면 그 시간이 사장님 저녁을 먹는다.
+ *   오늘 18:12 에 갔다 — 16:42 에야 시켰고, 기획이 아니라 경기 기사가 나와 두 번 다시 썼다.
+ *
+ * ⇒ 9/30 부터는 **11시 회차**에 시킨다. 11시 회차가 11:2x 에 스스로 돌고,
+ *   그 뒤에 시키면 12시 안팎에 글이 나와 «14시까지» 넉넉히 보낸다.
+ * ⛔ 14시 회차에 시키면 이미 14시다. 받으실 시각보다 «두 시간 앞선» 회차에 시킨다. */
+export const 열한시 = 'trig_01X5A3DCXwYi2T3bBosKTQnk';
+/** 그날 몫을 어느 회차에 넣나 — 날짜로 고른다 */
+export function 넣을회차(날짜글) {
+  return 날짜글 >= '2026-09-30' ? 열한시 : 열여섯시;
+}
 
 /** 사흘 일정 — 날짜로 몫을 고른다. ⛔ 자리 번호로 집지 않는다(전에 그래서 터졌다) */
 export const 일정 = [
@@ -218,6 +232,12 @@ export function 자가시험() {
   본다('⚠ 그 수는 «다시» 확인하라고 적는다 — 이틀 뒤면 달라진다',
     g3.includes('쓰기 전에 «다시» 확인'));
   본다('⚠ 언제 기준인지 밝힌다', g3.includes('오후 6시 기준'));
+  /* 🔴 [2026-09-29 · 사장님] 「내일은 14시에 줘라. 오늘처럼 황당하게 늦게 주지말고」
+     ⇒ 받으실 시각보다 «두 시간 앞선» 회차에 시킨다. 14시 회차에 시키면 이미 14시다. */
+  본다('🔴 9/30 부터는 11시 회차에 넣는다 — 14시까지 드리려면', 넣을회차('2026-09-30') === 열한시);
+  본다('⛔ 그 전 날짜는 여태대로 16시 회차다', 넣을회차('2026-09-29') === 열여섯시);
+  본다('⛔ 두 회차가 서로 다른 것이다', 열한시 !== 열여섯시);
+
   본다('셋이 서로 다른 글이다',
     new Set([g1, g2, 글짓기(오늘몫('2026-09-30'))]).size === 3);
 
@@ -254,7 +274,8 @@ if (내가진입점) {
   const page = await b.newPage();
   try {
     await page.setViewport({ width: 1500, height: 1000 });
-    await page.goto(`https://claude.ai/scheduled-task/${열여섯시}`, { waitUntil: 'domcontentloaded', timeout: 90_000 });
+    /* 🔴 [2026-09-29 · 사장님 「내일은 14시에 줘라」] 9/30 부터는 11시 회차에 넣는다 */
+    await page.goto(`https://claude.ai/scheduled-task/${넣을회차(오늘날짜())}`, { waitUntil: 'domcontentloaded', timeout: 90_000 });
     await 쉼(6000);
     await page.evaluate(() => {
       const el = [...document.querySelectorAll('button')].find((x) => /모든 쿠키 허용/.test(x.innerText || ''));
