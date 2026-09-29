@@ -22,7 +22,7 @@ const houseEn = (name) => describeInstitution(name)?.en ?? name;
 const m = data.market;
 const rows = data.by_house;
 const years = data.sell_by_year;
-const TITLE = 'The Sell rating that vanished';
+const TITLE = 'Korean broker stock ratings — the Sell rating that vanished';
 const SAMPLE = `${m.reports.toLocaleString()} broker reports · ${m.houses_shown} houses · ${data.year}`;
 const DESC =
   'Korean broker research by rating, house by house: Buy on four in five reports, Sell on almost none. '
@@ -41,7 +41,7 @@ const jsonLd = {
   <div class="wrap">
     <article class="pp">
       <p class="kicker">SeoulMarkets · data for licence</p>
-      <h1>The Sell rating that vanished</h1>
+      <h1>Korean broker stock ratings — the Sell rating that vanished</h1>
       <p class="sample">{SAMPLE}</p>
       <p class="lead">
         Korean brokerages rate the stocks they cover, and the rating is almost always the same one.

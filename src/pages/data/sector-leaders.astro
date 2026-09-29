@@ -18,7 +18,7 @@ import data from '../../data/sector-leaders.json';
 // 잔여 버킷(Unclassified)은 본 표에서 빼고 주석으로만 둔다 — 업종이 아니라 「못 분류」다.
 const rows = data.sectors.filter((s) => s.sector !== 'Unclassified');
 const residual = data.sectors.find((s) => s.sector === 'Unclassified');
-const TITLE = 'In every sector, the biggest companies pay more';
+const TITLE = 'Korean companies by sector — in every sector the biggest pay more';
 const SAMPLE = `${data.sectors_where_leaders_pay_more} of ${data.sectors_total} sectors · leaders vs the rest`;
 const DESC =
   'Split each sector into its market-cap leaders and the rest, and the labour data separates: in every '
@@ -37,7 +37,7 @@ const jsonLd = {
   <div class="wrap">
     <article class="pp">
       <p class="kicker">SeoulMarkets · data for licence</p>
-      <h1>In every sector, the biggest companies pay more</h1>
+      <h1>Korean companies by sector — in every sector the biggest pay more</h1>
       <p class="sample">{SAMPLE}</p>
       <p class="lead">
         Split each sector into its <b>market-cap leaders</b> — the top fifth by size — and everyone

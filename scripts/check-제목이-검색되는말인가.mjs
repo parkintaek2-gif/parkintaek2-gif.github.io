@@ -69,6 +69,32 @@ export function 겹치나(제목, 질의들) {
   return 걸린것.sort((a, b) => b.겹침 - a.겹침);
 }
 
+/**
+ * 🔴 [2026-09-29] **제목은 «원본»이 아니라 «빌드된 HTML»에서 읽는다.**
+ *
+ * 처음엔 .astro 의 `const TITLE = '...'` 를 정규식으로 읽었다. 그런데 그 정규식은
+ * 따옴표에서 끊긴다 — 그래서 이런 것들이 «잘린 제목»으로 잡혔다.
+ *   mezzanine        → `Only ${수(p.public)} of ${수(data.rows)} Korean converti…`
+ *   trading-partners → `South Korea`            (아포스트로피에서 끊겼다)
+ *   korea-disclosures→ `… in English — `        (뒤가 통째로 날아갔다)
+ * 라이브를 열어 보니 셋 다 «멀쩡했다». 잘린 것은 지면이 아니라 **내 자**였다.
+ *
+ * ⚠ 같은 병을 하루 전에도 앓았다 — 지면 설명이 잘렸다고 잘못 보고했는데
+ *   그것도 내 정규식이 아포스트로피에서 끊은 것이었다. **두 번째다.**
+ * ⇒ 짐작으로 읽지 않고 **손님이 실제로 보는 글자**(dist 의 <title>)를 읽는다.
+ *   빌드가 없으면 「못 쟀다」고 적는다. 원본을 정규식으로 다시 읽지 않는다.
+ */
+export function 지은제목읽기(dist데) {
+  const 글 = fs.readFileSync(dist데, 'utf8');
+  const m = 글.match(/<title>([\s\S]*?)<\/title>/i);
+  if (!m) return null;
+  /* 「… | SMarkets」 꼬리는 모든 지면에 똑같이 붙는다 — 견줄 때 빼 준다 */
+  return m[1].replace(/\s*\|\s*SMarkets\s*$/, '')
+    .replace(/&#39;/g, '’').replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .trim() || null;
+}
+
 /** 판정 — ⛔ 「없다」와 「못 쟀다」를 가른다 */
 export function 판정(제목, 질의들) {
   if (!제목) return { 갈래: '못쟀다', 말: '제목을 못 읽었다' };
@@ -109,6 +135,21 @@ export function 자가시험() {
   본다('⛔ 빈 것에 안 터진다',
     판정(null, 질의).갈래 === '못쟀다' && 겹치나('x', null).length === 0);
 
+  /* 🔴 [2026-09-29] 내 자가 두 번 속은 자리 — 아포스트로피·보간에서 끊겼다.
+     지은 HTML 에서 읽으면 안 끊긴다. 그것을 여기서 잰다. */
+  const 임시 = path.join(뿌리, 'archive', '.제목자가시험.html');
+  fs.mkdirSync(path.dirname(임시), { recursive: true });
+  fs.writeFileSync(임시,
+    '<html><head><title>South Korea&#39;s largest trading partners — ranked | SMarkets</title></head></html>', 'utf8');
+  const 읽은것 = 지은제목읽기(임시);
+  본다('🔴 아포스트로피에서 안 끊긴다', /largest trading partners/.test(읽은것 ?? ''), 읽은것 ?? '');
+  본다('⛔ 「| SMarkets」 꼬리는 뺀다', !/SMarkets/.test(읽은것 ?? ''));
+  fs.writeFileSync(임시, '<html><head><title>Only 86 of 5,084 Korean convertible issues | SMarkets</title></head></html>', 'utf8');
+  본다('🔴 수가 든 제목도 통째로 읽는다', /5,084 Korean convertible issues$/.test(지은제목읽기(임시) ?? ''));
+  fs.writeFileSync(임시, '<html><head></head></html>', 'utf8');
+  본다('⛔ 제목이 없으면 «없다»가 아니라 null 이다', 지은제목읽기(임시) === null);
+  fs.rmSync(임시, { force: true });
+
   const 빨강 = 것.filter((x) => !x.참);
   console.log(`■ check-제목이-검색되는말인가 자가시험 ${것.length - 빨강.length}/${것.length}`);
   for (const x of 것) console.log(`  ${x.참 ? '✅' : '🔴'} ${x.이름}${x.덧 ? `  (${x.덧})` : ''}`);
@@ -137,16 +178,25 @@ if (내가진입점) {
     process.exit(0);
   }
 
-  /* 우리 지면의 제목을 읽는다 */
+  /* 우리 지면의 제목을 읽는다 — ⛔ 원본이 아니라 «지어 놓은 HTML» 에서 (위 주석) */
   const 볼곳 = path.join(뿌리, 'src', 'pages', 'data');
-  const 결과 = [];
+  const 지은방 = path.join(뿌리, 'dist', 'data');
+  if (!fs.existsSync(지은방)) {
+    console.log('⛔ 못 쟀다 — dist/data 가 없다. node scripts/build-once.mjs 를 먼저 돌린다');
+    process.exit(0);
+  }
+  const 결과 = []; const 못잰것 = [];
   for (const f of fs.readdirSync(볼곳).filter((x) => x.endsWith('.astro'))) {
-    const 글 = fs.readFileSync(path.join(볼곳, f), 'utf8');
-    const 제목 = (글.match(/const TITLE\s*=\s*['"`]([^'"`]+)/) || [])[1]
-      || (글.match(/<h1[^>]*>([^<]+)</) || [])[1] || null;
-    if (!제목) continue;
+    const 이름 = f.replace('.astro', '');
+    /* Astro 는 foo.astro → dist/data/foo.html 또는 dist/data/foo/index.html 로 낸다 */
+    const 후보 = [path.join(지은방, `${이름}.html`), path.join(지은방, 이름, 'index.html')];
+    const 있는것 = 후보.find((p) => fs.existsSync(p));
+    if (!있는것) { 못잰것.push(이름); continue; }
+    const 제목 = 지은제목읽기(있는것);
+    if (!제목) { 못잰것.push(이름); continue; }
     결과.push({ f, 제목, ...판정(제목, 질의들) });
   }
+  if (못잰것.length) console.log(`⬜ 못 쟀다 ${못잰것.length}개 — ${못잰것.join(' · ')}`);
 
   const 길없음 = 결과.filter((x) => x.갈래 === '길없음');
   console.log(`\n■ 지면 ${결과.length}개 가운데 «찾아올 길이 없는» 제목 ${길없음.length}개`);

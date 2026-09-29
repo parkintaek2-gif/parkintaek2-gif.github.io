@@ -33,7 +33,7 @@ const 몫 = (a, b) => (b ? Math.round((a / b) * 1000) / 10 : null);
 const 첫날 = data.snapshots.all[0];
 const 끝날 = data.snapshots.all[data.snapshots.all.length - 1];
 
-const TITLE = 'The Korean analyst list nobody keeps';
+const TITLE = 'Korean analyst consensus and earnings estimates — the list nobody keeps';
 const SAMPLE = `${수(data.distinctAnalysts)} analysts · ${data.snapshots.full.length} complete daily snapshots · `
   + `${첫날} to ${끝날}`;
 const DESC =

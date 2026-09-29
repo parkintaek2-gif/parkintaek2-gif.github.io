@@ -17,7 +17,7 @@ import data from '../../data/target-price-accuracy.json';
 /** 영문 지면에 한글 사명이 그대로 나가던 것을 고친다(2026-09-04, 5번 지적 계기로 6번이 실측). */
 const houseEn = (name) => describeInstitution(name)?.en ?? name;
 
-const TITLE = 'Which brokers hit their target prices';
+const TITLE = 'Korean broker target price accuracy — which brokers hit theirs';
 const SAMPLE = `${data.조인성공.toLocaleString()} rated reports joined to price · 12-month horizon`;
 const DESC =
   'Korean brokerage target prices, scored against what the stock actually did 12 months later. '
@@ -38,7 +38,7 @@ const jsonLd = {
   <div class="wrap">
     <article class="pp">
       <p class="kicker">SeoulMarkets · data for licence</p>
-      <h1>Which brokers hit their target prices</h1>
+      <h1>Korean broker target price accuracy — which brokers hit theirs</h1>
       <p class="sample">{SAMPLE}</p>
       <p class="lead">
         Every broker report carries a target price. Almost nobody keeps score. We do — matching each

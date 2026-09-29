@@ -19,7 +19,7 @@ import data from '../../data/analyst-coverage.json';
 
 const s = data.summary;
 const rows = data.by_sector;
-const TITLE = 'Where analyst attention piles up';
+const TITLE = 'Korean analyst coverage by company — where attention piles up';
 const SAMPLE = `${s.total_stock_reports.toLocaleString()} single-stock reports · ${data.brokerages_in_archive} brokerages · ${s.year}`;
 const DESC =
   'Korean equity research attention by sector, from our archive of single-stock broker reports: how '
@@ -38,7 +38,7 @@ const jsonLd = {
   <div class="wrap">
     <article class="pp">
       <p class="kicker">SeoulMarkets · data for licence</p>
-      <h1>Where analyst attention piles up</h1>
+      <h1>Korean analyst coverage by company — where attention piles up</h1>
       <p class="sample">{SAMPLE}</p>
       <p class="lead">
         Korean brokerages write a lot of research — and it lands on the same few names. From our
