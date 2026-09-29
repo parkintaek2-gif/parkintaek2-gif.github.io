@@ -38,7 +38,7 @@ import { fileURLToPath } from 'node:url';
  *   이 파일은 CLI 껍데기(인자 파싱·미리보기·진단·기록)만 남긴다.
  */
 import {
-  제목인코딩, 종류고르기, 첨부이름인코딩, 편지만들기, 감싸기,
+  제목인코딩, 종류고르기, 첨부이름인코딩, 편지만들기, 감싸기, 문단으로,
   키읽기, jwt만들기, 위임토큰받기, 메일보내기,
 } from '../src/lib/gmail-send.mjs';
 
@@ -259,7 +259,7 @@ export function 제목보고표빠졌나(제목) {
 }
 
 const 아는인자 = ['받는곳', '제목', '글', '첨부', '보내는곳', '이름'];
-const 아는깃발 = ['--보낸다', '--selftest', '--자가시험', '--진단'];
+const 아는깃발 = ['--보낸다', '--selftest', '--자가시험', '--진단', '--흐르게'];
 export function 모르는인자찾기(argv, 아는것 = 아는인자, 깃발 = 아는깃발) {
   const 나온다 = [];
   for (const a of argv) {
@@ -311,6 +311,25 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     참('첨부 내용이 base64 로 든다', 붙인편지.includes(Buffer.from('PDF-1.7 어쩌고').toString('base64')));
     참('경계가 닫힌다', 붙인편지.trimEnd().endsWith('--'));
     참('첨부가 없으면 예전처럼 text/plain 이다', 편지.includes('text/plain') && !편지.includes('multipart'));
+
+    /* 🔴 [2026-09-29 · 사장님] 「줄바꿈을 계속 잘 못하고 있다. 문장이 끝나지 않았는데
+       자꾸 줄바꿈을 하네」 — 범인은 글이 아니라 «그릇»이었다. 긴 한 줄짜리 text/plain 을
+       메일이 폭에 맞춰 접었다. --흐르게 가 문단을 <p> 에 싸서 그것을 막는다. */
+    const 긴문단 = `제목 줄\n부제 줄\n\n[중부매일 박인택 기자]\n\n${'가'.repeat(300)} 끝.\n\n둘째 문단 <b>꺾쇠</b> & 앰퍼샌드.`;
+    const 흐른것 = 문단으로(긴문단);
+    참('🔴 문단마다 <p> 로 싼다', (흐른것.match(/<p>/g) || []).length === 4);
+    참('🔴 긴 문단을 «끊지 않는다»', new RegExp(`가{300}`).test(흐른것));
+    참('문단 «안»의 홑줄바꿈은 살린다 (제목·부제가 붙지 않게)', 흐른것.includes('제목 줄<br>부제 줄'));
+    참('⛔ 꺾쇠·앰퍼샌드를 벗긴다', 흐른것.includes('&lt;b&gt;') && 흐른것.includes('&amp;'));
+    참('흐르게 = true 면 본문이 text/html 이다',
+      편지만들기({ 받는곳: 'a@b.com', 제목: 'ㄱ', 글: 긴문단, 흐르게: true }).includes('Content-Type: text/html'));
+    참('⛔ 흐르게 를 안 주면 여태 하던 대로 text/plain 이다',
+      편지만들기({ 받는곳: 'a@b.com', 제목: 'ㄱ', 글: 긴문단 }).includes('Content-Type: text/plain'));
+    참('첨부가 있어도 흐르게 가 먹는다', (() => {
+      const e = 편지만들기({ 받는곳: 'a@b.com', 제목: 'ㄱ', 글: 긴문단, 흐르게: true, 첨부들: [{ 이름: 'a.pdf', 내용: Buffer.from('x') }] });
+      return e.includes('Content-Type: text/html') && e.includes('application/pdf');
+    })());
+    참('⛔ 빈 글에 안 터진다', 문단으로(null) .includes('<body'));
 
     참('종류고르기 — xlsx', 종류고르기('가.xlsx').includes('spreadsheetml'));
     참('종류고르기 — 모르는 것은 octet-stream', 종류고르기('가.zzz') === 'application/octet-stream');
@@ -649,7 +668,7 @@ if (내가실행됐다) {
   }
 
   /* 🔴 [2026-09-16] 실제 발송도 이제 gmail-send.mjs 의 메일보내기() — server.mjs 와 같은 길 */
-  const 결과 = await 메일보내기({ 받는곳, 제목, 글, 첨부들, 보내는곳: 보낼주소, 이름: 보낼이름, 대신할주소: 보낼주소 });
+  const 결과 = await 메일보내기({ 받는곳, 제목, 글, 첨부들, 보내는곳: 보낼주소, 이름: 보낼이름, 대신할주소: 보낼주소, 흐르게: process.argv.includes('--흐르게') });
   if (!결과.ok) { 막혔다('보내다가 막혔다', 결과.왜); process.exit(1); }
   console.log(`\n✅ 보냈다 — 메시지 id ${결과.id}`);
   console.log('   ⭐ 보낸 날을 문서에 적는다. 무응답을 「허락」으로 읽지 않기 위한 기준선이다.');

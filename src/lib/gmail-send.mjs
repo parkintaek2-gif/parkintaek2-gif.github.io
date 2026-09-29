@@ -55,8 +55,39 @@ export function 첨부이름인코딩(이름) {
 }
 
 /** 편지 한 통. 첨부가 있으면 multipart/mixed 로 짠다 */
-export function 편지만들기({ 받는곳, 제목, 글, 첨부들 = [], 보내는곳 = 보내는주소, 이름 = 보내는이름 }) {
+/**
+ * 글을 «흐르는 문단»으로 만든다 — 기사처럼 문단이 긴 글에 쓴다.
+ *
+ * ── 🔴 왜 (2026-09-29 · 5번) ─────────────────────────────────────────
+ * 사장님 — 「**줄바꿈을 계속 잘 못하고 있다. 문장이 끝나지 않았는데 자꾸 줄바꿈을 하네**」
+ * 나는 그것을 기사를 쓰는 쪽 탓으로 보고 회차 프롬프트부터 고쳤다. **재 보니 아니었다.**
+ *   · 계정이 쓴 원문은 문단이 «한 줄»로 길었다 — 가장 긴 문단 507자, 짧은 줄이 없었다
+ *   · 우리 발송 코드도 본문을 감싸지 않는다 (base64 76자 접기는 디코드하면 사라진다)
+ * ⇒ 문장 가운데서 끊긴 것은 **긴 한 줄짜리 `text/plain` 을 메일이 폭에 맞춰 접은 것**이다.
+ *   「서민준(충남 ⏎ 서천군청)」처럼 «괄호 안»까지 갈린 것이 그 증거다 —
+ *   문장 부호를 보는 사람이라면 거기서 끊지 않는다. 글자 수로 센 기계만 그렇게 끊는다.
+ *
+ * ⭐ 그래서 고칠 곳은 글이 아니라 «그릇»이다. 문단을 <p> 로 싸서 보내면
+ *   받는 쪽이 제 폭에 맞춰 «흐르게» 하고, 복사해도 문장 가운데 개행이 안 들어간다.
+ * ⛔ 원인을 재기 전에 처방부터 내리지 않는다. 나는 이번에 그 순서를 어겼다.
+ */
+export function 문단으로(글) {
+  const 벗김 = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const 문단들 = String(글 ?? '').replace(/\r/g, '').split(/\n{2,}/)
+    .map((p) => p.trim()).filter(Boolean);
+  /* 문단 «안»의 홑줄바꿈은 살린다 — 제목·부제·기자명 줄이 붙어 버리면 안 된다 */
+  const 몸 = 문단들.map((p) => `<p>${벗김(p).split('\n').join('<br>')}</p>`).join('\n');
+  return '<!doctype html><html><head><meta charset="utf-8"></head>'
+    + '<body style="font-family:system-ui,-apple-system,\'Segoe UI\',sans-serif;'
+    + 'font-size:15px;line-height:1.75;color:#111;max-width:46em">'
+    + `${몸}</body></html>`;
+}
+
+export function 편지만들기({ 받는곳, 제목, 글, 첨부들 = [], 보내는곳 = 보내는주소, 이름 = 보내는이름, 흐르게 = false }) {
   const 글64 = (t) => Buffer.from(String(t ?? ''), 'utf8').toString('base64').replace(/(.{76})/g, '$1\n');
+  /* 흐르게 = true 면 본문을 HTML 문단으로 보낸다. 그 밖에는 여태 하던 대로 text/plain */
+  const 본문종류 = 흐르게 ? 'text/html; charset="UTF-8"' : 'text/plain; charset="UTF-8"';
+  const 본문글 = 흐르게 ? 문단으로(글) : 글;
 
   if (!첨부들.length) {
     return [
@@ -64,10 +95,10 @@ export function 편지만들기({ 받는곳, 제목, 글, 첨부들 = [], 보내
       `To: ${받는곳}`,
       `Subject: ${제목인코딩(제목)}`,
       'MIME-Version: 1.0',
-      'Content-Type: text/plain; charset="UTF-8"',
+      `Content-Type: ${본문종류}`,
       'Content-Transfer-Encoding: base64',
       '',
-      글64(글),
+      글64(본문글),
     ].join('\r\n');
   }
 
@@ -81,10 +112,10 @@ export function 편지만들기({ 받는곳, 제목, 글, 첨부들 = [], 보내
     `Content-Type: multipart/mixed; boundary="${경계}"`,
     '',
     `--${경계}`,
-    'Content-Type: text/plain; charset="UTF-8"',
+    `Content-Type: ${본문종류}`,
     'Content-Transfer-Encoding: base64',
     '',
-    글64(글),
+    글64(본문글),
     '',
   ];
   for (const a of 첨부들) {
@@ -171,14 +202,14 @@ export async function 위임토큰받기(키, 대신할주소 = 보내는주소,
  */
 export async function 메일보내기({
   받는곳, 제목, 글, 첨부들 = [], 보내는곳 = 보내는주소, 이름 = 보내는이름,
-  대신할주소 = 보내는곳, 부르기 = fetch,
+  대신할주소 = 보내는곳, 부르기 = fetch, 흐르게 = false,
 } = {}) {
   try {
     if (!받는곳 || !제목 || !글) return { ok: false, 왜: '받는곳·제목·글 가운데 빠진 것이 있다' };
     const 키 = 키읽기();
     if (!키) return { ok: false, 왜: '서비스 계정 열쇠가 없다(GOOGLE_SERVICE_ACCOUNT_JSON 또는 GOOGLE_APPLICATION_CREDENTIALS)' };
     const 토큰 = await 위임토큰받기(키, 대신할주소, 부르기);
-    const raw = 감싸기(편지만들기({ 받는곳, 제목, 글, 첨부들, 보내는곳, 이름 }));
+    const raw = 감싸기(편지만들기({ 받는곳, 제목, 글, 첨부들, 보내는곳, 이름, 흐르게 }));
     const r = await 부르기('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
       method: 'POST',
       headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
