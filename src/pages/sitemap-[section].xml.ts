@@ -218,6 +218,12 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/kospi-weights', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/largest-companies', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/trading-partners', changefreq: 'weekly', priority: '0.7' },
+      /* 🔴 [2026-09-30 · 5번] KRX 공개 API 칸 이름을 영문으로 푼 지면.
+       *   애드센스가 seoulmarkets 를 막은 뒤 검색어를 «자리별»로 갈라 찾은 자리다 —
+       *   "ksq_bydd_trd" krx open api 8위 · "stk_bydd_trd" krx 9위인데
+       *   정작 우리 지면에는 그 낱말이 한 번도 없었다. 그 말로 오는 사람은
+       *   구경꾼이 아니라 그 API 를 붙이려는 개발자, 곧 B2B 손님이라 우선순위를 높게 둔다. */
+      { loc: '/data/krx-open-api-fields', changefreq: 'weekly', priority: '0.9' },
       // 🔴 [2026-09-18 · 6번] 이 파일의 넷째 사고 — 신용등급·외국인보유·재무축 지면 다섯이
       // 같은 실수로 빠져 있었다(9/15~9/17에 만들고 이 목록에 안 넣음). 사이트맵이 11줄로
       // 보인 진짜 까닭은 「자료가 없어서」가 아니라 이 목록이 낡아서였다.

@@ -1,0 +1,302 @@
+---
+/*
+ * **KRX Open API field names, explained in English** — 무료 영문 지면.
+ * (seoulmarkets.com/data/krx-open-api-fields)
+ *
+ * ── 🔴 왜 이 지면을 만들었나 — 짐작이 아니라 실측이다 (2026-09-30 · 5번) ──────────
+ *   애드센스가 seoulmarkets.com 을 「가치가 별로 없는 콘텐츠」로 막았다(09-30 06:03).
+ *   글이 얇아서가 아니었다 — 7,760장 가운데 얇은 것은 2% 뿐이었다.
+ *   막힌 것은 구글이 함께 적은 셋째 조건, 「**실제적인 사용자 관심**」이었다.
+ *   28일 검색 클릭이 **4회**였다.
+ *
+ *   그래서 검색어 79개를 «자리별»로 갈랐더니 선이 또렷했다 —
+ *     이기는 말 (1~10위)   kospi index constituents weights 1위 · kospi member weights 1위
+ *                          "ksq_bydd_trd" krx open api 8위 · "stk_bydd_trd" krx 9위
+ *     지는 말 (58~79위)    biggest korean companies 60위 · korean companies 74위 …
+ *                          이 한 덩어리가 노출의 70%인데 클릭은 0 이다
+ *   ⭐ **「KOSPI」·「KRX」 같은 고유명사에서는 이기고, 일반명사에서는 60위 밖이다.**
+ *     일반명사는 Forbes·Wikipedia 자리다. 우리 강령 그대로 — 남이 이미 센 것을 다시 세지 않는다.
+ *
+ * ── ⭐ 그리고 여기 오는 사람은 «구경꾼이 아니다» ──────────────────────────────
+ *   `ksq_bydd_trd` · `stk_bydd_trd` 는 KRX 공개 API 의 «실제 자료 이름»이다.
+ *   그 말을 치는 사람은 그 API 를 붙이려는 개발자·데이터 담당자, 곧 **우리 B2B 손님**이다.
+ *   🔴 그런데 저장소를 훑어 보니 **우리 지면에 그 낱말이 한 번도 안 나온다.**
+ *     그 말을 안 쓰는데도 8~9위다 ⇒ 제대로 다루면 첫자리가 된다.
+ *
+ * ── ⭐ 우리만 낼 수 있는 것 ─────────────────────────────────────────────
+ *   우리는 이 두 자료를 **날마다 실제로 받아 쌓고 있다**(archive/raw/krx).
+ *   그래서 문서에 없는 것을 안다 — 숫자가 전부 «문자열»로 온다는 것, 회사 이름이 한글이라는 것,
+ *   SECT_TP_NM 이 시장마다 다르게 찬다는 것. 겪지 않으면 못 쓰는 줄이다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────────────
+ * ⛔ **KRX 자료의 «값»을 싣지 않는다.** 칸 이름의 뜻과 «우리가 센 수»만 낸다 — 재배포가 아니다.
+ * ⛔ 화면에 한국어를 내지 않는다 — 손님이 영어권이다.
+ *   (ISU_NM 이 한글이라는 «사실»은 영어로 설명한다. 한글 보기를 박지 않는다)
+ * ⛔ 「이 API 가 좋다·나쁘다」를 말하지 않는다. 투자자문도 아니다.
+ * ⛔ 못 잰 것은 못 쟀다고 적는다 — 우리가 안 받는 자료는 「우리는 안 받는다」고 쓴다.
+ * 🔴 유료상품 입구를 위·중간·아래에 둔다 (사장님 지시 — 「항상 꼭」).
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ * ⚠ 줄바꿈만으로 두 글월을 띄우면 «붙어» 나간다. 사이에 {' '} 를 넣는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import BuyBar from '../../components/BuyBar.astro';
+
+const TITLE = 'KRX Open API field names, explained in English';
+const DESC =
+  'What stk_bydd_trd and ksq_bydd_trd return, field by field: BAS_DD, ISU_CD, TDD_CLSPRC, '
+  + 'CMPPREVDD_PRC, FLUC_RT, ACC_TRDVOL, ACC_TRDVAL, MKTCAP and LIST_SHRS — with the units, '
+  + 'the types they actually arrive as, and the things the Korean-language documentation does not say.';
+
+/**
+ * 두 자료. 줄 수는 **우리가 받은 파일에서 센 것**이다 — 남의 표를 옮기지 않는다.
+ * ⚠ 날짜를 박아 둔다. 「943」이 언제의 943 인지 없으면 그 수는 거짓말이 된다.
+ */
+const datasets = [
+  {
+    id: 'stk_bydd_trd',
+    market: 'KOSPI',
+    what: 'One row per listed issue, for one trading day, on the main board.',
+    rows: 943,
+  },
+  {
+    id: 'ksq_bydd_trd',
+    market: 'KOSDAQ',
+    what: 'The same shape, for the growth board.',
+    rows: 1822,
+  },
+];
+const countedOn = '2026-09-07';
+
+/**
+ * 칸 15개. `korean` 은 그 줄임말이 «무엇의 줄임말인가»이고, `english` 가 뜻이다.
+ * ⛔ 한글을 화면에 내지 않으므로 korean 칸은 로마자 풀이로만 적는다.
+ */
+type Field = {
+  name: string; english: string; type: string; unit: string; note?: string;
+};
+const fields: Field[] = [
+  { name: 'BAS_DD', english: 'Base date — the trading day the row describes',
+    type: 'string', unit: 'YYYYMMDD',
+    note: 'Not a date object and not ISO 8601. Parse it yourself.' },
+  { name: 'ISU_CD', english: 'Issue code — the six-digit ticker',
+    type: 'string', unit: '—',
+    note: 'Leading zeros matter. Read it as text, never as a number.' },
+  { name: 'ISU_NM', english: 'Issue name — the company name',
+    type: 'string', unit: '—',
+    note: 'Korean only. There is no English name in this feed.' },
+  { name: 'MKT_NM', english: 'Market name', type: 'string', unit: '—',
+    note: 'KOSPI in the first dataset, KOSDAQ in the second.' },
+  { name: 'SECT_TP_NM', english: 'Section type — the sub-board the issue sits on',
+    type: 'string', unit: '—',
+    note: 'Empty for most KOSPI rows and filled for KOSDAQ. An empty string, not null.' },
+  { name: 'TDD_CLSPRC', english: 'Closing price for the trading day',
+    type: 'string', unit: 'KRW' },
+  { name: 'CMPPREVDD_PRC', english: 'Change against the previous day’s close',
+    type: 'string', unit: 'KRW', note: 'Signed. Arrives with the minus sign inside the string.' },
+  { name: 'FLUC_RT', english: 'Fluctuation rate — the same change as a percentage',
+    type: 'string', unit: '%' },
+  { name: 'TDD_OPNPRC', english: 'Opening price', type: 'string', unit: 'KRW' },
+  { name: 'TDD_HGPRC', english: 'High of the day', type: 'string', unit: 'KRW' },
+  { name: 'TDD_LWPRC', english: 'Low of the day', type: 'string', unit: 'KRW' },
+  { name: 'ACC_TRDVOL', english: 'Accumulated trading volume for the day',
+    type: 'string', unit: 'shares' },
+  { name: 'ACC_TRDVAL', english: 'Accumulated trading value for the day',
+    type: 'string', unit: 'KRW', note: 'Won, not thousands of won. The numbers run to ten digits.' },
+  { name: 'MKTCAP', english: 'Market capitalisation at the close',
+    type: 'string', unit: 'KRW', note: 'Twelve digits is normal. It will not fit a 32-bit integer.' },
+  { name: 'LIST_SHRS', english: 'Listed shares', type: 'string', unit: 'shares' },
+];
+
+/** 겪어야 아는 것 — 문서에 없다. ⛔ 지어내지 않는다. 우리가 실제로 부딪힌 것만 적는다 */
+const gotchas = [
+  {
+    head: 'Every value is a string',
+    body: 'Prices, volumes and market capitalisation all arrive quoted. If you sum them without '
+      + 'casting, you will concatenate them instead. This is true of every numeric field in both datasets.',
+  },
+  {
+    head: 'Market capitalisation overflows a 32-bit integer',
+    body: 'A mid-cap issue carries twelve digits in KRW. Use a 64-bit integer or a decimal type. '
+      + 'A float will lose the last digits on the largest companies.',
+  },
+  {
+    head: 'Company names are Korean only',
+    body: 'There is no English name in this feed, and the six-digit code is the only stable join key. '
+      + 'An English name has to come from somewhere else — a regulator filing, or a mapping you maintain.',
+  },
+  {
+    head: 'Missing is an empty string, not null',
+    body: 'SECT_TP_NM is blank on most KOSPI rows. A null check will not catch it.',
+  },
+  {
+    head: 'The day is not there on the day',
+    body: 'The file for a trading day lands the following evening, Korean time. Weekends and Korean '
+      + 'public holidays have no file at all — that is correct behaviour, not a gap to backfill.',
+  },
+];
+
+/** ⛔ 우리가 «안» 하는 것도 적는다. 안 적으면 손님이 있는 줄 안다 */
+const notHere = [
+  'Intraday or tick data — these two datasets are end-of-day only.',
+  'Order book depth, and any bid or ask.',
+  'Corporate actions. A split changes LIST_SHRS between two days with nothing to say why.',
+  'Anything about bonds, funds or derivatives. Those are separate KRX datasets.',
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: TITLE,
+  description: DESC,
+  inLanguage: 'en',
+  url: `${SITE_URL}/data/krx-open-api-fields`,
+  isAccessibleForFree: true,
+  about: datasets.map((d) => ({ '@type': 'Thing', name: d.id })),
+  publisher: { '@type': 'Organization', name: 'SMarkets', url: SITE_URL },
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>KRX Open API field names, in English</h1>
+    <p class="lead">
+      The Korea Exchange publishes daily trading data through an open API. The field names are
+      Korean abbreviations and the documentation is Korean-language, so the first hour with
+      <code>stk_bydd_trd</code> or <code>ksq_bydd_trd</code> usually goes on working out what
+      the columns mean. This page is that hour, written down.{' '}
+      We pull both datasets every trading day, so what follows includes the parts the
+      documentation does not mention.
+    </p>
+
+    <BuyBar 자리="top" />
+
+    <section>
+      <h2>The two datasets</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Dataset</th><th>Board</th><th>What one row is</th><th>Rows</th></tr>
+          </thead>
+          <tbody>
+            {datasets.map((d) => (
+              <tr>
+                <td><code>{d.id}</code></td>
+                <td>{d.market}</td>
+                <td>{d.what}</td>
+                <td class="num">{d.rows.toLocaleString('en-US')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="foot">
+        Row counts are what we received for <b>{countedOn}</b>, counted in the files themselves.
+        They move a little as issues list and delist.
+      </p>
+    </section>
+
+    <section>
+      <h2>Every field, and what it means</h2>
+      <p>
+        Both datasets return the same fifteen fields. The type column is what the field
+        <i>actually arrives as</i>, which is not always what you would expect.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Meaning</th><th>Type</th><th>Unit</th><th>Worth knowing</th></tr>
+          </thead>
+          <tbody>
+            {fields.map((f) => (
+              <tr>
+                <td><code>{f.name}</code></td>
+                <td>{f.english}</td>
+                <td class="dim">{f.type}</td>
+                <td class="dim">{f.unit}</td>
+                <td class="note">{f.note ?? '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <BuyBar 자리="mid" />
+
+    <section>
+      <h2>Five things that cost us time</h2>
+      <p>
+        None of these are errors in the feed. They are simply not written down anywhere,
+        and each one of them broke something of ours first.
+      </p>
+      <ol class="gotchas">
+        {gotchas.map((g) => (
+          <li>
+            <b>{g.head}.</b>{' '}{g.body}
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section>
+      <h2>What these two datasets do not contain</h2>
+      <ul class="plain">
+        {notHere.map((n) => (<li>{n}</li>))}
+      </ul>
+      <p class="foot">
+        We would rather say that plainly than have you discover it after you have built against it.
+      </p>
+    </section>
+
+    <section>
+      <h2>If you would rather not parse it yourself</h2>
+      <p>
+        We compile Korean, Japanese, Taiwanese and Gulf filings into English panel data under one
+        schema — English field names, English company names, numbers typed as numbers, and every
+        figure carrying the source and the timestamp it came from. It is the same underlying
+        material, with the hour above already spent.
+      </p>
+    </section>
+
+    <BuyBar 자리="bottom" />
+
+    <p class="disclaimer">
+      Not investment advice. This page describes a public data interface; it does not reproduce
+      Korea Exchange data, and it does not recommend any security.
+    </p>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1rem 1.1rem 4rem; }
+  h1 { margin: 0 0 .6rem; font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.15; }
+  .lead { color: #333; margin: 0 0 1.6rem; font-size: 1.05rem; line-height: 1.6; }
+  section { margin: 2.4rem 0; }
+  h2 { font-size: 1.25rem; margin: 0 0 .7rem; }
+  p { line-height: 1.65; margin: 0 0 .9rem; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+  th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid #e6e6e6; vertical-align: top; }
+  th { font-weight: 600; border-bottom: 2px solid #333; white-space: nowrap; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.dim { color: #666; white-space: nowrap; }
+  td.note { color: #444; font-size: .88rem; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em;
+         background: #f4f4f5; padding: .1rem .3rem; border-radius: 3px; }
+  .gotchas { line-height: 1.65; padding-left: 1.2rem; }
+  .gotchas li { margin: 0 0 .8rem; }
+  ul.plain { line-height: 1.65; padding-left: 1.2rem; }
+  ul.plain li { margin: 0 0 .4rem; }
+  .foot { color: #666; font-size: .9rem; }
+  .disclaimer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e6e6e6;
+                color: #666; font-size: .85rem; }
+  @media (prefers-color-scheme: dark) {
+    .lead { color: #ccc; }
+    th, td { border-bottom-color: #333; }
+    th { border-bottom-color: #ccc; }
+    td.dim, td.note, .foot, .disclaimer { color: #aaa; }
+    code { background: #222; }
+  }
+</style>
