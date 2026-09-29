@@ -1,0 +1,152 @@
+#!/usr/bin/env node
+/**
+ * check-구글이-보는-글자.mjs — **구글이 그 페이지에서 «읽을 글자»가 몇 자인가.**
+ *
+ * ── 🔴 왜 (2026-09-29 · 5번) ─────────────────────────────────────────
+ * 사장님이 배달앱 커뮤니티의 「오하아사 공유방」 화면 넉 장을 주시며 물으셨다 —
+ * 「우리도 이걸 하면 방문자를 늘릴 수 있을지 판단해봐」.
+ *
+ * 재 보니 **우리는 이미 하고 있었다.** `klifemap.ai/horoscope.html` 의 제목이
+ * 「오늘의 별자리 운세 — … 12별자리 전부, 매일 갱신」이다. 그런데 노출이 0이다.
+ *
+ * ⭐ 그래서 물음이 바뀌었다 — 「이걸 할까」가 아니라 **「왜 아무도 안 오나」**.
+ *   실측: 그 페이지의 HTML 에 **열두 별자리 이름이 «한 개도» 없다.**
+ *   구글이 열면 「계산 중…」만 보인다. 별자리도 순위도 날짜도 자바스크립트가 나중에 채운다.
+ *   ⇒ 색인이 안 되는 것이 당연하다. 구글은 빈 화면을 색인하지 않는다.
+ *
+ * 🔴 더 아팠던 것 — 같은 날 아침 내가 「세 장 모두 읽을 글자가 2,500~2,900자 있다,
+ *   『폼뿐이라 안 된다』던 옛 진단은 틀렸다」고 적었다. 그 말은 재 본 «세 장»에만 맞았고
+ *   나머지는 재지도 않았다. 전수로 재니 일곱 중 여섯이 빈 껍데기였다.
+ *   ⛔ **표본으로 잰 것을 전체의 말로 적지 않는다.** 그래서 이 자를 만든다.
+ *
+ * 무엇을 세나 — 손님이 아니라 «구글이» 보는 글자다.
+ *   ⛔ `<script>`·`<style>` 안은 안 센다. 구글이 읽는 본문이 아니다.
+ *   ⛔ 「계산 중…」·「불러오는 중」이 보이면 그 페이지는 «아직 안 그려진» 것이다.
+ *
+ * 쓰는 법
+ *   node scripts/check-구글이-보는-글자.mjs                 klifemap 기본 목록
+ *   node scripts/check-구글이-보는-글자.mjs --주소 https://…  한 장만
+ *   node scripts/check-구글이-보는-글자.mjs --자가시험
+ */
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+/** 이만큼도 없으면 구글에게 「읽을 것이 없는 페이지」다 */
+export const 모자란선 = 1800;
+
+/** 페이지가 «아직 안 그려졌다»고 말하는 글자들 */
+export const 아직안그려진말 = /계산\s*중|불러오는\s*중|로딩\s*중|Loading|잠시만\s*기다/i;
+
+/** 구글이 읽는 본문만 남긴다 — script·style 안은 본문이 아니다 */
+export function 읽을글자(html) {
+  return String(html ?? '')
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<noscript[\s\S]*?<\/noscript>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&[a-z]+;|&#\d+;/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * 판정 — ⛔ 「없다」와 「못 쟀다」를 가른다.
+ * @param {string|null} html  못 받았으면 null 을 준다
+ * @param {string[]} 있어야할말  그 페이지라면 반드시 글자로 있어야 하는 것들
+ */
+export function 판정(html, 있어야할말 = []) {
+  if (html === null || html === undefined) return { 갈래: '못쟀다', 글자수: null, 말: '페이지를 못 받았다' };
+  const 글 = 읽을글자(html);
+  const 빠진말 = 있어야할말.filter((w) => !글.includes(w));
+  if (아직안그려진말.test(글)) {
+    return { 갈래: '빈껍데기', 글자수: 글.length, 빠진말, 말: '구글이 열면 「계산 중…」만 보인다 — 내용은 자바스크립트가 나중에 채운다' };
+  }
+  if (글.length < 모자란선) {
+    return { 갈래: '빈껍데기', 글자수: 글.length, 빠진말, 말: `읽을 글자가 ${글.length}자뿐이다 (선 ${모자란선}자)` };
+  }
+  if (빠진말.length) {
+    return { 갈래: '알맹이없음', 글자수: 글.length, 빠진말, 말: `글자는 ${글.length}자인데 «있어야 할 말»이 ${빠진말.length}개 빠졌다 — ${빠진말.slice(0, 3).join('·')}` };
+  }
+  return { 갈래: '읽힌다', 글자수: 글.length, 빠진말, 말: `${글.length}자를 읽을 수 있다` };
+}
+
+export const 열두별자리 = ['양자리', '황소자리', '쌍둥이자리', '게자리', '사자자리', '처녀자리',
+  '천칭자리', '전갈자리', '사수자리', '염소자리', '물병자리', '물고기자리'];
+
+/** 기본으로 재는 곳 — KLifeMap 손님 지면 */
+export const 볼곳 = [
+  { 주소: 'https://klifemap.ai/horoscope.html', 있어야할말: 열두별자리 },
+  { 주소: 'https://klifemap.ai/horoscope-week.html', 있어야할말: 열두별자리 },
+  { 주소: 'https://klifemap.ai/daily.html', 있어야할말: [] },
+  { 주소: 'https://klifemap.ai/astro.html', 있어야할말: [] },
+  { 주소: 'https://klifemap.ai/saju.html', 있어야할말: [] },
+  { 주소: 'https://klifemap.ai/contents.html', 있어야할말: [] },
+  { 주소: 'https://klifemap.ai/tarot.html', 있어야할말: [] },
+];
+
+/* ── 자가시험 ─────────────────────────────────────────────────────── */
+export function 자가시험() {
+  const 것 = [];
+  const 본다 = (이름, 참, 덧 = '') => 것.push({ 이름, 참: !!참, 덧 });
+
+  본다('⛔ script 안은 안 센다', 읽을글자('<p>가</p><script>var x="나나나나나";</script>') === '가');
+  본다('⛔ style 안도 안 센다', 읽을글자('<style>body{color:red}</style><p>가</p>') === '가');
+  본다('⛔ 주석도 안 센다', 읽을글자('<!-- 숨은 글 --><p>가</p>') === '가');
+  본다('태그를 걷고 글자만 남긴다', 읽을글자('<div><b>가</b> 나</div>') === '가 나');
+  본다('⛔ 빈 것에 안 터진다', 읽을글자(null) === '' && 판정(null).갈래 === '못쟀다');
+
+  const 긴글 = '가'.repeat(모자란선 + 50);
+  본다('🔴 「계산 중…」이 보이면 글자가 많아도 빈 껍데기다',
+    판정(`<p>${긴글} 계산 중…</p>`).갈래 === '빈껍데기');
+  본다('🔴 글자가 선보다 적으면 빈 껍데기다', 판정('<p>가나다</p>').갈래 === '빈껍데기');
+  본다('충분히 길면 읽힌다', 판정(`<p>${긴글}</p>`).갈래 === '읽힌다');
+
+  /* 🔴 이 자가 태어난 자리 — horoscope 는 글자가 아니라 «별자리 이름»이 없었다 */
+  본다('🔴 있어야 할 말이 빠지면 «알맹이없음»으로 가른다',
+    판정(`<p>${긴글}</p>`, ['양자리']).갈래 === '알맹이없음');
+  본다('있어야 할 말이 다 있으면 읽힌다',
+    판정(`<p>${긴글} 양자리 황소자리</p>`, ['양자리', '황소자리']).갈래 === '읽힌다');
+  본다('빠진 말을 그대로 알려 준다',
+    판정(`<p>${긴글}</p>`, ['양자리', '게자리']).빠진말.join(',') === '양자리,게자리');
+
+  본다('🔴 못 쟀을 때 글자수를 0 으로 적지 않는다', 판정(null).글자수 === null);
+  본다('열두 별자리를 다 적어 뒀다', 열두별자리.length === 12);
+
+  const 빨강 = 것.filter((x) => !x.참);
+  console.log(`■ check-구글이-보는-글자 자가시험 ${것.length - 빨강.length}/${것.length}`);
+  for (const x of 것) console.log(`  ${x.참 ? '✅' : '🔴'} ${x.이름}${x.덧 ? `  (${x.덧})` : ''}`);
+  return 빨강.length === 0;
+}
+
+/* ── 진입점 ───────────────────────────────────────────────────────── */
+const 내가진입점 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (내가진입점) {
+  if (process.argv.includes('--자가시험')) process.exit(자가시험() ? 0 : 1);
+
+  const 한곳자리 = process.argv.indexOf('--주소');
+  const 한곳 = 한곳자리 >= 0 && 한곳자리 + 1 < process.argv.length ? process.argv[한곳자리 + 1] : null;
+  const 잴것 = 한곳 ? [{ 주소: 한곳, 있어야할말: [] }] : 볼곳;
+
+  console.log('■ 구글이 «읽을 수 있는» 글자를 잰다 — 손님이 보는 화면이 아니다\n');
+  let 빈것 = 0; let 못쟨것 = 0;
+  for (const { 주소, 있어야할말 } of 잴것) {
+    let html = null;
+    try {
+      const r = await fetch(주소, { headers: { 'user-agent': 'Mozilla/5.0 (compatible; SMarketsCheck/1.0)' } });
+      html = r.ok ? await r.text() : null;
+      if (!r.ok) console.log(`  ⚠ ${주소} — HTTP ${r.status}`);
+    } catch (e) { console.log(`  ⚠ ${주소} — 못 받았다 (${String(e.message).slice(0, 60)})`); }
+    const p = 판정(html, 있어야할말);
+    const 딱지 = { 읽힌다: '✅', 알맹이없음: '🔴', 빈껍데기: '🔴', 못쟀다: '⬜' }[p.갈래];
+    console.log(`  ${딱지} ${주소.replace('https://klifemap.ai/', '').padEnd(22)} ${p.말}`);
+    if (p.갈래 === '못쟀다') 못쟨것++;
+    else if (p.갈래 !== '읽힌다') 빈것++;
+  }
+  console.log(`\n■ 구글이 읽을 것이 없는 지면 ${빈것}개 · 못 잰 것 ${못쟨것}개`);
+  if (빈것) {
+    console.log('  ⛔ 이런 지면은 사이트맵을 다시 내도 색인되지 않는다 — 구글은 빈 화면을 색인하지 않는다.');
+    console.log('  ✅ 고치는 길은 하나다 — «서버가» 내용을 HTML 에 넣어서 보낸다.');
+  }
+  process.exit(빈것 ? 1 : 0);
+}
