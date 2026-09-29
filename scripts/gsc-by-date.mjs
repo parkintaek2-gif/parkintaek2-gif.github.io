@@ -53,7 +53,37 @@ export function 튄날찾기(줄들, 배수 = 1.8) {
     .map((r) => ({ ...r, 배: Math.round((r.impressions / 가) * 10) / 10 }));
 }
 
+/**
+ * 🔴 [2026-09-30 · 5번] **이 자는 .env 를 안 읽어서 «한 번도 못 돌고 있었다».**
+ * 오늘 애드센스 거절 까닭을 재려고 불렀더니 그 자리에서
+ * 「GOOGLE_APPLICATION_CREDENTIALS 가 .env 에 없다」로 섰다. 열쇠는 .env 에 있었고,
+ * 이 자만 그것을 «읽지 않았다». check-index-verdict.mjs 는 스스로 읽어서 잘 돈다.
+ * ⛔ 「자를 만들었다」를 「돈다」로 세지 않는다 — 한 번은 실제로 돌려 본다.
+ * ⚠ 정규식을 안 쓴다. 문자열 나누기와 indexOf 로만 짠다(앞서 정규식이 파일을 깬 적이 있다).
+ * ⛔ 값을 화면에 찍지 않는다.
+ */
+function 환경읽기() {
+  try {
+    const 본문 = readFileSync('.env', 'utf8');
+    const LF = String.fromCharCode(10);
+    const CR = String.fromCharCode(13);
+    for (const 날줄 of 본문.split(LF)) {
+      const 줄 = 날줄.split(CR).join('').trim();
+      if (!줄 || 줄.startsWith('#')) continue;
+      const i = 줄.indexOf('=');
+      if (i <= 0) continue;
+      const 이름 = 줄.slice(0, i).trim();
+      let 값 = 줄.slice(i + 1).trim();
+      if ((값.startsWith('"') && 값.endsWith('"')) || (값.startsWith("'") && 값.endsWith("'"))) {
+        값 = 값.slice(1, -1);
+      }
+      if (이름 && process.env[이름] === undefined) process.env[이름] = 값;
+    }
+  } catch { /* 없으면 그만 — 아래에서 «없다»고 말한다 */ }
+}
+
 async function 토큰받기() {
+  환경읽기();
   const 키파일 = process.env.GOOGLE_APPLICATION_CREDENTIALS;
   if (!키파일) throw new Error('GOOGLE_APPLICATION_CREDENTIALS 가 .env 에 없다');
   const 키 = JSON.parse(readFileSync(키파일, 'utf8'));
