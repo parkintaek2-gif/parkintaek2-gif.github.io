@@ -585,6 +585,25 @@ if (내가실행됐다) {
     console.log('  ⚠ docs/유닛-상태판.md 를 못 읽었다 — 누가 멈췄는지 이 자는 모른다\n');
   }
 
+  /* 🔴 [2026-09-29 · 사장님] 「**아침에 지시한 중요사항 두 가지를 업무보고에 꼭 포함할것**」
+     ⭐ 이런 것을 내 «기억»에 맡기면 바쁜 날에 빠진다. 그래서 대장에 적고 이 자가 찍는다.
+     ⛔ 「다음 보고에 넣겠습니다」로 끝내지 않는다 — 다짐은 세션이 바뀌면 사라진다. */
+  try {
+    const 담을것길 = path.join(뿌리, 'docs', '보고에-꼭-담을것.md');
+    const 판 = fs.readFileSync(담을것길, 'utf8');
+    const 안담은줄 = 판.split(/\r?\n/).filter((l) => l.startsWith('|') && /🔴/.test(l));
+    if (안담은줄.length) {
+      console.log(`  🔴 보고에 «꼭» 담을 것 ${안담은줄.length}개 — docs/보고에-꼭-담을것.md`);
+      for (const l of 안담은줄) {
+        const 칸 = l.split('|').map((s) => s.trim()).filter(Boolean);
+        console.log(`     ${칸[1] ?? ''} · ${칸[2] ?? ''}`);
+      }
+      console.log('     ⇒ 16시·22시 보고에 넣고 나면 그 줄의 🔴 를 ✅ 로 바꾼다\n');
+    }
+  } catch {
+    console.log('  ⚠ docs/보고에-꼭-담을것.md 를 못 읽었다 — 꼭 담을 것이 있는지 이 자는 모른다\n');
+  }
+
   /* ① 새 지시 */
   let 지시 = null;
   try {
