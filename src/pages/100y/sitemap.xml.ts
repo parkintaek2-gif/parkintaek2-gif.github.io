@@ -470,6 +470,11 @@ export const GET: APIRoute = () => {
     { path: '/qual-duration', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-09-10 3번 신설 — 나이띠별 국가기술자격 응시·합격(나이 축). 15037521, 제한 없음. */
     { path: '/qual-age', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-30 1번 신설 — 보건복지부 제2차 보건의료인력 실태조사(2026-09-29). 활동률
+       (핵심 축)과 규모·증감·지역·성별·연령 짝 지면. 고정 지면을 만들면 여기 한 줄을 같이
+       넣는다 — 안 넣으면 검색에 열려 있는데 사이트맵엔 없는 상태가 된다. */
+    { path: '/health-workforce-activity-rate', priority: '0.7', changefreq: 'yearly' },
+    { path: '/health-workforce-growth-2013-2023', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
