@@ -475,6 +475,8 @@ export const GET: APIRoute = () => {
        넣는다 — 안 넣으면 검색에 열려 있는데 사이트맵엔 없는 상태가 된다. */
     { path: '/health-workforce-activity-rate', priority: '0.7', changefreq: 'yearly' },
     { path: '/health-workforce-growth-2013-2023', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-30 1번 신설 — OECD 교육지표 2026, 학력별 고용률·상대임금(OECD평균 대비). */
+    { path: '/oecd-employment-wage-gap-by-degree', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
