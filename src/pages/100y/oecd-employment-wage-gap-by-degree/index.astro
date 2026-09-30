@@ -1,0 +1,182 @@
+---
+/**
+ * /100y/oecd-employment-wage-gap-by-degree — 학력 단계별로 갈라 보면, 고용률·상대임금 모두 OECD 평균 밑
+ *
+ * 사장님이 연합뉴스 기사(OECD 교육지표 2026)를 백년지도 담당에게 직접 전달(2026-09-29) —
+ * docs/전달-백년지도-OECD교육지표2026.md. 2번이 /oecd-tertiary-employment-gap 을 먼저 냈고,
+ * 그 지면의 "이자료가못가르는것"에 "고등교육을 마친 사람의 고용률·상대임금이 정확히 몇 %인지는
+ * 이번 보도자료에 없어 못 쟀습니다"라고 적혀 있었다 — 이 지면이 그 빈 자리를 채운다(2026-09-30 · 1번).
+ *
+ * ⛔⛔ 판정하지 않는다 — 「대학이 소용없다」로 읽히면 안 된다(사장님 지시). 학력별 고용률·상대임금을
+ *   OECD 평균과 나란히 놓을 뿐, 원인을 말하지 않는다.
+ * ⛔⛔ moe.go.kr 원문·OECD 원자료를 이 세션에서 직접 열지 못했다 — 네 매체(파이낸셜뉴스·교수신문·
+ *   메트로서울·한국대학신문) 동시 게재분을 대조해 같은 값이 나오는 것만 실었다. 한 매체는 전문대·대학
+ *   OECD평균 고용률이 서로 바뀐 채 실려 있어 그 줄은 빼고 나머지 셋의 일치값을 썼다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/oecd-employment-wage-gap-by-degree-2026.json';
+
+const 자료 = 원본 as any;
+const 출처 = 자료.출처;
+const 고용률 = 자료.학력별고용률_2025;
+const 임금 = 자료.학력별상대임금_2024_고졸100;
+const 청년학사 = 자료.청년학사상대임금;
+
+const desc =
+  `${출처.보도일} 발표 교육부·한국교육개발원 자료에 따르면, 한국 대학 졸업자 고용률은 ${고용률.대학.한국}%로 ` +
+  `OECD 평균 ${고용률.대학.OECD평균}%에 못 미칩니다. 상대임금(고졸=100)도 대학 ${임금.대학.한국}(평균 ${임금.대학.OECD평균}), ` +
+  `대학원 ${임금.대학원.한국}(평균 ${임금.대학원.OECD평균})로 모두 평균 아래입니다. 25~34세 학사 학위자 상대임금은 ` +
+  `${청년학사.한국}으로 자료가 있는 ${청년학사.전체국가수}개국 중 ${청년학사.한국순위}위입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '대학을 나온 사람의 고용률도 OECD 평균보다 낮은가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${출처.이름}에 따르면 그렇습니다 — 대학 졸업자(25~64세) 고용률은 한국 ${고용률.대학.한국}%로 OECD 평균 ${고용률.대학.OECD평균}%보다 낮습니다. 전문대 졸업자도 한국 ${고용률.전문대.한국}% · 평균 ${고용률.전문대.OECD평균}%로 같은 방향입니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '학력이 높을수록 상대임금도 OECD 평균보다 낮게 벌어지나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `전문대 ${임금.전문대.한국}(평균 ${임금.전문대.OECD평균}) · 대학 ${임금.대학.한국}(평균 ${임금.대학.OECD평균}) · 대학원 ${임금.대학원.한국}(평균 ${임금.대학원.OECD평균}) 모두 한국이 OECD 평균보다 낮습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '청년(25~34세) 학사 학위자의 임금 프리미엄은 국제적으로 어느 정도인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `한국은 ${청년학사.한국}(고졸 대비 ${청년학사.한국 - 100}% 높음)로, 자료가 있는 ${청년학사.전체국가수}개국 중 ${청년학사.한국순위}위입니다. OECD 평균은 ${청년학사.OECD평균}입니다.`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`대졸 고용률 ${고용률.대학.한국}%, OECD 평균 ${고용률.대학.OECD평균}%에 못 미칩니다 — 학력 단계별로 갈라보면`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    대졸 고용률 {고용률.대학.한국}%<br class="pcbr" />
+    OECD 평균 {고용률.대학.OECD평균}%에 못 미칩니다 — 학력 단계별로 갈라보면
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 숫자는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">{출처['⚠원자료']}</p>
+  </div>
+
+  <p class="sub">
+    <a href="/oecd-tertiary-employment-gap">이전 지면</a>에서는 25~64세 «전체» 고용률만 봤습니다.
+    이번에는 학력 단계(고졸·전문대·대학)별로 갈라, 고용률과 상대임금이 각각 OECD 평균과
+    {' '}얼마나 떨어져 있는지를 봅니다.
+  </p>
+
+  <h2>학력이 높을수록 고용률도 오르지만, 모든 단계에서 OECD 평균에 못 미칩니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학력(2025)</th><th>한국</th><th>OECD 평균</th><th>격차</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>고졸</td>
+          <td>{고용률.고졸.한국}%</td>
+          <td>{고용률.고졸.OECD평균}%</td>
+          <td>{(고용률.고졸.한국 - 고용률.고졸.OECD평균).toFixed(1)}%p</td>
+        </tr>
+        <tr>
+          <td>전문대졸</td>
+          <td>{고용률.전문대.한국}%</td>
+          <td>{고용률.전문대.OECD평균}%</td>
+          <td>{(고용률.전문대.한국 - 고용률.전문대.OECD평균).toFixed(1)}%p</td>
+        </tr>
+        <tr>
+          <td>대졸</td>
+          <td><strong>{고용률.대학.한국}%</strong></td>
+          <td>{고용률.대학.OECD평균}%</td>
+          <td>{(고용률.대학.한국 - 고용률.대학.OECD평균).toFixed(1)}%p</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    분모는 25~64세 인구 중 그 학력 소지자, 분자는 그 중 취업자입니다. 학력이 높을수록 한국·OECD
+    {' '}양쪽 다 고용률이 오르지만, 세 단계 모두에서 한국이 OECD 평균보다 낮습니다 — 격차는 고졸
+    {' '}{Math.abs(고용률.고졸.한국 - 고용률.고졸.OECD평균).toFixed(1)}%p에서 대졸
+    {' '}{Math.abs(고용률.대학.한국 - 고용률.대학.OECD평균).toFixed(1)}%p로 오히려 더 벌어집니다.
+  </p>
+
+  <h2>상대임금도 세 단계 모두 OECD 평균 아래입니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학력(고졸=100, 2024)</th><th>한국</th><th>OECD 평균</th></tr></thead>
+      <tbody>
+        <tr><td>전문대졸</td><td>{임금.전문대.한국}</td><td>{임금.전문대.OECD평균}</td></tr>
+        <tr><td>대졸</td><td><strong>{임금.대학.한국}</strong></td><td>{임금.대학.OECD평균}</td></tr>
+        <tr><td>대학원졸</td><td>{임금.대학원.한국}</td><td>{임금.대학원.OECD평균}</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    고졸자 임금을 100으로 둔 상대임금입니다. 한국도 학력이 높을수록 상대임금이 오르지만,
+    {' '}그 오르는 폭이 OECD 평균만큼 크지는 않습니다 — 세 단계 모두 한국이 평균보다 낮습니다.
+  </p>
+
+  <h2>청년(25~34세) 학사 학위자만 떼어 보면, 24개국 중 {청년학사.한국순위}위</h2>
+  <p>
+    25~64세 전체가 아니라 <strong>25~34세 학사 학위자</strong>만 따로 떼어 국제비교를 하면,
+    {' '}한국은 고졸 대비 상대임금 <strong>{청년학사.한국}</strong>(고졸보다 {청년학사.한국 - 100}% 높음)으로,
+    {' '}원자료가 있는 <strong>{청년학사.전체국가수}개국 중 {청년학사.한국순위}위</strong>입니다.
+    {' '}OECD 평균은 {청년학사.OECD평균}(고졸보다 {청년학사.OECD평균 - 100}% 높음)입니다.
+  </p>
+  <p class="note">⚠ {청년학사['⚠주의']}</p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 학력 단계별 고용률·상대임금을
+    {' '}한국과 OECD 평균 사이에 나란히 놓을 뿐, 「대학이 소용 있다/없다」를 판정하지 않습니다.
+    {' '}바늘은 보시는 분이 세우십시오.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — {출처.이름}({출처.보도일}), {(출처.대조매체목록 as string[]).join(' · ')} 대조
+  </p>
+
+  <p class="note">
+    <a href="/oecd-tertiary-employment-gap">← 한국 청년 고등교육 이수율 71.1%, OECD 1위 18년째 — 고용률·상대임금은 이렇게 움직였습니다</a>
+    <br />
+    <a href="/wage-education">← 학력별로 월급여는 얼마나 다를까요?</a>
+    <br />
+    <a href="/ranking-university-global">← 서울대는 국내 맨 위·세계 38등, 그런데 취업률은요?</a>
+  </p>
+
+  <HundredAgeWalk 키="oecd-employment-wage-gap-by-degree" />
+
+  <NextQuestionBrief 모은것="OECD 교육지표 2026 교육부 보도자료 — 학력 단계별 고용률·상대임금" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/oecd-employment-wage-gap-by-degree"></div>
+</HundredYear>
