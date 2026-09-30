@@ -1,0 +1,192 @@
+---
+/**
+ * /100y/health-workforce-growth-2013-2023 — 보건의료인력 10년 새 90만 명 늘었는데, 조산사만 줄었다
+ *
+ * /100y/health-workforce-activity-rate 의 짝 지면. 같은 조사(보건복지부 제2차 보건의료인력
+ * 실태조사, 2026-09-29)의 나머지 축 — 직종 규모·10년 증감·지역·성별·연령 — 을 한 지면에 모았다.
+ * 이슈는 하나(조산사가 20개 직종 중 «유일하게» 줄었다)를 축으로 삼는다.
+ *
+ * 🔴 보수(연평균 임금) 축은 뺐다 — 보도자료 원문 안에서 의사 전체 평균(2억 8,518만 원)이
+ *   종별 값(병원 3억 5,427만·의원 3억 2,599만)보다 «낮게» 나오는 등 앞뒤가 맞지 않는데,
+ *   KOSIS 원표가 아직 없어 대조하지 못했다. 대조 못 한 줄은 내지 않는다(회사 원칙).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/health-workforce-growth-2013-2023.json';
+
+const 자료 = 원본 as any;
+const 출처 = 자료.출처;
+const 규모 = 자료.규모_2023;
+const 증감 = 자료.증감_2013_2023;
+const 지역 = 자료.지역_의사_2013_2023;
+const 성별 = 자료.성별_2013_2023 as any[];
+const 연령 = 자료.연령_2015_2023 as any[];
+
+const desc =
+  `${출처.이름}(${출처.보도일})에 따르면 2013~2023년 보건의료인력 20개 직종 면허·자격 보유자는 ` +
+  `${증감.전체_증가_만명}만 명 늘었습니다(연평균 ${증감.연평균_증가율}%). 가장 많이 는 직종은 ` +
+  `${증감.가장많이늘어난직종.직종}(+${증감.가장많이늘어난직종.증가_만명}만 명), 유일하게 준 직종은 ` +
+  `${증감.유일하게줄어든직종.직종}(${증감.유일하게줄어든직종['2013'].toLocaleString()}명→${증감.유일하게줄어든직종['2023'].toLocaleString()}명)입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '보건의료인력 20개 직종 중 10년 새 유일하게 줄어든 직종은 무엇인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${출처.이름}에 따르면 ${증감.유일하게줄어든직종.직종}입니다 — 2013년 ${증감.유일하게줄어든직종['2013'].toLocaleString()}명에서 2023년 ${증감.유일하게줄어든직종['2023'].toLocaleString()}명으로 ${Math.abs(증감.유일하게줄어든직종.증감)}명 줄었습니다. 나머지 19개 직종은 모두 늘었습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '의사는 수도권에 얼마나 몰려 있나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `요양기관 근무 의사 중 수도권 비중은 2013년 ${지역.수도권비중_2013}%에서 2023년 ${지역.수도권비중_2023}%로 올랐습니다. 반대로 광역시(${지역.광역시비중_2013}%→${지역.광역시비중_2023}%)·도(${지역.도비중_2013}%→${지역.도비중_2023}%) 비중은 낮아졌습니다.`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`보건의료인력 10년 새 ${증감.전체_증가_만명}만 명 늘었는데, ${증감.유일하게줄어든직종.직종}만 줄었습니다 (2013→2023)`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    보건의료인력 10년 새 {증감.전체_증가_만명}만 명 늘었지만<br class="pcbr" />{' '}
+    {증감.유일하게줄어든직종.직종}만 «유일하게» 줄었습니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 숫자는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">{출처['⚠원자료']}</p>
+  </div>
+
+  <p class="sub">
+    보건복지부·한국보건사회연구원·국민건강보험공단이 함께 낸 「제2차 보건의료인력 실태조사」에서,
+    {' '}20개 직종의 <strong>규모·10년 증감·지역·성별·연령</strong> 축을 모았습니다. 얼마나 그 일을
+    {' '}하는지(활동률)는 <a href="/health-workforce-activity-rate">짝 지면</a>에서 따로 다룹니다.
+  </p>
+
+  <h2>직종 규모(2023) — 가장 큰 넷</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>직종</th><th>면허·자격 보유자</th><th>전체 중 비중</th></tr></thead>
+      <tbody>
+        {규모.상위직종.map((r: any) => (
+          <tr><td>{r.직종}</td><td>{r.만명}만 명</td><td>{r.비중}%</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">전체 20개 직종 면허·자격 보유자는 {규모.전체_면허자격_만명}만 명입니다.</p>
+
+  <h2>10년 증감(2013→2023) — 조산사만 줄었습니다</h2>
+  <p>
+    20개 직종 전체로는 {증감.전체_증가_만명}만 명 늘었습니다(연평균 {증감.연평균_증가율}%).
+    {' '}가장 많이 는 직종은 <strong>{증감.가장많이늘어난직종.직종}</strong>(+{증감.가장많이늘어난직종.증가_만명}만 명),
+    {' '}가장 빨리 는 직종은 <strong>{증감.가장빨리늘어난직종.직종}</strong>(연평균 {증감.가장빨리늘어난직종.연평균증가율}%)입니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>직종</th><th>2013년</th><th>2023년</th><th>증감</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>{증감.유일하게줄어든직종.직종}</td>
+          <td>{증감.유일하게줄어든직종['2013'].toLocaleString()}명</td>
+          <td>{증감.유일하게줄어든직종['2023'].toLocaleString()}명</td>
+          <td><strong>{증감.유일하게줄어든직종.증감.toLocaleString()}명</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">20개 직종 중 10년 사이 줄어든 것은 조산사 하나뿐이고, 나머지 19개 직종은 모두 늘었습니다.</p>
+
+  <h2>지역 — 의사, 수도권 비중이 10년 사이 더 올랐습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>권역</th><th>2013년</th><th>2023년</th></tr></thead>
+      <tbody>
+        <tr><td>수도권</td><td>{지역.수도권비중_2013}%</td><td><strong>{지역.수도권비중_2023}%</strong></td></tr>
+        <tr><td>광역시</td><td>{지역.광역시비중_2013}%</td><td>{지역.광역시비중_2023}%</td></tr>
+        <tr><td>도</td><td>{지역.도비중_2013}%</td><td>{지역.도비중_2023}%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    의사 수 가장 적은 지역(세종 제외)은 {지역.가장적은지역_세종제외}. 최근 3년(2021~2023) 사이
+    {' '}의사 수가 줄기 시작한 곳은 {지역.최근3년_감소지역}.
+  </p>
+
+  <h2>성별 — 여성 비중이 늘어난 직종, 남성 비중이 늘어난 직종</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>직종</th><th>2013년</th><th>2023년</th></tr></thead>
+      <tbody>
+        {성별.map((r: any) => (
+          <tr>
+            <td>{r.직종}</td>
+            <td>{r.여성비중_2013 ?? r.남성비중_2013}% {r.여성비중_2013 != null ? '(여성)' : '(남성)'}</td>
+            <td><strong>{r.여성비중_2023 ?? r.남성비중_2023}%</strong> {r.여성비중_2023 != null ? '(여성)' : '(남성)'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>연령 — 요양기관 근무 인력의 평균 나이(2015→2023)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>직종</th><th>2015년</th><th>2023년</th></tr></thead>
+      <tbody>
+        {연령.map((r: any) => (
+          <tr><td>{r.직종}</td><td>{r['2015']}세</td><td><strong>{r['2023']}세</strong></td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 직종·지역·성별 숫자를 나란히 놓을 뿐,
+    {' '}어느 직종·어느 지역이 «좋다/나쁘다»를 이 지면이 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — {출처.이름}({출처.url}), {출처.보도일}
+  </p>
+
+  <p class="note">
+    <a href="/health-workforce-activity-rate">← 보건의료인력, 면허를 따고도 33.0%는 그 일을 하지 않습니다</a>
+    <br />
+    <a href="/ranking-medical-quota">← 의대 정원, 학교별로 얼마나 다를까요?</a>
+    <br />
+    <a href="/oecd-tertiary-employment-gap">← OECD 교육지표 2026 — 한국 청년 고등교육 이수율 1위</a>
+  </p>
+
+  <HundredAgeWalk 키="health-workforce-growth-2013-2023" />
+
+  <NextQuestionBrief 모은것="보건복지부 제2차 보건의료인력 실태조사(2026-09-29) 20개 직종 10년 시계열" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/health-workforce-growth-2013-2023"></div>
+</HundredYear>
