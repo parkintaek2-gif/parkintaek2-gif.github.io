@@ -1762,6 +1762,27 @@ try {
     } finally { try { fs.rmSync(임시, { force: true }); } catch { /* 넘어간다 */ } }
   }
   console.log(`\n■ 보냄 ${거둠} · 이미 보냄 ${건너} · 없거나 실패 ${없음}`);
+
+  /* 🔴🔴 [2026-10-01 · 사장님] 「**기사 빨리 줘...약속된 시간이 있으면 꼭 지켜**」
+   *   오늘 09시 회차는 09:09 에 돌았는데 내가 거둔 것은 10:01 이었다. 쉰두 분 동안
+   *   기사가 저쪽 대화창에 «쓰여 있는 채로» 놓여 있었고 사장님은 그동안 기다리셨다.
+   *   고장이 난 것이 아니라 **아무도 안 본 것**이다.
+   *   ⇒ 「거두러 갔다」는 사실을 남긴다. `check-jbnews-harvest-due.mjs` 가 이것을 보고
+   *     밀린 회차에 빨간불을 켠다.
+   *   ⛔ 「보낸 자국」으로 대신하지 않는다 — 기사가 «없어서» 못 보낸 날에도 거두러는 갔고,
+   *     그 날을 흠으로 잡으면 자가 날마다 울어 쓸모를 잃는다.
+   *   ⚠ 시험만 돌린 것은 안 적는다. 그것은 거두러 간 것이 아니다. */
+  if (!시험만) {
+    try {
+      const 이제 = new Date();
+      const 날짜 = 이제.toLocaleDateString('sv-SE');   /* ⛔ toISOString 금지 — 이 PC 가 KST 다 */
+      const 시각 = String(이제.getHours()).padStart(2, '0') + ':' + String(이제.getMinutes()).padStart(2, '0');
+      const 기록길 = path.join(뿌리, 'docs', '고정업무-마커', '중부매일-거둔기록.tsv');
+      if (!fs.existsSync(기록길)) fs.writeFileSync(기록길, '날짜\t시각\t보냄\t이미보냄\t없거나실패\n', 'utf8');
+      fs.appendFileSync(기록길, `${날짜}\t${시각}\t${거둠}\t${건너}\t${없음}\n`, 'utf8');
+    } catch (e) { console.log('  ⬜ 거둔 기록을 못 남겼다 — ' + String(e && e.message ? e.message : e).slice(0, 80)); }
+  }
+
   if (!시험만) console.log('■ 받는 곳 ' + 받는곳.join(' · ') + `  (바꾸려면 ${path.relative(뿌리, 받는곳파일)} 맨 윗줄)`);
 } finally { try { await page.close(); } catch {} b.disconnect(); }
 

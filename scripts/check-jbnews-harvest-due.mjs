@@ -1,0 +1,161 @@
+#!/usr/bin/env node
+/**
+ * check-jbnews-harvest-due.mjs — **회차가 돌았는데 «안 거둔» 자리를 잡는다.**
+ *
+ * ── 🔴 왜 (2026-10-01 · 사장님) ──────────────────────────────
+ * > 「**기사 빨리 줘...약속된 시간이 있으면 꼭 지켜**」
+ *
+ * 오늘 09시 회차는 **09:09 에 돌았다.** 그런데 내가 거둔 것은 **10:01** 이었다.
+ * 쉰두 분 동안 기사가 저쪽 대화창에 «쓰여 있는 채로» 놓여 있었고,
+ * 사장님은 그동안 기다리셨다. **고장이 난 것이 아니라 아무도 안 본 것**이다.
+ *
+ * ⭐ 「약속된 시간」은 기사를 «쓰는» 시간이 아니라 **사장님 손에 닿는** 시간이다.
+ *   회차가 돌아도 거두지 않으면 사장님께는 아무 일도 일어나지 않은 것과 같다.
+ *
+ * ── ⛔ 이 자가 지키는 것 ─────────────────────────────────────
+ * ⛔ 회차 표를 여기에 다시 적지 않는다 — `collect-jbnews-sports-articles.mjs` 에서 읽는다.
+ *   두 곳에 적으면 회차가 바뀐 날 한 곳만 고쳐지고, 이 자는 없는 회차를 찾아 운다.
+ * ⛔ 「기사가 안 나왔다」와 「거두러 가지 않았다」를 갈라서 낸다.
+ *   앞의 것은 저쪽 탓이고 **뒤의 것만 내 흠**이다. 이 자는 뒤의 것만 잡는다.
+ * ⚠ 그래서 「보낸 자국」이 아니라 **「거두러 간 기록」**을 본다.
+ *   기사가 없어서 못 보낸 날에도 거두러는 갔으면 통과다.
+ * ⚠ 1번(jbnews) 자리가 07~21시이므로 그 밖의 시각은 재지 않는다.
+ *
+ * 쓰는 법
+ *   node scripts/check-jbnews-harvest-due.mjs --자가시험
+ *   node scripts/check-jbnews-harvest-due.mjs
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+export const 기록길 = path.join(뿌리, 'docs', '고정업무-마커', '중부매일-거둔기록.tsv');
+
+/** 회차가 돈 뒤 몇 분 안에 거둬야 하나 — 그 안이면 아직 흠이 아니다 */
+export const 참는분 = 25;
+
+/**
+ * 회차 표를 «수집기 한 곳»에서만 읽는다.
+ * ⛔ 여기에 ['09','10',...] 을 손으로 적지 않는다.
+ */
+export function 회차시각들(글) {
+  const 덩이 = String(글 ?? '').match(/export const 온회차 = \[([\s\S]*?)\];/);
+  if (!덩이) return [];
+  const 나온것 = [];
+  for (const m of 덩이[1].matchAll(/\['(\d{2})'/g)) 나온것.push(m[1]);
+  return 나온것;
+}
+
+/** `2026-10-01\t10:01\t...` 꼴의 기록에서 그 날 거두러 간 시각(분)들을 뽑는다 */
+export function 그날거둔분들(기록글, 날) {
+  const 나온것 = [];
+  for (const 줄 of String(기록글 ?? '').split(/\r?\n/)) {
+    const 칸 = 줄.split('\t');
+    if (칸[0] !== 날) continue;
+    const 시분 = String(칸[1] ?? '').match(/^(\d{1,2}):(\d{2})$/);
+    if (시분) 나온것.push(Number(시분[1]) * 60 + Number(시분[2]));
+  }
+  return 나온것;
+}
+
+/**
+ * 지금 기준으로 «안 거둔» 회차를 가린다.
+ *
+ * @param 회차  ['09','10',...]
+ * @param 거둔분들  그날 거두러 간 시각들(분)
+ * @param 지금분  지금 시각(분)
+ * @returns 안 거둔 회차 시각 목록
+ */
+export function 안거둔회차(회차, 거둔분들, 지금분) {
+  const 밀린것 = [];
+  for (const 시 of 회차) {
+    const 회차분 = Number(시) * 60;
+    /* 아직 올 시간이 아니거나, 참는 시간 안이면 흠이 아니다 */
+    if (지금분 < 회차분 + 참는분) continue;
+    /* 그 회차 시각 «뒤»에 한 번이라도 거두러 갔으면 통과다 */
+    if (거둔분들.some((분) => 분 >= 회차분)) continue;
+    밀린것.push(시);
+  }
+  return 밀린것;
+}
+
+/* ───────────────────────── 자가시험 ───────────────────────── */
+if (process.argv.includes('--자가시험')) {
+  let 센다 = 0; let 깨짐 = 0;
+  const 검 = (무엇, 참인가, 덧 = '') => {
+    센다++;
+    if (참인가) console.log(`  ✅ ${무엇}${덧 ? '  — ' + 덧 : ''}`);
+    else { 깨짐++; console.log(`  🔴 ${무엇}${덧 ? '  — ' + 덧 : ''}`); }
+  };
+
+  console.log('■ check-jbnews-harvest-due 자가시험');
+
+  검('회차 표를 읽는다',
+    회차시각들("export const 온회차 = [\n  ['09', 'trig_a'], ['14', 'trig_b'],\n];").join(',') === '09,14');
+  검('⛔ 표가 없으면 빈 것을 낸다', 회차시각들('아무 글').length === 0);
+  검('⛔ 빈 것에 안 터진다', 회차시각들(null).length === 0 && 회차시각들('').length === 0);
+
+  /* 🔴 「뺀회차」까지 같이 읽으면 12·13 시를 안 거뒀다고 날마다 운다 */
+  const 둘다 = "export const 온회차 = [['09','a']];\n\nexport const 뺀회차 = [['12','b'],['13','c']];";
+  검('🔴 「뺀회차」는 안 읽는다', 회차시각들(둘다).join(',') === '09');
+
+  검('그날 거둔 시각만 뽑는다',
+    그날거둔분들('2026-10-01\t10:01\t보냄1\n2026-09-30\t09:10\t보냄0', '2026-10-01').join(',') === String(10 * 60 + 1));
+  검('⛔ 다른 날 줄에 안 속는다', 그날거둔분들('2026-09-30\t09:10\tx', '2026-10-01').length === 0);
+  검('⛔ 머리글 줄에 안 터진다', 그날거둔분들('날짜\t시각\t결과', '2026-10-01').length === 0);
+
+  /* ⭐ 오늘 실제로 일어난 일을 그대로 넣어 본다 */
+  검('🔴 09:09 에 돌았는데 10:00 까지 안 거뒀으면 잡는다',
+    안거둔회차(['09', '10'], [], 10 * 60).join(',') === '09',
+    '10시 회차는 아직 참는 시간 안이라 안 잡는다');
+  검('✅ 거두고 나면 풀린다',
+    안거둔회차(['09'], [10 * 60 + 1], 10 * 60 + 5).length === 0);
+  검('⛔ 회차 «전»에 거둔 것은 그 회차를 안 거둔 것이다',
+    안거둔회차(['14'], [13 * 60 + 50], 14 * 60 + 30).join(',') === '14',
+    '13:50 에 거둔 것으로 14시 회차를 덮지 않는다');
+  검('⛔ 참는 시간 안에는 안 잡는다', 안거둔회차(['09'], [], 9 * 60 + 20).length === 0);
+  검('⛔ 아직 올 시간이 아닌 회차는 안 잡는다', 안거둔회차(['16'], [], 10 * 60).length === 0);
+  검('한 번 거두면 지난 회차가 함께 풀린다',
+    안거둔회차(['09', '10', '11'], [11 * 60 + 30], 12 * 60).length === 0,
+    '거두기는 모든 회차를 한꺼번에 훑는다');
+
+  /* 🔴 진짜 표를 읽어 본다 — 수집기 꼴이 바뀌면 여기서 먼저 터진다 */
+  const 진짜 = 회차시각들(fs.readFileSync(path.join(뿌리, 'scripts', 'collect-jbnews-sports-articles.mjs'), 'utf8'));
+  검('🔴 진짜 회차 표가 비어 있지 않다', 진짜.length > 0, `${진짜.join(' ')}`);
+
+  console.log(`\n${깨짐 ? `🔴 ${깨짐}/${센다} 깨졌다` : `✅ ${센다} 다 섰다`}`);
+  process.exit(깨짐 ? 1 : 0);
+}
+
+/* ───────────────────────── 실제로 잰다 ───────────────────────── */
+const 이자 = fileURLToPath(import.meta.url);
+if (path.resolve(process.argv[1] ?? '') === path.resolve(이자)) {
+  const 이제 = new Date();
+  const 날 = 이제.toLocaleDateString('sv-SE');          /* ⛔ toISOString 금지 — KST 다 */
+  const 지금분 = 이제.getHours() * 60 + 이제.getMinutes();
+
+  const 회차 = 회차시각들(fs.readFileSync(path.join(뿌리, 'scripts', 'collect-jbnews-sports-articles.mjs'), 'utf8'));
+  if (!회차.length) {
+    console.log('⬜ 못 쟀다 — 수집기에서 회차 표를 못 읽었다');
+    process.exit(0);                                    /* ⛔ 못 잰 것으로 빨간불을 켜지 않는다 */
+  }
+
+  let 기록글 = '';
+  try { 기록글 = fs.readFileSync(기록길, 'utf8'); } catch { 기록글 = ''; }
+  const 거둔분들 = 그날거둔분들(기록글, 날);
+
+  const 밀린것 = 안거둔회차(회차, 거둔분들, 지금분);
+  const 꼴 = (분) => `${String(Math.floor(분 / 60)).padStart(2, '0')}:${String(분 % 60).padStart(2, '0')}`;
+
+  if (!밀린것.length) {
+    const 마지막 = 거둔분들.length ? 꼴(Math.max(...거둔분들)) : '아직 없다';
+    console.log(`✅ 밀린 회차 없다 — 오늘 거둔 횟수 ${거둔분들.length} · 마지막 ${마지막}`);
+    process.exit(0);
+  }
+
+  console.log(`🔴 안 거둔 회차 ${밀린것.length}개 — ${밀린것.map((시) => 시 + '시').join(' · ')}`);
+  console.log('   ⛔ 기사가 저쪽 대화창에 «쓰여 있는 채로» 놓여 있을 수 있다. 사장님은 그동안 기다리신다');
+  console.log('   ✅ 거두는 길  node scripts/collect-jbnews-sports-articles.mjs');
+  process.exit(1);
+}
