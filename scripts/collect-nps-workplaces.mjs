@@ -35,8 +35,49 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const 데이터셋 = '15083277';
-const 내려받기 =
-  'https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003681205&fileDetailSn=1&insertDataPrcus=N';
+
+/* 🔴🔴 [2026-10-01 · 5번] **파일 번호를 박아 두어 넉 달치를 못 받고 있었다.**
+ *
+ * 아카이빙 점검이 「국민연금 사업장 자료가 2026-06 에서 멈춤」이라고 빨간불을 켜 왔다.
+ * 수집기를 돌려 보면 「이미 있다」만 내고 끝났다 — 받아 둔 파일이 2026-06 이기 때문이다.
+ * 그래서 파일을 지우고 다시 받아도 **또 2026-06 이 온다.** 주소에 번호가 박혀 있어서다.
+ *
+ *   우리 주소   atchFileId=FILE_000000003681205   (2026-06 치)
+ *   포털 현재   atchFileId=FILE_000000007692952   (2026-09-23 기준)
+ *
+ * ⛔ 포털은 새 달이 나올 때마다 이 번호를 바꾼다. 박아 두면 영영 그 달에 멈춘다.
+ *   ⚠ 이 자료는 **소급이 안 된다** — 포털이 최신 한 벌만 주므로, 멈춰 있는 동안의
+ *     달치는 영영 못 받는다. 번호 하나 때문에 넉 달을 잃었다.
+ * ⇒ 받기 «직전»에 자료 지면을 열어 지금 번호를 읽어 온다. 못 읽으면 박아 둔 것으로 간다.
+ */
+export const 묵은파일번호 = 'FILE_000000003681205';
+export const 자료지면 = `https://www.data.go.kr/data/${데이터셋}/fileData.do`;
+
+/** 자료 지면에서 지금 쓰는 파일 번호를 찾는다. 못 찾으면 null */
+export function 파일번호찾기(html) {
+  const 나온것 = [...String(html ?? '').matchAll(/FILE_\d{6,}/g)].map((m) => m[0]);
+  if (!나온것.length) return null;
+  /* 여러 개가 나오면 가장 많이 나온 것을 쓴다 — 본 파일이 내려받기 단추에 여러 번 적힌다 */
+  const 셈 = new Map();
+  for (const f of 나온것) 셈.set(f, (셈.get(f) || 0) + 1);
+  return [...셈.entries()].sort((a, b) => b[1] - a[1])[0][0];
+}
+
+export const 내려받기주소 = (파일번호) =>
+  `https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=${파일번호}&fileDetailSn=1&insertDataPrcus=N`;
+
+async function 지금내려받기주소() {
+  try {
+    const r = await fetch(자료지면, { headers: { 'User-Agent': UA } });
+    const 찾은것 = 파일번호찾기(await r.text());
+    if (!찾은것) throw new Error('지면에서 파일 번호를 못 찾았다');
+    if (찾은것 !== 묵은파일번호) console.log(`  ⭐ 포털의 지금 파일 번호 — ${찾은것}`);
+    return 내려받기주소(찾은것);
+  } catch (e) {
+    console.log(`  ⚠ 지금 번호를 못 읽었다(${e.message}) — 박아 둔 번호로 간다`);
+    return 내려받기주소(묵은파일번호);
+  }
+}
 const DIR = path.resolve('archive/raw/nps');
 /**
  * ⚠⚠ **달마다 따로 남긴다.** `latest` 하나만 두면 다음 달에 **이번 달치가 사라진다.**
@@ -66,6 +107,7 @@ async function 받기() {
     return;
   }
   console.log(`국민연금 가입 사업장 내역 (데이터셋 ${데이터셋}) 받는다…`);
+  const 내려받기 = await 지금내려받기주소();
   const r = await fetch(내려받기, {
     headers: { 'User-Agent': UA, Referer: `https://www.data.go.kr/data/${데이터셋}/fileData.do` },
     redirect: 'follow',
