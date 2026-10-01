@@ -1179,8 +1179,24 @@ if (내가실행됐다) {
     거두기 = { 됐나: false, 말: '밀렸다' };
   }
 
-  const 흠 = [지시, 소통, 몫, 보고, 라이브, 진행, 좌석, 좌석예약, 지원답장, 케맵, 들어오기, 안보냄, 사이트맵정직, 거두기].filter((x) => x === null || x.됐나 === false).length;
-  console.log(`\n${흠 ? `⛔ 손댈 것 ${흠}개 — 위에서 🔴·⬜ 를 먼저 한다.` : '✅ 열세 자리 다 섰다.'}`);
+  /* ⑭ 2번이 깨어 있나 — 🔴 [2026-10-02 · 사장님]
+     「2번 상황(You've hit your weekly limit · resets 12am (Asia/Seoul) 이때 깨워서 일 시라켜」
+     ⛔ 「자정에 깨워야지」를 내 기억에 맡기면 창이 바뀔 때 사라진다. 자물쇠가 잡게 한다. */
+  let 둘번;
+  try {
+    const 낸것 = execFileSync('node', ['scripts/check-2번-깨어있나.mjs'], { cwd: 뿌리, encoding: 'utf8' });
+    console.log(`✅ ⑭ 2번          ${(낸것.match(/[✅⬜] [^\n]*/) || ['깨어 있다'])[0].trim().slice(0, 80)}`);
+    둘번 = { 됐나: true, 말: '' };
+  } catch (e) {
+    const 낸것 = (e.stdout || '') + (e.stderr || '');
+    console.log(`🔴 ⑭ 2번          ${(낸것.match(/🔴 [^\n]*/) || ['멈춰 있다'])[0].trim().slice(0, 80)}`);
+    console.log('     ✅ 깨운다 — ListAgents 로 창을 찾고, 없으면 세션간 메모에 남긴다');
+    console.log('     ✅ 소급이 안 되는 2번 몫은 내가 대신 돌린다 (check-archive-freshness)');
+    둘번 = { 됐나: false, 말: '멈췄다' };
+  }
+
+  const 흠 = [지시, 소통, 몫, 보고, 라이브, 진행, 좌석, 좌석예약, 지원답장, 케맵, 들어오기, 안보냄, 사이트맵정직, 거두기, 둘번].filter((x) => x === null || x.됐나 === false).length;
+  console.log(`\n${흠 ? `⛔ 손댈 것 ${흠}개 — 위에서 🔴·⬜ 를 먼저 한다.` : '✅ 열네 자리 다 섰다.'}`);
   console.log('⚠ ③이 뒤처졌는데 다른 일을 하고 있으면 그것이 잘못이다.');
   process.exit(흠 ? 1 : 0);
 }
