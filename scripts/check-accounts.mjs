@@ -56,6 +56,26 @@ async function 자가시험() {
   const 만료토큰 = Buffer.from(`${옛토큰_payload}.${sig}`).toString('base64url');
   확인('⑫ 만료된 토큰은 거부된다', Accounts.세션확인(만료토큰) === null);
 
+  /* 🔴🔴 [2026-10-01 · 사장님] 「보안 철저하게 해. 우리 서비스들」
+     로그인에 «아무 제한도 없었다» — 비밀번호를 몇 번이든 틀려도 됐다.
+     신한은행을 턴 수법(입력값 무작위 대입)이 그대로 통하는 자리였다. */
+  const 두드릴주소 = 'knock@example.com';
+  Accounts.실패지우기(두드릴주소);
+  확인('⑬ 처음에는 안 잠겨 있다', Accounts.잠겼나(두드릴주소) === false);
+  for (let i = 0; i < Accounts.로그인_틀릴수있는횟수 - 1; i += 1) Accounts.실패적기(두드릴주소);
+  확인('⑭ 한도 직전까지는 열려 있다 — 사람이 오타를 내도 막히지 않는다',
+    Accounts.잠겼나(두드릴주소) === false);
+  Accounts.실패적기(두드릴주소);
+  확인('⑮ 🔴 한도를 넘기면 잠긴다', Accounts.잠겼나(두드릴주소) === true);
+  확인('⑯ ⛔ 대소문자·공백을 바꿔도 피해 가지 못한다',
+    Accounts.잠겼나(' KNOCK@Example.COM ') === true);
+  확인('⑰ 잠그는 시간이 지나면 풀린다 — 손님을 영영 가두지 않는다',
+    Accounts.잠겼나(두드릴주소, Date.now() + (Accounts.로그인_잠그는분 + 1) * 60 * 1000) === false);
+  Accounts.실패지우기(두드릴주소);
+  확인('⑱ 들어오는 데 성공하면 바로 풀린다', Accounts.잠겼나(두드릴주소) === false);
+  확인('⑲ 한도가 사람이 쓰기에 너무 좁지 않다',
+    Accounts.로그인_틀릴수있는횟수 >= 3 && Accounts.로그인_틀릴수있는횟수 <= 10);
+
   await rm(process.env.ARCHIVE_DIR, { recursive: true, force: true });
 
   console.log(`\n${실패 === 0 ? '✅' : '🔴'} 자가시험 ${통과 + 실패}개 중 통과 ${통과}개`);

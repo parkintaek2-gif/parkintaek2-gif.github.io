@@ -607,12 +607,24 @@ const handle = async (req, res) => {
         if (pathname === '/api/account/signup') {
           await 계정.계정만들기(email, password);
         } else {
-          const 계정정보 = await 계정.로그인(email, password);
-          if (!계정정보) {
+          /* 🔴🔴 [2026-10-01 · 사장님] 「보안 철저하게 해. 우리 서비스들」
+             여기에는 «아무 제한도 없었다» — 비밀번호를 몇 번이든 틀려도 됐다.
+             신한은행을 턴 수법이 그것이다(입력값을 무작위로 대입).
+             ⚠ 잠겼을 때도 틀렸을 때와 «같은 말»을 낸다 — 다른 말을 내면
+               그 주소에 계정이 있다는 것을 알려 주는 셈이 된다. */
+          if (계정.잠겼나(email)) {
             res.writeHead(401, 헤더);
             res.end(JSON.stringify({ ok: false, error: 'invalid email or password' }));
             return;
           }
+          const 계정정보 = await 계정.로그인(email, password);
+          if (!계정정보) {
+            계정.실패적기(email);
+            res.writeHead(401, 헤더);
+            res.end(JSON.stringify({ ok: false, error: 'invalid email or password' }));
+            return;
+          }
+          계정.실패지우기(email);
         }
         const 토큰 = 계정.세션발급(email);
         res.writeHead(200, 헤더);
