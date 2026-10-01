@@ -187,8 +187,15 @@ const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>
   .no { position:absolute; right:0; top:2mm; font-size:9pt; color:#5c6167; font-weight:700; }
   /* 🔴 [2026-09-08] 넘치는 절의 «몸»을 통째로 줄인다. 규칙을 하나하나 고치지 않아도
      표·코드·글이 같은 비율로 줄어든다. 값은 아래 자바스크립트가 «재서» 정한다. */
-  .몸 { transform: scale(var(--줄임)); transform-origin: top left;
-        width: calc(100% / var(--줄임)); }
+  /* 🔴🔴 [2026-10-01] **transform: scale() 은 자리(레이아웃)를 안 줄인다.**
+     그림만 작아지고 scrollHeight 는 그대로다. 그래서 아래 줄이는 고리가
+     «아무리 줄여도 들어갔다고 판정하지 못하고» 바닥(0.60)까지 내려간 뒤
+     「1.25배 넘침」이라고 알렸다. 글을 아무리 쳐내도 그 수가 안 움직였다.
+     ⇒ 그 사이에 쪽 아래쪽이 잘려 **「내일 아침까지」 절이 통째로 사라졌다.**
+       보고가 조용히 깎여 나가고 있었다 — 눈으로 PDF 를 떠서 잡았다.
+     ⛔ 자가 틀리면 글을 줄여도 안 고쳐진다. 글이 아니라 자를 고친다.
+     ✅ zoom 은 자리까지 줄인다 — scrollHeight 가 같이 줄어 고리가 제대로 멈춘다. */
+  .몸 { zoom: var(--줄임); }
   .sec { margin-bottom:6mm; }
   h3 { font-size:12pt; font-weight:700; color:#e9e6df; margin-bottom:2mm; }
   p { font-size:10.5pt; line-height:1.75; color:#9aa0a6; }
