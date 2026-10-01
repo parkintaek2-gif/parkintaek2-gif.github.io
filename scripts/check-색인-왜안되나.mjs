@@ -148,11 +148,53 @@ export function 자가시험() {
   return 결과;
 }
 
+/**
+ * 🔴🔴 [2026-10-01 · 5번] **이 자는 열한 장만 재고 있었다.**
+ *
+ * 사장님 지시로 케이라이프맵 색인을 파다가 잡았다 —
+ * 사이트맵에는 주소가 **2,892개**이고 그중 **2,847개가 `/content/` 글**인데,
+ * 위 `볼것` 에는 도구 지면 열한 장만 적혀 있었다.
+ * ⇒ 검색 자산의 **98%를 한 번도 안 물어보고** 「색인 1장뿐」이라고 보고해 온 것이다.
+ * ⛔ 「자를 먼저 의심한다」가 바로 이 자리다 — 수가 이상하면 자부터 본다.
+ *
+ * `--글표본 N` 을 주면 사이트맵에서 글 주소를 고르게 N개 뽑아 함께 묻는다.
+ * ⚠ URL 검사 API 는 하루 한도가 있다. 전부 묻지 않고 «표본»으로 재는 까닭이다.
+ */
+export async function 글표본뽑기(사이트맵주소, 몇개) {
+  const r = await fetch(사이트맵주소, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1)' },
+  });
+  const xml = await r.text();
+  const 글 = [...xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)]
+    .map((m) => m[1]).filter((u) => /\/content\/[^/]+$/.test(u));
+  if (글.length <= 몇개) return 글;
+  const 걸음 = 글.length / 몇개;
+  return Array.from({ length: 몇개 }, (_, i) => 글[Math.floor(i * 걸음)]);
+}
+
 /* ─────────────────────────────── 본 일 ─────────────────────────────── */
 async function 잰다() {
   const 고른것 = process.argv.includes('--사이트')
     ? { [process.argv[process.argv.indexOf('--사이트') + 1]]: 볼것[process.argv[process.argv.indexOf('--사이트') + 1]] }
     : 볼것;
+
+  /* 글 표본을 섞어 넣는다 — 도구 지면만 재던 눈을 넓힌다 */
+  const 글표본자리 = process.argv.indexOf('--글표본');
+  if (글표본자리 > 0) {
+    const 몇개 = Number(process.argv[글표본자리 + 1]) || 10;
+    for (const [이름, 것] of Object.entries(고른것)) {
+      if (!것?.siteUrl || !것.주소?.length) continue;
+      const 뿌리주소 = new URL(것.주소[0]).origin;
+      try {
+        const 글들 = await 글표본뽑기(`${뿌리주소}/sitemap.xml`, 몇개);
+        if (글들.length) {
+          것.주소 = [...것.주소, ...글들];
+          console.log(`   ⭐ ${이름} — 사이트맵에서 «글» ${글들.length}개를 표본으로 더했다`);
+        }
+      } catch (e) { console.log(`   ⬜ ${이름} — 글 표본을 못 뽑았다: ${e.message}`); }
+    }
+  }
+
   const 토큰 = await 토큰만들기();
   const 낼것 = { 잰때: new Date().toLocaleString('ko-KR'), 사이트: {} };
   const 갈래셈 = {};
