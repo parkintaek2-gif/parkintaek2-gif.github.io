@@ -52,6 +52,9 @@ export const 볼것 = {
       'https://klifemap.ai/tarot.html',
       'https://klifemap.ai/horoscope.html',
       'https://klifemap.ai/contents.html',
+      'https://klifemap.ai/mansecalendar.html',
+      'https://klifemap.ai/ilzin.html',
+      'https://klifemap.ai/daily.html',
     ],
   },
   seoulmarkets: {
