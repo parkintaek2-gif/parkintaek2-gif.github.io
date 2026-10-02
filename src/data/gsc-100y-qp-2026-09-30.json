@@ -1,0 +1,397 @@
+{
+  "site": "sc-domain:100yearmap.com",
+  "dimension": "query+page",
+  "window": {
+    "from": "2026-09-02",
+    "to": "2026-09-30",
+    "days": 28
+  },
+  "rowLimit": 25000,
+  "rows": [
+    {
+      "key": "결혼 나이 평균",
+      "page": "https://100yearmap.com/marriage-age",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 83
+    },
+    {
+      "key": "결혼 평균 나이",
+      "page": "https://100yearmap.com/marriage-age",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 100
+    },
+    {
+      "key": "경기스마트고등학교",
+      "page": "https://100yearmap.com/school/7531380",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "경기체육고등학교",
+      "page": "https://100yearmap.com/school/7530046",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "경기항공고",
+      "page": "https://100yearmap.com/school/7531382",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 20
+    },
+    {
+      "key": "경동대학교 제4캠퍼스",
+      "page": "https://100yearmap.com/university/0002744",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "경북 마이스터고",
+      "page": "https://100yearmap.com/school/8750829",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "고창 고등학교",
+      "page": "https://100yearmap.com/school/8321197",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 53
+    },
+    {
+      "key": "공군항공과학 고등학교",
+      "page": "https://100yearmap.com/school/9010388",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 24
+    },
+    {
+      "key": "공군항공과학고등학교",
+      "page": "https://100yearmap.com/school/9010388",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 25
+    },
+    {
+      "key": "공주고",
+      "page": "https://100yearmap.com/school/8140036",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "광주공업고등학교",
+      "page": "https://100yearmap.com/school/7140373",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 77
+    },
+    {
+      "key": "국제 비즈니스 고등학교",
+      "page": "https://100yearmap.com/school/7531119",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "국제비즈니스고등학교",
+      "page": "https://100yearmap.com/school/7531119",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "국제통상마이스터고",
+      "page": "https://100yearmap.com/school/8750757",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 63
+    },
+    {
+      "key": "나이별 생존율",
+      "page": "https://100yearmap.com/years-left",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "남양주 고등학교 순위",
+      "page": "https://100yearmap.com/report/area/%EA%B2%BD%EA%B8%B0%EB%8F%84-%EB%82%A8%EC%96%91%EC%A3%BC%EC%8B%9C",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 38
+    },
+    {
+      "key": "대구 외국어 대학교",
+      "page": "https://100yearmap.com/university/0000225",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 60
+    },
+    {
+      "key": "대구국제고 경쟁률",
+      "page": "https://100yearmap.com/school/7240450",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 52
+    },
+    {
+      "key": "대학 학과",
+      "page": "https://100yearmap.com/college-major",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 55
+    },
+    {
+      "key": "대학과 종류",
+      "page": "https://100yearmap.com/college-major",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 44.5
+    },
+    {
+      "key": "대학교 과 종류",
+      "page": "https://100yearmap.com/college-major",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 45
+    },
+    {
+      "key": "대학교 학부",
+      "page": "https://100yearmap.com/college-major",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "도봉구 고등학교",
+      "page": "https://100yearmap.com/report/area/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C-%EB%8F%84%EB%B4%89%EA%B5%AC",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "명지대 제2캠퍼스",
+      "page": "https://100yearmap.com/university/0000111",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 27
+    },
+    {
+      "key": "미림마이스터고 경쟁률",
+      "page": "https://100yearmap.com/school/7011569",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "바이오 마이스터 고등학교",
+      "page": "https://100yearmap.com/school/8000287",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 76
+    },
+    {
+      "key": "부산 남고",
+      "page": "https://100yearmap.com/school/7150102",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 72
+    },
+    {
+      "key": "부산 대동고",
+      "page": "https://100yearmap.com/school/7150127",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "부산 용인고",
+      "page": "https://100yearmap.com/school/7150154",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 57
+    },
+    {
+      "key": "부산남고",
+      "page": "https://100yearmap.com/school/7150102",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "부산항공고등학교",
+      "page": "https://100yearmap.com/school/7150737",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 55
+    },
+    {
+      "key": "부천 고등학교 순위",
+      "page": "https://100yearmap.com/school/7530071",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 44
+    },
+    {
+      "key": "부천고등학교 순위",
+      "page": "https://100yearmap.com/school/7530071",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 44
+    },
+    {
+      "key": "뷰티예술고",
+      "page": "https://100yearmap.com/school/7310453",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 53
+    },
+    {
+      "key": "서해대",
+      "page": "https://100yearmap.com/university/0000431",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 77
+    },
+    {
+      "key": "서해대학교",
+      "page": "https://100yearmap.com/university/0000431",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 71
+    },
+    {
+      "key": "연무마이스터고",
+      "page": "https://100yearmap.com/school/8140482",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "용인고",
+      "page": "https://100yearmap.com/school/7150154",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "은평메디텍 고등학교",
+      "page": "https://100yearmap.com/school/7010962",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "은평메디텍고등학교",
+      "page": "https://100yearmap.com/school/7010962",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "이우 고등학교",
+      "page": "https://100yearmap.com/school/7530587",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "익산고",
+      "page": "https://100yearmap.com/school/8321132",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 75
+    },
+    {
+      "key": "인천뷰티예술고등학교",
+      "page": "https://100yearmap.com/school/7310453",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 40
+    },
+    {
+      "key": "정주고등학교",
+      "page": "https://100yearmap.com/school/8321145",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 48
+    },
+    {
+      "key": "진해 고등학교",
+      "page": "https://100yearmap.com/report/area/%EA%B2%BD%EC%83%81%EB%82%A8%EB%8F%84-%EC%B0%BD%EC%9B%90%EC%8B%9C-%EC%A7%84%ED%95%B4%EA%B5%AC",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 80
+    },
+    {
+      "key": "초혼연령",
+      "page": "https://100yearmap.com/marriage-age",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 97
+    },
+    {
+      "key": "충남체육고등학교",
+      "page": "https://100yearmap.com/school/8140073",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "하동여고",
+      "page": "https://100yearmap.com/school/9010120",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "하동여자고등학교",
+      "page": "https://100yearmap.com/school/9010120",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 76
+    },
+    {
+      "key": "학부 학과",
+      "page": "https://100yearmap.com/college-major",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 51
+    },
+    {
+      "key": "한국국제통상마이스터고",
+      "page": "https://100yearmap.com/school/8750757",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "한국나노마이스터고",
+      "page": "https://100yearmap.com/school/9010655",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "한국나노마이스터고등학교",
+      "page": "https://100yearmap.com/school/9010655",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "한신대 평판",
+      "page": "https://100yearmap.com/university/0000202",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 66.5
+    }
+  ]
+}
