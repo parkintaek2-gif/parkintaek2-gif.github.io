@@ -1,0 +1,254 @@
+---
+/*
+ * `/data/fixed-variable-rate-share` — Korea's banks: fixed vs floating-rate loan share.
+ * (seoulmarkets.com/data/fixed-variable-rate-share)
+ *
+ * ── Why this page (2026-10-03 · 2번) ──────────────────────────────────
+ *   docs/새데이터-KOSIS-후보.md flagged this pair of Bank of Korea tables for the
+ *   `rates` category, which otherwise carries only one article. Two tables, same
+ *   survey, two different rulers — outstanding balance (what banks are sitting on)
+ *   vs newly extended loans (what is being written this month). Put side by side,
+ *   the gap between them is the story: new mortgage lending skews far more
+ *   floating-rate than the back book does.
+ *
+ * ⛔ No forecast, no "rates are going up/down because of this" framing — this is a
+ *   snapshot of a composition, not a signal.
+ * ⛔ English only, no investment advice.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/fixed-variable-rate-share.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const t = tape as any;
+const 기준월 = t.series.잔액기준.기준월 as string; // "202608"
+const 기준월표시 = `${기준월.slice(0, 4)}-${기준월.slice(4, 6)}`;
+
+type Row = { 항목: string; 값: number };
+const strip = (s: string) => s.replace(/\s*\d\)\s*/g, '').trim();
+
+const findRow = (rows: Row[], needle: string) =>
+  rows.find((r) => strip(r.항목) === needle)?.값 ?? null;
+
+const 잔액 = t.series.잔액기준.rows as Row[];
+const 신규 = t.series.신규취급액기준.rows as Row[];
+
+const borrowers = ['기업', '가계', '주택담보대출'] as const;
+const labelEn: Record<(typeof borrowers)[number], string> = {
+  기업: 'Corporate loans',
+  가계: 'Household loans',
+  주택담보대출: 'Mortgage loans',
+};
+
+const table = borrowers.map((b) => ({
+  group: labelEn[b],
+  outstandingFixed: findRow(잔액, `${b}-고정금리대출`),
+  outstandingFloating: findRow(잔액, `${b}-변동금리대출`),
+  newFixed: findRow(신규, `${b}-고정금리대출`),
+  newFloating: findRow(신규, `${b}-변동금리대출`),
+}));
+
+const mortgage = table.find((r) => r.group === 'Mortgage loans')!;
+const gap = mortgage.outstandingFixed! - mortgage.newFixed!;
+
+const pct = (n: number | null) => (n === null ? '—' : `${n.toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`);
+
+const TITLE = `Fixed vs floating-rate loans at Korean banks — the back book and new lending disagree`;
+const DESC = `As of ${기준월표시}, ${pct(mortgage.outstandingFixed)} of outstanding mortgage balances at Korean `
+  + `deposit banks carry a fixed rate, but only ${pct(mortgage.newFixed)} of mortgages newly extended that `
+  + `month were fixed-rate — a ${gap.toFixed(1)} point gap between the stock and the flow. Bank of Korea data, `
+  + `corporate, household and mortgage loans compared on both measures.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea bank loans — fixed vs floating-rate share',
+  description: DESC,
+  url: `${SITE_URL}/data/fixed-variable-rate-share`,
+  keywords: ['Korea mortgage rates', 'fixed rate mortgage Korea', 'floating rate loans Korea',
+    'Bank of Korea', 'KOSIS', 'household debt Korea', 'interest rate composition'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: 'https://kosis.kr',
+  isAccessibleForFree: true,
+  temporalCoverage: 기준월표시,
+  variableMeasured: ['Fixed-rate loan share', 'Floating-rate loan share', 'market-rate-linked share',
+    'deposit-rate-linked share'],
+};
+
+const faq: Array<[string, string]> = [
+  ['Why do the outstanding-balance and newly-extended figures differ so much for mortgages?',
+    `The outstanding-balance figure (${pct(mortgage.outstandingFixed)} fixed) reflects every mortgage on bank `
+    + `books today, including loans written years ago. The newly-extended figure (${pct(mortgage.newFixed)} fixed) `
+    + `reflects only loans originated in ${기준월표시}. A lower fixed share among new loans means the mix of `
+    + `new lending is shifting, but this data does not say why — no rate-direction or policy causation is claimed here.`],
+  ['Is "fixed-rate" the only alternative to floating-rate?',
+    'No. The Bank of Korea splits floating-rate exposure further into market-rate-linked (tied to CD or bank '
+    + 'bond yields) and deposit-rate-linked (COFIX-style, tied to banks’ own funding cost), plus a small '
+    + '"other-linked" residual. The table below carries all of these, not just the fixed/floating headline.'],
+  ['Does this cover all lenders, or just banks?',
+    'Deposit banks only ("예금은행" — domestic commercial and specialised banks reporting to the Bank of Korea). '
+    + 'Savings banks, insurers and other non-bank lenders are not in this series.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>Fixed vs floating-rate loans at Korean banks</h1>
+    <p class="lead">
+      As of <b>{기준월표시}</b>, Korean deposit banks' <b>mortgage</b> book runs {pct(mortgage.outstandingFixed)}{' '}
+      fixed-rate on an outstanding-balance basis — but only {pct(mortgage.newFixed)} of mortgages newly
+      extended that month were fixed-rate. The back book and the new flow disagree.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false}
+      아직="Composition snapshot only today. Historical trend and a cross-country comparison are not built yet." />
+
+    <section class="stats">
+      <div class="stat"><b>{pct(mortgage.outstandingFixed)}</b><span>mortgages, fixed, outstanding basis</span></div>
+      <div class="stat"><b>{pct(mortgage.newFixed)}</b><span>mortgages, fixed, new loans this month</span></div>
+      <div class="stat"><b>{gap.toFixed(1)}pp</b><span>gap between the two measures</span></div>
+      <div class="stat"><b>{기준월표시}</b><span>reference month</span></div>
+    </section>
+
+    <section>
+      <h2>Read this before the table: two different rulers</h2>
+      <p class="warn">
+        <b>Outstanding basis</b> (잔액 기준) weighs every loan a bank is currently carrying, including ones
+        written years ago. <b>Newly-extended basis</b> (신규취급액 기준) only counts loans originated in the
+        reference month. Neither is "more correct" — they answer different questions. This page does not
+        claim the gap means rates are about to move in either direction.
+      </p>
+    </section>
+
+    <section>
+      <h2>Fixed-rate share, by borrower type — both measures</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Borrower type</th><th class="n">Outstanding, fixed</th><th class="n">Outstanding, floating</th>
+              <th class="n">New loans, fixed</th><th class="n">New loans, floating</th></tr>
+          </thead>
+          <tbody>
+            {table.map((r) => (
+              <tr>
+                <td>{r.group}</td>
+                <td class="n">{pct(r.outstandingFixed)}</td>
+                <td class="n">{pct(r.outstandingFloating)}</td>
+                <td class="n">{pct(r.newFixed)}</td>
+                <td class="n">{pct(r.newFloating)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Each row's "fixed" and "floating" figures do not always sum to 100% — a small "other-linked" residual
+        is dropped from this summary table (see the full breakdown below).
+      </p>
+    </section>
+
+    <section>
+      <h2>Floating-rate loans, split by what they are linked to</h2>
+      <p>
+        "Floating-rate" is not one thing. The Bank of Korea splits it into <b>market-rate-linked</b> (tied to
+        CD rates or bank bonds) and <b>deposit-rate-linked</b> (COFIX-style, tied to banks' own cost of funds).
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Borrower type</th><th>Basis</th><th class="n">Market-rate-linked</th>
+              <th class="n">Deposit-rate-linked</th><th class="n">Other-linked</th></tr>
+          </thead>
+          <tbody>
+            {borrowers.map((b) => (<>
+              <tr>
+                <td>{labelEn[b]}</td><td>Outstanding</td>
+                <td class="n">{pct(findRow(잔액, `${b}-시장금리연동`))}</td>
+                <td class="n">{pct(findRow(잔액, `${b}-수신금리연동`))}</td>
+                <td class="n">{pct(findRow(잔액, `${b}-기타금리연동 등`))}</td>
+              </tr>
+              <tr>
+                <td>{labelEn[b]}</td><td>New loans</td>
+                <td class="n">{pct(findRow(신규, `${b}-시장금리연동`))}</td>
+                <td class="n">{pct(findRow(신규, `${b}-수신금리연동`))}</td>
+                <td class="n">{pct(findRow(신규, `${b}-기타금리연동 등`))}</td>
+              </tr>
+            </>))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>What this page does not say</h2>
+      <ul>
+        <li>No forward-looking signal — this is a composition snapshot for {기준월표시}, not a forecast.</li>
+        <li>No cross-country comparison yet — Korea only.</li>
+        <li>No history yet — only the latest reference month is shown; a time series is a possible follow-up.</li>
+        <li>Covers deposit banks only, not savings banks, insurers or other non-bank lenders.</li>
+      </ul>
+      <p class="note">
+        <b>This is not investment or borrowing advice.</b> It describes how banks' existing books and new
+        lending are split between fixed and floating rates — it does not say which is better for any
+        individual borrower.
+      </p>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        Bank of Korea, 통화금융통계 (Monetary and Financial Statistics), via KOSIS — outstanding basis{' '}
+        (<a href="https://kosis.kr/statHtml/statHtml.do?orgId=301&tblId=DT_121Y011">DT_121Y011</a>) and
+        newly-extended basis (<a href="https://kosis.kr/statHtml/statHtml.do?orgId=301&tblId=DT_121Y010">DT_121Y010</a>).
+        Reference month {기준월표시}.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        <a href="/data/largest-companies">The largest companies in Korea</a>,{' '}
+        <a href="/data/kospi-weights">KOSPI index weights</a>. <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+  <BuyBar 자리="bottom" 살수있나={false}
+    아직="Composition snapshot only today. Historical trend and a cross-country comparison are not built yet." />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n { text-align: right; white-space: nowrap; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+  }
+</style>
