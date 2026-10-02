@@ -1,0 +1,202 @@
+---
+/*
+ * `/data/ppi-import-price-gap` — Producer prices vs import prices, same ruler since 2020.
+ * (seoulmarkets.com/data/ppi-import-price-gap)
+ *
+ * ── Why this page (2026-10-03 · 2번) ──────────────────────────────────
+ *   docs/새데이터-KOSIS-후보.md flagged this pair for `commodities` (one article only).
+ *   Both the producer price index and the won-basis import price index are rebased to
+ *   2020=100 by the Bank of Korea, so they sit on the same ruler without any conversion
+ *   on our part. Laid year-end to year-end, import prices have climbed roughly twice as
+ *   fast as producer prices since the end of 2020.
+ *
+ * ⛔ No causation claim (FX pass-through, energy costs, tariffs — none of that is asserted
+ *   here). Two indices, same base year, shown side by side.
+ * ⛔ English only, no investment advice.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/ppi-import-price-index.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const t = tape as any;
+type Pt = { 월: string; 값: number };
+const ppi = t.생산자물가지수 as Pt[];
+const imp = t.수입물가지수_원화기준 as Pt[];
+
+const fmtMonth = (m: string) => `${m.slice(0, 4)}-${m.slice(4, 6)}`;
+const num1 = (n: number) => n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
+
+const yearEnds = ['201912', '202012', '202112', '202212', '202312', '202412', '202512'];
+const findAt = (series: Pt[], month: string) => series.find((r) => r.월 === month)?.값 ?? null;
+
+const rows = yearEnds.map((m) => ({
+  label: m === '201912' ? 'Dec 2019 (pre-base)' : `Dec ${m.slice(0, 4)}`,
+  ppi: findAt(ppi, m),
+  imp: findAt(imp, m),
+}));
+
+const latest = { 월: ppi.at(-1)!.월, ppi: ppi.at(-1)!.값, imp: imp.at(-1)!.값 };
+rows.push({ label: `Latest (${fmtMonth(latest.월)})`, ppi: latest.ppi, imp: latest.imp });
+
+const base = { ppi: findAt(ppi, '202012')!, imp: findAt(imp, '202012')! };
+const ppiChange = (latest.ppi / base.ppi - 1) * 100;
+const impChange = (latest.imp / base.imp - 1) * 100;
+
+const TITLE = `Producer prices are up ${num1(ppiChange)}% since 2020 — import prices are up ${num1(impChange)}%`;
+const DESC = `Korea's producer price index and won-basis import price index are both rebased to 2020=100 by `
+  + `the Bank of Korea, so they compare directly without conversion. From December 2020 to `
+  + `${fmtMonth(latest.월)}, producer prices rose ${num1(ppiChange)}% while import prices (won basis) rose `
+  + `${num1(impChange)}% — no cause is claimed, just the same ruler applied to both.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea producer price index vs import price index (won basis), 2020=100',
+  description: DESC,
+  url: `${SITE_URL}/data/ppi-import-price-gap`,
+  keywords: ['Korea producer price index', 'Korea import price index', 'Bank of Korea', 'KOSIS',
+    'inflation Korea', 'PPI Korea', 'won basis import prices'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: 'https://kosis.kr',
+  isAccessibleForFree: true,
+  temporalCoverage: `2019-09/${fmtMonth(latest.월)}`,
+  variableMeasured: ['Producer price index (2020=100)', 'Import price index, won basis (2020=100)'],
+};
+
+const faq: Array<[string, string]> = [
+  ['Why compare these two indices specifically?',
+    'The Bank of Korea publishes both on the same 2020=100 base year, so no rebasing or currency '
+    + 'conversion is needed to put them side by side — unlike most cross-series comparisons.'],
+  ['Does a bigger import-price rise mean the won has weakened?',
+    'This page does not say. The won-basis import price index mixes exchange-rate movement, global '
+    + 'commodity prices and contract terms together, and this data alone cannot separate those effects.'],
+  ['Is this the same as consumer inflation (CPI)?',
+    'No. Producer and import prices sit earlier in the supply chain, before retail mark-ups, taxes and '
+    + 'margins. Neither index here is CPI.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>Producer prices vs import prices — the same ruler since 2020</h1>
+    <p class="lead">
+      From December 2020 to {fmtMonth(latest.월)}, Korea's producer price index rose <b>{num1(ppiChange)}%</b>{' '}
+      while the won-basis import price index rose <b>{num1(impChange)}%</b> — both measured on the same
+      2020=100 base the Bank of Korea assigns to each series.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false}
+      아직="Headline indices only today. Sub-category breakdowns (energy, raw materials, capital goods) are not built yet." />
+
+    <section class="stats">
+      <div class="stat"><b>+{num1(ppiChange)}%</b><span>producer prices since Dec 2020</span></div>
+      <div class="stat"><b>+{num1(impChange)}%</b><span>import prices (won basis) since Dec 2020</span></div>
+      <div class="stat"><b>{num1(latest.ppi)}</b><span>PPI level, {fmtMonth(latest.월)}</span></div>
+      <div class="stat"><b>{num1(latest.imp)}</b><span>import price level, {fmtMonth(latest.월)}</span></div>
+    </section>
+
+    <section>
+      <h2>Read this before the table: same base year, different things measured</h2>
+      <p class="warn">
+        Both indices use <b>2020=100</b> — the Bank of Korea's own choice, not ours — so they line up without
+        conversion. But they measure different stages of the supply chain: the producer price index tracks
+        what domestic producers receive at the factory gate; the import price index tracks what importers pay
+        at the border, converted to won. <b>No causal link between the two is claimed here.</b>
+      </p>
+    </section>
+
+    <section>
+      <h2>Year-end levels, both indices (2020=100)</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Reference point</th><th class="n">Producer price index</th><th class="n">Import price index (won basis)</th></tr></thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr>
+                <td>{r.label}</td>
+                <td class="n">{r.ppi === null ? '—' : num1(r.ppi)}</td>
+                <td class="n">{r.imp === null ? '—' : num1(r.imp)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Monthly series, Bank of Korea. Year-end (December) values shown for each year, plus the latest
+        available month.
+      </p>
+    </section>
+
+    <section>
+      <h2>What this page does not say</h2>
+      <ul>
+        <li>No cause is assigned — not exchange rates, not energy costs, not tariffs. The gap is reported, not explained.</li>
+        <li>Not consumer inflation — this is earlier in the supply chain than CPI.</li>
+        <li>Headline (all-items) indices only — no sub-category breakdown (energy, raw materials, capital goods) yet.</li>
+        <li>Won-basis import prices only shown — the Bank of Korea also publishes contract-currency and dollar-basis versions, not shown here.</li>
+      </ul>
+      <p class="note">
+        <b>This is not investment advice.</b> It describes how two published price indices have moved relative
+        to each other on their shared base year — it does not forecast future price moves.
+      </p>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        Bank of Korea, 생산자물가지수 (Producer Price Index) and 수입물가지수 (Import Price Index), via KOSIS —{' '}
+        <a href="https://kosis.kr/statHtml/statHtml.do?orgId=301&tblId=DT_404Y014">DT_404Y014</a> and{' '}
+        <a href="https://kosis.kr/statHtml/statHtml.do?orgId=301&tblId=DT_401Y015">DT_401Y015</a> (won-basis rows only).
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        <a href="/data/fixed-variable-rate-share">Fixed vs floating-rate loans at Korean banks</a>,{' '}
+        <a href="/data/largest-companies">The largest companies in Korea</a>.{' '}
+        <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+  <BuyBar 자리="bottom" 살수있나={false}
+    아직="Headline indices only today. Sub-category breakdowns (energy, raw materials, capital goods) are not built yet." />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n { text-align: right; white-space: nowrap; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+  }
+</style>
