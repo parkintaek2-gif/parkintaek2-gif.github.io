@@ -1,5 +1,5 @@
-# 잰날 2026-09-30
-# 오늘셈 10
+# 잰날 2026-10-02
+# 오늘셈 27
 # ⛔ 이 파일을 지우면 「오늘 새로 난 지면」을 하루 동안 못 센다
 https://klifemap.ai/
 https://klifemap.ai/content
@@ -42,6 +42,33 @@ https://klifemap.ai/refund.html
 https://klifemap.ai/terms.html
 https://klifemap.ai/privacy.html
 https://klifemap.ai/today
+https://klifemap.ai/content/myth-what-we-dont-sell
+https://klifemap.ai/content/ttigh-jwi-jwi
+https://klifemap.ai/content/tti-2027-dwaeji
+https://klifemap.ai/content/tti-2027-gae
+https://klifemap.ai/content/tti-2027-dak
+https://klifemap.ai/content/tti-2027-wonsungi
+https://klifemap.ai/content/tti-2027-yang
+https://klifemap.ai/content/tti-2027-mal
+https://klifemap.ai/content/tti-2027-baem
+https://klifemap.ai/content/tti-2027-yong
+https://klifemap.ai/content/myth-jintaeyangsi-why
+https://klifemap.ai/content/myth-report-evidence
+https://klifemap.ai/content/myth-sibiunseong
+https://klifemap.ai/content/myth-yongsin-not-color
+https://klifemap.ai/content/tti-2027-tokki
+https://klifemap.ai/content/tti-2027-horangi
+https://klifemap.ai/content/tti-2027-so
+https://klifemap.ai/content/tti-2027-jwi
+https://klifemap.ai/content/tti-2026-dwaeji
+https://klifemap.ai/content/tti-2026-gae
+https://klifemap.ai/content/tti-2026-dak
+https://klifemap.ai/content/tti-2026-wonsungi
+https://klifemap.ai/content/tti-2026-yang
+https://klifemap.ai/content/myth-daeun-graph
+https://klifemap.ai/content/myth-gyeokguk-first
+https://klifemap.ai/content/myth-why-japyeongjinjeon
+https://klifemap.ai/content/myth-same-input-same-result
 https://klifemap.ai/content/tti-2026-mal
 https://klifemap.ai/content/tti-2026-baem
 https://klifemap.ai/content/tti-2026-yong
