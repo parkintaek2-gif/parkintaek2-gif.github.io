@@ -1,0 +1,217 @@
+---
+/*
+ * `/data/industry-production-divergence` — Korea's industries, one index, very different paths.
+ * (seoulmarkets.com/data/industry-production-divergence)
+ *
+ * ── Why this page (2026-10-03 · 2번) ──────────────────────────────────
+ *   docs/새데이터-KOSIS-후보.md flagged the all-industry production index (KOSIS 101/
+ *   DT_1JH20201) for the `macro` category. All five series share a 2020=100 base.
+ *
+ * ⛔ The table (ITM_NM "원지수") is NOT seasonally adjusted. Comparing December against
+ *   August, or any two different calendar months, would smuggle in seasonality as if it
+ *   were a real trend. So every comparison on this page uses the SAME calendar month
+ *   (August) across years — confirmed deliberately after noticing the raw year-end figures
+ *   looked misleadingly volatile when mixed with the latest (August) reading.
+ * ⛔ No cause is asserted for why construction has fallen — not rates, not housing starts,
+ *   nothing. The index move is reported, not explained.
+ * ⛔ English only, no investment advice.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/industry-production-index.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const t = tape as any;
+type Pt = { 월: string; 값: number };
+const series = t.series as Record<string, Pt[]>;
+
+const labelEn: Record<string, string> = {
+  '전산업생산지수(농림어업 제외)': 'All industries (ex. agriculture/forestry/fishing)',
+  광공업: 'Mining & manufacturing',
+  서비스업: 'Services',
+  건설업: 'Construction',
+  공공행정: 'Public administration',
+};
+const order = ['전산업생산지수(농림어업 제외)', '광공업', '서비스업', '건설업', '공공행정'];
+
+const num1 = (n: number) => n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
+
+// 같은 달(8월)끼리만 견준다 — 원지수라 계절조정이 안 돼 있다
+const augustOf = (rows: Pt[], year: string) => rows.find((r) => r.월 === `${year}08`)?.값 ?? null;
+const years = ['2020', '2021', '2022', '2023', '2024', '2025', '2026'];
+
+const table = order.map((key) => ({
+  key, label: labelEn[key],
+  values: years.map((y) => augustOf(series[key], y)),
+}));
+
+const construction = table.find((r) => r.key === '건설업')!;
+const servicesRow = table.find((r) => r.key === '서비스업')!;
+const peakIdx = construction.values.reduce((best, v, i) => (v! > construction.values[best]! ? i : best), 0);
+const peakYear = years[peakIdx];
+const peakVal = construction.values[peakIdx]!;
+const latestVal = construction.values.at(-1)!;
+const declineFromPeak = ((latestVal / peakVal) - 1) * 100;
+const servicesChange = ((servicesRow.values.at(-1)! / servicesRow.values[0]!) - 1) * 100;
+
+const TITLE = `Korea's construction output is down ${num1(Math.abs(declineFromPeak))}% from its ${peakYear} peak — services kept climbing`;
+const DESC = `Comparing each August from 2020 to 2026 (to avoid mixing non-seasonally-adjusted months), Korea's `
+  + `construction production index fell from ${num1(peakVal)} in August ${peakYear} to ${num1(latestVal)} in `
+  + `August 2026 — a ${num1(Math.abs(declineFromPeak))}% decline — while the services production index rose `
+  + `${num1(servicesChange)}% over the same seven years. Both share the same 2020=100 base; no cause is claimed.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea all-industry production index by sector, 2020=100 (August readings, 2020-2026)',
+  description: DESC,
+  url: `${SITE_URL}/data/industry-production-divergence`,
+  keywords: ['Korea industrial production', 'Korea construction output', 'Korea services index',
+    'all-industry production index', 'KOSIS', 'Bank of Korea', 'Statistics Korea'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: 'https://kosis.kr',
+  isAccessibleForFree: true,
+  temporalCoverage: '2019-09/2026-08',
+  variableMeasured: order.map((k) => labelEn[k]),
+};
+
+const faq: Array<[string, string]> = [
+  ['Why compare August to August instead of the latest month to December?',
+    'The underlying series (원지수) is not seasonally adjusted. Production in Korea runs higher or lower in '
+    + 'different calendar months for reasons that have nothing to do with the economy’s trend — comparing '
+    + 'December (often a high month) against August would make the "latest" reading look more dramatic than '
+    + 'it is. Using the same month each year removes that distortion.'],
+  ['What caused construction output to fall?',
+    'This page does not say. No cause — interest rates, housing starts, project completions — is asserted. '
+    + 'The index move is reported on its own.'],
+  ['Does this index include agriculture, forestry and fishing?',
+    'The headline figure on this page excludes them (KOSIS’s own "ex. agriculture/forestry/fishing" '
+    + 'variant), since that is the version most commonly cited as the all-industry headline.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>One production index, five very different industry paths</h1>
+    <p class="lead">
+      Measured every August from 2020 to 2026 to avoid comparing across seasons, Korea's <b>construction</b>{' '}
+      production index fell from {num1(peakVal)} in August {peakYear} to {num1(latestVal)} in August 2026 —
+      down {num1(Math.abs(declineFromPeak))}%. Over the same span, the <b>services</b> index rose{' '}
+      {num1(servicesChange)}%. Both sit on the same 2020=100 base.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false}
+      아직="Headline sector indices only today. A seasonally-adjusted series and sub-sector detail are not built yet." />
+
+    <section class="stats">
+      <div class="stat"><b>{num1(latestVal)}</b><span>construction index, Aug 2026</span></div>
+      <div class="stat"><b>-{num1(Math.abs(declineFromPeak))}%</b><span>construction vs its {peakYear} August peak</span></div>
+      <div class="stat"><b>+{num1(servicesChange)}%</b><span>services, Aug 2020 → Aug 2026</span></div>
+      <div class="stat"><b>2020=100</b><span>shared base year, all five series</span></div>
+    </section>
+
+    <section>
+      <h2>Read this before the table: why August-to-August, not the latest month</h2>
+      <p class="warn">
+        This index is <b>not seasonally adjusted</b> (KOSIS labels it 원지수, "original index"). Production
+        swings up and down with the calendar every year for reasons unrelated to any trend — comparing the
+        latest reading against a different month (say, last December) would mix a seasonal pattern into what
+        looks like a trend. Every figure on this page compares the <b>same month, August</b>, across years.
+      </p>
+    </section>
+
+    <section>
+      <h2>August readings, by sector (2020=100)</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Sector</th>{years.map((y) => <th class="n">{y}</th>)}</tr>
+          </thead>
+          <tbody>
+            {table.map((r) => (
+              <tr>
+                <td>{r.label}</td>
+                {r.values.map((v) => <td class="n">{v === null ? '—' : num1(v)}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Source table carries only an "original index" (not seasonally adjusted); figures are each year's
+        August reading.
+      </p>
+    </section>
+
+    <section>
+      <h2>What this page does not say</h2>
+      <ul>
+        <li>No cause is assigned for construction's decline or services' rise — interest rates, housing
+          policy, project pipelines, none of that is claimed here.</li>
+        <li>No seasonally-adjusted series — this source table does not publish one; August-vs-August is the
+          workaround, not a substitute for one.</li>
+        <li>No forecast — this describes where each index has been, not where it is going.</li>
+      </ul>
+      <p class="note">
+        <b>This is not investment advice.</b> It describes how a published production index has moved across
+        five sectors — it does not say which sector is a better or worse investment.
+      </p>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        전산업생산지수(원지수) — All-industry production index (original index), via KOSIS{' '}
+        (<a href="https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1JH20201">101/DT_1JH20201</a>).
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        <a href="/data/ppi-import-price-gap">Producer prices vs import prices</a>,{' '}
+        <a href="/data/fixed-variable-rate-share">Fixed vs floating-rate loans at Korean banks</a>.{' '}
+        <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+  <BuyBar 자리="bottom" 살수있나={false}
+    아직="Headline sector indices only today. A seasonally-adjusted series and sub-sector detail are not built yet." />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 54rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n { text-align: right; white-space: nowrap; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+  }
+</style>
