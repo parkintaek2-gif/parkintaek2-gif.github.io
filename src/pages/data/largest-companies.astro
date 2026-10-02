@@ -192,10 +192,10 @@ const samsung = rows.find((r) => r.ticker === '005930');
 const kepco = rows.find((r) => r.nameEn?.startsWith('KOREA ELECTRIC POWER'));
 const skSquare = rows.find((r) => r.nameEn?.startsWith('SK Square'));
 
-const TITLE = 'The largest companies in Korea, ranked four ways';
+const TITLE = 'The largest companies in Korea, ranked four ways (KOSPI & KOSDAQ)';
 const DESC =
-  `The biggest South Korean companies by market value, revenue, total assets and operating profit — `
-  + `four rankings from one dataset of ${num(total)} listed companies, in English and free. `
+  `The biggest companies on the Korean stock market (KOSPI and KOSDAQ) by market value, revenue, `
+  + `total assets and operating profit — four rankings from one dataset of ${num(total)} listed companies, in English and free. `
   + `The four lists disagree: the top ten is ${unionTickers.length} different companies, and only `
   + `${inAllFour.length} appear in all four. Built from DART annual filings for ${fiscalYear} and `
   + `market caps on ${priceDate}. Not investment advice.`;
