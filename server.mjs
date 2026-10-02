@@ -182,6 +182,22 @@ const BASE_HEADERS = {
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'X-Frame-Options': 'SAMEORIGIN',
   'Permissions-Policy': 'geolocation=(), microphone=(), camera=()',
+  /* 🔴 [2026-10-02] 사장님: 「어제 체크한 보안상태는 모든 사이트가 괜찮나?」
+     라이브로 재 보니 세 사이트(서울마켓·백년지도·KCW)에 **CSP 가 아예 없었다.**
+     KLifeMap 에는 걸려 있었다 — 한 곳만 걸고 나머지를 잊은 꼴이다.
+
+     ⚠ 왜 이 셋만 거나 — 스크립트 출처까지 조이면 애드센스·애널리틱스가 막혀 화면이 깨진다.
+       그러면 되돌리느라 결국 CSP 를 통째로 떼게 된다. 아래 셋은 «지금 쓰는 것을 하나도
+       안 막으면서» 실제 공격 셋을 막는다 —
+         base-uri        <base> 를 몰래 넣어 모든 상대 주소를 남의 서버로 돌리는 것
+         object-src      <object>·<embed> 로 플러그인을 심는 것
+         frame-ancestors 남의 지면 안에 우리를 끼워 넣는 클릭재킹
+     ⭐ 스크립트 출처 조이기는 쓰는 것을 전수로 센 뒤에 따로 건다. 질러서 깨뜨리지 않는다.
+
+     ⚠ HSTS 는 브라우저가 «기억»해서 되돌리기 어렵다. 그래서 하루(86400)로 시작한다 —
+       한동안 탈 없이 돌면 늘린다. includeSubDomains 는 안 붙인다(서브도메인을 다 못 재 봤다). */
+  'Content-Security-Policy': "base-uri 'self'; object-src 'none'; frame-ancestors 'self'",
+  'Strict-Transport-Security': 'max-age=86400',
 };
 
 function cacheFor(pathname, ext) {
