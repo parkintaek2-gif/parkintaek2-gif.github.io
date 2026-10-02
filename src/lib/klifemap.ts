@@ -361,6 +361,9 @@ export const 붙일수있는갈래 = [
      major·college-major·field-employment·trendy-major-outcomes 와 같은 결(진로·직종 분석)이라
      어른갈래엔 넣지 않는다 — 기본 도착지(적성)가 이미 맞다. */
   'health-workforce-activity-rate', 'health-workforce-growth-2013-2023',
+  /* [2026-10-02 · 1번] 사장님 지시(5번 경유) — THE 세계대학순위 2027(서울대 국내 1위·
+     세계 56위) 신설 지면. ranking-university-global 과 같은 「순위+문제제기」 결. */
+  'ranking-university-the',
   '기타',
 ] as const;
 

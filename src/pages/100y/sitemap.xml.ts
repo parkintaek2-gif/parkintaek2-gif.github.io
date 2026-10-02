@@ -477,6 +477,9 @@ export const GET: APIRoute = () => {
     { path: '/health-workforce-growth-2013-2023', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-09-30 1번 신설 — OECD 교육지표 2026, 학력별 고용률·상대임금(OECD평균 대비). */
     { path: '/oecd-employment-wage-gap-by-degree', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-10-02 — 사장님 지시(5번 경유). THE 세계대학순위 2027(서울대 국내 1위·세계 56위)
+       신설 지면. QS 세계대학순위 2027과 맞댄 「순위+문제제기」 시리즈 신규편. */
+    { path: '/ranking-university-the', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-10-02 1번 신설 — 국가데이터처 「2026 고령자 통계」(사장님 지시, 5번 경유). 돈의
        어긋남(순자산·연금·빈곤율)과 몇 살까지 일하나(근로의향·고용률) 두 지면. 고정 지면을 만들면
        여기 한 줄을 같이 넣는다 — 안 넣으면 검색에 열려 있는데 사이트맵엔 없는 상태가 된다. */
