@@ -1,0 +1,221 @@
+---
+/**
+ * /elderly-work-reason — 65~79세 10명 중 6명이 "더 일하고 싶다"고 답했다, 까닭은?
+ *
+ * 🔴 국가데이터처 「2026 고령자 통계」(2026-10-01 발표) 지면화 — 사장님이 직접 지시(5번 경유,
+ *   2026-10-01). 5번이 「백년지도에 «가장» 값어치 있는 축」으로 꼽은 것 — 「몇 살까지 일하나」.
+ *   db(elderly-work-intent.json)는 5번이 먼저 만들었다. 1번이 고용률(elderly-employment-rate-2026.json)을
+ *   더해 ②콘텐트 ③페이지로 만들었다. docs/전달-백년지도-2026고령자통계.md 참고.
+ *
+ * ⛔ 판정으로 쓰지 않는다 — 「65세에도 일해야 한다」로 쓰면 그 순간 규범이 된다.
+ *   「10명 중 6명이 그렇게 답했다」로 놓고 판단은 보는 사람이 한다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 의향원본 from '../../../data/100yearmap/elderly-work-intent.json';
+import 고용원본 from '../../../data/100yearmap/elderly-employment-rate-2026.json';
+
+const 의향 = 의향원본 as any;
+const 고용 = 고용원본 as any;
+const 의향연도 = 의향.해마다 as any[];
+const 의향갈래 = 의향['2026년_갈래별'] as any[];
+const 고용연도 = 고용.해마다 as any[];
+
+const 최신의향 = 의향연도[의향연도.length - 1];
+const 첫의향 = 의향연도[0];
+const 최신고용 = 고용연도[고용연도.length - 1];
+
+const desc =
+  `${최신의향.해}년 65~79세 고령자의 ${최신의향.장래근로원함}%가 앞으로도 일하기를 원한다고 답했습니다 ` +
+  `(${첫의향.해}년 ${첫의향.장래근로원함}%에서 7년째 상승). 까닭은 생활비 보탬 ${최신의향.생활비}%, ` +
+  `일하는 즐거움 ${최신의향.즐거움}% 순입니다. 같은 해 65세 이상 실제 고용률은 ${최신고용.고용률}%(${최신고용.해}년)입니다.`;
+
+/** 자가대조 — 까닭 다섯/여섯 항목의 합이 100%에 가까운가(반올림 오차 허용) */
+function 까닭합(r: any) {
+  const 값들 = [r.즐거움, r.생활비, r.사회가필요, r.건강유지, r.무료해서, r.기타 ?? 0];
+  return Number(값들.reduce((a, b) => a + b, 0).toFixed(1));
+}
+const 자가대조_연도별 = 의향연도.map((r) => ({ 해: r.해, 합: 까닭합(r) }));
+const 자가대조_어긋남 = 자가대조_연도별.filter((r) => Math.abs(r.합 - 100) > 0.2);
+
+const datasetJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 의향.무엇,
+  description: desc,
+  temporalCoverage: `${첫의향.해}/${최신의향.해}`,
+  license: 'https://mods.go.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '국가데이터처' },
+  variableMeasured: ['65~79세 장래 근로 희망률과 그 까닭', '65세 이상 고용률·실업률'],
+};
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '65세 정년 이후에도 일하고 싶은 사람이 몇 %인가',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `국가데이터처 「2026 고령자 통계」에 따르면 ${최신의향.해}년 65~79세 고령자의 ${최신의향.장래근로원함}%가 앞으로도 일하기를 원한다고 답했습니다. 남자 ${의향갈래.find((r:any)=>r.갈래==='남자').장래근로원함}%, 여자 ${의향갈래.find((r:any)=>r.갈래==='여자').장래근로원함}%입니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '65세 이상 고용률',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${최신고용.해}년 65세 이상 고령자의 고용률은 ${최신고용.고용률}%(실업률 ${최신고용.실업률}%)입니다. 2015년 ${고용연도[0].고용률}%에서 11년째 오르고 있습니다.`,
+      },
+    },
+  ],
+};
+const jsonLd = [datasetJsonLd, faqJsonLd];
+---
+
+<HundredYear
+  title={`65~79세 10명 중 6명이 "더 일하고 싶다"고 답했다 — 까닭은 생활비, 그리고 즐거움`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>몇 살까지<br />일하고 싶을까요?</h1>
+  <p class="sub">
+    {최신의향.해}년 기준, 65~79세 고령자의 <strong>{최신의향.장래근로원함}%</strong>가 앞으로도
+    일하기를 원한다고 답했습니다. {첫의향.해}년 {첫의향.장래근로원함}%에서 7년째 오르고 있습니다.
+  </p>
+
+  <h2>7년째 오르고 있습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>연도</th><th>장래 근로 희망</th></tr></thead>
+      <tbody>
+        {의향연도.map((r) => (
+          <tr>
+            <td>{r.해}</td>
+            <td><strong>{r.장래근로원함}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>⭐ 까닭은 생활비만이 아닙니다 — 즐거움이 늘고 있습니다</h2>
+  <p class="note">
+    근로를 희망하는 까닭은 「생활비에 보탬」이 {최신의향.생활비}%로 가장 많지만,{' '}
+    {첫의향.해}년 {첫의향.생활비}%에서 {최신의향.해}년 {최신의향.생활비}%로 줄었습니다.
+    반대로 「일하는 즐거움」은 {첫의향.해}년 {첫의향.즐거움}%에서{' '}
+    <strong>{최신의향.즐거움}%</strong>로 늘었습니다. 통념은 「돈이 없어 어쩔 수 없이」지만,
+    해마다 조금씩 「즐거워서」로 옮겨 가는 중입니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>연도</th><th>생활비 보탬</th><th>일하는 즐거움</th><th>사회가 필요</th><th>건강 유지</th><th>무료해서</th></tr>
+      </thead>
+      <tbody>
+        {의향연도.map((r) => (
+          <tr>
+            <td>{r.해}</td>
+            <td>{r.생활비}%</td>
+            <td><strong>{r.즐거움}%</strong></td>
+            <td>{r.사회가필요}%</td>
+            <td>{r.건강유지}%</td>
+            <td>{r.무료해서}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>갈래로 봅니다(2026년)</h2>
+  <p class="note">
+    남자({의향갈래.find((r:any) => r.갈래 === '남자').장래근로원함}%)가 여자(
+    {의향갈래.find((r:any) => r.갈래 === '여자').장래근로원함}%)보다 더 일하고 싶어 하고,
+    나이가 많을수록 그 바람은 줄어듭니다 — 65~69세{' '}
+    {의향갈래.find((r:any) => r.갈래 === '65~69세').장래근로원함}%에서 75~79세{' '}
+    {의향갈래.find((r:any) => r.갈래 === '75~79세').장래근로원함}%까지 내려갑니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>갈래</th><th>장래 근로 희망</th><th>생활비</th><th>즐거움</th></tr></thead>
+      <tbody>
+        {의향갈래.map((r: any) => (
+          <tr>
+            <td>{r.갈래}</td>
+            <td><strong>{r.장래근로원함}%</strong></td>
+            <td>{r.생활비}%</td>
+            <td>{r.즐거움}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>⚠ 「바라는 것」과 「되고 있는 것」은 다릅니다 — 실제 고용률</h2>
+  <p class="note">
+    위는 65~79세의 «바람»이고, 아래는 65세 이상(대상 연령이 다릅니다)의 «실제» 고용률입니다.
+    {최신고용.해}년 65세 이상 고령자의 고용률은 <strong>{최신고용.고용률}%</strong>로
+    전년({고용연도[고용연도.length - 2].고용률}%) 대비 {(최신고용.고용률 - 고용연도[고용연도.length - 2].고용률).toFixed(1)}%p
+    올랐습니다. 2015년 {고용연도[0].고용률}%에서 11년째 오르는 추세입니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>연도</th><th>65세 이상 인구</th><th>취업자</th><th>고용률</th><th>실업률</th></tr></thead>
+      <tbody>
+        {고용연도.map((r: any) => (
+          <tr>
+            <td>{r.해}</td>
+            <td>{r.인구_천명.toLocaleString()}천명</td>
+            <td>{r.취업자_천명.toLocaleString()}천명</td>
+            <td><strong>{r.고용률}%</strong></td>
+            <td>{r.실업률}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>저희가 맞춰 본 것</h2>
+  <p class="note">
+    근로 희망 까닭 다섯·여섯 항목(즐거움·생활비·사회가필요·건강유지·무료해서·기타)의 합은
+    해마다 100%여야 합니다 —{' '}
+    <strong>{자가대조_어긋남.length === 0 ? `7개 연도 모두 맞습니다(오차 0.2%p 이내)` : `어긋난 연도 ${자가대조_어긋남.length}개`}</strong>.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>「더 일하고 싶다」는 바람이지 실제로 일자리를 구했다는 뜻이 아니다 — 실제 고용률(65세 이상)은 따로 위에 놓았다</li>
+    <li>이 표는 65~79세다. 80세 이상은 이 조사에 들어 있지 않다</li>
+    <li>고용률(65세 이상)·빈곤율(66세 이상)·이 표(65~79세)는 대상 인구가 서로 다르다 — 같은 칸에 넣지 않는다</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 「65세에도 일해야 한다」고
+    쓰지 않습니다 — {최신의향.해}년에 65~79세의 몇 %가 그렇게 «답했는지»가 저희가 셀 수 있는
+    전부입니다.
+  </p>
+  <p class="note">
+    출처 — {의향.출처.이름}, {의향.출처.원통계}({의향.출처.쪽}) ·
+    고용률은 {고용.출처.쪽}.
+    {' '}<a href={의향.출처.보도자료}>보도자료</a> · <a href={의향.출처.원본파일}>원본 PDF</a>.
+  </p>
+
+  <p class="note">
+    <a href="/elderly-money-gap">← 순자산은 4억 9천만원인데 월 연금은 73만원, 고령자 가구의 돈이 어긋나 있다</a>
+    <br />
+    <a href="/keep-working">← 55~79세, 은퇴를 앞두고도 계속 일하고 싶은 사람은 몇 %일까(다른 조사·다른 나이대)</a>
+    <br />
+    <a href="/longest-job">← 가장 오래 다닌 일자리는 몇 살에 그만둘까</a>
+    <br />
+    <a href="/years-left">← 65세, 앞으로 몇 년 더 살 수 있을까?</a>
+    <br />
+    <a href="/pension">← 국민연금은 나이·지역별로 얼마씩 받을까?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+    <br />
+    <a href="/community">← 커뮤니티 — 「은퇴 앞둔·은퇴한 사람」 방</a>
+  </p>
+
+  <NextQuestionBrief 모은것="65~79세 근로 의향·65세 이상 고용률 자료" />
+</HundredYear>

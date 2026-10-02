@@ -157,6 +157,8 @@ export const 어른갈래: ReadonlySet<string> = new Set([
   'income-inequality-by-age',
   /* 🔴 2026-09-15 3번 신설 — 국가데이터처 KOSIS 가계금융복지조사, 연령별 순자산(wealth-gap 짝) */
   'networth-lifecycle', 'culture-attendance',
+  /* [2026-10-02 · 1번] 사장님 지시(5번 경유) — 고령자 돈·일 축. retire-income·keep-working과 같은 결 */
+  'elderly-money-gap', 'elderly-work-reason',
 ]);
 
 /**
@@ -180,6 +182,8 @@ const 어른갈래별물음: Partial<Record<string, { 이름: string; 설명: st
   oneperson: { 이름: '혼자 사는 이 시기, 내 대운은', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
   lifelong: { 이름: '지금 배우기 좋은 대운인가', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
   exercise: { 이름: '지금 몸을 움직이기 좋은 대운인가', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
+  'elderly-work-reason': { 이름: '은퇴 후에도 일할 대운이 있는가', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
+  'elderly-money-gap': { 이름: '노후 재물운은 어떻게 흐르는가', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
 };
 
 /** 갈래에 맞는 문을 고른다. ⛔ 한 곳으로 몰지 않는다 */
@@ -257,6 +261,9 @@ export const 붙일수있는갈래 = [
   'academy-lifespan', 'kids-activity-lifespan',
   /* [2026-09-25 · 1번] 같은 까닭 — 동네 가게 여섯 업종(수의업·당구장·세탁업 등) 사업장 수명 */
   'neighborhood-shop-lifespan',
+  /* [2026-10-02 · 1번] 사장님 지시(5번 경유) — 국가데이터처 「2026 고령자 통계」 지면 둘.
+     ⛔ 기타로 쌓이면 소급이 안 된다. 만든 날 같이 올린다. */
+  'elderly-money-gap', 'elderly-work-reason',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary', 'tutoring', 'tutoring-region', 'tutoring-income',
   /* 🔴 2026-09-11 3번 신설 — 사장님 지시. 학생자살 사망사안 보고서(한겨레 인용) */
