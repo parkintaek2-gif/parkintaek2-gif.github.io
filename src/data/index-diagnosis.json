@@ -1,5 +1,5 @@
 {
-  "잰때": "2026. 10. 1. 오후 11:31:59",
+  "잰때": "2026. 10. 3. 오전 12:29:47",
   "사이트": {
     "klifemap": [
       {
@@ -100,138 +100,12 @@
         "마지막크롤": "2026-08-10T22:51:12Z",
         "덮개": "Crawled - currently not indexed",
         "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/tti-2027-wonsungi",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "URL is unknown to Google",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q491568-astro-ja",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q486942-saju-ja",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q233385-saju-ja",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q21094167-astro-zh",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q56660171-saju-zh",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q493899-astro-en",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q20688186-astro-en",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q55287306-saju-en",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q101161499-astro",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q496501-astro",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q494692-saju",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/ilju-mu-sul",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "URL is unknown to Google",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/myth-yongsin-color",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "URL is unknown to Google",
-        "오류": null
       }
     ]
   },
   "갈래셈": {
     "색인됨": 1,
     "왔는데색인안함": 6,
-    "발견안됨": 18
+    "발견안됨": 4
   }
 }
