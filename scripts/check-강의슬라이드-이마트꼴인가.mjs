@@ -39,7 +39,29 @@ import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-export const 우리것 = path.join(뿌리, 'archive/out/셀프사주2-강의/셀프사주2-강의용-2026-10-03.pptx');
+export const 우리방 = path.join(뿌리, 'archive/out/셀프사주2-강의');
+
+/**
+ * 🔴🔴 [2026-10-04 08:5x · 5번] **여기에 날짜가 손으로 박혀 있어 어제 것을 재고 있었다.**
+ *
+ *   오늘 생성기를 고쳐 명반을 39장으로 늘리고 다시 지었는데, 이 검사의 수가
+ *   **한 자리도 안 움직였다**(명반 31장 · 163장). 생성기는 「명반 39장」이라 하고
+ *   검사는 31장이라 했다. 파 보니 이 줄이 `…-2026-10-03.pptx` 였다 —
+ *   오늘 지은 `…-2026-10-04.pptx` 는 **쳐다보지도 않았다.**
+ *
+ * ⛔ 손으로 적은 날짜는 반드시 낡는다 — `/rankings` 의 채움률에서 이미 겪은 것이다.
+ * ⚠ 「수가 안 바뀌면 자를 먼저 의심한다」를 오늘만 다섯 번째 밟았다.
+ * ⇒ 폴더에서 **가장 나중 것**을 고른다. 날짜 꼴이라 글자 차례가 곧 날짜 차례다.
+ */
+export function 가장나중것(방 = 우리방) {
+  if (!fs.existsSync(방)) return null;
+  const 것 = fs.readdirSync(방)
+    .filter((n) => /^셀프사주2-강의용-\d{4}-\d{2}-\d{2}\.pptx$/.test(n))
+    .sort();
+  return 것.length ? path.join(방, 것[것.length - 1]) : null;
+}
+
+export const 우리것 = 가장나중것() ?? path.join(우리방, '셀프사주2-강의용-2026-10-03.pptx');
 export const 이마트 = 'C:/Users/User/OneDrive/문서/셀프사주 1권-이마트 세종.pptx';
 
 /**
