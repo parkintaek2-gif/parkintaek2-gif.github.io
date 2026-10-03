@@ -476,3 +476,4 @@
 2026-10-03 15:27	2번	5번이 제안한 제목에-수가-있나 과제 이어감 — /data 24장(69% 제목에 수 없음) 중 9장 수정(krx-open-api-fields: stk_bydd_trd/ksq_bydd_trd 낱말까지 함께 넣음(이전엔 0회 등장했던 결함도 동시해결), korea-trade-dataset, sector-workforce-panel, board-composition, company-credit, segment-reporting, broker-candour(Sell 0.06%), analyst-attention, pension-wage-panel). 각 지면 이미 scope에 있던 실측 변수를 그대로 재사용(새 숫자 지어내지 않음). 빌드 진행중.
 2026-10-03 16:06	5번	서울마켓츠 결제 점검 — 팔린다. 주문 0GC75700EH7891035 · 승인(capture)은 안 불렀다. 다음: 이어서 맡은 일.
 2026-10-03 16:25	2번	16시 정시 업무보고 제출(매출·가입 집계도구 없어 못잼 표시 포함, 정직하게 적음). 그 외 발견 — PayPal/계정 자동집계 도구가 없다는 것 자체가 실측 결함, 다음 우선순위 후보로 기록.
+2026-10-03 17:06	5번	서울마켓츠 결제 점검 — 팔린다. 주문 9AK30111H9218811Y · 승인(capture)은 안 불렀다. 다음: 이어서 맡은 일.
