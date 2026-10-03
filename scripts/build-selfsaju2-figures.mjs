@@ -55,6 +55,12 @@ export const 십신색 = {
   인성: { 칠: '#3B3B3B', 글: '#FFFFFF' },
 };
 export const 글꼴 = "'KoPub돋움체 Medium','KoPubDotum Medium','Malgun Gothic',sans-serif";
+
+/* 🔴 [2026-10-03] 승인받은 디자인 틀 — 제목은 바탕체(세리프), 바탕은 미색.
+ *   ⛔ 오행색·십성색은 손대지 않는다. 뜻이 붙은 색이라 바꾸면 강의가 틀려진다. */
+export const 제목글꼴 = "'Batang','바탕','HANBatang',serif";
+export const 틀바탕 = '#F7F5EF';
+export const 틀먹색 = '#14171F';
 export const 판너비 = 1400;
 export const 판높이 = 788;
 
@@ -83,10 +89,10 @@ export function 제목칸(한글, 한자, { x = 60, y = 96, 크기 = 62, 붉은�
     if (!붉은글) return s;
     return s.split('').map((c) => (붉은글.includes(c) ? `<tspan fill="#FF0000">${c}</tspan>` : c)).join('');
   };
-  let out = `<text x="${x}" y="${y}" font-family="${글꼴}" font-size="${크기}" font-weight="900"`
+  let out = `<text x="${x}" y="${y}" font-family="${제목글꼴}" font-size="${크기}" font-weight="700"`
     + ` fill="#1C1E21">${칠하기(한글)}</text>`;
   if (한자) {
-    out += `<text x="${x}" y="${y + 크기 * 1.08}" font-family="${글꼴}" font-size="${크기}"`
+    out += `<text x="${x}" y="${y + 크기 * 1.08}" font-family="${제목글꼴}" font-size="${크기}"`
       + ` font-weight="900" fill="#1C1E21">${칠하기(한자)}</text>`;
   }
   return out;
@@ -116,7 +122,7 @@ export function 표(칸들, { x, y, 칸너비, 줄높이 = 62, 글자크기 = 30
 export function 판(속) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${판너비}" height="${판높이}"`
     + ` viewBox="0 0 ${판너비} ${판높이}">`
-    + `<rect width="${판너비}" height="${판높이}" fill="#FFFFFF"/>${속}</svg>`;
+    + `<rect width="${판너비}" height="${판높이}" fill="#F7F5EF"/>${속}</svg>`;
 }
 
 /* ── 그릴 것들 ────────────────────────────────────────────────────
@@ -380,7 +386,9 @@ function 자가시험() {
 
   const 판하나 = 판(동그라미(100, 100, 50, '가', 십신색.재성));
   검('판이 SVG 로 선다', 판하나.startsWith('<svg') && 판하나.endsWith('</svg>'));
-  검('바탕이 희다 — 1권이 흰 바탕이다', 판하나.includes('fill="#FFFFFF"'));
+  /* 🔴 [2026-10-03 · 사장님] 「어제 디자인 작업한 걸 틀로 삼기로 함」 —
+     승인받은 틀의 바탕은 미색이다. 그림만 희면 강의 화면에서 그 장만 떠 보인다. */
+  검('바탕이 틀의 미색이다', 판하나.includes('fill="' + 틀바탕 + '"'));
   검('동그라미에 글이 들어간다', 판하나.includes('>가<'));
   검('흰 원에는 테두리를 준다', 동그라미(0, 0, 10, 'x', 오행색.금).includes('stroke="#1C1E21"'));
   검('색이 없어도 안 터진다', typeof 동그라미(0, 0, 10, 'x', null) === 'string');
