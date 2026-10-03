@@ -37,7 +37,7 @@
       없다: '아직 댓글이 없습니다. 첫 댓글을 남겨 보세요.',
       부르는중: '불러오는 중…',
       못불렀다: '댓글을 못 불러왔습니다.',
-      이름자리: "이름(선택, 비우면 '손님')",
+      이름자리: "이름(없으면 손님)",
       본문자리: '댓글을 남겨 주세요',
       등록: '등록',
       천천히: '잠시 후 다시 시도해 주세요.',
@@ -48,7 +48,7 @@
       없다: 'No comments yet. Be the first to say something.',
       부르는중: 'Loading…',
       못불렀다: 'Could not load the comments.',
-      이름자리: 'Name (optional — blank means "Guest")',
+      이름자리: 'Your name (optional)',
       본문자리: 'Write a comment',
       등록: 'Post',
       천천히: 'Please try again in a moment.',
@@ -83,9 +83,49 @@
     }).join('');
   }
 
+  /*
+   * 2026-10-03 — the markup carried class names (cw-form, cw-name, cw-submit) that no
+   * stylesheet anywhere defined, so the box rendered with raw browser defaults on all
+   * three sites: a name field cut off mid-sentence, a textarea on its own line, a grey
+   * button. Shipping the style with the widget keeps the three sites in step; a page
+   * that wants its own look can still override these rules.
+   * Colours come from currentColor and transparent fills, so the box follows whatever
+   * the host page already decided about light and dark.
+   */
+  function 꾸밈한번() {
+    if (document.getElementById('cw-style')) return;
+    const el = document.createElement('style');
+    el.id = 'cw-style';
+    el.textContent = [
+      '.cw-list{margin:0 0 14px}',
+      '.cw-empty{opacity:.65;margin:0 0 14px}',
+      '.cw-item{padding:12px 0;border-top:1px solid currentColor;border-color:color-mix(in srgb,currentColor 14%,transparent)}',
+      '.cw-item:first-child{border-top:0}',
+      '.cw-meta{font-size:.85em;opacity:.65;margin:0 0 4px}',
+      '.cw-meta b{font-weight:600}',
+      '.cw-form{display:grid;gap:8px;grid-template-columns:minmax(0,1fr);max-width:46rem}',
+      '.cw-name,.cw-body{width:100%;font:inherit;font-size:.95em;padding:9px 11px;border-radius:8px;',
+      'background:transparent;color:inherit;',
+      'border:1px solid currentColor;border-color:color-mix(in srgb,currentColor 28%,transparent)}',
+      '.cw-body{min-height:5.5em;resize:vertical}',
+      '.cw-name::placeholder,.cw-body::placeholder{opacity:.5;color:inherit}',
+      '.cw-name:focus,.cw-body:focus{outline:2px solid currentColor;outline-offset:1px}',
+      '.cw-submit{justify-self:start;font:inherit;font-size:.95em;font-weight:600;',
+      'padding:9px 20px;border-radius:8px;cursor:pointer;background:transparent;color:inherit;',
+      'border:1px solid currentColor;border-color:color-mix(in srgb,currentColor 40%,transparent)}',
+      '.cw-submit:hover{background:color-mix(in srgb,currentColor 8%,transparent)}',
+      '.cw-submit[disabled]{opacity:.5;cursor:default}',
+      '.cw-msg{margin:0;font-size:.9em;opacity:.8}',
+      '@media (min-width:560px){.cw-form{grid-template-columns:14rem minmax(0,1fr);align-items:start}',
+      '.cw-body{grid-column:1/-1}}',
+    ].join('');
+    (document.head || document.documentElement).appendChild(el);
+  }
+
   function init(container) {
     const page = container.getAttribute('data-comments-page');
     if (!page) return;
+    꾸밈한번();
 
     const openedAt = Date.now(); // 폼을 그린 시각. 너무 빠른 제출을 서버가 걸러내는 데 쓴다
 
