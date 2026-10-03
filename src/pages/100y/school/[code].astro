@@ -13,6 +13,10 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { 공학말 } from '../../../lib/school-label';
+/* 🔴 [2026-10-04 08:3x] 이 학교의 「한 곳 리포트」로 가는 길을 낸다 — 그 지면이
+   첫 화면에서 한 번도 안 닿고 있었다. 「연 부분이 그대로 광고가 된다」고 열어 둔
+   지면인데 가는 길이 없었다. ⛔ 리포트가 «있는» 학교에서만 건다 — 없으면 404 다 */
+import { 리포트가있나 } from '../../../lib/100y-report-samples.mjs';
 import { href, lastSegment } from '../../../lib/hundredyear';
 import { 고교지역_대학지역, 짧은지역명 } from '../../../lib/region';
 import { 권할만한 } from '../../../lib/university';
@@ -69,6 +73,8 @@ export async function getStaticPaths() {
 }
 
 const { school } = Astro.props as { school: any };
+/* 이 지면의 학교 코드 — 주소 마지막 조각이다. 아래 「한 곳 리포트」 길을 낼 때 쓴다 */
+const 이학교코드 = lastSegment(school.url);
 const 겹침 = (이름수.get(school.title) ?? 0) > 1;
 /**
  * 🔴 **간판에 「진학률」이 없었다** (2026-08-09 10:1x · 2번 라이브 실측).
@@ -730,6 +736,26 @@ const 받은날 = String((요약 as any).원천수집시각 ?? '').slice(0, 10);
     *     그 순간이 **「옆 학교는?」**을 묻는 자리라서다. 광고를 앞으로 당긴 것이 아니라
     *     **물음이 생기는 자리로 옮긴 것**이다.
     */}
+  {/* 🔴 [2026-10-04 08:3x · 5번] 이 학교의 「한 곳 리포트」가 있으면 그리로 보낸다.
+      ⚠ 지역 한 벌(파는 것) 바로 «앞»에 둔다 — 한 곳을 먼저 보고 나서 「옆 학교는?」이
+        생기는 차례라서다. 먼저 파는 것을 들이밀지 않는다. */}
+  {
+    리포트가있나(이학교코드) && (
+      <>
+        <hr class="rule" />
+        <p class="note">
+          <a class="gotoarea" href={`/report/${이학교코드}`}>
+            {school.title} 한 곳을 한 장으로 — 진로·학급·중단을 모아서 보기 →
+          </a>
+        </p>
+        <p class="note">
+          새로운 사실이 아니라 <strong>모아 놓은 것</strong>입니다. 등수를 쓰지 않고,
+          퍼짐 안에서 어디쯤인지만 보입니다. <strong>무료로 열어 둔 지면</strong>입니다.
+        </p>
+      </>
+    )
+  }
+
   {
     이지역 && (
       <>

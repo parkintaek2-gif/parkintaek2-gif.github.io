@@ -44,8 +44,12 @@ import 중단자료 from '../../../data/100yearmap/school-dropout.json';
  *   Astro 가 이 함수를 모듈 밖으로 떼어 내 따로 돌리기 때문이다(2026-08-08 실제로 겪었다).
  */
 export async function getStaticPaths() {
-  const 본보기 = ['7010057'];
-  return 본보기.map((code) => ({ params: { code } }));
+  /* 🔴 [2026-10-04 08:3x] 목록이 여기 박혀 있어서 **학교 지면이 그것을 못 읽었고**,
+     그래서 이 지면으로 오는 길이 한 곳도 없었다. 광고가 되라고 연 지면인데 묻혀 있었다.
+     ⇒ 목록을 모듈로 뺐다. ⚠ 들여오기도 이 함수 «안»에서 한다 — 밖에 두면
+     「본보기 is not defined」로 빌드가 죽는다(2026-08-08 에 겪은 그것). */
+  const { 리포트본보기 } = await import('../../../lib/100y-report-samples.mjs');
+  return 리포트본보기.map((code) => ({ params: { code } }));
 }
 
 const { code } = Astro.params as { code: string };
