@@ -87,6 +87,20 @@ export const 사건 = {
   FinancialCovenantsTextBlock:
     { tag: 'financial-covenant', en: 'Financial covenant', 무게: 6,
       뜻: 'A covenant attached to the company’s borrowing — what would count as a breach' },
+  /* 🔴 [2026-10-04 06:5x · 5번] 아래 셋은 「표에 없는 요소」로 떠 있던 것들이다.
+     자가 「안 올리면 그 사건은 영영 안 잡힌다」고 적어 두었고, 그대로 두면 수집은 되어도
+     갈래가 안 붙어 지면에서 못 쓴다. 이름이 또렷한 셋만 올린다.
+     ⛔ 뜻이 아리송한 것은 올리지 않는다 — 잘못 붙인 갈래가 빈 갈래보다 나쁘다.
+     ⚠ 무게는 이미 있는 짝과 맞춘다(지배권·대표 8 · 실적 영향 9 · 재무약정 6). */
+  FinancialCovenantsOfConsolidatedSubsidiariesTextBlock:
+    { tag: 'financial-covenant', en: 'Financial covenant (subsidiary)', 무게: 6,
+      뜻: 'A covenant attached to a consolidated subsidiary’s borrowing — what would count as a breach' },
+  DecisionOnTransferOrAcquisitionOfBusinessTextBlock:
+    { tag: 'business-transfer', en: 'Business transferred or acquired', 무게: 8,
+      뜻: 'A decision to sell or buy a business — not the whole company, but a line of it' },
+  PrivatePlacementOfSecuritiesTextBlock:
+    { tag: 'private-placement', en: 'Securities placed privately', 무게: 7,
+      뜻: 'Shares or bonds sold to named investors rather than offered to the public' },
   LikelihoodOfUncollectibleOrDelinquentAccountsTextBlock:
     { tag: 'bad-debt', en: 'Receivable may not be collected', 무게: 8,
       뜻: 'The company states a receivable may not be collected on time or at all' },
@@ -242,11 +256,22 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
 
   검('사건 이름·설명에 한국어가 없다',
     !/[가-힣]/.test(Object.values(사건).map((v) => v.en + v.뜻 + v.tag).join('')));
-  검('실측한 스물세 가지를 다 적었다 — 60일치에서 넷이 더 나왔다', Object.keys(사건).length === 23);
+  /* 🔴 [2026-10-04 06:5x] **수를 박아 둔 시험이 요소를 더할 때마다 빨개진다.**
+     「스물세 가지」·「열일곱뿐」으로 못 박아 두었더니, 오늘 표에 없던 요소 셋을 올리자
+     그 자리가 깨졌다. 요소가 느는 것은 «좋은 일»이다 — EDINET 이 새 서식을 내면 는다.
+     ⛔ 수를 박지 말고 «줄지 않았나»와 «짝이 맞나»를 본다.
+     (같은 날 색인 자에서 「klifemap 대표 지면이 여덟이다」가 같은 꼴로 깨졌다) */
+  검('실측한 스물세 가지를 «적어도» 다 적었다 — 줄면 누가 지운 것이다',
+    Object.keys(사건).length >= 23);
+  검('⛔ 요소 이름이 겹치지 않는다', new Set(Object.keys(사건)).size === Object.keys(사건).length);
   검('자회사가 한 합병도 같은 태그로 묶는다',
     사건['DecisionOnAbsorptionTypeMergerOfConsolidatedSubsidiaryTextBlock'].tag === 사건['DecisionOnAbsorptionTypeMergerTextBlock'].tag);
-  검('갈래 이름은 사건이지 주체가 아니다 — 태그 종류는 열일곱뿐',
-    new Set(Object.values(사건).map(v=>v.tag)).size === 17);
+  검('🔴 갈래 이름은 사건이지 주체가 아니다 — 자회사가 한 것도 같은 갈래로 묶인다',
+    new Set(Object.values(사건).map((v) => v.tag)).size < Object.keys(사건).length);
+  검('⛔ 갈래 이름에 주체가 안 들어간다 (…-by-subsidiary 같은 꼬리)',
+    Object.values(사건).every((v) => !/-by-|-of-consolidated/.test(v.tag)));
+  검('⛔ 모든 사건에 태그·영문·무게·뜻이 있다',
+    Object.values(사건).every((v) => v.tag && v.en && Number.isFinite(v.무게) && v.뜻));
 
   const 진 = 잰다.filter(([, v]) => !v);
   for (const [이름, v] of 잰다) console.log(`${v ? '✅' : '🔴'} ${이름}`);
