@@ -1,5 +1,5 @@
 ---
-title: "Korean brokers say Buy on four reports in five, and almost never say Sell"
+title: "Korean brokers rate Buy 79.7% of the time, Sell just 0.06%"
 dek: "Across 6,372 broker reports in 2026 the market rated Buy on 79.7% and Sell on 0.06%. Of 13 houses that rated 200-plus reports, 10 issued no Sell at all. The Sell rate has sat near zero for over a decade."
 category: equities
 pubDate: 2026-08-09

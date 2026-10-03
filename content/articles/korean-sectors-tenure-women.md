@@ -1,5 +1,5 @@
 ---
-title: "The Korean sectors that keep their workers longest employ the fewest women"
+title: "Korean sector tenure vs. female share run a -0.68 correlation"
 dek: "Line up Korea's main listed sectors by how long people stay and by how many are women, and the two run opposite: a −0.68 correlation. Materials keeps people 8.6 years and is 13% women; health care keeps them 4.9 and is 40%."
 category: equities
 pubDate: 2026-08-09

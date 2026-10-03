@@ -1,5 +1,5 @@
 ---
-title: "The Korean sectors that employ women, and the ones that barely do"
+title: "Health care is 40% women, heavy industry 11% — Korea's sector gender gap"
 dek: "Sort every listed company by our sector scheme and take the median female share. Health care is 40% women and finance 35%; heavy industry, materials and utilities sit near 11 to 14%. The gap is roughly four to one."
 category: equities
 pubDate: 2026-08-08

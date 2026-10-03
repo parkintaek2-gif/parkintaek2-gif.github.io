@@ -1,5 +1,5 @@
 ---
-title: "Ten Korean-listed companies filed delisting-risk disclosures on the same day"
+title: "10 Korean-listed companies filed delisting-risk disclosures on one day"
 dek: "DART recorded delisting-risk disclosures from ten separately listed companies on September 18 — zero on any other day this week. We could not confirm why they clustered on this date."
 category: equities
 pubDate: 2026-09-19

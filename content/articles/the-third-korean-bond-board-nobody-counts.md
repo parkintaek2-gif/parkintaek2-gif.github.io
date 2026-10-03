@@ -1,5 +1,5 @@
 ---
-title: "Korea lists bonds on three boards. Everyone quotes one of them"
+title: "Korea lists bonds on 3 boards — government, 270-346 general, 40 small-lot"
 dek: "Government paper trades on a board of 8 to 12 listings. Beside it sit 270 to 346 general listings and a near-fixed 40 small-lot listings retail buyers use. Over 22 sessions the gap ran 0.41 to 0.95 points."
 category: rates
 pubDate: 2026-09-11

@@ -1,5 +1,5 @@
 ---
-title: "Ten More Korean Rights Issues, the Same Lesson on Size and Dilution"
+title: "10 More Korean Rights Issues: One Diluted 17.3%, Another 61.6%"
 dek: "A fresh batch of filings, late August through mid-September: the largest raise (Samsung FN REIT, ₩97.7bn) diluted shareholders 17.3%. The second-largest (Heng Sheng Holding Group, ₩60.0bn) diluted them 61.6%. Not advice."
 category: equities
 pubDate: 2026-09-25

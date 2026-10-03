@@ -1,5 +1,5 @@
 ---
-title: "How many companies are listed in Korea? Fewer than quoted"
+title: "Korea lists 2,767 stock lines — fewer than that are actual companies"
 dek: "Korea's stock market has 2,767 stock lines — but 115 are preferred shares (one company, two tickers) and 134 didn't trade today. The company count is lower."
 category: equities
 pubDate: 2026-08-27

@@ -1,5 +1,5 @@
 ---
-title: "An eighth of Korean pay is bonus — lumped into a few months"
+title: "12-15% of Korean pay is bonus — and a third of it lands in December-January"
 dek: "Special payments are about 12–15% of a regular worker's yearly pay in Korea — and nearly a third of the year's total lands in December and January alone."
 category: macro
 pubDate: 2026-08-29

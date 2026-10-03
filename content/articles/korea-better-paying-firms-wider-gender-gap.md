@@ -1,5 +1,5 @@
 ---
-title: "The better a Korean company pays, the wider its gender gap"
+title: "Women earn 75% of men's pay at low-paying Korean firms, 70% at the highest-paying"
 dek: "Rank listed companies by average pay and the gender gap widens as you climb. Firms paying under 50m won a head give women 75% of men's; those over 120m give 70%. A high-paying employer comes with a steeper ladder. Not advice."
 category: equities
 pubDate: 2026-08-10

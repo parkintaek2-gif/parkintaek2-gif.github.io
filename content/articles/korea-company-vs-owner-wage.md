@@ -1,5 +1,5 @@
 ---
-title: "Working for a Korean company pays a quarter more than working for an owner"
+title: "Korea: company payroll bills ₩370,340/worker vs ₩280,520 at sole proprietors"
 dek: "The national pension bills every employer 9% of pay. Incorporated firms are billed 370,340 won per worker, sole proprietorships 280,520 — the 882,490 Koreans working for an individual owner sit a quarter below the 10.7 million at companies."
 category: macro
 pubDate: 2026-08-08

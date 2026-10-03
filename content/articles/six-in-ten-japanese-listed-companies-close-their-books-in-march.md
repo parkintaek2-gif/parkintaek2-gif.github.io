@@ -1,5 +1,5 @@
 ---
-title: "Six in ten Japanese listed companies close their books in the same month"
+title: "2,198 of Japan's 3,672 listed companies close their books in March"
 dek: "2,198 of 3,672 Japanese listed filers have a March fiscal year-end. Those companies are also three times the size of the rest by median revenue, and report losses at half the rate."
 category: equities
 pubDate: 2026-09-23

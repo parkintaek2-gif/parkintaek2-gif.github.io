@@ -1,5 +1,5 @@
 ---
-title: "Why the Korean market numbers you can legally read are always a day old"
+title: "Why Korean market data has a 1-business-day legal lag — and one exception"
 dek: "The data this site publishes settles on a one-business-day lag — not by editorial choice but because that is what the redistributable sources release. One exception changes what is possible."
 category: macro
 pubDate: 2026-08-01

@@ -1,5 +1,5 @@
 ---
-title: "In every Korean sector, the biggest companies pay more and keep people longer"
+title: "Korea's sector leaders pay 1.2 to 1.43 times more than the rest"
 dek: "Split each sector into its market-cap leaders and the rest: the leaders pay 1.2 to 1.43 times more and mostly retain staff longer. But in heavy industry and finance they employ fewer women at the top. A size split, not a stock pick."
 category: equities
 pubDate: 2026-08-09
