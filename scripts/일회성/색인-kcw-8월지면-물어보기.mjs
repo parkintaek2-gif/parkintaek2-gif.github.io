@@ -1,5 +1,5 @@
 /* 8월에 노출을 내던 KCW 갈래가 지금 색인돼 있나 — 「3분의 2가 어디로 갔나」에 답하려고 */
-import { 진단 } from '../scripts/check-색인-왜안되나.mjs';
+import { 진단 } from '../check-색인-왜안되나.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { createSign } from 'node:crypto';

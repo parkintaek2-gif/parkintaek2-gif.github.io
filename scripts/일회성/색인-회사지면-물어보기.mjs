@@ -1,6 +1,6 @@
 /* 회사 지면이 몇 장이나 색인됐나 — 우리가 «이기는 꼴»이라 값어치가 크다.
    ⚠ URL 검사 API 는 하루 한도가 있다. 시장마다 네 장씩만 고르게 뽑아 묻는다. */
-import { 진단 } from '../scripts/check-색인-왜안되나.mjs';
+import { 진단 } from '../check-색인-왜안되나.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { createSign } from 'node:crypto';
