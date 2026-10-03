@@ -1,0 +1,207 @@
+---
+/*
+ * `/data/bank-loan-delinquency` — Korea bank loan delinquency, three borrower types, one table.
+ * (seoulmarkets.com/data/bank-loan-delinquency)
+ *
+ * ── Why this page (2026-10-04 · 2번) ──────────────────────────────────
+ *   Bank of Korea ECOS 901Y124 (은행대출금 연체율) was already pulled into
+ *   src/data/korea-household-debt.json by scripts/collect-korea-household-debt-ecos.mjs
+ *   (5번, 2026-09-22) but never built into a page. While checking it tonight, found
+ *   the collector hadn't pinned the hidden ITEM_CODE2 axis (은행전체/일반은행/특수은행),
+ *   so each month carried three mixed values — fixed in the same commit as this page
+ *   (item2='AB', 은행전체 headline). Only after that fix is the series safe to publish.
+ *
+ * ⛔ No forecast, no "delinquency is rising/falling because of X" framing — this is a
+ *   same-month composition snapshot, not a signal.
+ * ⛔ English only, no investment/credit advice.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/korea-household-debt.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const t = tape as any;
+const del = t.계열.find((c: any) => c.key === 'delinquency');
+
+type Series = { code: string; name: string; points: { t: string; v: number | null }[]; latest: string };
+const byName = (n: string) => (del.series as Series[]).find((s) => s.name === n)!;
+
+const corp = byName('Corporate loans');
+const house = byName('Household loans');
+const card = byName('Credit-card loans');
+
+const latestOf = (s: Series) => s.points[s.points.length - 1];
+const monthLabel = (t: string) => `${t.slice(0, 4)}-${t.slice(4, 6)}`;
+
+const lCorp = latestOf(corp);
+const lHouse = latestOf(house);
+const lCard = latestOf(card);
+const 기준월 = monthLabel(lCorp.t);
+
+const ratio = (lCard.v! / lHouse.v!);
+
+const last12 = (s: Series) => s.points.slice(-12);
+
+const TITLE = `Korean credit-card loan delinquency ran ${ratio.toFixed(1)}x household-loan delinquency in ${기준월}`;
+const DESC = `As of ${기준월}, ${lCard.v}% of credit-card loans at Korean banks were delinquent (1 month or more), `
+  + `against ${lHouse.v}% for household loans overall and ${lCorp.v}% for corporate loans — the same `
+  + `all-banks measure, three borrower types, one month. Bank of Korea ECOS data, not a forecast.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea bank loan delinquency rate by borrower type',
+  description: DESC,
+  url: `${SITE_URL}/data/bank-loan-delinquency`,
+  keywords: ['Korea loan delinquency', 'credit card delinquency Korea', 'household debt Korea',
+    'Bank of Korea', 'ECOS', 'bank loan stress', 'corporate loan delinquency'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: 'https://ecos.bok.or.kr',
+  isAccessibleForFree: true,
+  temporalCoverage: `${monthLabel(corp.points[0].t)}/${기준월}`,
+  variableMeasured: ['Corporate loan delinquency rate', 'Household loan delinquency rate',
+    'Credit-card loan delinquency rate'],
+};
+
+const faq: Array<[string, string]> = [
+  ['Why is credit-card delinquency so much higher than household-loan delinquency?',
+    'This data does not say why. Credit-card loans are unsecured and typically smaller, shorter-term balances '
+    + 'than the household-loan aggregate (which is dominated by mortgages) — but no cause is claimed here, only '
+    + 'the same-month gap in the two measured rates.'],
+  ['What counts as "delinquent" in this series?',
+    'Bank of Korea defines it as loans one month or more overdue ("1개월 이상 연체"), measured across all banks '
+    + '("은행전체" — commercial plus specialised banks reporting to the Bank of Korea). Savings banks, card '
+    + 'companies\' own books, and other non-bank lenders are not in this series.'],
+  ['Is this trend new, or has it always looked like this?',
+    'The underlying monthly series only starts in December 2023, so this page cannot speak to anything before '
+    + 'that. Over the 32 months available, credit-card delinquency has ranged from '
+    + `${Math.min(...card.points.map((p) => p.v!))}% to ${Math.max(...card.points.map((p) => p.v!))}%, `
+    + `while household-loan delinquency has stayed within ${Math.min(...house.points.map((p) => p.v!))}%–`
+    + `${Math.max(...house.points.map((p) => p.v!))}% over the same window.`],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>Korea bank loan delinquency — three borrower types, one month</h1>
+    <p class="lead">
+      As of <b>{기준월}</b>, <b>{lCard.v}%</b> of credit-card loans at Korean banks were delinquent for a month
+      or more — against <b>{lHouse.v}%</b> for household loans overall and <b>{lCorp.v}%</b> for corporate
+      loans. Same all-banks measure, same month, three different borrower types.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false}
+      아직="Composition snapshot only today. A cross-country comparison is not built yet." />
+
+    <section class="stats">
+      <div class="stat"><b>{lCard.v}%</b><span>credit-card loan delinquency</span></div>
+      <div class="stat"><b>{lHouse.v}%</b><span>household loan delinquency</span></div>
+      <div class="stat"><b>{lCorp.v}%</b><span>corporate loan delinquency</span></div>
+      <div class="stat"><b>{ratio.toFixed(1)}x</b><span>card vs household ratio</span></div>
+    </section>
+
+    <section>
+      <h2>Read this before the table: one measure, three populations</h2>
+      <p class="warn">
+        All three rates use the same Bank of Korea definition — share of loan balances one month or more
+        overdue, across all banks. The difference across rows is <b>who the borrower is</b>, not how the
+        rate is calculated. This page does not claim any rate is rising or falling "because of" anything —
+        it is a same-month snapshot, not a signal or a forecast.
+      </p>
+    </section>
+
+    <section>
+      <h2>Last 12 months</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Month</th><th class="n">Corporate</th><th class="n">Household</th><th class="n">Credit-card</th></tr>
+          </thead>
+          <tbody>
+            {last12(corp).map((p, i) => (
+              <tr>
+                <td>{monthLabel(p.t)}</td>
+                <td class="n">{p.v}%</td>
+                <td class="n">{last12(house)[i].v}%</td>
+                <td class="n">{last12(card)[i].v}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Monthly series begins {monthLabel(corp.points[0].t)} — this is as far back as Bank of Korea ECOS
+        publishes this particular monthly breakdown.
+      </p>
+    </section>
+
+    <section>
+      <h2>What this page does not say</h2>
+      <ul>
+        <li>No forward-looking signal — this is a composition snapshot for {기준월}, not a forecast.</li>
+        <li>No cause for the gap between borrower types — only the measured rates, side by side.</li>
+        <li>No cross-country comparison yet — Korea only.</li>
+        <li>Covers banks reporting to the Bank of Korea only, not savings banks or other non-bank lenders.</li>
+      </ul>
+      <p class="note">
+        <b>This is not investment or credit advice.</b> It describes measured delinquency rates by borrower
+        type — it does not say anything about any individual borrower or lender's risk.
+      </p>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        Bank of Korea ECOS, 은행대출금 연체율(1개월 이상) (table{' '}
+        <a href="https://ecos.bok.or.kr/#/Short/901Y124">901Y124</a>), all-banks measure. Reference month {기준월}.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        <a href="/data/fixed-variable-rate-share">Fixed vs floating-rate loans at Korean banks</a>,{' '}
+        <a href="/data/ppi-import-price-gap">Producer vs import prices</a>. <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+  <BuyBar 자리="bottom" 살수있나={false}
+    아직="Composition snapshot only today. A cross-country comparison is not built yet." />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n { text-align: right; white-space: nowrap; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+  }
+</style>
