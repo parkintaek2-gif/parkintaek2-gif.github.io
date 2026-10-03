@@ -118,7 +118,7 @@ const num = (n: number | null) =>
 const yr = (n: number | null) =>
   n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
 
-const title = `${nameEn} — financials, size and workforce`;
+const title = `${nameEn} (${code}) — revenue, profit and assets, FY${끝해 ?? '—'}`;
 const 설명줄 = 마지막 && 마지막.revenue != null
   ? `${nameEn} (${code}${market ? `, ${market}` : ''}) reported KRW ${bn(마지막.revenue)}bn revenue in ${끝해}.`
   : `${nameEn} (${code}${market ? `, ${market}` : ''}) — reported financials from Korean regulatory filings.`;
