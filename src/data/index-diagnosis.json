@@ -1,5 +1,5 @@
 {
-  "잰때": "2026. 10. 4. 오전 2:23:47",
+  "잰때": "2026. 10. 4. 오전 4:41:24",
   "사이트": {
     "klifemap": [
       {
@@ -41,8 +41,8 @@
       {
         "주소": "https://klifemap.ai/astro.html",
         "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
+        "말": "구글이 «알지만» 가지러 안 왔다",
+        "갈래": "알지만안옴",
         "마지막크롤": null,
         "덮개": "Discovered - currently not indexed",
         "오류": null
@@ -53,14 +53,14 @@
         "말": "구글이 한 번도 안 왔다",
         "갈래": "발견안됨",
         "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
+        "덮개": "URL is unknown to Google",
         "오류": null
       },
       {
         "주소": "https://klifemap.ai/horoscope.html",
         "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
+        "말": "구글이 «알지만» 가지러 안 왔다",
+        "갈래": "알지만안옴",
         "마지막크롤": null,
         "덮개": "Discovered - currently not indexed",
         "오류": null
@@ -111,7 +111,34 @@
         "오류": null
       },
       {
-        "주소": "https://klifemap.ai/content/star-q21824887-saju-ja",
+        "주소": "https://klifemap.ai/content/star-q135108208-saju-ja",
+        "빛": "🔴",
+        "말": "구글이 «알지만» 가지러 안 왔다",
+        "갈래": "알지만안옴",
+        "마지막크롤": null,
+        "덮개": "Discovered - currently not indexed",
+        "오류": null
+      },
+      {
+        "주소": "https://klifemap.ai/content/star-q234066-astro-zh",
+        "빛": "🔴",
+        "말": "구글이 «알지만» 가지러 안 왔다",
+        "갈래": "알지만안옴",
+        "마지막크롤": null,
+        "덮개": "Discovered - currently not indexed",
+        "오류": null
+      },
+      {
+        "주소": "https://klifemap.ai/content/star-q494816-astro-en",
+        "빛": "🔴",
+        "말": "구글이 «알지만» 가지러 안 왔다",
+        "갈래": "알지만안옴",
+        "마지막크롤": null,
+        "덮개": "Discovered - currently not indexed",
+        "오류": null
+      },
+      {
+        "주소": "https://klifemap.ai/content/star-q101161168-astro",
         "빛": "🔴",
         "말": "구글이 한 번도 안 왔다",
         "갈래": "발견안됨",
@@ -120,39 +147,12 @@
         "오류": null
       },
       {
-        "주소": "https://klifemap.ai/content/star-q22774055-astro-zh",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q153657-astro-en",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/star-q56441288-astro",
+        "주소": "https://klifemap.ai/content/gunghap-gan-eul-sin",
         "빛": "🔴",
         "말": "구글이 한 번도 안 왔다",
         "갈래": "발견안됨",
         "마지막크롤": null,
         "덮개": "URL is unknown to Google",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/content/ilzin-2026-09-18",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
         "오류": null
       }
     ],
@@ -187,8 +187,8 @@
       {
         "주소": "https://seoulmarkets.com/article",
         "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
+        "말": "구글이 «알지만» 가지러 안 왔다",
+        "갈래": "알지만안옴",
         "마지막크롤": null,
         "덮개": "Discovered - currently not indexed",
         "오류": null
@@ -196,8 +196,8 @@
       {
         "주소": "https://seoulmarkets.com/companies",
         "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
+        "말": "구글이 «알지만» 가지러 안 왔다",
+        "갈래": "알지만안옴",
         "마지막크롤": null,
         "덮개": "Discovered - currently not indexed",
         "오류": null
@@ -214,8 +214,8 @@
       {
         "주소": "https://seoulmarkets.com/taiwan/companies",
         "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
+        "말": "구글이 «알지만» 가지러 안 왔다",
+        "갈래": "알지만안옴",
         "마지막크롤": null,
         "덮개": "Discovered - currently not indexed",
         "오류": null
@@ -223,8 +223,8 @@
       {
         "주소": "https://seoulmarkets.com/uae/companies",
         "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
+        "말": "구글이 «알지만» 가지러 안 왔다",
+        "갈래": "알지만안옴",
         "마지막크롤": null,
         "덮개": "Discovered - currently not indexed",
         "오류": null
@@ -235,7 +235,7 @@
         "말": "구글이 한 번도 안 왔다",
         "갈래": "발견안됨",
         "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
+        "덮개": "URL is unknown to Google",
         "오류": null
       }
     ],
@@ -297,8 +297,8 @@
       {
         "주소": "https://www.kculturewire.com/title/land",
         "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
+        "말": "구글이 «알지만» 가지러 안 왔다",
+        "갈래": "알지만안옴",
         "마지막크롤": null,
         "덮개": "Discovered - currently not indexed",
         "오류": null
@@ -371,8 +371,8 @@
       {
         "주소": "https://100yearmap.com/school/8321182",
         "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
+        "말": "구글이 «알지만» 가지러 안 왔다",
+        "갈래": "알지만안옴",
         "마지막크롤": null,
         "덮개": "Discovered - currently not indexed",
         "오류": null
@@ -391,6 +391,7 @@
   "갈래셈": {
     "색인됨": 12,
     "왔는데색인안함": 13,
-    "발견안됨": 17
+    "알지만안옴": 11,
+    "발견안됨": 6
   }
 }
