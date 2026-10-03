@@ -69,7 +69,103 @@ export function 재기(줄들) {
     뒷장: 뒷장.length,
     /* ⭐ 이길 수 있는 질의의 «몫» — 이 수가 늘어야 유입이 는다 */
     이기는몫: 것.length ? Math.round((앞장.length / 것.length) * 100) : null,
+    /**
+     * 🔴🔴 [2026-10-04 04:5x] **이 칸이 없어서 할 일이 쓸 수 없는 말이었다.**
+     *
+     *   이 자는 「이미 1~3위인 질의가 7개다 — 그 지면과 같은 꼴을 더 내라」고 낸다.
+     *   그런데 **어느 질의인지는 한 글자도 안 남겼다.** 요약 수만 쌓고 줄을 버렸다.
+     *   ⇒ 아침에 그 할 일을 받아도 «무엇을 더 낼지» 알 수가 없다. 할 일이 아니라 구호다.
+     *
+     * ⛔ 할 일을 내는 자는 **그 할 일을 할 수 있는 재료까지** 남긴다.
+     * ⚠ 열 개까지만 남긴다 — 다 남기면 파일이 붓고 아무도 안 읽는다.
+     */
+    이긴질의: 첫자리
+      .slice()
+      .sort((a, b) => (b.impressions || 0) - (a.impressions || 0))
+      .slice(0, 10)
+      .map((r) => ({
+        /* ⚠ 우리 GSC 파일의 칸 이름은 `key` 다. keys·query 도 받아 둔다 — 꼴이 바뀌어도 안 죽게 */
+        질의: r.key ?? (Array.isArray(r.keys) ? (r.keys[0] ?? null) : (r.query ?? null)),
+        지면: r.page ?? (Array.isArray(r.keys) && r.keys.length > 1 ? r.keys[1] : null),
+        노출: r.impressions || 0,
+        클릭: r.clicks || 0,
+        자리: Math.round((r.position ?? 0) * 10) / 10,
+      })),
   };
+}
+
+/**
+ * 🔴🔴 [2026-10-04 05:0x] **이 자가 한 달 전 자료를 「오늘 유입」으로 재고 있었다.**
+ *
+ *   파일을 `.sort().at(-1)` 로 골랐다. 문자열 정렬이라 —
+ *   ```
+ *   gsc-kcw-qp-2026-09-26.json        ← 9월 26일. 이것이 최신이다
+ *   gsc-kcw-qp-7d-2026-09-01.json     ← 9월 «1일»인데 '7'이 '2'보다 커서 뒤로 간다 → 뽑혔다
+ *   ```
+ *   ⇒ KCW 의 「노출 426 · 1~3위 7개」는 **9월 1일 자 7일치 수**였다.
+ *     한 달이 지나도록 아무도 몰랐다. 날짜를 화면에 안 찍었기 때문이다.
+ *
+ * ⛔ 파일 이름을 문자열로 정렬해 「최신」을 고르지 않는다 — **날짜를 끌어내서 고른다.**
+ * ⛔ 기간이 다른 자료(7d)를 28일치와 같은 더미에 섞지 않는다. 노출 수가 아예 다르다.
+ */
+export function 날짜끌기(이름) {
+  const m = String(이름 ?? '').match(/(\d{4})-(\d{2})-(\d{2})/);
+  return m ? `${m[1]}-${m[2]}-${m[3]}` : null;
+}
+
+export function 최신자료고르기(파일들, 딱지) {
+  const 앞 = `gsc-${딱지}-qp-`;
+  const 것 = (파일들 ?? [])
+    .filter((f) => f.startsWith(앞))
+    /* ⛔ 7d·28d 같은 «기간 변종»은 안 섞는다 — 날짜 바로 앞이 접두사여야 한다 */
+    .filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f.slice(앞.length)))
+    .map((f) => ({ f, 날: 날짜끌기(f) }))
+    .filter((x) => x.날)
+    .sort((a, b) => (a.날 < b.날 ? -1 : a.날 > b.날 ? 1 : 0));
+  return 것.length ? 것[것.length - 1] : null;
+}
+
+/**
+ * 🔴🔴 [2026-10-04 05:3x] **거품을 실적으로 읽던 자리.**
+ *
+ *   KCW 노출이 8월 1,100 → 9월 20 으로 떨어져 「무너졌다」고 읽었다. 실적 화면을 보니
+ *   8월 봉우리의 큰 몫이 이런 검색이었다 —
+ *   ```
+ *   https://www.netflix.com/tudum/top10?week=2024-11-03                노출 64  클릭 0
+ *   "https://www.netflix.com/tudum/top10/data/all-weeks-countries.tsv"  노출 36  클릭 0
+ *   ```
+ *   **남의 자료 파일 주소를 붙여넣은 검색**이다. 우리가 그 주소를 본문에 적어 둬서 떴고
+ *   **클릭은 전부 0**이다. 우리 글을 찾는 수요가 아니라 스쳐 간 것이다.
+ *
+ *   ⇒ 무너진 것이 아니라 **바닥이 처음부터 그만큼이었다.** 거품이 걷힌 것이다.
+ *
+ * ⛔ 노출의 «수»만 세지 않는다. **그 노출이 우리 주제에서 왔는지**를 같이 본다.
+ * ⚠ 이것은 판정이 아니라 눈금이다 — 주소 몫이 높다고 지면을 지우라는 뜻이 아니다.
+ *   「이 수를 실적으로 읽지 말라」는 표시일 뿐이다.
+ */
+export const 주소질의꼴 = /https?:\/\/|www\.|\.(com|net|org|tsv|csv|json|xml)\b/i;
+
+export function 질의글(r) {
+  if (!r || typeof r !== 'object') return '';
+  return String(r.key ?? r.query ?? (Array.isArray(r.keys) ? (r.keys[0] ?? '') : '') ?? '');
+}
+
+export function 주소몫(줄들) {
+  const 것 = (줄들 ?? []).filter((r) => r && typeof r === 'object');
+  const 노출 = 것.reduce((s, r) => s + (r.impressions || 0), 0);
+  if (!노출) return null;                       /* ⛔ 0 으로 나누지 않는다 — 못 쟀다 */
+  const 주소 = 것
+    .filter((r) => 주소질의꼴.test(질의글(r)))
+    .reduce((s, r) => s + (r.impressions || 0), 0);
+  return Math.round((주소 / 노출) * 100);
+}
+
+/** 자료가 며칠 묵었나. 못 세면 null — 0 으로 적지 않는다. */
+export function 자료나이(날, 오늘) {
+  if (!날 || !오늘) return null;
+  const a = new Date(`${날}T00:00:00`), b = new Date(`${오늘}T00:00:00`);
+  if (Number.isNaN(+a) || Number.isNaN(+b)) return null;
+  return Math.round((b - a) / 86400000);
 }
 
 /**
@@ -83,9 +179,11 @@ export function 할일내기(딱지, 잰것, 색인 = null) {
     return 것;
   }
   if (잰것.첫자리 > 0) {
+    /* ⛔ 수만 말하면 받는 사람이 «무엇을» 더 낼지 모른다 — 질의를 이름으로 댄다 */
+    const 셋 = (잰것.이긴질의 ?? []).slice(0, 3).map((q) => `「${q.질의}」`).join(' · ');
     것.push({
       무게: 2,
-      말: `${딱지} — 이미 «1~3위»인 질의가 ${잰것.첫자리}개다. `
+      말: `${딱지} — 이미 «1~3위»인 질의가 ${잰것.첫자리}개다${셋 ? `: ${셋}` : ''}. `
         + '그 지면과 «같은 꼴»의 지면을 더 낸다 — 이기는 자리를 넓히는 것이 가장 싸다',
     });
   }
@@ -140,6 +238,53 @@ export function 자가시험() {
   본다('⛔ 노출이 0이면 클릭률을 0 으로 적지 않는다 — null 이다', 재기([]).클릭률 === null);
   본다('⛔ 빈 것에 안 터진다', 재기(null).줄 === 0 && 재기(undefined).노출 === 0);
 
+  /* 🔴 [2026-10-04] 이긴 질의를 «이름으로» 남긴다 — 수만 남기면 할 일이 구호가 된다 */
+  const q = 재기([
+    { keys: ['tws kpop', '/group/tws'], impressions: 9, clicks: 1, position: 1.2 },
+    { keys: ['pristin v', '/group/pristin-v'], impressions: 40, clicks: 0, position: 2.8 },
+    { keys: ['느린 것', '/x'], impressions: 1, clicks: 0, position: 55 },
+  ]);
+  본다('🔴 이긴 질의를 이름으로 남긴다', q.이긴질의.length === 2);
+  본다('🔴 노출이 큰 것부터 남긴다 — 넓힐 값어치 순서다', q.이긴질의[0].질의 === 'pristin v');
+  본다('🔴 질의와 함께 «어느 지면»인지도 남긴다', q.이긴질의[0].지면 === '/group/pristin-v');
+  본다('⛔ 30위 밖은 이긴 자리에 안 섞인다', q.이긴질의.every((x) => x.자리 <= 3));
+  본다('⛔ 이긴 것이 없으면 빈 목록이다 — 0 으로도 null 로도 적지 않는다',
+    Array.isArray(재기([{ impressions: 1, clicks: 0, position: 50 }]).이긴질의)
+    && 재기([{ impressions: 1, clicks: 0, position: 50 }]).이긴질의.length === 0);
+  본다('🔴 할 일이 질의를 이름으로 댄다 — 받는 사람이 무엇을 낼지 알아야 한다',
+    할일내기('시험', q).some((x) => /pristin v/.test(x.말)));
+  본다('🔴 우리 GSC 파일의 칸 이름 key 를 읽는다',
+    재기([{ key: 'x', page: '/p', impressions: 1, clicks: 0, position: 2 }]).이긴질의[0].질의 === 'x');
+
+  /* 🔴 [2026-10-04] 한 달 전 자료를 「오늘」로 재던 자리 */
+  const 파일들 = [
+    'gsc-kcw-qp-2026-09-08.json', 'gsc-kcw-qp-2026-09-26.json',
+    'gsc-kcw-qp-7d-2026-09-01.json', 'gsc-100y-qp-2026-09-30.json',
+  ];
+  본다('🔴 파일을 «날짜»로 고른다 — 문자열 정렬에 속지 않는다',
+    최신자료고르기(파일들, 'kcw').f === 'gsc-kcw-qp-2026-09-26.json');
+  본다('⛔ 기간이 다른 7d 변종을 28일치와 안 섞는다',
+    최신자료고르기(파일들, 'kcw').f !== 'gsc-kcw-qp-7d-2026-09-01.json');
+  본다('⛔ 남의 사이트 파일을 안 고른다', 최신자료고르기(파일들, '100y').f.includes('100y'));
+  본다('⛔ 자료가 없으면 null 이다 — 아무거나 안 고른다', 최신자료고르기(파일들, '없는것') === null);
+  본다('날짜를 끌어낸다', 날짜끌기('gsc-kcw-qp-2026-09-26.json') === '2026-09-26');
+  본다('⛔ 날짜가 없으면 null 이다', 날짜끌기('gsc-kcw-qp.json') === null);
+  본다('자료 나이를 센다', 자료나이('2026-09-26', '2026-10-04') === 8);
+
+  /* 🔴 [2026-10-04] 넷플릭스 주소 검색을 실적으로 읽던 자리 */
+  const 거품 = [
+    { key: 'https://www.netflix.com/tudum/top10?week=2024-11-03', impressions: 64, clicks: 0, position: 9 },
+    { key: '"…/top10/data/all-weeks-countries.tsv"', impressions: 36, clicks: 0, position: 8 },
+    { key: 'tws kpop members', impressions: 20, clicks: 2, position: 2 },
+  ];
+  본다('🔴 남의 주소를 찾는 검색의 «몫»을 잰다', 주소몫(거품) === 83);
+  본다('⛔ 우리 주제말은 주소로 안 센다', 주소몫([{ key: 'tws kpop', impressions: 10 }]) === 0);
+  본다('⛔ 노출이 0이면 몫을 0 으로 적지 않는다 — null 이다',
+    주소몫([]) === null && 주소몫([{ key: 'x', impressions: 0 }]) === null);
+  본다('⛔ 빈 것·망가진 줄에 안 터진다', 주소몫(null) === null && 질의글(null) === '');
+  본다('⛔ 날을 모르면 나이를 0 으로 적지 않는다 — null 이다',
+    자료나이(null, '2026-10-04') === null && 자료나이('x', '2026-10-04') === null);
+
   const 할일 = 할일내기('시험', r);
   본다('🔴 이미 이긴 자리가 있으면 «넓히라»고 낸다',
     할일.some((x) => /같은 꼴|넓히는/.test(x.말)));
@@ -185,22 +330,31 @@ if (내가진입점) {
   const 할일전부 = [];
   for (const s of 사이트들) {
     /* query+page 자료가 가장 많이 말해 준다 — 어느 물음에 어느 지면이 몇 위인가 */
-    const 것들 = fs.existsSync(path.join(뿌리, 'src/data'))
-      ? fs.readdirSync(path.join(뿌리, 'src/data')).filter((f) => f.startsWith(`gsc-${s.딱지}-qp-`)).sort()
-      : [];
-    if (!것들.length) {
+    const 모든파일 = fs.existsSync(path.join(뿌리, 'src/data'))
+      ? fs.readdirSync(path.join(뿌리, 'src/data')) : [];
+    const 고른것 = 최신자료고르기(모든파일, s.딱지);
+    if (!고른것) {
       console.log(`  ⬜ ${s.이름.padEnd(16)} 잴 자료가 없다 — fetch-gsc.mjs --사이트 ${s.딱지}`);
       continue;
     }
     let 줄들 = [];
-    try { 줄들 = (JSON.parse(fs.readFileSync(path.join(뿌리, 'src/data', 것들.at(-1)), 'utf8')).rows) || []; }
+    try { 줄들 = (JSON.parse(fs.readFileSync(path.join(뿌리, 'src/data', 고른것.f), 'utf8')).rows) || []; }
     catch (e) { console.log(`  🔴 ${s.이름} 자료를 못 읽었다`); continue; }
 
     const r = 재기(줄들);
+    r.잰자료날 = 고른것.날;
+    r.자료나이 = 자료나이(고른것.날, 오늘);
+    r.주소몫 = 주소몫(줄들);
     잰것전부[s.딱지] = r;
     const 표 = r.첫자리 > 0 ? '✅' : (r.노출 > 0 ? '⚠' : '🔴');
+    /* 🔴 자료가 며칠 된 것인지 «반드시» 찍는다 — 안 찍어서 한 달 묵은 수를 오늘 수로 읽었다 */
+    const 묵음 = r.자료나이 == null ? ' (날 모름)'
+      : r.자료나이 >= 3 ? ` 🔴${r.자료나이}일 묵음` : ` ${r.잰자료날}`;
+    /* 🔴 노출의 큰 몫이 «남의 주소를 찾는 검색»이면 그 수를 실적으로 읽으면 안 된다 */
+    const 거품말 = r.주소몫 != null && r.주소몫 >= 30 ? ` ⚠주소검색 ${r.주소몫}%` : '';
     console.log(`  ${표} ${s.이름.padEnd(16)} [${s.임자}] 노출 ${String(r.노출).padStart(5)} · 클릭 ${String(r.클릭).padStart(3)}`
-      + ` · 1페이지 ${String(r.앞장).padStart(3)} · 1~3위 ${String(r.첫자리).padStart(3)} · 30위밖 ${String(r.뒷장).padStart(3)}`);
+      + ` · 1페이지 ${String(r.앞장).padStart(3)} · 1~3위 ${String(r.첫자리).padStart(3)} · 30위밖 ${String(r.뒷장).padStart(3)}`
+      + 묵음 + 거품말);
     for (const h of 할일내기(s.이름, r)) 할일전부.push(h);
   }
 
