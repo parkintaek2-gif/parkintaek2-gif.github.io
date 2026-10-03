@@ -409,7 +409,22 @@ ${칸}
       write a zero in place of a blank.</p>
     </section>
 
-${읽을것칸(이지면기사(기사들, '/community'))}${꼬리말(['<strong>There is no sign-in and no posting yet.</strong> These rooms are places to read and to walk from one name to the next. Nothing here is ranked by us and there is no feed.'])}
+    <!--
+      2026-10-03 — the rooms can be spoken in now. The comment server (/api/comments)
+      had been live and unused; this page still said no one could write here, while
+      66 pages on our sister site already had a thread. One line of markup closed that.
+      The page key must match this page's address, or posts land in someone else's room.
+      No cookies, no IP kept — the widget is built that way.
+    -->
+    <section class="say">
+      <h2>Say something in the hall</h2>
+      <p>These rooms are built from counts, not opinions. The opinions are yours.
+      No sign-in, no tracking, nothing ranked by us.</p>
+      <script src="/comments-widget.js" defer></script>
+      <div data-comments-page="/community"></div>
+    </section>
+
+${읽을것칸(이지면기사(기사들, '/community'))}${꼬리말(['These rooms are places to read, to walk from one name to the next, and now to leave a line of your own. Nothing here is ranked by us and there is no feed.'])}
   </div>
 </body>
 </html>
