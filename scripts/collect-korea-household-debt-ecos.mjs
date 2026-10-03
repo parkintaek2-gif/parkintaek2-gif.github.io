@@ -68,12 +68,15 @@ export const 거둘것 = [
     ],
   },
   {
+    /* 🔴 2026-10-04 04:xx 2번 — ITEM_CODE2(은행전체/일반은행/특수은행) 축을 안 박아서
+       한 달에 세 값이 겹쳐 들어가는 결함을 라이브 API로 실측 확인 — 'AB'(은행전체)로 고정했다.
+       근거: StatisticSearch 를 item2 없이 부르면 한 달에 3줄(AB·DB·SB)이 같이 온다. */
     키: 'delinquency', 표: '901Y124', 주기: 'M', 처음: '201501',
     이름: 'Bank loan delinquency (1 month or more)', 단위: '%',
     항목: [
-      ['MO3AA', 'Corporate loans'],
-      ['MO3AB', 'Household loans'],
-      ['MO3AC', 'Credit-card loans'],
+      ['MO3AA/AB', 'Corporate loans'],
+      ['MO3AB/AB', 'Household loans'],
+      ['MO3AC/AB', 'Credit-card loans'],
     ],
   },
   {
@@ -204,8 +207,9 @@ if (내가진입점 && process.argv.includes('--받는다')) {
       const 점 = 줄.map((x) => ({ t: x.TIME, v: 값으로(x.DATA_VALUE) }));
       갈래.push({ code: 코드, name: 이름, points: 점, latest: 최근시점(줄) });
       console.log(`   ✅ ${계.표}/${코드} ${이름.padEnd(24)} ${점.length}점 · 최근 ${시점보기(최근시점(줄) || '-', 계.주기)}`);
-      /* 원본을 그대로 쌓는다 — 가공본만 두면 되돌릴 수 없다 */
-      fs.writeFileSync(path.join(쌓을방, `${날글}_${계.표}_${코드}.json`), JSON.stringify(j));
+      /* 원본을 그대로 쌓는다 — 가공본만 두면 되돌릴 수 없다
+         ⛔ 코드에 '/'(item2 축)가 들어올 수 있어 파일이름은 '-'로 바꿔 쓴다 */
+      fs.writeFileSync(path.join(쌓을방, `${날글}_${계.표}_${코드.replace(/\//g, '-')}.json`), JSON.stringify(j));
     }
     if (갈래.length) 낸다.계열.push({ key: 계.키, table: 계.표, cycle: 계.주기, title: 계.이름, unit: 계.단위, series: 갈래 });
   }
