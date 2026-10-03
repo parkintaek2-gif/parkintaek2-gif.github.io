@@ -168,6 +168,34 @@ process.on('unhandledRejection', (e) => {
   console.error('⚠ 늦게 온 거절(판정에는 영향 없음):', String(e?.message ?? e).slice(0, 120));
 });
 
+/**
+ * 🔴🔴 [2026-10-03] **이 검사가 며칠째 한 줄도 못 냈다.**
+ *
+ *   `SocketError: other side closed (UND_ERR_SOCKET)` 가 떠서 통째로 죽었다.
+ *   바로 위의 unhandledRejection 으로는 안 잡혔다 — 그것은 «거절»이 아니라
+ *   HTTP/2 스트림이 던지는 **uncaughtException** 이기 때문이다.
+ *
+ * ⛔ 「검사가 안 돈다」는 「흠이 없다」가 아니다. 보안 점검이 조용히 쉬고 있었다.
+ *   사장님: 「**보안 철저하게 해. 우리 서비스들**」·「**다른 ai에게 뚫리지 마라**」
+ *
+ * ⚠ 네트워크가 끊긴 것만 넘긴다. 그 밖의 예외는 «그대로 터뜨린다» —
+ *   진짜 결함을 이 그물로 덮으면 이 자는 쓸모가 없어진다.
+ */
+export const 네트워크탈 = new Set([
+  'UND_ERR_SOCKET', 'ECONNRESET', 'ECONNREFUSED', 'EPIPE', 'ETIMEDOUT',
+  'ERR_HTTP2_STREAM_ERROR', 'ERR_HTTP2_STREAM_CANCEL', 'ENOTFOUND', 'EAI_AGAIN',
+]);
+export function 넘길탈인가(e) {
+  const 코드 = e?.code ?? e?.cause?.code ?? '';
+  if (네트워크탈.has(코드)) return true;
+  return /other side closed|socket hang up|terminated|aborted/i.test(String(e?.message ?? ''));
+}
+process.on('uncaughtException', (e) => {
+  if (!넘길탈인가(e)) throw e;
+  console.error('⚠ 연결이 끊겼다(그 창구만 「못 쟀다」로 적는다):',
+    String(e?.code ?? e?.message ?? e).slice(0, 80));
+});
+
 /* ── 실제로 재기 ─────────────────────────────────────────── */
 async function 받기(주소, 옵션 = {}) {
   try {
@@ -175,6 +203,16 @@ async function 받기(주소, 옵션 = {}) {
     const r = await fetch(주소, { redirect: 'manual', signal: AbortSignal.timeout(12000), ...옵션 });
     return r;
   } catch (e) { return null; }
+}
+
+/**
+ * 몸통을 안 읽을 응답은 **버린다고 말해 준다.**
+ *
+ * 🔴 [2026-10-03] 안 읽고 버려 둔 몸통이 쌓이자 HTTP/2 스트림이 뒤늦게
+ *   `other side closed` 를 던져 검사가 통째로 죽었다. 상태만 볼 자리에서는 여기를 부른다.
+ */
+async function 몸버리기(r) {
+  try { await r?.body?.cancel(); } catch { /* 이미 닫혔으면 그만이다 */ }
 }
 
 async function 재기() {
@@ -193,6 +231,7 @@ async function 재기() {
     for (const 길 of ['/api/db/customers', '/api/admin/orders', '/api/admin/users']) {
       const r = await 받기(s.밑 + 길);
       if (!r) continue;
+      await 몸버리기(r);
       const 좋나 = 닫혔나(r.status);
       console.log(`  ${길.padEnd(22)} ${좋나 ? '✅' : '🔴'} ${r.status}`);
       if (!좋나) 모든흠.push(`${s.이름}${길}: ${r.status} — 열려 있다`);
@@ -202,6 +241,7 @@ async function 재기() {
     for (const 길 of ['/.git/config', '/.env']) {
       const r = await 받기(s.밑 + 길);
       if (!r) continue;
+      await 몸버리기(r);
       const 좋나 = r.status !== 200;
       console.log(`  ${길.padEnd(22)} ${좋나 ? '✅' : '🔴'} ${r.status}`);
       if (!좋나) 모든흠.push(`${s.이름}${길}: 200 — 통째로 보인다`);
@@ -216,6 +256,7 @@ async function 재기() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ email: 없는계정, password: `아무거나-${i}` }),
       });
+      await 몸버리기(r);
       답들.push(r ? r.status : 0);
     }
     const 판정 = 잠겼나(답들);
