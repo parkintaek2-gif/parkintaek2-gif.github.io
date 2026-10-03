@@ -23,6 +23,47 @@
     try { return new Date(iso).toLocaleString(); } catch { return iso; }
   }
 
+  /*
+   * 2026-10-03 — this widget is shared by three sites and every string in it was Korean.
+   * That was fine while it only ran on seoulmarkets and 100yearmap. Today it went onto
+   * 268 K Culture Wire pages, which are written in English for readers outside Korea,
+   * and the box said "아직 댓글이 없습니다" under an English headline.
+   * The screenshot caught it; the status code did not. A page tells us its language in
+   * <html lang>, so read it from there instead of guessing. Korean stays the default,
+   * because the two Korean sites were here first and nothing about them changes.
+   */
+  const 말 = {
+    ko: {
+      없다: '아직 댓글이 없습니다. 첫 댓글을 남겨 보세요.',
+      부르는중: '불러오는 중…',
+      못불렀다: '댓글을 못 불러왔습니다.',
+      이름자리: "이름(선택, 비우면 '손님')",
+      본문자리: '댓글을 남겨 주세요',
+      등록: '등록',
+      천천히: '잠시 후 다시 시도해 주세요.',
+      실패: '등록에 실패했습니다.',
+      실패다시: '등록에 실패했습니다. 잠시 후 다시 시도해 주세요.',
+    },
+    en: {
+      없다: 'No comments yet. Be the first to say something.',
+      부르는중: 'Loading…',
+      못불렀다: 'Could not load the comments.',
+      이름자리: 'Name (optional — blank means "Guest")',
+      본문자리: 'Write a comment',
+      등록: 'Post',
+      천천히: 'Please try again in a moment.',
+      실패: 'Could not post that.',
+      실패다시: 'Could not post that. Please try again in a moment.',
+    },
+  };
+  /* ⚠ ko-KR 도 ko 다. 앞 두 글자만 본다. 모르는 말이면 한국어로 둔다 — 전에 있던 동작 그대로 */
+  const 글말 = (function () {
+    try {
+      const t = (document.documentElement.getAttribute('lang') || 'ko').slice(0, 2).toLowerCase();
+      return 말[t] || 말.ko;
+    } catch { return 말.ko; }
+  })();
+
   async function 목록가져오기(page) {
     const r = await fetch('/api/comments?page=' + encodeURIComponent(page), { method: 'GET' });
     const j = await r.json().catch(() => ({ ok: false }));
@@ -31,7 +72,7 @@
 
   function renderList(listEl, comments) {
     if (!comments.length) {
-      listEl.innerHTML = '<p class="cw-empty">아직 댓글이 없습니다. 첫 댓글을 남겨 보세요.</p>';
+      listEl.innerHTML = '<p class="cw-empty">' + esc(글말.없다) + '</p>';
       return;
     }
     listEl.innerHTML = comments.map(function (c) {
@@ -49,14 +90,14 @@
     const openedAt = Date.now(); // 폼을 그린 시각. 너무 빠른 제출을 서버가 걸러내는 데 쓴다
 
     container.innerHTML =
-      '<div class="cw-list" aria-live="polite">불러오는 중…</div>' +
+      '<div class="cw-list" aria-live="polite">' + esc(글말.부르는중) + '</div>' +
       '<form class="cw-form">' +
-      '<input class="cw-name" type="text" maxlength="40" placeholder="이름(선택, 비우면 \'손님\')">' +
-      '<textarea class="cw-body" maxlength="2000" required placeholder="댓글을 남겨 주세요"></textarea>' +
+      '<input class="cw-name" type="text" maxlength="40" placeholder="' + esc(글말.이름자리) + '">' +
+      '<textarea class="cw-body" maxlength="2000" required placeholder="' + esc(글말.본문자리) + '"></textarea>' +
       // 벌집: 사람 눈에는 안 보이지만 봇은 흔히 채운다
       '<input class="cw-website" type="text" name="website" autocomplete="off" tabindex="-1" ' +
       'style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">' +
-      '<button class="cw-submit" type="submit">등록</button>' +
+      '<button class="cw-submit" type="submit">' + esc(글말.등록) + '</button>' +
       '<p class="cw-msg" role="status"></p>' +
       '</form>';
 
@@ -65,7 +106,7 @@
     const msgEl = container.querySelector('.cw-msg');
 
     목록가져오기(page).then(function (c) { renderList(listEl, c); })
-      .catch(function () { listEl.innerHTML = '<p class="cw-empty">댓글을 못 불러왔습니다.</p>'; });
+      .catch(function () { listEl.innerHTML = '<p class="cw-empty">' + esc(글말.못불렀다) + '</p>'; });
 
     formEl.addEventListener('submit', async function (e) {
       e.preventDefault();
@@ -92,12 +133,14 @@
           const 지금목록 = await 목록가져오기(page);
           renderList(listEl, 지금목록);
         } else {
+          /* ⚠ 서버가 주는 까닭(j.why)은 한국어다. 영문 지면에는 그대로 내보내지 않는다 —
+             우리 사정을 손님 화면에 적는 자리는 없다. 영문에서는 우리 말로 바꿔 적는다. */
           msgEl.textContent = j.why === '너무 빠른 제출'
-            ? '잠시 후 다시 시도해 주세요.'
-            : (j.why || '등록에 실패했습니다.');
+            ? 글말.천천히
+            : ((글말 === 말.ko && j.why) ? j.why : 글말.실패);
         }
       } catch {
-        msgEl.textContent = '등록에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+        msgEl.textContent = 글말.실패다시;
       } finally {
         submitBtn.disabled = false;
       }
