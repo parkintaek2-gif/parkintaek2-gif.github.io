@@ -33,6 +33,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import zlib from 'node:zlib';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
@@ -151,6 +152,54 @@ export function 벌로묶기(파일들) {
  * ⛔ 못 세면 0 이 아니라 **null** 이다. 「못 쟀다」로 막지 않는다 — 못 잰 하나가
  *   보낼 수 있는 백 개를 가리면 안 된다(강령 ③).
  */
+/**
+ * 워드(.docx) 안의 **진짜 표**가 몇 개인지 센다 — 첨부 관문의 자.
+ *
+ * 🔴 [2026-10-03] 첨부를 PDF 에서 워드로 바꾸자 `쪽수재기` 가 늘 null 을 돌려주어
+ *   「표지 한 장짜리를 막는」 관문이 **죽은 채로 통과**하게 됐다.
+ *   ⛔ 관문을 갈아끼울 때 «그 관문이 아직 무엇을 막고 있나»를 먼저 센다.
+ *
+ * docx 는 zip 이고 안의 `word/document.xml` 은 **deflate 로 눌려 있다.**
+ * ⚠ 통째 바이트에서 `<w:tbl` 자국을 세려다 늘 0 이 나왔다 — 눌린 것은 안 보인다.
+ *   그것을 「표가 없다」로 읽었으면 관문이 거꾸로 돌 뻔했다. 풀어서 센다.
+ * 못 풀면 null 을 돌려준다. ⛔ 0 으로 채우지 않는다(강령 ③).
+ *
+ * @returns {number|null} 표 개수, 못 쟀으면 null
+ */
+export function 워드표세기(길, 읽기 = fs.readFileSync) {
+  let 통;
+  try { 통 = 읽기(길); } catch { return null; }
+  if (!Buffer.isBuffer(통) || 통.subarray(0, 2).toString('latin1') !== 'PK') return null;
+  try {
+    const 속 = 집에서글꺼내기(통, 'word/document.xml');
+    if (속 === null) return null;
+    return (속.match(/<w:tbl[ >]/g) || []).length;
+  } catch { return null; }
+}
+
+/** zip 안의 한 파일을 글로 꺼낸다. 못 꺼내면 null */
+export function 집에서글꺼내기(통, 이름) {
+  /* 끝 쪽의 중앙 디렉터리를 쓰지 않고 지역 헤더를 훑는다 — 작은 파일이라 충분하다 */
+  const 머리 = Buffer.from('PK\x03\x04', 'latin1');
+  let i = 통.indexOf(머리, 0);
+  while (i >= 0) {
+    const 방식 = 통.readUInt16LE(i + 8);
+    const 눌린크기 = 통.readUInt32LE(i + 18);
+    const 이름길이 = 통.readUInt16LE(i + 26);
+    const 더길이 = 통.readUInt16LE(i + 28);
+    const 속이름 = 통.toString('utf8', i + 30, i + 30 + 이름길이);
+    const 시작 = i + 30 + 이름길이 + 더길이;
+    if (속이름 === 이름 && 눌린크기 > 0) {
+      const 몸 = 통.subarray(시작, 시작 + 눌린크기);
+      if (방식 === 0) return 몸.toString('utf8');
+      if (방식 === 8) return zlib.inflateRawSync(몸).toString('utf8');
+      return null;
+    }
+    i = 통.indexOf(머리, 시작 + Math.max(1, 눌린크기));
+  }
+  return null;
+}
+
 /**
  * 메일로 넘길 인자를 만든다. **떼어 낸 까닭은 «시험할 수 있게» 하기 위해서다.**
  *
@@ -475,12 +524,36 @@ if (내가 && process.argv.includes('--자가시험')) {
     쪽수재기('x', () => 'PK 그냥 zip 이다') === null);
   검('⛔ 쪽수: 쪽 표시가 하나도 없으면 null 이다', 쪽수재기('x', 가짜pdf('아무것도 없다')) === null);
 
+  /* 🔴 [2026-10-03] 첨부가 PDF → 워드로 바뀌었다. 관문이 «죽은 채로» 통과하지 않게 잰다 */
+  {
+    const 워드길 = path.join(뿌리, 'tmp', '_관문시험.docx');
+    try {
+      execFileSync(process.execPath, [path.join(뿌리, 'scripts/md-to-docx.mjs'),
+        '-', '--out', 워드길], { cwd: 뿌리, stdio: 'pipe', input: '' });
+    } catch { /* 아래에서 직접 짓는다 */ }
+    try {
+      fs.mkdirSync(path.dirname(워드길), { recursive: true });
+      const 보기md = path.join(뿌리, 'tmp', '_관문시험.md');
+      fs.writeFileSync(보기md, '# 시험\n\n| 가 | 나 |\n|---|---|\n| 1 | 2 |\n\n| 다 | 라 |\n|---|---|\n| 3 | 4 |\n', 'utf8');
+      execFileSync(process.execPath, [path.join(뿌리, 'scripts/md-to-docx.mjs'), 보기md,
+        '--out', 워드길], { cwd: 뿌리, stdio: 'pipe' });
+      검('🔴 워드 안의 «진짜 표»를 센다 — 눌린 zip 을 풀어서', 워드표세기(워드길) === 2);
+      fs.unlinkSync(보기md); fs.unlinkSync(워드길);
+    } catch (e) {
+      검('🔴 워드 안의 표를 센다 — ' + String(e.message).slice(0, 50), false);
+    }
+    검('⛔ PDF 를 주면 «0 이 아니라» 못 쟀다(null) 로 답한다',
+      워드표세기('x', () => Buffer.from('%PDF-1.4 아무것도 없다', 'latin1')) === null);
+    검('⛔ 없는 파일에도 안 터진다', 워드표세기('없다.docx', () => { throw new Error('없다'); }) === null);
+    검('⛔ zip 이 아니면 null 이다', 워드표세기('x', () => Buffer.from('그냥 글', 'utf8')) === null);
+  }
+
   /* 🔴 [2026-10-03] 보고가 두 번 «조용히» 안 나갔다. 그 둘을 여기서 막는다 */
   {
     const 짓기 = (더) => 보낼인자만들기({
       받는곳: 'a@b.c', 날: '2026-10-02', 총편수: 2, 총반응: 0, 총만듦: 0,
       md: 'C:/Users/User/OneDrive/콘텐트 점검/콘텐트 점검_20261002.md',
-      붙일것: 'C:/x/보고.pdf', ...더,
+      붙일것: 'C:/x/보고.docx', ...더,
     });
     const 글인자 = (인자) => 인자.find((x) => x.startsWith('--글='));
     검('🔴 --봤다 를 send-mail 에 그대로 넘긴다', 짓기({ 봤다: true }).includes('--봤다'));
@@ -1292,12 +1365,22 @@ if (내가) {
     console.log(`   🔴 CSV 를 못 냈다 — ${String(e.message).slice(0, 60)}`);
   }
 
+  /**
+   * 🔴🔴 사장님 지시 (2026-10-03 밤, 원문): 「**표가 다 깨진다. 슬라이드나 워드로 보내**」
+   *
+   *   이 자는 2026-09-05 지시(「.md 파일 표 다 깨져. 엑셀로 보내던지 pdf로 보내던지」)로
+   *   PDF 를 붙여 왔다. 그런데 **사장님 화면에서는 PDF 도 표가 깨진다.**
+   *   ⇒ 나중 지시가 앞선 것을 덮는다. **워드(.docx)** 로 낸다.
+   *
+   * ⚠ PDF 는 더 만들지 않는다 — 둘을 다 붙이면 어느 것을 보실지 헷갈리신다.
+   * ⭐ 판별법 — 그 글에 표가 들어 있으면 PDF·마크다운으로 보내지 않는다.
+   */
   let pdf = null;
   const 사본md = path.join(사본방, `${이름}.md`);
   try {
-    execFileSync(process.execPath, [path.join(뿌리, 'scripts/md-to-pdf.mjs'), 사본md],
+    execFileSync(process.execPath, [path.join(뿌리, 'scripts/md-to-docx.mjs'), 사본md],
       { cwd: 뿌리, stdio: 'pipe' });
-    const 만든것 = 사본md.replace(/\.md$/, '.pdf');
+    const 만든것 = 사본md.replace(/\.md$/, '.docx');
     if (fs.existsSync(만든것)) {
       pdf = 만든것;
       /*
@@ -1308,13 +1391,13 @@ if (내가) {
        *   ✅ 그러니 막히면 **딴 이름으로라도 새 판을 넣는다.** 없는 것보다 낫고,
        *      이름에 시각이 들어가니 어느 것이 새 것인지 사장님이 바로 아신다.
        */
-      const 원드라이브pdf = md.replace(/\.md$/, '.pdf');
+      const 원드라이브pdf = md.replace(/\.md$/, '.docx');
       let 놓았나 = null;
       try { fs.copyFileSync(만든것, 원드라이브pdf); 놓았나 = 원드라이브pdf; }
       catch (e1) {
         const 두자 = (n) => String(n).padStart(2, '0');
         const 때 = new Date(); /* ⚠ 이 PC 는 이미 KST 다 */
-        const 딴이름 = 원드라이브pdf.replace(/\.pdf$/, `_${두자(때.getHours())}${두자(때.getMinutes())}.pdf`);
+        const 딴이름 = 원드라이브pdf.replace(/\.docx$/, `_${두자(때.getHours())}${두자(때.getMinutes())}.docx`);
         try { fs.copyFileSync(만든것, 딴이름); 놓았나 = 딴이름; }
         catch (e2) {
           console.log(`   🔴 OneDrive 에 못 놓았다 — 덮기: ${String(e1.code || e1.message).slice(0, 20)}`
@@ -1325,11 +1408,11 @@ if (내가) {
     }
   } catch (e) {
     /* ⛔ 먹지 않는다. 무엇이 틀렸는지 남긴다 */
-    console.log(`   🔴 PDF 를 만들다 걸렸다 — ${String(e.message).slice(0, 160)}`);
+    console.log(`   🔴 워드를 만들다 걸렸다 — ${String(e.message).slice(0, 160)}`);
   }
   console.log(pdf
-    ? `PDF 도 냈다 — ${path.basename(pdf)} (${Math.round(fs.statSync(pdf).size / 1024)}KB)`
-    : '⬜ PDF 는 못 냈다 — md 로만 낸다. ⛔ 사장님은 md 표를 못 보신다. 위 까닭을 고쳐야 한다');
+    ? `워드로 냈다 — ${path.basename(pdf)} (${Math.round(fs.statSync(pdf).size / 1024)}KB)`
+    : '🔴 워드를 못 냈다 — md 로만 낸다. ⛔ 사장님은 md 표를 못 보신다. 위 까닭을 고쳐야 한다');
 
   /**
    * 🔴 받는 주소를 **소스에 박지 않는다.** `send-mail.mjs` 가 처음부터 못박아 둔 규칙이고
@@ -1389,14 +1472,27 @@ if (내가) {
    * ⇒ 결함을 고칠 때 «같은 일을 하는 다른 자»까지 따라간다(강령 ⑤).
    */
   if (붙일것) {
-    const 쪽 = 쪽수재기(붙일것);
-    if (쪽 !== null && 쪽 < 2) {
-      console.error(LF + `⛔ PDF 가 ${쪽}쪽이다 — **안 보낸다.** 표지 한 장짜리가 세 번 나갔다.`);
-      console.error('   ' + 붙일것);
-      console.error('   ⚠ 먼저 열어서 안에 유닛 표가 들어 있는지 보십시오.');
-      process.exit(1);
+    /* 🔴 [2026-10-03] 첨부가 PDF 에서 워드로 바뀌었다. 쪽수재기 는 PDF 전용이라
+       그대로 두면 관문이 «죽은 채로» 늘 통과한다 — 그것이 표지 한 장을 세 번 내보낸 꼴이다.
+       ⇒ 워드에는 워드의 자를 댄다: 안에 «진짜 표»가 둘 이상 들어 있나. */
+    if (/\.docx$/i.test(붙일것)) {
+      const 표수 = 워드표세기(붙일것);
+      if (표수 !== null && 표수 < 2) {
+        console.error(LF + `⛔ 워드 안에 표가 ${표수}개뿐이다 — **안 보낸다.** 표지 한 장짜리가 세 번 나갔다.`);
+        console.error('   ' + 붙일것);
+        process.exit(1);
+      }
+      console.log(LF + `✅ 첨부 관문 — 워드 안의 표 ${표수 === null ? '수를 못 쟀다(그래도 막지 않는다)' : 표수 + '개'}`);
+    } else {
+      const 쪽 = 쪽수재기(붙일것);
+      if (쪽 !== null && 쪽 < 2) {
+        console.error(LF + `⛔ PDF 가 ${쪽}쪽이다 — **안 보낸다.** 표지 한 장짜리가 세 번 나갔다.`);
+        console.error('   ' + 붙일것);
+        console.error('   ⚠ 먼저 열어서 안에 유닛 표가 들어 있는지 보십시오.');
+        process.exit(1);
+      }
+      console.log(LF + `✅ 쪽수 관문 — PDF ${쪽 === null ? '쪽수를 못 쟀다(그래도 막지 않는다)' : 쪽 + '쪽'}`);
     }
-    console.log(LF + `✅ 쪽수 관문 — PDF ${쪽 === null ? '쪽수를 못 쟀다(그래도 막지 않는다)' : 쪽 + '쪽'}`);
   }
 
   /* 아래 보낼인자만들기() 로 옮겼다 — 시험할 수 있게 하려고.
@@ -1407,6 +1503,6 @@ if (내가) {
         ......OneDrive… 가 되어 send-mail 이 못 찾았다. 절대 경로로 넘긴다. */
   const 보낼인자 = 보낼인자만들기({ 받는곳, 날, 총편수, 총반응, 총만듦, md, 붙일것,
     봤다: process.argv.includes('--봤다') });
-  if (!붙일것) console.log(LF + '⚠ 붙일 PDF 가 없다 — 본문만 보낸다. 사장님은 md 표를 못 보신다.');
+  if (!붙일것) console.log(LF + '⚠ 붙일 워드가 없다 — 본문만 보낸다. 사장님은 md 표를 못 보신다.');
   execFileSync('node', 보낼인자, { cwd: 뿌리, stdio: 'inherit' });
 }
