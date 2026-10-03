@@ -240,13 +240,13 @@ export const 그림들 = [
     },
   },
   {
-    이름: '06-운은-열해를-묶어-본다',
-    쓸곳: '제8장 2절 — 운은 열 해를 묶어 본다',
+    이름: '06-운은-10년을-묶어-본다',
+    쓸곳: '제8장 2절 — 운은 10년을 묶어 본다',
     그리기() {
       /* 🔴 빈 상자 열 개만 그려 놓았다가 2026-09-26 에 교재를 떠서 보고 잡았다 —
-         칸이 비어 있으면 「열 해」인지 무엇인지 그림만 봐서는 알 수 없다.
+         칸이 비어 있으면 「10년」인지 무엇인지 그림만 봐서는 알 수 없다.
          해마다 번호를 적고, 「앞 오 년·뒤 오 년」으로 끊는 잘못된 읽기를 함께 보인다. */
-      let s = 제목칸('운은 열 해를', '묶어 본다', { 크기: 54 });
+      let s = 제목칸('운은 10년을', '묶어 본다', { 크기: 54 });
       for (let i = 0; i < 10; i++) {
         const x = 300 + i * 84;
         /* 앞 오 년은 천간, 뒤 오 년은 지지 — 사람들이 여기서 끊어 읽는다 */
@@ -268,11 +268,11 @@ export const 그림들 = [
       s += `<rect x="296" y="376" width="844" height="128" fill="none"`
         + ` stroke="#FF0000" stroke-width="6"/>`;
       s += `<text x="718" y="570" font-family="${글꼴}" font-size="34" font-weight="900"`
-        + ` fill="#FF0000" text-anchor="middle">열 해가 한 덩이다</text>`;
+        + ` fill="#FF0000" text-anchor="middle">10년이 한 단위다</text>`;
       s += `<text x="718" y="650" font-family="${글꼴}" font-size="30" font-weight="700"`
         + ` fill="#1C1E21" text-anchor="middle">점선에서 끊어 「앞은 천간, 뒤는 지지」로 읽으면 틀린다</text>`;
       s += `<text x="718" y="700" font-family="${글꼴}" font-size="30" font-weight="700"`
-        + ` fill="#1C1E21" text-anchor="middle">열 해를 아울러 좋고 나쁨을 가린다</text>`;
+        + ` fill="#1C1E21" text-anchor="middle">10년을 아울러 길흉(吉凶)을 가린다</text>`;
       return 판(s);
     },
   },

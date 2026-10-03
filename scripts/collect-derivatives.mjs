@@ -204,6 +204,18 @@ async function main() {
   if (!키) { console.error('✕ DATAGO_KEY 가 없다.'); process.exit(1); }
   mkdirSync(OUT_DIR, { recursive: true });
   if (!remoteEnabled) console.warn('⚠ R2 미설정(ARCHIVE_S3_*): 로컬에만 저장된다. 운영·백업이면 .env 를 확인하라.');
+  /* 🔴🔴 [2026-10-03 · 5번] **`--date=20261001` 을 통째로 무시하고 있었다.**
+     이 자는 `--date 20261001` (빈칸 꼴)만 받는다. 등호 꼴로 주면 못 알아듣고
+     조용히 «어제»를 받아 온다. 나는 그 0건을 보고 「그날은 휴장일」이라고 적을 뻔했다 —
+     실제로는 다른 날을 두드린 것이었다.
+     ⛔ 조용히 다른 일을 하는 자가 가장 비싸다. 모르는 꼴이면 **안 돌린다.** */
+  for (const a of process.argv.slice(2)) {
+    if (/^--(date|from|to)=/.test(a)) {
+      const [이름] = a.split("=");
+      console.error(`✕ ${a} — 이 자는 등호 꼴을 안 받는다. ${이름} 20261001 처럼 빈칸으로 준다.`);
+      process.exit(1);
+    }
+  }
   const arg = (n) => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : null; };
 
   if (process.argv.includes('--all')) {
