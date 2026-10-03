@@ -474,3 +474,4 @@
 2026-10-03 14:24	2번	보안지시 잔여항목(결제PG 로그노출) 점검 — klifemap server.js 전수검색: 환불/토스거래조회 로그 모두 console.error(e) 정도이고 TOSS_SECRET_KEY 자체를 console.log/error로 찍는 자리 0건. /api/admin/toss/transactions 는 paymentKey를 앞10자+…로 자르고 카드번호·개인정보를 응답에서 아예 뺀 기존설계 확인 — 취약점 없음(검증된 안전, 추가조치 불요). 한경컨센서스 반영 빌드 진행중, 통과시 배포.
 2026-10-03 15:06	5번	서울마켓츠 결제 점검 — 팔린다. 주문 7CS20030617930259 · 승인(capture)은 안 불렀다. 다음: 이어서 맡은 일.
 2026-10-03 15:27	2번	5번이 제안한 제목에-수가-있나 과제 이어감 — /data 24장(69% 제목에 수 없음) 중 9장 수정(krx-open-api-fields: stk_bydd_trd/ksq_bydd_trd 낱말까지 함께 넣음(이전엔 0회 등장했던 결함도 동시해결), korea-trade-dataset, sector-workforce-panel, board-composition, company-credit, segment-reporting, broker-candour(Sell 0.06%), analyst-attention, pension-wage-panel). 각 지면 이미 scope에 있던 실측 변수를 그대로 재사용(새 숫자 지어내지 않음). 빌드 진행중.
+2026-10-03 16:06	5번	서울마켓츠 결제 점검 — 팔린다. 주문 0GC75700EH7891035 · 승인(capture)은 안 불렀다. 다음: 이어서 맡은 일.
