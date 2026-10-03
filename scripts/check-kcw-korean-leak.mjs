@@ -173,6 +173,45 @@ export function 손님지면인가(글) {
 }
 
 /**
+ * 🔴🔴 [2026-10-04 05:0x · 5번] **인라인 스크립트 안의 한국어를 아무도 안 보고 있었다.**
+ *
+ *   이 자들은 지면에서 «태그를 벗겨» 본문만 본다. 그래서 script 안은 통째로 안 본다.
+ *   그런데 **인라인 스크립트는 손님 브라우저로 그대로 간다. 주석까지 간다.**
+ *
+ *   어젯밤 GA 거르개를 만들며 `Analytics.astro` 의 인라인 조각에 한국어 주석을 세 줄 넣었다.
+ *   그 파일은 **네 사이트 모든 지면**에 들어간다 — 1만 8천 장에 실려 나갔다.
+ *   ⛔ 그리고 바로 그 위에 **내가 적어 둔 경고**가 있었다 —
+ *     「⚠ 브라우저로 나가는 조각에는 ASCII 이름만 쓴다(2026-08-08 사고)」.
+ *     주석으로 적어 둔 규칙은 적은 사람도 지키지 않는다. 그래서 검사로 옮긴다(강령 ④).
+ *
+ * ⚠ 외부 스크립트(src= 가 있는 것)는 안 본다 — 그 안은 우리가 쓴 글이 아니다.
+ * ⚠ ld+json 은 구조화 자료라 한국어 «값»이 들어갈 수 있다. 여기서 따로 뺀다.
+ */
+export function 인라인조각들(글) {
+  const 것 = [];
+  const 꼴 = /<script\b([^>]*)>([\s\S]*?)<\/script>/gi;
+  let m;
+  while ((m = 꼴.exec(String(글 ?? ''))) !== null) {
+    const 속성 = m[1] || '';
+    if (/\bsrc\s*=/i.test(속성)) continue;                    /* 밖에서 받아 오는 것 */
+    if (/type\s*=\s*["']application\/ld\+json["']/i.test(속성)) continue;
+    것.push(m[2]);
+  }
+  return 것;
+}
+
+export function 스크립트속한국어(글) {
+  const 걸린것 = [];
+  for (const 조각 of 인라인조각들(글)) {
+    for (const 덩이 of 조각.match(/[가-힣][가-힣\s·«»「」—]{0,60}/g) || []) {
+      const t = 덩이.trim();
+      if (t) 걸린것.push(t);
+    }
+  }
+  return [...new Set(걸린것)];
+}
+
+/**
  * 🔴 **`--selftest` 만 보고 돌면 안 된다.** 이 자가 import 되면 부르는 쪽의 argv 를
  *   제 것으로 알고 제 자가시험을 돌린 뒤 `process.exit` 한다 — **남의 시험이 통째로
  *   안 돈다.** 8/15 에 세 빌더가 하루 종일 그랬고, 화면엔 초록이 떴다.
@@ -192,6 +231,23 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
     맨몸한국어('<td>케이스타라이브의 국가별 월별 순 방문자 데이터 (KStarLive monthly unique visitors by country)</td>').length === 0);
   참('🔴 이름 안에 괄호가 끼어도 통과',
     맨몸한국어('<td>베트남의 한류(K-POP) 주제 한류 커뮤니티 키워드 데이터 (Hallyu community keywords in Vietnam)</td>').length === 0);
+  /* 🔴 [2026-10-04] 인라인 스크립트 안의 한국어 — 손님 브라우저로 그대로 간다 */
+  참('🔴 인라인 스크립트 «주석»의 한국어를 잡는다',
+    스크립트속한국어('<script>var a=1; /* 왜 안 쟀는지 남긴다 */</script>').length > 0);
+  참('🔴 인라인 스크립트 «글자값»의 한국어도 잡는다',
+    스크립트속한국어("<script>var t='배급';</script>").some((x) => x.includes('배급')));
+  참('⛔ 밖에서 받아 오는 스크립트는 안 본다 (우리가 쓴 글이 아니다)',
+    스크립트속한국어('<script src="/x.js">/* 배급 */</script>').length === 0);
+  참('⛔ ld+json 은 따로 둔다 (구조화 자료라 한국어 값이 있을 수 있다)',
+    스크립트속한국어('<script type="application/ld+json">{"name":"배급"}</script>').length === 0);
+  참('⛔ 스크립트 «밖»의 본문은 여기서 안 센다 (맨몸한국어 가 따로 본다)',
+    스크립트속한국어('<p>배급</p>').length === 0);
+  참('⛔ 한국어가 없으면 빈 목록이다', 스크립트속한국어('<script>var a=1;</script>').length === 0);
+  참('⛔ 빈 것·null 에 안 터진다',
+    스크립트속한국어('').length === 0 && 스크립트속한국어(null).length === 0);
+  참('인라인 조각을 여럿이면 여럿 다 본다',
+    인라인조각들('<script>a</script><script>b</script>').length === 2);
+
   /* ⛔ 넓혔어도 느슨해지지 않았음을 못박는다 */
   참('⛔ 긴 이름에 뜻이 «없으면» 그대로 걸린다',
     맨몸한국어('<td>케이스타라이브의 국가별 월별 순 방문자 데이터</td>').length > 0);

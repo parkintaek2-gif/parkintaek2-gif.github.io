@@ -79,10 +79,10 @@ export const 잇는곳 = [
       if (h === 'localhost' || h === '127.0.0.1' || h === '::1') return 'local';
       if (/\.cloudtype\.app$/.test(h)) return 'preview';
       if (/[?&]noga=1\b/.test(location.search)) {
-        try { localStorage.setItem('noga', '1'); } catch (e) { /* 막혀 있으면 이번만 */ }
+        try { localStorage.setItem('noga', '1'); } catch (e) { /* blocked: this visit only */ }
         return 'noga';
       }
-      try { if (localStorage.getItem('noga') === '1') return 'noga'; } catch (e) { /* 넘어간다 */ }
+      try { if (localStorage.getItem('noga') === '1') return 'noga'; } catch (e) { /* ignore */ }
     } catch (e) { return ''; }
     return '';
   }
@@ -97,6 +97,6 @@ export const 잇는곳 = [
     gtag('js', new Date());
     gtag('config', gaId, { linker: { domains: gaDomains } });
   }
-  /* 왜 안 쟀는지 화면에 남긴다 — 「안 쏜다」와 「고장났다」를 가르려고 */
+  /* why we skipped: lets a checker tell 'deliberately off' from 'broken' */
   window.__gaSkip = gaSkip;
 </script>

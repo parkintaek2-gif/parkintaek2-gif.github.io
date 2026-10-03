@@ -365,18 +365,26 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
       *   `flex-basis:100%`(별도 규칙, :has() 없이도 항상 걸림)만 적용돼 열린 칸이 한 줄을
       *   통째로 차지하고, nowrap+overflow-x:auto 통 안에서 나머지 칸이 밀려나 mask-image로 가려진다.
       * ⭐ `:has()`를 못 믿을 때를 위해 JS로 같은 뜻의 클래스(`nav-open`)를 얹는다.
-      *   toggle 이벤트만 듣는다 — 값을 안 읽고 «열렸나»만 본다, 실패해도 그냥 무시(진행 방해 안 함). */}
+      *   toggle 이벤트만 듣는다 — 값을 안 읽고 «열렸나»만 본다, 실패해도 그냥 무시(진행 방해 안 함).
+      *
+      * 🔴 [2026-10-04 05:1x] **아래 블록 «안»에는 한국어를 쓰지 않는다** — 이름도 주석도.
+      *   인라인 스크립트는 주석까지 손님 브라우저로 간다. 여기 변수가 `갱신`·`열림`이어서
+      *   지면 5,132장에 그대로 실려 나가고 있었다. 백년지도는 한국어 지면이라 손님이 읽는 데
+      *   지장은 없으나 글자마다 3바이트이고, 영문 지면(seoulmarkets·kcw)과 한 검사로 못 가른다.
+      *   ⛔ 고치면서 그 자리에 한국어 주석을 새로 넣었다가 그대로 다시 나갔다. 설명은 여기 적는다 —
+      *     JSX 주석 `{/* … *\/}` 은 빌드가 없애므로 브라우저로 안 간다. 그 차이가 전부다.
+      *   ⚠ 검사: `스크립트속한국어()` (scripts/check-kcw-korean-leak.mjs) */}
     <script is:inline>
       (function () {
         var nav = document.querySelector('.nav');
         if (!nav) return;
         var groups = nav.querySelectorAll('details.navgroup');
-        function 갱신() {
-          var 열림 = false;
-          for (var i = 0; i < groups.length; i++) if (groups[i].open) { 열림 = true; break; }
-          nav.classList.toggle('nav-open', 열림);
+        function sync() {
+          var anyOpen = false;
+          for (var i = 0; i < groups.length; i++) if (groups[i].open) { anyOpen = true; break; }
+          nav.classList.toggle('nav-open', anyOpen);
         }
-        for (var i = 0; i < groups.length; i++) groups[i].addEventListener('toggle', 갱신);
+        for (var i = 0; i < groups.length; i++) groups[i].addEventListener('toggle', sync);
       })();
     </script>
 

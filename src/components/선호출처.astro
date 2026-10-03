@@ -46,23 +46,39 @@ const 글 = lang === 'ko'
 </div>
 
 <script is:inline async src="https://news.google.com/swg/js/v1/publisher.js"></script>
+{/*
+  🔴🔴 [2026-10-04 05:1x · 5번] **아래 조각의 한국어가 지면 15,330장에 실려 나가고 있었다.**
+
+    인라인 스크립트는 «주석까지» 손님 브라우저로 간다. 이 조각은 모든 기사 레이아웃에
+    들어가므로, 한국어 주석 두 줄과 변수 이름 다섯이 **1만 5천 장에 그대로 찍혔다.**
+    seoulmarkets · kculturewire 는 **영문 전용** 지면이다(사장님 2026-08-05).
+
+    ⛔ 그리고 바로 위 25줄에 이미 경고가 있었다 — 「props 이름은 영문으로 둔다」.
+      그 까닭(한글 이름이 조용히 안 닿았다)과 이 까닭(브라우저로 나간다)은 다르지만,
+      결론은 같다. **주석으로 적은 규칙은 적은 사람도 지키지 않는다.**
+      그래서 검사로 옮겼다 — `스크립트속한국어()` (check-kcw-korean-leak.mjs).
+
+  ⛔ 이 블록 «안»에는 한국어를 쓰지 않는다. 설명은 이 JSX 주석에 적는다 —
+    JSX 주석 `{/* … *\/}` 은 빌드가 없애므로 브라우저로 안 간다. 그 차이가 전부다.
+
+  무엇을 하나 — 구글이 단추를 «실제로 그렸을 때만» 칸을 보인다.
+    「스크립트를 넣었다」를 「단추가 떴다」로 세지 않는다. 자격이 없으면 안 그려진다.
+    15초 안에 안 그려지면 구글이 우리를 출처로 모르는 것이다. 조용히 접는다.
+*/}
 <script is:inline>
-  /* 구글이 단추를 실제로 그렸을 때만 칸을 보인다.
-     ⛔ 「스크립트를 넣었다」를 「단추가 떴다」로 세지 않는다 — 자격이 없으면 안 그려진다. */
   (function () {
-    var 칸 = document.getElementById('prefsrc');
-    if (!칸) return;
-    var 자리 = 칸.querySelector('[google-add-preferred-source-btn]');
-    if (!자리) return;
-    var 켠다 = function () {
-      if (자리.childElementCount > 0) { 칸.hidden = false; return true; }
+    var box = document.getElementById('prefsrc');
+    if (!box) return;
+    var slot = box.querySelector('[google-add-preferred-source-btn]');
+    if (!slot) return;
+    var reveal = function () {
+      if (slot.childElementCount > 0) { box.hidden = false; return true; }
       return false;
     };
-    if (켠다()) return;
-    var 보는눈 = new MutationObserver(function () { if (켠다()) 보는눈.disconnect(); });
-    보는눈.observe(자리, { childList: true, subtree: true });
-    /* 15초 안에 안 그려지면 구글이 우리를 출처로 모르는 것이다. 조용히 접는다. */
-    setTimeout(function () { 보는눈.disconnect(); }, 15000);
+    if (reveal()) return;
+    var watcher = new MutationObserver(function () { if (reveal()) watcher.disconnect(); });
+    watcher.observe(slot, { childList: true, subtree: true });
+    setTimeout(function () { watcher.disconnect(); }, 15000);
   })();
 </script>
 

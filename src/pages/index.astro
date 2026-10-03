@@ -27,8 +27,31 @@ const [lead, ...rest] = articles;
    ✅ 그래서 칸마다 «어느 시장인가»를 글자로 박는다 — 열기 «전»에 알게 한다.
    ⛔ 두 지면이 서로 다른 시장을 말하면 손님은 둘 다 못 믿는다.
       /data 를 고치면 여기도 «같은 커밋»에서 고친다. 그 반대도 같다.
-   ⚠ 여기에 없는 시장(상하이·홍콩·대만·사우디)은 아직 상품이 없다. 머리글 coverage 줄에
-      「In build」로 적혀 있고, 그 줄이 정본이다. 없는 것을 이 칸에 미리 세우지 않는다. */
+   ⚠ 여기에 없는 시장(상하이·홍콩·사우디)은 아직 상품이 없다. 머리글 coverage 줄에
+      「In build」로 적혀 있고, 그 줄이 정본이다. 없는 것을 이 칸에 미리 세우지 않는다.
+      🔴 [2026-10-04] 이 줄에 «대만»이 들어 있었는데 틀린 말이었다 — 대만은 회사 1,057장이
+        이미 라이브다. 안 세운 것이 아니라 «세우는 것을 잊은» 것이다. 아래를 보라.
+
+   🔴🔴 [2026-10-04 05:0x · 5번] **이기는 자리로 가는 문이 홈에 없었다.**
+
+     서치콘솔 1페이지 15개를 자리까지 펼쳐 보니 **일곱이 회사 지면**이었다 —
+     `konica minolta net worth` 5위 · `nakamoto packs` 7위 · `fuji seal annual report` 8위.
+     우리가 실제로 이기는 꼴이 회사 지면이다.
+
+     그런데 홈을 세어 보니 —
+     ```
+     /japan      0개      /taiwan   0개
+     /uae        0개      /companies 0개      (어떤 경로로도 0이다)
+     ```
+     회사 지면 **6,223장**(한국 2,521 · 일본 3,702)과 대만 1,057 · UAE 104 로 가는
+     목록 입구가 **홈에서 한 개도 안 걸려 있었다.** 머리글은 「Korea, Japan, Taiwan, UAE」인데
+     아래 칸에서 셋이 통째로 빠진 것이다 — 위 2026-09-12 주석이 경계한 바로 그 병이 재발했다.
+
+     구글에 직접 물으니 `/taiwan/companies`·`/uae/companies` 가
+     「Discovered - currently not indexed · 마지막 크롤 없음」이었다.
+     **사이트맵에는 들어 있다.** 구글은 사이트맵으로 «알고» 링크로 «온다» — 둘은 다른 일이다.
+
+   ⛔ 시장을 하나 열면 그날 이 칸에 세운다. 사이트맵에 넣는 것으로 끝내지 않는다. */
 const PRODUCTS = [
   /* 🔴 맨 앞은 스크리너다 — 여기 실린 것 가운데 «두 시장을 한 표에서» 보여 주는 유일한 것이고,
      손님이 자기 물음을 넣을 수 있는 유일한 것이다. 나머지는 우리가 고른 표를 읽는 것이다. */
@@ -73,6 +96,19 @@ const PRODUCTS = [
   { name: 'Largest Companies', href: '/data/largest-companies', mkt: 'Seoul',
     one: 'The biggest companies in South Korea ranked four ways — market value, revenue, assets '
       + 'and operating profit. The top ten turns out to be twenty-one companies.', cta: 'Open' },
+  /* 🔴 [2026-10-04] 회사 목록 넉 장 — 위 주석에 적은 대로, 우리가 실제로 이기는 꼴이다.
+     ⚠ 수를 적는다. 「listed companies」만 적으면 몇 곳인지 모르고 열어야 한다.
+     ⚠ 이 수는 사이트맵의 /company/ 지면 수를 센 것이다(2026-10-04 실측). 늘면 같이 고친다. */
+  { name: 'Korean Companies', href: '/companies', mkt: 'Seoul',
+    one: '2,521 KOSPI and KOSDAQ companies, one page each — revenue, profit and assets as filed '
+      + 'to DART, by sector.', cta: 'Open' },
+  { name: 'Japanese Companies', href: '/japan/companies', mkt: 'Tokyo',
+    one: '3,702 listed Japanese companies as filed to EDINET, in English field names, by sector.',
+    cta: 'Open' },
+  { name: 'Taiwanese Companies', href: '/taiwan/companies', mkt: 'Taipei',
+    one: '1,057 TWSE-listed companies with filed financials, by sector.', cta: 'Open' },
+  { name: 'Gulf Companies', href: '/uae/companies', mkt: 'Abu Dhabi · Dubai',
+    one: '104 ADX and DFM companies with revenue, net profit and assets as filed.', cta: 'Open' },
 ];
 
 const jsonLd = {

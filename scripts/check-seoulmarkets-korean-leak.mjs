@@ -17,7 +17,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { 맨몸한국어 as 원본맨몸한국어, 손님지면인가 } from './check-kcw-korean-leak.mjs';
+import { 맨몸한국어 as 원본맨몸한국어, 손님지면인가, 스크립트속한국어 } from './check-kcw-korean-leak.mjs';
 import { 못재면멈춘다 } from './lib/dist-ready.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -109,6 +109,26 @@ if (!process.argv.includes('--자가시험')) 못재면멈춘다(뿌리, 'check-
  * 면제 — **무엇이 왜 한국어라도 되는가**를 같이 적는다. 파일 하나·낱말 하나 단위로 좁게 둔다.
  * ⛔ 지면을 통째로 면제하지 않는다 — 그 지면의 다른 새 누출은 계속 잡혀야 한다.
  */
+/**
+ * 🔴 [2026-10-04 05:2x] **인라인 스크립트 속 한국어 — 아직 안 고친 지면 열다섯.**
+ *
+ *   「못 쟀다」가 아니라 **「알고 있는데 아직 안 고쳤다」**다. 이름으로 적어 두는 까닭은
+ *   둘이다 — ① 여기 없는 지면에서 새로 생기면 «빨강이 난다» ② 이 목록이 곧 일감이다.
+ *
+ *   ⛔ 이 목록을 늘려서 빨강을 끄지 않는다. 고치고 «지우는» 것이 끝이다.
+ *   ⚠ `100y/*` 여덟 장은 **한국어 지면**이라 UI 문구(「…로 찾은 대학이 없습니다」)는
+ *     그대로 둔다. 거기서 고칠 것은 «주석»뿐이다.
+ *   ⚠ `rankings.html` 의 「비엔케이제」·「호스팩」은 회사 이름이다 — 자료 값이지 주석이 아니다.
+ */
+export const 스크립트면제 = [
+  /* 한국어 지면 — UI 문구는 정당하다. 주석만 치우면 된다 */
+  '100y/elementary.html', '100y/kindergarten.html', '100y/major.html', '100y/pension.html',
+  '100y/polytech.html', '100y/school.html', '100y/university.html', '100y/years-left.html',
+  /* 🔴 영문 지면 — 여기는 «고쳐야» 한다. 1번·2번에게 나눈다 */
+  'account.html', 'data.html', 'data/screener.html', 'data/pension-wage-panel.html',
+  'rankings.html', 'recover.html', 'wikitip/subscribe.html',
+];
+
 export const 면제 = [
   {
     파일: 'article/korea-headcount-disclosure-has-no-total-row.html',
@@ -235,6 +255,15 @@ if (직접불렸나) {
     const 이면제 = 면제.find((x) => x.파일 === 상대);
     let 맨몸 = 맨몸한국어(글);
     if (이면제) 맨몸 = 맨몸.filter((w) => !이면제.낱말.includes(w));
+    /* 🔴 [2026-10-04] 인라인 스크립트 안도 본다 — 주석까지 손님 브라우저로 간다.
+       이 자는 «태그를 벗겨» 본문만 보았고, script 안은 통째로 밖이었다.
+       첫 실측: 지면 16,096장 가운데 **15,330장**이 걸렸다. 거의 다 두 곳에서 왔다 —
+         선호출처.astro (모든 기사 레이아웃)  ·  HundredYear.astro (백년지도 모든 지면)
+       둘을 ASCII 로 고치니 **15장**으로 줄었다.
+       ⚠ 남은 15장은 아래 `스크립트면제` 에 이름으로 적어 둔다 — 「모르는 것」이 아니라
+         「아는데 아직 안 고친 것」이다. 늘면 빨강이 난다. */
+    const 조각속 = 스크립트면제.includes(상대) ? [] : 스크립트속한국어(글);
+    if (조각속.length) 맨몸 = [...맨몸, ...조각속.map((w) => `[script] ${w}`)];
     if (맨몸.length) 빨강.push([path.relative(방, f), 맨몸]);
   }
 
