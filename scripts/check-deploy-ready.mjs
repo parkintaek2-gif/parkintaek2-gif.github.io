@@ -620,5 +620,68 @@ if (내가실행됐다 && !process.argv.includes('--자가시험')) {
     console.log(`\n⚠ 색인 알림 상태를 **못 쟀습니다** — ${e.message}. 0장이라는 뜻이 아닙니다`);
   }
 
+  /**
+   * 🔴🔴 [2026-10-04 06:1x · 5번] **지면을 내고 문을 안 내는 일이 되풀이된다.**
+   *
+   *   오늘 하루에만 네 번 나왔다 —
+   *   ```
+   *   /data/largest-companies   2026-09-11 에 내고 홈에 안 걸었다 → 3주째 구글이 안 왔다
+   *   /taiwan/company 1,057장   목록이 홈에 없었다 → 표본 4장 전부 「한 번도 안 왔다」
+   *   /uae/company      104장   같다
+   *   /data 새 지면 넷          /data 목록에 안 들어가 서로만 걸고 있다
+   *   ```
+   *   ⭐ 구글은 사이트맵으로 «알고», 링크를 타고 «온다». 둘은 다른 일이다.
+   *     **사이트맵에 넣는 것은 문을 낸 것이 아니다.**
+   *
+   * ⛔ 그런데 이것으로 **배포를 막지 않는다.** 막을 만큼 또렷한 판정이 아니고,
+   *   고칠 수 없는 빨강은 며칠이면 아무도 안 보는 빨강이 된다(같은 날 로그인 검사에서 겪었다).
+   * ⚠ 보여 주기만 한다. 새로 낸 지면이 떠 있으면 배포 «뒤»에 목록에 건다.
+   */
+  try {
+    const { 안쪽길들, 손님길, 홉재기, 어느사이트, 묶음별가장가까운홉, 사이트들 } =
+      await import('./check-홈에서-몇홉인가.mjs');
+    /* ⛔ 여기에 `뿌리` 는 없다 — 위 주석이 경고한 바로 그 자리이고, 오늘 또 밟았다.
+       try/catch 가 ReferenceError 를 삼켜 조용히 「못 쟀다」가 됐다. 상대경로를 쓴다. */
+    const 밑 = 'dist';
+    if (fs.existsSync(밑)) {
+      const 지면들 = [];
+      (function 걷(d) {
+        for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+          const p = path.join(d, e.name);
+          if (e.isDirectory()) 걷(p);
+          else if (e.name.endsWith('.html')) {
+            지면들.push({ 길: 손님길(p, 밑), 링크: 안쪽길들(fs.readFileSync(p, 'utf8')) });
+          }
+        }
+      }(밑));
+      const 뜬것 = [];
+      for (const s of 사이트들) {
+        const 내것 = 지면들.filter((p) => 어느사이트(p.길).이름 === s.이름);
+        if (!내것.length) continue;
+        const 홉 = 홉재기(내것, { 시작: s.홈, 접두사: s.접두사 });
+        if (!홉.size) continue;                          /* 홈을 못 찾으면 «못 쟀다»다 */
+        for (const x of 묶음별가장가까운홉(내것, 홉)) {
+          const 못닿은장수 = x.장수 - x.닿은장수;
+          if (못닿은장수 > 0) 뜬것.push({ ...x, 못닿은장수, 사이트: s.이름 });
+        }
+      }
+      뜬것.sort((a, b) => b.못닿은장수 - a.못닿은장수);
+      if (뜬것.length) {
+        const 합 = 뜬것.reduce((n, x) => n + x.못닿은장수, 0);
+        console.log(`\n⚠ 홈에서 «한 번도 안 닿는» 지면 **${합}장** — 구글은 링크를 타고 옵니다`);
+        for (const x of 뜬것.slice(0, 6)) {
+          console.log(`   ${x.묶음.padEnd(24)} ${x.못닿은장수}장 (${x.사이트})`);
+        }
+        console.log('   ⚠ 배포를 막지 않습니다. 배포 «뒤»에 가까운 목록이나 첫 화면에 겁니다.');
+        console.log('   ▶ 자세히: node scripts/check-홈에서-몇홉인가.mjs');
+      } else {
+        console.log('\n✅ 홈에서 안 닿는 지면 없음 — 세 사이트 다');
+      }
+    }
+  } catch (e) {
+    /* ⛔ 못 쟀으면 「0장」이 아니다. 그리고 이것으로 배포를 세우지 않는다 */
+    console.log(`\n⚠ 홈에서의 거리를 **못 쟀습니다** — ${e.message}. 0장이라는 뜻이 아닙니다`);
+  }
+
   process.exit(통과 ? 0 : 1);
 }
