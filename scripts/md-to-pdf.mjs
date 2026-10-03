@@ -132,7 +132,10 @@ const 판 = (제목, 몸통) => `<!doctype html><html lang="ko"><head><meta char
 <title>${esc(제목)}</title><style>
   /* ⛔ 웹폰트를 안 쓴다 — 네트워크가 죽어도 보고는 나가야 한다 */
   * { box-sizing: border-box; }
-  body { font-family: "맑은 고딕", "Malgun Gothic", system-ui, sans-serif;
+  /* 🔴 [2026-10-03] 「⬜」가 빈 네모(두부)로 찍혔다 — 맑은 고딕에 그 글자가 없다.
+     ⇒ 기호 글꼴을 «뒤에» 붙인다. 한글은 여전히 맑은 고딕이 먼저 잡는다. */
+  body { font-family: "맑은 고딕", "Malgun Gothic", system-ui, sans-serif,
+                      "Segoe UI Emoji", "Segoe UI Symbol";
          font-size: 11pt; line-height: 1.62; color: #1c2330; margin: 0; }
   h1 { font-size: 20pt; margin: 0 0 4pt; border-bottom: 2.5px solid #1c2330; padding-bottom: 7pt; }
   h2 { font-size: 14.5pt; margin: 20pt 0 7pt; color: #0f2f5f; border-left: 5px solid #0f2f5f;
