@@ -33,7 +33,14 @@ const 출력 = i >= 0 ? process.argv[i + 1] : 입력.replace(/\.md$/, '.pdf');
 const 원문 = 자가시험인가 ? "" : fs.readFileSync(입력, 'utf8');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 /** **굵게** 와 `코드` 만 살린다. 보고에 링크는 안 쓴다 */
-const 꾸밈 = (s) => esc(s).replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/`([^`]+)`/g, '<code>$1</code>');
+const 꾸밈 = (s) => esc(s)
+  .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
+  /* 🔴 [2026-10-03 · 사장님] 「** 대체 이런 내용이 왜 들어가나?」
+     홑별표(*기울임*)를 안 다뤄서 「*(이슈 있을 때만)*」이 보고서에 그대로 찍혔다.
+     ⛔ 못 다루는 기호는 «남기지» 않는다. 글자만 살리고 기호는 걷는다. */
+  .replace(/\*([^*\n]+)\*/g, '<i>$1</i>')
+  .replace(/\*/g, '')
+  .replace(/`([^`]+)`/g, '<code>$1</code>');
 
 const 줄 = 원문.split('\n');
 const 제목 = (줄.find((l) => l.startsWith('# ')) ?? '# 업무보고').slice(2).trim();
