@@ -23,10 +23,15 @@
 
 export const 사이트 = [
   /* 「목록」은 손님 누구나 여는 «공개» 목록 창구다 — 여기로만 대량 조회를 잰다 */
-  { 이름: 'KLifeMap', 밑: 'https://klifemap.ai', 로그인: '/api/auth/login', 목록: '/api/reviews' },
-  { 이름: 'SeoulMarkets', 밑: 'https://seoulmarkets.com', 로그인: '/api/account/login' },
-  { 이름: '백년지도', 밑: 'https://100yearmap.com', 로그인: '/api/account/login' },
-  { 이름: 'KCultureWire', 밑: 'https://www.kculturewire.com', 로그인: '/api/account/login' },
+  /* ⚠ KLifeMap 의 반복 호출은 «없는 길»로 잰다.
+     /api/reviews 같은 공개·읽기전용 창구는 **일부러** 막이에서 빼 두었다
+     (server.js 의 PUBLIC_ALWAYS — 홈 한 장이 API 를 여섯 개 부르므로 막으면 손님이 먼저 막힌다).
+     ⇒ 그 창구로 재면 영원히 빨간불이 난다. 없는 길은 404 를 내면서도 막이를 거치므로
+       «막이가 도는가»만 깨끗하게 잴 수 있다. 부작용도 없다. */
+  { 이름: 'KLifeMap', 밑: 'https://klifemap.ai', 로그인: '/api/auth/login', 목록: '/api/reviews', 반복: '/api/__ratecheck' },
+  { 이름: 'SeoulMarkets', 밑: 'https://seoulmarkets.com', 로그인: '/api/account/login', 반복: '/api/comments?slug=check-rate-limit' },
+  { 이름: '백년지도', 밑: 'https://100yearmap.com', 로그인: '/api/account/login', 반복: '/api/comments?slug=check-rate-limit' },
+  { 이름: 'KCultureWire', 밑: 'https://www.kculturewire.com', 로그인: '/api/account/login', 반복: '/api/comments?slug=check-rate-limit' },
 ];
 
 /** 그 창구가 «닫혀 있나». 401·403·404 면 닫힌 것이다 */
@@ -156,6 +161,13 @@ async function 자가시험() {
   });
 }
 
+/* ⚠ 다 재고 난 뒤 소켓이 끊기며 뒤늦은 거절이 올라와 결과 뒤에 긴 오류가 찍혔다.
+   결과는 이미 찍힌 뒤라 판정은 멀쩡하지만, 그 오류가 다음 사람에게 「검사가 깨졌다」로 보인다.
+   ⛔ 삼키지는 않는다 — 한 줄로 적어 두고 종료 코드는 그대로 둔다. */
+process.on('unhandledRejection', (e) => {
+  console.error('⚠ 늦게 온 거절(판정에는 영향 없음):', String(e?.message ?? e).slice(0, 120));
+});
+
 /* ── 실제로 재기 ─────────────────────────────────────────── */
 async function 받기(주소, 옵션 = {}) {
   try {
@@ -248,16 +260,35 @@ async function 재기() {
       if (String(대량인가(건수)).startsWith('🔴')) 모든흠.push(`${s.이름}${s.목록}: 대량 조회가 열렸다`);
     }
 
-    /* ⑦ 반복 호출 — 공개 첫 화면을 30번. ⛔ 돈·메일 창구는 건드리지 않는다 */
-    const 잇달아 = [];
-    for (let i = 0; i < 30; i += 1) {
+    /* ⑦ 반복 호출 — 🔴 [2026-10-03] 여기서 «지면»을 두드리고 있었다. 틀린 자다.
+       우리는 지면에 막이를 «일부러» 안 건다 — 한 화면이 그림·스크립트를 수십 개 받아 가므로
+       막으면 손님과 검색엔진이 먼저 막힌다. 그런데도 검사가 울어 가짜 빨간불이 났다.
+       ⇒ 막이를 건 «API 창구»를 두드린다. 그리고 지면은 «안 막히는지»를 따로 본다.
+       ⛔ 돈·메일 창구는 건드리지 않는다. 읽기만 하는 창구로 잰다. */
+    if (s.반복) {
+      const 잇달아 = [];
+      for (let i = 0; i < 80; i += 1) {
+        const r = await 받기(s.밑 + s.반복 + (s.반복.includes('?') ? '&' : '?') + 'n=' + Date.now() + '-' + i);
+        잇달아.push(r ? r.status : 0);
+        if (r && r.status === 429) break;
+      }
+      const 반복판정 = 반복막나(잇달아);
+      console.log(`  API 반복 호출 막이     ${반복판정}`);
+      if (반복판정.startsWith('🔴')) 모든흠.push(`${s.이름}${s.반복}: ${반복판정}`);
+    } else {
+      console.log('  API 반복 호출 막이     ⚠ 잴 창구를 안 적었다');
+    }
+
+    /* ⑦-2 지면은 «안 막혀야» 한다 — 막히면 손님과 검색엔진이 먼저 막힌다 */
+    const 지면답 = [];
+    for (let i = 0; i < 40; i += 1) {
       const r = await 받기(s.밑 + '/?t=' + Date.now() + '-' + i);
-      잇달아.push(r ? r.status : 0);
+      지면답.push(r ? r.status : 0);
       if (r && r.status === 429) break;
     }
-    const 반복판정 = 반복막나(잇달아);
-    console.log(`  반복 호출 막이         ${반복판정}`);
-    if (반복판정.startsWith('🔴')) 모든흠.push(`${s.이름}: ${반복판정}`);
+    const 지면막혔나 = 지면답.includes(429);
+    console.log(`  지면은 안 막나         ${지면막혔나 ? `🔴 ${지면답.length}번째에 막혔다` : `✅ ${지면답.length}번을 두드려도 안 막는다`}`);
+    if (지면막혔나) 모든흠.push(`${s.이름}: 지면이 막힌다 — 손님과 검색엔진이 먼저 막힌다`);
   }
 
   console.log(`\n■ 흠 ${모든흠.length}개`);
