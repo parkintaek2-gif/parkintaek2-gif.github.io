@@ -61,8 +61,28 @@ const puppeteer = require('puppeteer-core');
 const b = await puppeteer.launch({ executablePath: 크롬, args: ['--no-sandbox'] });
 let 죽은곳 = 0;
 
+/**
+ * 🔴🔴 [2026-10-04 00:1x] **이 자가 하루아침에 「5곳 다 안 쏨」을 냈다.**
+ *
+ *   까닭은 고장이 아니었다. 그날 밤 GA 에 거르개를 넣었고(사장님 「direct는 우리가
+ *   클릭한거네」), 그 거르개의 첫 조건이 `navigator.webdriver` 다.
+ *   이 자는 `puppeteer.launch` 로 **새 브라우저를 띄우므로** 그 값이 참이고,
+ *   그래서 «의도대로» 안 쏜 것을 이 자가 「고장」이라고 읽었다.
+ *
+ * ⇒ 이 자가 재려는 것은 **「손님이 왔을 때 도는가」**다. 손님은 webdriver 가 거짓이다.
+ *   그러니 손님과 같은 조건으로 잰다. ⛔ 거르개를 약하게 만들지 않는다 —
+ *   «재는 쪽»을 손님에 맞춘다(검사는 손님이 실제로 여는 조건으로 한다).
+ */
+async function 손님처럼(브라우저) {
+  const p = await 브라우저.newPage();
+  await p.evaluateOnNewDocument(() => {
+    Object.defineProperty(navigator, 'webdriver', { get: () => false });
+  });
+  return p;
+}
+
 for (const u of 잴곳) {
-  const p = await b.newPage();
+  const p = await 손님처럼(b);
   const 쏨 = [];
   const 오류 = [];
   p.on('request', (r) => { if (쏜것인가(r.url())) 쏨.push(측정ID뽑기(r.url())); });
@@ -76,9 +96,17 @@ for (const u of 잴곳) {
     await new Promise((r) => setTimeout(r, 1000));   // 쏜 뒤 뒤따르는 것까지 센다
   } catch (e) { 오류.push('못 열었다: ' + String(e.message).slice(0, 60)); }
 
+  /* 안 쐈으면 «왜» 안 쐈는지 지면에 물어본다 — 「걸러서」와 「고장나서」는 다른 일이다 */
+  let 거른까닭 = '';
+  try { 거른까닭 = await p.evaluate(() => window.__gaSkip || ''); } catch { /* 못 물으면 빈 채로 */ }
+
   const 이름 = u.replace('https://', '').padEnd(26);
   if (쏨.length) {
     console.log(`  ✅ ${이름} 쏨 ${쏨.length}회 · tid ${[...new Set(쏨)].join(',')}`);
+  } else if (거른까닭) {
+    /* ⚠ 손님 조건으로 열었는데도 걸렀다면 그것은 거르개가 «너무 넓은» 것이다 */
+    죽은곳 += 1;
+    console.error(`  🔴 ${이름} **거르개가 손님까지 거른다** — 까닭 「${거른까닭}」`);
   } else {
     죽은곳 += 1;
     console.error(`  ⛔ ${이름} **안 쏨**${오류.length ? ' — ' + 오류[0] : ''}`);

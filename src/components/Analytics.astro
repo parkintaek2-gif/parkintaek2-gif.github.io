@@ -66,7 +66,11 @@ export const 잇는곳 = [
   ⛔ 손님을 지우지 않는다. 위 넷은 모두 «손님이 될 수 없는» 자리다.
   ⚠ 브라우저로 나가는 조각에는 ASCII 이름만 쓴다(위 2026-08-08 사고).
 */}
-<script async src={`https://www.googletagmanager.com/gtag/js?id=${측정ID}`} />
+{/*
+  ⚠ [2026-10-04 00:1x] 태그 파일(gtag/js)을 여기서 «늘» 받아 오고 있었다.
+    거른 브라우저도 그 파일만은 받아 갔다 — 방문은 안 세어지지만 요청은 남는다.
+    ⇒ 거르개 안에서 «걸러지지 않았을 때만» 붙인다. 실측으로 잡은 자리다.
+*/}
 <script is:inline define:vars={{ gaId: 측정ID, gaDomains: 잇는곳 }}>
   function skipGA() {
     try {
@@ -86,6 +90,10 @@ export const 잇는곳 = [
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
   if (!gaSkip) {
+    var gaTag = document.createElement('script');
+    gaTag.async = true;
+    gaTag.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+    document.head.appendChild(gaTag);
     gtag('js', new Date());
     gtag('config', gaId, { linker: { domains: gaDomains } });
   }
