@@ -1,5 +1,5 @@
 ---
-title: "From Celltrion to KG Mobility, one flaw repeats"
+title: "35 Korean capital raises ranked 3 ways — size never predicted the outcome"
 dek: "This week we ranked 35 Korean capital-raising filings three ways — buybacks, rights issues, convertible bonds. In every single one, the size of the deal did not predict what it meant for existing shareholders."
 category: equities
 pubDate: 2026-09-02

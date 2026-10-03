@@ -1,5 +1,5 @@
 ---
-title: "Koreans work fewer days, not shorter days"
+title: "Korean work time fell 13% since 2011 — fewer days, not shorter ones"
 dek: "Korea's monthly work time fell 13% since 2011 — but the working day barely shortened (8.33 to 8.05 hours). The drop is fewer days: 21.2 to 19.1 a month."
 category: macro
 pubDate: 2026-08-30

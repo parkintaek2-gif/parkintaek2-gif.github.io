@@ -1,5 +1,5 @@
 ---
-title: "Korean overtime has fallen by nearly a third since 2011"
+title: "Korean overtime fell 30% since 2011 — 11.5 hours a month to 8.1"
 dek: "Average monthly overtime for a regular worker dropped from 11.5 hours in 2011 to 8.1 in 2025 — a 30% fall, on Korea's own establishment survey."
 category: macro
 pubDate: 2026-08-29

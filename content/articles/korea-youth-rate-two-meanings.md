@@ -1,5 +1,5 @@
 ---
-title: "Youth joblessness fell — good news, or fewer looking?"
+title: "Korea's youth jobless rate fell from 9.8% to 6.1% — but why?"
 dek: "Korea's youth jobless rate fell from 9.8% in 2016 to 6.1% in 2025. A falling rate sounds like good news — but the same number falls whether young people find work or simply stop looking. One rate cannot tell the two apart."
 category: macro
 pubDate: 2026-09-01

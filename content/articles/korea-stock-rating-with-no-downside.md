@@ -1,5 +1,5 @@
 ---
-title: "The stock rating that has no downside"
+title: "89 Sell calls in 12 years: Korean brokers' rating scale has no downside"
 dek: "Korean brokers issue tens of thousands of ratings and almost never say sell — 89 sell calls in twelve years. When a scale only points one way, what does a 'buy' actually tell you? We count the ratings and question the scale."
 category: equities
 pubDate: 2026-09-01

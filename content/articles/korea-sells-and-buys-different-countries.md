@@ -1,5 +1,5 @@
 ---
-title: "Korea sells to and buys from different countries"
+title: "Hong Kong is 6.7% of Korea's exports but 0.6% of its imports"
 dek: "Korea's export map and import map don't match. Hong Kong is 6.7% of exports but 0.6% of imports; Japan is 7.5% of imports but 3.5% of exports."
 category: macro
 pubDate: 2026-08-30

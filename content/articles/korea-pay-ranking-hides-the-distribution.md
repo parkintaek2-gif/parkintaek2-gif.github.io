@@ -1,5 +1,5 @@
 ---
-title: "The pay ranking everyone shares hides three things"
+title: "The Korean pay ranking everyone shares hides 3 things"
 dek: "A ranking of Korea's best-paying employers circulates as one number per company. But a single figure buries the distribution, the gap, and the hours behind it. We report distributions, not averages — here is what it leaves out."
 category: macro
 pubDate: 2026-08-31
