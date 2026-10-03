@@ -22,7 +22,7 @@ const houseEn = (name) => describeInstitution(name)?.en ?? name;
 const m = data.market;
 const rows = data.by_house;
 const years = data.sell_by_year;
-const TITLE = 'Korean broker stock ratings — the Sell rating that vanished';
+const TITLE = `Korean broker stock ratings — Sell is ${m.sell_pct}% of ${m.reports.toLocaleString()} reports`;
 const SAMPLE = `${m.reports.toLocaleString()} broker reports · ${m.houses_shown} houses · ${data.year}`;
 const DESC =
   'Korean broker research by rating, house by house: Buy on four in five reports, Sell on almost none. '

@@ -13,7 +13,7 @@ import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import data from '../../data/governance.json';
 
-const TITLE = 'Korean company boards of directors — who sits on them';
+const TITLE = `Korean company boards of directors — ${data.임원총수.toLocaleString()} officers, who sits on them`;
 const SAMPLE = `${data.임원총수.toLocaleString()} officers across listed companies · by sector`;
 const DESC =
   'Korean listed-company boards by sector: the share of women, how many are owner-led, how long the '

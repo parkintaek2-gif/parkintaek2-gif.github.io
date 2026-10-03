@@ -19,7 +19,7 @@ import data from '../../data/analyst-coverage.json';
 
 const s = data.summary;
 const rows = data.by_sector;
-const TITLE = 'Korean analyst coverage by company — where attention piles up';
+const TITLE = `Korean analyst coverage — ${s.total_stock_reports.toLocaleString()} reports, where attention piles up`;
 const SAMPLE = `${s.total_stock_reports.toLocaleString()} single-stock reports · ${data.brokerages_in_archive} brokerages · ${s.year}`;
 const DESC =
   'Korean equity research attention by sector, from our archive of single-stock broker reports: how '

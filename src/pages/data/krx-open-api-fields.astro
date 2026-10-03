@@ -43,12 +43,6 @@ import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import BuyBar from '../../components/BuyBar.astro';
 
-const TITLE = 'KRX Open API field names, explained in English';
-const DESC =
-  'What stk_bydd_trd and ksq_bydd_trd return, field by field: BAS_DD, ISU_CD, TDD_CLSPRC, '
-  + 'CMPPREVDD_PRC, FLUC_RT, ACC_TRDVOL, ACC_TRDVAL, MKTCAP and LIST_SHRS — with the units, '
-  + 'the types they actually arrive as, and the things the Korean-language documentation does not say.';
-
 /**
  * 두 자료. 줄 수는 **우리가 받은 파일에서 센 것**이다 — 남의 표를 옮기지 않는다.
  * ⚠ 날짜를 박아 둔다. 「943」이 언제의 943 인지 없으면 그 수는 거짓말이 된다.
@@ -108,6 +102,12 @@ const fields: Field[] = [
     type: 'string', unit: 'KRW', note: 'Twelve digits is normal. It will not fit a 32-bit integer.' },
   { name: 'LIST_SHRS', english: 'Listed shares', type: 'string', unit: 'shares' },
 ];
+
+const TITLE = `stk_bydd_trd and ksq_bydd_trd — all ${fields.length} KRX Open API fields explained, in English`;
+const DESC =
+  'What stk_bydd_trd and ksq_bydd_trd return, field by field: BAS_DD, ISU_CD, TDD_CLSPRC, '
+  + 'CMPPREVDD_PRC, FLUC_RT, ACC_TRDVOL, ACC_TRDVAL, MKTCAP and LIST_SHRS — with the units, '
+  + 'the types they actually arrive as, and the things the Korean-language documentation does not say.';
 
 /** 겪어야 아는 것 — 문서에 없다. ⛔ 지어내지 않는다. 우리가 실제로 부딪힌 것만 적는다 */
 const gotchas = [
