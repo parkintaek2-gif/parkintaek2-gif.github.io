@@ -940,6 +940,38 @@ export function 바탕XML() {
   });
 }
 
+/**
+ * 🔴🔴 [2026-10-03] **표지가 틀 밖에 있었다.**
+ *   본문 120장은 미색 바탕·바탕체 제목·금색 띠로 승인받은 틀을 입고 있는데,
+ *   «맨 처음 보이는 한 장»만 흰 바탕에 고딕이었다. 레이아웃의 자리표를
+ *   그대로 썼기 때문이다 — 자리표는 이마트 원본의 흰 표지 서식을 물려받는다.
+ * ⚠ 사람이 가장 먼저 보는 것이 표지다. 여기가 다르면 나머지가 다 맞아도
+ *   「틀이 없다」로 읽힌다.
+ * ⇒ 자리표를 쓰지 않고 본문과 «같은 손»으로 그린다.
+ */
+export function 표지만들기() {
+  return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
+    + `<p:sld ${NS}><p:cSld><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>`
+    + '<p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>'
+    + 바탕XML()
+    /* 금색 가는 띠 — 본문 장들이 제목 위에 다는 것과 같은 표시다 */
+    + 상자XML('<a:p/>', {
+      /* 🔴 [2026-10-03] 처음엔 2,200,000 에 두었더니 글이 위로 쏠려 «아래 절반이 텅» 비었다.
+         화면 한가운데(3,429,000)를 제목 덩이가 품게 내린다. */
+      id: 1001, x: 판.왼, y: 2650000, cx: 1200000, cy: 72000,
+      채움: 틀색.금색, 선: 틀색.금색, 선굵기: 0, 둥글기: 0,
+    })
+    + 글상자XML(
+      칸글('셀프사주 2권', { 크기: 5400, 굵게: true, 색: 틀색.먹색 })
+      /* 🔴 [2026-09-30 · 사장님] 「**셀프사주1-기본과정. 셀프사주2-심화과정. 각각 12회야**」
+         ⛔ 두 과정을 뭉뚱그리지 않는다. 표지가 어느 과정인지 먼저 말한다. */
+      + 칸글('심화과정 · 12회 — 강의용', { 크기: 2000, 색: 틀색.남색, 위틈: 228600 })
+      + 칸글(new Date().toLocaleDateString('ko-KR'), { 크기: 1400, 색: 틀색.옅은글, 위틈: 152400 }),
+      { id: 1002, x: 판.왼, y: 2900000, cx: 판.속폭, cy: 2200000, 가운데세로: false },
+    )
+    + '</p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>';
+}
+
 export function 슬라이드XML(장) {
   let 몸 = '';
   if (장.종류 === '그림') {
@@ -1499,6 +1531,18 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
   검('내용 장은 layout2', 레이아웃번호({ 종류: '내용' }) === 2);
   검('표지는 layout1', 레이아웃번호({ 종류: '표지' }) === 1);
 
+  /* 🔴 [2026-10-03] 표지가 «틀 밖»으로 나가지 않게 못 박는다.
+     한 번 그랬다 — 본문 120장이 다 맞는데 표지만 흰 바탕 고딕이었다.
+     ⛔ 「고쳤으니 됐다」로 두면 다음에 자리표로 되돌아간다. */
+  {
+    const 표 = 표지만들기();
+    검('표지에 미색 바탕을 깐다', 표.includes(틀색.바탕));
+    검('표지 제목은 바탕체다', 표.includes(`typeface="${틀글꼴.제목}"`));
+    검('표지에 금색 띠가 있다', 표.includes(틀색.금색));
+    검('표지에 과정과 회차를 적는다', 표.includes('심화과정') && 표.includes('12회'));
+    검('⛔ 표지가 자리표로 돌아가지 않았다', !/<p:ph type="ctrTitle"/.test(표));
+  }
+
   /* zip 왕복 */
   const 꾸 = 집만들기([{ 이름: 'a.xml', 몸: '<x>가</x>' }, { 이름: 'b/c.txt', 몸: Buffer.from('나') }]);
   const 다시 = 집목록(꾸);
@@ -1590,15 +1634,7 @@ if (내가진입점 && process.argv.includes('--짓는다')) {
   const 장들 = [{ 종류: '표지' }];
   for (const { 글 } of 원고들) 장들.push(...슬라이드나누기(원고가르기(글)));
 
-  const 표지XML = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
-    + `<p:sld ${NS}><p:cSld><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>`
-    + '<p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>'
-    + 자리XML(2, '제목 1', '<p:ph type="ctrTitle"/>', 문단XML('셀프사주 2권', { 크기: 5400, 굵게: true }))
-    + 자리XML(3, '부제목 2', '<p:ph type="subTitle" idx="1"/>',
-      /* 🔴 [2026-09-30 · 사장님] 「**셀프사주1-기본과정. 셀프사주2-심화과정. 각각 12회야**」
-         ⛔ 두 과정을 뭉뚱그리지 않는다. 표지가 어느 과정인지 먼저 말한다. */
-      문단XML('심화과정 · 12회 — 강의용', { 크기: 2000 }) + 문단XML(new Date().toLocaleDateString('ko-KR'), { 크기: 1400 }))
-    + '</p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>';
+  const 표지XML = 표지만들기();
 
   장들.forEach((장, i) => {
     const n = i + 1;
