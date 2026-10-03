@@ -307,7 +307,11 @@ const handle = async (req, res) => {
 
   /* 🔴 과속 막이 — API 창구에만 건다(사장님 2026-10-03) */
   const 한도 = 분당한도(parsed.pathname);
-  if (한도 && 과속인가(보낸곳(req) + ' ' + parsed.pathname, 한도)) {
+  /* 🔴 [2026-10-03] 열쇠에 «호스트»를 넣는다. 이 스테이지 하나가 세 사이트를 같이 내므로
+     호스트를 빼면 seoulmarkets 에서 쓴 횟수가 100yearmap·kculturewire 의 몫까지 깎는다
+     (실측 — 백년지도·KCW 가 첫 번째 요청부터 429 를 맞았다). */
+  const 호스트 = String(req.headers?.host || '');
+  if (한도 && 과속인가(보낸곳(req) + ' ' + 호스트 + ' ' + parsed.pathname, 한도)) {
     res.writeHead(429, { ...BASE_HEADERS, 'content-type': 'application/json; charset=utf-8', 'retry-after': '60' })
       .end(JSON.stringify({ ok: false, error: 'Too many requests. Please try again in a minute.' }));
     return;
