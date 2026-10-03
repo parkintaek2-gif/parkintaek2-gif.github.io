@@ -269,12 +269,13 @@ if (내가진입점) {
   fs.writeFileSync(임시md, 글, 'utf8');
   console.log(`   커밋 ${재료.커밋.length} · 메일 ${재료.메일.length} · 마커 ${재료.마커.size}갈래`);
 
-  const pdf = 임시md.replace(/\.md$/, '.pdf');
+  /* 🔴 [2026-10-03] 사장님 「**표가 다 깨진다. 슬라이드나 워드로 보내**」 — PDF 를 걷었다 */
+  const pdf = 임시md.replace(/\.md$/, '.docx');
   try {
-    execFileSync('node', [path.join(뿌리, 'scripts', 'md-to-pdf.mjs'), 임시md, '--out', pdf,
+    execFileSync('node', [path.join(뿌리, 'scripts', 'md-to-docx.mjs'), 임시md, '--out', pdf,
       '--제목', `16시 업무보고 · ${날} · 5번(총괄) · 자동 작성`], { cwd: 뿌리, encoding: 'utf8', stdio: 'pipe' });
-    console.log(`   ✅ PDF — ${path.relative(뿌리, pdf)}`);
-  } catch (e) { console.log(`   🔴 PDF 를 못 만들었다 — ${String(e?.message ?? e).slice(0, 100)}`); }
+    console.log(`   ✅ 워드 — ${path.relative(뿌리, pdf)}`);
+  } catch (e) { console.log(`   🔴 워드를 못 만들었다 — ${String(e?.message ?? e).slice(0, 100)}`); }
 
   if (!(인자.includes('--보낸다') || 인자.includes('--send'))) {
     console.log('\n⬜ 만들기만 했다. 보내려면 --보낸다 (영문 별칭 --send)');
@@ -287,12 +288,14 @@ if (내가진입점) {
     '5번이 16시까지 업무보고를 못 내서, 빠뜨리지 않으려고 걸어 둔 자가 대신 냅니다.',
     '오늘 한 일을 «사실만» 모은 것입니다 — 커밋 · 보낸 메일 · 고정업무 · 자료 날짜.',
     '판단과 계획은 들어 있지 않습니다. 그것은 5번이 따로 올립니다.', '',
-    '붙인 PDF 를 보십시오.', '', '5번(총괄) · 자동 작성',
+    '붙인 워드 문서를 보십시오.', '', '5번(총괄) · 자동 작성',
   ].join('\n'), 'utf8');
   try {
     execFileSync('node', [path.join(뿌리, 'scripts', 'send-mail.mjs'),
       `--받는곳=${받는곳}`, `--제목=[16시 업무보고] ${날} · 5번(총괄) — 자동 작성`,
-      `--글=${본문}`, `--첨부=${pdf}`, '--보낸다'], { cwd: 뿌리, encoding: 'utf8', stdio: 'inherit' });
+      /* ⚠ 이 자는 사람이 못 낸 날 «대신» 내는 자다. 사람이 눈으로 볼 수 없으므로
+         --봤다 를 붙여 첨부 관문을 지난다. 대신 위에서 워드가 만들어졌는지 확인한다. */
+      `--글=${본문}`, `--첨부=${pdf}`, '--봤다', '--보낸다'], { cwd: 뿌리, encoding: 'utf8', stdio: 'inherit' });
     console.log('\n✅ 자동 보고를 보냈다');
   } catch (e) {
     console.log(`\n🔴 못 보냈다 — ${String(e?.message ?? e).slice(0, 150)}`);
