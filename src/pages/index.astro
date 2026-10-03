@@ -50,6 +50,29 @@ const PRODUCTS = [
     one: 'Substantial-shareholding disclosures, including where the share count moved quietly.', cta: 'Open' },
   { name: 'Concentration Index', href: '/data/concentration', mkt: 'Seoul',
     one: 'How much of the KOSPI is one company, and how much of trade is one country.', cta: 'Open' },
+  /**
+   * 🔴🔴 [2026-10-04 04:4x · 5번] **이 지면만 홈에서 빠져 있었고, 그래서 3주째 크롤조차 안 됐다.**
+   *
+   *   2026-09-11 에 실측(「biggest korean companies」류가 우리 노출의 38%)을 보고
+   *   `/data/largest-companies` 를 만들었다. 그런데 **홈에 거는 것을 빠뜨렸다** —
+   *   다른 `/data/` 일곱 장은 다 걸려 있고 이것만 없었다.
+   *
+   *   오늘 구글에 직접 물으니 —
+   *   ```
+   *   /data/largest-companies                    🔴 Discovered - currently not indexed
+   *                                                 마지막 크롤: «없다»
+   *   /article/korea-largest-listed-companies    ✅ 색인됨 · 09-29 크롤
+   *   /japan/company/konica-minolta              ✅ 색인됨 · 09-28 크롤
+   *   ```
+   *   구글이 **사이트맵에서 발견은 했는데 가지러 오지도 않았다.** 3주 동안이다.
+   *   그 사이 그 물음(노출 50 — 우리 전체 노출의 3분의 1)은 66~80위인 옛 기사가 받고 있었다.
+   *
+   * ⛔ **사이트맵에 넣는 것은 문을 내는 것이 아니다.** 홈에서 한 번에 닿아야 구글이 온다.
+   * ⚠ 지면을 만들면 «그날» 홈이나 가까운 목록에 건다. 다음에 걸겠다고 미루면 이렇게 된다.
+   */
+  { name: 'Largest Companies', href: '/data/largest-companies', mkt: 'Seoul',
+    one: 'The biggest companies in South Korea ranked four ways — market value, revenue, assets '
+      + 'and operating profit. The top ten turns out to be twenty-one companies.', cta: 'Open' },
 ];
 
 const jsonLd = {
