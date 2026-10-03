@@ -78,7 +78,16 @@ const x2 = (n: number | null) =>
   n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 2 });
 
 const 결산 = 줄?.periodEnd ?? null;
-const title = `${nameEn} — reported financials (Japan)`;
+/* 🔴 [2026-10-03 · 5번] 제목을 «검색하는 말»로 바꾼다. GSC 실측 근거는 이 파일 머리글 참고.
+   · 종목코드를 넣는다 — 손님은 이름과 코드를 같이 친다
+   · revenue · profit · assets 를 넣는다 — 실제로 친 말이다
+   · 결산 연도를 넣는다 — 오래된 자료가 아니라는 표시가 클릭을 가른다
+   ⛔ 「annual report」라고 쓰지 않는다. 우리는 사업보고서를 싣지 않는다.
+   ⛔ 결산 연도가 없으면 그 자리를 비운다 — 지어내지 않는다. */
+const 결산해 = 결산 ? String(결산).slice(0, 4) : (줄?.year ? String(줄.year) : null);
+const title = 줄 && 줄.revenue != null
+  ? `${nameEn} (${code}) — revenue, profit and assets${결산해 ? `, FY${결산해}` : ''}`
+  : `${nameEn} (${code}) — company profile and EDINET filings (Japan)`;
 const 설명줄 = 줄 && 줄.revenue != null
   ? `${nameEn} (${code}) reported JPY ${bn(줄.revenue)}bn of revenue in the financial year ended ${결산 ?? 줄.year}.`
   : `${nameEn} (${code}) — financials as filed with Japan's Financial Services Agency.`;
