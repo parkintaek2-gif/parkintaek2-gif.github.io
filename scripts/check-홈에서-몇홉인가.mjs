@@ -70,12 +70,33 @@ export function 어느사이트(길) {
   return 사이트들[0];
 }
 
+/**
+ * 🔴 [2026-10-04 06:1x] **퍼센트 인코딩 주소를 파일 이름과 못 맞추고 있었다.**
+ *
+ *   `/100y/college-major` 가 「837장 가운데 400장만 닿는다(48%)」로 나왔다. 파 보니
+ *   목록은 **837개 전부**에 링크를 걸고 있었다. 꼴이 이랬다 —
+ *   ```
+ *   목록의 링크   /college-major/%EA%B0%80%EC%A0%95%EA%B5%90%EC%9C%A1%EA%B3%BC
+ *   파일 이름     /100y/college-major/가정교육과
+ *   ```
+ *   같은 지면인데 글자가 달라 못 찾은 것이다. **437장이 거짓으로 「안 닿는다」였다.**
+ *   ⚠ 이 흠은 내 메모에 이미 적혀 있었다 — 「100yearmap 의 /major 는 퍼센트
+ *     인코딩이라 아예 못 쟀다」. 적어 두고도 새 자에 그대로 되풀이했다.
+ *
+ * ⛔ 디코딩이 터지면(깨진 인코딩) 날것을 그대로 쓴다 — 지면 하나 때문에 자가 죽지 않는다.
+ */
+export function 길풀기(길) {
+  const s = String(길 ?? '');
+  if (!s.includes('%')) return s;
+  try { return decodeURIComponent(s); } catch { return s; }
+}
+
 export function 안쪽길들(html) {
   const 것 = [];
   for (const m of String(html ?? '').matchAll(/href\s*=\s*"(\/[^"]*)"/g)) {
     const 날것 = m[1];
     if (날것.startsWith('//')) continue;                 /* //evil.com 은 바깥이다 */
-    const 길 = 날것.split(/[?#]/)[0].replace(/\/+$/, '') || '/';
+    const 길 = 길풀기(날것.split(/[?#]/)[0]).replace(/\/+$/, '') || '/';
     것.push(길);
   }
   return [...new Set(것)];
@@ -159,6 +180,15 @@ export function 자가시험() {
   본다('⛔ 물음표·우물정은 자른다', 안쪽길들('<a href="/a?x=1#y">z</a>')[0] === '/a');
   본다('⛔ 같은 길을 한 번만 센다', 안쪽길들('<a href="/a">1</a><a href="/a/">2</a>').length === 1);
   본다('⛔ 빈 것에 안 터진다', 안쪽길들(null).length === 0);
+  /* 🔴 [2026-10-04] 퍼센트 인코딩 때문에 437장을 거짓으로 「안 닿는다」고 하던 자리 */
+  본다('🔴 퍼센트 인코딩 주소를 파일 이름과 맞춘다',
+    안쪽길들('<a href="/college-major/%EA%B0%80%EC%A0%95%EA%B5%90%EC%9C%A1%EA%B3%BC">x</a>')[0]
+    === '/college-major/가정교육과');
+  본다('⛔ 깨진 인코딩에 안 터진다 — 날것을 그대로 쓴다', 길풀기('/a%ZZ') === '/a%ZZ');
+  본다('⛔ 퍼센트가 없으면 그대로다', 길풀기('/a/b') === '/a/b');
+  본다('⛔ 빈 것·null 에 안 터진다', 길풀기(null) === '' && 길풀기('') === '');
+  본다('⛔ 풀어도 같은 길은 한 번만 센다',
+    안쪽길들('<a href="/a/%EA%B0%80">1</a><a href="/a/가">2</a>').length === 1);
 
   본다('index.html 은 홈이다', 손님길('d/index.html', 'd') === '/');
   본다('a/index.html 은 /a 다', 손님길('d/a/index.html', 'd') === '/a');
