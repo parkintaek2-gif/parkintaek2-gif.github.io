@@ -15,6 +15,9 @@ import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderAdmin, renderRaw } from './src/lib/admin.mjs';
 import { handleApi } from './src/lib/api.mjs';
+/* 🔴 과속 막이 — 사장님 2026-10-03. 판정은 src/lib/과속막이.mjs 한 곳에만 둔다 */
+import { 분당한도, 과속인가, 보낸곳, 쓸기시작 } from './src/lib/과속막이.mjs';
+쓸기시작();
 import { 등록 as 댓글등록, 목록 as 댓글목록 } from './src/lib/comments.mjs';
 import { 던지기 as 투표던지기, 집계 as 투표집계 } from './src/lib/votes.mjs';
 import { 경로후보 } from './src/lib/url-path.mjs';
@@ -299,6 +302,14 @@ const handle = async (req, res) => {
     || parsed.pathname === '/api/account/signup' || parsed.pathname === '/api/account/login');
   if (req.method !== 'GET' && req.method !== 'HEAD' && !POST허용) {
     res.writeHead(405, { ...BASE_HEADERS, Allow: 'GET, HEAD' }).end('Method Not Allowed');
+    return;
+  }
+
+  /* 🔴 과속 막이 — API 창구에만 건다(사장님 2026-10-03) */
+  const 한도 = 분당한도(parsed.pathname);
+  if (한도 && 과속인가(보낸곳(req) + ' ' + parsed.pathname, 한도)) {
+    res.writeHead(429, { ...BASE_HEADERS, 'content-type': 'application/json; charset=utf-8', 'retry-after': '60' })
+      .end(JSON.stringify({ ok: false, error: 'Too many requests. Please try again in a minute.' }));
     return;
   }
 

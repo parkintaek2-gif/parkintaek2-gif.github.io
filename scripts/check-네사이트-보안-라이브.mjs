@@ -218,7 +218,9 @@ async function 재기() {
       let 로그인화면 = false;
       if (r.status === 200) {
         const 글 = await r.text().catch(() => '');
-        로그인화면 = /login|로그인|sign in|비밀번호|password/i.test(글.slice(0, 4000));
+        /* 🔴 [2026-10-03] 앞 4000자만 보다가 /dashboard 를 「열려 있다」로 잘못 짚었다 —
+           로그인 안내가 화면 한참 아래에 있었다. 글 전체를 본다. */
+        로그인화면 = /로그인 하러|로그인 후|sign in|log in|로그인이 필요/i.test(글);
       }
       const 좋나 = 닫혔나(r.status) || r.status === 302 || r.status === 301 || 로그인화면;
       console.log(`  ${길.padEnd(22)} ${좋나 ? '✅' : '🔴'} ${r.status}${로그인화면 ? ' (로그인 화면)' : ''}`);
