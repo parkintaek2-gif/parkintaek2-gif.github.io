@@ -71,6 +71,22 @@ const 그룹소속 = new Set(
     : [],
 );
 
+/* 🔴 [2026-10-04] 같은 파일의 «갈래» 칸은 한 번도 안 쓰고 있었다 — 그 날만의 수에 쓴다.
+   ⛔ 파일이 없으면 빈 지도로 둔다. 그러면 그 줄만 안 나올 뿐 빌더는 선다.
+   ⛔⛔ 자료의 갈래는 한국어다(연기·노래·둘다). **여기는 영문 사이트다** —
+     한국어를 그대로 내보내면 손님 화면에 한글이 샌다. 영어로 옮겨서 쓴다.
+     ⚠ 「미확인」은 아예 안 센다 — 모르는 것을 세면 수가 거짓이 된다(강령 ③). */
+export const 갈래영문 = {
+  연기: 'actors', 노래: 'singers', 둘다: 'both', 기타: 'other',
+};
+export const 갈래보기 = new Map(
+  fs.existsSync(역할길)
+    ? Object.entries(JSON.parse(fs.readFileSync(역할길, 'utf8')).사람 ?? {})
+      .filter(([, v]) => v && 갈래영문[v.갈래])
+      .map(([q, v]) => [q, 갈래영문[v.갈래]])
+    : [],
+);
+
 export const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -117,6 +133,89 @@ export function 날별로(사람들, 수요 = new Map()) {
 }
 
 const 벗 = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+/**
+ * 🔴🔴 [2026-10-04 04:1x] **그 날에만 있는 수를 센다 — 겹침을 줄이려고.**
+ *
+ *   KCW 표본 8장 중 5장이 「Crawled - currently not indexed」였다. 구글이 보고도 안 넣었다.
+ *   본문은 3,500자로 얇지 않았다. `check-page-sameness.mjs` 로 재 보니 —
+ *
+ *   ```
+ *   /born-on 세 장이 서로 74~79% 겹친다
+ *   그 지면에만 있는 낱말  266개 중 16개 (6%)
+ *   ```
+ *
+ *   겹치는 몫은 **설명 글**이다(「이것은 세는 것이지 판정이 아니다」 따위).
+ *   ⛔ 그것은 우리 강령이라 지울 수 없다. 그러면 «그 날만의 것»을 늘리는 수밖에 없다.
+ *
+ * ⭐ 지어내지 않는다. **쥔 자료의 안 쓰던 축**을 센다 — 사장님 강령 그대로.
+ *   원자료에 이미 있는데 지면이 한 번도 안 쓴 것 셋 —
+ *     ① sitelinks   그 사람이 몇 개 언어판에 있나 — 「세계에 얼마나 닿았나」
+ *     ② 갈래        노래냐 연기냐 — 그날의 «결»
+ *     ③ born 의 해   가장 이른 해와 늦은 해 — 그날이 걸친 «세대 폭»
+ *
+ * ⛔ 못 센 것은 null 로 둔다. 0 으로 채우지 않는다(강령 ③).
+ */
+export function 그날만의수(사람들, 갈래보기 = null) {
+  const 들 = (사람들 || []).filter(Boolean);
+  if (!들.length) return null;
+
+  const 해들 = 들.map((p) => Number(String(p.born ?? '').slice(0, 4)))
+    .filter((y) => Number.isFinite(y) && y > 1800 && y < 2200);
+  const 링크 = 들.map((p) => Number(p.sitelinks)).filter((n) => Number.isFinite(n) && n >= 0);
+
+  const 갈래셈 = new Map();
+  for (const p of 들) {
+    const g = 갈래보기 ? 갈래보기(p.q) : null;
+    if (!g) continue;
+    갈래셈.set(g, (갈래셈.get(g) ?? 0) + 1);
+  }
+
+  return {
+    사람수: 들.length,
+    이른해: 해들.length ? Math.min(...해들) : null,
+    늦은해: 해들.length ? Math.max(...해들) : null,
+    세대폭: 해들.length ? Math.max(...해들) - Math.min(...해들) : null,
+    해를아는사람: 해들.length,
+    언어판합: 링크.length ? 링크.reduce((a, b) => a + b, 0) : null,
+    가장널리: 링크.length ? Math.max(...링크) : null,
+    갈래: [...갈래셈.entries()].sort((a, b) => b[1] - a[1]),
+    갈래아는사람: [...갈래셈.values()].reduce((a, b) => a + b, 0),
+  };
+}
+
+/** 그 날만의 수를 글로. ⛔ 못 센 칸은 «적지 않는다» — 0 으로 채우지 않는다 */
+export function 그날만의칸(수, 날글) {
+  if (!수 || 수.사람수 < 2) return '';
+  const 줄 = [];
+
+  if (수.세대폭 !== null && 수.해를아는사람 >= 2) {
+    줄.push(`<li><strong>${수.세대폭} years apart.</strong> The earliest was born in `
+      + `${수.이른해} and the latest in ${수.늦은해}`
+      + (수.해를아는사람 < 수.사람수 ? `, counting the ${수.해를아는사람} whose birth year we hold` : '')
+      + '.</li>');
+  }
+  if (수.언어판합 !== null) {
+    줄.push(`<li><strong>${수.언어판합} Wikipedia editions</strong> carry these people between them`
+      + (수.가장널리 !== null ? `, and the most widely carried one appears in ${수.가장널리}` : '')
+      + '. That is reach, not fame — an edition either exists or it does not.</li>');
+  }
+  if (수.갈래.length) {
+    const 쓴것 = 수.갈래.slice(0, 4).map(([g, n]) => `${n} ${벗(g)}`).join(' &middot; ');
+    줄.push(`<li><strong>What they do:</strong> ${쓴것}`
+      + (수.갈래아는사람 < 수.사람수
+        ? ` — of the ${수.갈래아는사람} we hold an occupation for` : '')
+      + '.</li>');
+  }
+  if (!줄.length) return '';
+
+  return `<section class="only-today">
+    <h2>What only ${벗(날글)} has</h2>
+    <ul>${줄.join('')}</ul>
+    <p class="fine">These come from the same Wikidata record as the list above. Where we do not
+    hold a figure we leave the line out rather than print a zero.</p>
+  </section>`;
+}
 
 /**
  * 🔴🔴 [2026-08-26 · 5번이 재서 고침] **생일 지면 366장이 이름을 «글자로만» 싣고 있었다.**
@@ -249,12 +348,31 @@ export function 잡음판정(사람, 띠) {
   return '잡음 안';
 }
 
+/**
+ * 🔴🔴 [2026-10-04 04:5x] **사람 지면 634장으로 가는 문이 거의 닫혀 있었다.**
+ *
+ *   12월 7일 지면은 「15 Korean stars born on 7 December」라 적어 놓고
+ *   이름 열다섯을 다 실었는데 **`/person/` 링크는 한 개**뿐이었다.
+ *   (이 파일 2026-08-26 주석이 「636장이 발견만에 머물러 있다」고 적은 바로 그 문제다.
+ *    그때 문을 열었다고 적었는데, 재 보니 한 명밖에 안 열려 있었다.)
+ *
+ *   까닭 — 이름표를 **이름 글자**로 맞췄다. 표기가 조금만 달라도 못 맞춘다:
+ *   `Lee You-mi`(생일 자료) ↔ `Lee Yoo-mi`(사람 지면). 사람 이름 로마자는 늘 흔들린다.
+ *
+ * ⭐ 그런데 **두 자료가 둘 다 위키데이터 ID(`q`)를 들고 있다.** 그것으로 맞추면
+ *   글자가 어떻게 흔들려도 정확히 맞는다. 이름은 «못 맞췄을 때의 뒷길»로 남긴다.
+ *
+ * ⛔ 겹친 이름은 여전히 뺀다 — 틀린 사람에게 보내느니 안 건다.
+ *   ⚠ q 는 겹치지 않는다(위키데이터가 하나씩 준다). 뺄 까닭이 없다.
+ */
 export function 이름표만들기(사람들 = []) {
   const 표 = new Map();
+  const q표 = new Map();
   const 겹친것 = new Set();
   const 키 = (s) => String(s ?? '').toLowerCase().replace(/\s+/g, ' ').trim();
   for (const p of 사람들) {
     if (!p?.slug) continue;
+    if (p.q) q표.set(String(p.q), p.slug);
     for (const 이름 of [p.name, p.wikiPage]) {
       const k = 키(이름);
       if (!k) continue;
@@ -265,12 +383,17 @@ export function 이름표만들기(사람들 = []) {
   }
   /* 겹친 이름은 «빼» 버린다 — 틀린 사람에게 보내느니 안 건다 */
   for (const k of 겹친것) 표.delete(k);
-  return { 표, 겹친수: 겹친것.size };
+  return { 표, q표, 겹친수: 겹친것.size };
 }
 
-/** 이름 하나를 링크로 감싼다. 없으면 글자 그대로 — ⛔ 지어내지 않는다. */
-export function 이름칸(보일, 표) {
-  const slug = 표?.get(String(보일 ?? '').toLowerCase().replace(/\s+/g, ' ').trim());
+/**
+ * 이름 하나를 링크로 감싼다. 없으면 글자 그대로 — ⛔ 지어내지 않는다.
+ * ⭐ q 를 먼저 본다(정확하다). 없을 때만 이름 글자로 뒷길을 간다.
+ */
+export function 이름칸(보일, 표, q = null, q표 = null) {
+  const qslug = q && q표 ? q표.get(String(q)) : null;
+  const slug = qslug
+    ?? 표?.get(String(보일 ?? '').toLowerCase().replace(/\s+/g, ' ').trim());
   return slug ? `<a href="/person/${slug}">${벗(보일)}</a>` : 벗(보일);
 }
 
@@ -363,7 +486,7 @@ export function 서수(n) {
   return `${v}${끝 === 1 ? 'st' : 끝 === 2 ? 'nd' : 끝 === 3 ? 'rd' : 'th'}`;
 }
 
-export function 지면짓기(mmdd, 사람들, 이름표 = null, 자리 = null, 띠 = null) {
+export function 지면짓기(mmdd, 사람들, 이름표 = null, 자리 = null, 띠 = null, q표 = null) {
   const 실을것 = 사람들.map((p) => ({ ...p, 보일: 영문이름(p) })).filter((p) => p.보일);
   const 안실은수 = 사람들.length - 실을것.length;
   const 으뜸 = 실을것[0];
@@ -425,7 +548,7 @@ export function 지면짓기(mmdd, 사람들, 이름표 = null, 자리 = null, �
   const 줄 = 실을것.map((p) => {
     const 해 = p.born.slice(0, 4);
     const 해칸 = 해지면있나.has(해) ? `<a href="/born-year/${해}">${해}</a>` : 해;
-    return `<tr><td>${이름칸(p.보일, 이름표)}</td><td class="fine">${해칸}</td><td class="fine">${!Number.isFinite(p.reads) ? '—' : p.reads.toLocaleString('en-US')}</td></tr>`;
+    return `<tr><td>${이름칸(p.보일, 이름표, p.q, q표)}</td><td class="fine">${해칸}</td><td class="fine">${!Number.isFinite(p.reads) ? '—' : p.reads.toLocaleString('en-US')}</td></tr>`;
   }).join('\n');
   /* 🔴🔴 [2026-08-27 15:3x · 5번] **아래 지면 글자 안에 우리말 주석을 넣지 않는다.**
      오늘 05:3x 에 누군가(나다) 「왜 설명을 줄였는지」를 `<!-- … -->` 로 적어 넣었다.
@@ -499,6 +622,7 @@ export function 지면짓기(mmdd, 사람들, 이름표 = null, 자리 = null, �
   to know is first.</p>
   ${안실은수 ? `<p class="fine"><strong>${안실은수} more people born on this day are counted but not listed</strong> — Wikidata holds no English name for them, only a Korean one, and this is an English-language site. They are inside the ${사람들.length} total.</p>` : ''}
 ${자리칸(mmdd, 날, 자리, 띠)}
+${그날만의칸(그날만의수(사람들, (q) => 갈래보기.get(q)), 날)}
 
   <div class="warn">
     <p><strong>Sharing a birthday means sharing a birthday.</strong> Nothing on this page says it means anything else. We counted whether a birth year predicts who reaches a chart, and it does not — <a href="/star-signs">that test is here</a>.</p>
@@ -680,6 +804,17 @@ if (process.argv.includes('--자가시험')) {
   검('⛔ 겹친 이름은 글자 그대로다', 이름칸('Kim Min-ju', 이름표시험) === 'Kim Min-ju');
   검('표가 아예 없어도 안 죽는다', 이름칸('IU', null) === 'IU');
   검('이름에 든 꺾쇠를 막는다', 이름칸('<b>x', null) === '&lt;b&gt;x');
+  /* 🔴 [2026-10-04] 이름 글자로만 맞추다 보니 생일 지면 «15명 중 한 명»만 문이 열려 있었다.
+     로마자 표기가 흔들려도(Lee You-mi ↔ Lee Yoo-mi) q 로는 정확히 맞는다. */
+  {
+    const { 표: 이름만, q표: q만 } = 이름표만들기([{ name: 'Lee Yoo-mi', slug: 'lee-you-mi', q: 'Q19359987' }]);
+    검('🔴 이름 표기가 달라도 q 로 문을 연다',
+      이름칸('Lee You-mi', 이름만, 'Q19359987', q만) === '<a href="/person/lee-you-mi">Lee You-mi</a>');
+    검('⛔ q 가 없으면 이름으로 뒷길을 간다',
+      이름칸('Lee Yoo-mi', 이름만, null, q만) === '<a href="/person/lee-you-mi">Lee Yoo-mi</a>');
+    검('⛔ 모르는 q 는 지어내지 않는다', 이름칸('Nobody', 이름만, 'Q-없는것', q만) === 'Nobody');
+    검('⛔ q표가 없어도 안 죽는다', 이름칸('Lee Yoo-mi', 이름만, 'Q19359987', null).includes('lee-you-mi'));
+  }
 
   const h링크 = 지면짓기('05-16', 날.get('05-16'), 이름표시험);
   검('⭐ 표의 이름이 사람 지면으로 간다', h링크.includes('<td><a href="/person/iu">IU</a></td>'));
@@ -754,12 +889,22 @@ if (process.argv.includes('--자가시험')) {
    *   문장»이고, 법정 식별자는 문장이 아니다. 이름 없이 정규식만 느슨하게 하면
    *   다음 사람이 한국어 «문장»을 넣어도 안 걸린다.
    */
-  const 법정번호 = /2026-세종-\d+/g;
+  /* 🔴 [2026-10-04 04:3x] 예외가 «번호»에만 걸려 있어, 그 뒤에 붙은 **신고기관 이름**을
+     한국어 문장으로 읽고 떨어졌다 — `2026-세종-0591 (세종특별자치시)`.
+     기관 이름은 번호의 «일부»다(영문판도 `2026-Sejong-0591 (Sejong)` 로 같이 적는다).
+     ⇒ 예외를 「번호 + 괄호 속 기관 이름」 한 덩이로 넓힌다.
+     ⛔ 괄호 안을 아무 한국어나 받지 않는다 — 「세종」으로 시작하는 것만 받는다.
+       느슨하게 열면 다음 사람이 한국어 «문장»을 넣어도 안 걸린다. */
+  const 법정번호 = /2026-세종-\d+(\s*\(세종[가-힣]*\))?/g;
   검('⛔ 화면에 우리말이 없다 (법정 신고번호만 예외)',
     !/[가-힣]/.test(h.replace(/홍길동/g, '').replace(법정번호, '')));
   /* ⚠ 예외가 «번호에만» 걸리는지 본다 — 넓어지면 한국어 문장이 새 나간다 */
   검('예외가 한국어 문장까지 봐주지 않는다',
     /[가-힣]/.test('사람이 온다'.replace(법정번호, '')));
+  검('⛔ 예외가 괄호 속 «아무» 한국어나 봐주지 않는다',
+    /[가-힣]/.test('2026-세종-0591 (사람이 온다)'.replace(법정번호, '')));
+  검('신고기관 이름까지는 봐준다',
+    !/[가-힣]/.test('2026-세종-0591 (세종특별자치시)'.replace(법정번호, '')));
   검('영문 문서 제목으로 떨어진다', 영문이름({ name: '카리나', enTitle: 'Karina (South Korean singer)' }) === 'Karina');
   검('영문 이름이 아예 없으면 안 싣는다', 영문이름({ name: '홍길동', enTitle: null }) === null);
 
@@ -782,12 +927,13 @@ const 날 = 날별로(사람들, 수요);
 /* 🔴 [2026-08-26] 사람 지면 명단을 읽어 이름에 문을 단다.
    ⚠ 명단이 없으면 «걸지 않는다» — 예전과 똑같이 글자로 나간다. 빌드가 죽지 않게. */
 const 사람지면길 = path.resolve(뿌리, 'src/data/wikitip-people.json');
-let 이름표 = null; let 겹친수 = 0;
+let 이름표 = null; let q표 = null; let 겹친수 = 0;
 if (fs.existsSync(사람지면길)) {
   const j = JSON.parse(fs.readFileSync(사람지면길, 'utf8'));
   const r = 이름표만들기(j.people ?? []);
-  이름표 = r.표; 겹친수 = r.겹친수;
-  console.log(`사람 지면 ${(j.people ?? []).length}장 → 이름 ${이름표.size}개에 문을 단다` +
+  이름표 = r.표; q표 = r.q표; 겹친수 = r.겹친수;
+  /* 🔴 [2026-10-04] q 로 맞추는 길이 생겼다 — 둘을 따로 적는다. 몇으로 맞췄는지 보이게 */
+  console.log(`사람 지면 ${(j.people ?? []).length}장 → q ${q표.size}개 · 이름 ${이름표.size}개에 문을 단다` +
     (겹친수 ? ` (이름이 겹쳐 «안 거는» 것 ${겹친수}개 — 틀린 사람에게 보내지 않는다)` : ''));
 } else {
   console.log('⚠ 사람 지면 명단이 없다 — 이름을 글자로만 낸다(예전과 같다)');
@@ -829,7 +975,7 @@ for (let m = 1; m <= 12; m++) {
   for (let d = 1; d <= 날수; d++) {
     const k = `${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
     const v = 날.get(k) ?? [];
-        const 글 = 지면짓기(k, v, 이름표, 자리, 띠);
+        const 글 = 지면짓기(k, v, 이름표, 자리, 띠, q표);
     걸린문 += (글.match(/href="\/person\//g) ?? []).length;
     fs.writeFileSync(path.join(낼방, `${k}.html`), 글);
     const 보일 = v.map(영문이름).filter(Boolean);
