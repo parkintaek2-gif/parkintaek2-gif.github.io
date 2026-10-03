@@ -49,10 +49,46 @@ export const 잇는곳 = [
      한글 이름은 위(서버 쪽 export)에 그대로 둔다 — 개인정보처리방침 지면이 그걸 읽는다.
   ⚠ 검사: scripts/check-analytics-fires.mjs (라이브에서 실제로 쏘는지 잰다)
 */}
+{/*
+  🔴🔴 [2026-10-03 밤 · 사장님] 「**direct는 우리가 클릭한거네**」
+
+  재 보니 klifemap.ai 는 28일 방문 1,133명 중 **Direct 가 1,069명(94%)** 이었다.
+  아무도 모르는 주소를 손님이 직접 칠 까닭이 없다 — 날마다 그 주소를 여는 것은 우리다.
+  ⇒ 그동안 우리 손이 실적으로 들어가 있었다. **설명하지 말고 막는다.**
+
+  거르는 네 가지 (아래 skipGA)
+    ① navigator.webdriver   우리 라이브 확인은 거의 다 자동 브라우저다
+    ② localhost·127.0.0.1   만들며 여는 것
+    ③ *.cloudtype.app       배포 임시 주소 — 손님이 올 길이 아니다
+    ④ ?noga=1 을 한 번 열면 그 브라우저는 그 뒤로 영영 안 센다
+       (우리 크롬마다 한 번씩만 붙이면 된다. 손님 브라우저에는 생길 일이 없다)
+
+  ⛔ 손님을 지우지 않는다. 위 넷은 모두 «손님이 될 수 없는» 자리다.
+  ⚠ 브라우저로 나가는 조각에는 ASCII 이름만 쓴다(위 2026-08-08 사고).
+*/}
 <script async src={`https://www.googletagmanager.com/gtag/js?id=${측정ID}`} />
 <script is:inline define:vars={{ gaId: 측정ID, gaDomains: 잇는곳 }}>
+  function skipGA() {
+    try {
+      if (navigator.webdriver) return 'webdriver';
+      var h = location.hostname;
+      if (h === 'localhost' || h === '127.0.0.1' || h === '::1') return 'local';
+      if (/\.cloudtype\.app$/.test(h)) return 'preview';
+      if (/[?&]noga=1\b/.test(location.search)) {
+        try { localStorage.setItem('noga', '1'); } catch (e) { /* 막혀 있으면 이번만 */ }
+        return 'noga';
+      }
+      try { if (localStorage.getItem('noga') === '1') return 'noga'; } catch (e) { /* 넘어간다 */ }
+    } catch (e) { return ''; }
+    return '';
+  }
+  var gaSkip = skipGA();
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', gaId, { linker: { domains: gaDomains } });
+  if (!gaSkip) {
+    gtag('js', new Date());
+    gtag('config', gaId, { linker: { domains: gaDomains } });
+  }
+  /* 왜 안 쟀는지 화면에 남긴다 — 「안 쏜다」와 「고장났다」를 가르려고 */
+  window.__gaSkip = gaSkip;
 </script>
