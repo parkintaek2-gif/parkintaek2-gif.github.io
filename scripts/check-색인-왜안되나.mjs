@@ -127,7 +127,12 @@ export function 자가시험() {
   const 본다 = (이름, 됐나, 덧말 = '') => 결과.push({ 이름, 됐나: !!됐나, 덧말 });
 
   본다('네 사이트를 다 본다', Object.keys(볼것).length === 4);
-  본다('klifemap 대표 지면이 여덟이다', 볼것.klifemap.주소.length === 8);
+  /* ⚠ [2026-10-04] 「여덟이다」로 수를 박아 뒀더니 지면이 열하나로 늘자 빨간불이 났다.
+     지면이 느는 것은 좋은 일이다 — 수를 박지 말고 «있나»와 «겹치지 않나»를 본다. */
+  본다('klifemap 대표 지면이 넉넉히 있다', 볼것.klifemap.주소.length >= 8);
+  본다('⛔ 대표 지면에 겹치는 주소가 없다',
+    new Set(볼것.klifemap.주소).size === 볼것.klifemap.주소.length);
+  본다('⛔ 대표 지면에 첫 화면이 들어 있다', 볼것.klifemap.주소.some((u) => /klifemap\.ai\/?$/.test(u)));
 
   본다('진단 — robots 가 막으면 우리 잘못', 진단({ robotsTxtState: 'DISALLOWED' }).갈래 === '우리가막음');
   본다('진단 — noindex 도 우리 잘못',
@@ -142,6 +147,23 @@ export function 자가시험() {
     진단({ robotsTxtState: 'ALLOWED', indexingState: 'INDEXING_ALLOWED', lastCrawlTime: 'x', pageFetchState: 'SUCCESSFUL', coverageState: 'Crawled - currently not indexed' }).갈래 === '왔는데색인안함');
   본다('진단 — 못 물으면 «못 물었다»', 진단(null).갈래 === '못물음');
   본다('⛔ 못 물은 것을 초록으로 읽지 않는다', 진단(null).빛 !== '✅');
+
+  /* 🔴 [2026-10-04] 글 표본이 klifemap 꼴(/content/)에만 맞아 세 사이트를 0 장 재고 있었다 */
+  본다('🔴 글 주소를 사이트 꼴에 매이지 않고 알아본다',
+    글주소인가('https://a.com/person/iu', 'https://a.com')
+    && 글주소인가('https://a.com/school/seoul-high', 'https://a.com')
+    && 글주소인가('https://a.com/content/x', 'https://a.com'));
+  본다('⛔ 첫 화면은 글로 안 센다 — 따로 잰다', !글주소인가('https://a.com/', 'https://a.com'));
+  본다('⛔ 자료 파일·사이트맵을 글로 안 센다',
+    !글주소인가('https://a.com/sitemap-pages.xml', 'https://a.com')
+    && !글주소인가('https://a.com/data.json', 'https://a.com')
+    && !글주소인가('https://a.com/og.png', 'https://a.com'));
+  본다('⛔ 남의 집 주소를 안 센다', !글주소인가('https://b.com/x', 'https://a.com'));
+  본다('⛔ 빈 것·null 에도 안 터진다', !글주소인가('') && !글주소인가(null));
+  본다('고르게 뽑는다 — 앞쪽만 쏠리지 않게',
+    고르게뽑기(['1', '2', '3', '4', '5', '6'], 3).join(',') === '1,3,5');
+  본다('⛔ 모자라면 있는 만큼만', 고르게뽑기(['1', '2'], 5).length === 2);
+  본다('⛔ 겹치는 주소를 한 번만 센다', 고르게뽑기(['1', '1', '2'], 5).length === 2);
   본다('갈래마다 처방이 있다',
     ['우리가막음', '발견안됨', '가져가기실패', 'canonical어긋남', '왔는데색인안함'].every((k) => 처방[k]));
 
@@ -160,16 +182,61 @@ export function 자가시험() {
  * `--글표본 N` 을 주면 사이트맵에서 글 주소를 고르게 N개 뽑아 함께 묻는다.
  * ⚠ URL 검사 API 는 하루 한도가 있다. 전부 묻지 않고 «표본»으로 재는 까닭이다.
  */
-export async function 글표본뽑기(사이트맵주소, 몇개) {
-  const r = await fetch(사이트맵주소, {
-    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1)' },
-  });
-  const xml = await r.text();
+/**
+ * 🔴🔴 [2026-10-04 02:5x] **이 자가 klifemap 말고는 글을 한 장도 안 재고 있었다.**
+ *
+ *   까닭 둘 —
+ *     ① 글을 `/content/…` 꼴로만 알아봤다. 그것은 klifemap 의 꼴이다.
+ *        KCW 는 `/person`·`/title`·`/article`, 백년지도는 `/school`·`/major` 다.
+ *        둘은 전부 걸러져 0 장이 됐다.
+ *     ② SeoulMarkets 사이트맵은 **색인 꼴**(sitemapindex)이라 `<loc>` 이 하위 사이트맵
+ *        주소 11개뿐이었다. 글 주소가 아예 안 들어 있었다.
+ *
+ *   ⇒ 그래서 세 사이트는 「도구 지면 2~3장」만 재고 ✅ 를 냈다.
+ *     **못 재는 것을 ✅ 로 읽은 것**이다 — 위 주석이 경계한 바로 그 자리를 또 밟았다.
+ *
+ * ⛔ 꼴을 사이트마다 박지 않는다. 「지면 주소처럼 생긴 것」을 고르고
+ *   «글이 아닌 것»(자료 파일·사이트맵·첫 화면)만 걸러 낸다.
+ */
+export const 글아닌꼴 = /\.(xml|json|txt|rss|png|jpe?g|webp|svg|ico|pdf)$|\/(sitemap|feed|rss)[^/]*$/i;
+
+export function 글주소인가(u, 뿌리) {
+  const s = String(u ?? '');
+  if (!s || 글아닌꼴.test(s)) return false;
+  let 길;
+  try { 길 = new URL(s).pathname; } catch { return false; }
+  if (길 === '/' || 길 === '') return false;            /* 첫 화면은 따로 잰다 */
+  if (뿌리 && !s.startsWith(뿌리)) return false;
+  return 길.split('/').filter(Boolean).length >= 1;
+}
+
+/** 앞쪽만 쏠리지 않게 고르게 뽑는다 */
+export function 고르게뽑기(것들, 몇개) {
+  const 들 = [...new Set(것들 || [])];
+  if (들.length <= 몇개) return 들;
+  const 걸음 = 들.length / 몇개;
+  return Array.from({ length: 몇개 }, (_, i) => 들[Math.floor(i * 걸음)]);
+}
+
+export async function 글표본뽑기(사이트맵주소, 몇개, { 깊이 = 0 } = {}) {
+  const 받기 = (u) => fetch(u, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1)' } })
+    .then((r) => r.text());
+  const xml = await 받기(사이트맵주소);
+  const 뿌리 = new URL(사이트맵주소).origin;
+
+  /* 색인 사이트맵이면 하위 것을 따라간다 — 한 켜만(끝없이 돌지 않게) */
+  if (/<sitemapindex/i.test(xml) && 깊이 < 1) {
+    const 하위 = [...xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map((m) => m[1]);
+    const 모은것 = [];
+    for (const u of 하위.slice(0, 6)) {          /* 하위가 많으면 앞에서 몇 개만 — 한도를 지킨다 */
+      try { 모은것.push(...await 글표본뽑기(u, 몇개, { 깊이: 깊이 + 1 })); } catch { /* 한 장 막혀도 잇는다 */ }
+    }
+    return 고르게뽑기(모은것, 몇개);
+  }
+
   const 글 = [...xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)]
-    .map((m) => m[1]).filter((u) => /\/content\/[^/]+$/.test(u));
-  if (글.length <= 몇개) return 글;
-  const 걸음 = 글.length / 몇개;
-  return Array.from({ length: 몇개 }, (_, i) => 글[Math.floor(i * 걸음)]);
+    .map((m) => m[1]).filter((u) => 글주소인가(u, 뿌리));
+  return 고르게뽑기(글, 몇개);
 }
 
 /* ─────────────────────────────── 본 일 ─────────────────────────────── */
