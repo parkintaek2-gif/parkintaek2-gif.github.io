@@ -95,6 +95,50 @@ export function 지은제목읽기(dist데) {
     .trim() || null;
 }
 
+/**
+ * 🔴🔴 [2026-10-04 05:5x · 5번] **`<title>` 만 고치고 H1 을 잊었다.**
+ *
+ *   `/data/largest-companies` 의 제목을 손님이 치는 말(`biggest … South Korea`)에
+ *   맞췄는데, 화면의 큰 제목은 옛 말(`The largest companies in Korea`) 그대로였다.
+ *   ```
+ *   title  The biggest companies in South Korea, ranked four ways   ← 고쳤다
+ *   h1     The largest companies in Korea                           ← 잊었다
+ *   ```
+ *   **검사는 다 통과했고, 실물을 띄워 보고서야 잡았다.**
+ *   구글은 H1 도 보고, 손님이 «처음 읽는» 말이 그것이다. 둘이 다른 말을 하면 안 된다.
+ *
+ * ⚠ 둘이 «같아야» 한다는 뜻은 아니다 — title 은 보통 더 길고 꼬리가 붙는다.
+ *   H1 의 알맹이 낱말이 title 에 들어 있는지만 본다.
+ * ⛔ 0 으로 채우지 않는다 — H1 이 없거나 알맹이가 없으면 「못 쟀다」다.
+ *
+ * 🔴🔴 **그리고 이것을 «빨강»으로 내지 않는다.** 처음에 빨강으로 냈더니 14개가 걸렸는데
+ *   열셋이 **의도된 차이**였다 — `broker-candour` 는 title 이 「Sell is 0.06%」이고
+ *   h1 이 「the Sell rating that vanished」다. 둘 다 좋은 말이고 일부러 다르게 쓴 것이다.
+ *   ⛔ 거짓 빨강이 열셋이면 진짜 하나가 묻힌다. 오늘 로그인 검사에서 겪은 그 자리다.
+ *   ⇒ 자가 **판정하지 않고** 어긋난 자리를 보여 주기만 한다. 「고치다 한쪽을 잊었나」는
+ *     사람이 눈으로 가른다. 그 하나를 찾으려고 열셋을 같이 띄우는 것은 값이 맞다.
+ */
+export function H1읽기(글) {
+  const m = String(글 ?? '').match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+  if (!m) return null;
+  return m[1].replace(/<[^>]+>/g, ' ')
+    .replace(/&#39;/g, '’').replace(/&amp;/g, '&').replace(/&quot;/g, '"')
+    .replace(/\s+/g, ' ').trim() || null;
+}
+
+export function 제목과H1이맞나(제목, h1) {
+  if (!제목 || !h1) return { 갈래: '못쟀다', 말: 'title 이나 h1 을 못 읽었다' };
+  const 알맹이 = (s) => 낱말로(s).filter((w) => !흔한말.has(w)).map(어간);
+  const t = new Set(알맹이(제목));
+  const h = 알맹이(h1);
+  if (!h.length) return { 갈래: '못쟀다', 말: 'h1 에 견줄 알맹이 낱말이 없다' };
+  const 빠진것 = [...new Set(h.filter((w) => !t.has(w)))];
+  if (빠진것.length) {
+    return { 갈래: '어긋남', 말: `h1 의 낱말이 title 에 없다: ${빠진것.join(' · ')}`, 빠진것 };
+  }
+  return { 갈래: '맞음', 말: 'h1 의 알맹이가 title 에 다 들어 있다', 빠진것: [] };
+}
+
 /** 판정 — ⛔ 「없다」와 「못 쟀다」를 가른다 */
 export function 판정(제목, 질의들) {
   if (!제목) return { 갈래: '못쟀다', 말: '제목을 못 읽었다' };
@@ -117,6 +161,26 @@ export function 자가시험() {
   본다('⛔ 흔한 말을 낱말로 세지 않는다',
     !낱말로('How and the What of it').includes('how'));
   본다('실제 낱말은 남긴다', 낱말로('Korean business segments').join(',') === 'korean,business,segments');
+
+  /* 🔴 [2026-10-04] title 만 고치고 H1 을 잊던 자리 */
+  본다('🔴 title 을 고치고 h1 을 안 고치면 잡는다',
+    제목과H1이맞나('The biggest companies in South Korea, ranked four ways',
+      'The largest companies in Korea').갈래 === '어긋남');
+  본다('🔴 어느 낱말이 빠졌는지 이름으로 댄다',
+    제목과H1이맞나('The biggest companies in South Korea',
+      'The largest companies in Korea').빠진것.includes('largest'));
+  본다('✅ 둘을 같이 고치면 통과한다',
+    제목과H1이맞나('The biggest companies in South Korea, ranked four ways',
+      'The biggest companies in South Korea').갈래 === '맞음');
+  본다('⛔ title 이 더 길어도 통과한다 — 똑같을 필요는 없다',
+    제목과H1이맞나('Korean target price changes — who moved a target price',
+      'Korean target price changes').갈래 === '맞음');
+  본다('⛔ h1 이 없으면 «못 쟀다»다 — 통과로 적지 않는다',
+    제목과H1이맞나('제목만 있다', null).갈래 === '못쟀다');
+  본다('⛔ 흔한 말만 다르면 어긋남이 아니다',
+    제목과H1이맞나('Korean companies and the market', 'The Korean companies').갈래 === '맞음');
+  본다('h1 을 지면에서 읽는다', H1읽기('<h1 class="x">Hello <b>World</b></h1>') === 'Hello World');
+  본다('⛔ h1 이 없으면 null 이다', H1읽기('<p>없다</p>') === null && H1읽기(null) === null);
 
   const 이기는제목 = 'Korea\'s 10 largest listed companies — and why most rankings double-count Samsung';
   본다('🔴 이기는 제목은 실제 질의와 겹친다', 판정(이기는제목, 질의).갈래 === '길있음');
@@ -194,7 +258,9 @@ if (내가진입점) {
     if (!있는것) { 못잰것.push(이름); continue; }
     const 제목 = 지은제목읽기(있는것);
     if (!제목) { 못잰것.push(이름); continue; }
-    결과.push({ f, 제목, ...판정(제목, 질의들) });
+    /* 🔴 [2026-10-04] title 만 고치고 H1 을 잊던 자리 — 둘을 같이 본다 */
+    const h1 = H1읽기(fs.readFileSync(있는것, 'utf8'));
+    결과.push({ f, 제목, h1, 짝: 제목과H1이맞나(제목, h1), ...판정(제목, 질의들) });
   }
   if (못잰것.length) console.log(`⬜ 못 쟀다 ${못잰것.length}개 — ${못잰것.join(' · ')}`);
 
@@ -205,6 +271,25 @@ if (내가진입점) {
   const 길있음 = 결과.filter((x) => x.갈래 === '길있음');
   console.log(`\n  ✅ 길이 있는 제목 ${길있음.length}개 — 보기 셋`);
   for (const x of 길있음.slice(0, 3)) console.log(`     ${x.f.replace('.astro', '').padEnd(26)} ${x.말.slice(0, 60)}`);
+
+  /* 🔴 [2026-10-04] title 과 h1 이 서로 다른 말을 하던 자리 */
+  const 어긋남 = 결과.filter((x) => x.짝?.갈래 === '어긋남');
+  const h1못잼 = 결과.filter((x) => x.짝?.갈래 === '못쟀다');
+  console.log(`\n■ title 과 h1 이 다른 말을 하는 지면 ${어긋남.length}개 — ⚠ 판정이 아니라 «눈으로 볼 목록»이다`);
+  console.log('  ⚠ 일부러 다르게 쓴 것이 대부분이다(title 은 검색용, h1 은 지면 제목).');
+  console.log('    찾는 것은 «한쪽만 고치고 잊은» 것이다 — 뜻이 같은 다른 낱말이 보이면 그것이다.');
+  console.log('    (2026-10-04 실례: title 을 biggest 로 고치고 h1 은 largest 인 채로 뒀다)');
+  for (const x of 어긋남.slice(0, 20)) {
+    console.log(`  ⚠ ${x.f.replace('.astro', '')}`);
+    console.log(`     title ${x.제목.slice(0, 66)}`);
+    console.log(`     h1    ${String(x.h1).slice(0, 66)}`);
+  }
+  if (어긋남.length > 20) console.log(`  … 그리고 ${어긋남.length - 20}개 더`);
+  if (!어긋남.length) console.log('  ✅ 없다 — 손님이 처음 읽는 말과 검색에 뜨는 말이 같다');
+  if (h1못잼.length) {
+    console.log(`  ⬜ h1 을 못 읽은 지면 ${h1못잼.length}개 — ${h1못잼.map((x) => x.f.replace('.astro', '')).slice(0, 8).join(' · ')}`);
+    console.log('     ⚠ 이것을 「맞다」로 읽지 않는다. 안 본 것은 안 본 것이다.');
+  }
 
   console.log('\n⚠ 「길이 없다」가 「나쁜 제목」이라는 뜻은 아니다 —');
   console.log('  아직 그 말로 검색된 적이 없다는 뜻이다. 새 축이면 당연히 없다.');
