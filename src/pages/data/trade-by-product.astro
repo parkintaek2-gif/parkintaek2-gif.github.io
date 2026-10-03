@@ -1,0 +1,231 @@
+---
+/*
+ * `/data/trade-by-product` — Korea's exports and imports, by what they are, not who they go to.
+ * (seoulmarkets.com/data/trade-by-product)
+ *
+ * ── Why this page (2026-10-04 · 2번) ──────────────────────────────────
+ *   docs/새데이터-KOSIS-후보.md flagged this pair of KOSIS tables for the `fx` category,
+ *   which otherwise carries only one article. The country-level table (DT_1R11006_FRM101)
+ *   overlaps with the existing /data/trading-partners page and the
+ *   korea-sells-and-buys-different-countries article, so it was dropped. The product-level
+ *   table (DT_1R11001_FRM101, SITC major sections) is a genuinely different axis — what
+ *   Korea trades, not with whom — and does not duplicate either.
+ *
+ * ⛔ No forecast, no "exports are rising/falling because of X" framing.
+ * ⛔ English only, no investment advice.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/korea-trade-by-product.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const t = tape as any;
+const years = Object.keys(t.years).sort();
+const latestYear = years.at(-1)!;
+const prevYear = years.at(-2)!;
+
+const ex = t.years[latestYear].export as Record<string, number>;
+const im = t.years[latestYear].import as Record<string, number>;
+
+const exTotal = ex['총액'];
+const imTotal = im['총액'];
+
+const labelEn: Record<string, string> = {
+  '식품 및 산동물': 'Food and live animals',
+  '음료 및 담배': 'Beverages and tobacco',
+  '비식용원재료(연료제외)': 'Crude materials, inedible, except fuels',
+  '광물성연료윤활유 및 관련물질': 'Mineral fuels, lubricants and related materials',
+  '동식물성유지 및 왁스': 'Animal and vegetable oils, fats and waxes',
+  '화학물 및 관련제품': 'Chemicals and related products',
+  '재료별 제조제품': 'Manufactured goods classified chiefly by material',
+  '기계 및 운수장비': 'Machinery and transport equipment',
+  '기타 제조제품': 'Miscellaneous manufactured articles',
+  '달리 분류되지 않은 상품 및 취급물': 'Commodities not classified elsewhere',
+};
+const cats = Object.keys(labelEn);
+
+const pct = (n: number, total: number) => `${((n / total) * 100).toFixed(1)}%`;
+const usdBn = (thousands: number) => `$${(thousands / 1_000_000).toFixed(1)}bn`;
+
+const machineryExportShare = ex['기계 및 운수장비'] / exTotal;
+const machineryImportShare = im['기계 및 운수장비'] / imTotal;
+const fuelExportShare = ex['광물성연료윤활유 및 관련물질'] / exTotal;
+const fuelImportShare = im['광물성연료윤활유 및 관련물질'] / imTotal;
+
+const TITLE = `Korea's exports run ${pct(ex['기계 및 운수장비'], exTotal)} machinery — its imports are `
+  + `${pct(im['광물성연료윤활유 및 관련물질'], imTotal)} fuel`;
+const DESC = `In ${latestYear}, machinery and transport equipment made up ${pct(ex['기계 및 운수장비'], exTotal)} `
+  + `of Korea's $${(exTotal / 1_000_000).toFixed(0)}bn in exports, but only ${pct(im['기계 및 운수장비'], imTotal)} `
+  + `of its $${(imTotal / 1_000_000).toFixed(0)}bn in imports. Mineral fuels run the other way: `
+  + `${pct(im['광물성연료윤활유 및 관련물질'], imTotal)} of imports against ${pct(ex['광물성연료윤활유 및 관련물질'], exTotal)} `
+  + `of exports. Same classification, both directions — KOSIS/KITA data, not a forecast.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea exports and imports by product category (SITC)',
+  description: DESC,
+  url: `${SITE_URL}/data/trade-by-product`,
+  keywords: ['Korea exports', 'Korea imports', 'Korea trade composition', 'SITC',
+    'KOSIS', 'Korea International Trade Association', 'machinery exports Korea', 'mineral fuel imports Korea'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: 'https://kosis.kr',
+  isAccessibleForFree: true,
+  temporalCoverage: `${years[0]}/${latestYear}`,
+  variableMeasured: cats.map((c) => `${labelEn[c]} — export value, import value (USD thousand)`),
+};
+
+const faq: Array<[string, string]> = [
+  ['Why is machinery such a large share of exports but a much smaller share of imports?',
+    'This data does not say why. It only measures the composition of each side — Korea\'s exports and its '
+    + 'imports are not mirror images of each other by product, and this page does not assign a cause.'],
+  ['What does "mineral fuels" cover?',
+    'The SITC major section "mineral fuels, lubricants and related materials" — overwhelmingly crude oil, '
+    + 'refined petroleum products, and natural gas in Korea\'s case. Korea has very limited domestic fossil-fuel '
+    + 'production, which is consistent with (but not proven to cause) its high import share here.'],
+  ['Is this the same classification as a country-level trade-partner ranking?',
+    'No. This page classifies trade by what is traded (SITC product sections). A separate SeoulMarkets page, '
+    + '/data/trading-partners, classifies the same trade flows by which country they go to or come from. The '
+    + 'two use different axes and are not meant to be added together.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>What Korea trades — not who it trades with</h1>
+    <p class="lead">
+      In <b>{latestYear}</b>, machinery and transport equipment made up <b>{pct(ex['기계 및 운수장비'], exTotal)}</b>{' '}
+      of Korea's exports — but only <b>{pct(im['기계 및 운수장비'], imTotal)}</b> of its imports. Mineral fuels
+      run the other way: <b>{pct(im['광물성연료윤활유 및 관련물질'], imTotal)}</b> of imports against just{' '}
+      <b>{pct(ex['광물성연료윤활유 및 관련물질'], exTotal)}</b> of exports.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false}
+      아직="Composition snapshot only today. A longer time series chart is not built yet." />
+
+    <section class="stats">
+      <div class="stat"><b>{usdBn(exTotal)}</b><span>total exports, {latestYear}</span></div>
+      <div class="stat"><b>{usdBn(imTotal)}</b><span>total imports, {latestYear}</span></div>
+      <div class="stat"><b>{pct(ex['기계 및 운수장비'], exTotal)}</b><span>exports that are machinery</span></div>
+      <div class="stat"><b>{pct(im['광물성연료윤활유 및 관련물질'], imTotal)}</b><span>imports that are fuel</span></div>
+    </section>
+
+    <section>
+      <h2>Read this before the table: product, not partner</h2>
+      <p class="warn">
+        This classifies trade by <b>what is traded</b> (SITC major sections) — a separate axis from a
+        country-level ranking. It does not say Korea trades more or less with any particular partner, and it
+        does not explain <i>why</i> the export and import baskets differ so much by category.
+      </p>
+    </section>
+
+    <section>
+      <h2>Exports vs imports, by product category — {latestYear}</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Category</th><th class="n">Exports</th><th class="n">Share</th>
+              <th class="n">Imports</th><th class="n">Share</th></tr>
+          </thead>
+          <tbody>
+            {cats.map((c) => (
+              <tr>
+                <td>{labelEn[c]}</td>
+                <td class="n">{usdBn(ex[c])}</td>
+                <td class="n">{pct(ex[c], exTotal)}</td>
+                <td class="n">{usdBn(im[c])}</td>
+                <td class="n">{pct(im[c], imTotal)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        "Commodities not classified elsewhere" is a small residual category (re-exports, special
+        transactions, goods not elsewhere classified in SITC) — it is kept in the table for completeness but
+        is not a product category in the usual sense.
+      </p>
+    </section>
+
+    <section>
+      <h2>One year back, for a sense of stability</h2>
+      <p>
+        In {prevYear}, machinery ran {pct(t.years[prevYear].export['기계 및 운수장비'], t.years[prevYear].export['총액'])}{' '}
+        of exports and {pct(t.years[prevYear].import['기계 및 운수장비'], t.years[prevYear].import['총액'])} of
+        imports — close to the {latestYear} shares above. This composition does not swing sharply year to year;
+        this page does not claim anything about the trend beyond these two years.
+      </p>
+    </section>
+
+    <section>
+      <h2>What this page does not say</h2>
+      <ul>
+        <li>No cause for the gap between export and import baskets — only the measured composition.</li>
+        <li>No partner-country breakdown — see <a href="/data/trading-partners">trading partners</a> for that axis.</li>
+        <li>No forecast — {latestYear} and {prevYear} only, not a projection.</li>
+        <li>Values are nominal USD, not adjusted for price changes between years.</li>
+      </ul>
+      <p class="note">
+        <b>This is not investment advice.</b> It describes the measured composition of Korea's exports and
+        imports by product category.
+      </p>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        Korea International Trade Association (KITA), 품목별 수출액 수입액 (exports/imports by product, SITC
+        major sections), via KOSIS (<a href="https://kosis.kr/statHtml/statHtml.do?orgId=360&tblId=DT_1R11001_FRM101">
+        DT_1R11001_FRM101</a>). Annual, {years[0]}–{latestYear}.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        <a href="/data/trading-partners">South Korea's largest trading partners</a>,{' '}
+        <a href="/article/korea-sells-and-buys-different-countries">Korea's export map and import map don't match</a>.
+        {' '}<a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+  <BuyBar 자리="bottom" 살수있나={false}
+    아직="Composition snapshot only today. A longer time series chart is not built yet." />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n { text-align: right; white-space: nowrap; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+  }
+</style>
