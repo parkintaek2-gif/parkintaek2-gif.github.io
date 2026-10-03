@@ -22,7 +22,8 @@
  */
 
 export const 사이트 = [
-  { 이름: 'KLifeMap', 밑: 'https://klifemap.ai', 로그인: '/api/auth/login' },
+  /* 「목록」은 손님 누구나 여는 «공개» 목록 창구다 — 여기로만 대량 조회를 잰다 */
+  { 이름: 'KLifeMap', 밑: 'https://klifemap.ai', 로그인: '/api/auth/login', 목록: '/api/reviews' },
   { 이름: 'SeoulMarkets', 밑: 'https://seoulmarkets.com', 로그인: '/api/account/login' },
   { 이름: '백년지도', 밑: 'https://100yearmap.com', 로그인: '/api/account/login' },
   { 이름: 'KCultureWire', 밑: 'https://www.kculturewire.com', 로그인: '/api/account/login' },
@@ -42,6 +43,38 @@ export function 잠겼나(답들) {
   const 뒤 = 답들.slice(-2);
   if (뒤.every((x) => x === 401 || x === 403)) return '⚠ 401 만 돌아온다 — 잠겼는지 밖에서는 못 가른다';
   return `⚠ 섞여 있다 (${답들.join('·')})`;
+}
+
+/** 한 번에 내주는 건수가 너무 많지 않나. 1000건을 넘겨 주면 대량 조회가 열린 것이다 */
+export function 대량인가(건수) {
+  if (건수 == null) return '⚠ 못 쟀다';
+  if (건수 > 1000) return `🔴 한 번에 ${건수}건을 내준다`;
+  if (건수 > 200) return `⚠ 한 번에 ${건수}건 — 줄이는 편이 낫다`;
+  return `✅ ${건수}건으로 끊는다`;
+}
+
+/** 잇달아 두드렸을 때 막이가 도나 */
+export function 반복막나(답들) {
+  if (!답들.length) return '⚠ 못 쟀다';
+  if (답들.some((x) => x === 429)) return '✅ 막는다(429)';
+  if (답들.every((x) => x === 0)) return '⚠ 못 쟀다 — 응답이 없다';
+  return `🔴 ${답들.length}번을 잇달아 두드려도 안 막는다`;
+}
+
+/**
+ * 지면 글에 열쇠가 값째로 박혀 있나.
+ * ⛔ 값을 돌려주지 않는다 — 몇 개인지만 센다.
+ */
+export function 열쇠샘(글) {
+  const 꼴 = /(api[_-]?key|secret|token|password|authorization)\s*[:=]\s*["'`]([^"'`\s]{16,})["'`]/gi;
+  const 걸린것 = [];
+  let m;
+  while ((m = 꼴.exec(String(글 ?? '')))) {
+    /* 자리표(placeholder)는 세지 않는다 — __SAJU_API_KEY__ 처럼 배포 때 채우는 자리다 */
+    if (/^__.*__$/.test(m[2]) || /^(your|example|changeme|xxx)/i.test(m[2])) continue;
+    걸린것.push(m[1].toLowerCase());
+  }
+  return 걸린것;
 }
 
 export function 머리줄흠(머리) {
@@ -88,6 +121,27 @@ async function 자가시험() {
     A.deepEqual(머리줄흠(h), []);
   });
 
+  test('대량 조회를 가른다', () => {
+    A.match(대량인가(5000), /🔴/);
+    A.match(대량인가(500), /⚠/);
+    A.match(대량인가(50), /✅/);
+    A.match(대량인가(null), /못 쟀다/);
+  });
+
+  test('반복 호출 막이를 가른다', () => {
+    A.match(반복막나([200, 200, 429]), /✅/);
+    A.match(반복막나([200, 200, 200]), /🔴/);
+    A.match(반복막나([0, 0, 0]), /못 쟀다/);
+    A.match(반복막나([]), /못 쟀다/);
+  });
+
+  test('열쇠가 값째로 박힌 것을 찾는다', () => {
+    A.deepEqual(열쇠샘('const apiKey = "sk-live-0123456789abcdef"'), ['apikey']);
+    A.deepEqual(열쇠샘('window.SAJU_API_KEY = "__SAJU_API_KEY__";'), []);
+    A.deepEqual(열쇠샘('api_key = "short"'), []);
+    A.deepEqual(열쇠샘('그냥 글'), []);
+  });
+
   test('🔴 머리줄흠 — 하나도 없으면 넷을 다 잡는다', () => {
     A.equal(머리줄흠(new Map()).length, 4);
   });
@@ -105,7 +159,8 @@ async function 자가시험() {
 /* ── 실제로 재기 ─────────────────────────────────────────── */
 async function 받기(주소, 옵션 = {}) {
   try {
-    const r = await fetch(주소, { redirect: 'manual', ...옵션 });
+    /* ⚠ 제한시간이 없으면 응답이 안 오는 창구 하나가 검사 전체를 세운다(2026-10-03 실제로 멈췄다) */
+    const r = await fetch(주소, { redirect: 'manual', signal: AbortSignal.timeout(12000), ...옵션 });
     return r;
   } catch (e) { return null; }
 }
@@ -154,6 +209,53 @@ async function 재기() {
     const 판정 = 잠겼나(답들);
     console.log(`  로그인 막이            ${판정}  (${답들.join('·')})`);
     if (판정.startsWith('🔴')) 모든흠.push(`${s.이름} 로그인: ${판정}`);
+
+    /* ⑧ 관리자 화면이 인증 없이 열리나 */
+    for (const 길 of ['/admin', '/admin/', '/dashboard', '/api/admin']) {
+      const r = await 받기(s.밑 + 길);
+      if (!r) continue;
+      /* 200 이어도 로그인 화면이면 닫힌 것이다 — 글을 보고 가른다 */
+      let 로그인화면 = false;
+      if (r.status === 200) {
+        const 글 = await r.text().catch(() => '');
+        로그인화면 = /login|로그인|sign in|비밀번호|password/i.test(글.slice(0, 4000));
+      }
+      const 좋나 = 닫혔나(r.status) || r.status === 302 || r.status === 301 || 로그인화면;
+      console.log(`  ${길.padEnd(22)} ${좋나 ? '✅' : '🔴'} ${r.status}${로그인화면 ? ' (로그인 화면)' : ''}`);
+      if (!좋나) 모든흠.push(`${s.이름}${길}: ${r.status} — 인증 없이 열린다`);
+    }
+
+    /* ⑨ 첫 화면 글에 열쇠가 값째로 박혀 있나 */
+    const 첫글 = await 첫.clone().text().catch(() => '');
+    const 샌것 = 열쇠샘(첫글);
+    console.log(`  연계 열쇠              ${샌것.length ? `🔴 ${샌것.length}개` : '✅ 안 샌다'}`);
+    if (샌것.length) 모든흠.push(`${s.이름}: 첫 화면에 열쇠 ${샌것.length}개가 값째로 박혔다`);
+
+    /* ⑥ 대량 조회 — 공개 목록 창구에 큰 limit 를 넣어 본다 */
+    if (s.목록) {
+      const r = await 받기(s.밑 + s.목록 + (s.목록.includes('?') ? '&' : '?') + 'limit=100000');
+      let 건수 = null;
+      if (r && r.status === 200) {
+        try {
+          const j = await r.json();
+          const 몸 = Array.isArray(j) ? j : (j.items || j.rows || j.data || j.list);
+          if (Array.isArray(몸)) 건수 = 몸.length;
+        } catch { /* JSON 이 아니면 못 쟀다 */ }
+      }
+      console.log(`  대량 조회              ${대량인가(건수)}`);
+      if (String(대량인가(건수)).startsWith('🔴')) 모든흠.push(`${s.이름}${s.목록}: 대량 조회가 열렸다`);
+    }
+
+    /* ⑦ 반복 호출 — 공개 첫 화면을 30번. ⛔ 돈·메일 창구는 건드리지 않는다 */
+    const 잇달아 = [];
+    for (let i = 0; i < 30; i += 1) {
+      const r = await 받기(s.밑 + '/?t=' + Date.now() + '-' + i);
+      잇달아.push(r ? r.status : 0);
+      if (r && r.status === 429) break;
+    }
+    const 반복판정 = 반복막나(잇달아);
+    console.log(`  반복 호출 막이         ${반복판정}`);
+    if (반복판정.startsWith('🔴')) 모든흠.push(`${s.이름}: ${반복판정}`);
   }
 
   console.log(`\n■ 흠 ${모든흠.length}개`);
