@@ -300,7 +300,10 @@ const jsonLd = [datasetLd, faqLd];
 
 <Base title={TITLE} description={DESC} jsonLd={jsonLd}>
   <article class="wrap">
-    <h1>The largest companies in Korea</h1>
+    {/* 🔴 [2026-10-04 · 5번] `<title>` 만 고치고 이 줄을 잊었다가 실물을 띄워 보고 잡았다.
+        구글은 H1 도 보고, 손님이 «처음 읽는» 말이 이것이다. 둘이 다른 말을 하면 안 된다.
+        ⛔ 제목을 고칠 때는 `<title>`·H1·`DESC` 셋을 «같이» 본다. */}
+    <h1>The biggest companies in South Korea</h1>
     <p class="lead">
       Four rankings, one dataset, {num(total)} listed companies. Market value on{' '}
       <b>{priceDate}</b>; revenue, assets and operating profit from the <b>{fiscalYear}</b>{' '}
