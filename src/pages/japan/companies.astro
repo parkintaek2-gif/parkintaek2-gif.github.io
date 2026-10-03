@@ -10,6 +10,8 @@ import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import tape from '../../data/japan-financials-tape.json';
 import { 낼만한가, 업종주소 } from '../../lib/japan-company-page.mjs';
+/* 🔴 [2026-10-04] 업종이 없는 회사로 «가는 길»을 내려면 그들의 주소가 필요하다 */
+import { 주소표만들기 } from '../../lib/company-slug.mjs';
 
 const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
 const meta = (tape as any)._meta ?? {};
@@ -26,6 +28,36 @@ const 업종들 = [...업종별.entries()]
   .sort((a, b) => a.이름.localeCompare(b.이름, 'en'));
 
 const 업종모름 = 행들.length - [...업종별.values()].reduce((a, b) => a + b, 0);
+
+/**
+ * 🔴🔴 [2026-10-04 07:1x · 5번] **업종이 없는 회사 지면이 「고립된 섬」이었다.**
+ *
+ *   `check-홈에서-몇홉인가.mjs` 로 재니 `/japan/company` 27장이 홈에서 «한 번도» 안 닿았다.
+ *   그 27장은 서로를 26개씩 걸고 있었다 — 자기들끼리만 이어진 섬이다.
+ *   까닭: 업종이 안 적힌 회사라 어느 `/japan/sector/…` 목록에도 안 실린다.
+ *
+ *   ⚠ 이 지면은 그 사실을 **글로는 이미 정직하게 적고 있었다** —
+ *     「N companies file without a classification we could read; they have company pages
+ *      but do not appear under a classification.」
+ *     ⇒ **글은 맞는데 링크가 없었다.** 구글은 글이 아니라 링크를 타고 온다.
+ *
+ *   같은 날 잰 수 — 홈에서 안 닿던 `/taiwan/company`(1,057장)·`/uae/company`(104장)에
+ *   구글이 표본 네 장씩 «전부» 「한 번도 안 왔다」였다. 길이 있던 일본은 4/4 색인됐다.
+ *
+ * ⛔ 업종을 지어내서 채우지 않는다. 「못 읽었다」가 사실이고 그대로 적는다.
+ *   여기서는 **그 회사들로 가는 길만** 낸다.
+ */
+const 업종없는것 = (() => {
+  const 것 = 행들.filter((r) => !String((r as any).sector || '').trim());
+  const 표 = 주소표만들기(것);
+  return 것
+    .map((r) => ({
+      이름: String((r as any).name_en || (r as any).nameEn || '').trim(),
+      slug: 표.get(String((r as any).code)),
+    }))
+    .filter((x) => x.이름 && x.slug)
+    .sort((a, b) => a.이름.localeCompare(b.이름, 'en'));
+})();
 
 const title = 'Japanese listed companies — financials as filed';
 const description = `${행들.length.toLocaleString('en-GB')} Japanese listed companies, one page each, built from annual securities reports filed through EDINET. Revenue, profit, assets, equity and the ratios computed from them.`;
@@ -56,8 +88,8 @@ const jsonLd = {
       <h2>By classification</h2>
       <p class="note">
         {업종들.length} classifications. Listed by name, not by size — we do not rank them.
-        {업종모름 > 0 && <> {업종모름} companies file without a classification we could read; they have
-        company pages but do not appear under a classification.</>}
+        {업종모름 > 0 && <> {업종모름} companies file without a classification we could read. They are
+        listed separately below.</>}
       </p>
       <ul class="grid">
         {업종들.map((s) => (
@@ -68,6 +100,24 @@ const jsonLd = {
         ))}
       </ul>
     </section>
+
+    {/* 🔴 [2026-10-04 · 5번] 이 칸이 없어서 이 회사들의 지면이 홈에서 한 번도 안 닿았다.
+        「N곳이 업종 없이 신고한다」고 «글로만» 적어 두었는데, 구글은 글이 아니라 링크를 탄다.
+        ⛔ 업종을 지어내서 채우지 않는다 — 못 읽은 것은 못 읽었다고 두고, 길만 낸다. */}
+    {업종없는것.length > 0 && (
+      <section>
+        <h2>Filed without a classification</h2>
+        <p class="note">
+          {업종없는것.length} companies whose filing carries no classification we could read.
+          We do not guess one for them. Their figures are the same as any other page here.
+        </p>
+        <ul class="grid">
+          {업종없는것.map((c) => (
+            <li><a href={`/japan/company/${c.slug}`}>{c.이름}</a></li>
+          ))}
+        </ul>
+      </section>
+    )}
 
     <section>
       <h2>Korea is on the same site</h2>
