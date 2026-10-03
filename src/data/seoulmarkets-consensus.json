@@ -1,5 +1,5 @@
 {
- "builtOn": "2026-10-03 02:28 KST",
+ "builtOn": "2026-10-03 13:26 KST",
  "source": "Hankyung Consensus — broker report list and analyst ranking",
  "windowNote": "The source page only ever shows a rolling ~30-day window, whatever date range is requested (measured 2026-09-09). Older reports cannot be back-filled — these snapshots are the record.",
  "accuracyNote": "The ranking page prints 0 for analysts whose accuracy it does not publish. We carry that through as accuracy:null with accuracy_not_published:true, never as an accuracy of zero.",
