@@ -978,6 +978,31 @@ if (내가실행됐다) {
     console.log(줄('③-7', '손님 화면 말버릇', 줄글));
   }
 
+  /**
+   * ③-8 받아 오는 자가 **「못 받았다」를 「없다」로 저장하나**
+   *
+   * 🔴🔴 [2026-10-04 · 5번] 하루에 같은 결함을 두 번 만났다.
+   *   아침  find-todays-spike 가 429 를 「자료 없음」으로 읽어 영어판을 통째로 가렸다
+   *   오후  collect-uae-adx-people 이 429 를 catch {} 로 삼켜 94종목이 전부
+   *         「대주주 0건」이었다. 고치니 있음 4 · 없음 27 · 못 쟀다 63
+   * ⛔ 둘 다 «수가 이상해서» 잡았다. 눈으로 안 봤으면 거짓 사실이 그대로 쌓였다.
+   * ⭐ 강령 — 「못 잰 것은 못 쟀다고 적는다. 0 으로 채우지 않는다.」
+   */
+  {
+    let 줄글 = null;
+    try {
+      const m = await import('./check-못잰것을-0으로-채우나.mjs');
+      const 방 = path.join(뿌리, 'scripts');
+      const 것들 = fs.readdirSync(방).filter((f) => f.endsWith('.mjs') && m.받아오는자인가(f));
+      let 의심 = 0;
+      for (const f of 것들) 의심 += m.의심줄찾기(fs.readFileSync(path.join(방, f), 'utf8')).length;
+      줄글 = { 됐나: 의심 === 0,
+        말: 의심 ? `🔴 받아 온 값을 삼켜 빈 것으로 두는 자리 ${의심}곳 — node scripts/check-못잰것을-0으로-채우나.mjs`
+          : `받아 오는 자 ${것들.length}개 — 삼키는 자리 없다` };
+    } catch { 줄글 = null; }
+    console.log(줄('③-8', '못 잰 것을 0으로 채우나', 줄글));
+  }
+
   /* ④ 라이브 */
   let 라이브 = null;
   try {
