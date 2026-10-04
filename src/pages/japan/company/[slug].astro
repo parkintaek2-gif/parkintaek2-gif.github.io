@@ -85,9 +85,23 @@ const 결산 = 줄?.periodEnd ?? null;
    ⛔ 「annual report」라고 쓰지 않는다. 우리는 사업보고서를 싣지 않는다.
    ⛔ 결산 연도가 없으면 그 자리를 비운다 — 지어내지 않는다. */
 const 결산해 = 결산 ? String(결산).slice(0, 4) : (줄?.year ? String(줄.year) : null);
-const title = 줄 && 줄.revenue != null
-  ? `${nameEn} (${code}) — revenue, profit and assets${결산해 ? `, FY${결산해}` : ''}`
-  : `${nameEn} (${code}) — company profile and EDINET filings (Japan)`;
+/* 🔴🔴 [2026-10-04 · 5번] **손님은 「<회사> stock」을 치는데 제목에 그 말이 없었다.**
+   실측 — 「se holdings and incubations stock」 55위 · 「cynd stock」 52위.
+   지면은 있고 숫자도 싣는데 「stock」 한 낱말이 빠져 있었다. 3,702장이 같은 꼴이다.
+   ⛔ 낱말을 쌓는 것이 아니다 — 이 지면은 상장 회사의 종목코드와 재무를 싣는다.
+     코드가 곧 종목이고, 손님이 찾는 것이 그것이다.
+   ⛔ 「buy」·「price target」 같은 말은 안 넣는다. 우리는 값을 매기지 않는다.
+   ⚠ 제목이 길어지면 구글이 자른다 — 3,702장을 다 재서 가장 긴 것을 확인한다. */
+/* ⚠ [2026-10-04] 다 지어 보니 3,702장 중 3,563장이 60자를 넘었다 — 「stock」을
+   더하기 «전부터» 그랬다. 일본 회사 이름이 길다(가장 긴 것 126자).
+   ⛔ 회사 이름은 자르지 않는다 — 이름과 종목코드가 곧 검색어다.
+   ⇒ 이름이 길면 꼬리를 던다. 「stock」은 어느 꼴에서도 남긴다. */
+const 긴제목 = 줄 && 줄.revenue != null
+  ? `${nameEn} (${code}) stock — revenue, profit and assets${결산해 ? `, FY${결산해}` : ''}`
+  : `${nameEn} (${code}) stock — company profile and EDINET filings (Japan)`;
+const title = 긴제목.length <= 60
+  ? 긴제목
+  : `${nameEn} (${code}) stock${결산해 && 줄?.revenue != null ? ` — FY${결산해}` : ''}`;
 const 설명줄 = 줄 && 줄.revenue != null
   ? `${nameEn} (${code}) reported JPY ${bn(줄.revenue)}bn of revenue in the financial year ended ${결산 ?? 줄.year}.`
   : `${nameEn} (${code}) — financials as filed with Japan's Financial Services Agency.`;
