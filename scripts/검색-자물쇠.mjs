@@ -195,6 +195,17 @@ if (내가실행됐다) {
     console.log(`  ${집.padEnd(24)} ${줄.join(' · ')}`);
   }
 
+  /* 🔴🔴 [2026-10-04 · 5번] **오늘 색인 요청 몫을 썼나.**
+     구글에 직접 물어 보니 KLifeMap 지면은 「발견됨 - 색인 안 함」이고
+     「한 번도 수집 안 왔다」였다. 사이트맵만으로는 안 들어간다.
+     ⛔ 색인 요청은 하루 10개 안팎이 한도다 — **안 쓰면 그날치가 영영 사라진다.**
+       날마다 쓰면 한 해에 3,600장이고, 안 쓰면 0장이다. 그래서 막는다. */
+  let 색인글 = ''; let 색인막힘 = false;
+  try { 색인글 = execFileSync('node', [path.join(뿌리, 'scripts/날마다-색인요청.mjs'), '--오늘몫을썼나'], { encoding: 'utf8', cwd: 뿌리 }); }
+  catch (e) { 색인글 = String(e.stdout ?? '') + String(e.stderr ?? ''); 색인막힘 = true; }
+  for (const l of 색인글.split(/\r?\n/)) if (l.trim()) console.log('\n  ' + l.trim());
+  if (색인막힘) 막는것.push('오늘 색인 요청 몫을 안 썼다 — node scripts/날마다-색인요청.mjs --넣는다');
+
   const 지금 = await 질싸움수();
   if (지금 === null) {
     못잰것.push('질 싸움 중인 말');
