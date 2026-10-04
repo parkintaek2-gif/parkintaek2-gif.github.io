@@ -104,7 +104,15 @@
       '.cw-meta{font-size:.85em;opacity:.65;margin:0 0 4px}',
       '.cw-meta b{font-weight:600}',
       '.cw-form{display:grid;gap:8px;grid-template-columns:minmax(0,1fr);max-width:46rem}',
-      '.cw-name,.cw-body{width:100%;font:inherit;font-size:.95em;padding:9px 11px;border-radius:8px;',
+      /* 🔴 [2026-10-04 · 5번] box-sizing 이 없어 «모든 기사»가 폰에서 가로로 밀렸다.
+         width:100% 에 좌우 padding 22px 과 border 2px 이 더해져 부모보다 넓어진 것이다.
+         390px 로 재니 문서가 394px 였고, 넘친 것이 바로 이 두 칸이었다.
+         ⛔ 한 지면의 흠이 아니다 — 댓글 자리가 붙은 K Culture Wire 266편과
+           백년지도 66장이 다 같이 가로로 흔들리고 있었다.
+         ⭐ 새 기사를 재다 걸렸는데, 옛 기사도 똑같이 4px 였다. 그래서 「내 기사 탓」이
+           아니라 「틀 탓」인 줄 알았다 — 한 장만 재고 끝냈으면 못 찾았다. */
+      '.cw-name,.cw-body{box-sizing:border-box;max-width:100%;',
+      'width:100%;font:inherit;font-size:.95em;padding:9px 11px;border-radius:8px;',
       'background:transparent;color:inherit;',
       'border:1px solid currentColor;border-color:color-mix(in srgb,currentColor 28%,transparent)}',
       '.cw-body{min-height:5.5em;resize:vertical}',
