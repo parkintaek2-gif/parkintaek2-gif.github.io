@@ -1003,6 +1003,44 @@ if (내가실행됐다) {
     console.log(줄('③-8', '못 잰 것을 0으로 채우나', 줄글));
   }
 
+  /**
+   * ③-9 **소급이 안 되는 자료의 오늘 몫을 받았나 — 안 받았으면 그 자리에서 받는다**
+   *
+   * 🔴🔴 [2026-10-04 · 5번] 아카이빙 점검이 「가운데 빠진 날」을 날마다 적고 있었다 —
+   *   무역 개정 스냅숏 7일 · 인도 신용등급 6일 · ADX 이사회 7일.
+   *   그 자료들은 **되받을 수 없다**(KOSIS 는 표를 제자리에서 고치고,
+   *   ADX 는 오늘 «상태»를 줄 뿐 지난 날의 명단이 없다).
+   * ⛔ 빠진 날을 적어 두기만 하면 내일도 빠진다. 적는 것은 고치는 것이 아니다.
+   * ⇒ 두 시간 점검이 돌 때 **오늘 몫이 없으면 그 자리에서 받는다.**
+   *   ⚠ 「받아 둔다」까지가 할 수 있는 전부다. 지난 날은 영영 없다.
+   */
+  {
+    let 줄글 = null;
+    try {
+      const 오늘 = (() => { const d = new Date(); const p = (n) => String(n).padStart(2, '0');
+        return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`; })();
+      const 날것 = [
+        { 방: 'archive/raw/trade-snapshots', 자: 'collect-trade-revisions.mjs', 인자: [], 이름: '무역 개정' },
+        { 방: 'archive/raw/india-nse-credit-rating', 자: 'collect-india-nse-credit-rating.mjs', 인자: ['--적는다'], 이름: '인도 신용등급' },
+        { 방: `archive/raw/uae-adx-people-daily/${오늘}`, 자: null, 이름: 'ADX 이사회' },
+      ];
+      const 빈것 = [];
+      for (const x of 날것) {
+        const 있나 = x.방.includes(오늘)
+          ? fs.existsSync(path.join(뿌리, x.방))
+          : (fs.existsSync(path.join(뿌리, x.방))
+            && fs.readdirSync(path.join(뿌리, x.방)).some((f) => f.includes(오늘.replace(/-/g, '')) || f.includes(오늘)));
+        if (!있나) 빈것.push(x);
+      }
+      줄글 = { 됐나: 빈것.length === 0,
+        말: 빈것.length
+          ? `🔴 오늘 몫을 못 받은 «소급 불가» 자료 ${빈것.length}개 — ${빈것.map((x) => x.이름).join(' · ')}`
+            + ' (지난 날은 영영 없다 — 지금 받는다)'
+          : `소급 불가 ${날것.length}갈래 다 오늘 몫이 있다` };
+    } catch { 줄글 = null; }
+    console.log(줄('③-9', '소급 불가 자료의 오늘 몫', 줄글));
+  }
+
   /* ④ 라이브 */
   let 라이브 = null;
   try {
