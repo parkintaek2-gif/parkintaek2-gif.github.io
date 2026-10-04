@@ -77,9 +77,29 @@ export function 주소(판, 제목, 첫, 끝) {
  * ⇒ 판마다 «그 판의 제목»을 위키백과에게 물어서 쓴다. 그래도 없다고 하면 그때 없다.
  * ⚠ action API 는 하루치 자와 «다른» 허들이 있다 — 더 느리게 묻는다.
  */
+/**
+ * 🔴🔴 [2026-10-04 12:4x · 5번] **리디렉트를 안 풀어 거짓 수를 내고 있었다.**
+ *   e스포츠 선수를 재니 「Keria 하루 10회」·「Canyon (gamer) 하루 1회」가 나왔다.
+ *   세계대회를 뛰는 선수가 하루 한 번 읽힌다는 것은 말이 안 된다 —
+ *   그 제목들이 «리디렉트»였고, 하루치 API 는 리디렉트를 따라가지 않는다.
+ *   리디렉트 제목으로 들어온 몇 번만 세고 본문서의 수는 통째로 빠진다.
+ * ⛔ 이 수로 기사를 썼으면 「결승 뛴 선수가 하루 10번 읽힌다」는 거짓이 나갈 뻔했다.
+ * ⇒ redirects=1 로 본문서 이름을 받아 «그 이름»으로 잰다.
+ * ⭐ 이 자리에서만 두 번째다 — 앞서는 「판마다 제목이 다르다」를 놓쳤다.
+ *   둘 다 「내가 던진 열쇠가 안 맞은 것」을 「자료가 없다」로 읽은 것이다.
+ */
 export function 판제목주소(영문문서) {
   return 'https://en.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=500'
-    + `&format=json&titles=${encodeURIComponent(영문문서)}`;
+    + `&redirects=1&format=json&titles=${encodeURIComponent(영문문서)}`;
+}
+
+/** 리디렉트를 따라간 «본문서» 이름. 리디렉트가 아니면 null */
+export function 본문서이름(묶음, 준이름) {
+  const 쪽들 = 묶음?.query?.pages;
+  if (!쪽들) return null;
+  const 쪽 = Object.values(쪽들)[0];
+  if (!쪽 || 쪽.missing !== undefined || !쪽.title) return null;
+  return 쪽.title !== String(준이름) ? 쪽.title : null;
 }
 
 /** langlinks 답 → {판: 그 판의 제목}. ⛔ 못 읽으면 null — 빈 표로 내지 않는다 */
@@ -197,6 +217,16 @@ export function 자가시험() {
       판제목읽기({ query: { pages: { 1: { title: 'x' } } } }).size === 0);
     본다('제목 묻는 주소가 langlinks 를 부른다',
       판제목주소('T.O.P').includes('prop=langlinks'));
+    /* 🔴 [2026-10-04] 리디렉트를 안 풀어 「Keria 하루 10회」 같은 거짓 수가 나왔다 */
+    본다('🔴 제목 묻는 주소가 리디렉트를 따라간다',
+      판제목주소('Keria').includes('redirects=1'));
+    본다('🔴 리디렉트면 본문서 이름을 낸다',
+      본문서이름({ query: { pages: { 1: { title: 'Ryu Min-seok' } } } }, 'Keria') === 'Ryu Min-seok');
+    본다('⛔ 리디렉트가 아니면 null — 괜히 갈아타지 않는다',
+      본문서이름({ query: { pages: { 1: { title: 'T.O.P' } } } }, 'T.O.P') === null);
+    본다('⛔ 문서가 없으면 null',
+      본문서이름({ query: { pages: { '-1': { missing: '' } } } }, 'x') === null);
+    본다('⛔ 답을 못 읽으면 null', 본문서이름(null, 'x') === null);
   }
 
   본다('명단에서 이름을 찾는다', 명단읽기().get('top')?.영문문서 === 'T.O.P');
@@ -221,10 +251,16 @@ if (내가실행됐다) {
     return x ? x.split('=').slice(1).join('=') : 기본;
   };
   const 슬러그들 = String(값('이름', '')).split(',').map((s) => s.trim()).filter(Boolean);
+  /* ⚠ [2026-10-04] e스포츠 선수들(Faker·Knee·Zeka)이 우리 사람 명단에 없었다.
+     명단은 넷플릭스·차트에서 온 이름들이라 e스포츠가 빠져 있다.
+     ⛔ 그렇다고 일회용 스크립트를 또 쓰면 이 자를 만든 뜻이 없어진다.
+     ⇒ 영문 문서 이름을 «곧바로» 줄 수 있게 연다. 세미콜론으로 여럿. */
+  const 바로문서 = String(값('문서', '')).split(';').map((s) => s.trim()).filter(Boolean);
   const 판들 = String(값('판', 기본판.join(','))).split(',').map((s) => s.trim()).filter(Boolean);
   const 날수 = Math.max(2, Number(값('날수', 기본날수)) || 기본날수);
-  if (!슬러그들.length) {
+  if (!슬러그들.length && !바로문서.length) {
     console.log('⛔ 쓰는 법: node scripts/measure-kcw-name-days.mjs --이름=top,nana [--판=en,id] [--날수=14]');
+    console.log('           node scripts/measure-kcw-name-days.mjs --문서="Faker (gamer);Knee (gamer)"');
     process.exit(1);
   }
 
@@ -237,17 +273,26 @@ if (내가실행됐다) {
   console.log('   ⛔ 읽힘은 인기가 아니다. 문서가 열린 횟수다 (봇 제외)\n');
 
   const 모은것 = { 잰때: new Date().toString(), 첫, 끝, 판들, 것들: [] };
-  for (const s of 슬러그들) {
-    const 사람 = 명단.get(s);
-    if (!사람) { console.log(`  ⬜ ${s} — 우리 명단에 없다`); continue; }
+  /* 명단에서 온 것과 손으로 준 문서를 한 줄로 세운다 — 아래 고리는 하나다 */
+  const 잴것들 = [
+    ...슬러그들.map((s) => ({ 키: s, 사람: 명단.get(s) ?? null })),
+    ...바로문서.map((t) => ({ 키: t, 사람: { 이름: t.replace(/\s*\(.*\)$/, ''), 영문문서: t } })),
+  ];
+  for (const { 키: s, 사람 } of 잴것들) {
+    if (!사람) { console.log(`  ⬜ ${s} — 우리 명단에 없다 (--문서= 로 바로 줄 수 있다)`); continue; }
     console.log(`  ${사람.이름}  (${사람.영문문서})`);
     /* 🔴 판마다 «그 판의 제목»을 먼저 묻는다 — 영문 제목을 그대로 던지면 거짓 「없다」가 난다 */
-    const 판제목 = 판제목읽기(await 받기(판제목주소(사람.영문문서)));
+    const 답 = await 받기(판제목주소(사람.영문문서));
+    const 판제목 = 판제목읽기(답);
+    /* 🔴 리디렉트면 본문서로 갈아탄다 — 안 갈아타면 거짓으로 «적은» 수가 나온다 */
+    const 본이름 = 본문서이름(답, 사람.영문문서);
+    const 영문 = 본이름 ?? 사람.영문문서;
+    if (본이름) console.log(`     ↪ 리디렉트다 — 본문서 「${본이름}」 로 잰다`);
     await 쉬기(판제목쉼);
     if (판제목 === null) console.log('     ⚠ 판별 제목을 못 받았다 — 영문 제목으로 재 본다');
     for (const 판 of 판들) {
-      const 제목 = 판 === 'en' ? 사람.영문문서
-        : (판제목 ? 판제목.get(판) : 사람.영문문서);
+      const 제목 = 판 === 'en' ? 영문
+        : (판제목 ? 판제목.get(판) : 영문);
       if (판제목 && !제목) { console.log(`     ⬜ ${판} — 그 판에 이 문서가 «정말로» 없다 (위키백과가 그렇게 답했다)`); continue; }
       const j = await 받기(주소(판, 제목, 첫, 끝));
       await 쉬기(사이쉼);
@@ -268,7 +313,10 @@ if (내가실행됐다) {
   }
 
   fs.mkdirSync(낼방, { recursive: true });
-  const 낼곳 = path.join(낼방, `${끝}-${슬러그들.join('-')}.json`);
+  /* 파일 이름에 못 쓰는 글자를 걷는다 — 「Faker (gamer)」 같은 문서 이름이 들어온다 */
+  const 이름조각 = 잴것들.map((x) => String(x.키).replace(/[^A-Za-z0-9가-힣]+/g, '-')
+    .replace(/^-|-$/g, '').toLowerCase()).filter(Boolean).join('-').slice(0, 80);
+  const 낼곳 = path.join(낼방, `${끝}-${이름조각 || '잰것'}.json`);
   fs.writeFileSync(낼곳, JSON.stringify(모은것, null, 2) + '\n', 'utf8');
   console.log(`\n■ 적었다 — ${path.relative(뿌리, 낼곳)}`);
   console.log('⛔ 왜 튀었는지는 이 자가 모른다. 밖에서 확인해 기사에 출처로 단다.');
