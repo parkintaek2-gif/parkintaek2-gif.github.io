@@ -1,13 +1,13 @@
 {
-  "generated": "2026-09-24T07:43+09:00",
+  "generated": "2026-10-04T14:07+09:00",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 49,
-    "짝찾음": 48,
+    "영상": 50,
+    "짝찾음": 49,
     "짝못찾음": 1,
     "두지면에걸린것": 0,
-    "지면에서읽음": 47,
+    "지면에서읽음": 48,
     "원본에서읽음": 1
   },
   "videos": [
@@ -149,6 +149,16 @@
       "page": "/read-in",
       "says": "Fourteen seconds: Chinese Wikipedia leads for 306 of these 478 people, for the seven BTS members it leads for none, Spanish takes six, and Jimin is the exception by 4,669 reads. The film says on screen that these are language editions and not countries.",
       "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "faker-played-one-game-and-two-finalists-have-no-wikipedia-page-voiced",
+      "src": "/video/faker-played-one-game-and-two-finalists-have-no-wikipedia-page-voiced.mp4",
+      "thumb": "/video/thumb/faker-played-one-game-and-two-finalists-have-no-wikipedia-page-voiced.jpg",
+      "seconds": 13.1,
+      "page": "/what-moves-english-reading",
+      "says": "South Korea took back-to-back Asian Games League of Legends gold. Faker sat out the final and still drew 1,405 English Wikipedia reads that day, against 235 for Keria and 210 for Gumayusi. Zeka and Canyon, who played the final, have no English Wikipedia article at all.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -428,7 +438,7 @@
       "seconds": 17,
       "page": "/what-moves-english-reading",
       "says": "School of Performing Arts Seoul has 125 credited alumni on Wikidata. Their English Wikipedia articles exist in a median of 13 language editions. Seoul Institute of the Arts has 352 alumni — nearly 3 times as many — at a median of 6.",
-      "saysFrom": "page source",
+      "saysFrom": "built page",
       "alsoOn": []
     },
     {

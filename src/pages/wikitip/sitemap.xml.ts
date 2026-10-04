@@ -243,6 +243,12 @@ const 영상그림 = new Set((videoData.videos ?? []).map((v: any) => v.set));
    ⚠ 아래 열두 편의 제목은 **라이브 지면 제목에서 가져왔다** — 지어내지 않았다. */
 const videoSets = [
   {
+    set: 'faker-played-one-game-and-two-finalists-have-no-wikipedia-page-voiced',
+    page: '/what-moves-english-reading',
+    title: 'Faker Played One Game at the Asian Games and Was Read 1,405 Times. Two Who Played the Final Have No Page.',
+    description: '17 seconds: South Korea took back-to-back Asian Games League of Legends gold without dropping a game. Faker sat out the final and still drew 1,405 English Wikipedia reads on finals day, against 235 for Keria and 210 for Gumayusi. Zeka and Canyon, who played it, have no English Wikipedia article at all.',
+  },
+  {
     set: 'chung-ha-agency-split-reading-spike-smaller-than-unexplained-one-voiced',
     page: '/what-moves-english-reading',
     title: "Chung Ha's Agency Split Made K-pop News. Her Biggest Reading Spike Wasn't That Day",

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-24T07:42+09:00",
+  "generated": "2026-10-04T14:05+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -100,6 +100,13 @@
       "uploadDate": "2026-09-09",
       "thumb": "/video/thumb/editions-voiced.jpg",
       "src": "/video/editions-voiced.mp4"
+    },
+    {
+      "set": "faker-played-one-game-and-two-finalists-have-no-wikipedia-page-voiced",
+      "seconds": 13.1,
+      "uploadDate": "2026-10-04",
+      "thumb": "/video/thumb/faker-played-one-game-and-two-finalists-have-no-wikipedia-page-voiced.jpg",
+      "src": "/video/faker-played-one-game-and-two-finalists-have-no-wikipedia-page-voiced.mp4"
     },
     {
       "set": "fame",
