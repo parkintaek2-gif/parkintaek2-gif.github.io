@@ -142,6 +142,18 @@ if (내가실행됐다) {
        2026-08-22 에 만든 키워드 자가 9월 7일 뒤로 한 번도 안 돌았다.
      ⚠ 다국어 자물쇠는 여기 걸지 않는다 — 「다국어는 케이라이프맵만」이라 하셨고
        그쪽은 klifemap 저장소의 tools/다국어-자물쇠.mjs 가 맡는다. */
+  /* 🔴🔴 [2026-10-04 · 5번] **날마다 셋 — 사장님이 이름을 붙여 주신 것**
+     「방문자 증대, 결제 관련 세 개의 징검다리, 보안 셋은
+       매일 잊지 말고 반드시 빠짐없이 일을 하라」
+     ⛔ 「오늘은 바빠서」가 까닭이 되지 않는다. 기억에 맡기면 거른다. */
+  console.log('\n■ ③-ㄱ 날마다 셋 (방문자·결제·보안)');
+  let 셋글 = ''; let 셋막힘 = false;
+  try { 셋글 = 돌려('날마다-셋-자물쇠.mjs'); }
+  catch (e) { 셋글 = String(e.stdout ?? '') + String(e.stderr ?? ''); 셋막힘 = true; }
+  for (const l of 셋글.split(String.fromCharCode(10)))
+    if (/✅|🔴/.test(l)) console.log('   ' + l.trim());
+  if (셋막힘) { console.log('\n⛔ 날마다 셋을 안 했다 — 배포하지 않는다'); process.exit(1); }
+
   console.log('\n■ ③-ㄴ 검색 자물쇠 (SEO·GEO·색인)');
   let 검색글 = ''; let 검색막힘 = false;
   try { 검색글 = 돌려('검색-자물쇠.mjs'); }
