@@ -190,9 +190,12 @@ if (말파일) {
 `);
 }
 
+const 언어 = process.argv.find((a) => a.startsWith('--언어='))?.split('=')[1] || 'en';
+const 나라 = process.argv.find((a) => a.startsWith('--나라='))?.split('=')[1] || '';
+
 const 잰것 = [];
 for (const 말 of 잴말) {
-  const r = 자리재기(말, await 자동완성(말));
+  const r = 자리재기(말, await 자동완성(말, fetch, 언어, 나라));
   잰것.push({ 말, ...r });
   const 표 = r.물음실패 ? '못 물었다'
     : `${r.그대로있나 ? `있다(${r.몇번째}번째)` : '없다'} · 그 말로 시작 ${r.그말로시작}줄`;
