@@ -46,16 +46,30 @@ export const 소리선 = -60;
 
 /* ── 재는 함수들 ───────────────────────────────────────────────────── */
 
-/** 9:16 카드 다섯 장의 길. ⛔ 다섯 장이 다 없으면 null */
+/**
+ * 9:16 카드 길들. ⛔ 끊긴 데가 있거나 너무 적으면 null — 넉 장 미만으로는 굽지 않는다.
+ *
+ * 🔴🔴 [2026-10-04 · 5번] **다섯 장으로 박아 두었더니 넉 장짜리 기사가 통째로 막혔다.**
+ *   「오징어 게임이 라트비아 한국 칸의 47%」 편이 그랬다. 카드가 모자란 것이 아니라,
+ *   `make-kcw-cardnews.mjs` 의 장 수가 **dek 길이에 따라 넷이거나 다섯**이기 때문이다
+ *   (그 자 주석에 이미 적혀 있다 — 「장 수는 넷으로 고정하지 않는다」).
+ * ⛔ 그렇다고 「넉 장만 골라 굽기」로 풀면 안 된다 — 원래 규칙의 뜻은
+ *   **한계 카드가 빠지면 안 된다**였다. 카드 생성기는 «마지막에서 두 번째»를 항상
+ *   한계로 두므로, **1번부터 끊김 없이 «전부»** 쓰면 한계와 주소가 저절로 들어온다.
+ * ⇒ 장 수를 세지 말고 「이어진 전부」를 쓴다. 끊긴 데가 있으면 그때는 굽지 않는다.
+ */
+export const 가장적은장수 = 4;
+export const 가장많은장수 = 8;
+
 export function 카드길들(slug, 있나 = null) {
   const 봐 = 있나 ?? ((p) => fs.existsSync(path.join(ROOT, p)));
   const 것 = [];
-  for (let i = 1; i <= 5; i += 1) {
+  for (let i = 1; i <= 가장많은장수; i += 1) {
     const p = `${카드방}/${slug}-v-${i}.png`;
-    if (!봐(p)) return null;                 /* ⛔ 넉 장으로 굽지 않는다 */
+    if (!봐(p)) break;                      /* 거기서 끝 — 뒤에 있어도 «끊겼으니» 안 쓴다 */
     것.push(p);
   }
-  return 것;
+  return 것.length >= 가장적은장수 ? 것 : null;
 }
 
 /** 대본을 읽는다. ⛔ 없으면 null — 지어내지 않는다 */
@@ -117,12 +131,26 @@ export function 낼이름(slug, 있나 = null) {
 function 자가시험() {
   const 것 = []; const 재다 = (이름, 됐나) => 것.push({ 이름, 됐나 });
 
-  재다('카드길들: 다섯 장을 찾는다', (() => {
+  재다('카드길들: 이어진 것을 «전부» 찾는다', (() => {
     const r = 카드길들('x', () => true);
-    return Array.isArray(r) && r.length === 5 && r[0].endsWith('x-v-1.png');
+    return Array.isArray(r) && r.length === 가장많은장수 && r[0].endsWith('x-v-1.png');
   })());
-  재다('🔴 카드길들: 한 장이라도 없으면 null — 넉 장으로 굽지 않는다', (() => {
-    const r = 카드길들('x', (p) => !p.endsWith('-v-3.png'));
+  /* 🔴 [2026-10-04] 다섯으로 박아 두었더니 넉 장짜리 기사가 통째로 막혔다.
+     카드 장 수는 dek 길이에 따라 넷이거나 다섯이다. */
+  재다('🔴 카드길들: 넉 장이면 넉 장으로 굽는다', (() => {
+    const r = 카드길들('x', (q) => /-v-[1-4]\.png$/.test(q));
+    return Array.isArray(r) && r.length === 4;
+  })());
+  재다('🔴 카드길들: 다섯 장이면 다섯 장', (() => {
+    const r = 카드길들('x', (q) => /-v-[1-5]\.png$/.test(q));
+    return Array.isArray(r) && r.length === 5;
+  })());
+  재다('⛔ 카드길들: 석 장뿐이면 null — 한계 카드가 빠질 수 있다', (() => {
+    const r = 카드길들('x', (q) => /-v-[1-3]\.png$/.test(q));
+    return r === null;
+  })());
+  재다('⛔ 카드길들: 가운데가 끊기면 null — 뒤에 있어도 안 쓴다', (() => {
+    const r = 카드길들('x', (q) => !q.endsWith('-v-3.png'));
     return r === null;
   })());
   재다('⛔ 카드길들: 하나도 없으면 null', 카드길들('x', () => false) === null);
@@ -201,7 +229,7 @@ const 낼 = 낼이름(slug);
 if (!낼) { console.log(`⏭ 이미 있다 — ${영상방}/${slug}-voiced.mp4 (덮어쓰지 않는다)`); process.exit(0); }
 
 console.log(`■ ${slug}`);
-console.log(`   카드 5장 · 장마다 ${장초}초 ≈ ${(장초 * 5).toFixed(1)}초`);
+console.log(`   카드 ${길들.length}장 · 장마다 ${장초}초 ≈ ${(장초 * 길들.length).toFixed(1)}초`);
 console.log(`   대본 ${대본.내레이션.length}자`);
 if (!낸다) { console.log('\n⭐ 아직 안 구웠다. --낸다 를 붙인다.'); process.exit(0); }
 

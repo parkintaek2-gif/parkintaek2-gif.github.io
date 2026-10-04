@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-04T14:18+09:00",
+  "generated": "2026-10-04T14:33+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -317,6 +317,13 @@
       "uploadDate": "2026-09-03",
       "thumb": "/video/thumb/spike-hearts2hearts-voiced.jpg",
       "src": "/video/spike-hearts2hearts-voiced.mp4"
+    },
+    {
+      "set": "squid-game-is-half-of-korean-netflix-in-latvia-and-2-percent-in-vietnam-voiced",
+      "seconds": 13.4,
+      "uploadDate": "2026-10-04",
+      "thumb": "/video/thumb/squid-game-is-half-of-korean-netflix-in-latvia-and-2-percent-in-vietnam-voiced.jpg",
+      "src": "/video/squid-game-is-half-of-korean-netflix-in-latvia-and-2-percent-in-vietnam-voiced.mp4"
     },
     {
       "set": "starsign",

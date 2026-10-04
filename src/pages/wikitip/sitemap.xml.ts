@@ -243,6 +243,12 @@ const 영상그림 = new Set((videoData.videos ?? []).map((v: any) => v.set));
    ⚠ 아래 열두 편의 제목은 **라이브 지면 제목에서 가져왔다** — 지어내지 않았다. */
 const videoSets = [
   {
+    set: 'squid-game-is-half-of-korean-netflix-in-latvia-and-2-percent-in-vietnam-voiced',
+    page: '/what-moves-english-reading',
+    title: 'Squid Game Is 47% of Every Korean Netflix Chart Slot in Latvia. In Vietnam the Biggest Title Is 2.4%.',
+    description: '14 seconds: Across 93 countries and 268 weeks, Korean titles took 30 per cent of Vietnam’s Netflix top-ten slots and 1.6 per cent of America’s. Where the share is small, one show is nearly all of it — Squid Game is 47 per cent of it in Latvia.',
+  },
+  {
     set: 'cortis-debuted-smallest-and-now-outreads-every-2025-rookie-voiced',
     page: '/what-moves-english-reading',
     title: "Cortis Opened Smallest of 2025's Five Korean Rookie Groups. A Year On It Reads First.",
