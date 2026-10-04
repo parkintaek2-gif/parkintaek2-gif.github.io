@@ -71,16 +71,21 @@ export function 문이름(출처, 매체) {
 }
 
 /** 줄들을 문별로 접는다 — 우리 것과 밖의 것을 «갈라» 담는다 */
-export function 접는다(줄들) {
+/* 🔴 [2026-10-04 · 5번] `지면으로` 를 주면 칸의 차례가 뒤바뀐다 —
+   그때는 [0]이 떨어진 지면이고 [1]이 출처다. 가르는 것은 «출처»로, 이름은 «지면»으로 한다.
+   ⛔ 이 뒤바뀜을 안 다루면 지면 이름을 출처로 읽어 전부 「밖」으로 샌다. */
+export function 접는다(줄들, 지면으로 = false) {
   const 밖 = new Map();
   const 우리 = new Map();
   for (const r of 줄들 ?? []) {
-    const 출처 = r?.dimensionValues?.[0]?.value ?? '';
-    const 매체 = r?.dimensionValues?.[1]?.value ?? '';
+    const 출처 = (지면으로 ? r?.dimensionValues?.[1]?.value : r?.dimensionValues?.[0]?.value) ?? '';
+    const 매체 = 지면으로 ? '' : (r?.dimensionValues?.[1]?.value ?? '');
+    const 지면 = 지면으로 ? (r?.dimensionValues?.[0]?.value ?? '(not set)') : '';
     const 세션 = Number(r?.metricValues?.[0]?.value ?? 0);
     const 사람 = Number(r?.metricValues?.[1]?.value ?? 0);
     const 담을곳 = 우리것인가(출처) ? 우리 : 밖;
-    const 이름 = 우리것인가(출처) ? (출처 || '(direct)') : 문이름(출처, 매체);
+    const 이름 = 지면으로 ? 지면
+      : (우리것인가(출처) ? (출처 || '(direct)') : 문이름(출처, 매체));
     const 앞 = 담을곳.get(이름) ?? { 세션: 0, 사람: 0 };
     담을곳.set(이름, { 세션: 앞.세션 + 세션, 사람: 앞.사람 + 사람 });
   }
@@ -160,7 +165,15 @@ if (process.argv.includes('--자가시험')) {
   const { access_token } = await tr.json();
 
   const 날수 = Number(인자('날수', '7'));
-  console.log(`■ 밖의 어느 문이 사람을 보내나 — 최근 ${날수}일 · 속성 ${속성}`);
+  /* 🔴🔴 [2026-10-04 · 5번] `--지면` 을 주면 «어느 지면에 떨어지나»를 본다.
+     까닭 — 7일 실측에서 네이버가 백년지도에만 80세션을 보내고 KLifeMap 에는 0을 보냈다.
+     「무엇이 되고 있나」를 알아야 그 꼴을 다른 사이트에 옮길 수 있다.
+     ⛔ 새 자를 또 만들지 않는다. 오늘 나는 이미 한 번 중복을 만들었다. */
+  const 지면으로 = process.argv.includes('--지면');
+  const 어느문 = 인자('문', '');   /* 그 문으로 온 것만 — 예: --문 naver */
+
+  console.log(`■ ${지면으로 ? '밖에서 온 사람이 어느 지면에 떨어지나' : '밖의 어느 문이 사람을 보내나'}`
+    + ` — 최근 ${날수}일 · 속성 ${속성}${어느문 ? ` · 문 「${어느문}」만` : ''}`);
   console.log('⛔ Direct 는 «밖»이 아니다. 우리 여섯 유닛이 거기 섞여 있다 — 따로 적는다.\n');
 
   for (const [집, 이름] of 사이트표) {
@@ -168,14 +181,21 @@ if (process.argv.includes('--자가시험')) {
       method: 'POST', headers: { Authorization: `Bearer ${access_token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         dateRanges: [{ startDate: `${날수}daysAgo`, endDate: 'today' }],
-        dimensions: [{ name: 'sessionSource' }, { name: 'sessionMedium' }],
+        dimensions: 지면으로
+          ? [{ name: 'landingPage' }, { name: 'sessionSource' }]
+          : [{ name: 'sessionSource' }, { name: 'sessionMedium' }],
         metrics: [{ name: 'sessions' }, { name: 'totalUsers' }],
-        dimensionFilter: { filter: { fieldName: 'hostName', stringFilter: { matchType: 'CONTAINS', value: 집 } } },
+        dimensionFilter: 어느문
+          ? { andGroup: { expressions: [
+              { filter: { fieldName: 'hostName', stringFilter: { matchType: 'CONTAINS', value: 집 } } },
+              { filter: { fieldName: 'sessionSource', stringFilter: { matchType: 'CONTAINS', value: 어느문 } } },
+            ] } }
+          : { filter: { fieldName: 'hostName', stringFilter: { matchType: 'CONTAINS', value: 집 } } },
         limit: 200,
       }),
     });
     if (!r.ok) { console.log(`${이름.padEnd(20)} ⬜ 못 쟀다 — HTTP ${r.status}`); continue; }
-    const { 밖, 우리 } = 접는다((await r.json()).rows);
+    const { 밖, 우리 } = 접는다((await r.json()).rows, 지면으로);
     const 밖세션 = [...밖.values()].reduce((s, x) => s + x.세션, 0);
     const 우리세션 = [...우리.values()].reduce((s, x) => s + x.세션, 0);
     console.log(`## ${이름}  —  밖에서 온 세션 ${밖세션} · 우리/Direct ${우리세션}`);
