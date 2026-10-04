@@ -23,7 +23,13 @@
  *   node scripts/구글-색인요청.mjs <주소> [주소...]
  *   ⚠ 지금은 klifemap.ai 속성에 걸려 있다. 다른 사이트는 속성 주소를 바꿔야 한다.
  */
+import puppeteer from 'puppeteer-core';
+
 const 것들 = process.argv.slice(2);
+if (!것들.length) {
+  console.log('⛔ 쓰는 법: node scripts/구글-색인요청.mjs <주소> [주소...]');
+  process.exit(1);
+}
 const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
 const p = await b.newPage();
 const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
