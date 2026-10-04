@@ -24,6 +24,40 @@
 
 export const 사이트맵 = 'https://klifemap.ai/sitemap.xml';
 export const 글자선 = 1800;
+
+/**
+ * 🔴🔴 [2026-10-05 04:45 · 5번] **하나의 선을 네 말에 똑같이 대고 있었다.**
+ *
+ *   이 자가 중국어 글 608편을 **전부 빨강**으로 찍고 있었다(표본 12개 중 0개 통과).
+ *   「자를 먼저 의심한다」로 같은 글의 네 말 판을 나란히 놓고 재 보니 —
+ *
+ *     /content/star-q101161499-astro
+ *       ko  2,436자 · 문단 26 · 소제목 12 · 표줄 3
+ *       en  4,557자 · 문단 26 · 소제목 12 · 표줄 3
+ *       zh  1,663자 · 문단 26 · 소제목 12 · 표줄 3   ← 빨강이었다
+ *       ja  2,185자 · 문단 26 · 소제목 12 · 표줄 3
+ *
+ *   **문단 수·소제목 수·표줄 수가 네 말에 완전히 같다.** 내용이 빠진 것이 아니라
+ *   중국어가 한 글자에 더 많은 뜻을 담아 «글자 수»만 적은 것이다.
+ *   ⇒ 빠진 글이 아니라 **잘못 잰 자**였다. 608편을 고치려 들었으면 헛일이었다.
+ *
+ * ⛔ 그래서 말마다 선을 따로 둔다. 비율은 네 말이 다 있는 글 576편의 실측
+ *   가운뎃값에서 뽑았다 — ko 2,526 · en 4,510 · zh 1,692 · ja 2,218.
+ *   ko 선 1,800 을 그 비율로 옮긴 값이다.
+ * ⚠ 이것은 «얇은 글을 거르는» 우리 선이지 구글이 쓰는 값이 아니다. 구글 선은 모른다.
+ */
+export const 말별글자선 = { ko: 1800, en: 3200, zh: 1200, ja: 1550 };
+
+/** 주소 꼬리에서 말을 읽는다. ⛔ 꼬리가 없으면 한국어다 */
+export function 말읽기(주소) {
+  const m = String(주소 ?? '').match(/-(ko|en|zh|ja)$/);
+  return m ? m[1] : 'ko';
+}
+
+/** 그 주소에 댈 선. ⛔ 모르는 말이면 한국어 선을 쓴다 — 0 으로 두지 않는다 */
+export function 선고르기(주소) {
+  return 말별글자선[말읽기(주소)] ?? 글자선;
+}
 const 구글인척 = { 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' };
 
 /** 사이트맵 XML 에서 <loc> 주소를 뽑는다 */
@@ -96,6 +130,23 @@ if (process.argv.includes('--자가시험') || process.argv.includes('--selftest
   })());
   검('표본이 전체보다 많으면 전체를 낸다', 표본고르기(['a', 'b'], 10).length === 2);
 
+  /* 🔴 [2026-10-05] 말마다 선이 달라야 한다 — 하나로 대서 중국어 608편이 다 빨강이었다 */
+  검('꼬리에서 말을 읽는다',
+    말읽기('https://klifemap.ai/content/star-q1-astro-zh') === 'zh'
+    && 말읽기('https://klifemap.ai/content/star-q1-astro-ja') === 'ja');
+  검('⛔ 꼬리가 없으면 한국어다', 말읽기('https://klifemap.ai/content/star-q1-astro') === 'ko');
+  검('⛔ 빈 것에도 안 터진다', 말읽기(null) === 'ko' && 말읽기('') === 'ko');
+  검('🔴 중국어 선이 한국어보다 낮다', 말별글자선.zh < 말별글자선.ko);
+  검('🔴 영어 선이 한국어보다 높다', 말별글자선.en > 말별글자선.ko);
+  검('네 말에 다 선이 있다',
+    ['ko', 'en', 'zh', 'ja'].every((l) => Number.isFinite(말별글자선[l]) && 말별글자선[l] > 0));
+  검('🔴 실제로 잰 중국어 1,663자가 제 선을 넘는다',
+    1663 >= 선고르기('https://klifemap.ai/content/star-q101161499-astro-zh'));
+  검('⛔ 같은 글자 수라도 한국어였으면 못 넘는다',
+    1663 < 선고르기('https://klifemap.ai/content/star-q101161499-astro'));
+  검('⛔ 모르는 꼬리면 한국어 선을 쓴다',
+    선고르기('https://klifemap.ai/content/star-q1-astro-de') === 글자선);
+
   console.log(`\n${실패 === 0 ? '✅' : '🔴'} 자가시험 ${통과 + 실패}개 중 통과 ${통과}개`);
   process.exit(실패 === 0 ? 0 : 1);
 }
@@ -122,21 +173,34 @@ for (const u of 표본) {
 }
 
 const 잰것만 = 잰것.filter((x) => x.글자 !== null);
-const 넘은것 = 잰것만.filter((x) => x.글자 >= 글자선);
+/* 🔴 선을 말마다 다르게 댄다 — 하나로 대면 중국어가 통째로 빨강이 된다 */
+const 넘은것 = 잰것만.filter((x) => x.글자 >= 선고르기(x.u));
 const 못잰것 = 잰것.filter((x) => x.글자 === null);
 
 for (const x of 잰것.slice(0, 12)) {
   const 이름 = x.u.replace(/^https:\/\/klifemap\.ai/, '');
   if (x.글자 === null) console.log(`   ⬜ ${이름.padEnd(44)} 못 쟀다 — ${x.왜}`);
-  else console.log(`   ${x.글자 >= 글자선 ? '✅' : '🔴'} ${이름.padEnd(44)} ${String(x.글자).padStart(6)}자`);
+  else {
+    const 선 = 선고르기(x.u);
+    console.log(`   ${x.글자 >= 선 ? '✅' : '🔴'} ${이름.padEnd(44)} ${String(x.글자).padStart(6)}자`
+      + `  (${말읽기(x.u)} 선 ${선})`);
+  }
 }
 if (잰것.length > 12) console.log(`   … 그 밖 ${잰것.length - 12}개`);
 
 const 가운데 = 잰것만.length
   ? [...잰것만].sort((a, b) => a.글자 - b.글자)[Math.floor(잰것만.length / 2)].글자 : 0;
-console.log(`\n■ 표본 ${잰것만.length}개 — 선(${글자선}자)을 넘은 글 ${넘은것.length}개`
+console.log(`\n■ 표본 ${잰것만.length}개 — 제 말의 선을 넘은 글 ${넘은것.length}개`
   + ` (${잰것만.length ? Math.round((넘은것.length / 잰것만.length) * 100) : 0}%)`);
+console.log(`   선 — ${Object.entries(말별글자선).map(([k, v]) => `${k} ${v}`).join(' · ')}자`);
 console.log(`   가운뎃값 ${가운데}자`);
+/* 말마다 갈라서 보여 준다 — 한 말만 무너져 있으면 전체 %로는 안 보인다 */
+for (const 말 of Object.keys(말별글자선)) {
+  const 이말 = 잰것만.filter((x) => 말읽기(x.u) === 말);
+  if (!이말.length) continue;
+  const 통 = 이말.filter((x) => x.글자 >= 말별글자선[말]).length;
+  console.log(`   ${말}  ${통}/${이말.length} 통과`);
+}
 if (못잰것.length) console.log(`   ⬜ 못 잰 것 ${못잰것.length}개 — 0 으로 메우지 않는다`);
 console.log(`\n⇒ 글 전체 ${글주소.length}개 가운데 선을 넘는 것은 어림잡아`
   + ` ${잰것만.length ? Math.round((넘은것.length / 잰것만.length) * 글주소.length) : 0}개로 보인다.`);
