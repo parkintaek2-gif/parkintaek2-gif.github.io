@@ -302,6 +302,184 @@ export const 그림들 = [
     },
   },
   {
+    이름: '14-종격-판정-순서',
+    쓸곳: '제9장 9절 — 종격을 볼 때 순서',
+    그리기() {
+      /**
+       * 🔴 [2026-10-04 · 사장님] 「사주명반이 없으면 **내용을 반영하게 이미지를 만들아**」
+       *   이 절은 원고가 아예 «순서»로 적혀 있다. 글로 읽으면 여덟 줄이지만
+       *   그림으로 보면 「어디서 끝나나」가 한눈에 든다.
+       * ⛔ 원고에 없는 단계를 더하지 않는다. 번호도 원고 그대로다(3-1 포함).
+       */
+      let s = 제목칸('종격을 볼 때 순서', '從格', { 크기: 46, 붉은글: '從格' });
+
+      const 걸음 = [
+        { n: '1', 무엇: '월령으로 정격이 서나', 그러면: '서면 «거기서 끝난다» — 외격을 찾지 않는다', 색: '#1D6F42' },
+        { n: '2', 무엇: '기세가 한쪽으로 완전히 쏠렸나', 그러면: '억부로 다룰 여지가 있으면 종격이 아니다', 색: '#1C1E21' },
+        { n: '3', 무엇: '일간이 그 세력과 같은 편인가', 그러면: '같으면 종왕 · 종강 / 다르면 3-1 로', 색: '#1C1E21' },
+        { n: '3-1', 무엇: '일간에 뿌리가 있나', 그러면: '있으면 «종격이 아니다» (가종)', 색: '#B03A2E' },
+        { n: '4', 무엇: '강한 세력을 «극하는» 오행이 뿌리를 두었나', 그러면: '있으면 가종(假從) · 없으면 진종(眞從)', 색: '#1C1E21' },
+        { n: '5', 무엇: '세력이 둘 이상 팽팽한가', 그러면: '하나로 몰지 않고 종세격으로 둔다', 색: '#1C1E21' },
+        { n: '6', 무엇: '월지가 그 세력과 다른 계열인가', 그러면: '「경계 사례」로 적고 참고로만 쓴다', 색: '#8A6D1F' },
+        { n: '7', 무엇: '운을 본다', 그러면: '可順而不可逆 — 따라 주면 길, 거스르면 흉', 색: '#B03A2E' },
+      ];
+      const 왼 = 90; const 너비 = 1220; const 높이 = 60; const 사이 = 8; const 첫 = 158;
+      걸음.forEach((g, i) => {
+        const y = 첫 + i * (높이 + 사이);
+        s += `<rect x="${왼}" y="${y}" width="${너비}" height="${높이}" fill="#FFFFFF"`
+          + ` stroke="#1C1E21" stroke-width="2.5" rx="6"/>`;
+        s += `<rect x="${왼}" y="${y}" width="76" height="${높이}" fill="${g.색}" rx="6"/>`;
+        s += `<rect x="${왼 + 66}" y="${y}" width="10" height="${높이}" fill="${g.색}"/>`;
+        s += `<text x="${왼 + 38}" y="${y + 40}" font-family="${글꼴}" font-size="26"`
+          + ` font-weight="900" fill="#FFFFFF" text-anchor="middle">${g.n}</text>`;
+        s += `<text x="${왼 + 96}" y="${y + 39}" font-family="${글꼴}" font-size="25"`
+          + ` font-weight="900" fill="#1C1E21">${g.무엇}</text>`;
+        s += `<text x="${왼 + 너비 - 24}" y="${y + 39}" font-family="${글꼴}" font-size="23"`
+          + ` font-weight="700" fill="${g.색}" text-anchor="end">${g.그러면}</text>`;
+      });
+
+      const 끝 = 첫 + 걸음.length * (높이 + 사이);
+      s += `<text x="700" y="${끝 + 38}" font-family="${글꼴}" font-size="27" font-weight="900"`
+        + ` fill="#B03A2E" text-anchor="middle">종격은 드물다 — 조건 둘을 다 넘어야 «후보»가 된다</text>`;
+      s += `<text x="700" y="${끝 + 76}" font-family="${글꼴}" font-size="21" font-weight="700"`
+        + ` fill="#6B6B6B" text-anchor="middle">※ 이것은 통계이지 당신이 아닙니다. 격은 사람을 한 칸에 넣는 이름이 아닙니다</text>`;
+      return 판(s);
+    },
+  },
+  {
+    이름: '15-신강신약-세-걸음',
+    쓸곳: '제11장 2절 — 신강·신약을 재는 순서',
+    그리기() {
+      /**
+       * 🔴 [2026-10-04 · 사장님] 「사주명반이 없으면 **내용을 반영하게 이미지를 만들아**」
+       * ⭐ 이 절의 핵은 「세 칸을 세고 «멈추지 않는» 것」이다. 그래서 셋과 둘을
+       *   색으로 갈라 그린다 — 앞 셋은 세는 것, 뒤 둘은 재는 것이다.
+       */
+      let s = 제목칸('세 걸음으로 좁힌다', '身強 身弱', { 크기: 44, 붉은글: '身強身弱' });
+
+      const 걸음 = [
+        { n: '1', 이름: '득령(得令)', 무엇: '월지에 비겁 · 인성이 있나', 색: '#1D6F42' },
+        { n: '2', 이름: '득지(得地)', 무엇: '일지에 비겁 · 인성이 있나', 색: '#1D6F42' },
+        { n: '3', 이름: '득세(得勢)', 무엇: '나머지 다섯 글자에 비겁 · 인성이 셋 이상인가', 색: '#1D6F42' },
+        { n: '4', 이름: '치는 것의 무게', 무엇: '때를 얻었어도 나를 치는 것이 무거우면 강하다고 못 한다', 색: '#B03A2E' },
+        { n: '5', 이름: '내 뿌리의 깊이', 무엇: '때를 잃었어도 내 뿌리가 깊으면 약하다고 못 한다', 색: '#B03A2E' },
+      ];
+      const 왼 = 100; const 너비 = 1180; const 높이 = 82; const 사이 = 14; const 첫 = 176;
+      걸음.forEach((g, i) => {
+        const y = 첫 + i * (높이 + 사이);
+        s += `<rect x="${왼}" y="${y}" width="${너비}" height="${높이}" fill="#FFFFFF"`
+          + ` stroke="#1C1E21" stroke-width="3" rx="8"/>`;
+        s += `<rect x="${왼}" y="${y}" width="14" height="${높이}" fill="${g.색}" rx="7"/>`;
+        s += `<text x="${왼 + 52}" y="${y + 54}" font-family="${글꼴}" font-size="34"`
+          + ` font-weight="900" fill="${g.색}" text-anchor="middle">${g.n}</text>`;
+        s += `<text x="${왼 + 96}" y="${y + 52}" font-family="${글꼴}" font-size="28"`
+          + ` font-weight="900" fill="#1C1E21">${g.이름}</text>`;
+        s += `<text x="${왼 + 너비 - 28}" y="${y + 52}" font-family="${글꼴}" font-size="24"`
+          + ` font-weight="700" fill="#1C1E21" text-anchor="end">${g.무엇}</text>`;
+      });
+
+      const 끝 = 첫 + 걸음.length * (높이 + 사이);
+      s += `<text x="700" y="${끝 + 42}" font-family="${글꼴}" font-size="27" font-weight="900"`
+        + ` fill="#B03A2E" text-anchor="middle">세 칸을 센 뒤 «멈추지 않는다» — 원전이 「죽은 법」이라 한 자리다</text>`;
+      s += `<text x="700" y="${끝 + 86}" font-family="${글꼴}" font-size="24" font-weight="900"`
+        + ` fill="#1C1E21" text-anchor="middle">애매하면 «애매하다고 적는다» — 그것은 판정 실패가 아니다</text>`;
+      return 판(s);
+    },
+  },
+  {
+    이름: '16-두-용신은-다른-축이다',
+    쓸곳: '제11장 6절 — 억부용신과 격국용신이 다를 때',
+    그리기() {
+      /**
+       * 🔴 [2026-10-04 · 사장님] 「사주명반이 없으면 **내용을 반영하게 이미지를 만들아**」
+       * ⭐ 이 절은 「두 축」이라는 말 자체가 그림이다. 나란히 두 기둥으로 세운다.
+       * ⛔ 어느 쪽이 더 낫다고 읽히지 않게 둘을 같은 크기로 둔다.
+       */
+      let s = 제목칸('두 용신은 다른 축이다', '用神', { 크기: 46, 붉은글: '用神' });
+
+      const 기둥 = [
+        { x: 96, 이름: '억부용신', 한자: '抑扶用神', 누구: '일간이 «개인적으로» 필요한 것',
+          것들: ['만족', '건강', '의지', '가정'], 색: '#1D6F42' },
+        { x: 744, 이름: '격국용신', 한자: '格局用神', 누구: '격이 «사회적으로» 필요한 것',
+          것들: ['직업', '명예', '사회적 성취'], 색: '#2E5C8A' },
+      ];
+      const 너비 = 560; const 위 = 176; const 높이 = 352;
+      기둥.forEach((g) => {
+        s += `<rect x="${g.x}" y="${위}" width="${너비}" height="${높이}" fill="#FFFFFF"`
+          + ` stroke="${g.색}" stroke-width="5" rx="12"/>`;
+        s += `<rect x="${g.x}" y="${위}" width="${너비}" height="76" fill="${g.색}" rx="12"/>`;
+        s += `<rect x="${g.x}" y="${위 + 52}" width="${너비}" height="24" fill="${g.색}"/>`;
+        s += `<text x="${g.x + 너비 / 2}" y="${위 + 50}" font-family="${글꼴}" font-size="34"`
+          + ` font-weight="900" fill="#FFFFFF" text-anchor="middle">${g.이름}`
+          + `<tspan font-size="24">  ${g.한자}</tspan></text>`;
+        s += `<text x="${g.x + 너비 / 2}" y="${위 + 128}" font-family="${글꼴}" font-size="25"`
+          + ` font-weight="700" fill="#1C1E21" text-anchor="middle">${g.누구}</text>`;
+        g.것들.forEach((t, i) => {
+          const y = 위 + 186 + i * 52;
+          s += `<text x="${g.x + 너비 / 2}" y="${y}" font-family="${글꼴}" font-size="30"`
+            + ` font-weight="900" fill="${g.색}" text-anchor="middle">${t}</text>`;
+        });
+      });
+
+      s += `<text x="700" y="${위 + 높이 + 64}" font-family="${글꼴}" font-size="29"`
+        + ` font-weight="900" fill="#1C1E21" text-anchor="middle">두 용신이 «다를» 때가 많다 — 실전에서 가장 자주 나온다</text>`;
+      s += `<text x="700" y="${위 + 높이 + 112}" font-family="${글꼴}" font-size="25"`
+        + ` font-weight="700" fill="#1C1E21" text-anchor="middle">둘 다 「좋은 운」이면서 동시에 「힘든 운」일 수 있다</text>`;
+      s += `<text x="700" y="${위 + 높이 + 158}" font-family="${글꼴}" font-size="25"`
+        + ` font-weight="900" fill="#B03A2E" text-anchor="middle">그래서 「이 해는 좋은 해입니다」로 한 줄로 답하지 않는다</text>`;
+      s += `<text x="700" y="${위 + 높이 + 196}" font-family="${글꼴}" font-size="21"`
+        + ` font-weight="700" fill="#6B6B6B" text-anchor="middle">※ «어느 축에서» 좋은지를 갈라 말해야 그 말이 쓸모가 있습니다</text>`;
+      return 판(s);
+    },
+  },
+  {
+    이름: '17-기신을-없애는-세-길',
+    쓸곳: '제6장 7절 — 기신과 구응신, 합 · 제 · 화',
+    그리기() {
+      /**
+       * 🔴 [2026-10-04 · 사장님] 「사주명반이 없으면 **내용을 반영하게 이미지를 만들아**」
+       * ⭐ 원고가 못 박은 것 — 「**방법이 아니라 결과로 판정한다**」.
+       *   길이 셋인데 끝이 하나라는 것이 이 절의 전부다. 그래서 셋이 한 점으로 모인다.
+       * ⛔ 원문이 든 예를 그대로 쓴다. 다른 예를 지어 넣지 않는다.
+       */
+      let s = 제목칸('기신을 없애는 세 길', '忌神', { 크기: 46, 붉은글: '忌神' });
+
+      s += `<text x="700" y="166" font-family="${글꼴}" font-size="26" font-weight="900"`
+        + ` fill="#1C1E21" text-anchor="middle">구응하는 신이 곧 «상신»이다 — 救應之神，即相神也</text>`;
+
+      const 길 = [
+        { 이름: '합(合)', 무엇: '묶는다', 예: '甲이 酉 관을 쓰는데 丁이 상한다\n壬이 丁을 합해 묶는다', 색: '#2E5C8A' },
+        { 이름: '제(制)', 무엇: '친다', 예: '같은 자리에서\n癸가 丁을 제어한다', 색: '#B03A2E' },
+        { 이름: '화(化)', 무엇: '방향을 튼다', 예: '戊가 子 재를 쓰는데 己가 다툰다\n庚辛 식상이 겁재를 돌려 재를 낳게 한다', 색: '#1D6F42' },
+      ];
+      const 너비 = 390; const 사이 = 25; const 왼 = 100; const 위 = 198; const 높이 = 300;
+      길.forEach((g, i) => {
+        const x = 왼 + i * (너비 + 사이);
+        s += `<rect x="${x}" y="${위}" width="${너비}" height="${높이}" fill="#FFFFFF"`
+          + ` stroke="${g.색}" stroke-width="4" rx="10"/>`;
+        s += `<text x="${x + 너비 / 2}" y="${위 + 64}" font-family="${글꼴}" font-size="42"`
+          + ` font-weight="900" fill="${g.색}" text-anchor="middle">${g.이름}</text>`;
+        s += `<text x="${x + 너비 / 2}" y="${위 + 112}" font-family="${글꼴}" font-size="27"`
+          + ` font-weight="900" fill="#1C1E21" text-anchor="middle">${g.무엇}</text>`;
+        g.예.split('\n').forEach((t, j) => {
+          s += `<text x="${x + 너비 / 2}" y="${위 + 180 + j * 40}" font-family="${글꼴}"`
+            + ` font-size="21" font-weight="700" fill="#4A4A4A" text-anchor="middle">${t}</text>`;
+        });
+        /* 세 길이 한 점으로 모인다 */
+        s += `<line x1="${x + 너비 / 2}" y1="${위 + 높이}" x2="700" y2="${위 + 높이 + 56}"`
+          + ` stroke="${g.색}" stroke-width="4"/>`;
+      });
+
+      const 모임 = 위 + 높이 + 56;
+      s += `<rect x="330" y="${모임}" width="740" height="76" fill="#1C1E21" rx="10"/>`;
+      s += `<text x="700" y="${모임 + 50}" font-family="${글꼴}" font-size="31" font-weight="900"`
+        + ` fill="#FFFFFF" text-anchor="middle">격이 서면 그것이 «상신»이다</text>`;
+      s += `<text x="700" y="${모임 + 120}" font-family="${글꼴}" font-size="27" font-weight="900"`
+        + ` fill="#B03A2E" text-anchor="middle">방법이 아니라 «결과»로 판정한다</text>`;
+      return 판(s);
+    },
+  },
+  {
     이름: '13-억부-덜고-보탠다',
     쓸곳: '제11장 3절 — 부억용신, 강한 것은 덜고 약한 것은 돕는다',
     그리기() {
