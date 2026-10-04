@@ -27,6 +27,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -90,23 +91,32 @@ export function 뒤진다(말, 곳들 = 뒤질곳) {
   const 찾는말 = String(말 ?? '').trim();
   const 결과 = { 말: 찾는말, 제목에: [], 본문에: 0, 거절: [], 뒤진파일: 0 };
   if (!찾는말) return 결과;
+  /* 🔴🔴 [2026-10-05 05:1x · 5번] **대소문자를 가리고 있었다.**
+     「kospi」로 물으니 「만들어도 된다」가 나왔다. 그런데 바로 전날
+     `src/pages/kospi-vs-kosdaq.astro` 를 냈고 그 제목이 「KOSPI vs KOSDAQ …」이다.
+     ⇒ 영어 지면을 내는 SeoulMarkets·K Culture Wire 에서 **이 자가 쓸모가 없었다.**
+       영어 제목은 거의 다 대문자로 적히는데 손님이 치는 말은 소문자다.
+     ⛔ 한국어에는 대소문자가 없어 이 흠이 한 번도 안 드러났다 — 영어로 재서야 나왔다.
+     ⚠ 「다국어는 기본」인데 자가 한국어에서만 돌고 있었던 셈이다. */
+  const 낮춘말 = 찾는말.toLowerCase();
 
   for (const 곳 of 곳들) {
     for (const 길 of 글파일들(곳.밑)) {
       let 글 = '';
       try { 글 = fs.readFileSync(길, 'utf8'); } catch { continue; }
       결과.뒤진파일 += 1;
-      if (!글.includes(찾는말)) continue;
+      const 낮춘글 = 글.toLowerCase();
+      if (!낮춘글.includes(낮춘말)) continue;
       결과.본문에 += 1;
       for (const t of 제목들(글)) {
-        if (t.includes(찾는말)) {
+        if (t.toLowerCase().includes(낮춘말)) {
           결과.제목에.push({ 곳: 곳.이름, 길: path.relative(뿌리, 길), 제목: t });
           break;                           /* 한 파일은 한 번만 센다 */
         }
       }
       /* 「채택하지 않는다」가 그 말과 «같은 줄»에 있나 */
       for (const 줄 of 글.split('\n')) {
-        if (줄.includes(찾는말) && 거절꼴.test(줄)) {
+        if (줄.toLowerCase().includes(낮춘말) && 거절꼴.test(줄)) {
           결과.거절.push({ 길: path.relative(뿌리, 길), 줄: 줄.trim().slice(0, 120) });
           break;
         }
@@ -163,6 +173,24 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
 
   본다('빈 말은 빈손', 뒤진다('').본문에 === 0);
   본다('뒤질 곳이 둘이다 — 저장소가 둘이라서', 뒤질곳.length === 2);
+
+  /* 🔴🔴 [2026-10-05] 대소문자를 가려서 영어 지면을 통째로 못 찾고 있었다.
+     가짜 폴더를 하나 만들어 «실제로 뒤지게» 해서 잰다 — 눈속임 시험을 두지 않는다. */
+  const 가짜 = path.join(os.tmpdir(), `중복자-시험-${process.pid}`);
+  try {
+    fs.mkdirSync(가짜, { recursive: true });
+    fs.writeFileSync(path.join(가짜, 'a.astro'),
+      'const TITLE = `KOSPI vs KOSDAQ — filers, counted`;\n', 'utf8');
+    const 곳 = [{ 이름: '시험', 밑: 가짜 }];
+    본다('🔴 소문자 「kospi」로 대문자 제목 「KOSPI」를 찾는다',
+      뒤진다('kospi', 곳).제목에.length === 1);
+    본다('🔴 대문자로 물어도 찾는다', 뒤진다('KOSPI', 곳).제목에.length === 1);
+    본다('🔴 섞어 물어도 찾는다', 뒤진다('KoSpI', 곳).제목에.length === 1);
+    본다('⛔ 없는 말은 그래도 안 찾는다', 뒤진다('nikkei', 곳).제목에.length === 0);
+    본다('⛔ 본문 셈도 대소문자를 안 가린다', 뒤진다('kosdaq', 곳).본문에 === 1);
+  } finally {
+    try { fs.rmSync(가짜, { recursive: true, force: true }); } catch { /* 지우다 실패해도 시험은 끝났다 */ }
+  }
 
   console.log(진.length ? `🔴 ${진.length} 떨어졌다 —\n  ${진.join('\n  ')}` : `✅ 자가시험 ${통} 통과`);
   process.exit(진.length ? 1 : 0);
