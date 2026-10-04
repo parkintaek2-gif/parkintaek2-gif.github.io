@@ -941,6 +941,43 @@ if (내가실행됐다) {
     console.log(줄('③-6', '중부매일 주말 회차', 줄글));
   }
 
+  /**
+   * ③-7 손님 화면에 **우리끼리 쓰는 말**이 없나
+   *
+   * 🔴🔴 [2026-10-04 · 사장님] 「**그 말버릇이 우리 사이트의 고객에게 쓰이지 않도록**」
+   *   같은 것을 세 번 짚으셨다 — 「조용히·축」(09-30), 「지형·바늘」(10-01),
+   *   「한국인들이 안쓰는 표현들이 보이는 양궁기사야」(10-04).
+   * ⛔ 세 번을 말로만 적어 두었더니 세 번 다 나갔다. 말로 하는 규칙은 잊힌다.
+   * ⚠ 이 자는 «짚어 주신 말»만 안다. 0 이어도 말결이 성한 것은 아니다.
+   */
+  {
+    let 줄글 = null;
+    try {
+      const m = await import('./check-기사-말버릇.mjs');
+      const 밑 = path.join(뿌리, 'dist');
+      if (!fs.existsSync(밑)) { 줄글 = null; }
+      else {
+        const 것들 = [];
+        const 훑기 = (d) => {
+          for (const 이름 of fs.readdirSync(d)) {
+            const p = path.join(d, 이름);
+            if (fs.statSync(p).isDirectory()) 훑기(p);
+            else if (이름.endsWith('.html') && m.한국어화면인가(p)) 것들.push(p);
+          }
+        };
+        훑기(밑);
+        let 걸린장 = 0;
+        for (const p of 것들) {
+          if (m.찾기(m.화면글만(fs.readFileSync(p, 'utf8'))).length) 걸린장 += 1;
+        }
+        줄글 = { 됐나: 걸린장 === 0,
+          말: 걸린장 ? `🔴 손님 화면 ${걸린장}장에 우리끼리 쓰는 말이 있다 — node scripts/check-기사-말버릇.mjs --지면`
+            : `손님 화면 ${것들.length}장 — 아는 말버릇 없다` };
+      }
+    } catch { 줄글 = null; }
+    console.log(줄('③-7', '손님 화면 말버릇', 줄글));
+  }
+
   /* ④ 라이브 */
   let 라이브 = null;
   try {

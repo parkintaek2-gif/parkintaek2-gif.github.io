@@ -44,19 +44,19 @@ const jsonLd = {
   <h1>월급이 갈리는 건<br />무엇 때문일까요?</h1>
   <p class="sub">
     <strong>{자료.한줄}</strong> 국민연금 가입 사업장 내역({자료.기준일} 기준)을 업종·규모·지역
-    {' '}세 축으로 나눠 재 봤습니다.
+    {' '}세 갈래로 나눠 재 봤습니다.
   </p>
 
   <div class="answer">
-    <p class="answer-label">임금 격차를 가르는 힘 — 세 축 배수</p>
+    <p class="answer-label">임금 격차를 가르는 힘 — 세 갈래 배수</p>
     <p class="answer-num">업종 {업종격차.배수}배 · 규모 {규모격차.배수}배 · 지역 {지역격차.배수}배</p>
     <p class="answer-sub">⛔ 기준이 서로 달라 이 세 숫자의 크기를 그대로 견주지 않습니다 — 아래에 각각 적습니다</p>
   </div>
 
-  <h2>축마다 기준이 다릅니다</h2>
+  <h2>갈래마다 기준이 다릅니다</h2>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>축</th><th>배수</th><th>설명몫</th><th>기준</th></tr></thead>
+      <thead><tr><th>갈래</th><th>배수</th><th>설명몫</th><th>기준</th></tr></thead>
       <tbody>
         {격차.map((r) => (
           <tr>
