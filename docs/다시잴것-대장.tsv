@@ -1,6 +1,6 @@
 적은날	잴날	무엇	어떻게	왜	잰날	결과
 2026-10-05	2026-10-19	일주 60장 색인	서치콘솔 klifemap.ai 에서 /ilju/ 로 시작하는 주소가 몇 장 색인됐나. 60장 중 몇 장인지 수로 적는다	닮은 몫이 우리 선(50%)을 넘었다(192쌍 중 65쌍, 최대 72.7%). 사장님께 2주 뒤 재서 판정하겠다고 올렸다		
-2026-10-05	2026-10-19	새 지면 69장 색인	서치콘솔에서 tojeong·samjae·sinsal·japsinsal·sonnal·sipseong·ages 일곱 장이 색인됐나	2026-10-05 에 낸 지면이 실제로 구글에 들어갔는지 봐야 낸 보람을 안다		
+2026-10-05	2026-10-19	새 지면 72장 색인	서치콘솔에서 tojeong·samjae·sinsal·japsinsal·sonnal·sipseong·ages·yuksipgapja·sinnyeon-unse·cheongan-jiji 열 장이 색인됐나	2026-10-05 에 낸 지면이 실제로 구글에 들어갔는지 봐야 낸 보람을 안다		
 2026-10-05	2026-10-12	그룹 263장 제목 효과	서치콘솔 query+page 에서 members age 계열 말의 노출·클릭이 늘었나	제목의 콜론을 빼 members ages 를 연속으로 만들었다. 고쳤다는 것과 효과가 났다는 것은 다르다		
-2026-10-05	2026-10-06	구글 색인 요청 남은 넷	samjae·sinsal·sonnal·japsinsal 을 낮 시간에 넣는다	한도가 KST 자정에 안 풀려 10-05 새벽에 넷이 할당량 초과로 돌아왔다		
 2026-10-05	2027-01-02	신년운세 지면 해 바꾸기	klifemap 에서 node tools/신년운세지면-짓는다.mjs --해 2028 뒤 커밋·배포	해가 바뀌면 지난해 지면이 남는다		
+2026-10-05	2026-10-06	색인 요청 남은 여섯	node scripts/구글-색인요청.mjs 로 sinnyeon-unse·cheongan-jiji·samjae·sinsal·sonnal·japsinsal — 낮에 넣는다	10-05 04:28 에 yuksipgapja 하나만 들어가고 나머지는 할당량 초과		
