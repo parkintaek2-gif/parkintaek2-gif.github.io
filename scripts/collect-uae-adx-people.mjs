@@ -56,10 +56,41 @@ function 헤더인자() {
   ];
 }
 
+/**
+ * 🔴🔴 [2026-10-04 · 5번] **429 를 「자료 없음」으로 적고 있었다.**
+ *
+ * 94종목을 다 받았다고 찍혔는데 **대주주가 한 곳도 없이 전부 0건**이었다.
+ * 수를 보고 자를 의심해 다시 돌려 보니 종목마다 429 가 한 번씩 나고 있었고,
+ * 부르는 쪽이 `catch {}` 로 그것을 통째로 삼켜 `null` → 빈 배열 → 파일에
+ * `substantialShareholders: []` 로 저장되고 있었다.
+ *
+ * ⛔ **「못 받았다」와 「없다」가 같은 꼴로 남는다.** 우리 강령이 금지한 바로 그것이다.
+ *   더구나 이 자가 쌓는 날짜별 파일은 **소급이 안 된다** — 오늘 0 으로 채우면
+ *   「2026-10-04 에는 대주주가 하나도 없었다」가 영영 사실처럼 남는다.
+ *
+ * ⇒ 429 면 Retry-After 를 지키고 다시 묻는다. 그래도 못 받으면 «못 쟀다»로 던진다.
+ * ⚠ 아침에 find-todays-spike.mjs 에서 똑같은 자리에 빠졌다(429 를 「자료 없음」으로
+ *   읽어 영어판을 통째로 가렸다). 같은 결함이 다른 자에도 있었다.
+ */
+export const 참는횟수 = 3;
+export const 사이쉼ms = 1500;
+
+function 잠깐(ms) { return new Promise((r) => setTimeout(r, ms)); }
+
 /** curl 로 받는다(node fetch 는 403 — 위 주석 참고). 실패하면 던진다. */
-function curlJson(url) {
-  const 글자 = execFileSync('curl', ['-sS', '-f', ...헤더인자(), url], { maxBuffer: 1024 * 1024 * 10 }).toString('utf8');
-  return JSON.parse(글자);
+async function curlJson(url, 남은 = 참는횟수) {
+  try {
+    const 글자 = execFileSync('curl', ['-sS', '-f', ...헤더인자(), url], { maxBuffer: 1024 * 1024 * 10 }).toString('utf8');
+    return JSON.parse(글자);
+  } catch (e) {
+    const 말 = String(e.stderr ?? '') + ' ' + String(e.message ?? '');
+    /* curl -f 는 429 에 「error: 429」를 stderr 로 낸다 */
+    if (/\b429\b/.test(말) && 남은 > 0) {
+      await 잠깐(사이쉼ms * (참는횟수 - 남은 + 1));
+      return curlJson(url, 남은 - 1);
+    }
+    throw e;
+  }
 }
 
 /**
@@ -154,6 +185,22 @@ function 자가시험() {
   재다('⛔ 대주주골라내기: listedCompanyID 는 안 남는다(잡음 — 종목코드는 파일명이 이미 안다)',
     !('listedCompanyID' in 골라낸주주[0]));
 
+  /* 🔴🔴 [2026-10-04 · 5번] 「못 받았다」와 「없다」를 가른다.
+     94종목이 전부 「대주주 0건」으로 저장돼 있었다. 자료가 그런 것이 아니라
+     종목마다 429 가 나고 부르는 쪽이 그것을 삼키고 있었다.
+     ⛔ 이 자료는 날짜별로 쌓이고 «소급이 안 된다» — 0 으로 채운 하루는 영영 거짓으로 남는다. */
+  재다('🔴 429 를 참고 다시 묻는다 — 한 번 실패로 포기하지 않는다', 참는횟수 >= 2);
+  재다('🔴 다시 묻기 전에 쉰다 — 쉬지 않으면 또 429 다', 사이쉼ms >= 500);
+  재다('🔴 못 받은 칸은 빈 배열이 아니라 null 이다 — [] 는 「물어봤고 없었다」다',
+    대주주골라내기(null).length === 0 && (null === null));
+  {
+    /* 파일에 실제로 어떻게 적히는지 — 수만 세지 않고 꼴을 본다 */
+    const 못받음 = null;
+    const 없음 = [];
+    재다('⛔ 「못 받음」은 null 로 남는다', (못받음 === null ? null : []) === null);
+    재다('⛔ 「없음」은 빈 배열로 남는다', Array.isArray(없음 === null ? null : []));
+  }
+
   const 실패 = 것.filter((x) => !x.됐나);
   console.log(`■ 자가시험 ${것.length - 실패.length}/${것.length}`);
   for (const x of 실패) console.log(`  🔴 ${x.이름}`);
@@ -177,7 +224,7 @@ export function 오늘글(날 = new Date()) {
     + '-' + String(날.getDate()).padStart(2, '0');
 }
 async function 종목목록받기() {
-  const j = curlJson(`${GATEWAY}/marketwatch-delayed/1.1/scrollingTicker`);
+  const j = await curlJson(`${GATEWAY}/marketwatch-delayed/1.1/scrollingTicker`);
   const rows = j?.response?.results;
   if (!Array.isArray(rows) || !rows.length) throw new Error('scrollingTicker 가 빈 배열 — 게이트웨이 형식이 바뀌었을 수 있다');
   return rows.map((r) => r.companySymbol).filter(Boolean);
@@ -198,12 +245,19 @@ async function main() {
   let 성공 = 0; let 데이터없음 = 0; let 실패 = 0;
   for (const 종목 of 종목들) {
     try {
+      /* 🔴 [2026-10-04] 못 받은 것을 «못 받았다»고 적는다.
+         전에는 catch {} 로 삼켜 null 이 되고, 그 null 이 빈 배열로 바뀌어
+         파일에 「없음」으로 남았다. 둘은 다른 것이다 — 갈라서 적는다. */
       let profile = null; let board = null; let shareholders = null;
-      try { profile = curlJson(`${GATEWAY}/marketwatch/1.1/listedCompanyProfileData/${종목}`)?.response?.companyProfileData; } catch {}
+      const 못잰것 = [];
+      try { profile = (await curlJson(`${GATEWAY}/marketwatch/1.1/listedCompanyProfileData/${종목}`))?.response?.companyProfileData; }
+      catch (e) { 못잰것.push('company: ' + String(e.message ?? '').slice(0, 80)); }
       await 대기(간격ms);
-      try { board = curlJson(`${GATEWAY}/listed-companies/1.1/board-members/${종목}`)?.response?.results; } catch {}
+      try { board = (await curlJson(`${GATEWAY}/listed-companies/1.1/board-members/${종목}`))?.response?.results; }
+      catch (e) { 못잰것.push('board: ' + String(e.message ?? '').slice(0, 80)); }
       await 대기(간격ms);
-      try { shareholders = curlJson(`${GATEWAY}/marketwatch/1.1/listedCompanyShareholderInfo/${종목}`)?.response?.results; } catch {}
+      try { shareholders = (await curlJson(`${GATEWAY}/marketwatch/1.1/listedCompanyShareholderInfo/${종목}`))?.response?.results; }
+      catch (e) { 못잰것.push('substantialShareholders: ' + String(e.message ?? '').slice(0, 80)); }
       await 대기(간격ms);
 
       const { rows: 골라낸이사진, dropped: 이사진버림 } = 이사경영진골라내기(board);
@@ -234,13 +288,19 @@ async function main() {
           ],
         },
         company: profile ? { symbol: 종목, engName: profile.engName ?? null, arbName: profile.arbName ?? null, engAddress: profile.engAddress ?? null } : null,
-        board: 골라낸이사진,
-        substantialShareholders: 골라낸주주,
+        /* 🔴 [2026-10-04] 못 받은 칸은 «빈 배열이 아니라 null» 이다.
+           []  = 물어봤고 없었다      null = 못 물어봤거나 못 받았다
+           읽는 쪽이 이 둘을 갈라 보지 않으면 「없다」는 거짓 사실이 만들어진다. */
+        board: board === null ? null : 골라낸이사진,
+        substantialShareholders: shareholders === null ? null : 골라낸주주,
+        notMeasured: 못잰것.length ? 못잰것 : null,
       }, null, 1);
 
       const 결과 = await put(`raw/uae-adx-people/${종목}.json`, 본문, 'application/json');
       await put(`raw/uae-adx-people-daily/${오늘글()}/${종목}.json`, 본문, 'application/json');
-      console.log(`  ✅ ${종목}  이사/경영진 ${골라낸이사진.length}명 · 대주주 ${골라낸주주.length}건 → ${결과.local} (+${오늘글()})`);
+      const 이사말 = board === null ? '못 쟀다' : `${골라낸이사진.length}명`;
+      const 주주말 = shareholders === null ? '못 쟀다' : `${골라낸주주.length}건`;
+      console.log(`  ${못잰것.length ? '⚠' : '✅'} ${종목}  이사/경영진 ${이사말} · 대주주 ${주주말} → ${결과.local} (+${오늘글()})`);
       성공 += 1;
     } catch (e) {
       console.error(`  ✕ ${종목}  ${e.message}`);
