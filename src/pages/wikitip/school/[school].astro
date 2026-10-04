@@ -84,7 +84,16 @@ const 수 = (n: number) => Number(n).toLocaleString('en-US');
    ⛔ 「floor, not a total」(이 수가 밑값이라는 고지)을 설명에서 뺐다. **빼기 전에 본문을 쟀다** —
      아래 note 칸이 그 말을 그대로 하고 있다. 잘려서 안 보이던 자리에서 보이는 자리로 옮긴 것이다.
    ⚠ 55개 학교를 다 재서 제목 최대 57자(Hankuk University of Foreign Studies)다. */
-const TITLE = `${수(s.people)} Korean stars from ${s.name}`;
+/* 🔴 [2026-10-04 · 5번] **손님이 치는 말은 「sogang university notable alumni」인데
+   제목에 「alumni」가 없었다.** 우리는 「stars from」이라고 썼다 — 자리 48위였다.
+   ⛔ 「notable」은 쓰지 않는다 — 우리가 고른 것이 아니라 위키데이터에 적힌 사람들이다.
+     그 말을 쓰면 「우리가 골랐다」가 되고, 그것은 참이 아니다.
+   ⚠ 55개 학교를 다 재서 가장 긴 제목이 61자다(Hankuk University of Foreign Studies). */
+/* ⚠ [2026-10-04] 다 지어 보니 가장 긴 것이 71자였다(Hankuk University of Foreign Studies).
+   구글은 60자 안팎에서 자른다. ⛔ 학교 이름은 «자르지 않는다» — 이름이 곧 검색어다.
+   이름이 길 때만 꼬리를 던다. 재 보니 짧은 꼴은 1장뿐이고 나머지는 온전하다. */
+const 긴제목 = `${s.name} alumni — ${수(s.people)} Korean stars on record`;
+const TITLE = 긴제목.length <= 60 ? 긴제목 : `${s.name} alumni — ${수(s.people)} Korean stars`;
 /**
  * 🔴🔴 [2026-08-29] **설명문이 「우리만 가진 수」를 안 말하고 있었다.**
  *

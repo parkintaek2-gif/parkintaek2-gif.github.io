@@ -87,8 +87,12 @@ const 날글 = (day: string) => {
 /* ⚠ 열두 달을 다 재서 가장 긴 것이 56자다(9월). 60자 한계 안이다.
    ⛔ 케이팝이 0이면 예전 제목으로 떨어진다 — 자료 파일이 낡으면 kpop 칸이 없을 수 있고,
      그때 「0 in K-pop groups」라고 적으면 «못 잰 것»을 «없다»로 내는 것이 된다. */
+/* 🔴 [2026-10-04 · 5번] **손님이 치는 말은 「kpop idol born in july」인데 제목에
+   「idol」이 없었다.** 우리는 「K-pop groups」라고 썼다 — 자리 86위였다.
+   ⛔ 낱말을 쌓은 것이 아니다. 이 지면은 실제로 그 달에 난 아이돌을 싣는다.
+   ⚠ 케이팝이 0이면 예전 제목으로 떨어진다 — 못 잰 것을 「없다」로 내지 않기 위해서다. */
 const TITLE = 케이팝 > 0
-  ? `${사람.toLocaleString('en-US')} Korean stars born in ${이달} — ${케이팝.toLocaleString('en-US')} in K-pop groups`
+  ? `K-pop idols born in ${이달} — ${케이팝.toLocaleString('en-US')} of ${사람.toLocaleString('en-US')} Korean stars`
   : `Korean actors born in ${이달} — ${사람.toLocaleString('en-US')} of them, day by day`;
 /* 🔴 [2026-08-27] 앞 판은 209자여서 구글이 잘라 냈다(155자쯤에서 자른다).
    잘린 자리에 「이름이 실려 있다」는 **누를 까닭**이 있었다.
