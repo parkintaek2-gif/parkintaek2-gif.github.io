@@ -235,6 +235,16 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/korea-disclosures', changefreq: 'daily', priority: '0.8' },
       { loc: '/data/disclosures', changefreq: 'daily', priority: '0.8' },
       { loc: '/data/gulf-economies', changefreq: 'monthly', priority: '0.8' },
+      /* 🔴 [2026-10-04 · 2번] 다섯째 사고 — 같은 실수가 또 반복됐다. 10/3~10/4에 낸
+       * 여섯 지면이 이 목록에 안 들어가 있었다(/data/index.astro 카탈로그에는 걸려 있었지만
+       * 이 사이트맵 목록은 따로 손으로 채운다). check-google-indexed.mjs로 확인하기 전에는
+       * 아무도 몰랐을 것이다. 다음에 지면을 낼 때는 이 목록도 같은 커밋에서 고친다. */
+      { loc: '/data/fixed-variable-rate-share', changefreq: 'weekly', priority: '0.7' },
+      { loc: '/data/ppi-import-price-gap', changefreq: 'weekly', priority: '0.7' },
+      { loc: '/data/industry-production-divergence', changefreq: 'weekly', priority: '0.7' },
+      { loc: '/data/bank-loan-delinquency', changefreq: 'weekly', priority: '0.7' },
+      { loc: '/data/trade-by-product', changefreq: 'weekly', priority: '0.7' },
+      { loc: '/data/mortgage-balance-gender-gap', changefreq: 'weekly', priority: '0.7' },
       { loc: '/rankings/market-cap', changefreq: 'weekly', priority: '0.8' },
       { loc: '/rankings/pbr', changefreq: 'weekly', priority: '0.8' },
       { loc: '/rankings/interest-cover', changefreq: 'weekly', priority: '0.8' },
