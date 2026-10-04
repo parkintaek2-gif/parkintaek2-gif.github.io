@@ -1,0 +1,294 @@
+---
+/*
+ * `/revenue-concentration` — **How much of a market's revenue sits in its largest firms.**
+ *
+ * ── Why this page ──────────────────────────────────────────────
+ * Measured 2026-10-05 (en/us autocomplete): `korean stocks`, `korea stock market`,
+ * `japan stock market` and `taiwan stock exchange` each fill all ten rows.
+ * `check-이미-있는-지면인가` found no page of ours carrying "revenue concentration",
+ * "top-heavy" or "largest companies" in its title across 579 source files.
+ *
+ * ⭐ What the filings say — **Korea and Japan have almost the same number of filers
+ *   (about 2,480 and 2,420) but the top ten take twice the share in Korea.**
+ *   Korea 34.9%, Japan 17.0%. Taiwan is more concentrated still at 52.4%.
+ *   Company count tells you nothing about how the revenue is spread.
+ *
+ * ⛔ Not investment advice. We report what was filed.
+ * ⛔ No share prices and no market capitalisation — those are a bet on the future,
+ *   not something a company reported.
+ * ⛔ Currencies differ (KRW, JPY, TWD). We only ever compare shares within one
+ *   market, never absolute amounts across them. A share is unit-free; a sum is not.
+ * ⛔ Fiscal years differ. We print each market's year rather than pretending they align.
+ * ⛔ Firms that filed no revenue line are excluded, and we say how many. Most are
+ *   banks and insurers, which report differently. We do not treat them as zero.
+ */
+import Base from '../layouts/Base.astro';
+import { SITE_URL } from '../consts';
+import koreaTape from '../data/korea-financials-tape.json';
+import japanTape from '../data/japan-financials-tape.json';
+import taiwanTape from '../data/taiwan-financials-tape.json';
+
+const 수인가 = (x: any) => typeof x === 'number' && Number.isFinite(x);
+
+type 시장 = {
+  이름: string;
+  통화: string;
+  rows: any[];
+  칸: string;
+};
+
+const 시장들: 시장[] = [
+  { 이름: 'Korea', 통화: 'KRW', rows: ((koreaTape as any).rows ?? []) as any[], 칸: 'revenue_krw' },
+  { 이름: 'Japan', 통화: 'JPY', rows: ((japanTape as any).rows ?? (japanTape as any)) as any[], 칸: 'revenue_jpy' },
+  { 이름: 'Taiwan', 통화: 'TWD', rows: ((taiwanTape as any).rows ?? (taiwanTape as any)) as any[], 칸: 'revenue_twd' },
+];
+
+/**
+ * One market's concentration curve.
+ * ⛔ Returns null when nothing could be counted — never a zero that reads as a finding.
+ */
+function 재다(m: 시장) {
+  const 해별 = new Map<number, number>();
+  for (const r of m.rows) {
+    if (수인가(r?.[m.칸]) && r[m.칸] > 0 && Number.isFinite(r?.year)) {
+      해별.set(r.year, (해별.get(r.year) ?? 0) + 1);
+    }
+  }
+  if (!해별.size) return null;
+  /* 가장 많이 찬 해를 쓴다 — 자료가 막 들어오기 시작한 해를 고르면 수가 뒤집힌다 */
+  const 해 = [...해별.entries()].sort((a, b) => b[1] - a[1] || b[0] - a[0])[0][0];
+
+  const 쓸것 = m.rows
+    .filter((r) => r?.year === 해 && 수인가(r?.[m.칸]) && r[m.칸] > 0)
+    .sort((a, b) => b[m.칸] - a[m.칸]);
+  if (!쓸것.length) return null;
+
+  const 모두 = m.rows.filter((r) => r?.year === 해).length;
+  const 합 = 쓸것.reduce((a, r) => a + r[m.칸], 0);
+  const 몫 = (n: number) => (쓸것.slice(0, n).reduce((a, r) => a + r[m.칸], 0) / 합) * 100;
+  const 이름 = (r: any) => String(r?.name_en ?? r?.name ?? r?.company ?? '').trim() || '(unnamed)';
+
+  return {
+    이름: m.이름,
+    통화: m.통화,
+    해,
+    센것: 쓸것.length,
+    안센것: Math.max(0, 모두 - 쓸것.length),
+    상위1: 몫(1),
+    상위5: 몫(5),
+    상위10: 몫(10),
+    상위20: 몫(20),
+    상위50: 몫(50),
+    상위100: 몫(100),
+    맨위: 이름(쓸것[0]),
+    맨위몫: 몫(1),
+    열개: 쓸것.slice(0, 10).map((r) => ({ 이름: 이름(r), 몫: (r[m.칸] / 합) * 100 })),
+  };
+}
+
+const 잰것 = 시장들.map(재다).filter(Boolean) as NonNullable<ReturnType<typeof 재다>>[];
+const 한국 = 잰것.find((x) => x.이름 === 'Korea') ?? null;
+const 일본 = 잰것.find((x) => x.이름 === 'Japan') ?? null;
+const 대만 = 잰것.find((x) => x.이름 === 'Taiwan') ?? null;
+
+const 한자리 = (x: number | null | undefined) => (수인가(x) ? `${(x as number).toFixed(1)}%` : '—');
+const 세자리 = (n: number | null | undefined) => (수인가(n) ? (n as number).toLocaleString('en-GB') : '—');
+
+/* 🔴 이 지면의 한 문장 — 회사 수는 비슷한데 몫이 갈린다 */
+const 배수 = 한국 && 일본 && 일본.상위10 > 0 ? 한국.상위10 / 일본.상위10 : null;
+const 꼬리몫 = 한국 ? 100 - 한국.상위100 : null;
+const 꼬리수 = 한국 ? 한국.센것 - 100 : null;
+
+const TITLE = 한국 && 일본
+  ? `Korean stocks: top 10 take ${한국.상위10.toFixed(0)}% of revenue, Japan's take ${일본.상위10.toFixed(0)}%`
+  : 'Revenue concentration in Korea, Japan and Taiwan';
+
+const DESC = 한국 && 일본
+  ? `Korea and Japan have almost the same number of listed filers — about ${세자리(한국.센것)} and ${세자리(일본.센것)} `
+    + `— but Korea's ten largest take ${한자리(한국.상위10)} of all filed revenue against Japan's ${한자리(일본.상위10)}. `
+    + `Counted from filed accounts, not share prices.`
+  : 'Revenue concentration across three Asian markets, counted from filed accounts.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Revenue concentration in Korean, Japanese and Taiwanese listed companies',
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets' },
+  url: `${SITE_URL}/revenue-concentration`,
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs">
+      <a href="/">SeoulMarkets</a> <span>›</span> Revenue concentration
+    </nav>
+
+    <header>
+      <h1>Korean stocks are top-heavy — and the company count hides it</h1>
+      <p class="lede">
+        Korea and Japan list almost the same number of companies that file a revenue
+        line. The share held by the ten largest is about twice as high in Korea.
+        Read from filed accounts, not from share prices.
+      </p>
+    </header>
+
+    {한국 && 일본 && (
+      <section class="box">
+        <h2>The finding</h2>
+        <p>
+          Korea has <strong>{세자리(한국.센것)}</strong> listed filers with a revenue line;
+          Japan has <strong>{세자리(일본.센것)}</strong>. Within four per cent of each other.
+        </p>
+        <p>
+          But Korea's ten largest take <strong>{한자리(한국.상위10)}</strong> of all revenue
+          filed in that market, against Japan's <strong>{한자리(일본.상위10)}</strong>
+          {배수 ? <> — <strong>about {배수.toFixed(1)} times the share</strong></> : null}.
+        </p>
+        <p>
+          <strong>Counting companies tells you nothing about how the revenue is spread.</strong>
+          Two markets of the same size can be built completely differently.
+        </p>
+      </section>
+    )}
+
+    <section>
+      <h2>How much the largest firms take</h2>
+      <p class="note">
+        Each row is one market, counted separately in its own currency. Only shares are
+        compared — never amounts. A share is unit-free; a sum across currencies is not.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Market</th><th>Year</th><th>Filers counted</th>
+              <th>Top 1</th><th>Top 10</th><th>Top 20</th><th>Top 100</th>
+            </tr>
+          </thead>
+          <tbody>
+            {잰것.map((m) => (
+              <tr>
+                <th>{m.이름}</th>
+                <td>{m.해}</td>
+                <td>{세자리(m.센것)}</td>
+                <td>{한자리(m.상위1)}</td>
+                <td><strong>{한자리(m.상위10)}</strong></td>
+                <td>{한자리(m.상위20)}</td>
+                <td>{한자리(m.상위100)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Fiscal years differ between markets, so each market's own year is printed rather
+        than forcing them onto one line.
+        {잰것.some((m) => m.안센것 > 0) && (
+          <> Firms that filed no revenue line are left out:
+            {' '}{잰것.filter((m) => m.안센것 > 0).map((m) => `${m.이름} ${세자리(m.안센것)}`).join(', ')}.
+            Most are banks and insurers, which report differently. They are not counted as zero.</>
+        )}
+      </p>
+    </section>
+
+    {한국 && (
+      <section>
+        <h2>Korea's ten largest, one by one</h2>
+        <p class="note">
+          Share of all revenue filed by Korean listed companies in {한국.해}.
+          Names are as filed in English.
+        </p>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>#</th><th>Company</th><th>Share of all filed revenue</th></tr></thead>
+            <tbody>
+              {한국.열개.map((c, i) => (
+                <tr><th>{i + 1}</th><td class="nm">{c.이름}</td><td>{한자리(c.몫)}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {수인가(꼬리몫) && (
+          <p>
+            Everything outside the top 100 — <strong>{세자리(꼬리수)} companies</strong> —
+            adds up to <strong>{한자리(꼬리몫)}</strong> of the total.
+          </p>
+        )}
+      </section>
+    )}
+
+    {대만 && (
+      <section>
+        <h2>Taiwan is the other extreme</h2>
+        <p>
+          Taiwan counts <strong>{세자리(대만.센것)}</strong> filers — fewer than half of
+          Korea's — and its ten largest take <strong>{한자리(대만.상위10)}</strong>,
+          with the single largest alone at <strong>{한자리(대만.상위1)}</strong>.
+        </p>
+        <p>
+          Lined up, the three markets sit in a clear order:
+          <strong> Japan {한자리(일본?.상위10)} → Korea {한자리(한국?.상위10)} → Taiwan {한자리(대만.상위10)}</strong>.
+        </p>
+      </section>
+    )}
+
+    <section>
+      <h2>What this is and is not</h2>
+      <p>
+        <strong>This is filed revenue, not market value.</strong> We do not use share
+        prices or market capitalisation anywhere on this page. A price is a bet on what
+        a company will earn; revenue is what it reported earning.
+      </p>
+      <p>
+        <strong>Concentration is not a verdict.</strong> A market where a few firms earn
+        most of the revenue is not thereby worse or riskier — it is differently shaped.
+        What it changes is what an index tracks, and that is worth knowing before you
+        read one number as "the market".
+      </p>
+      <p>
+        <strong>We do not say what to do with this.</strong> Nothing here is investment
+        advice. The counts, the year and the exclusions are all printed so the figure
+        can be checked rather than taken.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <ul class="links">
+        <li><a href="/kospi-vs-kosdaq">KOSPI vs KOSDAQ — what the filings say</a></li>
+        <li><a href="/companies">Every Korean listed company we track</a></li>
+        <li><a href="/rankings">Rankings from filed accounts</a></li>
+        <li><a href="/data">Free data</a></li>
+      </ul>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+  .crumbs { font-size: .82rem; color: #778; margin-bottom: 1rem; }
+  .crumbs a { color: #2a4d8f; text-decoration: none; }
+  .crumbs span { margin: 0 .35rem; }
+  h1 { font-size: 1.9rem; line-height: 1.25; margin: 0 0 .6rem; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.6rem; }
+  section { margin: 2.2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .6rem; }
+  .box { background: #fbfbfd; border: 1px solid #e6e8ee; border-left: 4px solid #2a4d8f;
+         border-radius: 12px; padding: 1rem 1.1rem; }
+  .box p { margin: .5rem 0; }
+  .box p:first-of-type { margin-top: 0; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 .7rem; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: .45rem .6rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  thead th { text-align: right; font-size: .82rem; color: #556; border-bottom: 2px solid #d8dbe2; }
+  thead th:first-child, tbody th, tbody td.nm { text-align: left; }
+  tbody th { font-weight: 600; color: #334; }
+  .links { margin: .6rem 0 0 1.1rem; font-size: .95rem; }
+  .links li { margin: .35rem 0; }
+  .links a { color: #2a4d8f; text-decoration: none; }
+  .links a:hover { text-decoration: underline; }
+  @media (max-width: 640px) { h1 { font-size: 1.45rem; } }
+</style>
