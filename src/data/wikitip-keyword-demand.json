@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-06T23:10:03.254Z",
+ "generated": "2026-10-04T11:12:50.293Z",
  "whatThisIs": "Autocomplete presence (Google Suggest) and English Wikipedia article reads. Neither is a search-volume figure and we do not call them one.",
  "whatThisIsNot": "Monthly search volume. We have no paid keyword data. A phrase that autocompletes is a phrase people type; how many people type it is not measured here.",
  "phrases": [
@@ -9,13 +9,13 @@
    "제안수": 10,
    "그대로있나": true,
    "몇번째": 1,
-   "그말로시작": 2,
+   "그말로시작": 3,
    "보기": [
     "day stem",
     "day stem bazi",
+    "day stemless wine glasses",
     "stem day 2026",
-    "stem day 2025",
-    "stem day meaning"
+    "stem day 2025"
    ]
   },
   {
@@ -64,8 +64,8 @@
     "iu birthday",
     "iu birthday date",
     "iu birthday zodiac",
-    "iu birthday age",
-    "iu birthday songs"
+    "iu birthday cake",
+    "iu birthday age"
    ]
   },
   {
@@ -77,10 +77,10 @@
    "그말로시작": 10,
    "보기": [
     "jungkook birthday",
+    "jungkook birthday cafe seoul",
     "jungkook birthday date",
     "jungkook birthday age",
-    "jungkook birthday zodiac sign",
-    "jungkook birthday date and time"
+    "jungkook birthday zodiac sign"
    ]
   },
   {
@@ -108,8 +108,8 @@
    "보기": [
     "saju reading",
     "saju reading online free",
-    "saju reading chatgpt",
     "saju reading seoul",
+    "saju reading chatgpt",
     "saju reading online"
    ]
   },
@@ -117,11 +117,11 @@
    "말": "iu saju",
    "물음실패": false,
    "제안수": 1,
-   "그대로있나": true,
-   "몇번째": 1,
-   "그말로시작": 1,
+   "그대로있나": false,
+   "몇번째": null,
+   "그말로시작": 0,
    "보기": [
-    "iu saju"
+    "iu soj"
    ]
   },
   {
@@ -133,10 +133,10 @@
    "그말로시작": 8,
    "보기": [
     "jungkook zodiac sign",
-    "jungkook zodiac sign chinese",
     "jungkook zodiac sign soulmate",
     "jungkook zodiac sign indian",
-    "jungkook zodiac sign moon sign"
+    "jungkook zodiac sign moon sign",
+    "jungkook zodiac sign chinese"
    ]
   },
   {
@@ -164,9 +164,9 @@
    "보기": [
     "kpop birthdays",
     "kpop birthdays today",
-    "kpop birthdays july",
+    "kpop birthdays in september",
     "kpop birthdays august",
-    "kpop birthdays june"
+    "kpop birthdays july"
    ]
   },
   {
@@ -187,14 +187,13 @@
   {
    "말": "who shares my birthday kpop",
    "물음실패": false,
-   "제안수": 3,
+   "제안수": 2,
    "그대로있나": false,
    "몇번째": null,
    "그말로시작": 0,
    "보기": [
     "who has a birthday today kpop",
-    "who shares my birthday",
-    "which kpop idol shares your birthday"
+    "who shares my birthday"
    ]
   },
   {
@@ -246,23 +245,23 @@
  "people": [
   {
    "이름": "IU (singer)",
-   "지난30일읽힘": 1424
+   "지난30일읽힘": 1058
   },
   {
    "이름": "Jungkook",
-   "지난30일읽힘": 3068
+   "지난30일읽힘": 3431
   },
   {
    "이름": "Jisoo",
-   "지난30일읽힘": 72421
+   "지난30일읽힘": 81626
   },
   {
    "이름": "Song Joong-ki",
-   "지난30일읽힘": 39643
+   "지난30일읽힘": 38627
   },
   {
    "이름": "Psy",
-   "지난30일읽힘": 30072
+   "지난30일읽힘": 29294
   }
  ]
 }
