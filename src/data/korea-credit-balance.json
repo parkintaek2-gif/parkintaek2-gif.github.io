@@ -1,0 +1,489 @@
+{
+  "source": {
+    "name": "data.go.kr 15094809 금융위원회_금융투자협회종합통계정보 — 신용공여잔고추이 (Credit balance for securities trading)",
+    "endpoint": "https://apis.data.go.kr/1160100/service/GetKofiaStatisticsInfoService/getGrantingOfCreditBalanceInfo",
+    "unit": "KRW",
+    "note": "신용융자(margin loans for stock purchase) only — excludes 신용대주 (short-sale lending) and 예탁증권담보융자 (securities-collateral loans).",
+    "collectedAt": "2026-10-04T07:44:03.293Z",
+    "rawCount": 1195
+  },
+  "monthEnd": [
+    {
+      "month": "2021-11",
+      "asOf": "20211130",
+      "totalKrw": 23452951563495,
+      "kospiKrw": 12575931133319,
+      "kosdaqKrw": 10877020430176,
+      "kosdaqSharePct": 46.4
+    },
+    {
+      "month": "2021-12",
+      "asOf": "20211231",
+      "totalKrw": 23088636207846,
+      "kospiKrw": 12050220656027,
+      "kosdaqKrw": 11038415551819,
+      "kosdaqSharePct": 47.8
+    },
+    {
+      "month": "2022-01",
+      "asOf": "20220128",
+      "totalKrw": 21672907189931,
+      "kospiKrw": 11402455618863,
+      "kosdaqKrw": 10270451571068,
+      "kosdaqSharePct": 47.4
+    },
+    {
+      "month": "2022-02",
+      "asOf": "20220228",
+      "totalKrw": 20896954946039,
+      "kospiKrw": 11079455525686,
+      "kosdaqKrw": 9817499420353,
+      "kosdaqSharePct": 47
+    },
+    {
+      "month": "2022-03",
+      "asOf": "20220331",
+      "totalKrw": 22042773239080,
+      "kospiKrw": 11726009125354,
+      "kosdaqKrw": 10316764113726,
+      "kosdaqSharePct": 46.8
+    },
+    {
+      "month": "2022-04",
+      "asOf": "20220429",
+      "totalKrw": 22261672785591,
+      "kospiKrw": 11885862953352,
+      "kosdaqKrw": 10375809832239,
+      "kosdaqSharePct": 46.6
+    },
+    {
+      "month": "2022-05",
+      "asOf": "20220531",
+      "totalKrw": 21564641806652,
+      "kospiKrw": 11428017371780,
+      "kosdaqKrw": 10136624434872,
+      "kosdaqSharePct": 47
+    },
+    {
+      "month": "2022-06",
+      "asOf": "20220630",
+      "totalKrw": 17868304033777,
+      "kospiKrw": 9628880120996,
+      "kosdaqKrw": 8239423912781,
+      "kosdaqSharePct": 46.1
+    },
+    {
+      "month": "2022-07",
+      "asOf": "20220729",
+      "totalKrw": 18561877828770,
+      "kospiKrw": 9817129253271,
+      "kosdaqKrw": 8744748575499,
+      "kosdaqSharePct": 47.1
+    },
+    {
+      "month": "2022-08",
+      "asOf": "20220831",
+      "totalKrw": 19346494716242,
+      "kospiKrw": 10175386086347,
+      "kosdaqKrw": 9171108629895,
+      "kosdaqSharePct": 47.4
+    },
+    {
+      "month": "2022-09",
+      "asOf": "20220930",
+      "totalKrw": 17164768278707,
+      "kospiKrw": 9217312088029,
+      "kosdaqKrw": 7947456190678,
+      "kosdaqSharePct": 46.3
+    },
+    {
+      "month": "2022-10",
+      "asOf": "20221031",
+      "totalKrw": 16075685548217,
+      "kospiKrw": 8570354193474,
+      "kosdaqKrw": 7505331354743,
+      "kosdaqSharePct": 46.7
+    },
+    {
+      "month": "2022-11",
+      "asOf": "20221130",
+      "totalKrw": 17134051015286,
+      "kospiKrw": 9093792352364,
+      "kosdaqKrw": 8040258662922,
+      "kosdaqSharePct": 46.9
+    },
+    {
+      "month": "2022-12",
+      "asOf": "20221230",
+      "totalKrw": 16518647535843,
+      "kospiKrw": 8757708701375,
+      "kosdaqKrw": 7760938834468,
+      "kosdaqSharePct": 47
+    },
+    {
+      "month": "2023-01",
+      "asOf": "20230131",
+      "totalKrw": 16094408471050,
+      "kospiKrw": 8176538741943,
+      "kosdaqKrw": 7917869729107,
+      "kosdaqSharePct": 49.2
+    },
+    {
+      "month": "2023-02",
+      "asOf": "20230228",
+      "totalKrw": 17761243694034,
+      "kospiKrw": 8959081642073,
+      "kosdaqKrw": 8802162051961,
+      "kosdaqSharePct": 49.6
+    },
+    {
+      "month": "2023-03",
+      "asOf": "20230331",
+      "totalKrw": 18694062346121,
+      "kospiKrw": 9074206925983,
+      "kosdaqKrw": 9619855420138,
+      "kosdaqSharePct": 51.5
+    },
+    {
+      "month": "2023-04",
+      "asOf": "20230428",
+      "totalKrw": 19457778570386,
+      "kospiKrw": 9458493836645,
+      "kosdaqKrw": 9999284733741,
+      "kosdaqSharePct": 51.4
+    },
+    {
+      "month": "2023-05",
+      "asOf": "20230531",
+      "totalKrw": 18631508686338,
+      "kospiKrw": 8926545705125,
+      "kosdaqKrw": 9704962981213,
+      "kosdaqSharePct": 52.1
+    },
+    {
+      "month": "2023-06",
+      "asOf": "20230630",
+      "totalKrw": 19400231935428,
+      "kospiKrw": 9507950579788,
+      "kosdaqKrw": 9892281355640,
+      "kosdaqSharePct": 51
+    },
+    {
+      "month": "2023-07",
+      "asOf": "20230731",
+      "totalKrw": 19738338618149,
+      "kospiKrw": 10059279510345,
+      "kosdaqKrw": 9679059107804,
+      "kosdaqSharePct": 49
+    },
+    {
+      "month": "2023-08",
+      "asOf": "20230831",
+      "totalKrw": 20226086419425,
+      "kospiKrw": 10531635127552,
+      "kosdaqKrw": 9694451291873,
+      "kosdaqSharePct": 47.9
+    },
+    {
+      "month": "2023-09",
+      "asOf": "20230927",
+      "totalKrw": 19702877028681,
+      "kospiKrw": 10322852160804,
+      "kosdaqKrw": 9380024867877,
+      "kosdaqSharePct": 47.6
+    },
+    {
+      "month": "2023-10",
+      "asOf": "20231031",
+      "totalKrw": 16970414145024,
+      "kospiKrw": 8976975140332,
+      "kosdaqKrw": 7993439004692,
+      "kosdaqSharePct": 47.1
+    },
+    {
+      "month": "2023-11",
+      "asOf": "20231130",
+      "totalKrw": 17207523409229,
+      "kospiKrw": 8911388930434,
+      "kosdaqKrw": 8296134478795,
+      "kosdaqSharePct": 48.2
+    },
+    {
+      "month": "2023-12",
+      "asOf": "20231229",
+      "totalKrw": 17558434927663,
+      "kospiKrw": 9016558047981,
+      "kosdaqKrw": 8541876879682,
+      "kosdaqSharePct": 48.6
+    },
+    {
+      "month": "2024-01",
+      "asOf": "20240131",
+      "totalKrw": 17809047531047,
+      "kospiKrw": 9516584026826,
+      "kosdaqKrw": 8292463504221,
+      "kosdaqSharePct": 46.6
+    },
+    {
+      "month": "2024-02",
+      "asOf": "20240229",
+      "totalKrw": 18526204651198,
+      "kospiKrw": 9880181721816,
+      "kosdaqKrw": 8646022929382,
+      "kosdaqSharePct": 46.7
+    },
+    {
+      "month": "2024-03",
+      "asOf": "20240329",
+      "totalKrw": 19477200423540,
+      "kospiKrw": 10366688876926,
+      "kosdaqKrw": 9110511546614,
+      "kosdaqSharePct": 46.8
+    },
+    {
+      "month": "2024-04",
+      "asOf": "20240430",
+      "totalKrw": 19173006429527,
+      "kospiKrw": 10346807931329,
+      "kosdaqKrw": 8826198498198,
+      "kosdaqSharePct": 46
+    },
+    {
+      "month": "2024-05",
+      "asOf": "20240531",
+      "totalKrw": 19817479575907,
+      "kospiKrw": 10670226805630,
+      "kosdaqKrw": 9147252770277,
+      "kosdaqSharePct": 46.2
+    },
+    {
+      "month": "2024-06",
+      "asOf": "20240628",
+      "totalKrw": 20107741278847,
+      "kospiKrw": 11064074341958,
+      "kosdaqKrw": 9043666936889,
+      "kosdaqSharePct": 45
+    },
+    {
+      "month": "2024-07",
+      "asOf": "20240731",
+      "totalKrw": 19428713189281,
+      "kospiKrw": 10826887817873,
+      "kosdaqKrw": 8601825371408,
+      "kosdaqSharePct": 44.3
+    },
+    {
+      "month": "2024-08",
+      "asOf": "20240830",
+      "totalKrw": 17855724238804,
+      "kospiKrw": 10139560270477,
+      "kosdaqKrw": 7716163968327,
+      "kosdaqSharePct": 43.2
+    },
+    {
+      "month": "2024-09",
+      "asOf": "20240930",
+      "totalKrw": 17464263497229,
+      "kospiKrw": 10101865326388,
+      "kosdaqKrw": 7362398170841,
+      "kosdaqSharePct": 42.2
+    },
+    {
+      "month": "2024-10",
+      "asOf": "20241031",
+      "totalKrw": 17886113067216,
+      "kospiKrw": 10478108512123,
+      "kosdaqKrw": 7408004555093,
+      "kosdaqSharePct": 41.4
+    },
+    {
+      "month": "2024-11",
+      "asOf": "20241129",
+      "totalKrw": 16587726875072,
+      "kospiKrw": 9743782404283,
+      "kosdaqKrw": 6843944470789,
+      "kosdaqSharePct": 41.3
+    },
+    {
+      "month": "2024-12",
+      "asOf": "20241231",
+      "totalKrw": 15817022468942,
+      "kospiKrw": 9233105651814,
+      "kosdaqKrw": 6583916817128,
+      "kosdaqSharePct": 41.6
+    },
+    {
+      "month": "2025-01",
+      "asOf": "20250131",
+      "totalKrw": 16839176884499,
+      "kospiKrw": 9749706496247,
+      "kosdaqKrw": 7089470388252,
+      "kosdaqSharePct": 42.1
+    },
+    {
+      "month": "2025-02",
+      "asOf": "20250228",
+      "totalKrw": 18233130225974,
+      "kospiKrw": 10380302359399,
+      "kosdaqKrw": 7852827866575,
+      "kosdaqSharePct": 43.1
+    },
+    {
+      "month": "2025-03",
+      "asOf": "20250331",
+      "totalKrw": 17593874494625,
+      "kospiKrw": 10082573211987,
+      "kosdaqKrw": 7511301282638,
+      "kosdaqSharePct": 42.7
+    },
+    {
+      "month": "2025-04",
+      "asOf": "20250430",
+      "totalKrw": 17557970629012,
+      "kospiKrw": 10160894771932,
+      "kosdaqKrw": 7397075857080,
+      "kosdaqSharePct": 42.1
+    },
+    {
+      "month": "2025-05",
+      "asOf": "20250530",
+      "totalKrw": 18273908586742,
+      "kospiKrw": 10613462060180,
+      "kosdaqKrw": 7660446526562,
+      "kosdaqSharePct": 41.9
+    },
+    {
+      "month": "2025-06",
+      "asOf": "20250630",
+      "totalKrw": 20786830573466,
+      "kospiKrw": 12656093574452,
+      "kosdaqKrw": 8130736999014,
+      "kosdaqSharePct": 39.1
+    },
+    {
+      "month": "2025-07",
+      "asOf": "20250731",
+      "totalKrw": 21791845466043,
+      "kospiKrw": 13292464859503,
+      "kosdaqKrw": 8499380606540,
+      "kosdaqSharePct": 39
+    },
+    {
+      "month": "2025-08",
+      "asOf": "20250829",
+      "totalKrw": 22155069819066,
+      "kospiKrw": 13570236939263,
+      "kosdaqKrw": 8584832879803,
+      "kosdaqSharePct": 38.7
+    },
+    {
+      "month": "2025-09",
+      "asOf": "20250930",
+      "totalKrw": 23492839699169,
+      "kospiKrw": 14244693148719,
+      "kosdaqKrw": 9248146550450,
+      "kosdaqSharePct": 39.4
+    },
+    {
+      "month": "2025-10",
+      "asOf": "20251031",
+      "totalKrw": 25526890680066,
+      "kospiKrw": 15817250343765,
+      "kosdaqKrw": 9709640336301,
+      "kosdaqSharePct": 38
+    },
+    {
+      "month": "2025-11",
+      "asOf": "20251128",
+      "totalKrw": 26445064697251,
+      "kospiKrw": 16853654396007,
+      "kosdaqKrw": 9591410301244,
+      "kosdaqSharePct": 36.3
+    },
+    {
+      "month": "2025-12",
+      "asOf": "20251231",
+      "totalKrw": 27286468717806,
+      "kospiKrw": 17126099133504,
+      "kosdaqKrw": 10160369584302,
+      "kosdaqSharePct": 37.2
+    },
+    {
+      "month": "2026-01",
+      "asOf": "20260130",
+      "totalKrw": 30277851070203,
+      "kospiKrw": 19854894101326,
+      "kosdaqKrw": 10422956968877,
+      "kosdaqSharePct": 34.4
+    },
+    {
+      "month": "2026-02",
+      "asOf": "20260227",
+      "totalKrw": 32668983223281,
+      "kospiKrw": 21672789862760,
+      "kosdaqKrw": 10996193360521,
+      "kosdaqSharePct": 33.7
+    },
+    {
+      "month": "2026-03",
+      "asOf": "20260331",
+      "totalKrw": 32922615361220,
+      "kospiKrw": 22559681659138,
+      "kosdaqKrw": 10362933702082,
+      "kosdaqSharePct": 31.5
+    },
+    {
+      "month": "2026-04",
+      "asOf": "20260430",
+      "totalKrw": 35713079332408,
+      "kospiKrw": 24683556976192,
+      "kosdaqKrw": 11029522356216,
+      "kosdaqSharePct": 30.9
+    },
+    {
+      "month": "2026-05",
+      "asOf": "20260529",
+      "totalKrw": 38022681186997,
+      "kospiKrw": 28024472183715,
+      "kosdaqKrw": 9998209003282,
+      "kosdaqSharePct": 26.3
+    },
+    {
+      "month": "2026-06",
+      "asOf": "20260630",
+      "totalKrw": 37328228228593,
+      "kospiKrw": 29234568495866,
+      "kosdaqKrw": 8093659732727,
+      "kosdaqSharePct": 21.7
+    },
+    {
+      "month": "2026-07",
+      "asOf": "20260731",
+      "totalKrw": 28934997172818,
+      "kospiKrw": 22840599128422,
+      "kosdaqKrw": 6094398044396,
+      "kosdaqSharePct": 21.1
+    },
+    {
+      "month": "2026-08",
+      "asOf": "20260831",
+      "totalKrw": 33252658134516,
+      "kospiKrw": 26290467469793,
+      "kosdaqKrw": 6962190664723,
+      "kosdaqSharePct": 20.9
+    },
+    {
+      "month": "2026-09",
+      "asOf": "20260930",
+      "totalKrw": 33390128913817,
+      "kospiKrw": 26057234413350,
+      "kosdaqKrw": 7332894500467,
+      "kosdaqSharePct": 22
+    }
+  ],
+  "peak": {
+    "asOf": "20260624",
+    "totalKrw": 38632823910662,
+    "kosdaqSharePct": 23
+  }
+}

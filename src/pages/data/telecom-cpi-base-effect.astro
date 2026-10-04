@@ -1,0 +1,190 @@
+---
+/*
+ * `/data/telecom-cpi-base-effect` — Korea's mobile-phone CPI sub-index, Aug 2025 vs Aug 2026.
+ * (seoulmarkets.com/data/telecom-cpi-base-effect)
+ *
+ * ── Why this page (2026-10-04 · 1번) ──────────────────────────────────
+ *   KOSIS DT_1J22001 (지출목적별 소비자물가지수) pulled directly for the 통신 (communications)
+ *   sub-group, src/data/cpi-telecom-base-effect.json. Korea's headline CPI rose 3.09% YoY in
+ *   Aug 2026, but the mobile-phone-fee index alone rose 26.74% — nearly 9x the headline rate.
+ *   The finance ministry's 2026-09-02 release said headline CPI ex-this-base-effect would have
+ *   been 2.5%; this page verifies the underlying index move directly from KOSIS rather than
+ *   repeating that estimate.
+ *
+ * ⛔ No claim about what caused the base effect (a prior-year promotional plan, a tariff
+ *   change, a reporting-method change are all plausible; this page does not investigate which).
+ * ⛔ English only, no investment advice.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import raw from '../../data/cpi-telecom-base-effect.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const d = raw as any;
+const items = d.항목 as Array<{ code: string; name_en: string; name_kr: string; 이전: number; 이번: number; 변화율: number }>;
+const headline = d.총지수;
+const mobile = items.find((i) => i.code === 'H03102')!;
+const comms = items.find((i) => i.code === 'H')!;
+const internet = items.find((i) => i.code === 'H03103')!;
+const landline = items.find((i) => i.code === 'H03101')!;
+
+const prevLabel = `${d.기간.작년월.slice(0, 4)}-${d.기간.작년월.slice(4)}`;
+const curLabel = `${d.기간.올해월.slice(0, 4)}-${d.기간.올해월.slice(4)}`;
+const multiple = (mobile.변화율 / headline.변화율).toFixed(1);
+
+const TITLE = `Korea's mobile-phone CPI index rose ${mobile.변화율}% in a year the headline index rose ${headline.변화율}%`;
+const DESC = `Korea's consumer price index for mobile-phone fees rose from ${mobile.이전} to ${mobile.이번} `
+  + `(${curLabel} vs ${prevLabel}), a ${mobile.변화율}% increase — about ${multiple}x the ${headline.변화율}% `
+  + `rise in the headline CPI over the same year. Statistics Korea (KOSIS) data, no cause assigned.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea CPI, mobile-phone fees vs headline index',
+  description: DESC,
+  url: `${SITE_URL}/data/telecom-cpi-base-effect`,
+  keywords: ['Korea CPI', 'mobile phone fee index Korea', 'telecom inflation Korea', 'KOSIS',
+    'base effect CPI', 'Statistics Korea consumer price index'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: 'https://kosis.kr',
+  isAccessibleForFree: true,
+  temporalCoverage: `${prevLabel}/${curLabel}`,
+  variableMeasured: ['Headline CPI', 'Communications CPI', 'Mobile-phone fee index', 'Internet fee index',
+    'Landline fee index'],
+};
+
+const faq: Array<[string, string]> = [
+  ['Does a 26.7% rise in the mobile-phone index mean phone bills rose 26.7%?',
+    'It means the KOSIS price index for that category rose that much year-on-year. The index reflects price '
+    + 'surveys across a basket of mobile plans, not any single household’s bill, and a year-ago base that '
+    + 'was unusually low can produce a large percentage change even without a large absolute price change.'],
+  ['What is a "base effect" and why does this page call it that?',
+    `The year-ago reference value (${mobile.이전}) is unusually low relative to the trend in nearby categories `
+    + `— the Ministry of Economy and Finance’s 2026-09-02 release estimated headline CPI would have been `
+    + `2.5% instead of ${headline.변화율}% without this effect. This page verifies the underlying index values `
+    + 'directly from KOSIS; it does not independently verify the ministry’s ex-effect estimate.'],
+  ['Did internet and landline fees move the same way?',
+    `No. The internet-fee index was unchanged (${internet.변화율}%) and the landline index barely moved `
+    + `(${landline.변화율}%) over the same year — the base effect is specific to the mobile-phone sub-index.`],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>One line of Korea's CPI basket moved {multiple}x the headline rate</h1>
+    <p class="lead">
+      Korea's headline consumer price index rose <b>{headline.변화율}%</b> from {prevLabel} to {curLabel}. The
+      mobile-phone-fee sub-index alone rose <b>{mobile.변화율}%</b> — from {mobile.이전} to {mobile.이번} — about{' '}
+      <b>{multiple}x</b> the headline pace.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false}
+      아직="This month's comparison shown below. A multi-year monthly series is not built yet." />
+
+    <section class="stats">
+      <div class="stat"><b>{headline.변화율}%</b><span>headline CPI, YoY</span></div>
+      <div class="stat"><b>{comms.변화율}%</b><span>communications CPI, YoY</span></div>
+      <div class="stat"><b>{mobile.변화율}%</b><span>mobile-phone fee index, YoY</span></div>
+      <div class="stat"><b>{multiple}x</b><span>mobile vs headline pace</span></div>
+    </section>
+
+    <section>
+      <h2>Read this before the table: an index move, not a bill</h2>
+      <p class="warn">
+        This is a statistical sub-index move, not a report that any individual's phone bill rose {mobile.변화율}%.
+        A low base value a year earlier ({mobile.이전}) can produce a large percentage change on its own. This
+        page does not determine what set that base value — a promotional plan rolling off, a tariff change, or
+        a survey-methodology change are all plausible and none is confirmed here.
+      </p>
+    </section>
+
+    <section>
+      <h2>Communications sub-index, {prevLabel} vs {curLabel}</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Category</th><th class="n">{prevLabel}</th><th class="n">{curLabel}</th><th class="n">YoY</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Headline CPI</td><td class="n">{headline.이전}</td><td class="n">{headline.이번}</td><td class="n">{headline.변화율}%</td></tr>
+            {items.map((i) => (
+              <tr>
+                <td>{i.name_en}</td>
+                <td class="n">{i.이전}</td>
+                <td class="n">{i.이번}</td>
+                <td class="n">{i.변화율}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Index base: 2020 = 100. Index level, not percent of household spending.</p>
+    </section>
+
+    <section>
+      <h2>What this page does not say</h2>
+      <ul>
+        <li>No cause for the mobile-fee base effect — only the index values and the gap between them.</li>
+        <li>No verification of the finance ministry's separate 2.5% ex-effect estimate — only the raw KOSIS index.</li>
+        <li>No individual household bill data — this is a survey-based price index, not billing records.</li>
+        <li>Single year-on-year comparison; no multi-year monthly trend shown yet.</li>
+      </ul>
+      <p class="note"><b>This is not investment advice.</b></p>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        Statistics Korea (KOSIS), <a href="https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_1J22001">DT_1J22001</a>{' '}
+        지출목적별 소비자물가지수 (consumer price index by purpose of expenditure), national, {prevLabel} vs {curLabel}.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        <a href="/data/ppi-import-price-gap">Korea producer vs import price gap</a>.{' '}
+        <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+  <BuyBar 자리="bottom" 살수있나={false}
+    아직="This month's comparison shown below. A multi-year monthly series is not built yet." />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n { text-align: right; white-space: nowrap; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+  }
+</style>

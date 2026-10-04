@@ -245,6 +245,9 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/bank-loan-delinquency', changefreq: 'weekly', priority: '0.7' },
       { loc: '/data/trade-by-product', changefreq: 'weekly', priority: '0.7' },
       { loc: '/data/mortgage-balance-gender-gap', changefreq: 'weekly', priority: '0.7' },
+      { loc: '/data/credit-balance', changefreq: 'weekly', priority: '0.7' },
+      { loc: '/data/telecom-cpi-base-effect', changefreq: 'monthly', priority: '0.7' },
+      { loc: '/data/real-wage-plateau', changefreq: 'monthly', priority: '0.7' },
       /* 🔴 [2026-10-04 · 2번] 위 여섯 장을 고치다가 /data/*.astro 전수 대조로 하나 더 찾았다 —
        * segment-reporting은 /data/index.astro 카탈로그에는 있었지만 이 목록에는 날짜 기록 없이
        * 처음부터 빠져 있었던 것으로 보인다(언제 생긴 구멍인지 특정 못함). */

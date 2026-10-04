@@ -1,0 +1,201 @@
+---
+/*
+ * `/data/real-wage-plateau` — Korea's inflation-adjusted average monthly wage, 2011-2026.
+ * (seoulmarkets.com/data/real-wage-plateau)
+ *
+ * ── Why this page (2026-10-04 · 1번) ──────────────────────────────────
+ *   src/data/korea-real-wage-annual.json — nominal wage (고용노동부 사업체노동력조사) deflated
+ *   by CPI (통계청, 2020=100), both pulled from KOSIS. Real wage rose every year from 2011 to
+ *   2021 (₩290.1man → ₩359.9man/month), then went flat: ₩359.9man in 2021 to ₩360.7man
+ *   in 2025 — a 0.2% move across four full years, after a decade of +24.1%. 2026 is partial
+ *   (5 months) and shown separately, not blended into the annual trend.
+ *
+ * ⛔ No cause claimed for the 2021 plateau (inflation surge, minimum-wage policy pace,
+ *   productivity growth are all plausible and none is measured here).
+ * ⛔ English only, no investment/employment advice.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import raw from '../../data/korea-real-wage-annual.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const d = raw as any;
+const fullYears = (d.rows as Array<{ year: number; manwon: number; partial: boolean }>).filter((r) => !r.partial);
+const partialYears = (d.rows as Array<{ year: number; manwon: number; partial: boolean; months: number }>).filter((r) => r.partial);
+
+const firstYear = fullYears[0];
+const plateauStart = fullYears.find((r) => r.year === d.plateauSince.year)!;
+const lastFull = fullYears[fullYears.length - 1];
+const latestPartial = partialYears[partialYears.length - 1];
+
+const decadeGrowthPct = ((plateauStart.manwon - firstYear.manwon) / firstYear.manwon * 100).toFixed(1);
+const plateauGrowthPct = ((lastFull.manwon - plateauStart.manwon) / plateauStart.manwon * 100).toFixed(1);
+const plateauYears = lastFull.year - plateauStart.year;
+
+const TITLE = `Korea's real wage grew ${decadeGrowthPct}% in a decade, then ${plateauGrowthPct}% in the ${plateauYears} years since`;
+const DESC = `Korea's inflation-adjusted average monthly wage rose from ₩${firstYear.manwon}0,000 in `
+  + `${firstYear.year} to ₩${plateauStart.manwon}0,000 in ${plateauStart.year} (+${decadeGrowthPct}%), `
+  + `then moved only ${plateauGrowthPct}% over the following ${plateauYears} years to ₩${lastFull.manwon}0,000 `
+  + `in ${lastFull.year}. KOSIS wage and CPI data, no cause assigned.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea real (inflation-adjusted) average monthly wage, 2011-2026',
+  description: DESC,
+  url: `${SITE_URL}/data/real-wage-plateau`,
+  keywords: ['Korea real wage', 'Korea wage growth', 'KOSIS wage statistics', 'inflation-adjusted wage Korea',
+    'Ministry of Employment and Labor', 'wage stagnation Korea'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: 'https://kosis.kr',
+  isAccessibleForFree: true,
+  temporalCoverage: `${firstYear.year}/${latestPartial.year}`,
+  variableMeasured: ['Nominal average monthly wage', 'Consumer price index', 'Real average monthly wage'],
+};
+
+const faq: Array<[string, string]> = [
+  ['How is "real wage" calculated here?',
+    'Nominal average monthly wage (all industries, establishments with 1+ regular employees, KOSIS/Ministry of '
+    + 'Employment and Labor) divided by the consumer price index (2020=100, Statistics Korea), both sourced '
+    + 'directly from KOSIS rather than taking either ministry’s pre-calculated real-wage release.'],
+  [`Why does the plateau start in ${plateauStart.year}?`,
+    `${plateauStart.year} is the first year after the pre-${plateauStart.year} run of annual increases that real `
+    + `wage growth essentially stopped — ₩${plateauStart.manwon}0,000 in ${plateauStart.year} vs `
+    + `₩${lastFull.manwon}0,000 in ${lastFull.year}. This page does not identify a single cause.`],
+  [`Why is ${latestPartial.year} shown separately from the annual bars?`,
+    `${latestPartial.year} has only ${latestPartial.months} months of data on record — blending a partial year `
+    + 'into a full-year annual average would misstate the comparison, so it is shown as its own row.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>A decade of real-wage growth, then a plateau</h1>
+    <p class="lead">
+      Korea's inflation-adjusted average monthly wage rose <b>{decadeGrowthPct}%</b> from{' '}
+      <b>₩{firstYear.manwon}0,000</b> in {firstYear.year} to <b>₩{plateauStart.manwon}0,000</b> in{' '}
+      {plateauStart.year}. Over the {plateauYears} years since, it has moved just <b>{plateauGrowthPct}%</b>,
+      reaching <b>₩{lastFull.manwon}0,000</b> in {lastFull.year}.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false}
+      아직="Annual series to date shown below. A by-industry or by-firm-size breakdown is not built yet." />
+
+    <section class="stats">
+      <div class="stat"><b>₩{lastFull.manwon}0,000</b><span>real wage, {lastFull.year}</span></div>
+      <div class="stat"><b>{decadeGrowthPct}%</b><span>growth, {firstYear.year}–{plateauStart.year}</span></div>
+      <div class="stat"><b>{plateauGrowthPct}%</b><span>growth, {plateauStart.year}–{lastFull.year}</span></div>
+      <div class="stat"><b>₩{latestPartial.manwon}0,000</b><span>{latestPartial.year} so far ({latestPartial.months}mo)</span></div>
+    </section>
+
+    <section>
+      <h2>Read this before the table: it flattened, it did not fall</h2>
+      <p class="warn">
+        Real wage did not decline after {plateauStart.year} — it essentially stopped rising. The
+        {' '}{decadeGrowthPct}% gained over the prior decade compares to {plateauGrowthPct}% over the
+        {' '}{plateauYears} years since. This page does not say why — a one-time inflation surge, the pace of
+        minimum-wage increases, and productivity growth are all candidates, and none is measured here.
+      </p>
+    </section>
+
+    <section>
+      <h2>Real average monthly wage, {firstYear.year}–{lastFull.year} (₩10,000 units)</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Year</th><th class="n">Real wage (₩10,000)</th><th class="n">YoY</th></tr>
+          </thead>
+          <tbody>
+            {fullYears.map((r, i) => {
+              const prev = fullYears[i - 1];
+              const yoy = prev ? (((r.manwon - prev.manwon) / prev.manwon) * 100).toFixed(1) + '%' : '—';
+              return (
+                <tr>
+                  <td>{r.year}</td>
+                  <td class="n">{r.manwon}</td>
+                  <td class="n">{yoy}</td>
+                </tr>
+              );
+            })}
+            <tr class="partial">
+              <td>{latestPartial.year} ({latestPartial.months}mo, partial)</td>
+              <td class="n">{latestPartial.manwon}</td>
+              <td class="n">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Nominal wage ÷ (CPI ÷ 100), both KOSIS. The {latestPartial.year} row is not annualized.</p>
+    </section>
+
+    <section>
+      <h2>What this page does not say</h2>
+      <ul>
+        <li>No cause for the post-{plateauStart.year} plateau — only the measured real-wage levels.</li>
+        <li>No by-industry, by-firm-size, or by-worker-type (regular vs. non-regular) breakdown yet.</li>
+        <li>This is an all-industry average — it does not describe any individual worker's pay trajectory.</li>
+        <li>{latestPartial.year} is partial-year data and is not comparable to the full-year rows above it.</li>
+      </ul>
+      <p class="note"><b>This is not investment or employment advice.</b></p>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        KOSIS — nominal wage from 고용노동부 사업체노동력조사 (Ministry of Employment and Labor, Survey of
+        Labor Conditions by Employment Type; tables DT_118N_MON041/051/054 across industry-classification
+        revisions), deflated by 소비자물가지수 (DT_1J22003, 2020=100). Annual, {firstYear.year}–{lastFull.year},
+        plus {latestPartial.months} months of {latestPartial.year}.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        <a href="/data/mortgage-balance-gender-gap">Korea's mortgage-balance gender gap</a>,{' '}
+        <a href="/data/trade-by-product">Korea's trade by product</a>.{' '}
+        <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+  <BuyBar 자리="bottom" 살수있나={false}
+    아직="Annual series to date shown below. A by-industry or by-firm-size breakdown is not built yet." />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n { text-align: right; white-space: nowrap; }
+  tr.partial td { font-style: italic; color: var(--muted, #666); }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+  }
+</style>

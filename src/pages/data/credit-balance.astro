@@ -1,0 +1,217 @@
+---
+/*
+ * `/data/credit-balance` — Korea's margin-loan balance (신용융자) and its KOSPI/KOSDAQ split, 2025-2026.
+ * (seoulmarkets.com/data/credit-balance)
+ *
+ * ── Why this page (2026-10-04 · 1번) ──────────────────────────────────
+ *   data.go.kr 15094809 (금융투자협회 신용공여잔고추이) collected into
+ *   src/data/korea-credit-balance.json by scripts/collect-credit-balance.mjs
+ *   (originally built 2026-09-04 after a margin-call/"빚투" news cycle, re-run today).
+ *   The total more than doubled from ₩1.68 quadrillion (Jan 2025) to a peak of
+ *   ₩3.86 quadrillion (24 Jun 2026) — but KOSDAQ's share of that debt fell from
+ *   42% to 22% over the same stretch. Leverage did not just grow; it rotated toward
+ *   large caps. A sharp one-month drop (Jun→Jul 2026, ₩8.4tn) sits in the same window.
+ *
+ * ⛔ No claim about why investors rotated (index inclusion, momentum, risk appetite
+ *   are all plausible and none is measured here).
+ * ⛔ English only, no investment advice — 신용융자 is leveraged debt, not a signal to copy.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import data from '../../data/korea-credit-balance.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const months = data.monthEnd as Array<{
+  month: string; asOf: string; totalKrw: number; kospiKrw: number; kosdaqKrw: number; kosdaqSharePct: number;
+}>;
+const recent = months.filter((m) => m.month >= '2025-01');
+const first = recent[0];
+const last = recent[recent.length - 1];
+const peak = data.peak as { asOf: string; totalKrw: number; kosdaqSharePct: number };
+
+const jo = (v: number) => (v / 1e12).toFixed(2);
+const dateLabel = (asOf: string) => `${asOf.slice(0, 4)}-${asOf.slice(4, 6)}-${asOf.slice(6, 8)}`;
+
+const growthPct = ((last.totalKrw - first.totalKrw) / first.totalKrw * 100).toFixed(0);
+const shareDrop = (first.kosdaqSharePct - last.kosdaqSharePct).toFixed(1);
+
+// one-month drop, scanning consecutive month-end pairs for the largest fall
+let biggestDrop = { from: recent[0], to: recent[0], amt: 0 };
+for (let i = 1; i < recent.length; i++) {
+  const amt = recent[i - 1].totalKrw - recent[i].totalKrw;
+  if (amt > biggestDrop.amt) biggestDrop = { from: recent[i - 1], to: recent[i], amt };
+}
+
+const TITLE = `Korea's margin-loan balance doubled since 2025 — but ${shareDrop}pp of it left KOSDAQ for KOSPI`;
+const DESC = `Korea's stock margin-loan balance (신용융자) rose from ₩${jo(first.totalKrw)} trillion in `
+  + `${first.month} to ₩${jo(last.totalKrw)} trillion in ${last.month}, peaking at ₩${jo(peak.totalKrw)} `
+  + `trillion on ${dateLabel(peak.asOf)}. KOSDAQ's share of that debt fell from ${first.kosdaqSharePct}% to `
+  + `${last.kosdaqSharePct}% over the same period. Financial Investment Association data, no cause assigned.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea stock margin-loan balance, KOSPI vs KOSDAQ split',
+  description: DESC,
+  url: `${SITE_URL}/data/credit-balance`,
+  keywords: ['Korea margin debt', 'credit balance Korea', 'KOSDAQ margin loans', 'KOSPI margin loans',
+    'Korea Financial Investment Association', 'leverage Korea stock market'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: 'https://data.go.kr',
+  isAccessibleForFree: true,
+  temporalCoverage: `${first.month}/${last.month}`,
+  variableMeasured: ['Total margin-loan balance', 'KOSPI-listed margin balance', 'KOSDAQ-listed margin balance',
+    'KOSDAQ share of margin balance'],
+};
+
+const faq: Array<[string, string]> = [
+  ['What is 신용융자 (margin-loan balance)?',
+    'The outstanding balance of loans Korean brokerages extend to investors to buy stock on margin. It excludes '
+    + '신용대주 (stock lent for short sales) and 예탁증권담보융자 (loans collateralized by securities already held).'],
+  ['Why did KOSDAQ’s share fall while the total grew?',
+    'This data does not say why. It shows that new margin debt added since January 2025 went disproportionately '
+    + 'into KOSPI-listed names rather than KOSDAQ — the opposite of the more KOSDAQ-heavy mix seen in 2025.'],
+  ['What happened in the single biggest monthly drop?',
+    `Between ${biggestDrop.from.month} and ${biggestDrop.to.month} the total balance fell by `
+    + `₩${jo(biggestDrop.amt)} trillion — this page records the size of that drop, not its cause `
+    + '(forced liquidation, voluntary deleveraging and price declines can all shrink a margin balance).'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>Korea's margin debt doubled — and rotated out of KOSDAQ</h1>
+    <p class="lead">
+      Korea's stock margin-loan balance rose from <b>₩{jo(first.totalKrw)}tn</b> in {first.month} to{' '}
+      <b>₩{jo(last.totalKrw)}tn</b> in {last.month} — a <b>{growthPct}%</b> increase — peaking at{' '}
+      <b>₩{jo(peak.totalKrw)}tn</b> on {dateLabel(peak.asOf)}. Over the same stretch, KOSDAQ's share of that
+      debt fell from <b>{first.kosdaqSharePct}%</b> to <b>{last.kosdaqSharePct}%</b>.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false}
+      아직="Monthly series to date shown below. A by-sector or by-name breakdown is not built yet." />
+
+    <section class="stats">
+      <div class="stat"><b>₩{jo(last.totalKrw)}tn</b><span>total, {last.month}</span></div>
+      <div class="stat"><b>₩{jo(peak.totalKrw)}tn</b><span>peak, {dateLabel(peak.asOf)}</span></div>
+      <div class="stat"><b>{last.kosdaqSharePct}%</b><span>KOSDAQ share, {last.month}</span></div>
+      <div class="stat"><b>{shareDrop}pp</b><span>KOSDAQ share drop since {first.month}</span></div>
+    </section>
+
+    <section>
+      <h2>Read this before the table: more debt, and a different mix</h2>
+      <p class="warn">
+        In {first.month}, KOSDAQ names carried {first.kosdaqSharePct}% of all margin debt — by {last.month} that
+        had fallen to {last.kosdaqSharePct}%, even as the total balance grew {growthPct}%. New leverage went
+        mostly into KOSPI-listed stock. This page does not say why — index-inclusion flows, large-cap momentum
+        and shifting risk appetite are all candidates, and none is measured here.
+      </p>
+    </section>
+
+    <section>
+      <h2>Margin-loan balance by month, KOSPI vs KOSDAQ — Jan 2025 to {last.month}</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Month</th><th class="n">Total (₩tn)</th><th class="n">KOSPI (₩tn)</th>
+              <th class="n">KOSDAQ (₩tn)</th><th class="n">KOSDAQ share</th></tr>
+          </thead>
+          <tbody>
+            {recent.map((m) => (
+              <tr>
+                <td>{m.month}</td>
+                <td class="n">{jo(m.totalKrw)}</td>
+                <td class="n">{jo(m.kospiKrw)}</td>
+                <td class="n">{jo(m.kosdaqKrw)}</td>
+                <td class="n">{m.kosdaqSharePct}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Each row is the last trading day on record for that month (month-end snapshot).</p>
+    </section>
+
+    <section>
+      <h2>The biggest one-month fall in this window</h2>
+      <p>
+        Between <b>{biggestDrop.from.month}</b> (₩{jo(biggestDrop.from.totalKrw)}tn) and{' '}
+        <b>{biggestDrop.to.month}</b> (₩{jo(biggestDrop.to.totalKrw)}tn), the total margin balance fell by{' '}
+        <b>₩{jo(biggestDrop.amt)}tn</b> in a single month — the sharpest drop in the series shown here.
+        Whether this reflects forced liquidation, voluntary deleveraging, or price declines shrinking the
+        collateral value is not something this balance series can distinguish on its own.
+      </p>
+    </section>
+
+    <section>
+      <h2>What this page does not say</h2>
+      <ul>
+        <li>No cause for the KOSDAQ-to-KOSPI rotation or for the July 2026 drop — only the measured balances.</li>
+        <li>신용대주 (short-sale lending) and 예탁증권담보융자 (securities-collateral loans) are excluded.</li>
+        <li>No by-sector or by-individual-stock breakdown yet.</li>
+        <li>This is leveraged debt outstanding, not trading volume or net buying.</li>
+      </ul>
+      <p class="note">
+        <b>This is not investment advice.</b> A rising margin balance measures leverage in the system — it is
+        not a signal to add or remove leverage from any individual position.
+      </p>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        Korea Financial Investment Association, via data.go.kr{' '}
+        <a href="https://www.data.go.kr/data/15094809/openapi.do">15094809</a> (신용공여잔고추이, credit balance
+        for securities trading). Daily series aggregated to month-end, {first.month}–{last.month}.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        <a href="/data/kospi-weights">KOSPI index weights</a>,{' '}
+        <a href="/data/mortgage-balance-gender-gap">Korea's mortgage-balance gender gap</a>.{' '}
+        <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+  <BuyBar 자리="bottom" 살수있나={false}
+    아직="Monthly series to date shown below. A by-sector or by-name breakdown is not built yet." />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n { text-align: right; white-space: nowrap; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+  }
+</style>

@@ -31,6 +31,9 @@ on https://seoulmarkets.com/data — card or PayPal, no account needed.
 - [Who are South Korea’s largest trading partners](https://seoulmarkets.com/data/trading-partners): exports, imports and balance by partner country — the countries Korea sells to and buys from are not the same list.
 - [Korea bond boards](https://seoulmarkets.com/data/bond-boards): Korea lists bonds on three boards and almost everyone quotes only one of them — this counts all three.
 - [Korea fund shelf](https://seoulmarkets.com/data/fund-shelf): the Korean fund master — what is actually on the shelf, by type and launch year.
+- [Korea's margin debt doubled — and rotated out of KOSDAQ](https://seoulmarkets.com/data/credit-balance): stock margin-loan balance rose from 16.8 trillion won in January 2025 to 33.4 trillion in September 2026, peaking at 38.6 trillion in June — while KOSDAQ's share of that debt fell from 42% to 22%. Financial Investment Association data, no cause assigned.
+- [One line of Korea's CPI basket moved 8.6x the headline rate](https://seoulmarkets.com/data/telecom-cpi-base-effect): headline CPI rose 3.09% year-on-year in August 2026; the mobile-phone-fee sub-index alone rose 26.74%. Verified directly from KOSIS, not taken from the finance ministry's own ex-effect estimate.
+- [Korea's real wage grew 24.1% in a decade, then 0.2% since](https://seoulmarkets.com/data/real-wage-plateau): inflation-adjusted average monthly wage rose from 2.90 million won in 2011 to 3.60 million in 2021, then moved just 0.2% over the following four years. KOSIS wage and CPI data, no cause assigned.
 - [Open API](https://seoulmarkets.com/api): the same data over HTTP. Free tier to try it.
 
 ### Workforce and pay (a service tier we give away, not our main product)
