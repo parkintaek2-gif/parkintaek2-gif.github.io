@@ -4,3 +4,4 @@
 2026-10-05	2026-10-12	그룹 263장 제목 효과	서치콘솔 query+page 에서 members age 계열 말의 노출·클릭이 늘었나	제목의 콜론을 빼 members ages 를 연속으로 만들었다. 고쳤다는 것과 효과가 났다는 것은 다르다		
 2026-10-05	2027-01-02	신년운세 지면 해 바꾸기	klifemap 에서 node tools/신년운세지면-짓는다.mjs --해 2028 뒤 커밋·배포	해가 바뀌면 지난해 지면이 남는다		
 2026-10-05	2026-10-06	색인 요청 남은 여섯	node scripts/구글-색인요청.mjs 로 sinnyeon-unse·cheongan-jiji·samjae·sinsal·sonnal·japsinsal — 낮에 넣는다	10-05 04:28 에 yuksipgapja 하나만 들어가고 나머지는 할당량 초과		
+2026-10-05	2027-01-02	만 나이 지면 해 바꾸기	klifemap 에서 node tools/만나이지면-짓는다.mjs --해 2027 뒤 커밋·배포	해가 바뀌면 표의 나이가 한 살씩 틀린다		
