@@ -390,6 +390,36 @@ export function 이름표만들기(사람들 = []) {
  * 이름 하나를 링크로 감싼다. 없으면 글자 그대로 — ⛔ 지어내지 않는다.
  * ⭐ q 를 먼저 본다(정확하다). 없을 때만 이름 글자로 뒷길을 간다.
  */
+/**
+ * 🔴🔴 [2026-10-04 · 5번] **이 366장이 작품 지면으로 가는 문을 하나도 안 내고 있었다.**
+ *
+ * 사장님: 「검색 관련 색인, seo 업무, AI geo … 유입에 가장 치중해라」
+ *
+ * 재 보니 —
+ * ```
+ *   /born-on   366장 중 142장이 구글에 떴다 · 가운데 자리  9위
+ *   /title     546장 중  28장만 떴다        · 가운데 자리  3위   ← 뜨기만 하면 이긴다
+ * ```
+ * ⛔ 뜬 지면에서 안 뜬 지면으로 **링크가 없으면 구글은 가지 않는다.** 사이트맵은
+ *   「있다」는 말이지 「가 보라」는 말이 아니다.
+ * ⭐ 이 칸이 가장 정직한 문이다 — 그 사람이 실제로 그 작품에 나왔기 때문에 여기 적힌다.
+ *
+ * ⛔ 「대표작」이라고 쓰지 않는다. 우리가 고른 것은 **차트에 오래 머문 차례**일 뿐이다.
+ * ⛔ 작품이 없으면 「—」. 0 으로 채우지 않는다.
+ */
+export function 작품칸(사람, 몇 = 2) {
+  const 것들 = Array.isArray(사람?.titles) ? 사람.titles : [];
+  const 쓸것 = 것들
+    .filter((t) => t && t.slug && t.title)
+    .slice()
+    .sort((a, b) => (Number(b.weeks) || 0) - (Number(a.weeks) || 0))
+    .slice(0, 몇);
+  if (!쓸것.length) return '—';
+  const 글 = 쓸것.map((t) => `<a href="/title/${t.slug}">${t.title}</a>`).join(', ');
+  const 남은 = 것들.length - 쓸것.length;
+  return 남은 > 0 ? `${글} +${남은}` : 글;
+}
+
 export function 이름칸(보일, 표, q = null, q표 = null) {
   const qslug = q && q표 ? q표.get(String(q)) : null;
   const slug = qslug
@@ -548,7 +578,9 @@ export function 지면짓기(mmdd, 사람들, 이름표 = null, 자리 = null, �
   const 줄 = 실을것.map((p) => {
     const 해 = p.born.slice(0, 4);
     const 해칸 = 해지면있나.has(해) ? `<a href="/born-year/${해}">${해}</a>` : 해;
-    return `<tr><td>${이름칸(p.보일, 이름표, p.q, q표)}</td><td class="fine">${해칸}</td><td class="fine">${!Number.isFinite(p.reads) ? '—' : p.reads.toLocaleString('en-US')}</td></tr>`;
+    return `<tr><td>${이름칸(p.보일, 이름표, p.q, q표)}</td><td class="fine">${해칸}</td>`
+      + `<td class="fine">${작품칸(p)}</td>`
+      + `<td class="fine">${!Number.isFinite(p.reads) ? '—' : p.reads.toLocaleString('en-US')}</td></tr>`;
   }).join('\n');
   /* 🔴🔴 [2026-08-27 15:3x · 5번] **아래 지면 글자 안에 우리말 주석을 넣지 않는다.**
      오늘 05:3x 에 누군가(나다) 「왜 설명을 줄였는지」를 `<!-- … -->` 로 적어 넣었다.
@@ -632,9 +664,9 @@ ${그날만의칸(그날만의수(사람들, (q) => 갈래보기.get(q)), 날)}
   </div>
 
   <table>
-    <thead><tr><th>Name</th><th>Born</th><th>Readers, 30 days</th></tr></thead>
+    <thead><tr><th>Name</th><th>Born</th><th>On Netflix top-10 charts</th><th>Readers, 30 days</th></tr></thead>
     <tbody>
-${줄 || '<tr><td colspan="3" class="fine">Nobody in our roster was born on this day.</td></tr>'}
+${줄 || '<tr><td colspan="4" class="fine">Nobody in our roster was born on this day.</td></tr>'}
     </tbody>
   </table>
 
@@ -803,6 +835,20 @@ if (process.argv.includes('--자가시험')) {
   검('⛔ 없는 이름은 글자 그대로다', 이름칸('Nobody Here', 이름표시험) === 'Nobody Here');
   검('⛔ 겹친 이름은 글자 그대로다', 이름칸('Kim Min-ju', 이름표시험) === 'Kim Min-ju');
   검('표가 아예 없어도 안 죽는다', 이름칸('IU', null) === 'IU');
+
+  /* 🔴 [2026-10-04 · 5번] 작품 칸 — /title 546장으로 가는 문. 시험이 없으면 다음 사람이 뺀다 */
+  const 작품시험 = { titles: [
+    { title: 'A', slug: 'a', weeks: 3 }, { title: 'B', slug: 'b', weeks: 9 },
+    { title: 'C', slug: 'c', weeks: 1 },
+  ] };
+  검('🔴 작품이 문이 된다', 작품칸(작품시험).includes('<a href="/title/b">B</a>'));
+  검('🔴 오래 머문 차례로 둘만 싣는다',
+    작품칸(작품시험).startsWith('<a href="/title/b">B</a>, <a href="/title/a">A</a>'));
+  검('남은 수를 적는다', 작품칸(작품시험).endsWith('+1'));
+  검('⛔ 작품이 없으면 「—」 — 0 으로 안 채운다',
+    작품칸({ titles: [] }) === '—' && 작품칸({}) === '—' && 작품칸(null) === '—');
+  검('⛔ slug 없는 줄은 안 건다 — 죽은 링크가 된다',
+    작품칸({ titles: [{ title: 'X', weeks: 9 }] }) === '—');
   검('이름에 든 꺾쇠를 막는다', 이름칸('<b>x', null) === '&lt;b&gt;x');
   /* 🔴 [2026-10-04] 이름 글자로만 맞추다 보니 생일 지면 «15명 중 한 명»만 문이 열려 있었다.
      로마자 표기가 흔들려도(Lee You-mi ↔ Lee Yoo-mi) q 로는 정확히 맞는다. */
@@ -932,6 +978,21 @@ if (fs.existsSync(사람지면길)) {
   const j = JSON.parse(fs.readFileSync(사람지면길, 'utf8'));
   const r = 이름표만들기(j.people ?? []);
   이름표 = r.표; q표 = r.q표; 겹친수 = r.겹친수;
+  /* 🔴🔴 [2026-10-04 · 5번] **작품 칸이 빈 채로 나갔다 — 자가시험 99가지는 다 통과했는데.**
+     까닭: 이 자의 `사람들` 은 collect-star-daypillar 가 낸 명단이고 거기엔 titles 가 없다.
+     titles 는 wikitip-people.json 에만 있다. 둘을 q(위키데이터 번호)로 이어 붙인다.
+     ⚠ 「검사가 통과해도 한 번은 실물을 본다」 — 지어 놓고 눈으로 봐서 잡았다.
+     ⛔ 이름으로 잇지 않는다. 같은 이름이 둘 있을 수 있다 — q 는 하나뿐이다. */
+  const 작품표 = new Map();
+  for (const p of (j.people ?? [])) if (p?.q && Array.isArray(p.titles)) 작품표.set(p.q, p.titles);
+  let 작품붙은수 = 0;
+  for (const [, 줄들] of 날) {
+    for (const 줄 of 줄들) {
+      const t = 작품표.get(줄.q);
+      if (t && t.length) { 줄.titles = t; 작품붙은수 += 1; }
+    }
+  }
+  console.log(`   ⭐ 작품 칸을 붙인 사람 ${작품붙은수}명 — /title 546장으로 가는 문이다`);
   /* 🔴 [2026-10-04] q 로 맞추는 길이 생겼다 — 둘을 따로 적는다. 몇으로 맞췄는지 보이게 */
   console.log(`사람 지면 ${(j.people ?? []).length}장 → q ${q표.size}개 · 이름 ${이름표.size}개에 문을 단다` +
     (겹친수 ? ` (이름이 겹쳐 «안 거는» 것 ${겹친수}개 — 틀린 사람에게 보내지 않는다)` : ''));
