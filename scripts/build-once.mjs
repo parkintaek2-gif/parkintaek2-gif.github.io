@@ -102,7 +102,17 @@ writeFileSync(자물쇠, JSON.stringify({ 자리, pid: process.pid, 언제: new 
  * ⛔ 실패해도 배포를 막지 않는다(별도 프로세스·종료코드 무시) — 여섯 자리가 한 트리를 쓴다.
  *   자료가 안 갱신되면 옛 파일이 그대로 실린다. 그편이 배포가 멈추는 것보다 낫다.
  */
-for (const [이름, 자] of [['한국 중대공시', 'scripts/build-korea-disclosures-feed.mjs']]) {
+/* 🔴🔴 [2026-10-05 05:4x · 5번] **`build-100y-lastmod.mjs` 를 여기 붙인다.**
+   라이브 사이트맵을 재 보니 100yearmap 지면 68장에 `<lastmod>` 가 없었다.
+   까닭은 그 자가 **2026-08-31 뒤로 한 번도 안 돌았기 때문**이다 — 그 뒤에 낸
+   지면들이 대장에 없으니 사이트맵이 날을 못 찾는다(모르면 빈칸으로 두는 자다).
+   한 번 돌리니 99줄이 들어왔다.
+   ⛔ 「만들어 놓고 안 쓰면 안 만든 것과 같다.」 사람이 기억해서 돌리는 구조로
+     두지 않는다 — 빌드가 저절로 부르게 한다. */
+for (const [이름, 자] of [
+  ['한국 중대공시', 'scripts/build-korea-disclosures-feed.mjs'],
+  ['백년지도 lastmod 대장', 'scripts/build-100y-lastmod.mjs'],
+]) {
   try {
     const r = spawnSync(process.execPath, [자], { cwd: 뿌리, stdio: 'inherit', timeout: 120000 });
     if (r.status !== 0) console.log(`⚠ ${이름} 자료 갱신 실패 — 옛 파일로 빌드한다`);

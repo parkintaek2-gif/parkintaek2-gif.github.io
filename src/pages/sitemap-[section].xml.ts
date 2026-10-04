@@ -27,6 +27,45 @@ type Video = { title: string; description: string; thumbnail: string; content: s
 type Image = { loc: string; title: string };
 type Url = { loc: string; lastmod?: Date; priority: string; changefreq: string; video?: Video; image?: Image };
 
+/**
+ * 🔴🔴 [2026-10-05 05:4x · 5번] **회사 지면 2,582장에 `<lastmod>` 가 하나도 없었다.**
+ *   라이브를 그대로 재서 찾았다 —
+ *     sitemap-companies.xml  url 2,582 · lastmod 0
+ *     sitemap-equities.xml   url    99 · lastmod 99
+ *     sitemap-macro.xml      url    47 · lastmod 47
+ *   회사 지면은 SeoulMarkets 에서 가장 큰 덩어리인데 「언제 바뀌었나」를
+ *   구글에게 한 번도 안 알리고 있었다. 다시 올 때를 정할 근거가 없다.
+ *
+ * ⛔ 그렇다고 「오늘」을 찍으면 안 된다 — 2026-09-23 에 케이라이프맵에서
+ *   날마다 오늘을 찍었다가 구글이 우리 lastmod 를 통째로 무시하게 만들 뻔했다.
+ *   `check-sitemap-lastmod-honest.mjs` 가 그때 생겼다.
+ *
+ * ⭐ 정직한 날짜가 자료 안에 있다 — `_meta.years[].pulled_on` 은 그 회계연도를
+ *   DART 에서 **실제로 받아온 날**이다(예: 2025년치는 20260916). 회사마다 들고 있는
+ *   «가장 최근 연도»의 그 날짜를 쓴다. 지어내지 않고 자료가 말하는 날을 쓴다.
+ * ⛔ 모르면 안 붙인다. `undefined` 를 내면 위의 템플릿이 lastmod 줄을 아예 뺀다.
+ */
+export function 받아온날표(meta: any): Map<number, Date> {
+  const 표 = new Map<number, Date>();
+  for (const y of (meta?.years ?? [])) {
+    const 해 = Number(y?.year);
+    const s = String(y?.pulled_on ?? '');
+    const m = s.match(/^(\d{4})(\d{2})(\d{2})$/);
+    if (!Number.isFinite(해) || !m) continue;   /* ⛔ 꼴이 아니면 버린다 */
+    const d = new Date(`${m[1]}-${m[2]}-${m[3]}T00:00:00Z`);
+    if (Number.isFinite(d.getTime())) 표.set(해, d);
+  }
+  return 표;
+}
+
+/** 그 회사가 들고 있는 «가장 최근 연도»의 받아온 날. ⛔ 모르면 null */
+export function 받아온날(줄들: any[] | undefined, 표: Map<number, Date>): Date | null {
+  if (!줄들?.length || !표.size) return null;
+  const 해들 = 줄들.map((r) => Number(r?.year)).filter((y) => Number.isFinite(y) && 표.has(y));
+  if (!해들.length) return null;
+  return 표.get(Math.max(...해들)) ?? null;
+}
+
 // XML 이스케이프 — 제목·설명에 &, <, > 가 들어오면 사이트맵이 깨진다.
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -82,15 +121,26 @@ export const GET: APIRoute = async ({ params }) => {
     const 회사머리 = [...묶음.entries()].map(([code, rs]) => ({ code, ...rs[0] }));
     const 주소표 = 주소표만들기(회사머리);
     const 업종들 = new Set<string>();
-    const 것: Url[] = [{ loc: '/companies', changefreq: 'weekly', priority: '0.9' }];
+    /* 🔴 [2026-10-05] 받아온 날을 lastmod 로 붙인다 — 「오늘」이 아니라 자료가 말하는 날 */
+    const 날표 = 받아온날표((fin as any)._meta);
+    const 모든날 = [...날표.values()];
+    const 가장최근 = 모든날.length ? new Date(Math.max(...모든날.map((d) => d.getTime()))) : undefined;
+    const 것: Url[] = [{ loc: '/companies', lastmod: 가장최근, changefreq: 'weekly', priority: '0.9' }];
     for (const h of 회사머리) {
-      if (!낼만한가(묶음.get(h.code))) continue;
-      것.push({ loc: '/company/' + 주소표.get(h.code), changefreq: 'monthly', priority: '0.6' });
+      const 그회사 = 묶음.get(h.code);
+      if (!낼만한가(그회사)) continue;
+      것.push({
+        loc: '/company/' + 주소표.get(h.code),
+        lastmod: 받아온날(그회사, 날표) ?? undefined,   /* ⛔ 모르면 안 붙는다 */
+        changefreq: 'monthly',
+        priority: '0.6',
+      });
       const s2 = 업종주소(h.sector);
       if (s2) 업종들.add(s2);
     }
     for (const s2 of [...업종들].sort()) {
-      것.push({ loc: '/sector/' + s2, changefreq: 'weekly', priority: '0.7' });
+      /* 업종 지면은 그 업종 회사들을 모은 것이라 가장 최근 받아온 날을 쓴다 */
+      것.push({ loc: '/sector/' + s2, lastmod: 가장최근, changefreq: 'weekly', priority: '0.7' });
     }
     urls = 것;
   } else if (section === 'japan') {
