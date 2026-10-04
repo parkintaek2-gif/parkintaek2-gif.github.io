@@ -1,0 +1,213 @@
+---
+/*
+ * `/data/mortgage-balance-gender-gap` — Korea's mortgage balance per borrower, men vs women, since 2013.
+ * (seoulmarkets.com/data/mortgage-balance-gender-gap)
+ *
+ * ── Why this page (2026-10-04 · 2번) ──────────────────────────────────
+ *   Bank of Korea ECOS 181Y012 (차주별 주택담보대출 잔액) was collected into
+ *   src/data/korea-household-debt.json by scripts/collect-korea-household-debt-ecos.mjs
+ *   (5번, 2026-09-22) but never built into a page. The series runs 2013Q1-2026Q2, long
+ *   enough to show a trend, not just a snapshot: the men/women mortgage-balance gap was
+ *   1.3% in 2013Q1 and is 13.9% in 2026Q2 — it widened, it did not start wide.
+ *
+ * ⛔ No cause claimed for the gap or its widening (income, co-borrowing, property
+ *   ownership patterns are all plausible and none is measured here).
+ * ⛔ English only, no investment/credit advice.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/korea-household-debt.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const t = tape as any;
+const series = t.계열.find((c: any) => c.key === 'mortgage_per_borrower');
+
+type Series = { code: string; name: string; points: { t: string; v: number | null }[] };
+const byName = (n: string) => (series.series as Series[]).find((s) => s.name === n)!;
+
+const all = byName('All borrowers');
+const men = byName('Men');
+const women = byName('Women');
+
+const first = men.points[0].t;
+const last = men.points[men.points.length - 1].t;
+const mFirst = men.points[0].v!, wFirst = women.points[0].v!;
+const mLast = men.points[men.points.length - 1].v!, wLast = women.points[women.points.length - 1].v!;
+
+const gapPct = (m: number, w: number) => ((m - w) / w) * 100;
+const gapFirst = gapPct(mFirst, wFirst);
+const gapLast = gapPct(mLast, wLast);
+
+const krwM = (v: number) => `₩${(v * 100_000 / 1_000_000).toFixed(0)}m`; // v is in 100k KRW units
+
+const qLabel = (t: string) => `${t.slice(0, 4)}-${t.slice(4)}`;
+
+const every4th = (s: Series) => s.points.filter((_, i) => i % 4 === 0 || i === s.points.length - 1);
+
+const TITLE = `Korea's mortgage-balance gender gap widened from ${gapFirst.toFixed(1)}% to ${gapLast.toFixed(1)}% since 2013`;
+const DESC = `Men's average mortgage balance per borrower was ${gapFirst.toFixed(1)}% above women's in ${qLabel(first)} `
+  + `— by ${qLabel(last)} that gap had grown to ${gapLast.toFixed(1)}% (${krwM(mLast)} vs ${krwM(wLast)}). `
+  + `Bank of Korea data, 2013-2026, no cause assigned.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea mortgage balance per borrower, by gender',
+  description: DESC,
+  url: `${SITE_URL}/data/mortgage-balance-gender-gap`,
+  keywords: ['Korea mortgage gender gap', 'mortgage balance Korea', 'household debt Korea',
+    'Bank of Korea', 'ECOS', 'gender wealth gap Korea'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: 'https://ecos.bok.or.kr',
+  isAccessibleForFree: true,
+  temporalCoverage: `${qLabel(first)}/${qLabel(last)}`,
+  variableMeasured: ['Mortgage balance per borrower, all', 'Mortgage balance per borrower, men',
+    'Mortgage balance per borrower, women'],
+};
+
+const faq: Array<[string, string]> = [
+  ['Why do men carry a higher average mortgage balance than women?',
+    'This data does not say why. Plausible contributing factors include income differences, who is listed '
+    + 'as the primary borrower on jointly-held property, and differences in home-ownership timing or age — '
+    + 'none of these is measured in this series, so no cause is assigned here.'],
+  ['Is this balance per mortgage, or per person?',
+    'Per borrower — the Bank of Korea counts each individual who holds mortgage debt, not each property or '
+    + 'each household. A married couple who co-borrow may each be counted separately.'],
+  ['Has the gap grown every year, or did it jump at one point?',
+    `The series has ${men.points.length} quarters; the table below shows every fourth one so the shape of the `
+    + 'widening is visible rather than just the two endpoints.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>Korea's mortgage-balance gender gap — widening, not constant</h1>
+    <p class="lead">
+      In <b>{qLabel(first)}</b>, the average Korean man with a mortgage owed <b>{gapFirst.toFixed(1)}%</b> more
+      than the average woman with one. By <b>{qLabel(last)}</b>, that gap had grown to{' '}
+      <b>{gapLast.toFixed(1)}%</b> — {krwM(mLast)} for men against {krwM(wLast)} for women, per borrower.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false}
+      아직="Time series to date shown below. A breakdown by age or region is not built yet." />
+
+    <section class="stats">
+      <div class="stat"><b>{gapFirst.toFixed(1)}%</b><span>gap in {qLabel(first)}</span></div>
+      <div class="stat"><b>{gapLast.toFixed(1)}%</b><span>gap in {qLabel(last)}</span></div>
+      <div class="stat"><b>{krwM(mLast)}</b><span>men, per borrower, {qLabel(last)}</span></div>
+      <div class="stat"><b>{krwM(wLast)}</b><span>women, per borrower, {qLabel(last)}</span></div>
+    </section>
+
+    <section>
+      <h2>Read this before the table: it widened, it did not start wide</h2>
+      <p class="warn">
+        In {qLabel(first)} the two balances were close — {krwM(mFirst)} vs {krwM(wFirst)}, a {gapFirst.toFixed(1)}%
+        gap. The gap has grown roughly {(gapLast - gapFirst).toFixed(1)} percentage points over {men.points.length}{' '}
+        quarters. This page does not say why — income, co-borrowing patterns and timing of home purchase are all
+        candidates, and none is measured here.
+      </p>
+    </section>
+
+    <section>
+      <h2>Mortgage balance per borrower, by gender — every year</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Quarter</th><th class="n">All borrowers</th><th class="n">Men</th><th class="n">Women</th>
+              <th class="n">Gap</th></tr>
+          </thead>
+          <tbody>
+            {every4th(men).map((p, i) => {
+              const w = every4th(women)[i];
+              const a = every4th(all)[i];
+              const g = gapPct(p.v!, w.v!);
+              return (
+                <tr>
+                  <td>{qLabel(p.t)}</td>
+                  <td class="n">{krwM(a.v!)}</td>
+                  <td class="n">{krwM(p.v!)}</td>
+                  <td class="n">{krwM(w.v!)}</td>
+                  <td class="n">{g.toFixed(1)}%</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Every fourth quarter shown (roughly annual) so the table stays readable; the gap column is recomputed
+        from the full quarterly series, not interpolated between the rows shown.
+      </p>
+    </section>
+
+    <section>
+      <h2>What this page does not say</h2>
+      <ul>
+        <li>No cause for the gap or its growth — only the measured balances, side by side.</li>
+        <li>No per-mortgage or per-household figure — this is per individual borrower.</li>
+        <li>No age or regional breakdown yet.</li>
+        <li>Balances are nominal won, not adjusted for house-price or general inflation between quarters.</li>
+      </ul>
+      <p class="note">
+        <b>This is not investment or credit advice.</b> It describes measured average mortgage balances by
+        gender — it says nothing about any individual borrower's situation or creditworthiness.
+      </p>
+    </section>
+
+    <section>
+      <h2>Source</h2>
+      <p>
+        Bank of Korea ECOS, 차주별 주택담보대출 잔액 (mortgage balance by borrower type), table{' '}
+        <a href="https://ecos.bok.or.kr/#/Short/181Y012">181Y012</a>. Quarterly, {qLabel(first)}–{qLabel(last)}.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        <a href="/data/fixed-variable-rate-share">Fixed vs floating-rate loans at Korean banks</a>,{' '}
+        <a href="/data/bank-loan-delinquency">Korea bank loan delinquency by borrower type</a>.{' '}
+        <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+  <BuyBar 자리="bottom" 살수있나={false}
+    아직="Time series to date shown below. A breakdown by age or region is not built yet." />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n { text-align: right; white-space: nowrap; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+  }
+</style>
