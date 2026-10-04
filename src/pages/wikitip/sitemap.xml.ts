@@ -1094,6 +1094,10 @@ export const GET: APIRoute = async () => {
        구글은 그 주소를 모르는 상태였다. 「콘텐트는 냈는데 방문자가 없다」가 이렇게 만들어진다.
        ⛔ 새 고정 지면은 **같은 커밋에서** 이 목록에 넣는다. 나중에 넣겠다고 미루지 않는다. */
     /* BTS 일곱 사람의 별자리가 무작위와 얼마나 다른가 — 다르지 않다는 것이 이 지면의 답이다 */
+    /* 🔴 [2026-10-05] 실측 — 「korean actors age」·「korean actress age」가 각각
+       자동완성 10줄을 꽉 채우는데 그 말을 제목에 둔 지면이 없었다. 531명의 생년이
+       자료에 있어 지면이 된다. ⛔ 생년 없는 103명은 «빼고 그 수를 적는다» */
+    { path: '/ages', priority: '0.9', changefreq: 'monthly' },
     { path: '/bts-star-signs', priority: '0.8', changefreq: 'monthly' },
     /* 독자가 실제로 어느 «철자»에 닿는가. 위키백과 넘김 주소를 다 세어 만든 지면 */
     { path: '/name-spelled', priority: '0.9', changefreq: 'weekly' },

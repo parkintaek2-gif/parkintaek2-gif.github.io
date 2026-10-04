@@ -1,10 +1,10 @@
 {
-  "generated": "2026-10-04 18:40 KST",
+  "generated": "2026-10-05 02:17 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 144,
-    "머리글있음": 144,
+    "본지면": 145,
+    "머리글있음": 145,
     "머리글없음": 0
   },
   "missing": [],
@@ -15,6 +15,7 @@
     "/actors-first": "Go Youn-jung tops two Southeast Asian Wikipedias, Lee Chae-min tops Indonesia and Moon Ga-young tops Malaysia",
     "/actors": "Which Korean actors English readers looked up most",
     "/age-in-headlines": "What a Korean front page puts in a headline",
+    "/ages": "Korean actors ages — who is how old",
     "/all-ten": "Every Netflix top 10 that was all Korean",
     "/arrival": "Do Korean titles spread across the world, or land on it?",
     "/articles": "Every article we have published",
