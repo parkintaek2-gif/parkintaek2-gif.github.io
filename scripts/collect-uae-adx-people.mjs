@@ -248,7 +248,7 @@ async function main() {
     console.log(`${종목들.length}개 종목 (ADX 메인마켓 — 채권·ETF 심볼도 섞여 있다)`);
   }
 
-  let 성공 = 0; let 데이터없음 = 0; let 실패 = 0;
+  let 성공 = 0; let 데이터없음 = 0; let 실패 = 0; let 반만받음 = 0;
   for (const 종목 of 종목들) {
     try {
       /* 🔴 [2026-10-04] 못 받은 것을 «못 받았다»고 적는다.
@@ -308,12 +308,22 @@ async function main() {
       const 주주말 = shareholders === null ? '못 쟀다' : `${골라낸주주.length}건`;
       console.log(`  ${못잰것.length ? '⚠' : '✅'} ${종목}  이사/경영진 ${이사말} · 대주주 ${주주말} → ${결과.local} (+${오늘글()})`);
       성공 += 1;
+      if (못잰것.length) 반만받음 += 1;
     } catch (e) {
       console.error(`  ✕ ${종목}  ${e.message}`);
       실패 += 1;
     }
   }
-  console.log(`\n합계 성공 ${성공} · 자료없음 ${데이터없음} · 실패 ${실패} · archive/raw/uae-adx-people/`);
+  /* 🔴 [2026-10-04 · 5번] 전에는 88곳을 못 받고도 「성공 94」라고 찍었다.
+     파일을 «썼다»는 것과 자료를 «받았다»는 것은 다르다 — 갈라서 적는다.
+     ⛔ 수를 좋게 보이게 적으면 내가 나를 속인다. */
+  console.log(`\n합계 파일 쓴 곳 ${성공} · 그중 «일부를 못 받은» 곳 ${반만받음}`
+    + ` · 자료없음 ${데이터없음} · 실패 ${실패} · archive/raw/uae-adx-people/`);
+  if (반만받음) {
+    console.log(`⚠ ${반만받음}곳은 못 받은 칸이 «null» 로 남았다 — 0 이 아니다.`);
+    console.log('   까닭은 거의 429(너무 자주 물었다)다. 간격을 늘려도 안 되면 하루 한도다 —');
+    console.log('   ⭐ 할 수 있는 것은 «내일 몫을 내일 받는 것»이다. 오늘치를 0 으로 채우지 않는다.');
+  }
 }
 
 if (pathToFileURL(process.argv[1]).href === import.meta.url) await main();
