@@ -19,7 +19,67 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const 지음방 = 'dist/wikitip';
+/*
+ * 🔴 [2026-10-04 · 5번] **이 자가 K컬처와이어 한 곳만 재고 있었다.**
+ *   오늘 밤 서울마켓 7,945장·백년지도 4,910장을 네이버·빙에 처음 통보했는데,
+ *   «고아인지 아닌지를 잰 적이 없다». 사이트맵에 올려도 어느 지면에서도 안 걸리면
+ *   구글은 타고 올 길이 없다 — **통보한 수가 곧 색인될 수를 뜻하지 않는다.**
+ *   ⇒ 새 자를 만들지 않고 이 자를 넓혔다. 세는 방법은 똑같다.
+ *
+ * ⛔ dist 안에 세 사이트가 겹쳐 있다 — `dist/` 가 서울마켓이고 그 «안»에
+ *   `100y/`·`wikitip/` 이 들어 있다. 서울마켓을 걸을 때 그 둘을 빼지 않으면
+ *   남의 지면을 제 것으로 세어 수가 부풀어 오른다.
+ */
+export const 사이트들 = {
+  kcw: {
+    이름: 'K Culture Wire', 방: 'dist/wikitip', 도메인: 'https://www.kculturewire.com',
+    뺄방: [], 사이트맵: ['sitemap.xml'],
+    있어야할갈래: ['title', 'market', 'article', 'firm', 'born-on'],
+    갈래: (q) => (q.startsWith('/article/') ? '기사'
+      : q.startsWith('/title/') ? '작품 지면'
+        : q.startsWith('/market/') ? '시장 지면'
+          : q.startsWith('/firm/') ? '회사 지면'
+            : q.startsWith('/born-on/') ? '생일 지면'
+              : q.startsWith('/group/') ? '그룹 지면'
+                : q.startsWith('/school/') ? '학교 지면' : '그 밖의 지면'),
+  },
+  '100y': {
+    이름: '백년지도', 방: 'dist/100y', 도메인: 'https://100yearmap.com',
+    뺄방: [], 사이트맵: ['sitemap.xml'],
+    있어야할갈래: ['school', 'report', 'age'],
+    갈래: (q) => (q.startsWith('/school/') ? '학교 지면'
+      : q.startsWith('/report/area/') ? '지역 지면'
+        : q.startsWith('/university/') ? '대학 지면'
+          : q.startsWith('/age/') ? '나이 지면' : '그 밖의 지면'),
+  },
+  seoulmarkets: {
+    이름: 'SeoulMarkets', 방: 'dist', 도메인: 'https://seoulmarkets.com',
+    뺄방: ['100y', 'wikitip', '_astro'],
+    /* 🔴 사이트맵이 열한 갈래로 갈려 있다. 하나만 읽으면 7,945장 중 몇백 장만 센다 */
+    사이트맵: ['sitemap-pages.xml', 'sitemap-companies.xml', 'sitemap-japan.xml',
+      'sitemap-taiwan.xml', 'sitemap-uae.xml', 'sitemap-equities.xml',
+      'sitemap-funds.xml', 'sitemap-fx.xml', 'sitemap-macro.xml',
+      'sitemap-rates.xml', 'sitemap-commodities.xml'],
+    있어야할갈래: ['japan', 'company', 'article'],
+    갈래: (q) => (q.startsWith('/japan/company/') ? '일본 회사'
+      : q.startsWith('/japan/sector/') ? '일본 업종'
+        : q.startsWith('/company/') ? '한국 회사'
+          : q.startsWith('/article/') ? '기사'
+            : q.startsWith('/uae/') ? 'UAE 지면'
+              : q.startsWith('/taiwan/') ? '대만 지면' : '그 밖의 지면'),
+  },
+};
+
+/** ⛔ 모르는 이름을 받으면 kcw 로 «조용히» 떨어지지 않는다 — 세운다 */
+export function 사이트고르기(argv = []) {
+  const m = (argv || []).map(String).find((a) => a.startsWith('--사이트='));
+  const 이름 = m ? m.slice('--사이트='.length) : 'kcw';
+  if (!Object.prototype.hasOwnProperty.call(사이트들, 이름)) return null;
+  return { 열쇠: 이름, ...사이트들[이름] };
+}
+
+const 고른것 = 사이트고르기(process.argv);
+const 지음방 = 고른것 ? 고른것.방 : 'dist/wikitip';
 
 /** 그 글 안의 우리 쪽 링크. ⛔ 밖으로 나가는 것과 닻(#)은 뺀다 */
 export function 링크들(html) {
@@ -27,9 +87,25 @@ export function 링크들(html) {
   for (const m of String(html).matchAll(/href\s*=\s*["']([^"']+)["']/g)) {
     const h = m[1].trim();
     if (!h.startsWith('/')) continue;          /* 밖 · 닻 · mailto */
-    나온것.push(h.split('#')[0].split('?')[0].replace(/\/$/, '') || '/');
+    나온것.push(길정규화(h));
   }
   return 나온것;
+}
+
+/**
+ * 사이트맵에 적힌 주소를 dist 쪽 주소와 견줄 수 있게 고른다.
+ *
+ * 🔴 [2026-10-04 · 5번] **이것이 없어서 「백년지도 2,038장이 지은 것 자체가 없다」가 나왔다.**
+ *   사이트맵에는 `/region/%EA%B0%95%EC%9B%90` 로 적히고 dist 에는 `region/강원.html` 로 있다.
+ *   둘을 그대로 견주면 영원히 안 맞는다. 라이브는 200 이었다 — **없는 흠을 지어낸 것**이다.
+ *   ⭐ 수가 극단으로 나오면 자를 먼저 의심한다. 2,038장이 그 신호였다.
+ */
+export function 길정규화(날것) {
+  const q = String(날것 ?? '').split('#')[0].split('?')[0];
+  let 길 = q;
+  try { 길 = decodeURIComponent(q); } catch { 길 = q; }   /* ⛔ 못 풀면 날것 그대로 — 버리지 않는다 */
+  길 = 길.replace(/\/$/, '');
+  return 길 || '/';
 }
 
 /** dist 안의 html 을 주소로 바꾼다. `title/x.html` → `/title/x` */
@@ -55,11 +131,40 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   재본다('작은따옴표도 읽는다', 링크들("<a href='/z'>x</a>"), ['/z']);
   재본다('주소 — index', 주소('index.html'), '/');
   재본다('주소 — 아래 방', 주소('title/stepmom.html'), '/title/stepmom');
+  /* 🔴 [2026-10-04] 한글 주소를 「지은 것이 없다」로 읽던 흠 — 2,038장이 헛것이었다 */
+  재본다('한글 주소를 푼다', 길정규화('/region/%EA%B0%95%EC%9B%90'), '/region/강원');
+  재본다('이미 푼 것은 그대로', 길정규화('/region/강원'), '/region/강원');
+  재본다('꼬리 빗금을 뗀다 — 길정규화', 길정규화('/a/'), '/a');
+  재본다('뿌리는 빗금 하나로', 길정규화('/'), '/');
+  /* ⛔ 반쯤 깨진 인코딩이 와도 버리지 않는다 — 날것 그대로 남긴다 */
+  재본다('못 풀면 날것', 길정규화('/a%ZZb'), '/a%ZZb');
+  /* 🔴 [2026-10-04] 세 사이트로 넓히며 보탠 시험 */
+  재본다('기본은 kcw 다', 사이트고르기([]).열쇠, 'kcw');
+  재본다('서울마켓을 고른다', 사이트고르기(['--사이트=seoulmarkets']).방, 'dist');
+  재본다('백년지도를 고른다', 사이트고르기(['--사이트=100y']).방, 'dist/100y');
+  /* ⛔ 모르는 이름이면 «조용히» kcw 로 떨어지지 않는다 — null 을 내고 세운다 */
+  재본다('모르는 이름은 null', 사이트고르기(['--사이트=없는곳']), null);
+  /* 🔴 dist 안에 100y·wikitip 이 겹쳐 있다 — 서울마켓은 그 둘을 빼야 한다 */
+  재본다('서울마켓은 남의 방을 뺀다',
+    사이트고르기(['--사이트=seoulmarkets']).뺄방.includes('wikitip'), true);
+  재본다('kcw 는 뺄 방이 없다', 사이트고르기(['--사이트=kcw']).뺄방.length, 0);
+  /* 🔴 서울마켓 사이트맵은 열한 갈래다. 하나만 읽으면 수가 통째로 모자란다 */
+  재본다('서울마켓 사이트맵은 여럿이다',
+    사이트고르기(['--사이트=seoulmarkets']).사이트맵.length > 5, true);
+  재본다('갈래를 가른다 — 일본 회사',
+    사이트고르기(['--사이트=seoulmarkets']).갈래('/japan/company/toyota'), '일본 회사');
+  재본다('갈래를 가른다 — 학교',
+    사이트고르기(['--사이트=100y']).갈래('/school/7530071'), '학교 지면');
   console.log(`길 세기 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
 
 if (내가실행됐다) {
+  if (!고른것) {
+    console.log(`⛔ 모르는 사이트다 — 쓸 수 있는 것: ${Object.keys(사이트들).join(' · ')}`);
+    process.exit(1);
+  }
+  console.log(`■ ${고른것.이름} (${고른것.방})\n`);
   if (!fs.existsSync(지음방)) {
     console.log('⬜ dist 가 없다 — `node scripts/build-once.mjs` 뒤에 다시 부른다.');
     process.exit(1);
@@ -69,6 +174,8 @@ if (내가실행됐다) {
   const 걷는다 = (방, 앞= '') => {
     for (const e of fs.readdirSync(`${지음방}/${방}`, { withFileTypes: true })) {
       const 안 = 앞 ? `${앞}/${e.name}` : e.name;
+      /* ⛔ 겹쳐 있는 남의 사이트는 안 센다 — 뿌리에서만 가린다 */
+      if (!앞 && (고른것?.뺄방 ?? []).includes(e.name)) continue;
       if (e.isDirectory()) 걷는다(`${방}/${e.name}`, 안);
       else if (e.name.endsWith('.html')) 파일들.push(안);
     }
@@ -81,7 +188,7 @@ if (내가실행됐다) {
    *   ⛔ 그 수를 내면 「작품 지면에 들어오는 길이 하나도 없다」로 읽힌다 — 없는 흠이다.
    *   ⭐ 갈래 디렉터리가 없으면 **못 쟀다**고 말하고 나간다. check-visitor-walk 과 같은 걸림돌이다.
    */
-  const 있어야할갈래 = ['title', 'market', 'article', 'firm', 'born-on'];
+  const 있어야할갈래 = 고른것.있어야할갈래;
   const 빠진갈래 = 있어야할갈래.filter((d) => !fs.existsSync(`${지음방}/${d}`));
   if (빠진갈래.length) {
     console.log(`⚠ 못 쟀다 — dist 가 다 안 찼다(갈래 ${빠진갈래.join(', ')} 없음). 빌드가 도는 중일 수 있다.`);
@@ -128,10 +235,7 @@ if (내가실행됐다) {
     나가는길.set(나, 밖);
   }
 
-  const 갈래 = (p) => (p.startsWith('/article/') ? '기사'
-    : p.startsWith('/title/') ? '작품 지면'
-      : p.startsWith('/market/') ? '시장 지면'
-        : p.startsWith('/firm/') ? '회사 지면' : '그 밖의 지면');
+  const 갈래 = 고른것.갈래;
   const 통 = new Map();
   for (const [p, n] of 들어오는길) {
     const g = 갈래(p);
@@ -144,9 +248,23 @@ if (내가실행됐다) {
    * 🔴 2번 지시(02:2x) — **딱 하나를 잰다: 사이트맵에는 있는데 어느 지면에서도 안 걸린 장이 몇인가.**
    *   ⛔ dist 전체가 아니라 **사이트맵 기준**이다. 우리가 「구글아 와서 보라」고 낸 목록이 그것이다.
    */
-  const sm = fs.existsSync(`${지음방}/sitemap.xml`) ? fs.readFileSync(`${지음방}/sitemap.xml`, 'utf8') : '';
-  const 사이트맵길 = [...sm.matchAll(/<loc>https:\/\/www\.kculturewire\.com([^<]*)<\/loc>/g)]
-    .map((m) => (m[1] || '/').replace(/\/$/, '') || '/');
+  /* 🔴 사이트맵이 여러 갈래로 갈린 곳이 있다(서울마켓 11개). 하나만 읽으면 수가 통째로 모자란다 */
+  /* ⛔ 도메인의 점을 정규식 점으로 두면 'wwwXkculturewire' 같은 것도 걸린다 — 꼭 막는다 */
+  const 도메인꼴 = new RegExp(`<loc>${고른것.도메인.split('.').join('[.]')}([^<]*)</loc>`, 'g');
+  const 사이트맵길 = [];
+  let 못읽은사이트맵 = 0;
+  for (const 이름 of 고른것.사이트맵) {
+    const 길 = `${지음방}/${이름}`;
+    if (!fs.existsSync(길)) { 못읽은사이트맵 += 1; continue; }
+    const sm = fs.readFileSync(길, 'utf8');
+    for (const m of sm.matchAll(도메인꼴)) 사이트맵길.push(길정규화(m[1]));
+  }
+  if (!사이트맵길.length) {
+    console.log(`⚠ 못 쟀다 — 사이트맵에서 주소를 하나도 못 읽었다(못 연 파일 ${못읽은사이트맵}개).`);
+    console.log('   ⛔ 이것을 「고아 0장」으로 읽지 않는다. 깨진 것이 아니라 못 잰 것이다.');
+    process.exit(0);
+  }
+  if (못읽은사이트맵) console.log(`⬜ 사이트맵 ${못읽은사이트맵}개는 없어서 못 읽었다 — 아래 수에 그만큼 빠져 있다\n`);
   const 사이트맵고아 = 사이트맵길.filter((p) => (들어오는길.get(p) ?? 0) === 0);
   const 사이트맵인데지면없음 = 사이트맵길.filter((p) => !들어오는길.has(p));
 
