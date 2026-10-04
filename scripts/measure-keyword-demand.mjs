@@ -37,8 +37,25 @@ const 쉼 = (ms) => new Promise((r) => setTimeout(r, ms));
  * 자동완성을 묻는다. 돌려주는 것은 제안 줄들.
  * ⛔ 못 물으면 `undefined` 다 — 빈 배열(=제안 없음)과 다르다.
  */
-export async function 자동완성(말, 부르기 = fetch) {
-  const u = 'https://suggestqueries.google.com/complete/search?client=firefox&hl=en&q=' + encodeURIComponent(말);
+/* 🔴🔴 [2026-10-04 · 5번] **말과 나라를 갈라 받는다 — 전에는 `hl=en` 이 박혀 있었다.**
+   그래서 한국어·중국어·일본어 손님이 치는 말을 이 자로 «잴 수가 없었다». 그 자리가
+   비어 있는 줄 모르고 나는 오늘 같은 자를 하나 더 만들었다(중복). 그것을 걷고 여기에 보탠다.
+   ⛔ 사장님 — 「중복해서 일 하지마」. 자를 새로 만들기 전에 scripts/ 를 먼저 뒤진다.
+   ⚠ 더 아픈 것 — 사장님은 2026-08-22 에 「키워드 검색량을 재서 해」라고 이르셨고
+     이 자는 그날 만들어졌는데 **2026-09-07 뒤로 한 번도 안 돌았다.**
+     만들어 놓고 안 쓰면 안 만든 것과 같다. 그래서 check-2h 에 건다. */
+export const 가지글자 = ['', ' a', ' b', ' c', ' h', ' i', ' l', ' m', ' s', ' t', ' w'];
+
+/** 씨앗 하나로 열한 가지를 물어 더 넓게 긁는다 — 구글은 뒷글자로 가지를 친다 */
+export function 가지씨앗(씨앗) {
+  const s = String(씨앗 ?? '').trim();
+  return s ? 가지글자.map((x) => s + x) : [];
+}
+
+export async function 자동완성(말, 부르기 = fetch, 언어 = 'en', 나라 = '') {
+  const 나라칸 = 나라 ? `&gl=${encodeURIComponent(나라)}` : '';
+  const u = `https://suggestqueries.google.com/complete/search?client=firefox&hl=${encodeURIComponent(언어)}${나라칸}&q=`
+    + encodeURIComponent(말);
   for (let i = 0; i < 3; i++) {
     try {
       const r = await 부르기(u, { headers: 머리말 });
@@ -130,8 +147,18 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   검('못 물으면 null 이다', (await 위키읽힘('IU', 가짜('', false))) === null);
   검('후보에 우리 용어와 손님 말이 같이 있다', 후보.includes('day stem') && 후보.includes('iu birthday'));
 
+  /* 🔴 [2026-10-04 · 5번] 말·나라와 가지씨앗을 보탠 자리. 시험이 없으면 다음 사람이 또 뺀다 */
+  let 본주소 = '';
+  const 주소받기 = async (u) => { 본주소 = u; return { ok: true, text: async () => '["a",[]]' }; };
+  await 자동완성('사주', 주소받기, 'ko', 'kr');
+  검('🔴 말과 나라가 주소에 들어간다', 본주소.includes('hl=ko') && 본주소.includes('gl=kr'));
+  await 자동완성('x', 주소받기);
+  검('⛔ 나라를 안 주면 gl 칸이 안 붙는다', 본주소.includes('hl=en') && !본주소.includes('gl='));
+  검('씨앗에 가지를 친다', 가지씨앗('abc').length === 11 && 가지씨앗('abc')[0] === 'abc');
+  검('⛔ 빈 씨앗은 가지가 없다', 가지씨앗('').length === 0 && 가지씨앗(null).length === 0);
+
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ measure-keyword-demand 자가시험 통과 (9)');
+  console.log('✅ measure-keyword-demand 자가시험 통과 (13)');
   process.exit(0);
 }
 

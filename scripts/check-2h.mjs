@@ -1083,6 +1083,46 @@ if (내가실행됐다) {
     console.log(줄('③-10', '숫자가 빠진 자리', 줄글));
   }
 
+  /**
+   * ③-11 **제목이 손님이 「치는 말」인가 — 질 싸움을 하고 있나**
+   *
+   * 🔴🔴 [2026-10-04 · 5번] 사장님 — 「검색색인, seo, geo, 방문객 증대 올인을
+   *   한달넘게 말했는데 했다며? 대체 뭘 했다는 거지? 신뢰가 안간다」
+   *
+   * 재 보니 ─ 지면 10,843장 · 28일 구글 클릭 10회. **색인은 됐다.**
+   *   사람이 치는 말(biggest korean companies)에서 우리 자리가 66위였고,
+   *   1쪽에 있는 520장은 **아무도 안 찾는 긴 꼬리**였다.
+   *
+   * ⛔ 더 아픈 것 — 사장님은 2026-08-22 에 이미 「키워드 검색량을 재서 해」라고
+   *   이르셨고 measure-keyword-demand.mjs 가 그날 만들어졌는데 **2026-09-07 뒤로
+   *   한 번도 안 돌았다.** 만들어 놓고 안 쓰면 안 만든 것과 같다. 그래서 자로 둔다.
+   */
+  {
+    let 줄글 = null;
+    try {
+      const m = await import('./check-제목이-치는말인가.mjs');
+      const 밑 = path.join(뿌리, 'src/data');
+      let 뒤처진 = 0; let 잰사이트 = 0;
+      for (const 딱지 of ['kcw', 'klifemap', '100y', 'seoulmarkets']) {
+        const 것들 = fs.readdirSync(밑)
+          .filter((n) => n.startsWith(`gsc-${딱지}-2`) && n.endsWith('.json')).sort();
+        const 마지막 = 것들[것들.length - 1];
+        if (!마지막) continue;
+        const 묶음 = JSON.parse(fs.readFileSync(path.join(밑, 마지막), 'utf8'));
+        const 말들 = m.뜬말들(묶음);
+        if (말들 === null) continue;
+        잰사이트 += 1;
+        뒤처진 += (m.뒤처진말들(말들) || []).length;
+      }
+      줄글 = 잰사이트 === 0 ? null : { 됐나: 뒤처진 === 0,
+        말: 뒤처진
+          ? `🔴 ${m.뒤처진선}위 밖에서 질 싸움 중인 말 ${뒤처진}가지`
+            + ' — node scripts/check-제목이-치는말인가.mjs'
+          : `사이트 ${잰사이트}곳 — 뒤처진 말 없다` };
+    } catch { 줄글 = null; }
+    console.log(줄('③-11', '제목이 치는 말인가', 줄글));
+  }
+
   /* ④ 라이브 */
   let 라이브 = null;
   try {
