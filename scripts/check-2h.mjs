@@ -1041,6 +1041,48 @@ if (내가실행됐다) {
     console.log(줄('③-9', '소급 불가 자료의 오늘 몫', 줄글));
   }
 
+  /**
+   * ③-10 **숫자가 들어갈 자리가 비어 나가나**
+   *
+   * 🔴🔴 [2026-10-04 · 5번] 새 지면에 `{수.안겹침}` 이라고 적었는데 자료의 열쇠는
+   *   `넷플릭스에없음` 이었다. Astro 는 없는 열쇠를 **조용히 빈 글자로** 그린다 —
+   *   화면에 「The other  appear in neither…」로 **숫자가 통째로 빠져** 나갔다.
+   * ⚠ 빌드도 자가시험도 통과했다. **그려서 눈으로 봤기에** 잡혔다.
+   *   지면이 16,000장이라 날마다 눈으로 다 볼 수는 없다 — 그래서 자로 둔다.
+   * ⭐ 걸자마자 진짜를 하나 잡았다 — 100y/pension 이 「출처 — [object Object]」를
+   *   손님 화면에 내보내고 있었다. 자료의 「출처」가 객체인데 글자처럼 쓴 자리였다.
+   */
+  {
+    let 줄글 = null;
+    try {
+      const m = await import('./check-지면에-빈자리가-나가나.mjs');
+      const 밑 = path.join(뿌리, 'dist');
+      if (!fs.existsSync(밑)) { 줄글 = null; }
+      else {
+        const 것들 = [];
+        const 훑기 = (d) => {
+          for (const 이름 of fs.readdirSync(d)) {
+            const p = path.join(d, 이름);
+            if (fs.statSync(p).isDirectory()) 훑기(p);
+            else if (이름.endsWith('.html')) 것들.push(p);
+          }
+        };
+        훑기(밑);
+        let 걸린 = 0;
+        for (const p of 것들) {
+          const html = fs.readFileSync(p, 'utf8');
+          걸린 += m.빈강조찾기(html).length + m.샌말찾기(html).length;
+        }
+        줄글 = { 됐나: 걸린 === 0,
+          말: 걸린
+            ? `🔴 숫자가 빠졌거나 프로그램 말이 샌 자리 ${걸린}곳`
+              + ' — node scripts/check-지면에-빈자리가-나가나.mjs'
+            : `지면 ${것들.length}장 — 빈 자리도 샌 말도 없다` };
+      }
+    } catch { 줄글 = null; }
+    console.log(줄('③-10', '숫자가 빠진 자리', 줄글));
+  }
+
   /* ④ 라이브 */
   let 라이브 = null;
   try {

@@ -1,0 +1,4096 @@
+[
+  {
+    "qid": "Q27655344",
+    "name": "로제",
+    "dob": "1997-02-11",
+    "sitelinks": 86,
+    "groups": [
+      "Blackpink"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 22.8,
+    "zodiacBoundary": false,
+    "posts": {
+      "ko": "star-rose-samju-saju",
+      "en": "rose-blackpink-bazi-en",
+      "zh": "rose-blackpink-bazi-zh",
+      "ja": "rose-shichuu-suimei-ja"
+    }
+  },
+  {
+    "qid": "Q26707663",
+    "name": "Lisa",
+    "dob": "1997-03-27",
+    "sitelinks": 80,
+    "groups": [
+      "Blackpink"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 6.9,
+    "zodiacBoundary": false,
+    "posts": {
+      "ko": "star-lisa-samju-saju",
+      "en": "lisa-blackpink-bazi-en",
+      "zh": "lisa-blackpink-bazi-zh",
+      "ja": "lisa-shichuu-suimei-ja"
+    }
+  },
+  {
+    "qid": "Q26262599",
+    "name": "Jennie",
+    "dob": "1996-01-16",
+    "sitelinks": 78,
+    "groups": [
+      "Blackpink"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 25.6,
+    "zodiacBoundary": false,
+    "posts": {
+      "ko": "star-jennie-samju-saju",
+      "en": "jennie-blackpink-bazi-en",
+      "zh": "jennie-blackpink-bazi-zh",
+      "ja": "jennie-shichuu-suimei-ja"
+    }
+  },
+  {
+    "qid": "Q27655361",
+    "name": "Jisoo",
+    "dob": "1995-01-03",
+    "sitelinks": 68,
+    "groups": [
+      "Blackpink"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 12.6,
+    "zodiacBoundary": false,
+    "posts": {
+      "ko": "star-jisoo-samju-saju",
+      "en": "jisoo-blackpink-bazi-en",
+      "zh": "jisoo-blackpink-bazi-zh",
+      "ja": "jisoo-shichuu-suimei-ja"
+    }
+  },
+  {
+    "qid": "Q22338877",
+    "name": "Jungkook",
+    "dob": "1997-09-01",
+    "sitelinks": 68,
+    "groups": [
+      "BTS"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 9.1,
+    "zodiacBoundary": false,
+    "posts": {
+      "ko": "star-jungkook-samju-saju",
+      "en": "jungkook-bts-bazi-en",
+      "zh": "jungkook-bts-bazi-zh",
+      "ja": "jungkook-bts-shichusuimei-ja"
+    }
+  },
+  {
+    "qid": "Q20145",
+    "name": "IU",
+    "dob": "1993-05-16",
+    "sitelinks": 68,
+    "groups": [
+      "(솔로)"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 25.6,
+    "zodiacBoundary": false,
+    "posts": {
+      "ko": "star-iu-samju-saju",
+      "en": "iu-bazi-en",
+      "zh": "iu-bazi-zh",
+      "ja": "iu-shichuu-suimei-ja"
+    }
+  },
+  {
+    "qid": "Q16905948",
+    "name": "Jackson Wang",
+    "dob": "1994-03-28",
+    "sitelinks": 42,
+    "groups": [
+      "Got7"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 7.6,
+    "zodiacBoundary": false,
+    "posts": {
+      "ko": "star-jackson-samju-saju",
+      "en": "jackson-wang-got7-bazi-en",
+      "zh": "jackson-wang-got7-bazi-zh",
+      "ja": "jackson-wang-got7-bazi-ja"
+    }
+  },
+  {
+    "qid": "Q101161002",
+    "name": "카리나",
+    "dob": "2000-04-11",
+    "sitelinks": 26,
+    "groups": [
+      "Got the Beat",
+      "aespa"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 21.9,
+    "zodiacBoundary": false,
+    "posts": {
+      "ko": "star-karina-samju-saju",
+      "en": "karina-aespa-bazi-en",
+      "zh": "liu-zhimin-bazi-zh",
+      "ja": "karina-shichuu-suimei-ja"
+    }
+  },
+  {
+    "qid": "Q18388296",
+    "name": "V",
+    "dob": "1995-12-30",
+    "sitelinks": 61,
+    "groups": [
+      "BTS"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 8.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q15934116",
+    "name": "Kang Seul-gi",
+    "dob": "1994-02-10",
+    "sitelinks": 59,
+    "groups": [
+      "Got the Beat",
+      "Red Velvet",
+      "Red Velvet - Irene & Seulgi"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 21.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q20947093",
+    "name": "Jimin",
+    "dob": "1995-10-13",
+    "sitelinks": 59,
+    "groups": [
+      "BTS"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 19.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q7137681",
+    "name": "Park Chan-yeol",
+    "dob": "1992-11-27",
+    "sitelinks": 57,
+    "groups": [
+      "EXO-K",
+      "EXO",
+      "Exo-SC"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 5.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q232449",
+    "name": "BoA",
+    "dob": "1986-11-05",
+    "sitelinks": 56,
+    "groups": [
+      "Got the Beat"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 12.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q21075020",
+    "name": "Suga",
+    "dob": "1993-03-09",
+    "sitelinks": 55,
+    "groups": [
+      "BTS"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 18.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q12605358",
+    "name": "Irene",
+    "dob": "1991-03-29",
+    "sitelinks": 54,
+    "groups": [
+      "Red Velvet",
+      "Red Velvet - Irene & Seulgi"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 8.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q20514446",
+    "name": "RM",
+    "dob": "1994-09-12",
+    "sitelinks": 54,
+    "groups": [
+      "BTS"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 19.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q24276424",
+    "name": "Kim Seok-jin",
+    "dob": "1992-12-04",
+    "sitelinks": 54,
+    "groups": [
+      "BTS"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 12.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q464645",
+    "name": "Bae Suzy",
+    "dob": "1994-10-10",
+    "sitelinks": 51,
+    "groups": [
+      "Miss A"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 17,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16236223",
+    "name": "J-Hope",
+    "dob": "1994-02-18",
+    "sitelinks": 51,
+    "groups": [
+      "BTS"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 29.6,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q484484",
+    "name": "Kim Jong-hyun",
+    "dob": "1990-04-08",
+    "sitelinks": 50,
+    "groups": [
+      "SM the Ballad",
+      "SHINee"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 18.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q22804243",
+    "name": "Im Nayeon",
+    "dob": "1995-09-22",
+    "sitelinks": 49,
+    "groups": [
+      "Twice"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 29,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q466975",
+    "name": "Im Yoon-ah",
+    "dob": "1990-05-30",
+    "sitelinks": 48,
+    "groups": [
+      "Girls' Generation",
+      "Girls' Generation-Oh!GG"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 8.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q496501",
+    "name": "Sulli",
+    "dob": "1994-03-29",
+    "sitelinks": 47,
+    "groups": [
+      "f(x)"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 8.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q20688219",
+    "name": "Chou Tzuyu",
+    "dob": "1999-06-14",
+    "sitelinks": 46,
+    "groups": [
+      "Twice"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 23,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q22774055",
+    "name": "Park Ji-hyo",
+    "dob": "1997-02-01",
+    "sitelinks": 46,
+    "groups": [
+      "Twice"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 12.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q234066",
+    "name": "Hyuna",
+    "dob": "1992-06-06",
+    "sitelinks": 45,
+    "groups": [
+      "Wonder Girls",
+      "Trouble Maker",
+      "4Minute",
+      "Triple H"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 16,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q4688701",
+    "name": "Byun Baek-hyun",
+    "dob": "1992-05-06",
+    "sitelinks": 45,
+    "groups": [
+      "EXO",
+      "SuperM",
+      "Exo-CBX"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 16.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q494996",
+    "name": "Goo Hara",
+    "dob": "1991-01-03",
+    "sitelinks": 44,
+    "groups": [
+      "Kara"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 12.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q495577",
+    "name": "G-Dragon",
+    "dob": "1988-08-18",
+    "sitelinks": 43,
+    "groups": [
+      "BigBang"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 25.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q23012025",
+    "name": "Minatozaki Sana",
+    "dob": "1996-12-29",
+    "sitelinks": 43,
+    "groups": [
+      "Twice"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 8.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q233371",
+    "name": "Taeyeon",
+    "dob": "1989-03-09",
+    "sitelinks": 42,
+    "groups": [
+      "Girls' Generation-TTS",
+      "Girls' Generation",
+      "Got the Beat",
+      "Girls' Generation-Oh!GG"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 18.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q22773838",
+    "name": "Kim Da-hyun",
+    "dob": "1998-05-28",
+    "sitelinks": 41,
+    "groups": [
+      "Twice"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q10822003",
+    "name": "Suho",
+    "dob": "1991-05-22",
+    "sitelinks": 40,
+    "groups": [
+      "EXO"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 0.9,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q483683",
+    "name": "CL",
+    "dob": "1991-02-26",
+    "sitelinks": 40,
+    "groups": [
+      "2NE1"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 7.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q23779926",
+    "name": "Momo",
+    "dob": "1996-11-09",
+    "sitelinks": 40,
+    "groups": [
+      "Twice"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 17.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q10775090",
+    "name": "카이",
+    "dob": "1994-01-14",
+    "sitelinks": 39,
+    "groups": [
+      "EXO",
+      "SuperM"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 24.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q496170",
+    "name": "Sandara Park",
+    "dob": "1984-11-12",
+    "sitelinks": 39,
+    "groups": [
+      "2NE1"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 20.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q21060390",
+    "name": "Cha Eun-woo",
+    "dob": "1997-03-30",
+    "sitelinks": 39,
+    "groups": [
+      "Astro"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 9.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q495571",
+    "name": "T.O.P",
+    "dob": "1987-11-04",
+    "sitelinks": 38,
+    "groups": [
+      "BigBang"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 11.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q15111667",
+    "name": "Doh Kyung-soo",
+    "dob": "1993-01-12",
+    "sitelinks": 37,
+    "groups": [
+      "EXO",
+      "EXO-K"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 22.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q489854",
+    "name": "Kim Hyun-joong",
+    "dob": "1986-06-06",
+    "sitelinks": 37,
+    "groups": [
+      "SS501"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 15.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q10834841",
+    "name": "Xiumin",
+    "dob": "1990-03-26",
+    "sitelinks": 37,
+    "groups": [
+      "EXO-M",
+      "EXO",
+      "Exo-CBX"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 5.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q134575",
+    "name": "Choi Min-ho",
+    "dob": "1991-12-09",
+    "sitelinks": 37,
+    "groups": [
+      "SHINee"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 16.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q233385",
+    "name": "Sooyoung",
+    "dob": "1990-02-10",
+    "sitelinks": 37,
+    "groups": [
+      "Girls' Generation"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 21.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q19603912",
+    "name": "Hwasa",
+    "dob": "1995-07-23",
+    "sitelinks": 37,
+    "groups": [
+      "Refund Sisters"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 0.2,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q236355",
+    "name": "Tiffany Young",
+    "dob": "1989-08-01",
+    "sitelinks": 36,
+    "groups": [
+      "Girls' Generation-TTS",
+      "Girls' Generation",
+      "Unnies"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 9.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q6437313",
+    "name": "Kris Wu",
+    "dob": "1990-11-06",
+    "sitelinks": 36,
+    "groups": [
+      "EXO"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 13.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q233911",
+    "name": "Jessica Jung",
+    "dob": "1989-04-18",
+    "sitelinks": 36,
+    "groups": [
+      "Girls' Generation"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 28.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q494154",
+    "name": "Park Bom",
+    "dob": "1984-03-24",
+    "sitelinks": 36,
+    "groups": [
+      "2NE1"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q464623",
+    "name": "Krystal Jung",
+    "dob": "1994-10-24",
+    "sitelinks": 36,
+    "groups": [
+      "f(x)"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 0.8,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q240082",
+    "name": "Seo Joo-hyun",
+    "dob": "1991-06-28",
+    "sitelinks": 35,
+    "groups": [
+      "Girls' Generation-TTS",
+      "Girls' Generation"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 6.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q232491",
+    "name": "Lee Hyori",
+    "dob": "1979-02-19",
+    "sitelinks": 35,
+    "groups": [
+      "Fin.K.L"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 0.2,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q17478642",
+    "name": "Wendy",
+    "dob": "1994-02-21",
+    "sitelinks": 35,
+    "groups": [
+      "Got the Beat",
+      "Red Velvet"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 2.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q24043625",
+    "name": "Son Chaeyoung",
+    "dob": "1999-04-23",
+    "sitelinks": 35,
+    "groups": [
+      "Twice"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 2.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q25374501",
+    "name": "Yoo Jeong-yeon",
+    "dob": "1996-11-01",
+    "sitelinks": 35,
+    "groups": [
+      "Twice"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 9.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q10788758",
+    "name": "Lu Han",
+    "dob": "1990-04-20",
+    "sitelinks": 34,
+    "groups": [
+      "EXO"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 0.2,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q153597",
+    "name": "Lee Taemin",
+    "dob": "1993-07-18",
+    "sitelinks": 34,
+    "groups": [
+      "SHINee",
+      "SuperM"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 25.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q56476186",
+    "name": "Jang Won-young",
+    "dob": "2004-08-31",
+    "sitelinks": 34,
+    "groups": [
+      "Ive",
+      "Iz*One"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 8.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q276158",
+    "name": "Kwon Yu-ri",
+    "dob": "1989-12-05",
+    "sitelinks": 33,
+    "groups": [
+      "Girls' Generation",
+      "Girls' Generation-Oh!GG"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 13.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q428490",
+    "name": "Seungri",
+    "dob": "1990-12-12",
+    "sitelinks": 33,
+    "groups": [
+      "BigBang"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 20.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q20688186",
+    "name": "Mina Myoi",
+    "dob": "1997-03-24",
+    "sitelinks": 33,
+    "groups": [
+      "Twice"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 3.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q19940498",
+    "name": "Yeri",
+    "dob": "1999-03-05",
+    "sitelinks": 32,
+    "groups": [
+      "Red Velvet"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 14.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q22910214",
+    "name": "Jeon Somi",
+    "dob": "2001-03-09",
+    "sitelinks": 32,
+    "groups": [
+      "I.O.I",
+      "Unnies"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 19,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q169717",
+    "name": "Kim Jae-joong",
+    "dob": "1986-01-26",
+    "sitelinks": 31,
+    "groups": [
+      "JYJ",
+      "TVXQ"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 6.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q233894",
+    "name": "Sunny",
+    "dob": "1989-05-15",
+    "sitelinks": 31,
+    "groups": [
+      "Girls' Generation",
+      "Girls' Generation-Oh!GG"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 24.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q253619",
+    "name": "Kim Hyo-yeon",
+    "dob": "1989-09-22",
+    "sitelinks": 31,
+    "groups": [
+      "Girls' Generation",
+      "Got the Beat",
+      "Girls' Generation-Oh!GG"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 29.5,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q26707915",
+    "name": "Jeon Soyeon",
+    "dob": "1998-08-26",
+    "sitelinks": 31,
+    "groups": [
+      "K/DA",
+      "I-dle"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 3.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q17484113",
+    "name": "Joy",
+    "dob": "1996-09-03",
+    "sitelinks": 31,
+    "groups": [
+      "Red Velvet"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 11.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q22100580",
+    "name": "Moonbin",
+    "dob": "1998-01-26",
+    "sitelinks": 31,
+    "groups": [
+      "Astro"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 6.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q140099",
+    "name": "Hahm Eun-jung",
+    "dob": "1988-12-12",
+    "sitelinks": 30,
+    "groups": [
+      "T-ara",
+      "T-ara N4"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 20.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483563",
+    "name": "Park Ji-yeon",
+    "dob": "1993-06-07",
+    "sitelinks": 30,
+    "groups": [
+      "T-ara"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 16.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16098027",
+    "name": "Chen",
+    "dob": "1992-09-21",
+    "sitelinks": 30,
+    "groups": [
+      "EXO",
+      "SM the Ballad",
+      "EXO-M",
+      "Exo-CBX"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 28.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q10802388",
+    "name": "Oh Se-hun",
+    "dob": "1994-04-12",
+    "sitelinks": 30,
+    "groups": [
+      "EXO-K",
+      "EXO",
+      "Exo-SC"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 22.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q12596240",
+    "name": "Bang Min-ah",
+    "dob": "1993-05-13",
+    "sitelinks": 30,
+    "groups": [
+      "Girl's Day"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 22.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483633",
+    "name": "Sohee",
+    "dob": "1992-06-27",
+    "sitelinks": 30,
+    "groups": [
+      "Wonder Girls"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 6.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q624995",
+    "name": "선미",
+    "dob": "1992-05-02",
+    "sitelinks": 30,
+    "groups": [
+      "Wonder Girls"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 12.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483842",
+    "name": "Minzy",
+    "dob": "1994-01-18",
+    "sitelinks": 30,
+    "groups": [
+      "2NE1",
+      "Unnies"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 28.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q26214034",
+    "name": "Chungha",
+    "dob": "1996-02-09",
+    "sitelinks": 30,
+    "groups": [
+      "I.O.I"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 20,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q263279",
+    "name": "Hyomin",
+    "dob": "1989-05-30",
+    "sitelinks": 29,
+    "groups": [
+      "T-ara"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 9.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q489838",
+    "name": "Leeteuk",
+    "dob": "1983-07-01",
+    "sitelinks": 29,
+    "groups": [
+      "Super Junior-Happy",
+      "Super Junior",
+      "Super Junior-T"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 9.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q11073341",
+    "name": "Lee Hye-ri",
+    "dob": "1994-06-09",
+    "sitelinks": 29,
+    "groups": [
+      "Girl's Day"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 18.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q487831",
+    "name": "Jeong Eun-ji",
+    "dob": "1993-08-18",
+    "sitelinks": 29,
+    "groups": [
+      "Apink"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 25.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q10769072",
+    "name": "Huang Zitao",
+    "dob": "1993-05-02",
+    "sitelinks": 29,
+    "groups": [
+      "EXO"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 12.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q12494180",
+    "name": "Lay",
+    "dob": "1991-10-07",
+    "sitelinks": 29,
+    "groups": [
+      "EXO"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 13.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16173210",
+    "name": "Kim Seolhyun",
+    "dob": "1995-01-03",
+    "sitelinks": 29,
+    "groups": [
+      "AOA"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 12.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q429046",
+    "name": "Jay Park",
+    "dob": "1987-04-25",
+    "sitelinks": 29,
+    "groups": [
+      "2PM"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 4.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483363",
+    "name": "Ok Taec-yeon",
+    "dob": "1988-12-27",
+    "sitelinks": 29,
+    "groups": [
+      "2PM"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483980",
+    "name": "Key",
+    "dob": "1991-09-23",
+    "sitelinks": 29,
+    "groups": [
+      "SHINee"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 30,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q482991",
+    "name": "Taeyang",
+    "dob": "1988-05-18",
+    "sitelinks": 29,
+    "groups": [
+      "BigBang",
+      "GD X Taeyang"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 27.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q56259927",
+    "name": "Cho Mi-yeon",
+    "dob": "1997-01-31",
+    "sitelinks": 29,
+    "groups": [
+      "I-dle"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 11.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q494725",
+    "name": "Yoon Eun-hye",
+    "dob": "1984-10-03",
+    "sitelinks": 28,
+    "groups": [
+      "Baby V.O.X."
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 10.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q153657",
+    "name": "Choi Siwon",
+    "dob": "1986-04-07",
+    "sitelinks": 28,
+    "groups": [
+      "Super Junior-M",
+      "Super Junior"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 17.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q494816",
+    "name": "Cho Kyuhyun",
+    "dob": "1988-02-03",
+    "sitelinks": 28,
+    "groups": [
+      "Super Junior-M",
+      "Super Junior",
+      "Super Junior-K.R.Y."
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 13.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q6757073",
+    "name": "Park Hyung-sik",
+    "dob": "1991-11-16",
+    "sitelinks": 28,
+    "groups": [
+      "ZE:A"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 23.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q482519",
+    "name": "Park Yoo-chun",
+    "dob": "1986-06-04",
+    "sitelinks": 28,
+    "groups": [
+      "JYJ",
+      "TVXQ"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 13.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483041",
+    "name": "Changmin",
+    "dob": "1988-02-18",
+    "sitelinks": 28,
+    "groups": [
+      "TVXQ"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 29.1,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q496329",
+    "name": "Hyolyn",
+    "dob": "1990-12-11",
+    "sitelinks": 28,
+    "groups": [
+      "SISTAR",
+      "Sistar19"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 19.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q494692",
+    "name": "Onew",
+    "dob": "1989-12-14",
+    "sitelinks": 28,
+    "groups": [
+      "SHINee"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 22.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q869966",
+    "name": "Sakura Miyawaki",
+    "dob": "1998-03-19",
+    "sitelinks": 28,
+    "groups": [
+      "Le Sserafim",
+      "Iz*One"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 28.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q12616349",
+    "name": "Jessi",
+    "dob": "1988-12-17",
+    "sitelinks": 28,
+    "groups": [
+      "Refund Sisters"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 25.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q153638",
+    "name": "Lee Dong-hae",
+    "dob": "1986-10-15",
+    "sitelinks": 27,
+    "groups": [
+      "Super Junior-M",
+      "Super Junior",
+      "Super Junior Donghae & Eunhyuk"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 21.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q492666",
+    "name": "Son Na-eun",
+    "dob": "1994-02-10",
+    "sitelinks": 27,
+    "groups": [
+      "Apink"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 21.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16767951",
+    "name": "Hani",
+    "dob": "1992-05-01",
+    "sitelinks": 27,
+    "groups": [
+      "EXID"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 11.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q380123",
+    "name": "Kim Hee-chul",
+    "dob": "1983-07-10",
+    "sitelinks": 27,
+    "groups": [
+      "Super Junior",
+      "Super Junior-T",
+      "M&D"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 17.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q482783",
+    "name": "Kim Junsu",
+    "dob": "1986-12-15",
+    "sitelinks": 27,
+    "groups": [
+      "JYJ",
+      "TVXQ"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 23.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q495020",
+    "name": "Han Seung-yeon",
+    "dob": "1988-07-24",
+    "sitelinks": 27,
+    "groups": [
+      "Kara"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 1.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q61100678",
+    "name": "Felix",
+    "dob": "2000-09-15",
+    "sitelinks": 27,
+    "groups": [
+      "Stray Kids"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 22.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q22911780",
+    "name": "Kim Se-jeong",
+    "dob": "1996-08-28",
+    "sitelinks": 27,
+    "groups": [
+      "Gugudan SeMiNa",
+      "I.O.I",
+      "Gugudan"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 5.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q82788",
+    "name": "Yim Si-wan",
+    "dob": "1988-12-01",
+    "sitelinks": 26,
+    "groups": [
+      "ZE:A"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 9.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q391429",
+    "name": "Han Geng",
+    "dob": "1984-02-09",
+    "sitelinks": 26,
+    "groups": [
+      "Super Junior"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 19.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q495000",
+    "name": "Park Gyu-ri",
+    "dob": "1988-05-21",
+    "sitelinks": 26,
+    "groups": [
+      "Kara"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 0.6,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q5909378",
+    "name": "Kim Myung-soo",
+    "dob": "1992-03-13",
+    "sitelinks": 26,
+    "groups": [
+      "INFINITE"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 23.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q194798",
+    "name": "Daesung",
+    "dob": "1989-04-26",
+    "sitelinks": 26,
+    "groups": [
+      "BigBang"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 6.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q340123",
+    "name": "Victoria Song",
+    "dob": "1987-02-02",
+    "sitelinks": 26,
+    "groups": [
+      "f(x)"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 13.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q489432",
+    "name": "Luna",
+    "dob": "1993-08-12",
+    "sitelinks": 26,
+    "groups": [
+      "f(x)"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 19.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q3457830",
+    "name": "Wang Feifei",
+    "dob": "1987-04-27",
+    "sitelinks": 26,
+    "groups": [
+      "Miss A"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 6.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q26689986",
+    "name": "Mark Lee",
+    "dob": "1999-08-02",
+    "sitelinks": 26,
+    "groups": [
+      "SuperM",
+      "NCT U",
+      "NCT Dream",
+      "NCT 127",
+      "NCT"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 9.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q21094167",
+    "name": "Wang Yibo",
+    "dob": "1997-08-05",
+    "sitelinks": 26,
+    "groups": [
+      "Uniq"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 13.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q59670293",
+    "name": "Bang Chan",
+    "dob": "1997-10-03",
+    "sitelinks": 26,
+    "groups": [
+      "Stray Kids",
+      "3RACHA"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 10.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q60870268",
+    "name": "Hwang Ye-ji",
+    "dob": "2000-05-26",
+    "sitelinks": 26,
+    "groups": [
+      "Itzy"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 5.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q484886",
+    "name": "Park So-yeon",
+    "dob": "1987-10-05",
+    "sitelinks": 25,
+    "groups": [
+      "T-ara"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 11.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483158",
+    "name": "Yesung",
+    "dob": "1984-08-24",
+    "sitelinks": 25,
+    "groups": [
+      "Super Junior-Happy",
+      "Super Junior",
+      "Super Junior-K.R.Y."
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 1.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q486443",
+    "name": "Henry Lau",
+    "dob": "1989-10-11",
+    "sitelinks": 25,
+    "groups": [
+      "Super Junior-M"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 18.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q496846",
+    "name": "Lee Joon",
+    "dob": "1988-02-07",
+    "sitelinks": 25,
+    "groups": [
+      "MBLAQ"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 17.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q492738",
+    "name": "Park Cho-rong",
+    "dob": "1991-03-03",
+    "sitelinks": 25,
+    "groups": [
+      "Apink"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 12.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q495069",
+    "name": "Han Seon-hwa",
+    "dob": "1990-10-06",
+    "sitelinks": 25,
+    "groups": [
+      "Secret"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 13,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q2495400",
+    "name": "Yoon Bo-mi",
+    "dob": "1993-08-13",
+    "sitelinks": 25,
+    "groups": [
+      "Apink",
+      "Apink BnN"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 20.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q4798670",
+    "name": "Oh Ha-young",
+    "dob": "1996-07-19",
+    "sitelinks": 25,
+    "groups": [
+      "Apink"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 27.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q494992",
+    "name": "Nicole Jung",
+    "dob": "1991-10-07",
+    "sitelinks": 25,
+    "groups": [
+      "Kara"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 13.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q495352",
+    "name": "Yunho",
+    "dob": "1986-02-06",
+    "sitelinks": 25,
+    "groups": [
+      "TVXQ"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 17.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q489556",
+    "name": "Amber Liu",
+    "dob": "1992-09-18",
+    "sitelinks": 25,
+    "groups": [
+      "f(x)"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 25.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q26459163",
+    "name": "Lee Tae-yong",
+    "dob": "1995-07-01",
+    "sitelinks": 25,
+    "groups": [
+      "SuperM",
+      "NCT U",
+      "NCT 127",
+      "NCT"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 9.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q55287306",
+    "name": "Song Yuqi",
+    "dob": "1999-09-23",
+    "sitelinks": 25,
+    "groups": [
+      "I-dle"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 0,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q61100297",
+    "name": "Soojin",
+    "dob": "1998-03-09",
+    "sitelinks": 25,
+    "groups": [
+      "I-dle"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 18.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q60870265",
+    "name": "Shin Ryu-jin",
+    "dob": "2001-04-17",
+    "sitelinks": 25,
+    "groups": [
+      "Itzy"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 27.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16688282",
+    "name": "BamBam",
+    "dob": "1997-05-02",
+    "sitelinks": 25,
+    "groups": [
+      "Got7"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 12.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483527",
+    "name": "Kim Jong-kook",
+    "dob": "1976-04-25",
+    "sitelinks": 25,
+    "groups": [
+      "Turbo"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 5.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q486536",
+    "name": "Oh Yeon-seo",
+    "dob": "1987-06-22",
+    "sitelinks": 25,
+    "groups": [
+      "LUV"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 0.5,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q702542",
+    "name": "Vanness Wu",
+    "dob": "1978-08-07",
+    "sitelinks": 25,
+    "groups": [
+      "Kangta & Vanness"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 14.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q28790332",
+    "name": "Ro Woon",
+    "dob": "1996-08-07",
+    "sitelinks": 25,
+    "groups": [
+      "SF9"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 15.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q492313",
+    "name": "Park Jin-young",
+    "dob": "1994-09-22",
+    "sitelinks": 24,
+    "groups": [
+      "JJ Project",
+      "Got7"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 29.3,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q15972890",
+    "name": "Seo Kang-jun",
+    "dob": "1993-10-12",
+    "sitelinks": 24,
+    "groups": [
+      "5urprise"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 19.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483175",
+    "name": "Kangin",
+    "dob": "1985-01-17",
+    "sitelinks": 24,
+    "groups": [
+      "Super Junior-Happy",
+      "Super Junior",
+      "Super Junior-T"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 27.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q12609731",
+    "name": "Yura",
+    "dob": "1992-11-06",
+    "sitelinks": 24,
+    "groups": [
+      "Girl's Day"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 14.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q4460516",
+    "name": "Kim Nam-joo",
+    "dob": "1995-04-15",
+    "sitelinks": 24,
+    "groups": [
+      "Apink",
+      "Apink BnN"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 25.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16092089",
+    "name": "Park Cho-a",
+    "dob": "1990-03-06",
+    "sitelinks": 24,
+    "groups": [
+      "AOA"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 15.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q485698",
+    "name": "Heo Ga-yoon",
+    "dob": "1990-05-18",
+    "sitelinks": 24,
+    "groups": [
+      "4Minute",
+      "2Yoon"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 27.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q486483",
+    "name": "Nam Ji-hyun",
+    "dob": "1990-01-09",
+    "sitelinks": 24,
+    "groups": [
+      "4Minute"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 19,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q491515",
+    "name": "Nana",
+    "dob": "1991-09-14",
+    "sitelinks": 24,
+    "groups": [
+      "Orange Caramel",
+      "After School"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 21.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q495009",
+    "name": "Kang Ji-young",
+    "dob": "1994-01-18",
+    "sitelinks": 24,
+    "groups": [
+      "Kara"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 28.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q5363925",
+    "name": "Yoon Bo-ra",
+    "dob": "1989-12-30",
+    "sitelinks": 24,
+    "groups": [
+      "SISTAR",
+      "Sistar19"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 8.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q489006",
+    "name": "Uee",
+    "dob": "1988-04-09",
+    "sitelinks": 24,
+    "groups": [
+      "After School"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 19.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q30114466",
+    "name": "Park Ji-hoon",
+    "dob": "1999-05-29",
+    "sitelinks": 24,
+    "groups": [
+      "Wanna One"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 7.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q55694622",
+    "name": "An Yu-jin",
+    "dob": "2003-09-01",
+    "sitelinks": 24,
+    "groups": [
+      "Ive",
+      "Iz*One"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 8.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q56660174",
+    "name": "Kim Chaewon",
+    "dob": "2000-08-01",
+    "sitelinks": 24,
+    "groups": [
+      "Le Sserafim",
+      "Iz*One"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 9.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q101161289",
+    "name": "윈터",
+    "dob": "2001-01-01",
+    "sitelinks": 24,
+    "groups": [
+      "Got the Beat",
+      "aespa"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 11.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q22128111",
+    "name": "Yua Mikami",
+    "dob": "1993-08-16",
+    "sitelinks": 24,
+    "groups": [
+      "Honey Popcorn"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 23.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q56761923",
+    "name": "Minnie",
+    "dob": "1997-10-23",
+    "sitelinks": 24,
+    "groups": [
+      "I-dle"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 0.1,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q56505060",
+    "name": "Kwon Eun-bi",
+    "dob": "1995-09-27",
+    "sitelinks": 24,
+    "groups": [
+      "Iz*One"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 3.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q272329",
+    "name": "Uhm Jeong-hwa",
+    "dob": "1969-08-17",
+    "sitelinks": 24,
+    "groups": [
+      "Refund Sisters"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 24.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q485279",
+    "name": "Seo Hyun-jin",
+    "dob": "1985-02-27",
+    "sitelinks": 23,
+    "groups": [
+      "M.I.L.K."
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 8.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q491048",
+    "name": "JAY B",
+    "dob": "1994-01-06",
+    "sitelinks": 23,
+    "groups": [
+      "JJ Project",
+      "Got7"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 15.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16171180",
+    "name": "Yook Sung-jae",
+    "dob": "1995-05-02",
+    "sitelinks": 23,
+    "groups": [
+      "BtoB"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 11.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q494222",
+    "name": "Lee Sungmin",
+    "dob": "1986-01-01",
+    "sitelinks": 23,
+    "groups": [
+      "Super Junior-Happy",
+      "Super Junior-M",
+      "Super Junior",
+      "Super Junior-T"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 10.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q12602587",
+    "name": "Park So-jin",
+    "dob": "1986-05-21",
+    "sitelinks": 23,
+    "groups": [
+      "Girl's Day"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 0.1,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q483638",
+    "name": "Park Ye-eun",
+    "dob": "1989-05-26",
+    "sitelinks": 23,
+    "groups": [
+      "Wonder Girls"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 5.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q485672",
+    "name": "Gain",
+    "dob": "1987-09-20",
+    "sitelinks": 23,
+    "groups": [
+      "Brown Eyed Girls"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 27,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q485966",
+    "name": "Kang Min-hyuk",
+    "dob": "1991-06-28",
+    "sitelinks": 23,
+    "groups": [
+      "CNBLUE"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 6.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q491568",
+    "name": "Jun Hyo-seong",
+    "dob": "1989-10-13",
+    "sitelinks": 23,
+    "groups": [
+      "Secret"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 20.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16767981",
+    "name": "Na Hae-ryung",
+    "dob": "1994-11-11",
+    "sitelinks": 23,
+    "groups": [
+      "EXID",
+      "Bestie"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 18.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q491612",
+    "name": "Jeon Ji-yoon",
+    "dob": "1990-10-15",
+    "sitelinks": 23,
+    "groups": [
+      "4Minute",
+      "2Yoon"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 21.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q6408548",
+    "name": "Kim Da-som",
+    "dob": "1993-05-06",
+    "sitelinks": 23,
+    "groups": [
+      "SISTAR"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 16,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q24833180",
+    "name": "Zhou Jieqiong",
+    "dob": "1998-12-16",
+    "sitelinks": 23,
+    "groups": [
+      "Pristin V",
+      "I.O.I",
+      "Pristin"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 24.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q59260597",
+    "name": "Lee Know",
+    "dob": "1998-10-25",
+    "sitelinks": 23,
+    "groups": [
+      "Stray Kids"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 1.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q56441288",
+    "name": "Chaeyeon",
+    "dob": "2000-01-11",
+    "sitelinks": 23,
+    "groups": [
+      "Iz*One"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 20.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q101161168",
+    "name": "지젤",
+    "dob": "2000-10-30",
+    "sitelinks": 23,
+    "groups": [
+      "aespa"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 7.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q7694067",
+    "name": "Teddy Park",
+    "dob": "1978-09-14",
+    "sitelinks": 22,
+    "groups": [
+      "1TYM"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 21.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q486995",
+    "name": "Ryu Hwa-young",
+    "dob": "1993-04-22",
+    "sitelinks": 22,
+    "groups": [
+      "T-ara"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 2.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q487897",
+    "name": "Qri",
+    "dob": "1986-12-12",
+    "sitelinks": 22,
+    "groups": [
+      "T-ara"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 20.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q490397",
+    "name": "Nam Gyu-ri",
+    "dob": "1984-04-26",
+    "sitelinks": 22,
+    "groups": [
+      "SeeYa"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 6.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q14493927",
+    "name": "Kwon Na-ra",
+    "dob": "1991-03-13",
+    "sitelinks": 22,
+    "groups": [
+      "Hello Venus"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 22.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q482855",
+    "name": "Kim Ryeowook",
+    "dob": "1987-06-21",
+    "sitelinks": 22,
+    "groups": [
+      "Super Junior-M",
+      "Super Junior",
+      "Super Junior-K.R.Y."
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 29.6,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q7696122",
+    "name": "Zico",
+    "dob": "1992-09-14",
+    "sitelinks": 22,
+    "groups": [
+      "Block B"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 21.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q153725",
+    "name": "Jung Yong-hwa",
+    "dob": "1989-06-22",
+    "sitelinks": 22,
+    "groups": [
+      "CNBLUE"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q484834",
+    "name": "Lee Hong-gi",
+    "dob": "1990-03-02",
+    "sitelinks": 22,
+    "groups": [
+      "F.T. Island"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 11.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q487560",
+    "name": "Sung Yu-ri",
+    "dob": "1981-03-03",
+    "sitelinks": 22,
+    "groups": [
+      "Fin.K.L"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 12.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q496229",
+    "name": "Bang Yong-guk",
+    "dob": "1990-03-31",
+    "sitelinks": 22,
+    "groups": [
+      "B.A.P",
+      "Bang & Zelo"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 10.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q496580",
+    "name": "Yubin",
+    "dob": "1988-10-04",
+    "sitelinks": 22,
+    "groups": [
+      "Wonder Girls"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 11.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q498199",
+    "name": "Song Jieun",
+    "dob": "1990-05-05",
+    "sitelinks": 22,
+    "groups": [
+      "Secret"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 14.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483288",
+    "name": "Nichkhun",
+    "dob": "1988-06-24",
+    "sitelinks": 22,
+    "groups": [
+      "2PM"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 3.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q485511",
+    "name": "Kwon So-hyun",
+    "dob": "1994-08-30",
+    "sitelinks": 22,
+    "groups": [
+      "4Minute"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 6.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q30243777",
+    "name": "Kang Daniel",
+    "dob": "1996-12-10",
+    "sitelinks": 22,
+    "groups": [
+      "Wanna One"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 18.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q57601775",
+    "name": "Hyunjin",
+    "dob": "2000-03-20",
+    "sitelinks": 22,
+    "groups": [
+      "Stray Kids"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 0.2,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q55694544",
+    "name": "Choi Ye-na",
+    "dob": "1999-09-29",
+    "sitelinks": 22,
+    "groups": [
+      "Iz*One"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 5.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q56660171",
+    "name": "Kim Min-ju",
+    "dob": "2001-02-05",
+    "sitelinks": 22,
+    "groups": [
+      "Iz*One"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 16.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q27953047",
+    "name": "Samuel",
+    "dob": "2002-01-17",
+    "sitelinks": 22,
+    "groups": [
+      "1Punch"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 27.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q486074",
+    "name": "Jeon Bo-ram",
+    "dob": "1986-03-22",
+    "sitelinks": 21,
+    "groups": [
+      "T-ara"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 1.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483161",
+    "name": "Eunhyuk",
+    "dob": "1986-04-04",
+    "sitelinks": 21,
+    "groups": [
+      "Super Junior-Happy",
+      "Super Junior-M",
+      "Super Junior",
+      "Super Junior-T",
+      "Super Junior Donghae & Eunhyuk"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 14.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483171",
+    "name": "Shindong",
+    "dob": "1985-09-28",
+    "sitelinks": 21,
+    "groups": [
+      "Super Junior-Happy",
+      "Super Junior",
+      "Super Junior-T"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 5.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q491902",
+    "name": "Lee Jung-shin",
+    "dob": "1991-09-15",
+    "sitelinks": 21,
+    "groups": [
+      "CNBLUE"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 22.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q497761",
+    "name": "Jung Ha-na",
+    "dob": "1990-02-02",
+    "sitelinks": 21,
+    "groups": [
+      "Secret"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 13.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q489952",
+    "name": "Eugene",
+    "dob": "1981-03-03",
+    "sitelinks": 21,
+    "groups": [
+      "S.E.S."
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 12.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q492065",
+    "name": "Jamie",
+    "dob": "1997-07-05",
+    "sitelinks": 21,
+    "groups": [
+      "15&"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 13.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q498805",
+    "name": "Bada",
+    "dob": "1980-02-28",
+    "sitelinks": 21,
+    "groups": [
+      "S.E.S."
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 9.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16171991",
+    "name": "Kwon Mina",
+    "dob": "1993-09-21",
+    "sitelinks": 21,
+    "groups": [
+      "AOA"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 28.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483541",
+    "name": "Kim Kibum",
+    "dob": "1987-08-21",
+    "sitelinks": 21,
+    "groups": [
+      "Super Junior"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 27.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q486196",
+    "name": "Park Soo-ah",
+    "dob": "1992-07-31",
+    "sitelinks": 21,
+    "groups": [
+      "Orange Caramel",
+      "After School"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 8.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q488423",
+    "name": "Lee Jun-ho",
+    "dob": "1990-01-25",
+    "sitelinks": 21,
+    "groups": [
+      "2PM"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 5.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q3228878",
+    "name": "Hoya",
+    "dob": "1991-03-28",
+    "sitelinks": 21,
+    "groups": [
+      "INFINITE"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 7.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q5361514",
+    "name": "Soyou",
+    "dob": "1992-02-12",
+    "sitelinks": 21,
+    "groups": [
+      "SISTAR"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 23,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q6409458",
+    "name": "Kim Sung-kyu",
+    "dob": "1989-04-28",
+    "sitelinks": 21,
+    "groups": [
+      "INFINITE"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 8.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q10797190",
+    "name": "Nam Woo-hyun",
+    "dob": "1991-02-08",
+    "sitelinks": 21,
+    "groups": [
+      "INFINITE",
+      "ToHeart"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 19.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q30014912",
+    "name": "Hwang Min-hyun",
+    "dob": "1995-08-09",
+    "sitelinks": 21,
+    "groups": [
+      "NU'EST",
+      "Wanna One"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 16.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q495099",
+    "name": "Min",
+    "dob": "1991-06-21",
+    "sitelinks": 21,
+    "groups": [
+      "Miss A"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 29.6,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q495302",
+    "name": "Meng Jia",
+    "dob": "1989-02-03",
+    "sitelinks": 21,
+    "groups": [
+      "Miss A"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 14.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q26451151",
+    "name": "Ten",
+    "dob": "1996-02-27",
+    "sitelinks": 21,
+    "groups": [
+      "SuperM",
+      "NCT U",
+      "NCT"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 8.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q21710247",
+    "name": "Eunha",
+    "dob": "1997-05-30",
+    "sitelinks": 21,
+    "groups": [
+      "Viviz",
+      "GFriend"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 9.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q17811824",
+    "name": "B.I",
+    "dob": "1996-10-22",
+    "sitelinks": 21,
+    "groups": [
+      "iKon"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 29.4,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q20821809",
+    "name": "Yuju",
+    "dob": "1997-10-04",
+    "sitelinks": 21,
+    "groups": [
+      "GFriend"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 11.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q24832146",
+    "name": "Lim Na-young",
+    "dob": "1995-12-18",
+    "sitelinks": 21,
+    "groups": [
+      "Pristin V",
+      "I.O.I",
+      "Pristin"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 26.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q55287305",
+    "name": "Shuhua",
+    "dob": "2000-01-06",
+    "sitelinks": 21,
+    "groups": [
+      "I-dle"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 15.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q61100669",
+    "name": "Changbin",
+    "dob": "1999-08-11",
+    "sitelinks": 21,
+    "groups": [
+      "Stray Kids",
+      "3RACHA"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 18.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q60829936",
+    "name": "Chaeryeong",
+    "dob": "2001-06-05",
+    "sitelinks": 21,
+    "groups": [
+      "Itzy"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 14.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q101161499",
+    "name": "닝닝",
+    "dob": "2002-10-23",
+    "sitelinks": 21,
+    "groups": [
+      "aespa"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 29.9,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q24959134",
+    "name": "Jung Chae-yeon",
+    "dob": "1997-12-01",
+    "sitelinks": 21,
+    "groups": [
+      "DIA",
+      "I.O.I"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 9.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q27951584",
+    "name": "Kihyun",
+    "dob": "1993-11-22",
+    "sitelinks": 21,
+    "groups": [
+      "Monsta X"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 0.2,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q26214035",
+    "name": "Kim So-hye",
+    "dob": "1999-07-19",
+    "sitelinks": 21,
+    "groups": [
+      "I.O.I"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 26.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q18116606",
+    "name": "Nancy",
+    "dob": "2000-04-13",
+    "sitelinks": 21,
+    "groups": [
+      "Momoland"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 23.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q9300078",
+    "name": "Kwon Ri-se",
+    "dob": "1991-08-16",
+    "sitelinks": 21,
+    "groups": [
+      "Ladies' Code"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 23.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q17682967",
+    "name": "Song Min-ho",
+    "dob": "1993-03-30",
+    "sitelinks": 21,
+    "groups": [
+      "Winner"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 9.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q20972211",
+    "name": "Wen Junhui",
+    "dob": "1996-06-10",
+    "sitelinks": 21,
+    "groups": [
+      "Seventeen"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 19.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q21824887",
+    "name": "Kim Min-gyu",
+    "dob": "1997-04-06",
+    "sitelinks": 21,
+    "groups": [
+      "Seventeen"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 16.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q135108208",
+    "name": "Ejae",
+    "dob": "1991-12-06",
+    "sitelinks": 21,
+    "groups": [
+      "HUNTR/X"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 13.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16767600",
+    "name": "Heo Sol-ji",
+    "dob": "1989-01-10",
+    "sitelinks": 20,
+    "groups": [
+      "2NB",
+      "EXID"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 20.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q484843",
+    "name": "Park Jung-min",
+    "dob": "1987-04-03",
+    "sitelinks": 20,
+    "groups": [
+      "SS501"
+    ],
+    "zodiac": "Aries",
+    "zodiacKo": "양자리",
+    "zodiacDegree": 13.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q485744",
+    "name": "Hwang Jung-eum",
+    "dob": "1984-12-25",
+    "sitelinks": 20,
+    "groups": [
+      "Sugar"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 3.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q487861",
+    "name": "Jung Ryeo-won",
+    "dob": "1981-01-21",
+    "sitelinks": 20,
+    "groups": [
+      "Chakra"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 1.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q461117",
+    "name": "Dana",
+    "dob": "1986-07-17",
+    "sitelinks": 20,
+    "groups": [
+      "The Grace"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 24.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q6781164",
+    "name": "Lee Hae-ri",
+    "dob": "1985-02-14",
+    "sitelinks": 20,
+    "groups": [
+      "Davichi"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 25.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q6823994",
+    "name": "Kang Min-kyeong",
+    "dob": "1990-08-03",
+    "sitelinks": 20,
+    "groups": [
+      "Davichi"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 10.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q486634",
+    "name": "Jang Hyun-seung",
+    "dob": "1989-09-03",
+    "sitelinks": 20,
+    "groups": [
+      "Trouble Maker",
+      "Highlight"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 11,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16090396",
+    "name": "Woohee",
+    "dob": "1991-11-21",
+    "sitelinks": 20,
+    "groups": [
+      "Dal Shabet",
+      "UNI.T"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 28.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16183093",
+    "name": "Shin Ji-min",
+    "dob": "1991-01-08",
+    "sitelinks": 20,
+    "groups": [
+      "AOA"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 17.7,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16767898",
+    "name": "Dohwa",
+    "dob": "1996-06-19",
+    "sitelinks": 20,
+    "groups": [
+      "AOA"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 28.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q491364",
+    "name": "Yoon Doo-joon",
+    "dob": "1989-07-04",
+    "sitelinks": 20,
+    "groups": [
+      "Highlight"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 12.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q596923",
+    "name": "Raina",
+    "dob": "1989-05-07",
+    "sitelinks": 20,
+    "groups": [
+      "Orange Caramel",
+      "After School"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 16.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q486942",
+    "name": "Lee Joo-yeon",
+    "dob": "1987-03-19",
+    "sitelinks": 20,
+    "groups": [
+      "After School"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 28.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q488725",
+    "name": "Park Kahi",
+    "dob": "1980-12-25",
+    "sitelinks": 20,
+    "groups": [
+      "After School"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 3.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q24663999",
+    "name": "Kang Mi-na",
+    "dob": "1999-12-04",
+    "sitelinks": 20,
+    "groups": [
+      "Gugudan 5959",
+      "Gugudan SeMiNa",
+      "I.O.I",
+      "Gugudan"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 11.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q30311753",
+    "name": "Ong Seongwu",
+    "dob": "1995-08-25",
+    "sitelinks": 20,
+    "groups": [
+      "Wanna One"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 1.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q22773776",
+    "name": "Yuta Nakamoto",
+    "dob": "1995-10-26",
+    "sitelinks": 20,
+    "groups": [
+      "NCT U",
+      "NCT 127",
+      "NCT"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 2.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q27431345",
+    "name": "Na Jaemin",
+    "dob": "2000-08-13",
+    "sitelinks": 20,
+    "groups": [
+      "NCT U",
+      "NCT Dream",
+      "NCT",
+      "NCT JNJM"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 21,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q52219380",
+    "name": "Lucas",
+    "dob": "1999-01-25",
+    "sitelinks": 20,
+    "groups": [
+      "SuperM",
+      "NCT U",
+      "NCT"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 5.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q28870936",
+    "name": "Bona",
+    "dob": "1995-08-19",
+    "sitelinks": 20,
+    "groups": [
+      "WJSN THE BLACK",
+      "WJSN"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 26,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q8261971",
+    "name": "Elkie",
+    "dob": "1998-11-02",
+    "sitelinks": 20,
+    "groups": [
+      "CLC"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 9.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q60467634",
+    "name": "Seungmin",
+    "dob": "2000-09-22",
+    "sitelinks": 20,
+    "groups": [
+      "Stray Kids"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 29.8,
+    "zodiacBoundary": true,
+    "posts": null
+  },
+  {
+    "qid": "Q18235331",
+    "name": "Nako Yabuki",
+    "dob": "2001-06-18",
+    "sitelinks": 20,
+    "groups": [
+      "Iz*One"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 27.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q60870266",
+    "name": "Lia",
+    "dob": "2000-07-21",
+    "sitelinks": 20,
+    "groups": [
+      "Itzy"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 29,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q17198771",
+    "name": "Park Sung-hoon",
+    "dob": "2002-12-08",
+    "sitelinks": 20,
+    "groups": [
+      "Enhypen"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 16.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q24959132",
+    "name": "Cheng Xiao",
+    "dob": "1998-07-15",
+    "sitelinks": 20,
+    "groups": [
+      "WJSN"
+    ],
+    "zodiac": "Cancer",
+    "zodiacKo": "게자리",
+    "zodiacDegree": 22.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q17500581",
+    "name": "Choi Young-jae",
+    "dob": "1996-09-17",
+    "sitelinks": 20,
+    "groups": [
+      "Got7"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 24.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q489016",
+    "name": "Jeon Hye-bin",
+    "dob": "1983-09-27",
+    "sitelinks": 20,
+    "groups": [
+      "LUV"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 3.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q21824868",
+    "name": "Xu Minghao",
+    "dob": "1997-11-07",
+    "sitelinks": 20,
+    "groups": [
+      "Seventeen"
+    ],
+    "zodiac": "Scorpio",
+    "zodiacKo": "전갈자리",
+    "zodiacDegree": 15.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q21824947",
+    "name": "Boo Seung-kwan",
+    "dob": "1998-01-16",
+    "sitelinks": 20,
+    "groups": [
+      "Seventeen"
+    ],
+    "zodiac": "Capricorn",
+    "zodiacKo": "염소자리",
+    "zodiacDegree": 26.2,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q483926",
+    "name": "Kim Hyung-jun",
+    "dob": "1987-08-03",
+    "sitelinks": 19,
+    "groups": [
+      "SS501"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 10.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q494851",
+    "name": "Eun Ji-won",
+    "dob": "1978-06-08",
+    "sitelinks": 19,
+    "groups": [
+      "Sechs Kies"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 17.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q488057",
+    "name": "Lee Jong-hyun",
+    "dob": "1990-05-15",
+    "sitelinks": 19,
+    "groups": [
+      "CNBLUE"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 24.4,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q493899",
+    "name": "Hyelim",
+    "dob": "1992-09-01",
+    "sitelinks": 19,
+    "groups": [
+      "Wonder Girls"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 9.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q15223756",
+    "name": "Ah Young",
+    "dob": "1991-05-26",
+    "sitelinks": 19,
+    "groups": [
+      "Dal Shabet"
+    ],
+    "zodiac": "Gemini",
+    "zodiacKo": "쌍둥이자리",
+    "zodiacDegree": 4.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16183324",
+    "name": "Shin Hye-jeong",
+    "dob": "1993-08-10",
+    "sitelinks": 19,
+    "groups": [
+      "AOA"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 17.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q488344",
+    "name": "Jang Wooyoung",
+    "dob": "1989-04-30",
+    "sitelinks": 19,
+    "groups": [
+      "2PM"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 10.1,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q496362",
+    "name": "Hwang Chansung",
+    "dob": "1990-02-11",
+    "sitelinks": 19,
+    "groups": [
+      "2PM"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 22.5,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q17302045",
+    "name": "Heo Young-ji",
+    "dob": "1994-08-30",
+    "sitelinks": 19,
+    "groups": [
+      "Kara"
+    ],
+    "zodiac": "Virgo",
+    "zodiacKo": "처녀자리",
+    "zodiacDegree": 6.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q26267642",
+    "name": "Jaehyun",
+    "dob": "1997-02-14",
+    "sitelinks": 19,
+    "groups": [
+      "NCT U",
+      "NCT 127"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 25.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q26162651",
+    "name": "Kim So-won",
+    "dob": "1995-12-07",
+    "sitelinks": 19,
+    "groups": [
+      "GFriend"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 14.9,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q59831589",
+    "name": "I.N",
+    "dob": "2001-02-08",
+    "sitelinks": 19,
+    "groups": [
+      "Stray Kids"
+    ],
+    "zodiac": "Aquarius",
+    "zodiacKo": "물병자리",
+    "zodiacDegree": 19.8,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q60870263",
+    "name": "Shin Yu-na",
+    "dob": "2003-12-09",
+    "sitelinks": 19,
+    "groups": [
+      "Itzy"
+    ],
+    "zodiac": "Sagittarius",
+    "zodiacKo": "궁수자리",
+    "zodiacDegree": 17,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q16180796",
+    "name": "Park Si-eun",
+    "dob": "2001-08-01",
+    "sitelinks": 19,
+    "groups": [
+      "STAYC"
+    ],
+    "zodiac": "Leo",
+    "zodiacKo": "사자자리",
+    "zodiacDegree": 9.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q111537648",
+    "name": "Huh Yun-jin",
+    "dob": "2001-10-08",
+    "sitelinks": 19,
+    "groups": [
+      "Le Sserafim"
+    ],
+    "zodiac": "Libra",
+    "zodiacKo": "천칭자리",
+    "zodiacDegree": 15.3,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q27658440",
+    "name": "Lee Na-eun",
+    "dob": "1999-05-05",
+    "sitelinks": 19,
+    "groups": [
+      "April"
+    ],
+    "zodiac": "Taurus",
+    "zodiacKo": "황소자리",
+    "zodiacDegree": 14.6,
+    "zodiacBoundary": false,
+    "posts": null
+  },
+  {
+    "qid": "Q28549863",
+    "name": "Wonho",
+    "dob": "1993-03-01",
+    "sitelinks": 19,
+    "groups": [
+      "Monsta X"
+    ],
+    "zodiac": "Pisces",
+    "zodiacKo": "물고기자리",
+    "zodiacDegree": 10.9,
+    "zodiacBoundary": false,
+    "posts": null
+  }
+]
