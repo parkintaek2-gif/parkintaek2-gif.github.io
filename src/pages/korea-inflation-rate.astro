@@ -78,8 +78,10 @@ const 때글 = (t: string) => {
 const 퍼센트 = (v: any, 부호 = false) =>
   (수인가(v) ? `${부호 && v > 0 ? '+' : ''}${Number(v).toFixed(2)}%` : '—');
 
+/* ⚠ 레이아웃이 뒤에 「 | SMarkets」를 붙인다. 73자로 지었더니 84자가 되어
+   검색 결과에서 잘렸다 — 앞 60자 안에 핵심이 다 들어가게 줄인다. */
 const TITLE = 마이너스구간 && 지금
-  ? `Korea inflation and the base rate — real rates were negative for ${마이너스구간.달수} months`
+  ? `Korea inflation vs base rate — ${마이너스구간.달수} months of negative real rates`
   : 'Korea inflation, the base rate and GDP growth';
 
 const DESC = 마이너스구간 && 지금
