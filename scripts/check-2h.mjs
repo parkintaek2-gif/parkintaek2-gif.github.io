@@ -917,6 +917,30 @@ if (내가실행됐다) {
     }));
   }
 
+  /**
+   * ③-6 중부매일 회차가 **주말에도 도나**
+   *
+   * 🔴 [2026-10-04 · 5번] 일요일이자 **아시안게임 마지막 날**에 여섯 회차 가운데
+   *   다섯이 아예 안 돌았다. 예약이 「평일마다」로 되어 있었다.
+   * ⛔ 나는 「주말이라 쉰다」를 보고 **지시문**을 고쳐 놓고 끝냈다. 그런데 안 도는
+   *   회차는 그 지시문을 읽을 일이 없다. `run-jbnews-sports-slot.mjs` 머리말이
+   *   2026-09-26 에 이미 적어 둔 것이다 —
+   *   「**「지시문을 고쳤다」를 「그 회차가 돈다」로 세지 않는다.**」
+   * ⚠ 평일에는 ⬜ 다 — 이 자는 토·일에만 말한다. 그래야 헛울리지 않는다.
+   */
+  {
+    let 줄글 = null;
+    try {
+      const m = await import('./check-jbnews-slot-runs-weekends.mjs');
+      const 지금 = new Date();
+      const 날 = m.오늘글(지금);
+      const 줄들 = fs.readFileSync(m.기록길, 'utf8').split(/\r?\n/).filter(Boolean);
+      const r = m.판정(m.그날돈수(줄들, 날), m.주말인가(지금));
+      줄글 = { 됐나: r.빛 !== '🔴', 말: r.빛 === '🔴' ? `🔴 ${r.말} — node scripts/check-jbnews-slot-runs-weekends.mjs` : r.말 };
+    } catch (e) { 줄글 = null; }
+    console.log(줄('③-6', '중부매일 주말 회차', 줄글));
+  }
+
   /* ④ 라이브 */
   let 라이브 = null;
   try {
