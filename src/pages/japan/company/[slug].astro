@@ -31,7 +31,7 @@ import Base from '../../../layouts/Base.astro';
 import { SITE_URL } from '../../../consts';
 import tape from '../../../data/japan-financials-tape.json';
 import { 주소표만들기 } from '../../../lib/company-slug.mjs';
-import { 재무줄, 시장줄, 낼만한가, 업종주소 } from '../../../lib/japan-company-page.mjs';
+import { 재무줄, 시장줄, 낼만한가, 업종주소, 이웃고르기 } from '../../../lib/japan-company-page.mjs';
 
 export async function getStaticPaths() {
   const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
@@ -59,7 +59,9 @@ export async function getStaticPaths() {
         sectorSlug: 업종 === 'Unclassified' ? null : 업종주소(업종),
         줄: 재무줄(r),
         시장: 시장줄(r),
-        같은업종: 한벌.filter((x) => x.code !== String(r.code)).slice(0, 12),
+        /* 🔴 [2026-10-04] 여기가 `.slice(0, 12)` 였다 — 3,702장이 «모두 같은 12개»를
+           가리켜 나머지 3,286장은 들어오는 길이 하나뿐이었다. 이웃을 가리키게 바꿨다. */
+        같은업종: 이웃고르기(한벌, 한벌.findIndex((x) => x.code === String(r.code)), 12),
         업종회사수: 한벌.length,
       },
     };

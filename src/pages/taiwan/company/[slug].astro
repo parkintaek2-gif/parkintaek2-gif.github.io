@@ -24,6 +24,8 @@ import { 주소표만들기 } from '../../../lib/company-slug.mjs';
 import {
   재무줄, 회사줄, 시장줄, 낼만한가, 분기말, 누계기간, 업종주소, 많이어긋났나,
 } from '../../../lib/taiwan-company-page.mjs';
+/* 🔴 [2026-10-04] 이웃고르기 — 일본 쪽에서 찾은 같은 흠이 여기도 있었다 */
+import { 이웃고르기 } from '../../../lib/japan-company-page.mjs';
 
 export async function getStaticPaths() {
   const 행들 = ((tape as any).rows as any[]).filter((r) => 낼만한가(r));
@@ -62,7 +64,8 @@ export async function getStaticPaths() {
         업종: 갈래 || null,
         업종한자: String(r.industry_zh || '') || null,
         업종주소값: 갈래 ? 업종주소(갈래) : null,
-        같은갈래: 한벌.filter((x) => x.code !== String(r.code)).slice(0, 12),
+        /* 🔴 [2026-10-04] `.slice(0, 12)` 는 «모두 같은 12개»를 가리킨다 — 이웃을 가리킨다 */
+        같은갈래: 이웃고르기(한벌, 한벌.findIndex((x) => x.code === String(r.code)), 12),
         갈래회사수: 한벌.length,
       },
     };

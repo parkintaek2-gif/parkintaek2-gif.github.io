@@ -27,6 +27,8 @@ import Base from '../../../layouts/Base.astro';
 import { SITE_URL } from '../../../consts';
 import facts from '../../../data/uae-company-facts.json';
 import { 재무줄, 낼만한가, 주소표만들기, 거래소이름 } from '../../../lib/uae-company-page.mjs';
+/* 🔴 [2026-10-04] 이웃고르기 — 일본 쪽에서 찾은 같은 흠이 여기도 있었다 */
+import { 이웃고르기 } from '../../../lib/japan-company-page.mjs';
 
 export async function getStaticPaths() {
   const 회사들 = ((facts as any).companies as any[]).filter((c) => 낼만한가(c));
@@ -54,7 +56,8 @@ export async function getStaticPaths() {
         sector: c.sector || null,
         auditor: c.auditor || null,
         줄: 재무줄(c.최근 ?? c.latest ?? null),
-        같은거래소: 한벌.filter((x) => x.symbol !== String(c.symbol)).slice(0, 12),
+        /* 🔴 [2026-10-04] `.slice(0, 12)` 는 «모두 같은 12개»를 가리킨다 — 이웃을 가리킨다 */
+        같은거래소: 이웃고르기(한벌, 한벌.findIndex((x) => x.symbol === String(c.symbol)), 12),
         거래소회사수: 한벌.length,
       },
     };

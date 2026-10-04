@@ -37,6 +37,8 @@ import fin from '../../data/korea-financials-tape.json';
 import ppl from '../../data/korea-people-tape.json';
 import { 주소표만들기 } from '../../lib/company-slug.mjs';
 import { 재무줄, 사람줄, 늘어난비, 시장말, 낼만한가 } from '../../lib/company-page.mjs';
+/* 🔴 [2026-10-04] 이웃고르기 — 일본 쪽에서 쓰던 것을 그대로 쓴다. 같은 흠이 여기도 있었다 */
+import { 이웃고르기 } from '../../lib/japan-company-page.mjs';
 /* 🔴 [2026-09-23] 자료를 2021년까지 소급해 다섯 해가 됐다. 그 전에는 세 해뿐이라
    「몇 해를 잇달아」가 낱장에서 말이 되지 않았는데, 이제 이 칸이 선다.
    ⚠ 「잇달아」는 «가장 최근부터» 센다 — 옛날에 흑자였다가 지금 적자면 그 줄은 끊긴 것이다. */
@@ -74,8 +76,10 @@ export async function getStaticPaths() {
   for (const h of 회사머리) {
     const rs = 묶음.get(h.code)!;
     if (!낼만한가(rs)) continue;                    /* ② 낼 내용이 없으면 지면을 안 만든다 */
-    const 같은업종 = (업종별.get(h.sector || 'Unclassified') ?? [])
-      .filter((x) => x.code !== h.code).slice(0, 12);
+    /* 🔴 [2026-10-04 · 5번] 여기가 `.slice(0, 12)` 였다 — 한국 회사 2,521장이 «모두 같은
+       12개»를 가리켜 1,926장이 들어오는 길 하나뿐이었다. 구글은 링크를 타고 온다. */
+    const 한벌 = 업종별.get(h.sector || 'Unclassified') ?? [];
+    const 같은업종 = 이웃고르기(한벌, 한벌.findIndex((x) => x.code === h.code), 12);
     길.push({
       params: { slug: 주소표.get(h.code)! },
       props: {
