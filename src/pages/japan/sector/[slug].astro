@@ -78,7 +78,11 @@ const bn = (n: number | null) =>
 const pct = (n: number | null) =>
   n == null ? '—' : `${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1 })}%`;
 
-const title = `${업종} — Japanese listed companies`;
+/* 🔴 [2026-10-04 · 5번] **손님은 「chemical companies in japan」을 치는데 제목에
+   「in Japan」이 없었다.** 우리는 「Japanese listed companies」라고 썼다 — 55위였다.
+   ⛔ 낱말을 쌓은 것이 아니다 — 이 지면은 실제로 일본 상장사를 업종으로 묶어 싣는다.
+   ⚠ 33개 업종을 다 재서 가장 긴 제목이 60자 안에 드는지 확인한다. */
+const title = `${업종} companies in Japan — ${회사수} listed`;
 const description = `${회사수} Japanese listed companies file under ${업종}. Median revenue, median net margin and the full list, from annual securities reports filed through EDINET.`;
 
 const jsonLd = {
