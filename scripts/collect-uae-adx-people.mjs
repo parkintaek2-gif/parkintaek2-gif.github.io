@@ -40,7 +40,13 @@ import { put } from '../src/lib/store.mjs';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36';
 const APIKEY = '1863a94c-582b-46f9-b4f0-0d02c0cc5307';
 const GATEWAY = 'https://apigateway.adx.ae/adx';
-const 간격ms = 260;
+/**
+ * 🔴 [2026-10-04 · 5번] 260ms 로는 **종목마다 429 가 한 번씩** 났다.
+ * 429 를 참고 다시 묻게 고친 뒤에도 94곳 중 81곳을 못 받았다 —
+ * 재시도도 같은 한도에 걸리니 소용이 없었다. 간격 자체를 늘린다.
+ * ⚠ 94종목 × 3번 호출 × 1.1초 ≈ 5분. 소급이 안 되는 자료라 느려도 받는 쪽이 낫다.
+ */
+const 간격ms = 1100;
 
 /** 이 회사 지면을 여는 브라우저가 실제로 보내는 헤더 그대로(개발자도구 실측). */
 function 헤더인자() {

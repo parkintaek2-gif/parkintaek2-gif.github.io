@@ -38,7 +38,7 @@ import { 사람구조화 } from '../../../lib/person-jsonld.ts';
 import titlePages from '../../../data/wikitip-title-pages.json';
 import { 지면있는것들 } from '../../../lib/title-link.ts';
 import KLifeMapNext from '../../../components/KLifeMapNext.astro';
-import { KLIFEMAP_사주 } from '../../../lib/klifemap-en';
+import { KLIFEMAP_사주, 스타사주입구, 스타지면있는Q } from '../../../lib/klifemap-en';
 import data from '../../../data/wikitip-people.json';
 import 멤버그룹자료 from '../../../data/wikitip-member-vs-group.json';
 
@@ -567,7 +567,12 @@ const 생일글 = p.born
       <li><a href="/person">Everyone we have a page for</a></li>
       <li><a href="/titles">Korean drama list &mdash; every title that reached a Netflix top 10</a></li>
       <li><a href="/born-on">Korean actors&rsquo; birthdays, day by day</a></li>
-      {p.born && <KLifeMapNext 입구={KLIFEMAP_사주} 맥락={p.name} />}
+      {/* 🔴 [2026-10-04] 그 사람 «전용» 지면이 있으면 거기로 보낸다 —
+          한 곳(saju.html)으로만 보내면 구글은 그 한 장만 본다.
+          ⛔ 사이트맵에 실제로 있는 사람만. 없으면 아무것도 안 그린다. */}
+      <KLifeMapNext 입구={스타사주입구(p.q, p.name)} />
+      {p.born && !스타지면있는Q.has(String(p.q ?? '').toUpperCase())
+        && <KLifeMapNext 입구={KLIFEMAP_사주} 맥락={p.name} />}
     </ul>
   </section>
 
