@@ -186,6 +186,40 @@ export function 늦은날(날들) {
   return 쓸것.length ? 쓸것.slice().sort()[쓸것.length - 1] : null;
 }
 
+/**
+ * 🔴🔴 [2026-10-05 05:45 · 5번] **손으로 적은 갈래 표가 또 새 지면을 빠뜨렸다.**
+ *
+ *   자가시험 ⑯ 이 「빠진 것 34개」라고 **이미 빨강을 내고 있었다.** 그런데
+ *   아무도 안 고쳤고, 그 34장이 라이브 사이트맵에서 `<lastmod>` 를 잃고 있었다.
+ *   ⛔ 「만들어 놓고 안 쓰면 안 만든 것과 같다」 — 시험이 잡아도 손으로 34줄을
+ *     적어야 한다면 다음에도 또 빠진다. 2026-08-27 에 35갈래를 손으로 채웠는데
+ *     한 달 만에 34갈래가 또 빠졌다. 같은 일을 두 번 했다.
+ *
+ * ⇒ **손으로 적는 대신 찾아낸다.** `sitemap.xml.ts` 의 고정 경로 가운데 표에
+ *   없는 것은 `src/pages/100y/<이름>/index.astro` 또는 `<이름>.astro` 를 본다.
+ *   ⛔ 파일이 없으면 «안 넣는다» — 없는 지면에 날짜만 지어 넣지 않는다.
+ * ⚠ 표에 «이미 있는» 갈래는 건드리지 않는다. 자료 파일까지 묶어 둔 것들이라
+ *   저절로 찾은 것보다 정확하다.
+ */
+export function 저절로찾은갈래(뿌리길 = 뿌리, { 있나 = fs.existsSync, 읽기 = fs.readFileSync } = {}) {
+  const 더할것 = {};
+  let 사이트맵글 = '';
+  try {
+    사이트맵글 = String(읽기(path.join(뿌리길, 'src/pages/100y/sitemap.xml.ts'), 'utf8'));
+  } catch { return 더할것; }      /* ⛔ 못 읽으면 빈손 — 지어내지 않는다 */
+  const 고정경로들 = [...new Set([...사이트맵글.matchAll(/path:\s*'(\/[a-z0-9-]+)'/g)].map((m) => m[1]))];
+  for (const p of 고정경로들) {
+    if (p in 갈래) continue;                       /* 손으로 적어 둔 것이 더 정확하다 */
+    const 이름 = p.replace(/^\//, '');
+    const 후보 = [
+      `src/pages/100y/${이름}/index.astro`,
+      `src/pages/100y/${이름}.astro`,
+    ].filter((f) => 있나(path.join(뿌리길, f)));
+    if (후보.length) 더할것[p] = 후보;             /* ⛔ 없으면 안 넣는다 */
+  }
+  return 더할것;
+}
+
 /** 사이트맵 한 줄의 길이 어느 갈래인가. ⚠ 긴 것부터 본다 — /age 와 /age/32 가 다르다 */
 export function 갈래찾기(길) {
   if (길 === '/') return '/';
@@ -234,11 +268,27 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
      읽어 갈래 표에 짝이 있는지 대조한다 — 새 지면을 만들고 여기 안 넣으면 이 시험이 잡는다 */
   const 사이트맵글 = fs.readFileSync(path.join(뿌리, 'src/pages/100y/sitemap.xml.ts'), 'utf8');
   const 고정경로들 = [...new Set([...사이트맵글.matchAll(/path:\s*'(\/[a-z0-9-]+)'/g)].map((m) => m[1]))];
-  const 안낀것 = ['/', ...고정경로들].filter((p) => !(p in 갈래));
+  /* 🔴 [2026-10-05] 손으로 적은 표에 없어도 «저절로 찾으면» 된다 —
+     그래서 둘을 합쳐서 본다. 그래도 빠지는 것은 지면 파일이 정말 없는 것이다. */
+  const 다합친것 = { ...저절로찾은갈래(), ...갈래 };
+  const 안낀것 = ['/', ...고정경로들].filter((p) => !(p in 다합친것));
   본다('⑯ 🔴 sitemap.xml.ts 의 고정 지면이 갈래 표에 다 있다' + (안낀것.length ? ' — 빠진 것: ' + 안낀것.join(', ') : ''),
        안낀것.length === 0);
 
   본다('⑰ 갈래가 쉰 넘는다', Object.keys(갈래).length >= 50);
+
+  /* 🔴 [2026-10-05] 저절로 찾기가 실제로 도는지 — 손으로 적힌 것을 덮지 않나,
+     파일이 없으면 안 넣나. 가짜 손으로 재서 저장소를 안 건드린다. */
+  /* ⚠ 사이트맵의 길은 영문 소문자다 — 시험 예문도 같은 꼴이어야 한다.
+     처음에 한글 예문을 썼다가 정규식이 안 잡아 시험이 떨어졌다. */
+  const 가짜읽기 = () => "path: '/brand-new', path: '/missing-one', path: '/price'";
+  const 가짜있나 = (p) => String(p).replace(/\\/g, '/').includes('100y/brand-new/index.astro');
+  const r = 저절로찾은갈래('/뿌리', { 있나: 가짜있나, 읽기: 가짜읽기 });
+  본다('⑱ 🔴 갈래 표에 없는 지면을 저절로 찾는다', Array.isArray(r['/brand-new']) && r['/brand-new'].length === 1);
+  본다('⑲ ⛔ 파일이 없으면 «안 넣는다» — 날짜를 지어내지 않는다', !('/missing-one' in r));
+  본다('⑳ ⛔ 손으로 적어 둔 갈래는 안 덮는다', !('/price' in r));
+  본다('㉑ ⛔ 사이트맵을 못 읽어도 안 터진다',
+    Object.keys(저절로찾은갈래('/뿌리', { 있나: () => true, 읽기: () => { throw new Error('없다'); } })).length === 0);
 
   console.log(실패 === 0 ? `✅ 자가시험 ${통과}개 통과` : `❌ ${실패}개 실패 (통과 ${통과})`);
   process.exit(실패 === 0 ? 0 : 1);
@@ -247,9 +297,15 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
 if (내가실행됐다) {
   const 답 = {};
   let 빈것 = 0;
-  for (const [이름, 길들] of Object.entries(갈래)) {
+  /* 🔴 [2026-10-05] 손으로 적은 표 + 저절로 찾은 것. 손으로 적은 쪽이 이긴다 */
+  const 더찾은것 = 저절로찾은갈래();
+  const 다 = { ...더찾은것, ...갈래 };
+  for (const [이름, 길들] of Object.entries(다)) {
     const 날 = 늦은날(길들.map((p) => 파일날(p)));
     if (날) 답[이름] = 날; else 빈것++;
+  }
+  if (Object.keys(더찾은것).length) {
+    console.log(`   ⭐ 갈래 표에 없어 «저절로 찾은» 지면 ${Object.keys(더찾은것).length}개`);
   }
   const 글 = JSON.stringify({
     무엇인가: '백년지도 사이트맵 <lastmod> — git 이 아는 진짜 날만 담는다',
