@@ -121,7 +121,11 @@ if (내가실행됐다) {
   console.log('\n■ ③ 관문');
   let 관문 = '';
   try { 관문 = 돌려('check-deploy-ready.mjs', '--열쇠', 열쇠); } catch (e) { 관문 = String(e.stdout ?? ''); }
-  for (const l of 관문.split('\n')) if (/배포해도|🔴|⛔|⚠/.test(l)) console.log('   ' + l.trim());
+  /* 🔴 [2026-10-04] 걸러 내는 꼴에 🔒 과 「푸는 법」이 빠져 있었다 —
+     소통 자물쇠로 막혔는데 화면에 «까닭이 안 보여» 세 번을 헤맸다.
+     ⛔ 막은 자가 푸는 법을 적어 주는데 내가 그 줄을 지우고 있었다. */
+  for (const l of 관문.split(String.fromCharCode(10)))
+    if (/배포해도|🔴|⛔|⚠|🔒|푸는 법/.test(l)) console.log('   ' + l.trim());
   if (!관문통과했나(관문)) { console.log('\n⛔ 관문이 막았다 — 배포하지 않는다'); process.exit(1); }
 
   console.log('\n■ ④ 배포 — 7~13분 걸린다');
