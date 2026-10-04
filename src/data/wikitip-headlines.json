@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-11 06:00 KST",
+  "generated": "2026-10-04 18:40 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 143,
-    "머리글있음": 143,
+    "본지면": 144,
+    "머리글있음": 144,
     "머리글없음": 0
   },
   "missing": [],
@@ -62,6 +62,7 @@
     "/home-first": "Did Korea chart it first?",
     "/hometowns": "Kpop idols hometown: 50 of 123 stars were born in Seoul",
     "/how-many-languages": "Psy is in 97 Wikipedias. ROSÉ of BLACKPINK is in 86, and half of Korean entertainers are in one",
+    "/idols-on-netflix": "281 K-pop idols have a birth chart on file. 36 of them turn up in a Netflix top-10 cast",
     "/industry": "Korea’s listed content industry, counted whole",
     "/is-it-korean": "Is it actually Korean?",
     "/korea-culture-data-market": "Korea lists 1,344 culture datasets. 80% are free, 76% are not maintained",
