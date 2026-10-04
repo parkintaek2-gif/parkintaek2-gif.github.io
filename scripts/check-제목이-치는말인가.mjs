@@ -84,9 +84,17 @@ export function 제목에들었나(제목, 말) {
   if (이음표뗀(t).includes(이음표뗀(m))) return true;
 
   const 홑 = (w) => (w.length > 3 && w.endsWith('s') ? w.slice(0, -1) : w);
-  /* ⚠ 쪼갤 때 이음표를 «글자 사이의 이음»으로 보지 않는다 — k-pop 은 한 낱말이다 */
-  const 쪼개 = (s) => 이음표뗀(s).split(/[^0-9a-z가-힣]+/).filter(Boolean).map(홑);
-  const 제목낱말 = new Set(쪼개(t));
+  /* 🔴 [2026-10-04 · 5번] **이음표를 떼고 쪼갰더니 다른 데가 깨졌다.**
+     「Jung Hae-in movies」가 「junghaein movies」가 되어 「jung hae in movies」와
+     안 맞았다 — 고치려던 자리는 고쳤는데 멀쩡하던 두 자리가 새로 걸렸다.
+     ⇒ **쪼갤 때는 이음표를 «구분자»로 둔다**(hae-in → hae, in).
+       통째로 견줄 때만 이음표를 뗀다 — 그 둘은 하는 일이 다르다.
+     ⚠ 하나를 고치면 인용한 곳까지 따라간다(강령 ⑤). 고친 뒤 꼭 다시 센다. */
+  const 쪼개 = (s) => s.split(/[^0-9a-z가-힣]+/).filter(Boolean).map(홑);
+  /* ⚠ 제목의 「K-pop」은 k·pop 둘로 쪼개지고 손님이 치는 「kpop」은 하나다.
+     그래서 제목 쪽에는 **쪼갠 꼴과 이음표 뗀 꼴을 둘 다** 담는다.
+     ⛔ 말 쪽에는 안 한다 — 말을 늘리면 아무 제목이나 걸린다. */
+  const 제목낱말 = new Set([...쪼개(t), ...쪼개(이음표뗀(t))]);
   const 말낱말 = 쪼개(m);
   if (!말낱말.length) return false;
   return 말낱말.every((w) => 제목낱말.has(w));
@@ -176,6 +184,11 @@ export function 자가시험() {
   /* 🔴 [2026-10-04] K-pop 과 kpop 을 딴 말로 세면 거짓 흠이 난다 */
   T('🔴 이음표를 눈감는다', 제목에들었나('K-pop idols born in July — 136 of 718', 'kpop idol born in july'));
   T('⛔ 그래도 다른 달은 안 걸린다', !제목에들었나('K-pop idols born in July', 'kpop idol born in may'));
+  /* 🔴 [2026-10-04] 이음표를 떼고 쪼갰더니 이 자리가 깨졌다 — 고친 뒤 꼭 다시 센다 */
+  T('🔴 이름 속 이음표는 띄어쓰기로 본다',
+    제목에들었나('Jung Hae-in movies and TV shows — 69 countries', 'jung hae in movies'));
+  T('🔴 Ma Dong-seok 도 같다',
+    제목에들었나('Ma Dong-seok movies and TV shows — 89 countries', 'ma dong seok movies'));
   T('⛔ 빈 것에도 안 터진다',
     !제목에들었나('', 'a') && !제목에들었나(null, null));
 
