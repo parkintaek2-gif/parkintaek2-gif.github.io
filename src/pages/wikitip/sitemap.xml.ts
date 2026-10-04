@@ -243,6 +243,12 @@ const 영상그림 = new Set((videoData.videos ?? []).map((v: any) => v.set));
    ⚠ 아래 열두 편의 제목은 **라이브 지면 제목에서 가져왔다** — 지어내지 않았다. */
 const videoSets = [
   {
+    set: 'cortis-debuted-smallest-and-now-outreads-every-2025-rookie-voiced',
+    page: '/what-moves-english-reading',
+    title: "Cortis Opened Smallest of 2025's Five Korean Rookie Groups. A Year On It Reads First.",
+    description: '17 seconds: Five Korean groups debuted in 2025. Cortis opened fourth of five at 231 daily English Wikipedia reads. A year on it reads 2,196 — first, and 15 times AHOF. The first ninety days predicted nothing.',
+  },
+  {
     set: 'faker-played-one-game-and-two-finalists-have-no-wikipedia-page-voiced',
     page: '/what-moves-english-reading',
     title: 'Faker Played One Game at the Asian Games and Was Read 1,405 Times. Two Who Played the Final Have No Page.',

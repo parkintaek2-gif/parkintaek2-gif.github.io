@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-04T14:05+09:00",
+  "generated": "2026-10-04T14:18+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -72,6 +72,13 @@
       "uploadDate": "2026-08-21",
       "thumb": "/video/thumb/control.jpg",
       "src": "/video/control.mp4"
+    },
+    {
+      "set": "cortis-debuted-smallest-and-now-outreads-every-2025-rookie-voiced",
+      "seconds": 15.4,
+      "uploadDate": "2026-10-04",
+      "thumb": "/video/thumb/cortis-debuted-smallest-and-now-outreads-every-2025-rookie-voiced.jpg",
+      "src": "/video/cortis-debuted-smallest-and-now-outreads-every-2025-rookie-voiced.mp4"
     },
     {
       "set": "counting",
