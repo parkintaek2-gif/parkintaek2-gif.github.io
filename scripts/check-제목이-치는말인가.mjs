@@ -76,8 +76,16 @@ export function 제목에들었나(제목, 말) {
   const 한글만 = (s) => s.replace(/[^가-힣0-9]/g, '');
   if (/[가-힣]/.test(m) && 한글만(m) && 한글만(t).includes(한글만(m))) return true;
 
+  /* 🔴 [2026-10-04 · 5번] **「K-pop」과 「kpop」이 딴 말로 걸렸다.**
+     우리 제목은 「K-pop idols born in July」인데 손님은 「kpop idol born in july」를 친다.
+     구글은 같게 보는데 우리 자만 「없다」고 했다 — 또 거짓 흠이다.
+     ⇒ 낱말 사이의 이음표를 지운 꼴로도 한 번 견준다. */
+  const 이음표뗀 = (s) => s.replace(/-/g, '');
+  if (이음표뗀(t).includes(이음표뗀(m))) return true;
+
   const 홑 = (w) => (w.length > 3 && w.endsWith('s') ? w.slice(0, -1) : w);
-  const 쪼개 = (s) => s.split(/[^0-9a-z가-힣]+/).filter(Boolean).map(홑);
+  /* ⚠ 쪼갤 때 이음표를 «글자 사이의 이음»으로 보지 않는다 — k-pop 은 한 낱말이다 */
+  const 쪼개 = (s) => 이음표뗀(s).split(/[^0-9a-z가-힣]+/).filter(Boolean).map(홑);
   const 제목낱말 = new Set(쪼개(t));
   const 말낱말 = 쪼개(m);
   if (!말낱말.length) return false;
@@ -165,6 +173,9 @@ export function 자가시험() {
   T('⛔ 그래도 다른 학교는 안 걸린다', !제목에들었나('대구외국어대학교', '부산외국어대학교'));
   T('⛔ 영어는 띄어쓰기를 지우지 않는다 — 아무 데나 걸린다',
     !제목에들었나('Koreancompaniesmap', 'korean companies'));
+  /* 🔴 [2026-10-04] K-pop 과 kpop 을 딴 말로 세면 거짓 흠이 난다 */
+  T('🔴 이음표를 눈감는다', 제목에들었나('K-pop idols born in July — 136 of 718', 'kpop idol born in july'));
+  T('⛔ 그래도 다른 달은 안 걸린다', !제목에들었나('K-pop idols born in July', 'kpop idol born in may'));
   T('⛔ 빈 것에도 안 터진다',
     !제목에들었나('', 'a') && !제목에들었나(null, null));
 
