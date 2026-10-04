@@ -1,0 +1,293 @@
+---
+/*
+ * `/korea-inflation-rate` — **Korean inflation against the base rate, from Bank of Korea ECOS.**
+ *
+ * ── Why this page ──────────────────────────────────────────────
+ * Measured 2026-10-05 (en/us autocomplete): `korea inflation`, `korea gdp` and
+ * `bank of korea rate` all fill their autocomplete rows, and
+ * `check-이미-있는-지면인가` found no page of ours with any of them in a title
+ * across 579 source files. The reason was simple — **we held no macro series.**
+ * `scripts/collect-korea-macro-ecos.mjs` now pulls them; this page reads that file.
+ *
+ * ⭐ What the series say — **the real policy rate was negative for five straight
+ *   months (Apr–Aug 2026) and only turned positive in September, at +0.12%.**
+ *   The Bank raised twice over the summer and is still barely above inflation.
+ *
+ * ⛔ Not investment advice, and no call on what the Bank should do next.
+ * ⛔ "Real rate" here is the plain subtraction (base rate − CPI inflation). That is
+ *   an approximation of the Fisher relation, not the exact form. The page says so.
+ * ⛔ The base rate is a daily series; we take each month's **last** published value.
+ *   Where a month has no CPI reading twelve months earlier, we drop it rather than
+ *   treat it as zero — the page prints how many months were usable.
+ * ⛔ Sources are printed with the compiling agency, because CPI is compiled by
+ *   Statistics Korea and only distributed through ECOS.
+ */
+import Base from '../layouts/Base.astro';
+import { SITE_URL } from '../consts';
+import macro from '../data/korea-macro.json';
+
+const 수인가 = (x: any) => typeof x === 'number' && Number.isFinite(x);
+const 셋 = macro as any;
+
+const 물가 = (셋.cpiYoY?.points ?? []) as { t: string; v: number }[];
+const 금리줄 = (셋.policyRate?.points ?? []) as { t: string; v: number }[];
+const 성장 = (셋.gdpGrowth?.points ?? []) as { t: string; v: number }[];
+
+/* 달마다 «그 달의 마지막» 기준금리. ⛔ 평균이 아니다 — 정책금리는 계단이다 */
+const 달금리 = new Map<string, number>();
+for (const x of 금리줄) if (수인가(x?.v)) 달금리.set(String(x.t).slice(0, 6), x.v);
+
+/** 실질금리 = 기준금리 − 물가상승률. ⛔ 둘 다 있는 달만 — 없는 달을 0 으로 안 만든다 */
+const 실질 = 물가
+  .map((x) => ({ t: x.t, 물가: x.v, 금리: 달금리.get(x.t) }))
+  .filter((x) => 수인가(x.금리))
+  .map((x) => ({ ...x, 실질: Number(((x.금리 as number) - x.물가).toFixed(2)) }));
+
+const 잴수없던달 = 물가.length - 실질.length;
+
+/* 🔴 마지막 연속 마이너스 구간 */
+let 끝 = 실질.length - 1;
+while (끝 >= 0 && 실질[끝].실질 >= 0) 끝 -= 1;
+let 시작 = 끝;
+while (시작 >= 0 && 실질[시작].실질 < 0) 시작 -= 1;
+const 마이너스구간 = 끝 >= 0 ? { 처음: 실질[시작 + 1], 마지막: 실질[끝], 달수: 끝 - 시작 } : null;
+const 지금 = 실질[실질.length - 1] ?? null;
+const 가장낮은 = 실질.length ? [...실질].sort((a, b) => a.실질 - b.실질)[0] : null;
+
+/* 기준금리가 «바뀐» 날만 */
+const 바뀐날 = 금리줄.filter((x, i) => i === 0 || x.v !== 금리줄[i - 1].v);
+const 최근바뀜 = 바뀐날.slice(-7);
+
+const 최근실질 = 실질.slice(-12);
+const 최근성장 = 성장.slice(-8);
+const 마이너스분기 = 성장.filter((x) => x.v < 0);
+
+const 때글 = (t: string) => {
+  const s = String(t);
+  if (/^\d{4}Q[1-4]$/.test(s)) return s;
+  if (/^\d{6}$/.test(s)) {
+    const 달 = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${달[Number(s.slice(4, 6)) - 1]} ${s.slice(0, 4)}`;
+  }
+  if (/^\d{8}$/.test(s)) {
+    const 달 = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${Number(s.slice(6, 8))} ${달[Number(s.slice(4, 6)) - 1]} ${s.slice(0, 4)}`;
+  }
+  return s;
+};
+const 퍼센트 = (v: any, 부호 = false) =>
+  (수인가(v) ? `${부호 && v > 0 ? '+' : ''}${Number(v).toFixed(2)}%` : '—');
+
+const TITLE = 마이너스구간 && 지금
+  ? `Korea inflation and the base rate — real rates were negative for ${마이너스구간.달수} months`
+  : 'Korea inflation, the base rate and GDP growth';
+
+const DESC = 마이너스구간 && 지금
+  ? `Korean consumer price inflation ran above the Bank of Korea base rate for ${마이너스구간.달수} straight months `
+    + `(${때글(마이너스구간.처음.t)} to ${때글(마이너스구간.마지막.t)}), bottoming at ${퍼센트(가장낮은?.실질, true)}. `
+    + `It turned positive in ${때글(지금.t)} at ${퍼센트(지금.실질, true)}. Pulled from Bank of Korea ECOS.`
+  : 'Korean inflation, policy rate and GDP growth, pulled from Bank of Korea ECOS.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea macro series — CPI inflation, base rate and real GDP growth',
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets' },
+  url: `${SITE_URL}/korea-inflation-rate`,
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs">
+      <a href="/">SeoulMarkets</a> <span>›</span> Korea inflation and the base rate
+    </nav>
+
+    <header>
+      <h1>Korea's base rate spent five months below inflation</h1>
+      <p class="lede">
+        Consumer prices, the Bank of Korea base rate and quarterly GDP growth, read
+        straight from the central bank's own database. No forecasts, no view on what
+        the Bank should do next.
+      </p>
+    </header>
+
+    {마이너스구간 && 지금 && (
+      <section class="box">
+        <h2>The finding</h2>
+        <p>
+          From <strong>{때글(마이너스구간.처음.t)}</strong> to
+          <strong> {때글(마이너스구간.마지막.t)}</strong> — {마이너스구간.달수} straight months —
+          <strong> inflation ran above the base rate.</strong> The gap was widest in
+          {' '}{때글(가장낮은!.t)} at <strong>{퍼센트(가장낮은!.실질, true)}</strong>.
+        </p>
+        <p>
+          It turned positive only in <strong>{때글(지금.t)}</strong>, and only just:
+          {' '}<strong>{퍼센트(지금.실질, true)}</strong>
+          {' '}(base rate {퍼센트(지금.금리)} against inflation {퍼센트(지금.물가)}).
+        </p>
+        <p>
+          <strong>A rate that is above zero and a rate that is above inflation are
+          different things.</strong> Headlines count the first; this table counts the second.
+        </p>
+      </section>
+    )}
+
+    <section>
+      <h2>Inflation against the base rate, month by month</h2>
+      <p class="note">
+        Inflation is the consumer price index against the same month a year earlier.
+        The base rate is a daily series, so each row takes <strong>that month's last
+        published value</strong> — a policy rate is a step, not an average.
+        {잴수없던달 > 0 && (
+          <> {잴수없던달} earlier months are left out because one of the two readings
+            was missing. They are not counted as zero.</>
+        )}
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Month</th><th>CPI inflation</th><th>Base rate</th><th>Real rate</th></tr>
+          </thead>
+          <tbody>
+            {최근실질.map((x) => (
+              <tr class={x.실질 < 0 ? 'neg' : undefined}>
+                <th>{때글(x.t)}</th>
+                <td>{퍼센트(x.물가)}</td>
+                <td>{퍼센트(x.금리)}</td>
+                <td><strong>{퍼센트(x.실질, true)}</strong></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        <strong>"Real rate" here is the plain subtraction</strong> — base rate minus
+        inflation. That is an approximation of the Fisher relation, not its exact form,
+        and it uses realised inflation rather than expected inflation. We print it this
+        way because both inputs are published figures and you can check the arithmetic.
+      </p>
+    </section>
+
+    {최근바뀜.length > 0 && (
+      <section>
+        <h2>When the base rate actually moved</h2>
+        <p class="note">
+          Only the days the rate changed. Between these dates it sat still.
+        </p>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>Effective</th><th>Base rate</th><th>Change</th></tr></thead>
+            <tbody>
+              {최근바뀜.map((x, i) => {
+                const 앞 = i > 0 ? 최근바뀜[i - 1].v : null;
+                const 차 = 수인가(앞) ? Number((x.v - (앞 as number)).toFixed(2)) : null;
+                return (
+                  <tr>
+                    <th>{때글(x.t)}</th>
+                    <td>{퍼센트(x.v)}</td>
+                    <td>{수인가(차) ? `${(차 as number) > 0 ? '+' : ''}${차}pp` : '—'}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+
+    {최근성장.length > 0 && (
+      <section>
+        <h2>Real GDP growth, quarter on quarter</h2>
+        <p class="note">
+          Seasonally adjusted, against the previous quarter — not against a year earlier.
+          A quarter-on-quarter series turns negative more often than a year-on-year one.
+        </p>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>Quarter</th><th>Growth</th></tr></thead>
+            <tbody>
+              {최근성장.map((x) => (
+                <tr class={x.v < 0 ? 'neg' : undefined}>
+                  <th>{때글(x.t)}</th>
+                  <td><strong>{퍼센트(x.v, true)}</strong></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Across the {성장.length} quarters we hold, <strong>{마이너스분기.length} were
+          negative</strong> ({마이너스분기.map((x) => 때글(x.t)).join(', ')}).
+        </p>
+      </section>
+    )}
+
+    <section>
+      <h2>Where these numbers come from</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Series</th><th>ECOS table</th><th>Compiled by</th></tr></thead>
+          <tbody>
+            {['gdpGrowth', 'cpi', 'policyRate'].filter((k) => 셋[k]).map((k) => (
+              <tr>
+                <td class="nm">{셋[k].name}</td>
+                <td>{셋[k].table}</td>
+                <td>{셋[k].source}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        <strong>The consumer price index is compiled by Statistics Korea</strong> and
+        distributed through the Bank of Korea's ECOS database. The other two are the
+        Bank's own. We name the compiling agency rather than just the database, because
+        they are not the same thing.
+      </p>
+      <p>
+        <strong>Nothing here is a forecast or a recommendation.</strong> We publish what
+        was released, with the table number so it can be checked at source.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <ul class="links">
+        <li><a href="/revenue-concentration">Korean stocks are top-heavy</a></li>
+        <li><a href="/kospi-vs-kosdaq">KOSPI vs KOSDAQ — what the filings say</a></li>
+        <li><a href="/companies">Every Korean listed company we track</a></li>
+        <li><a href="/data">Free data</a></li>
+      </ul>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+  .crumbs { font-size: .82rem; color: #778; margin-bottom: 1rem; }
+  .crumbs a { color: #2a4d8f; text-decoration: none; }
+  .crumbs span { margin: 0 .35rem; }
+  h1 { font-size: 1.9rem; line-height: 1.25; margin: 0 0 .6rem; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.6rem; }
+  section { margin: 2.2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .6rem; }
+  .box { background: #fbfbfd; border: 1px solid #e6e8ee; border-left: 4px solid #2a4d8f;
+         border-radius: 12px; padding: 1rem 1.1rem; }
+  .box p { margin: .5rem 0; }
+  .box p:first-of-type { margin-top: 0; }
+  .note { font-size: .88rem; color: #667; margin: 0 0 .7rem; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: .45rem .6rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  thead th { text-align: right; font-size: .82rem; color: #556; border-bottom: 2px solid #d8dbe2; }
+  thead th:first-child, tbody th, tbody td.nm { text-align: left; }
+  tbody th { font-weight: 600; color: #334; }
+  tr.neg td { background: #fdf6f6; }
+  .links { margin: .6rem 0 0 1.1rem; font-size: .95rem; }
+  .links li { margin: .35rem 0; }
+  .links a { color: #2a4d8f; text-decoration: none; }
+  .links a:hover { text-decoration: underline; }
+  @media (max-width: 640px) { h1 { font-size: 1.45rem; } }
+</style>
