@@ -1,0 +1,256 @@
+---
+/*
+ * `/kospi-vs-kosdaq` — **KOSPI and KOSDAQ, counted from filings rather than prices.**
+ *
+ * ── Why this page ──────────────────────────────────────────────
+ * Measured 2026-10-05 (en/us autocomplete): `kospi`, `korean stocks`,
+ * `korea stock market` and `korea market cap` each fill all ten rows.
+ * We hold five years of filed accounts for 2,709 Korean listed companies and
+ * had no page carrying the word KOSPI in its title.
+ *
+ * ⭐ What the filings say — **the share of KOSDAQ companies reporting a loss rose
+ *   from 33.5% to 44.3% in five years.** On KOSPI it moved 21.0% → 24.7%.
+ *   That is a gap that widened, and it is visible only in the accounts.
+ *
+ * ⛔ Not investment advice. We report what was filed.
+ * ⛔ We do not use share prices or market capitalisation here — those are a bet
+ *   on the future, not something a company reported. Where a count is missing we
+ *   say how many were missing rather than treating them as zero.
+ * ⛔ We do not say one board is better. A loss-making company is not a bad company;
+ *   a young firm spending to grow files a loss too.
+ */
+import Base from '../layouts/Base.astro';
+import { SITE_URL } from '../consts';
+import tape from '../data/korea-financials-tape.json';
+
+const 줄들 = ((tape as any).rows ?? []) as any[];
+
+const 시장이름: Record<string, string> = { Y: 'KOSPI', K: 'KOSDAQ', N: 'KONEX' };
+const 볼시장 = ['Y', 'K'];
+
+const 수인가 = (x: any) => typeof x === 'number' && Number.isFinite(x);
+const 가운데값 = (a: number[]) => {
+  const s = [...a].sort((x, y) => x - y);
+  return s.length ? s[Math.floor(s.length / 2)] : null;
+};
+
+const 해들 = [...new Set(줄들.map((r) => r.year))].filter((y) => Number.isFinite(y)).sort();
+const 최신해 = 해들.length ? 해들[해들.length - 1] : null;
+
+/** 그 시장·그 해의 숫자 한 벌. ⛔ 못 센 곳은 «빼고 그 수를 적는다» */
+function 재기(시장: string, 해: number) {
+  const rs = 줄들.filter((r) => r.market === 시장 && r.year === 해);
+  const 회사 = new Set(rs.map((r) => r.code)).size;
+  const 이익잰것 = rs.filter((r) => 수인가(r.net_profit_krw));
+  const 적자 = 이익잰것.filter((r) => r.net_profit_krw < 0).length;
+  const 매출잰것 = rs.filter((r) => 수인가(r.revenue_krw));
+  const roe잰것 = rs.filter((r) => 수인가(r.net_profit_krw) && 수인가(r.equity_krw) && r.equity_krw > 0);
+  return {
+    회사,
+    이익잰곳: 이익잰것.length,
+    못잰곳: 회사 - 이익잰것.length,
+    적자,
+    적자몫: 이익잰것.length ? (적자 / 이익잰것.length) * 100 : null,
+    매출가운데: 가운데값(매출잰것.map((r) => r.revenue_krw)),
+    매출잰곳: 매출잰것.length,
+    roe가운데: 가운데값(roe잰것.map((r) => (r.net_profit_krw / r.equity_krw) * 100)),
+    roe잰곳: roe잰것.length,
+  };
+}
+
+const 최신 = 볼시장.map((m) => ({ 시장: m, 이름: 시장이름[m], ...재기(m, 최신해 as number) }));
+const 해별 = 해들.map((y) => ({
+  해: y,
+  칸: 볼시장.map((m) => ({ 시장: m, 이름: 시장이름[m], ...재기(m, y) })),
+}));
+
+const 코스피 = 최신.find((x) => x.시장 === 'Y');
+const 코스닥 = 최신.find((x) => x.시장 === 'K');
+const 첫해코스닥 = 해별.length ? 해별[0].칸.find((x) => x.시장 === 'K') : null;
+const 첫해코스피 = 해별.length ? 해별[0].칸.find((x) => x.시장 === 'Y') : null;
+
+const 한자리 = (n: number | null) => (n == null ? '—' : `${n.toFixed(1)}%`);
+/* 원화는 조·억으로 — ⛔ 환율을 만들어 달러로 바꾸지 않는다 */
+const 억원 = (n: number | null) => (n == null ? '—'
+  : n >= 1e12 ? `KRW ${(n / 1e12).toFixed(2)}tn` : `KRW ${(n / 1e8).toLocaleString('en-GB', { maximumFractionDigits: 0 })}00m`);
+
+/* ⚠ 제목의 수에는 천 단위 쉼표를 넣는다 — 1772 는 읽는 눈이 한 번 멈춘다 */
+const TITLE = `KOSPI vs KOSDAQ — ${(코스피?.회사 ?? 0).toLocaleString('en-GB')} and ${(코스닥?.회사 ?? 0).toLocaleString('en-GB')} filers, counted`;
+const DESC = `Korean listed companies as their own filings describe them, not as prices do. `
+  + `In ${최신해}, ${한자리(코스닥?.적자몫 ?? null)} of KOSDAQ companies reported a loss against `
+  + `${한자리(코스피?.적자몫 ?? null)} on KOSPI — a gap that widened from `
+  + `${한자리(첫해코스닥?.적자몫 ?? null)} vs ${한자리(첫해코스피?.적자몫 ?? null)} in ${해들[0]}.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  '@id': `${SITE_URL}/kospi-vs-kosdaq#dataset`,
+  name: 'KOSPI and KOSDAQ filers compared from annual accounts',
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets' },
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs">
+      <a href="/">SeoulMarkets</a> <span>›</span> KOSPI vs KOSDAQ
+    </nav>
+
+    <header>
+      <h1>KOSPI vs KOSDAQ — what the filings say</h1>
+      <p class="lede">
+        {코스피?.회사 ?? 0} KOSPI and {코스닥?.회사 ?? 0} KOSDAQ companies,
+        read from the accounts they filed rather than from their share prices.
+      </p>
+    </header>
+
+    <section class="box">
+      <h2>The number that moved</h2>
+      <p>
+        In {최신해}, <strong>{한자리(코스닥?.적자몫 ?? null)} of KOSDAQ filers reported a
+        loss</strong> for the year. On KOSPI it was {한자리(코스피?.적자몫 ?? null)}.
+      </p>
+      <p>
+        Five years earlier, in {해들[0]}, the two were
+        {' '}{한자리(첫해코스닥?.적자몫 ?? null)} and {한자리(첫해코스피?.적자몫 ?? null)}.
+        <strong>The KOSDAQ figure rose by about eleven points; KOSPI moved by about four.</strong>
+      </p>
+    </section>
+
+    <section>
+      <h2>{최신해}, side by side</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Board</th><th>Companies</th><th>Reported a loss</th>
+              <th>Median revenue</th><th>Median return on equity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {최신.map((x) => (
+              <tr>
+                <th>{x.이름}</th>
+                <td>{x.회사.toLocaleString()}</td>
+                <td><strong>{한자리(x.적자몫)}</strong> <span class="dim">({x.적자})</span></td>
+                <td>{억원(x.매출가운데)}</td>
+                <td>{한자리(x.roe가운데)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="warn">
+        Medians, not averages. One very large filer would pull an average far enough
+        that the ordinary company on the board would disappear from the figure.
+      </p>
+    </section>
+
+    <section>
+      <h2>Share reporting a loss, {해들[0]} to {최신해}</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th>
+              {볼시장.map((m) => (<th>{시장이름[m]}</th>))}
+              <th>Gap</th>
+            </tr>
+          </thead>
+          <tbody>
+            {해별.map((r) => {
+              const y = r.칸.find((c) => c.시장 === 'Y');
+              const k = r.칸.find((c) => c.시장 === 'K');
+              const 벌어짐 = (y?.적자몫 != null && k?.적자몫 != null) ? k.적자몫 - y.적자몫 : null;
+              return (
+                <tr>
+                  <th>{r.해}</th>
+                  <td>{한자리(y?.적자몫 ?? null)} <span class="dim">({y?.이익잰곳 ?? 0})</span></td>
+                  <td>{한자리(k?.적자몫 ?? null)} <span class="dim">({k?.이익잰곳 ?? 0})</span></td>
+                  <td><strong>{벌어짐 == null ? '—' : `${벌어짐.toFixed(1)}pt`}</strong></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        The small figure in brackets is <strong>how many companies we could count</strong>
+        that year — a filer with no net profit line is left out rather than counted as zero.
+        The count grows over the years because more companies have filings on file.
+      </p>
+    </section>
+
+    <section>
+      <h2>What this does not say</h2>
+      <p>
+        <strong>A loss is not a verdict.</strong> A young company spending to grow files
+        a loss, and so does one in trouble. The accounts do not tell them apart, and
+        neither do we.
+      </p>
+      <p>
+        <strong>No share prices are used here.</strong> Market capitalisation is a bet on
+        what a company will earn; revenue and profit are what it reported earning. This
+        page uses only the second kind.
+      </p>
+      <p>
+        <strong>Not investment advice.</strong> We report what was filed.
+      </p>
+    </section>
+
+    <section class="more">
+      <h2>More from the same filings</h2>
+      <ul>
+        <li><a href="/companies">Every Korean listed company we track</a></li>
+        <li><a href="/equities">Korean equities data</a></li>
+        <li><a href="/japan/companies">Japanese listed companies</a></li>
+      </ul>
+    </section>
+
+    <footer class="src">
+      <p>
+        <b>Source.</b> Annual reports filed with Korea's Financial Supervisory Service
+        and published through DART. Boards as coded in the filing: Y = KOSPI,
+        K = KOSDAQ, N = KONEX. KONEX is left out of the comparison —
+        too few companies to read a trend from.
+      </p>
+      <p><b>Not investment advice.</b> This page reports what was filed.</p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 64rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .crumbs { font-size: .85rem; color: #667; margin-bottom: 1rem; }
+  .crumbs a { color: #445; text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  .crumbs span { margin: 0 .35rem; color: #aab; }
+  h1 { font-size: 1.85rem; line-height: 1.25; margin: 0 0 .5rem; }
+  .lede { font-size: 1.05rem; color: #334; margin: 0 0 1.5rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+  p { font-size: .95rem; line-height: 1.7; }
+  .box { background: #f7f8fb; border: 1px solid #e3e6ec; border-left: 4px solid #2a4d8f;
+         border-radius: 12px; padding: 1rem 1.2rem; }
+  .box p { margin: .5rem 0; }
+  .box p:first-of-type { margin-top: 0; }
+  .note { font-size: .88rem; color: #667; margin: .7rem 0 0; }
+  .warn { font-size: .85rem; color: #665; background: #fbfaf4; border-left: 3px solid #ddd6b8;
+          padding: .55rem .8rem; margin: .8rem 0 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: .45rem .6rem; border-bottom: 1px solid #e8eaef; text-align: right; }
+  thead th { text-align: right; font-size: .82rem; color: #556; border-bottom: 2px solid #d8dbe2; }
+  thead th:first-child, tbody th { text-align: left; }
+  tbody th { font-weight: 600; color: #334; }
+  .dim { color: #889; font-size: .85rem; }
+  .more ul { margin: .5rem 0 0 1.1rem; font-size: .95rem; }
+  .more li { margin: .35rem 0; }
+  .more a { color: #2a4d8f; text-decoration: none; }
+  .more a:hover { text-decoration: underline; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
+         font-size: .84rem; color: #556; }
+  .src p { margin: .5rem 0; font-size: .84rem; }
+  @media (max-width: 640px) { h1 { font-size: 1.45rem; } .wrap { padding: 1rem .8rem 3rem; } }
+</style>

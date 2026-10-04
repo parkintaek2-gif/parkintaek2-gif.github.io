@@ -168,6 +168,11 @@ export const GET: APIRoute = async ({ params }) => {
       // 🔴 [2026-09-18 · 6번] Korea Markets Research Index(학술논문 1,406편 색인) — 라이브
       // 200 이고 noindex 도 없는데 이 목록에 없었다. 넷째로 찾은 같은 병.
       { loc: '/research', changefreq: 'weekly', priority: '0.7' },
+      /* 🔴 [2026-10-05 · 5번] kospi · korean stocks · korea stock market 이 각각
+         자동완성 10줄을 꽉 찬다(en/us 실측). 2,709곳의 다섯 해 재무가 이미 있었는데
+         제목에 KOSPI 를 둔 지면이 없었다. ⭐ 재 보니 코스닥 적자 기업 비중이
+         다섯 해에 33.5% → 44.3% 로 올랐다 — 주가가 아니라 «공시»에만 보이는 것이다. */
+      { loc: '/kospi-vs-kosdaq', changefreq: 'monthly', priority: '0.9' },
       /* 🔴 [2026-09-12 · 4번] F6 무료 영문 지면 넷(Financials·Valuation·Index·Consensus) —
        *   target-changes(Consensus)만 여기 있었고 나머지 셋은 라이브 200인데 이 목록에
        *   없었다. 같은 사고가 이 파일에서 벌써 세 번째다(위 5번 주석 두 곳 참고).
