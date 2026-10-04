@@ -227,9 +227,33 @@ function 우리명단() {
   return 것;
 }
 
-async function 하루읽기(판, 때) {
+export function 쉬기(ms) { return new Promise((r) => setTimeout(r, ms)); }
+
+/**
+ * 🔴🔴 [2026-10-04 · 5번] **「못 쟀다」의 절반이 우리 탓이었다.**
+ *   이 자가 ms·en 두 판을 「못 쟀다」로 내고 있었다. 자료가 없는 줄 알았는데
+ *   주소를 하나씩 눌러 보니 —
+ *   ```
+ *   vi 200 · th 200 · ms 429 (retry-after: 41) · en 200
+ *   ```
+ *   **429 — 우리가 너무 빨리 불러서 막힌 것이다.** 판 다섯 × 하루 여덟 = 마흔 번을
+ *   쉼 없이 던지고 있었다. 자료가 없는 것이 아니라 «우리 손이 빨랐다».
+ * ⭐ 강령③ — 「못 잰 것은 못 쟀다고 적는다」는 맞다. 그런데 **못 잴 까닭이 우리에게
+ *   있으면 그것은 못 잰 것이 아니라 «안 재 본» 것이다.** 먼저 제대로 재고 적는다.
+ * ⛔ 그래도 끝내 막히면 지어내지 않는다 — 그때는 「못 쟀다」가 맞는 답이다.
+ */
+export const 참는횟수 = 3;
+export const 사이쉼 = 120;        /* 한 번 부르고 쉬는 밀리초 — 줄여서 막히면 늘린다 */
+
+async function 하루읽기(판, 때, 남은 = 참는횟수) {
   try {
     const r = await fetch(탑주소(판, 때), { headers: { 'user-agent': 'KCultureWire/1.0 (kculturewire.com)' } });
+    /* 429 는 「자료가 없다」가 아니라 「잠깐 기다려라」다 — 기다렸다 다시 묻는다 */
+    if (r.status === 429 && 남은 > 0) {
+      const 기다림 = Math.min(Number(r.headers.get('retry-after')) || 5, 60);
+      await 쉬기((기다림 + 1) * 1000);
+      return 하루읽기(판, 때, 남은 - 1);
+    }
     if (!r.ok) return null;
     const j = await r.json();
     const 다 = j?.items?.[0]?.articles ?? [];
@@ -252,12 +276,14 @@ let 못잰판 = 0;
 
 for (const 판 of 판들) {
   const 오 = await 하루읽기(판, 오늘);
+  await 쉬기(사이쉼);
   if (!오) { 못잰판 += 1; console.log(`  ⬜ ${판} — 못 쟀다`); continue; }
 
   /* 앞이레 — 하루씩 받아 평균을 낸다. ⚠ 하루라도 못 받으면 그 판은 못 잰 것으로 둔다 */
   const 앞 = [];
   for (let i = 2; i <= 8; i += 1) {
     const t = await 하루읽기(판, 하루전(Date.now(), i));
+    await 쉬기(사이쉼);
     if (t) 앞.push(t);
   }
   if (앞.length < 4) { 못잰판 += 1; console.log(`  ⬜ ${판} — 앞이레를 ${앞.length}일치만 받아 못 쟀다`); continue; }
