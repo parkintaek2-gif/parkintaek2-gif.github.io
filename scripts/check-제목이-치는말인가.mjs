@@ -130,7 +130,12 @@ export function 고칠자리(qp묶음, 제목표, 선 = 뒤처진선) {
     const 주소 = String(열쇠[1] ?? '').trim();
     if (!말 || !주소.startsWith('http')) continue;
     if (typeof r.position !== 'number' || r.position <= 선) continue;
-    const 길 = 주소.replace(/^https?:\/\/[^/]+/, '') || '/';
+    /* 🔴 [2026-10-04] 구글은 한글 주소를 `%EA%B2%BD…` 로 적어 준다. 그대로 두면
+       우리 제목표(한글 그대로)와 안 맞아 「제목 못 읽음」이 난다. 풀어서 견준다.
+       ⛔ 못 풀면 원래 글자를 쓴다 — 버리지 않는다. */
+    const 날것 = 주소.replace(/^https?:\/\/[^/]+/, '') || '/';
+    let 길 = 날것;
+    try { 길 = decodeURIComponent(날것); } catch { 길 = 날것; }
     const 앞 = 모음.get(길) ?? { 길, 말들: [], 노출: 0 };
     앞.말들.push(말); 앞.노출 += r.impressions ?? 0;
     모음.set(길, 앞);
@@ -143,6 +148,41 @@ export function 고칠자리(qp묶음, 제목표, 선 = 뒤처진선) {
     것.push({ ...v, 제목: 제목 ?? null, 딴말 });
   }
   return 것.sort((a, b) => b.노출 - a.노출);
+}
+
+/**
+ * 🔴 [2026-10-04 · 5번] **dist 를 훑어 「길 → 제목」 표를 짓는다.**
+ *   `고칠자리-뽑는다.mjs` 와 `check-2h` 가 둘 다 쓴다 — 같은 코드를 두 벌 두지 않는다.
+ *   ⛔ 사이트마다 dist 밑이 다르다. seoulmarkets 는 dist 뿌리, 100y 는 dist/100y,
+ *     kcw 는 dist/wikitip 이다. **경로를 틀리면 「제목 못 읽음」이 무더기로 난다** —
+ *     오늘 실제로 12장이 그렇게 났다. 못 읽은 것을 흠으로 세면 안 된다.
+ *   ⚠ 먼저 담은 것을 덮지 않는다 — 좁은 밑(100y·wikitip)을 먼저 두고 뿌리를 뒤에 둔다.
+ */
+export function 제목표짓기(밑들 = null) {
+  const 기본 = [['dist/100y', ''], ['dist/wikitip', ''], ['dist', '']];
+  const 표 = new Map();
+  const 넣기 = (쪽, t) => { if (쪽 && !표.has(쪽)) 표.set(쪽, t); };
+  const 훑기 = (d, 길) => {
+    let 것들;
+    try { 것들 = fs.readdirSync(d); } catch { return; }
+    for (const 이름 of 것들) {
+      const p = path.join(d, 이름);
+      let 통계;
+      try { 통계 = fs.statSync(p); } catch { continue; }
+      if (통계.isDirectory()) { 훑기(p, `${길}/${이름}`); continue; }
+      if (!이름.endsWith('.html')) continue;
+      const t = (fs.readFileSync(p, 'utf8').match(/<title>([^<]*)/) || [])[1];
+      if (!t) continue;
+      const 벗긴 = 이름.slice(0, -5);
+      넣기(벗긴 === 'index' ? (길 || '/') : `${길}/${벗긴}`, t.trim());
+      if (벗긴 === 'index' && 길) 넣기(`${길}/`, t.trim());
+    }
+  };
+  for (const [밑, 접두] of (밑들 ?? 기본)) {
+    const 길 = path.isAbsolute(밑) ? 밑 : path.join(뿌리, 밑);
+    if (fs.existsSync(길)) 훑기(길, 접두);
+  }
+  return 표;
 }
 
 /* ── 자가시험 ─────────────────────────────────────────────────────────── */
