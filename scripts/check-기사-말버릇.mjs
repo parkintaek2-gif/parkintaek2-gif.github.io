@@ -80,7 +80,12 @@ export function 찾기(글) {
   const 걸린것 = [];
   for (const r of 말버릇) {
     for (const m of s.matchAll(r.꼴)) {
-      걸린것.push({ 말: m[0].trim(), 대신: r.대신, 언제: r.언제, 어디: 둘레(s, m.index) });
+      const 둘 = 둘레(s, m.index, 24);
+      /* 🔴 [2026-10-04] KLifeMap 에 돌렸더니 «지지 丑(축)»이 통째로 걸렸다 —
+         「을축(乙丑) 일주 — 일간 을이 축을 딛고 선 자리」. 명리에서 축은 열두 지지다.
+         ⛔ 헛것이 늘면 진짜가 묻힌다. 둘레에 간지 한자가 있으면 그 축은 지지다. */
+      if (m[0].trim() === '축' && /[丑子寅卯辰巳午未申酉戌亥]|일주|지지|간지/.test(둘)) continue;
+      걸린것.push({ 말: m[0].trim(), 대신: r.대신, 언제: r.언제, 어디: 둘 });
     }
   }
   for (const r of 잦으면걸리는말) {
@@ -161,6 +166,10 @@ export function 자가시험() {
   본다('⛔ 평범한 기사 문장은 안 잡는다',
     !잡나('한국은 인도를 세트 점수 5-1로 꺾었다. 이우석은 개인전에서도 금메달을 땄다.'));
   본다('🔴 「축」이 우리 말로 쓰이면 잡는다', 잡나('이 기사의 축은 세 가지다'));
+  /* 🔴 [2026-10-04] KLifeMap 에서 «지지 丑»이 통째로 걸렸다 */
+  본다('⛔ 명리의 지지 丑(축)은 잡지 않는다',
+    !잡나('을축(乙丑) 일주 — 일간 을이 축을 딛고 선 자리'));
+  본다('🔴 그래도 「나이 축으로 펼쳐」는 잡는다', 잡나('그 흐름을 나이 축으로 펼쳐 보여 드립니다'));
 
   본다('「셈이다」가 한 번이면 안 잡는다', !잡나('끝난 셈이다'));
   본다('🔴 「셈이다」가 두 번이면 잡는다', 잡나('끝난 셈이다. 그래서 진 셈이다'));
@@ -197,7 +206,10 @@ if (내가실행됐다) {
   /* 🔴 [2026-10-04 · 사장님] 손님 화면 전부를 훑는 길 */
   if (process.argv.includes('--지면')) {
     const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-    const 밑 = path.join(뿌리, 'dist');
+    /* ⚠ [2026-10-04] KLifeMap 은 저장소가 다르다 — 손님 화면은 거기에도 있다.
+       ⇒ --밑= 로 다른 폴더를 줄 수 있게 연다. 자가 한 저장소에만 묶이면 반쪽이다. */
+    const 준밑 = (process.argv.find((a) => a.startsWith('--밑=')) ?? '').split('=').slice(1).join('=');
+    const 밑 = 준밑 ? path.resolve(준밑) : path.join(뿌리, 'dist');
     if (!fs.existsSync(밑)) {
       console.log('⬜ dist 가 없다 — 못 쟀다. 먼저 node scripts/build-once.mjs');
       process.exit(0);
@@ -208,7 +220,7 @@ if (내가실행됐다) {
         const p = path.join(d, 이름);
         const s = fs.statSync(p);
         if (s.isDirectory()) 훑기(p);
-        else if (이름.endsWith('.html') && 한국어화면인가(p)) 것들.push(p);
+        else if (이름.endsWith('.html') && (준밑 || 한국어화면인가(p))) 것들.push(p);
       }
     };
     훑기(밑);
