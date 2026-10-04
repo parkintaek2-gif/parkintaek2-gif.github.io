@@ -47,7 +47,11 @@ const jsonLd = {
 };
 ---
 
-<HundredYear title="대학 학과 찾기" description={desc} jsonLd={jsonLd}>
+{/* 🔴 [2026-10-04 · 5번] 사람이 치는 1차례 말은 「대학교 학과 종류」인데 제목에
+    「종류」가 없었다. 우리는 「찾기」라고 썼다. 실제로 「대학과 종류」 45위 ·
+    「대학교 과 종류」 45위 · 「대학교 학부」 54위로 질 싸움 중이었다.
+    ⛔ 자료가 쓰는 말이 아니라 손님이 치는 말이 제목이 된다. */}
+<HundredYear title="대학교 학과 종류 — 어느 과를 나오면 어떻게 되나" description={desc} jsonLd={jsonLd}>
   <h1>대학 어느 과를 나오면<br class="pcbr" /> 어떻게 되나요?</h1>
   <p class="lead">
     대학 학과 <strong>{자료.length}개</strong>가 졸업한 뒤 실제로 어떻게 됐는지 모았습니다.
