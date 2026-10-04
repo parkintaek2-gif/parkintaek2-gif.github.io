@@ -17,7 +17,7 @@
  * ⛔ 갈래를 합쳐 하나로 만들지 않는다. 가설이 다른 세 갈래(인용·공공·제작)를 따로 센다 —
  *   합치면 어느 가설이 사는지 영원히 모른다.
  *
- * ── 기록 꼴 (`archive/outreach/보낸것.tsv`) ────────────────────
+ * ── 기록 꼴 (`docs/아웃리치-보낸것.tsv`) ────────────────────
  * ```
  * 보낸날    갈래    곳                  답장날      값물음  재요청  메모
  * 2026-08-25  인용    The Korea Herald    2026-08-26  아니오  예     기사에 인용하겠다고
@@ -34,7 +34,13 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const 표길 = path.join(뿌리, 'archive/outreach/보낸것.tsv');
+/* 🔴🔴 [2026-10-04 · 5번] **대장이 archive/ 에 있어 git 이 무시하고 있었다.**
+   그래서 보낸 기록이 커밋되지 않았고, 다음 세션은 「한 통도 안 보냈다」로 읽게 된다.
+   ⛔ 증거가 남지 않는 자리에 대장을 두지 않는다. docs/ 로 옮긴다.
+   ⚠ 옛 자리도 그대로 읽는다 — 앞서 적어 둔 줄을 잃지 않기 위해서다. */
+const 새표길 = path.join(뿌리, 'docs/아웃리치-보낸것.tsv');
+const 옛표길 = path.join(뿌리, 'archive/outreach/보낸것.tsv');
+const 표길 = fs.existsSync(새표길) ? 새표길 : 옛표길;
 
 export const 갈래들 = ['인용', '공공', '제작'];
 
