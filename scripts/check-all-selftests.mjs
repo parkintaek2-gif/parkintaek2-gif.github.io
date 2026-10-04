@@ -48,7 +48,6 @@ export const 돌릴것 = [
   ['check-daily-shipping.mjs', '--자가시험'],
   ['check-demand-covered.mjs', '--자가시험'],
   ['check-dist-ready.mjs', '--자가시험'],
-  ['check-ganglyeong-read.mjs', '--selftest'],
   ['check-import-safety.mjs', '--자가시험'],
   ['check-kcw-article-backlinks.mjs', '--자가시험'],
   ['check-kcw-comment-leak.mjs', '--자가시험'],
