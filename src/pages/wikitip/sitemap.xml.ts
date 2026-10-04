@@ -1097,6 +1097,10 @@ export const GET: APIRoute = async () => {
     /* 🔴 [2026-10-05] 실측 — 「korean actors age」·「korean actress age」가 각각
        자동완성 10줄을 꽉 채우는데 그 말을 제목에 둔 지면이 없었다. 531명의 생년이
        자료에 있어 지면이 된다. ⛔ 생년 없는 103명은 «빼고 그 수를 적는다» */
+    /* 🔴 [2026-10-05] kdrama netflix 2026 · best kdrama · kdrama ratings 가 각각
+       자동완성 10줄을 꽉 채운다. 397편의 주간 차트 이력이 이미 있었다.
+       ⭐ 재 보니 「오래 머문 것」과 「널리 퍼진 것」 상위 15 가운데 셋만 겹친다 */
+    { path: '/kdrama-netflix', priority: '0.9', changefreq: 'weekly' },
     { path: '/ages', priority: '0.9', changefreq: 'monthly' },
     { path: '/bts-star-signs', priority: '0.8', changefreq: 'monthly' },
     /* 독자가 실제로 어느 «철자»에 닿는가. 위키백과 넘김 주소를 다 세어 만든 지면 */
