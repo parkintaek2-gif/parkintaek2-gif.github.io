@@ -155,6 +155,7 @@ export const GET: APIRoute = () => {
        이름이 82개 겹치지만 학교급이 달라 섞으면 숫자가 어긋난다. */
     { path: '/college-major', priority: '0.9', changefreq: 'weekly' },
     { path: '/school', priority: '0.8', changefreq: 'weekly' },
+    { path: '/school-progression-rank', priority: '0.9', changefreq: 'monthly' },
     { path: '/university', priority: '0.9', changefreq: 'weekly' },
     { path: '/research', priority: '0.7', changefreq: 'monthly' },
     { path: '/data', priority: '0.8', changefreq: 'weekly' },

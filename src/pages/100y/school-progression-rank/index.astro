@@ -1,0 +1,182 @@
+---
+/**
+ * /100y/school-progression-rank — **고등학교 진학률 순위**
+ *
+ * ── 🔴🔴 왜 만들었나 (2026-10-04 · 5번) ─────────────────────────────────
+ * 사장님: 「**검색 관련 색인, seo 업무, AI geo, 커뮤니티 등을 통한 방문객 유입에
+ *          가장 치중해라.**」 · 「**유입량을 지금의 천배, 만배로**」
+ *
+ * 사람이 실제로 치는 말을 재 보니(`measure-keyword-demand.mjs` · 구글 자동완성) —
+ * ```
+ *   고등학교 진학률 순위     1차례      ← 우리 지면이 없다
+ *   고등학교 진학률 통계     1차례      ← 우리 지면이 없다
+ * ```
+ * 우리는 학교 2,525곳 지면과 진학 자료 1,839줄을 갖고 있으면서 **이 말에 답하는
+ * 지면이 한 장도 없었다.** 대학 순위 지면은 넷이나 있는데 고등학교 쪽은 비어 있었다.
+ *
+ * ── ⛔ 이 지면이 반드시 지키는 것 ──────────────────────────────────────
+ * ⛔ **「전국 고등학교 진학률」이라 쓰지 않는다.** 원자료가 스스로 적어 둔 금지다 —
+ *   공표 2,380곳 중 1,839곳(77.3%)뿐이다. 빠진 곳을 숨기지 않고 지면에 적는다.
+ * ⛔ **진학률이 높은 학교가 「좋은 학교」가 아니다.** 우리는 그 말을 하지 않는다.
+ *   바로 진학하지 않는 것은 재수·취업·유학일 수 있고 우리는 그 셋을 가르지 못한다.
+ * ⛔ **못 잰 129곳을 0으로 채우지 않는다.** 따로 세어 적는다.
+ *   ⚠ 이 자리에서 내가 한 번 미끄러졌다 — `Number(null) === 0` 이라
+ *     「1,839곳 다 쟀다」로 읽었다. 실제로 숫자가 든 것은 1,710곳이다.
+ * ⛔ 학교 이름을 줄 세워 놓고 끝내지 않는다. **분포**를 먼저 보인다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import 원본 from '../../../data/100yearmap/school-career.json';
+
+const 자료 = 원본 as any;
+const 모두 = (자료.자료 ?? []) as any[];
+
+/* ⛔ 숫자가 든 것만 센다. Number(null)===0 이라 Number.isFinite 만으로는 못 거른다 */
+const 잰것 = 모두.filter((x) => typeof x.진학률 === 'number' && Number.isFinite(x.진학률));
+const 못잰수 = 모두.length - 잰것.length;
+
+/** 졸업자가 적으면 한두 사람이 비율을 흔든다 — 순위에는 100명 이상만 올린다 */
+const 순위문턱 = 100;
+const 순위감 = 잰것.filter((x) => Number(x.졸업자) >= 순위문턱)
+  .sort((a, b) => b.진학률 - a.진학률);
+
+const 높은쪽 = 순위감.slice(0, 10);
+const 낮은쪽 = 순위감.slice(-10).reverse();
+
+/* 갈래별 — 학교를 평균 내지 않고 «졸업자»로 센다. 큰 학교와 작은 학교를 똑같이 치면 틀린다 */
+const 갈래셈 = new Map<string, { 곳: number; 졸: number; 진: number }>();
+for (const x of 모두) {
+  const g = x.갈래 || '모름';
+  const v = 갈래셈.get(g) ?? { 곳: 0, 졸: 0, 진: 0 };
+  v.곳 += 1; v.졸 += Number(x.졸업자) || 0; v.진 += Number(x.진학) || 0;
+  갈래셈.set(g, v);
+}
+const 갈래들 = [...갈래셈.entries()]
+  .map(([이름, v]) => ({ 이름, ...v, 률: v.졸 ? (v.진 / v.졸) * 100 : null }))
+  .filter((x) => x.률 !== null)
+  .sort((a, b) => b.졸 - a.졸);
+
+const 전체졸 = 모두.reduce((s, x) => s + (Number(x.졸업자) || 0), 0);
+const 전체진 = 모두.reduce((s, x) => s + (Number(x.진학) || 0), 0);
+const 전체률 = 전체졸 ? (전체진 / 전체졸) * 100 : null;
+
+/* 100% 가 몇 곳인가 — 사람이 가장 먼저 묻는 수다 */
+const 백퍼 = 순위감.filter((x) => x.진학률 >= 100).length;
+
+const 수 = (n: number) => Number(n).toLocaleString('ko-KR');
+const 률 = (n: number | null) => (n === null ? '—' : `${n.toFixed(1)}%`);
+
+const TITLE = `고등학교 진학률 순위 — ${수(잰것.length)}곳을 세어 봤습니다`;
+const desc =
+  `고등학교 진학률 순위와 통계. 학교알리미 ${자료.출처?.공시연도 ?? ''}년 공시로 `
+  + `${수(잰것.length)}곳의 진학률을 셌습니다. 졸업자로 세면 ${률(전체률)}이고, `
+  + `졸업자 ${순위문턱}명 이상인 ${수(순위감.length)}곳 가운데 ${수(백퍼)}곳이 100%입니다. `
+  + `⚠ 전국 전체가 아닙니다 — 공시 2,380곳 중 ${수(모두.length)}곳입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '고등학교 진학률 순위',
+  description: desc,
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처?.이름 ?? '학교알리미' },
+  variableMeasured: ['학교별 진학률', '고교 갈래별 진학률'],
+};
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>고등학교 진학률 순위</h1>
+
+  <p class="sub">
+    학교알리미 {자료.출처?.공시연도}년 공시로 <strong>{수(잰것.length)}곳</strong>의 진학률을
+    셌습니다. 졸업자를 모두 더해서 세면 <strong>{률(전체률)}</strong>입니다.
+  </p>
+
+  <p>
+    ⚠ <strong>전국 고등학교 전체가 아닙니다.</strong> 공시 2,380곳 가운데 {수(모두.length)}곳
+    {/* ⚠ JSX 는 줄바꿈 앞뒤 공백을 버린다 — 「것이1,710곳」으로 붙어 나갔다. {' '} 를 넣는다 */}
+    ({(모두.length / 2380 * 100).toFixed(1)}%)이고, 그중 진학률 숫자가 든 것이{' '}
+    {수(잰것.length)}곳입니다. <strong>{수(못잰수)}곳은 숫자가 비어 있어 세지 않았습니다</strong> —
+    0으로 채우지 않았습니다.
+  </p>
+
+  <h2>고교 갈래별 진학률</h2>
+  <p>
+    학교마다 크기가 달라서, 학교를 평균 내지 않고 <strong>졸업자 수로</strong> 셌습니다.
+  </p>
+  <table>
+    <thead><tr><th>갈래</th><th>학교</th><th>졸업자</th><th>진학률</th></tr></thead>
+    <tbody>
+      {갈래들.map((g) => (
+        <tr>
+          <td>{g.이름}</td>
+          <td class="num">{수(g.곳)}곳</td>
+          <td class="num">{수(g.졸)}명</td>
+          <td class="num"><strong>{률(g.률)}</strong></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>진학률이 높은 쪽 10곳</h2>
+  <p>
+    졸업자 {순위문턱}명 이상인 {수(순위감.length)}곳 가운데입니다. 졸업자가 적으면 한두 사람이
+    비율을 크게 흔들어서 선을 그었습니다. 이 가운데 <strong>{수(백퍼)}곳이 100%</strong>입니다.
+  </p>
+  <table>
+    <thead><tr><th>학교</th><th>갈래</th><th>졸업자</th><th>진학률</th></tr></thead>
+    <tbody>
+      {높은쪽.map((x) => (
+        <tr>
+          <td><a href={`/school/${x.code}`}>{x.표시명}</a></td>
+          <td class="fine">{x.갈래}</td>
+          <td class="num">{수(Number(x.졸업자))}명</td>
+          <td class="num"><strong>{률(x.진학률)}</strong></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>진학률이 낮은 쪽 10곳</h2>
+  <p>
+    ⛔ <strong>낮다고 나쁜 학교가 아닙니다.</strong> 바로 진학하지 않은 것은 재수일 수도,
+    취업일 수도, 유학일 수도 있습니다. 공시 자료는 그 셋을 갈라 적지 않아
+    <strong>우리도 가르지 못합니다.</strong>
+  </p>
+  <table>
+    <thead><tr><th>학교</th><th>갈래</th><th>졸업자</th><th>진학률</th></tr></thead>
+    <tbody>
+      {낮은쪽.map((x) => (
+        <tr>
+          <td><a href={`/school/${x.code}`}>{x.표시명}</a></td>
+          <td class="fine">{x.갈래}</td>
+          <td class="num">{수(Number(x.졸업자))}명</td>
+          <td class="num"><strong>{률(x.진학률)}</strong></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>진학률은 「좋은 학교」의 눈금이 아닙니다.</strong> 졸업한 해에 바로 대학에
+      갔는가만 셉니다. 어디로 갔는지, 그 뒤에 어떻게 됐는지는 이 자료에 없습니다.</li>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 같은 학교 안에서도 사람마다 길이
+      다릅니다.</li>
+    <li>자율고가 {률(갈래들.find((g) => g.이름.includes('자율'))?.률 ?? null)}로 가장 낮은데,
+      그것이 「못 갔다」는 뜻은 아닙니다. 한 해 더 준비하는 쪽을 고른 사람이 많으면
+      이 수는 내려갑니다.</li>
+  </ul>
+
+  <p class="fine">
+    출처 — {자료.출처?.이름}({자료.출처?.공시연도}년 공시, {자료.출처?.공시항목}).
+    이용허락 {자료.출처?.이용허락범위}. 학교 하나하나는
+    {' '}<a href="/school/7011540">학교 지면</a>에서 볼 수 있습니다.
+  </p>
+</HundredYear>
+
+<style>
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid rgba(128,128,128,.22); }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .fine { opacity: .75; font-size: .92em; }
+</style>
