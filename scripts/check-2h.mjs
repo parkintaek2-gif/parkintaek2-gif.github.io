@@ -22,7 +22,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { 쉬는시간인가, 자리업무중인가 } from './lib/work-hours.mjs';
 import { 오늘새로난지면 } from './lib/sitemap-new-urls.mjs';
 
@@ -1175,6 +1175,36 @@ if (내가실행됐다) {
       }
     } catch { 줄글 = null; }
     console.log(줄('③-12', '다시 잴 것', 줄글));
+  }
+
+  /*
+   * ③-13 🔴🔴 [2026-10-05 · 5번] **지면을 내고 사이트맵에 안 넣은 것이 있나**
+   *
+   *   `sitemap-[section].xml.ts` 주석에만 같은 사고가 «다섯 번» 적혀 있고
+   *   2026-10-05 에 여섯 번째가 났다(revenue-concentration · korea-inflation-rate ·
+   *   kpop-group-size). 그때마다 「다음엔 같은 커밋에서 넣는다」고 적고 끝냈다.
+   *   ⇒ 두 시간마다 저절로 보이게 둔다. 사람이 기억해서 지키지 않는다.
+   */
+  {
+    let 줄글 = null;
+    try {
+      const m = await import(pathToFileURL(path.join(뿌리, 'scripts/check-사이트맵-빠진지면.mjs')).href);
+      let 빠진합 = 0; let 못읽음 = 0;
+      for (const 곳 of m.볼것) {
+        const r = m.견준다(곳.지면, 곳.사이트맵);
+        if (!r.읽었나) { 못읽음 += 1; continue; }
+        빠진합 += r.빠진것.length;
+      }
+      /* ⚠ 이 자리의 줄글 꼴은 `{ 됐나, 말 }` 이다 — 처음에 `빛` 으로 적었다가
+         값이 「빠진 지면 없다」인데 빨간불이 떴다. 옆줄(③-12)과 꼴을 맞춘다. */
+      줄글 = {
+        됐나: 빠진합 === 0,
+        말: 빠진합
+          ? `🔴 사이트맵에 안 들어간 지면 ${빠진합}장 — node scripts/check-사이트맵-빠진지면.mjs`
+          : (못읽음 ? `⬜ 못 잰 곳 ${못읽음}개 — 0 으로 읽지 않는다` : '빠진 지면 없다'),
+      };
+    } catch { 줄글 = null; }
+    console.log(줄('③-13', '사이트맵 빠진 지면', 줄글));
   }
 
   /* ④ 라이브 */

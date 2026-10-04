@@ -86,6 +86,10 @@ export const 돌릴것 = [
   ['check-utc-today.mjs', '--자가시험'],
   ['check-wikitip-indexed-records.mjs', '--자가시험'],
   ['build-wikitip-title-demand.mjs', '--자가시험'],
+  /* 🔴 [2026-10-05 · 5번] 지면을 내고 사이트맵에 안 넣는 사고가 «여섯 번째»라 자로 만들었다 */
+  ['check-사이트맵-빠진지면.mjs', '--자가시험'],
+  /* 🔴 [2026-10-05 · 5번] 한국 거시 셋(GDP·물가·기준금리)을 ECOS 에서 받는 자 */
+  ['collect-korea-macro-ecos.mjs', '--자가시험'],
 ];
 
 export function 자가시험() {

@@ -58,6 +58,40 @@ export function 받아온날표(meta: any): Map<number, Date> {
   return 표;
 }
 
+/**
+ * 🔴🔴 [2026-10-05 · 5번] **손으로 적은 목록이 빠뜨린 지면을 찾아 메운다.**
+ *
+ * `src/pages/` 바로 밑의 `*.astro` 를 훑어 사이트맵에 없는 것을 찾는다.
+ * ⛔ 깊은 곳(`/data/`·`/company/` 등)은 안 본다 — 그쪽은 저마다 다른 규칙으로
+ *   만들어지고, 여기서 싸잡아 넣으면 404 를 사이트맵에 싣게 된다.
+ * ⛔ 동적 경로(`[...]`)·사이트맵 자신·404·계정 화면은 뺀다.
+ * ⚠ 이 자가 찾아 넣는 것은 «안 넣은 것보다 낫다»는 뜻이지 손질된 줄을 대신하지
+ *   않는다. 우선순위를 다듬고 싶으면 위 목록에 손으로 적는다.
+ */
+const 사이트맵에안낼것 = new Set([
+  '404', 'account', 'recover', 'trial', 'contact', 'privacy', 'index',
+]);
+
+export function 빠진것찾기(이미있는것: Url[], { 읽기 = fs.readdirSync } = {}): Url[] {
+  const 있는길 = new Set(이미있는것.map((u) => String(u.loc).replace(/\/+$/, '')));
+  let 파일들: string[] = [];
+  try {
+    파일들 = 읽기(path.join(process.cwd(), 'src', 'pages')) as unknown as string[];
+  } catch { return []; }            /* ⛔ 못 읽으면 빈손 — 지어내지 않는다 */
+  const 것: Url[] = [];
+  for (const f of 파일들) {
+    const name = String(f);
+    if (!name.endsWith('.astro')) continue;
+    const slug = name.replace(/\.astro$/, '');
+    if (slug.includes('[') || slug.startsWith('_')) continue;   /* 동적·부분 지면 */
+    if (사이트맵에안낼것.has(slug)) continue;
+    const loc = `/${slug}`;
+    if (있는길.has(loc)) continue;
+    것.push({ loc, changefreq: 'monthly', priority: '0.7' });
+  }
+  return 것;
+}
+
 /** 그 회사가 들고 있는 «가장 최근 연도»의 받아온 날. ⛔ 모르면 null */
 export function 받아온날(줄들: any[] | undefined, 표: Map<number, Date>): Date | null {
   if (!줄들?.length || !표.size) return null;
@@ -223,6 +257,14 @@ export const GET: APIRoute = async ({ params }) => {
          제목에 KOSPI 를 둔 지면이 없었다. ⭐ 재 보니 코스닥 적자 기업 비중이
          다섯 해에 33.5% → 44.3% 로 올랐다 — 주가가 아니라 «공시»에만 보이는 것이다. */
       { loc: '/kospi-vs-kosdaq', changefreq: 'monthly', priority: '0.9' },
+      /* 🔴 [2026-10-05 · 5번] korean stocks · japan stock market · taiwan stock exchange 가
+         모두 자동완성 10줄을 꽉 찬다. ⭐ 한국과 일본은 상장 회사 수가 4% 안쪽으로 비슷한데
+         상위 10사의 매출 몫이 34.9% 대 17.0% — 두 배가 넘는다. 대만은 52.4%. */
+      { loc: '/revenue-concentration', changefreq: 'monthly', priority: '0.9' },
+      /* 🔴 [2026-10-05 · 5번] korea inflation · korea gdp · bank of korea rate 가 10줄을
+         꽉 찬다. 자료가 없어 지면이 없었다 — collect-korea-macro-ecos.mjs 로 세웠다.
+         ⭐ 실질금리(기준금리 − 물가)가 2026-04~08 다섯 달 마이너스였고 09 에 +0.12% 로 돌아섰다. */
+      { loc: '/korea-inflation-rate', changefreq: 'weekly', priority: '0.9' },
       /* 🔴 [2026-09-12 · 4번] F6 무료 영문 지면 넷(Financials·Valuation·Index·Consensus) —
        *   target-changes(Consensus)만 여기 있었고 나머지 셋은 라이브 200인데 이 목록에
        *   없었다. 같은 사고가 이 파일에서 벌써 세 번째다(위 5번 주석 두 곳 참고).
@@ -341,6 +383,15 @@ export const GET: APIRoute = async ({ params }) => {
         priority: '0.7',
       })),
     ];
+    /* 🔴🔴 [2026-10-05 06:2x · 5번] **손으로 적은 이 목록이 또 새 지면을 빠뜨렸다.**
+       이 파일 주석에만 같은 사고가 «다섯 번» 적혀 있다(2026-09-12·09-18·09-20·09-23·10-04).
+       그때마다 「다음엔 같은 커밋에서 넣는다」고 적고 끝냈는데, 오늘 또 셋이 빠졌다 —
+       `/revenue-concentration` · `/korea-inflation-rate` · `/kpop-group-size`.
+       ⇒ **사람이 기억해서 지키는 구조를 만들지 않는다.** 저절로 찾아 메운다.
+       오늘 아침에 백년지도 갈래 표에서도 똑같이 34장이 빠져 있어 같은 고침을 했다.
+       ⛔ 손으로 적은 줄을 지우지 않는다 — 거기에는 우선순위·주기가 손질돼 있다.
+         빠진 것만 «끝에» 더한다. */
+    urls = [...urls, ...빠진것찾기(urls)];
   } else {
     // 기사에 세로 숏영상(+썸네일용 첫 카드뉴스)이 있으면 <video:video> 를 붙여 구글 비디오 검색에 알린다.
     // 썸네일 없으면 구글이 버리므로 mp4·첫카드 둘 다 있을 때만(2026-08-24 5번 총괄 발견).

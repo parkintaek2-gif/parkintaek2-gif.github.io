@@ -1102,6 +1102,13 @@ export const GET: APIRoute = async () => {
        ⭐ 재 보니 「오래 머문 것」과 「널리 퍼진 것」 상위 15 가운데 셋만 겹친다 */
     { path: '/kdrama-netflix', priority: '0.9', changefreq: 'weekly' },
     { path: '/ages', priority: '0.9', changefreq: 'monthly' },
+    /* 🔴 [2026-10-05 06:2x · 5번] kpop groups · kpop girl groups · kpop boy groups ·
+       kpop members 가 모두 자동완성 10줄을 꽉 채운다. 263팀 1,588명이 이미 있었다.
+       ⭐ 재 보니 **그룹이 커질수록 나이 폭이 넓어지고 한 번도 안 뒤집힌다**
+         (3명 3년 → 14명+ 13년). 263자가 21갈래로 뭉친다 — 획수가 21가지뿐이라서다.
+       ⚠ 지면을 내고 «여기 넣는 것»을 빠뜨렸다가 한 시간 뒤에 알았다. 같은 사고가
+         서울마켓 쪽 사이트맵에서도 같이 났다 — 그쪽은 저절로 메우게 고쳤다. */
+    { path: '/kpop-group-size', priority: '0.9', changefreq: 'monthly' },
     { path: '/bts-star-signs', priority: '0.8', changefreq: 'monthly' },
     /* 독자가 실제로 어느 «철자»에 닿는가. 위키백과 넘김 주소를 다 세어 만든 지면 */
     { path: '/name-spelled', priority: '0.9', changefreq: 'weekly' },
