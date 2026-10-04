@@ -175,8 +175,14 @@ const 나이글 = g.oldestBornYear && g.youngestBornYear
    ⛔ 낱말을 쌓은 것이 아니다. 이 지면은 실제로 «생일과 나이»를 둘 다 싣는다.
    ⚠ 이 바꿈으로 자리가 오를지는 «모른다». 2026-09-11 에 같은 자로 다시 잰다 —
      node scripts/check-ranked-but-unclicked.mjs */
-const 제목긴것 = `${g.name} members: birthdays and ages ${기준해}`;
-const TITLE = 제목긴것.length <= 60 ? 제목긴것 : `${g.name} members: birthdays ${기준해}`;
+/* 🔴 [2026-10-05 · 5번] **콜론이 「members age」를 끊고 있었다.**
+   실측(en/us 자동완성) — bts·blackpink·newjeans·aespa·ive·stray kids·seventeen·twice
+   모두 「X members age」가 10줄을 꽉 채운다. 그런데 우리 제목은
+   「members: birthdays and ages」라 그 말이 «연속으로» 없었다.
+   ⇒ 콜론을 빼고 ages 를 앞으로 당긴다. 263개를 다 재니 최대 57자(60자 넘는 것 0장).
+   ⛔ 낱말을 쌓은 것이 아니다 — 이 지면은 실제로 나이와 생일을 둘 다 싣는다. */
+const 제목긴것 = `${g.name} members ages and birthdays ${기준해}`;
+const TITLE = 제목긴것.length <= 60 ? 제목긴것 : `${g.name} members ages ${기준해}`;
 /* ⭐ 2026-09-04 — 설명에도 손님이 치는 말(「birthday」)을 앞에 둔다.
    ⚠ 263장을 다 재고 바꿨다 — 새 설명의 최대가 126자다(옛것은 149자). 155자를 넘는 것이 0장이다.
    ⛔ 뜻은 그대로다. 이 지면은 실제로 멤버마다 생일을 싣는다. */
@@ -233,7 +239,9 @@ const DESC = `Every ${g.name} member birthday: ${g.membersWithBirthday} on recor
 <WikiTip title={TITLE} description={DESC}
   canonical={`https://www.kculturewire.com/group/${g.slug}`}
   jsonLd={그룹구조화(g, new Map(Object.entries(사람문 ?? {})))}>
-  <h1>{g.name} members — age and birthday</h1>
+  {/* 🔴 [2026-10-05] 제목은 「members ages」 연속을 살려야 해서 질문형을 못 담는다.
+      「how old is …」도 손님이 많이 치는 말이라 h1 에서 잡는다. */}
+  <h1>How old is {g.name}? Members ages and birthdays</h1>
 
   {/* 🔴 [2026-09-05] 팬이 치는 약칭을 «화면에도» 낸다. 설명에만 두면 지면 글에는 없는 것이다.
       ⛔ 없는 그룹에는 이 줄 자체가 안 나간다 — 빈 「Also written」을 만들지 않는다. */}
