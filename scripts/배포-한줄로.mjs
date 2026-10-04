@@ -135,6 +135,21 @@ if (내가실행됐다) {
     if (/배포해도|🔴|⛔|⚠|🔒|푸는 법/.test(l)) console.log('   ' + l.trim());
   if (!관문통과했나(관문)) { console.log('\n⛔ 관문이 막았다 — 배포하지 않는다'); process.exit(1); }
 
+  /* 🔴🔴 [2026-10-04 · 5번] **검색 자물쇠 — 모든 유닛**
+     사장님: 「seo, geo, 색인 대체 내가 그렇게 강조했는데」
+             「모든일에 다국어, 검색 관련 업무 무조건 자물쇠를 걸어」·「모든 유닛에」
+     ⛔ 「보이게 하는 검사」로는 안 됐다 — check-2h 에 걸어도 그냥 지나갈 수 있다.
+       2026-08-22 에 만든 키워드 자가 9월 7일 뒤로 한 번도 안 돌았다.
+     ⚠ 다국어 자물쇠는 여기 걸지 않는다 — 「다국어는 케이라이프맵만」이라 하셨고
+       그쪽은 klifemap 저장소의 tools/다국어-자물쇠.mjs 가 맡는다. */
+  console.log('\n■ ③-ㄴ 검색 자물쇠 (SEO·GEO·색인)');
+  let 검색글 = ''; let 검색막힘 = false;
+  try { 검색글 = 돌려('검색-자물쇠.mjs'); }
+  catch (e) { 검색글 = String(e.stdout ?? '') + String(e.stderr ?? ''); 검색막힘 = true; }
+  for (const l of 검색글.split(String.fromCharCode(10)))
+    if (/🔴|⛔ 안 되어|✅ 검색 자물쇠|⚠ 못 잰|⭐/.test(l)) console.log('   ' + l.trim());
+  if (검색막힘) { console.log('\n⛔ 검색 자물쇠가 막았다 — 배포하지 않는다'); process.exit(1); }
+
   console.log('\n■ ④ 배포 — 7~13분 걸린다');
   try {
     const 낸것 = 돌려('deploy.mjs', '--열쇠', 열쇠);

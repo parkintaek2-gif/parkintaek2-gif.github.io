@@ -76,7 +76,10 @@ function 환경읽기() {
   } catch { /* 없으면 그만 */ }
 }
 
-async function 토큰받기() {
+export async function 토큰받기() {
+  /* 🔴 [2026-10-04 · 5번] 밖에서 들여올 때도 .env 를 읽게 한다 —
+     전에는 실행부에서만 불러서 import 로 쓰면 「열쇠가 없다」로 떨어졌다. */
+  환경읽기();
   const 키파일 = process.env.GOOGLE_APPLICATION_CREDENTIALS;
   if (!키파일) throw new Error('GOOGLE_APPLICATION_CREDENTIALS 가 .env 에 없다');
   const 키 = JSON.parse(readFileSync(키파일, 'utf8'));
