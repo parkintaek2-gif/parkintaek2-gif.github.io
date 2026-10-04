@@ -37,7 +37,10 @@ export const 대장 = path.join(뿌리, 'docs/날마다셋-대장.tsv');
 export const 셋 = [
   { 열쇠: '방문자', 이름: '방문자 증대', 어떻게: 'node scripts/유닛별-방문자.mjs 로 재고 수를 적는다' },
   { 열쇠: '결제', 이름: '결제 세 징검다리', 어떻게: 'node scripts/check-세징검다리.mjs' },
-  { 열쇠: '보안', 이름: '보안 셋', 어떻게: 'node scripts/check-보안-셋.mjs (없으면 네 사이트 보안 점검)' },
+  /* 🔴 [2026-10-05] 여기가 check-보안-셋.mjs 를 가리키고 있었는데 «그런 자가 없다».
+     자물쇠가 없는 자를 가리키면 사람이 그 줄을 읽고 돌렸다가 MODULE_NOT_FOUND 를 본다.
+     실제로 도는 것은 check-네사이트-보안-라이브.mjs 다. */
+  { 열쇠: '보안', 이름: '보안 셋', 어떻게: 'node scripts/check-네사이트-보안-라이브.mjs' },
 ];
 
 /** ⛔ toISOString 금지 — 이 PC 는 이미 KST 다 */
