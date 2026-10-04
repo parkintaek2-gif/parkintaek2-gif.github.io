@@ -1,0 +1,15 @@
+{
+ "minWeight": 6,
+ "builtAt": "2026-10-04T00:31:32.429Z",
+ "adx": {
+  "total": 4791,
+  "included": 1620,
+  "excluded": 3171
+ },
+ "dfm": {
+  "total": 936,
+  "included": 298,
+  "excluded": 638
+ },
+ "totalIncluded": 1918
+}
