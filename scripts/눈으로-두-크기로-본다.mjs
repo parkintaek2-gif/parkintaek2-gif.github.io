@@ -17,8 +17,18 @@
  *   `b.close()` 를 부르면 **사장님이 보고 계신 창이 닫힌다.** `disconnect()` 만 쓴다.
  *   언제나 새 탭을 열고, 그 탭만 닫는다.
  *
+ * ── 🔴 [2026-10-04 10:3x · 2번이 짚어 주심] **맨 위만 찍고 있었다** ──────────
+ *   2번: 「눈으로-두-크기로-본다.mjs 를 /100y.html 에 돌렸는데, **뷰포트 스크린샷이
+ *        페이지 맨 위만 찍혀서 새로 들어간 한 줄의 위치를 못 봤습니다.**」
+ *   ⛔ 감수하라고 만든 자가 **볼 것을 안 보여 주고 있었다.** 고친 자리가 아래쪽이면
+ *     그 그림으로는 감수가 안 된다 — 「봤다」고 적게 만드는 것이 가장 나쁘다.
+ *   ⇒ ① 전체 길이 그림을 한 장 더 낸다  ② `--찾기 "<글자>"` 로 그 자리에 맞춰 찍는다
+ *   ⚠ 전체 그림은 길면 아주 길어진다(백년지도 목록이 31,606px 였다). 그래서 뷰포트
+ *     그림도 그대로 둔다 — 둘은 보는 것이 다르다.
+ *
  * 쓰는 법
  *   node scripts/눈으로-두-크기로-본다.mjs <주소> [찍을곳]
+ *   node scripts/눈으로-두-크기로-본다.mjs <주소> [찍을곳] --찾기 "전체 목록"
  *   node scripts/눈으로-두-크기로-본다.mjs --selftest
  *
  *   먼저 띄워 둔다 —  npx --yes http-server dist -p 4399 --silent &
@@ -77,6 +87,18 @@ export function 자가시험() {
   본다('폰은 600px 이하다', 볼크기[0].너비 <= 600);
   본다('데스크톱은 1000px 이상다', 볼크기[1].너비 >= 1000);
 
+  /* 🔴 [2026-10-04 · 2번이 짚어 주심] 맨 위만 찍으면 아래쪽 고침을 못 본다 */
+  {
+    const 글 = fs.readFileSync(fileURLToPath(import.meta.url), 'utf8');
+    본다('🔴 전체 길이도 한 장 찍는다 — 뷰포트만으로는 아래쪽을 못 본다',
+      /fullPage: true/.test(글));
+    본다('🔴 볼 자리를 글자로 일러 줄 수 있다 (--찾기)', /--찾기/.test(글));
+    본다('⛔ 못 찾으면 찾았다고 하지 않는다',
+      /를 못 찾았다 — 맨 위를 찍었다/.test(글));
+    본다('⛔ 전체 그림을 못 찍으면 못 찍었다고 적는다',
+      /전체 길이 그림은 못 찍었다/.test(글));
+  }
+
   const 빨강 = 결과.filter((r) => !r.참).length;
   console.log('■ 눈으로 두 크기로 본다 — 자가시험');
   for (const r of 결과) console.log(`  ${r.참 ? '✅' : '🔴'} ${r.이름}${r.덧 ? `  (${r.덧})` : ''}`);
@@ -95,7 +117,16 @@ if (내가실행됐다) {
     console.log('⛔ 볼 주소가 없다.  node scripts/눈으로-두-크기로-본다.mjs <주소> [찍을곳]');
     process.exit(1);
   }
-  const 찍을곳 = process.argv[3] || path.join(os.tmpdir(), '눈으로잰것');
+  const 찍을곳 = (process.argv[3] && !process.argv[3].startsWith('--'))
+    ? process.argv[3] : path.join(os.tmpdir(), '눈으로잰것');
+  /* 🔴 [2026-10-04 · 2번이 짚어 주심] 볼 자리를 글자로 일러 준다 —
+     고친 데가 아래쪽이면 맨 위 그림으로는 아무것도 못 본다 */
+  const 찾기 = (() => {
+    const i = process.argv.indexOf('--찾기');
+    const j = process.argv.indexOf('--find');
+    const k = i >= 0 ? i : j;
+    return k >= 0 ? (process.argv[k + 1] || null) : null;
+  })();
   fs.mkdirSync(찍을곳, { recursive: true });
 
   const { default: puppeteer } = await import('puppeteer-core');
@@ -126,12 +157,39 @@ if (내가실행됐다) {
           제목: (document.querySelector('h1') || {}).textContent || null,
           키: document.documentElement.scrollHeight,
         }));
+        /* 🔴 [2026-10-04 · 2번이 짚어 주심] 찾을 글자를 주면 **그 자리로 옮겨서** 찍는다.
+           고친 데가 아래쪽이면 맨 위 그림으로는 아무것도 못 본다. */
+        let 찾음 = null;
+        if (찾기) {
+          찾음 = await p.evaluate((말) => {
+            const 걸 = document.evaluate(
+              `//*[not(self::script) and not(self::style)][contains(normalize-space(.), ${JSON.stringify(말)})][not(.//*[contains(normalize-space(.), ${JSON.stringify(말)})])]`,
+              document, null, 9, null).singleNodeValue;
+            if (!걸) return null;
+            걸.scrollIntoView({ block: 'center' });
+            const r = 걸.getBoundingClientRect();
+            return { 글: (걸.textContent || '').trim().slice(0, 60), 위: Math.round(r.top) };
+          }, 찾기);
+          await new Promise((r) => setTimeout(r, 400));
+        }
         const 찍은곳 = path.join(찍을곳, `${k.이름}.png`);
         await p.screenshot({ path: 찍은곳, fullPage: false });
-        잰것들.push({ ...k, ...잰, 찍은곳 });
+        /* 전체 길이 한 장 — 아래쪽에 무엇이 있는지는 이것으로만 보인다 */
+        const 전체곳 = path.join(찍을곳, `${k.이름}-전체.png`);
+        let 전체찍음 = null;
+        try { await p.screenshot({ path: 전체곳, fullPage: true }); 전체찍음 = 전체곳; }
+        catch (e) { 전체찍음 = null; }        /* 너무 길면 못 찍는다 — 못 찍었다고 적는다 */
+        잰것들.push({ ...k, ...잰, 찍은곳, 전체찍음, 찾음 });
         const 빛 = 잰.가로넘침 > 0 ? '🔴' : '✅';
         console.log(`${빛} ${k.이름} ${k.너비}px — 가로 넘침 ${잰.가로넘침}px · 고리 ${잰.고리수}개 · 키 ${잰.키}px`);
         console.log(`   ${찍은곳}`);
+        if (전체찍음) console.log(`   ${전체찍음}   ← 전체 길이 (아래쪽은 이것으로 본다)`);
+        else console.log('   ⬜ 전체 길이 그림은 못 찍었다 — 지면이 너무 길다');
+        if (찾기) {
+          console.log(찾음
+            ? `   🔎 「${찾기}」 를 찾아 그 자리로 옮겼다 — ${찾음.글}`
+            : `   🔴 「${찾기}」 를 못 찾았다 — 맨 위를 찍었다. **그 글이 지면에 없을 수 있다**`);
+        }
       } finally {
         await p.close();                          /* 내가 연 탭만 닫는다 */
       }
