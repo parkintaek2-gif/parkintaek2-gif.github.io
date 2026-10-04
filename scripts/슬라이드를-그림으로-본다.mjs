@@ -119,7 +119,8 @@ if (내가실행됐다) {
   const 것 = 뽑기(pptx, 낼곳, Number(첫장) || 0, Number(끝장) || 0);
   if (!것.됐나 || !것.생긴것.length) {
     console.log(`⛔ 못 뽑았다 — ${것.흠 ?? '까닭을 모른다'}`);
-    console.log(것.날것.split('\n').slice(0, 6).join('\n'));
+    /* ⚠ 파일이 아예 없으면 PowerShell 을 부르지도 않아 날것이 없다 — 터지지 않게 */
+    if (것.날것) console.log(String(것.날것).split('\n').slice(0, 6).join('\n'));
     process.exit(1);
   }
   console.log(`✅ 슬라이드 ${것.모두}장 가운데 ${것.첫장}~${것.끝장} — 그림 ${것.생긴것.length}장`);
