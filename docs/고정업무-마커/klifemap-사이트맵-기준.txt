@@ -1,5 +1,5 @@
 # 잰날 2026-10-04
-# 오늘셈 4
+# 오늘셈 7
 # ⛔ 이 파일을 지우면 「오늘 새로 난 지면」을 하루 동안 못 센다
 https://klifemap.ai/
 https://klifemap.ai/content
@@ -20,6 +20,9 @@ https://klifemap.ai/gwansang.html
 https://klifemap.ai/liuyao.html
 https://klifemap.ai/tarot.html
 https://klifemap.ai/stardb.html
+https://klifemap.ai/star-zodiac-distribution.html
+https://klifemap.ai/star-zodiac-cusp.html
+https://klifemap.ai/venus-retrograde-2026.html
 https://klifemap.ai/mingli-gunghap.html
 https://klifemap.ai/mingli-taekil.html
 https://klifemap.ai/mingli-sungmyung.html
