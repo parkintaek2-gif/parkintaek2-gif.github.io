@@ -1,5 +1,5 @@
 {
-  "잰때": "2026. 10. 4. 오후 4:44:13",
+  "잰때": "2026. 10. 4. 오후 7:31:04",
   "사이트": {
     "klifemap": [
       {
@@ -16,7 +16,7 @@
         "빛": "🔴",
         "말": "Crawled - currently not indexed",
         "갈래": "왔는데색인안함",
-        "마지막크롤": "2026-08-18T03:10:39Z",
+        "마지막크롤": "2026-10-04T08:19:36Z",
         "덮개": "Crawled - currently not indexed",
         "오류": null
       },
@@ -44,16 +44,16 @@
         "말": "구글이 한 번도 안 왔다",
         "갈래": "발견안됨",
         "마지막크롤": null,
-        "덮개": "URL is unknown to Google",
+        "덮개": "Discovered - currently not indexed",
         "오류": null
       },
       {
         "주소": "https://klifemap.ai/tarot.html",
         "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
+        "말": "Crawled - currently not indexed",
+        "갈래": "왔는데색인안함",
+        "마지막크롤": "2026-10-04T08:21:35Z",
+        "덮개": "Crawled - currently not indexed",
         "오류": null
       },
       {
@@ -71,7 +71,7 @@
         "말": "구글이 한 번도 안 왔다",
         "갈래": "발견안됨",
         "마지막크롤": null,
-        "덮개": "URL is unknown to Google",
+        "덮개": "Discovered - currently not indexed",
         "오류": null
       },
       {
@@ -174,7 +174,7 @@
   },
   "갈래셈": {
     "색인됨": 6,
-    "왔는데색인안함": 8,
-    "발견안됨": 4
+    "왔는데색인안함": 9,
+    "발견안됨": 3
   }
 }
