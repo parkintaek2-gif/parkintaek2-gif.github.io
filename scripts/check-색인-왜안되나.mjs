@@ -82,6 +82,14 @@ export function 진단(i) {
   if (!i.lastCrawlTime) return { 빛: '🔴', 말: '구글이 한 번도 안 왔다', 갈래: '발견안됨' };
   if (i.pageFetchState && i.pageFetchState !== 'SUCCESSFUL') return { 빛: '🔴', 말: `가져가다 실패 — ${i.pageFetchState}`, 갈래: '가져가기실패' };
   if (/Submitted and indexed|색인이 생성됨|Indexed/.test(cov)) return { 빛: '✅', 말: '색인됐다', 갈래: '색인됨' };
+  /* 🔴 [2026-10-05 · 5번] 「알지만 아직 안 왔다」를 되살린다.
+     Discovered 는 구글이 주소는 알지만 «아직 가져가지 않은» 상태다.
+     Crawled-not-indexed(보고도 안 넣었다)와 처방이 완전히 다르다 —
+     저쪽은 «그 지면만의 값»을 늘려야 하고, 이쪽은 링크를 더 걸고 기다리는 자리다.
+     ⛔ 둘을 한 칸에 담으면 「내용이 얇다」는 틀린 처방이 나온다.
+     추적 대장에는 10-04 까지 이 칸이 쌓여 있는데 코드에서만 빠져 있어
+     **추적이 하루 넘게 한 줄도 안 쌓이고 있었다.** */
+  if (/Discovered/i.test(cov)) return { 빛: '🟡', 말: '주소는 알지만 아직 안 왔다', 갈래: '알지만안옴' };
   if (i.googleCanonical && i.userCanonical && i.googleCanonical !== i.userCanonical) {
     return { 빛: '🔴', 말: '구글이 다른 페이지와 묶었다', 갈래: 'canonical어긋남' };
   }
@@ -95,6 +103,8 @@ export const 처방 = {
   가져가기실패: '서버가 그때 느렸거나 막았다. 응답 시간과 상태를 본다',
   canonical어긋남: '구글이 묶은 상대를 보고, 내용이 겹치면 갈라 쓴다',
   왔는데색인안함: '구글이 보고도 안 넣었다 — 내용이 얇거나 겹친다. 그 페이지만의 값을 늘린다',
+  /* 🔴 [2026-10-05] 위와 처방이 «다르다». 여기는 아직 «안 온» 것이라 고칠 것이 없다 */
+  알지만안옴: '구글이 주소는 알지만 아직 안 왔다 — 내용 탓이 아니다. 홈·목록에서 링크를 더 걸고 기다린다',
   색인됨: '',
   못물음: '',
 };
@@ -168,6 +178,18 @@ export function 자가시험() {
   본다('⛔ 겹치는 주소를 한 번만 센다', 고르게뽑기(['1', '1', '2'], 5).length === 2);
   본다('갈래마다 처방이 있다',
     ['우리가막음', '발견안됨', '가져가기실패', 'canonical어긋남', '왔는데색인안함'].every((k) => 처방[k]));
+  /* 🔴 [2026-10-05] Discovered 와 Crawled-not-indexed 는 처방이 달라 갈라야 한다 */
+  본다('🔴 진단 — Discovered 는 «알지만안옴»이다',
+    진단({
+      robotsTxtState: 'ALLOWED', indexingState: 'INDEXING_ALLOWED', lastCrawlTime: 'x',
+      pageFetchState: 'SUCCESSFUL', coverageState: 'Discovered - currently not indexed',
+    }).갈래 === '알지만안옴');
+  본다('🔴 진단 — Crawled-not-indexed 는 «다른» 갈래다',
+    진단({
+      robotsTxtState: 'ALLOWED', indexingState: 'INDEXING_ALLOWED', lastCrawlTime: 'x',
+      pageFetchState: 'SUCCESSFUL', coverageState: 'Crawled - currently not indexed',
+    }).갈래 === '왔는데색인안함');
+  본다('⛔ 추적칸이 아홉이다 — 대장 머리와 맞아야 쌓인다', 추적칸.length === 9);
 
   /* ── 날마다 쌓는 추적 ── */
   const 표본줄 = [
@@ -175,11 +197,15 @@ export function 자가시험() {
   ];
   const 한줄 = 추적줄만들기('2026-10-04', '04:35', 'kcw', 표본줄);
   본다('추적 — 칸 수가 머리와 맞는다', 한줄.split('\t').length === 추적칸.length);
-  본다('추적 — 갈래를 제대로 센다', 한줄 === '2026-10-04\t04:35\tkcw\t4\t2\t1\t1\t0');
+  본다('추적 — 갈래를 제대로 센다', 한줄 === '2026-10-04\t04:35\tkcw\t4\t2\t1\t1\t0\t0');
   본다('추적 — 빈 사이트도 0 으로 적는다',
-    추적줄만들기('2026-10-04', '04:35', 'x', []) === '2026-10-04\t04:35\tx\t0\t0\t0\t0\t0');
+    추적줄만들기('2026-10-04', '04:35', 'x', []) === '2026-10-04\t04:35\tx\t0\t0\t0\t0\t0\t0');
   본다('⛔ 추적 — 갈래가 없으면 못물음으로 센다',
-    추적줄만들기('d', 't', 'x', [{}, {}]).endsWith('\t2\t0\t0\t0\t2'));
+    추적줄만들기('d', 't', 'x', [{}, {}]).endsWith('\t2\t0\t0\t0\t2\t0'));
+  /* 🔴 [2026-10-05] 「알지만안옴」이 제 칸에 들어가나 — 되살린 칸이라 직접 잰다 */
+  본다('🔴 추적 — 알지만안옴이 맨 끝 칸에 센다',
+    추적줄만들기('d', 't', 'x', [{ 갈래: '알지만안옴' }, { 갈래: '알지만안옴' }, { 갈래: '색인됨' }])
+      === 'd\tt\tx\t3\t1\t0\t0\t0\t2');
 
   /* 쌓기 — 파일을 건드리지 않고 가짜 손으로 시험한다 */
   let 적힌것 = '', 있다 = false;
@@ -243,7 +269,8 @@ export const 글아닌꼴 = /\.(xml|json|txt|rss|png|jpe?g|webp|svg|ico|pdf)$|\/
  *   표본이 바뀌면 수도 바뀌므로, 덮어쓰면 어느 표본의 수인지 알 수 없게 된다.
  * ⚠ 이 수는 **표본**이다. 사이트 전체의 색인률이 아니다. 잰장수를 꼭 같이 적는다.
  */
-export const 추적칸 = ['잰날', '잰때', '사이트', '잰장수', '색인됨', '왔는데색인안함', '발견안됨', '못물음'];
+/* ⚠ 대장(docs/색인추적.tsv) 머리와 «반드시» 같아야 한다 — 다르면 추적쌓기가 멈춘다 */
+export const 추적칸 = ['잰날', '잰때', '사이트', '잰장수', '색인됨', '왔는데색인안함', '발견안됨', '못물음', '알지만안옴'];
 
 export function 사이트갈래셈(줄들) {
   const 셈 = {};
@@ -257,7 +284,7 @@ export function 추적줄만들기(잰날, 잰때, 이름, 줄들) {
   return [
     잰날, 잰때, 이름, String((줄들 ?? []).length),
     String(셈['색인됨'] || 0), String(셈['왔는데색인안함'] || 0),
-    String(셈['발견안됨'] || 0), String(셈['못물음'] || 0),
+    String(셈['발견안됨'] || 0), String(셈['못물음'] || 0), String(셈['알지만안옴'] || 0),
   ].join('\t');
 }
 
