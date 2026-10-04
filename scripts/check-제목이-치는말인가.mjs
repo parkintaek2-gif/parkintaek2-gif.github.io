@@ -61,13 +61,72 @@ export function 제목에들었나(제목, 말) {
   const 고르기 = (s) => String(s ?? '').toLowerCase().replace(/\s+/g, ' ').trim();
   const t = 고르기(제목); const m = 고르기(말);
   if (!t || !m) return false;
-  return t.includes(m);
+  if (t.includes(m)) return true;
+  /* 🔴🔴 [2026-10-04 · 5번] **통째로 이어진 글자만 찾으면 거짓 흠이 난다.**
+     「illit age」를 치는데 우리 제목은 「Illit members: birthdays and ages 2026」이다.
+     ① 「ages」와 「age」가 다르고 ② 「illit」과 「age」가 떨어져 있다.
+     구글은 둘 다 같은 말로 본다 — 우리 자만 「없다」고 했다.
+     ⇒ **말의 낱말이 제목에 다 있으면 들었다고 본다.** 차례는 안 따진다.
+     ⛔ 더 넓히지 않는다 — 어간을 잘라 맞추기 시작하면 아무 말이나 「들었다」가 된다.
+       끝의 s 하나만 눈감고, 네 글자 미만은 건드리지 않는다(is/as 가 i/a 가 되면 안 된다). */
+  /* 🔴 [2026-10-04 · 5번] **한국어는 띄어쓰기가 사람마다 다르다.**
+     「대구 외국어 대학교」를 치는데 우리 제목은 「대구외국어대학교」다 — 같은 말인데
+     낱말로 쪼개면 안 맞는다. 한글은 띄어쓰기를 다 지우고 통째로 견준다.
+     ⛔ 영어에는 안 쓴다 — 띄어쓰기를 지우면 「korean companies」가 아무 데나 걸린다. */
+  const 한글만 = (s) => s.replace(/[^가-힣0-9]/g, '');
+  if (/[가-힣]/.test(m) && 한글만(m) && 한글만(t).includes(한글만(m))) return true;
+
+  const 홑 = (w) => (w.length > 3 && w.endsWith('s') ? w.slice(0, -1) : w);
+  const 쪼개 = (s) => s.split(/[^0-9a-z가-힣]+/).filter(Boolean).map(홑);
+  const 제목낱말 = new Set(쪼개(t));
+  const 말낱말 = 쪼개(m);
+  if (!말낱말.length) return false;
+  return 말낱말.every((w) => 제목낱말.has(w));
 }
 
 /** 뜬 말 가운데 어느 것도 제목에 없으면 그 지면은 «딴 말»을 쓰고 있다 */
 export function 딴말쓰나(제목, 말들) {
   if (!Array.isArray(말들) || !말들.length) return null;   /* 못 쟀다 */
   return !말들.some((m) => 제목에들었나(제목, typeof m === 'string' ? m : m.말));
+}
+
+/**
+ * 🔴🔴 [2026-10-04 · 5번] **어느 지면을 고치면 되는지까지 집어 준다.**
+ *
+ * 처음 이 자는 「질 싸움 중인 말 117가지」만 세고 끝났다. 그래서 내가 하나씩 손으로
+ * 라이브 제목을 열어 보며 고쳤다 — 그렇게 하면 117가지에 또 한 달이 걸린다.
+ *
+ * 쥔 자료에 이미 답이 있었다 — GSC 의 `query+page` 갈래는 **어느 말에 어느 지면이
+ * 떴는지**를 같이 준다. 그 지면 제목에 그 말이 있나만 보면 고칠 자리가 바로 나온다.
+ *
+ * ⛔ 판정하지 않는다. 「이 지면 제목에 이 말이 없다」까지가 우리가 아는 전부다.
+ * ⛔ 자료가 없으면 null — 빈 배열이 아니다.
+ */
+export function 고칠자리(qp묶음, 제목표, 선 = 뒤처진선) {
+  if (!qp묶음 || !Array.isArray(qp묶음.rows)) return null;
+  const 모음 = new Map();
+  for (const r of qp묶음.rows) {
+    /* 🔴 [2026-10-04] 꼴이 두 가지다 — GSC 원래 꼴은 `keys: [말, 주소]` 인데
+       우리가 저장한 것은 `{ key: 말, page: 주소 }` 다. 둘 다 읽는다.
+       ⚠ 처음에 keys 만 보고 「고칠 자리 0장」이 나왔다. 0 이 나오면 자를 먼저 의심한다. */
+    const 열쇠 = Array.isArray(r?.keys) ? r.keys : [r?.key, r?.page];
+    const 말 = String(열쇠[0] ?? '').trim();
+    const 주소 = String(열쇠[1] ?? '').trim();
+    if (!말 || !주소.startsWith('http')) continue;
+    if (typeof r.position !== 'number' || r.position <= 선) continue;
+    const 길 = 주소.replace(/^https?:\/\/[^/]+/, '') || '/';
+    const 앞 = 모음.get(길) ?? { 길, 말들: [], 노출: 0 };
+    앞.말들.push(말); 앞.노출 += r.impressions ?? 0;
+    모음.set(길, 앞);
+  }
+  const 것 = [];
+  for (const v of 모음.values()) {
+    const 제목 = 제목표 instanceof Map ? 제목표.get(v.길) : (제목표 ?? {})[v.길];
+    /* 제목을 못 읽었으면 «모른다»다. 「딴 말을 쓴다」로 적지 않는다 */
+    const 딴말 = 제목 == null ? null : 딴말쓰나(제목, v.말들);
+    것.push({ ...v, 제목: 제목 ?? null, 딴말 });
+  }
+  return 것.sort((a, b) => b.노출 - a.노출);
 }
 
 /* ── 자가시험 ─────────────────────────────────────────────────────────── */
@@ -96,6 +155,16 @@ export function 자가시험() {
     제목에들었나('Biggest   Korean  Companies', 'biggest korean companies'));
   T('⛔ 없으면 거짓',
     !제목에들었나("Korea's 10 largest listed companies", 'biggest korean companies'));
+  /* 🔴 [2026-10-04] ages 와 age 를 딴 말로 세면 거짓 흠이 난다 */
+  T('🔴 끝의 s 하나는 눈감는다', 제목에들었나('Illit members: birthdays and ages 2026', 'illit age'));
+  T('⛔ 그래도 다른 말은 안 걸린다', !제목에들었나('Illit members ages', 'izna members'));
+  T('⛔ 짧은 낱말은 안 건드린다 — is/as 가 i/a 가 되면 안 된다',
+    !제목에들었나('this is a test', 'thi i a tet'));
+  /* 🔴 [2026-10-04] 한국어 띄어쓰기는 사람마다 다르다 */
+  T('🔴 한글은 띄어쓰기를 눈감는다', 제목에들었나('대구외국어대학교 — 백년지도', '대구 외국어 대학교'));
+  T('⛔ 그래도 다른 학교는 안 걸린다', !제목에들었나('대구외국어대학교', '부산외국어대학교'));
+  T('⛔ 영어는 띄어쓰기를 지우지 않는다 — 아무 데나 걸린다',
+    !제목에들었나('Koreancompaniesmap', 'korean companies'));
   T('⛔ 빈 것에도 안 터진다',
     !제목에들었나('', 'a') && !제목에들었나(null, null));
 
@@ -105,6 +174,31 @@ export function 자가시험() {
     딴말쓰나('biggest korean companies by cap', ['biggest korean companies']) === false);
   T('⛔ 잴 말이 없으면 null — 거짓이 아니다',
     딴말쓰나('아무 말', []) === null && 딴말쓰나('아무 말', null) === null);
+
+  /* 🔴 [2026-10-04 · 5번] 고칠 자리를 집어 주는 몫 — 시험이 없으면 다음 사람이 뺀다 */
+  const qp = { rows: [
+    { keys: ['취업률 순위', 'https://100yearmap.com/university'], impressions: 5, position: 70 },
+    /* ⚠ [2026-10-04] 처음에 '대학 취업률'로 시험했는데 그 말은 제목에 «실제로 들어 있다»
+       — 자가 맞고 내 시험이 틀렸다. 제목에 정말 없는 말로 바꾼다 */
+    { keys: ['대학 서열', 'https://100yearmap.com/university'], impressions: 3, position: 66 },
+    { keys: ['가까운 말', 'https://100yearmap.com/major'], impressions: 9, position: 4 },
+  ] };
+  const 표 = new Map([['/university', '전국 대학 377곳 취업률·중도탈락률']]);
+  const 집은것 = 고칠자리(qp, 표);
+  T('🔴 30위 밖인 말만 집는다 — 4위짜리는 뺀다',
+    집은것.length === 1 && 집은것[0].길 === '/university');
+  T('🔴 한 지면에 붙은 말을 모은다', 집은것[0].말들.length === 2);
+  T('노출을 더한다', 집은것[0].노출 === 8);
+  T('🔴 제목에 그 말이 하나도 없으면 「딴 말」이라고 한다', 집은것[0].딴말 === true);
+  T('제목에 들었으면 아니다',
+    고칠자리(qp, new Map([['/university', '대학 취업률 순위 — 전국 377곳']]))[0].딴말 === false);
+  T('⛔ 제목을 못 읽으면 null — 「딴 말」로 안 적는다',
+    고칠자리(qp, new Map())[0].딴말 === null);
+  T('⛔ 자료가 없으면 null', 고칠자리(null, 표) === null && 고칠자리({}, 표) === null);
+  /* 🔴 [2026-10-04] 우리가 저장한 꼴은 { key, page } 다 — 그것도 읽는지 본다 */
+  T('🔴 { key, page } 꼴도 읽는다', 고칠자리(
+    { rows: [{ key: '취업률 순위', page: 'https://100yearmap.com/university', impressions: 5, position: 70 }] },
+    표)[0].길 === '/university');
 
   const 빨강 = 결과.filter((r) => !r.참).length;
   console.log('■ 제목이 치는 말인가 — 자가시험');
