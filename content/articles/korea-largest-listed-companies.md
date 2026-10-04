@@ -1,11 +1,16 @@
 ---
-title: "Korea's 10 largest listed companies — and why most rankings double-count Samsung"
-dek: "The largest Korean companies by market value: Samsung Electronics is 29% of the whole market, SK hynix 21% — the two are nearly half. But most rankings count Samsung twice, because its preferred shares list separately. Not advice."
+title: "The biggest Korean companies by market cap — and why most rankings double-count Samsung"
+dek: "The biggest Korean companies by market cap: Samsung Electronics is 29% of the whole market, SK hynix 21% — nearly half between them. Most rankings count Samsung twice, because its preferred shares list separately. Not advice."
 category: equities
 pubDate: 2026-08-23
 dataAsOf: 2026-08-21T00:00:00+09:00
 author: Newsroom
-tags: ["largest korean companies", "biggest company in korea", "samsung market cap", "kospi", "market-cap", "korea stock market"]
+# 🔴 [2026-10-04 · 5번] 이 지면은 28일 노출 152회로 우리 전체에서 가장 많은데 자리는 66위였다.
+# 사람이 실제로 치는 말을 재 보니(scripts/재본다-그말을-몇명이-찾나.mjs) 1차례가
+# 「biggest korean companies」·「korean companies by market cap」인데, 우리는
+# 「largest listed companies」라고 써 두고 있었다. 치는 말과 쓴 말이 달랐다.
+# ⛔ 파일 이름(슬러그)은 바꾸지 않는다 — 바꾸면 쌓인 색인이 처음으로 돌아간다.
+tags: ["biggest korean companies", "korean companies by market cap", "largest korean companies", "top 10 korean companies", "biggest company in korea", "samsung market cap", "kospi", "market-cap", "korea stock market"]
 tickers: []
 sources:
   - org: "Korea Exchange (KRX OPEN API)"
@@ -23,11 +28,11 @@ excluded:
 image: /charts/largest-companies.svg
 ---
 
-The single most-searched question about the Korean stock market has a surprisingly slippery answer: which companies are the biggest? Slippery because the rankings most sites publish quietly count one company twice.
+The single most-searched question about the Korean stock market has a surprisingly slippery answer: which are **the biggest Korean companies by market cap**? Slippery because the rankings most sites publish quietly count one company twice.
 
 ![Bar chart: Korea's 10 largest listed companies by share of total market value, company level with preferred shares merged. Samsung Electronics 29.4%, SK hynix 20.5%, then a steep drop to SK Square 2.4% and smaller.](/charts/largest-companies.svg)
 
-## Two companies, nearly half the market
+## The top 10 Korean companies by market cap: two of them are nearly half
 
 At company level — merging each firm's common and preferred shares — **Samsung Electronics is 29.4% of the entire market** (KOSPI and KOSDAQ combined) and **SK hynix is 20.5%.** Those two alone are **49.9%** — essentially half of everything listed in Korea sits in two chipmakers riding the memory and AI cycle. After them the drop is a cliff: third place, SK Square, is 2.4%.
 
