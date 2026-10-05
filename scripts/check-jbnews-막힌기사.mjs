@@ -1,0 +1,145 @@
+#!/usr/bin/env node
+/**
+ * check-jbnews-막힌기사.mjs
+ *   — **데스킹에 막혀 안 나간 기사가 «그대로 버려졌나»를 본다.**
+ *
+ * ── 🔴🔴 왜 (2026-10-05 · 5번) ────────────────────────────────────────
+ * `collect-jbnews-sports-articles.mjs` 는 기사를 막은 뒤 화면에 이렇게 찍는다 —
+ * ```
+ *   ⛔ 안 보냈다 — 연합뉴스 사진이 없다 (사장님 2026-10-02)
+ *   ⭐ 막고 끝내지 않는다 — 회차에 다시 쓰라고 시킨다
+ * ```
+ * **그런데 그 아랫줄이 거짓이었다.** 자국만 남기고 `continue` 할 뿐,
+ * 회차에 다시 쓰라고 «시키는 자리가 없다». 화면은 했다고 말하는데 안 한 것이다.
+ *
+ * 그래서 오늘 재 보니 **이틀 사이에 세 건**이 그대로 버려져 있었다 —
+ * ```
+ *   2026-10-04 11시 · 2026-10-04 14시 · 2026-10-05 09시   전부 「사진이 없다」
+ * ```
+ * 사장님은 그 세 건을 못 받으셨고, 아무 데서도 안 걸렸다.
+ *
+ * ⭐ 막는 것은 옳다(사진 없는 기사는 중부매일이 못 쓴다). **막고 잊는 것**이 흠이다.
+ * ⛔ 이 자는 배포를 막지 않는다 — 기사는 배포와 상관이 없다. 두 시간 점검에서 «보이게» 한다.
+ *
+ * 쓰는 법
+ *   node scripts/check-jbnews-막힌기사.mjs
+ *   node scripts/check-jbnews-막힌기사.mjs --자가시험
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+export const 자국방 = path.join(뿌리, 'docs', '고정업무-마커', '중부매일-스포츠-보낸자국');
+
+/** 며칠 치를 보나 — 그보다 오래된 것은 이미 때가 지났다 */
+export const 볼날수 = 3;
+
+/** 파일 이름에서 날과 회차를 집는다. ⛔ 못 집으면 null */
+export function 날회차(이름) {
+  const m = /^(\d{4}-\d{2}-\d{2})_(\d{2})시\.txt$/.exec(String(이름 ?? ''));
+  return m ? { 날: m[1], 시: m[2] } : null;
+}
+
+/**
+ * 자국 하나를 읽는다.
+ * ⛔ 「안보냄」과 「보냄」이 한 파일에 같이 있으면 **나중에 보낸 것**이다 — 막힌 것이 아니다.
+ */
+export function 자국읽기(글) {
+  const s = String(글 ?? '');
+  const 막혔나 = /\[안보냄\]|\[병역·안보냄\]/.test(s);
+  /* ⚠ 「받는곳 (안 보냄)」 의 «안 보냄» 을 보냄으로 읽으면 안 된다 — 줄머리로 가린다 */
+  const 보냈나 = s.split(/\r?\n/).some((줄) => /^\[보냄\]/.test(줄.trim()));
+  const 까닭 = (s.match(/^까닭\s+(.+)$/m) ?? [])[1] ?? '';
+  const 제목 = (s.match(/^\[(?:안보냄|병역·안보냄)\]\s+(.+)$/m) ?? [])[1] ?? '';
+  return { 막혔나, 보냈나, 까닭: 까닭.trim(), 제목: 제목.trim() };
+}
+
+/** 오늘부터 며칠 전까지의 날짜 글. ⛔ toISOString 금지 — 이 PC 는 KST 다 */
+export function 요즘날들(오늘 = new Date(), 날수 = 볼날수) {
+  const 것 = [];
+  for (let i = 0; i < 날수; i += 1) {
+    const d = new Date(오늘.getFullYear(), 오늘.getMonth(), 오늘.getDate() - i);
+    것.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`);
+  }
+  return 것;
+}
+
+/**
+ * 막힌 채 버려진 기사를 찾는다.
+ * ⛔ 자국방을 못 읽으면 null 이다. 빈 배열이 아니다.
+ */
+export function 막힌것(옵션 = {}) {
+  const { 방 = 자국방, 읽기 = fs.readdirSync, 파일읽기 = fs.readFileSync, 오늘 = new Date() } = 옵션;
+  let 목록;
+  try { 목록 = 읽기(방); } catch { return null; }
+  const 볼날 = new Set(요즘날들(오늘));
+  const 것 = [];
+  for (const f of 목록) {
+    const 짝 = 날회차(String(f));
+    if (!짝 || !볼날.has(짝.날)) continue;
+    let 글 = '';
+    try { 글 = String(파일읽기(path.join(방, String(f)), 'utf8')); } catch { continue; }
+    const r = 자국읽기(글);
+    if (r.막혔나 && !r.보냈나) 것.push({ ...짝, ...r });
+  }
+  return 것.sort((a, b) => (a.날 + a.시).localeCompare(b.날 + b.시));
+}
+
+/* ── 자가시험 ─────────────────────────────────────────────── */
+const 내가실행됐다 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+
+if (내가실행됐다 && process.argv.includes('--자가시험')) {
+  let 통 = 0; const 진 = [];
+  const 본다 = (이름, 참) => { if (참) 통 += 1; else 진.push(이름); };
+
+  본다('날·회차를 집는다', 날회차('2026-10-05_09시.txt')?.시 === '09');
+  본다('⛔ 꼴이 다르면 null', 날회차('아무거나.txt') === null && 날회차(null) === null);
+
+  const 막힌글 = '2026. 10. 5.\n[안보냄] [스포츠] 2026-10-05 09시 — 제목\n받는곳 (안 보냄)\n까닭 연합뉴스 사진이 없다\n';
+  const r1 = 자국읽기(막힌글);
+  본다('🔴 막힌 것을 가린다', r1.막혔나 === true && r1.보냈나 === false);
+  본다('까닭을 집는다', r1.까닭.includes('사진'));
+  본다('제목을 집는다', r1.제목.includes('제목'));
+  /* 🔴 「받는곳 (안 보냄)」 때문에 보냄으로 잘못 읽으면 막힌 것을 통째로 놓친다 */
+  본다('⛔ 「받는곳 (안 보냄)」을 보냄으로 읽지 않는다', r1.보냈나 === false);
+
+  const 뒤에보낸글 = `${막힌글}\n[보냄] [스포츠] 2026-10-05 09시 — 제목\n`;
+  본다('✅ 뒤에 보냈으면 막힌 것이 아니다', 자국읽기(뒤에보낸글).보냈나 === true);
+
+  본다('요즘 날이 사흘이다', 요즘날들(new Date(2026, 9, 5)).length === 3);
+  본다('오늘이 맨 앞이다', 요즘날들(new Date(2026, 9, 5))[0] === '2026-10-05');
+  본다('⛔ toISOString 을 안 쓴다 — 어제가 10-04 다', 요즘날들(new Date(2026, 9, 5))[1] === '2026-10-04');
+
+  const 가짜 = {
+    방: '/어디', 오늘: new Date(2026, 9, 5),
+    읽기: () => ['2026-10-05_09시.txt', '2026-10-04_14시.txt', '2026-09-01_09시.txt', '아무거나.txt'],
+    파일읽기: (p) => (String(p).includes('09-01') ? 막힌글 : 막힌글),
+  };
+  const 찾은것 = 막힌것(가짜);
+  본다('🔴 요즘 것만 센다 — 9월 1일은 안 센다', 찾은것.length === 2);
+  본다('날·회차 차례로 늘어놓는다', 찾은것[0].날 === '2026-10-04');
+  본다('🔴 방을 못 읽으면 null — 빈 배열이 아니다',
+    막힌것({ 읽기: () => { throw new Error('x'); } }) === null);
+
+  console.log(진.length ? `🔴 ${진.length} 떨어졌다 —\n  ${진.join('\n  ')}` : `✅ 자가시험 ${통} 통과`);
+  process.exit(진.length ? 1 : 0);
+}
+
+if (내가실행됐다) {
+  const 것 = 막힌것();
+  if (것 === null) {
+    console.log('⬜ 자국방을 못 읽었다 — 0 으로 읽지 않는다');
+    process.exit(0);
+  }
+  if (!것.length) {
+    console.log(`✅ 막힌 채 버려진 기사가 없다 (최근 ${볼날수}일)`);
+    process.exit(0);
+  }
+  console.log(`🔴 데스킹에 막힌 뒤 «그대로 버려진» 기사 ${것.length}건 (최근 ${볼날수}일) —`);
+  for (const x of 것) console.log(`     ${x.날} ${x.시}시  ${x.까닭}\n       ${x.제목.slice(0, 70)}`);
+  console.log('\n   ⛔ 막는 것은 옳다. **막고 잊는 것**이 흠이다 — 사장님은 그 기사를 못 받으셨다.');
+  console.log('   ⭐ 까닭이 늘 같으면 «회차 지침»을 고친다 — 거두는 자가 아니라 쓰는 자를 고쳐야 끝난다.');
+  console.log('     사진이 없어 막히면 회차에 「연합뉴스 사진이 있는 경기만 쓴다」를 넣는다.');
+  process.exit(1);
+}
