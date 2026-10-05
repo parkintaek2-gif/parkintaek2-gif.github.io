@@ -343,9 +343,24 @@ export const DISCLAIMER = {
  * 검색 쪽에도 걸린다 — 인바운드 링크가 하나도 없으면 검색엔진이 **찾아올 길이 없다.**
  * 그날 서버 기록으로 24시간 동안 검색엔진 크롤러가 **0건**이었다.
  *
- * ⚠ 여기에 **klifemap.ai 는 아직 안 넣는다.** 오픈이 PG 승인으로 보류돼 있다.
- *   준비 안 된 곳으로 독자를 보내면 두 사이트가 같이 깎인다. 열리면 넣는다.
- * ⚠ wiki-tip.com 도 안 넣는다 — 네임서버가 아직 안 넘어왔다(302).
+ * 🔴 [2026-10-05 17:3x · 5번] **klifemap.ai 를 넣었다.** 사장님 —
+ *   「순위를 무조건 높여......커뮤니티 잘 활용해서」
+ *
+ *   여기 적혀 있던 「PG 승인으로 보류」는 **2026-08-05 의 사정**이고, 그 뒤로
+ *   klifemap.ai 는 라이브다. 100yearmap 쪽 꼬리말은 2026-09-04 에 그것을 알아채고
+ *   되살렸는데 **이 상수와 `src/layouts/WikiTip.astro` 는 그대로 남았다.**
+ *   한 달을 「아직 보류」라는 옛 주석 아래 빠져 있었던 셈이다.
+ *   ⭐ 하나를 고치면 인용한 곳까지 따라간다 — 그때 못 따라간 두 자리가 여기였다.
+ *
+ *   실측(라이브 첫 화면, `<a href>` 안만 셈) —
+ *     klifemap → 셋 다 1 · 100y → klifemap 2 · **kcw 0 · seoulmarkets 0**
+ *   klifemap 은 지면 3,004장에 30일 노출이 **7**이다(다른 셋 508·839·1,120).
+ *   표본 27장 가운데 93%를 구글이 한 번도 안 왔다 — 수집이 안 흐른다.
+ *   seoulmarkets 는 노출 1,120 으로 구글이 가장 잘 오는 자리다. 여기서 걸면 흐른다.
+ *
+ * ⚠ 영문 매체이므로 **영어 화면**(`?lang=en`)으로 보낸다. 한국어 화면을 물리면
+ *   영어권 독자가 눌렀을 때 거기서 끝난다 — 2026-08-10 에 겪은 자리다.
+ * ⚠ wiki-tip.com 은 아직 안 넣는다 — 네임서버가 안 넘어왔다(302).
  *   **살아 있는 것만 건다.** 죽은 링크는 없느니만 못하다.
  */
 export const SISTER_SITES = [
@@ -358,5 +373,10 @@ export const SISTER_SITES = [
     name: 'K Culture Wire',
     url: 'https://www.kculturewire.com/',
     what: 'K-pop, drama and film, counted with the numbers behind them',
+  },
+  {
+    name: 'KLifeMap',
+    url: 'https://klifemap.ai/?lang=en',
+    what: 'Korean fortune-telling, read as data',
   },
 ] as const;

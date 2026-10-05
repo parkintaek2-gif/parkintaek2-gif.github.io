@@ -404,7 +404,30 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
           ⛔ 이름만 영어로 바꾼다. **받는 화면(100yearmap.com)은 3번 것**이라 안 건드리고 알린다.
           ⚠ 그래서 이 문은 아직 **누르면 한국어 화면**이 나온다. 그 사실을 여기 적어 둔다.
         */}
+        {/*
+          🔴 [2026-10-05 17:3x · 5번] **KLifeMap 을 더한다.** 사장님 —
+            「순위를 무조건 높여......커뮤니티 잘 활용해서」
+
+          실측 — 라이브 첫 화면에서 서로 거는 링크를 `<a href>` 안만 세어 봤다:
+            klifemap → 셋 다 1  ·  100y → klifemap 2
+            **kcw → klifemap 0  ·  seoulmarkets → klifemap 0**
+          klifemap 이 받는 링크가 가장 적었다(2). 그런데 klifemap 은 지면 3,004장에
+          30일 노출이 **7**이다 — 다른 셋은 508·839·1,120. 표본 27장 가운데
+          **93%를 구글이 한 번도 안 왔다.** 수집이 안 흐른다는 뜻이다.
+
+          ⇒ kcw 는 노출 508 로 구글이 오고 있는 자리다. 여기서 걸면 그 수집이 흐른다.
+
+          ⚠ 빠져 있던 까닭은 옛것이다 — 2026-08-05 에 klifemap.ai 가 PG 승인 보류라
+            뺐다. 100yearmap 은 2026-09-04 에 그 사유가 없어진 것을 보고 되살렸는데
+            **여기와 `src/consts.ts` 의 SISTER_SITES 는 그대로였다.**
+            하나를 고치면 인용한 곳까지 따라간다 — 그때 못 따라간 두 자리다.
+
+          ⚠ 여기는 영어 매체다. klifemap 한국어 화면이 아니라 **영어 화면**으로 보낸다
+            (`?lang=en`). 그래서 100yearmap 줄과 달리 「(in Korean)」을 안 붙인다.
+        */}
         <a href={자매링크("https://seoulmarkets.com/", "footer")}>SeoulMarkets</a> — Korean markets in numbers ·{' '}
+        <a href={자매링크("https://klifemap.ai/?lang=en", "footer")}>KLifeMap</a> — Korean fortune-telling,
+        read as data ·{' '}
         <a href={자매링크("https://100yearmap.com/", "footer")} hreflang="ko">100 Year Map</a> — Korean careers, mapped past
         graduation <span class="fine">(in Korean)</span>
       </p>
