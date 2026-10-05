@@ -69,12 +69,22 @@ export const 기준일이름 = [
  * kr-listed-company-names  31일   seoulmarkets  ← 5번 몫
  * ```
  *
- * ⚠ **아직 배포 관문에 걸지 않았다.** 자료가 사이트별로 안 갈려 있어서,
- *   kculturewire 자료 때문에 seoulmarkets 배포가 막히는 꼴이 된다.
- *   그 잘못은 오늘 검색 자물쇠에서 이미 한 번 저질렀다(합계 하나로 네 사이트를
- *   같이 막았다). 이름으로 사이트를 가른 뒤에 건다.
+ * ⭐ 이름으로 사이트를 갈라 **배포 관문 ③-ㄷ2 에 걸었다**(2026-10-06 04:0x).
+ *   그렇게 하기 전에는 kculturewire 자료가 낡았다고 seoulmarkets 배포가 막히는
+ *   꼴이 된다. 그 잘못은 오늘 검색 자물쇠에서 이미 한 번 저질렀다 —
+ *   합계 하나로 네 사이트를 같이 막았다.
  */
 export const 못박은_낡은큰자료 = 4;   /* 2026-10-06 04:0x — kr-listed-company-names 를 받아 5→4 */
+
+/**
+ * 🔴 사이트마다 못 박는다 — 남의 사이트 자료 때문에 내 배포가 막히지 않게.
+ * ⚠ 2026-10-06 04:0x 실측. seoulmarkets 는 그 자리에서 받아 0 이 됐다.
+ */
+export const 못박은_사이트별 = {
+  seoulmarkets: 0,   /* kr-listed-company-names 를 받았다 */
+  kcw: 4,            /* wikitip-title-pages 37일 · kcw-alongside 36 · wikitip-groups 33 · kcw-school-pipeline 32 */
+  '100y': 0,
+};
 export const 낡음선 = 30;        /* 날 */
 export const 기본몇개 = 20;      /* 큰 것부터 몇 개를 보나 */
 
@@ -157,6 +167,32 @@ export function 낡은것(목록, 선 = 낡음선) {
   });
 }
 
+/**
+ * 🔴 [2026-10-06 04:0x · 5번] **어느 사이트의 자료인가 — 이름으로 가른다.**
+ *
+ * 자료가 `src/data` 한 방에 섞여 있어, 그대로 관문에 걸면
+ * **kculturewire 자료가 낡았다고 seoulmarkets 배포가 막힌다.**
+ * 그 잘못은 오늘 검색 자물쇠에서 이미 한 번 저질렀다 — 합계 하나로 네 사이트를
+ * 같이 막았고, 100yearmap 을 처음 재기 시작한 것을 「나빠졌다」로 읽었다.
+ *
+ * ⛔ **모르는 것은 「모름」으로 둔다.** 짐작으로 사이트를 붙이면, 엉뚱한 사이트의
+ *   배포가 막히거나 막아야 할 것이 그냥 지나간다. 둘 다 자물쇠가 아닌 것이다.
+ */
+export function 어느사이트(이름) {
+  const n = String(이름 ?? '').toLowerCase();
+  if (/^(kcw|wikitip)-/.test(n)) return 'kcw';
+  if (/^100y-/.test(n)) return '100y';
+  if (/^(korea|kr|japan|taiwan|uae|krx|dart|ecos)[-.]/.test(n)) return 'seoulmarkets';
+  return null;   /* 모름 — 막지 않는다 */
+}
+
+/** 한 사이트의 낡은 자료만 */
+export function 그사이트낡은것(목록, 딱지, 선 = 낡음선) {
+  const 낡음 = 낡은것(목록, 선);
+  if (!낡음) return null;
+  return 낡음.filter((x) => 어느사이트(x.이름) === 딱지);
+}
+
 /* ── 자가시험 ────────────────────────────────────────────────────────── */
 export function 자가시험() {
   const 결과 = [];
@@ -197,6 +233,23 @@ export function 자가시험() {
     !(낡은것(가짜) ?? []).some((x) => x.이름 === 'd'));
   T('⛔ 배열이 아니면 null', 낡은것(null) === null);
 
+  /* 🔴 사이트를 이름으로 가른다 — 남의 자료로 내 배포가 막히지 않게 */
+  T('🔴 kcw 자료를 알아본다',
+    어느사이트('kcw-alongside.json') === 'kcw' && 어느사이트('wikitip-groups.json') === 'kcw');
+  T('🔴 seoulmarkets 자료를 알아본다',
+    어느사이트('korea-financials-tape.json') === 'seoulmarkets'
+    && 어느사이트('japan-financials-tape.json') === 'seoulmarkets'
+    && 어느사이트('kr-listed-company-names.json') === 'seoulmarkets');
+  T('🔴 100y 자료를 알아본다', 어느사이트('100y-something.json') === '100y');
+  T('⛔ 모르는 것은 null — 짐작으로 붙이지 않는다',
+    어느사이트('rankings.json') === null && 어느사이트('') === null && 어느사이트(null) === null);
+  T('🔴 한 사이트 것만 골라 낸다', (그사이트낡은것([
+    { 이름: 'kcw-a.json', 기준나이: 40 }, { 이름: 'korea-b.json', 기준나이: 40 },
+  ], 'kcw') ?? []).length === 1);
+  T('⛔ 배열이 아니면 null', 그사이트낡은것(null, 'kcw') === null);
+  T('🔴 사이트마다 못 박은 수가 있다',
+    ['seoulmarkets', 'kcw', '100y'].every((k) => Number.isInteger(못박은_사이트별[k])));
+
   const 큰 = 큰것들();
   T('🔴 자료를 큰 것부터 읽어 온다', Array.isArray(큰) && 큰.length > 0);
   T('🔴 큰 차례로 준다', 큰.length < 2 || 큰[0].크기 >= 큰[1].크기);
@@ -236,7 +289,25 @@ if (내가실행됐다) {
   }
 
   const 낡음 = 낡은것(큰) ?? [];
-  console.log(`\n■ ${낡음선}일 넘은 큰 자료 ${낡음.length}개 (못 박은 수 ${못박은_낡은큰자료})`);
+
+  /* 🔴 사이트별로 갈라 적는다 — 그래야 「누가 받아야 하나」가 보인다 */
+  console.log(`\n■ 사이트별 — ${낡음선}일 넘은 큰 자료`);
+  let 막는것 = [];
+  for (const [딱지, 못박은] of Object.entries(못박은_사이트별)) {
+    const 것 = (그사이트낡은것(큰, 딱지) ?? []);
+    const 표 = 것.length > 못박은 ? '🔴' : '✅';
+    console.log(`  ${표} ${딱지.padEnd(14)} ${것.length}개 (못 박은 수 ${못박은})`
+      + (것.length ? ` — ${것.map((x) => x.이름.replace('.json', '')).join(' · ')}` : ''));
+    if (것.length > 못박은) 막는것.push(`${딱지} 의 낡은 자료가 ${못박은} → ${것.length} 로 늘었다`);
+    else if (것.length < 못박은) console.log(`     ⭐ ${못박은 - 것.length}개 줄었다 — 못 박은 수를 ${것.length} 로 내려 적으십시오`);
+  }
+  const 모름 = 낡음.filter((x) => 어느사이트(x.이름) === null);
+  if (모름.length) {
+    console.log(`  ⬜ 어느 사이트 것인지 모름 ${모름.length}개 — ${모름.map((x) => x.이름).join(' · ')}`);
+    console.log('     ⛔ 짐작으로 붙이지 않는다. 막지도 않는다');
+  }
+
+  console.log(`\n■ 통틀어 ${낡음선}일 넘은 큰 자료 ${낡음.length}개 (못 박은 수 ${못박은_낡은큰자료})`);
   if (기준일없음) {
     console.log(`  ⬜ 기준일이 안 적힌 자료 ${기준일없음}개 — 파일 날짜로 셌다.`);
     console.log('     ⚠ 파일을 다시 써도 내용은 낡을 수 있다. 이 ⬜ 는 「못 쟀다」이지 「새것이다」가 아니다');
@@ -245,7 +316,7 @@ if (내가실행됐다) {
   console.log('  ⚠ src/data 전체(457개) 가운데 한 달 넘은 것이 205개지만, 역사 자료·사전처럼');
   console.log('    갱신할 까닭이 없는 것이 섞여 있다. 주기를 정하기 전에는 «못 쟀다»로 둔다');
 
-  if (낡음.length > 못박은_낡은큰자료) {
+  if (막는것.length || 낡음.length > 못박은_낡은큰자료) {
     console.log('\n🔴 **낡은 큰 자료가 늘었다.**');
     for (const x of 낡음) console.log(`   · ${x.이름}  ${x.기준나이 ?? x.파일나이}일`);
     console.log('   ⭐ 그 자료를 받는 자를 돌린다. 「다음에」로 미루면 지면이 옛 수를 말한다');
