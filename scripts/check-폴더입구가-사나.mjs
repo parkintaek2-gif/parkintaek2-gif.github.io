@@ -73,8 +73,10 @@ export const 사이트들 = [
  * 2026-10-06 03:1x 라이브 실측. 이 배포로 seoulmarkets 2곳과 kcw 5곳이 이어진다.
  */
 export const 못박은_구멍 = {
-  seoulmarkets: 2,   /* /japan/sector · /taiwan/sector — 이 배포로 이어진다 */
-  kcw: 9,            /* 이 배포로 5곳(/title /article /tag /firm /star-sign)이 이어져 4곳이 남는다 */
+  /* 🔴 2026-10-06 03:2x — 배포가 나간 «뒤» 다시 재서 내려 적었다.
+     seoulmarkets 2→0 · kcw 9→4. 자가 「내려 적으십시오」라고 일러 준 그대로다. */
+  seoulmarkets: 0,   /* 10곳을 301 로 이었다 — 라이브에서 전부 200 을 확인했다 */
+  kcw: 4,            /* 5곳을 이었다. 남은 것 — /week /market /from /born-in (2번) */
   '100y': 3,         /* /report · /report/area · /life (1번이 목록 지면을 만든다) */
   klifemap: 0,       /* /unse/ · /data/ 허브를 그날 냈다 */
 };
