@@ -236,4 +236,11 @@ function main() {
   console.log('\n✅ 지켜보는 자리가 모두 식었습니다.');
 }
 
-main();
+/* 🔴 [2026-10-06 · 5번] **「걸림돌 없는 꼭대기 부름」** — 이 자를 `import` 하면
+   남의 걸음에서 main() 가 통째로 돌고 `process.exit` 까지 한다. 불러 쓴 쪽은
+   제 일을 시작도 못 한다. 오늘 `check-강의슬라이드-이마트꼴인가.mjs` 에서 실제로 당했고,
+   그 이름으로 저장소를 훑어 여기까지 따라왔다.
+   ⚠ 먼저 같은 흠을 `klifemap/tools/build-띠별운세-지면.mjs` 에서 고쳤었다 — 세 번째다. */
+const 내가실행됐다 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (내가실행됐다) main();
