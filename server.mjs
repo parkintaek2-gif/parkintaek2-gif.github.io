@@ -478,13 +478,16 @@ const handle = async (req, res) => {
    *     kculturewire  /week · /market · /from     (2번이 목록 지면을 만든다)
    *     100yearmap    /report · /report/area · /life  (1번)
    */
+  const KCW입구 = {
+    '/title': '/titles', '/article': '/articles', '/tag': '/tags', '/firm': '/firms',
+    /* 🔴 [2026-10-06 03:1x] 자가 내 손보다 깊이 봐서 찾았다 */
+    '/star-sign': '/star-signs',
+    /* ⛔ `/born-in` 은 안 적는다 — 달별 출생이라 짝이 뚜렷하지 않다.
+       hometowns(고향)와도 born-on(날짜)과도 다르다. 2번이 목록 지면을 만든다 */
+  };
   const 폴더입구 = {
-    'kculturewire.com': {
-      '/title': '/titles', '/article': '/articles', '/tag': '/tags', '/firm': '/firms',
-    },
-    'wiki-tip.com': {
-      '/title': '/titles', '/article': '/articles', '/tag': '/tags', '/firm': '/firms',
-    },
+    'kculturewire.com': KCW입구,
+    'wiki-tip.com': KCW입구,
     'seoulmarkets.com': {
       '/japan': '/japan/companies', '/japan/company': '/japan/companies',
       '/taiwan': '/taiwan/companies', '/taiwan/company': '/taiwan/companies',
@@ -492,6 +495,8 @@ const handle = async (req, res) => {
       '/company': '/companies',
       /* ⚠ 업종 목록은 `/companies` 안에 61갈래로 들어 있다 */
       '/sector': '/companies',
+      '/japan/sector': '/japan/companies',
+      '/taiwan/sector': '/taiwan/companies',
     },
   };
   {

@@ -157,6 +157,10 @@ export default defineConfig({
     '/company': '/companies',
     /* ⚠ 업종 목록은 `/companies` 안에 61갈래로 들어 있다 — 따로 두지 않는다 */
     '/sector': '/companies',
+    /* 🔴 [2026-10-06 03:1x] 자가 내 손보다 깊이 봐서 둘을 더 찾았다 —
+       나라별 업종 목록도 그 나라 `companies` 지면 안에 들어 있다 */
+    '/japan/sector': '/japan/companies',
+    '/taiwan/sector': '/taiwan/companies',
   },
   markdown: {
     // 구문강조를 끈다. 이 사이트에 코드블록은 쓸 일이 없고, 켜두면 Shiki 가 먼저 돌면서

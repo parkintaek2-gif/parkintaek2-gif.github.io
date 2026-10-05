@@ -59,10 +59,10 @@ export const 사이트들 = [
  *   2026-10-06 03:0x 실측. seoulmarkets 8곳은 그 자리에서 고쳐 배포했다.
  */
 export const 못박은_구멍 = {
-  seoulmarkets: 0,
-  kcw: 7,
-  '100y': 3,
-  klifemap: 0,
+  seoulmarkets: 0,   /* 10곳을 이었다 — /japan /taiwan /uae /company /sector 와 나라별 sector */
+  kcw: 4,            /* 5곳을 이었다. 남은 것 — /week /market /from /born-in (2번이 목록을 만든다) */
+  '100y': 3,         /* /report · /report/area · /life (1번) */
+  klifemap: 0,       /* /unse/ · /data/ 허브를 그날 냈다 */
 };
 
 /** 한 번에 몇 곳까지 보나 — 큰 묶음부터. ⛔ 전부 누르면 오래 걸린다 */
@@ -190,8 +190,12 @@ export function 자가시험() {
     사이트들.every((s) => typeof 못박은_구멍[s.딱지] === 'number'));
   T('⛔ klifemap 은 0 이다 — 2026-10-06 에 그 자리에서 고쳤다',
     못박은_구멍.klifemap === 0);
-  T('⛔ seoulmarkets 도 0 이다 — 같은 날 리다이렉트 여덟 줄로 이었다',
+  T('⛔ seoulmarkets 도 0 이다 — 같은 날 리다이렉트 열 줄로 이었다',
     못박은_구멍.seoulmarkets === 0);
+  /* ⚠ 못 박은 수는 «실측»이어야 한다. 손으로 짐작해 적으면 자물쇠가 거짓이 된다 —
+     2026-10-06 에 손으로 12곳만 세고 7 이라 적었는데 자가 14곳을 봐서 9 가 나왔다 */
+  T('🔴 못 박은 수가 아직 안 고친 곳의 수와 맞는다 (kcw 4곳 · 100y 3곳)',
+    못박은_구멍.kcw === 4 && 못박은_구멍['100y'] === 3);
 
   const 빨강 = 결과.filter((r) => !r.참).length;
   console.log('■ 폴더 입구가 사나 — 자가시험');
