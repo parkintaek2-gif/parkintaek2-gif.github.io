@@ -130,6 +130,34 @@ export default defineConfig({
   site: SITE_URL,
   trailingSlash: 'never',
   build: { format: 'file' },
+  /**
+   * 🔴🔴 [2026-10-06 02:4x · 5번] **폴더 주소에 입구가 없었다 — 8곳이 404 였다.**
+   *
+   * 네 사이트를 다 재 보니 입구 없는 폴더가 18곳이고, 그 가운데 여기가 8곳이다 —
+   * ```
+   * /japan 3,736장 · /japan/company 3,702 · /company 2,521 · /taiwan 1,090
+   * /taiwan/company 1,057 · /uae 105 · /uae/company 104 · /sector 60
+   * ```
+   * 손님이 `seoulmarkets.com/japan` 을 치면 404 를 봤다. 묶음에 「무엇이 있나」를
+   * 볼 자리가 없으니 안쪽 링크가 평평해지고 권위가 한 곳에 모이지 않는다.
+   *
+   * ⛔ **새 목록 지면을 만들지 않는다.** `/japan/companies` 와 `/companies` 가
+   *   이미 그 일을 한다 — 또 만들면 같은 말을 하는 지면이 둘이 되고, 구글이
+   *   그것을 겹친 지면으로 본다. 길이 없는 것이지 지면이 없는 것이 아니다.
+   * ⚠ 정적 빌드라 meta refresh 로 나간다. 서버 301 보다 약하므로 **배포 뒤
+   *   라이브에서 눌러 보고** 200 이 나오는지 잰다. 「설정했다」로 끝내지 않는다.
+   */
+  redirects: {
+    '/japan': '/japan/companies',
+    '/japan/company': '/japan/companies',
+    '/taiwan': '/taiwan/companies',
+    '/taiwan/company': '/taiwan/companies',
+    '/uae': '/uae/companies',
+    '/uae/company': '/uae/companies',
+    '/company': '/companies',
+    /* ⚠ 업종 목록은 `/companies` 안에 61갈래로 들어 있다 — 따로 두지 않는다 */
+    '/sector': '/companies',
+  },
   markdown: {
     // 구문강조를 끈다. 이 사이트에 코드블록은 쓸 일이 없고, 켜두면 Shiki 가 먼저 돌면서
     // ```fundchart 의 language- 클래스를 먹어버려 아래 플러그인이 블록을 못 찾는다.
