@@ -99,6 +99,29 @@ async function 자가시험() {
   const { default: test } = await import('node:test');
   const A = (await import('node:assert/strict')).default;
 
+  /* 🔴🔴 [2026-10-06 · 5번] 못 받은 문을 건너뛰고 「다 막혀 있다」를 찍던 것을 못 박는다.
+     ⛔ 못 두드려 본 문을 「닫혀 있다」고 말하지 않는다. 빨강보다 나쁜 거짓 초록이다. */
+  test('🔴 못 잰 칸이 하나라도 있으면 「다 막혀 있다」고 말하지 않는다', () => {
+    A.equal(끝판정(0, 0, 16).초록, true, "다 쟀고 흠도 없는데 초록이 아니다");
+    A.equal(끝판정(0, 1, 16).초록, false, "못 잰 칸이 있는데 초록이라 했다");
+    A.equal(끝판정(1, 0, 16).초록, false, "흠이 있는데 초록이라 했다");
+  });
+
+  test('⚠ 한두 칸 못 잰 것으로는 빨간불을 내지 않는다 — 늘 조금씩 끊긴다', () => {
+    A.equal(끝판정(0, 2, 16).못잼많다, false);
+    A.equal(끝판정(0, 2, 16).나갈값, 0, "한두 칸 못 쟀다고 종료값을 올렸다");
+  });
+
+  test('🔴 못 잰 칸이 잰 칸의 1/4을 넘으면 그 자체가 빨간불이다', () => {
+    A.equal(끝판정(0, 20, 16).못잼많다, true);
+    A.ok(끝판정(0, 20, 16).나갈값 > 0, "거짓 초록으로 끝났다");
+  });
+
+  test('⛔ 잰 칸이 0이어도 안 터진다 — 아무것도 못 쟀으면 초록이 아니다', () => {
+    A.equal(끝판정(0, 0, 0).초록, true);
+    A.equal(끝판정(0, 5, 0).초록, false);
+    A.equal(끝판정(0, 5, 0).못잼많다, true);
+  });
   test('닫혔나 — 401·403·404·405 는 닫힌 것', () => {
     for (const s of [401, 403, 404, 405]) A.equal(닫혔나(s), true, `${s}`);
     for (const s of [200, 302, 500]) A.equal(닫혔나(s), false, `${s}`);
@@ -215,8 +238,33 @@ async function 몸버리기(r) {
   try { await r?.body?.cancel(); } catch { /* 이미 닫혔으면 그만이다 */ }
 }
 
+/**
+ * 끝판정 — **「다 막혀 있다」를 언제 말해도 되나.**
+ *
+ * 🔴 [2026-10-06 · 5번] 못 받은 문을 `continue` 로 건너뛰고 「✅ 네 곳 다 막혀 있다」를 찍고 있었다.
+ *   /admin 이 한 번 안 닿으면 **두드려 보지도 않고 초록**이 났다 — 빨강보다 나쁜 거짓 초록이다.
+ * ⛔ 못 두드려 본 문을 「닫혀 있다」고 말하지 않는다.
+ * ⚠ 그렇다고 못잼을 다 빨강으로 치지도 않는다 — 한두 칸은 늘 끊긴다. 1/4을 선으로 둔다.
+ */
+export function 끝판정(흠수, 못잼수, 잰칸) {
+  const 못잼많다 = 못잼수 > Math.max(2, 잰칸 / 4);
+  return {
+    초록: 흠수 === 0 && 못잼수 === 0,     /* 둘 다 0일 때만 「다 막혀 있다」 */
+    못잼많다,
+    나갈값: 흠수 + (못잼많다 ? 못잼수 : 0),
+  };
+}
+
 async function 재기() {
   const 모든흠 = [];
+  /* 🔴🔴 [2026-10-06 07:4x · 5번] **못 잰 것을 「막혀 있다」로 읽고 있었다.**
+     못 받으면 `if (!r) continue;` 로 «조용히 건너뛰고», 끝에서 「✅ 네 곳 다 막혀 있다」를 찍었다.
+     ⇒ /admin 이 한 번 안 닿으면 **두드려 보지도 않고 초록**이 난다.
+     ⛔ 빨강보다 나쁜 «거짓 초록»이다. 자물쇠가 있는데 없는 것과 같다.
+     ⚠ 같은 날 다국어 색인 자에서는 거꾸로 틀려 있었다 — 못 받은 것을 흠으로 셌다.
+       두 자가 반대로 틀렸고, 뿌리는 하나다: **「못 쟀다」를 따로 세지 않았다.** */
+  const 모든못잼 = [];
+  let 잰칸 = 0;
   for (const s of 사이트) {
     console.log(`\n■ ${s.이름}  ${s.밑}`);
 
@@ -230,7 +278,8 @@ async function 재기() {
     /* ① 손님 정보 창구 */
     for (const 길 of ['/api/db/customers', '/api/admin/orders', '/api/admin/users']) {
       const r = await 받기(s.밑 + 길);
-      if (!r) continue;
+      if (!r) { 모든못잼.push(`${s.이름}${길}: 못 받았다`); continue; }
+      잰칸 += 1;
       await 몸버리기(r);
       const 좋나 = 닫혔나(r.status);
       console.log(`  ${길.padEnd(22)} ${좋나 ? '✅' : '🔴'} ${r.status}`);
@@ -240,7 +289,8 @@ async function 재기() {
     /* ⑤ 숨겨야 할 파일 */
     for (const 길 of ['/.git/config', '/.env']) {
       const r = await 받기(s.밑 + 길);
-      if (!r) continue;
+      if (!r) { 모든못잼.push(`${s.이름}${길}: 못 받았다`); continue; }
+      잰칸 += 1;
       await 몸버리기(r);
       const 좋나 = r.status !== 200;
       console.log(`  ${길.padEnd(22)} ${좋나 ? '✅' : '🔴'} ${r.status}`);
@@ -266,7 +316,8 @@ async function 재기() {
     /* ⑧ 관리자 화면이 인증 없이 열리나 */
     for (const 길 of ['/admin', '/admin/', '/dashboard', '/api/admin']) {
       const r = await 받기(s.밑 + 길);
-      if (!r) continue;
+      if (!r) { 모든못잼.push(`${s.이름}${길}: 못 받았다`); continue; }
+      잰칸 += 1;
       /* 200 이어도 로그인 화면이면 닫힌 것이다 — 글을 보고 가른다 */
       let 로그인화면 = false;
       if (r.status === 200) {
@@ -332,10 +383,18 @@ async function 재기() {
     if (지면막혔나) 모든흠.push(`${s.이름}: 지면이 막힌다 — 손님과 검색엔진이 먼저 막힌다`);
   }
 
-  console.log(`\n■ 흠 ${모든흠.length}개`);
+  console.log(`\n■ 흠 ${모든흠.length}개`
+    + (모든못잼.length ? ` · ⚠ 못 잰 칸 ${모든못잼.length}개 (잰 칸 ${잰칸}개)` : ''));
   for (const x of 모든흠) console.log(`  🔴 ${x}`);
-  if (!모든흠.length) console.log('✅ 네 곳 다 막혀 있다');
-  return 모든흠.length;
+  for (const x of 모든못잼) console.log(`  ⚠ 못 쟀다 — ${x}`);
+
+  /* ⛔ 「다 막혀 있다」는 **흠이 0이고 못잼도 0일 때만** 말한다.
+     못 두드려 본 문을 「닫혀 있다」고 말하지 않는다. */
+  const 판 = 끝판정(모든흠.length, 모든못잼.length, 잰칸);
+  if (판.초록) console.log('✅ 네 곳 다 막혀 있다');
+  else if (!모든흠.length) console.log('⚠ 흠은 없지만 «못 두드려 본 문»이 있다 — 「다 막혀 있다」고 말하지 않는다');
+  if (판.못잼많다) console.log('🔴 못 잰 칸이 너무 많다 — 검사가 돌았다고 말할 수 없다');
+  return 판.나갈값;
 }
 
 if (process.argv.includes('--자가시험')) await 자가시험();
