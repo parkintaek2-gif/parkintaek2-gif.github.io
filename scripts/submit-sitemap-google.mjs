@@ -47,7 +47,28 @@ if (!고른) {
   process.exit(1);
 }
 const SITE = 고른.site;
-const SITEMAP = 고른.map;
+/* 🔴 [2026-10-05 · 5번] **사이트맵이 여러 장인데 기본 하나만 낼 수 있었다.**
+   klifemap 에는 「파는 지면만 담은」 작은 sitemap-core.xml 이 따로 있다.
+   크롤 예산을 그쪽으로 돌리려고 만든 것인데 이 자로는 재제출을 못 했다.
+   ⇒ `--맵 <주소>` 로 그 사이트의 다른 사이트맵도 낼 수 있게 한다.
+   ⛔ 아무 주소나 받지 않는다 — 그 사이트의 도메인 안이어야 한다. */
+const SITEMAP = (() => {
+  const i = process.argv.indexOf('--맵');
+  const 준것 = i >= 0 ? process.argv[i + 1] : null;
+  if (!준것) return 고른.map;
+  try {
+    const 집 = new URL(고른.map).hostname.replace(/^www\./, '');
+    const 새집 = new URL(준것).hostname.replace(/^www\./, '');
+    if (집 !== 새집) {
+      console.error(`⛔ --맵 ${준것} 은 ${고른이름}(${집}) 의 주소가 아니다`);
+      process.exit(1);
+    }
+    return 준것;
+  } catch (e) {
+    console.error('⛔ --맵 에 준 것이 주소가 아니다 — ' + String(준것));
+    process.exit(1);
+  }
+})();
 console.log(`■ ${고른이름} — ${SITEMAP}`);
 const 쓰기 = !process.argv.includes('--list');
 
