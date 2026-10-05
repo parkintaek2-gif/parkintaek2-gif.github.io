@@ -5,3 +5,4 @@
 2026-10-05	2027-01-02	신년운세 지면 해 바꾸기	klifemap 에서 node tools/신년운세지면-짓는다.mjs --해 2028 뒤 커밋·배포	해가 바뀌면 지난해 지면이 남는다		
 2026-10-05	2026-10-06	색인 요청 남은 일곱	node scripts/구글-색인요청.mjs 로 cheongan-jiji·ilju/·sinnyeon-unse·sinsal·sonnal·japsinsal·dollimja — 하루 한 장씩만 들어간다	10-05 09:35 에 yuksipgapja 하나만 들어가고 나머지는 할당량 초과. 구글 색인요청 할당량이 하루 한 장 수준이다 — 사이트맵 lastmod 와 링크가 본길이다		
 2026-10-05	2027-01-02	만 나이 지면 해 바꾸기	klifemap 에서 node tools/만나이지면-짓는다.mjs --해 2027 뒤 커밋·배포	해가 바뀌면 표의 나이가 한 살씩 틀린다		
+2026-10-05	2026-10-06	🔴 videos.html 영어판에 제목·설명이 통째로 없다	curl "https://klifemap.ai/videos.html?lang=en" 으로 받아 <title>·description 이 있는지 본다. 없으면 i18nSsr 가 아니라 라이브 쪽에서 먹히는 것이므로 서버 로그와 컨테이너 파일을 본다	라이브 ko 50,095바이트 / en 11,973바이트 — en 에서 38KB 가 사라지고 <title> 0개·description 0개. 같은 코드로 로컬에서 그리면 25,477바이트에 둘 다 멀쩡하다. 2026-10-05 12:1x 에 못 풀고 적어 둔다. videos.html 은 noindex 가 아니라 색인되는 지면이다		
