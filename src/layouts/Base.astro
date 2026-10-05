@@ -1,5 +1,6 @@
 ---
 import Masthead from '../components/Masthead.astro';
+import { 데이터세트채우기 } from '../lib/dataset-채운다';
 import Analytics from '../components/Analytics.astro';
 import Footer from '../components/Footer.astro';
 import PreferredSource from '../components/선호출처.astro';
@@ -140,7 +141,14 @@ const orgLd = {
     <link rel="manifest" href="/manifest.webmanifest" />
 
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} is:inline />
-    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />}
+      {/* 🔴 [2026-10-05 23:0x · 5번] **Dataset 에 빠진 칸을 여기서 채운다.**
+      사장님이 넘겨 주신 구글 메일 — 「데이터세트 구조화된 데이터 문제가 감지됨」.
+      서치콘솔은 「'license' 누락 · 항목 1」이라 했는데 저장소를 재 보니
+      license 가 179파일, url 이 208파일 빠져 있었다.
+      ⛔ 232 파일을 손으로 고치면 **다음에 새로 만든 지면이 또 빠진다.**
+      ⭐ 내보내는 줄 하나에서 채우면 지금 것도 앞으로 것도 다 채워진다.
+      ⛔ 이미 있는 값은 안 덮는다. 정본을 모르면 url 을 안 넣는다. */}
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(데이터세트채우기(jsonLd, 'seoulmarkets', canonical))} is:inline />}
 
     {/* 광고를 붙이기 전까지 이 사이트가 부르는 외부 스크립트는 0개다.
         ⚠ noAds 인 페이지에서는 **스크립트 자체를 안 부른다.** 슬롯만 빼면

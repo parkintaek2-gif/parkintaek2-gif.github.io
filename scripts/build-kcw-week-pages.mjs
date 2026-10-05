@@ -134,6 +134,38 @@ export function 슬러그표(작품자료) {
   return 표;
 }
 
+/**
+ * 🔴 [2026-10-05 23:1x · 5번] **Dataset 에 license·url 을 채운다.**
+ *   사장님이 넘겨 주신 구글 메일 — 「데이터세트 구조화된 데이터 문제가 감지됨」.
+ *
+ *   세 Astro 레이아웃에는 채우기를 걸었는데 **이 지면 269장이 안 채워졌다** —
+ *   여기는 레이아웃을 안 거치고 이 함수가 HTML 을 직접 찍기 때문이다.
+ *   ⛔ 「레이아웃에 걸었으니 다 됐다」로 세지 않는다. **dist 를 재서** 알았다.
+ *
+ * ⛔ 이미 있는 값은 안 덮는다. ⛔ 정본을 모르면 url 을 안 넣는다.
+ * ⚠ license 는 새 약속이 아니다 — 이용약관이 이미 손님께
+ *   「다시 팔거나 그대로 배포하시는 것은 안 됩니다」라고 적어 둔 그것을 가리킨다.
+ */
+export function 주지면_데이터세트채우기(구조자료, 정본) {
+  if (!구조자료 || typeof 구조자료 !== 'object') return 구조자료;
+  let 것;
+  try { 것 = JSON.parse(JSON.stringify(구조자료)); } catch { return 구조자료; }
+
+  const 훑기 = (x) => {
+    if (Array.isArray(x)) { for (const y of x) 훑기(y); return; }
+    if (!x || typeof x !== 'object') return;
+    const t = x['@type'];
+    const 데이터세트인가 = t === 'Dataset' || (Array.isArray(t) && t.includes('Dataset'));
+    if (데이터세트인가) {
+      if (!x.license) x.license = 'https://www.kculturewire.com/terms';
+      if (!x.url && 정본) x.url = 'https://www.kculturewire.com' + 정본;
+    }
+    for (const k of Object.keys(x)) if (x[k] && typeof x[k] === 'object') 훑기(x[k]);
+  };
+  훑기(것);
+  return 것;
+}
+
 export const 껍데기 = (제목, 설명, 정본, 몸, 구조자료) => `<!doctype html>
 <html lang="en">
 <head>
@@ -142,7 +174,7 @@ export const 껍데기 = (제목, 설명, 정본, 몸, 구조자료) => `<!docty
 <link rel="canonical" href="https://www.kculturewire.com${정본}">
 <title>${제목} &mdash; K Culture Wire</title>
 <meta name="description" content="${설명}">
-${구조자료 ? `<script type="application/ld+json">${JSON.stringify(구조자료)}</script>` : ''}
+${구조자료 ? `<script type="application/ld+json">${JSON.stringify(주지면_데이터세트채우기(구조자료, 정본))}</script>` : ''}
 <style>
   :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --card:#fff;
          --accent:#b4472a; --accent-soft:#fdf3f0; }
