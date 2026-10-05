@@ -229,6 +229,14 @@ if (process.argv.includes('--자가시험')) {
     제목들.push({ 길: path.relative(지면방, f), 제목: t });
   }
 
+  /* 🔴🔴 [2026-10-05 · 5번] **어느 방을 훑었는지 크게 적는다.**
+     이 자의 기본값은 `dist/wikitip` — **K Culture Wire 한 유닛뿐**이다.
+     그런데 잰 낱말에는 `kospi`·`korea gdp`처럼 **서울마켓** 말이 섞여 있다.
+     그래서 서울마켓이 이미 답하고 있는 말이 「답할 자리가 없다」로 나왔다 —
+     `kospi` 는 `/kospi-vs-kosdaq` 제목에 통째로 들어 있는데도 그랬다.
+     ⛔ 그 목록을 그대로 믿고 지면을 내면 **닮은 지면을 또 내는 것**이다.
+     ⇒ 훑은 방을 머리에 적고, 안 덮인 말은 «다른 방»에서도 한 번 찾아본다(아래 ⑤). */
+  console.log(`■ 훑은 방 — ${path.relative(뿌리, 지면방) || 지면방}`);
   console.log(`■ 지면 ${지면들.length}장 중 제목이 있는 것 ${제목들.length}장`
     + (제목없는지면 ? ` · 제목이 «없는» 것 ${제목없는지면}장 ⛔ 0 이 아니라 못 읽은 것이다` : ''));
   console.log('');
@@ -255,13 +263,41 @@ if (process.argv.includes('--자가시험')) {
   console.log(`■ 잰 낱말 ${본말.size}개 — 제목에 «통째로» 있는 것 ${덮인것.length}개`
     + ` · 없는 것 ${안덮인것.length}개`);
   console.log('');
+  /* 🔴🔴 [2026-10-05 · 5번] ⑤ **다른 방이 이미 덮고 있나** — 닮은 지면을 또 내지 않으려고.
+     이 자는 방 하나만 훑는다(기본값은 K Culture Wire). 그런데 잰 낱말에는 다른 유닛
+     말이 섞여 있어, `kospi` 처럼 **서울마켓이 이미 답하는 말**이 「없다」로 나왔다.
+     ⛔ 못 읽는 방은 «없는 것»이 아니라 «못 잰 것»이다 — 그렇게 적는다. */
+  const 딴방들 = ['dist', 'dist/wikitip', 'dist/100y']
+    .map((d) => path.resolve(뿌리, d))
+    .filter((d) => d !== 지면방 && existsSync(d));
+  const 딴방제목 = [];
+  const 못읽은방 = [];
+  for (const d of 딴방들) {
+    try {
+      for (const f of 지면모으기(d)) {
+        const t = 제목뽑기(readFileSync(f, 'utf8'));
+        if (t !== null) 딴방제목.push({ 방: path.relative(뿌리, d), 길: path.relative(d, f), 제목: t });
+      }
+    } catch { 못읽은방.push(path.relative(뿌리, d)); }
+  }
+  for (const w of 안덮인것) {
+    w.딴방 = 딴방제목.filter((x) => 견주기(w.말, x.제목).통째).slice(0, 2);
+  }
+
   if (안덮인것.length) {
+    const 딴방이덮은수 = 안덮인것.filter((w) => w.딴방?.length).length;
     console.log('■ 답할 자리가 «없는» 말 — 줄수 큰 것부터');
+    if (딴방이덮은수) {
+      console.log(`  ⚠ 이 가운데 ${딴방이덮은수}개는 **다른 방이 이미 덮고 있다** — 그것은 새로 낼 것이 아니다`);
+    }
     for (const w of 안덮인것.slice(0, 25)) {
       const 자리글 = w.자리 === null ? '자리 모름' : `${w.자리}번째`;
-      const 힌트 = w.낱낱 ? `  (낱말이 흩어져 있는 지면 ${w.낱낱}장 — 그 물음에 답하는 제목은 아니다)` : '';
+      const 힌트 = w.딴방?.length
+        ? `  ⚠ 다른 방이 덮는다 — ${w.딴방.map((x) => `${x.방}/${x.길}`).join(' · ')}`
+        : (w.낱낱 ? `  (낱말이 흩어져 있는 지면 ${w.낱낱}장 — 그 물음에 답하는 제목은 아니다)` : '');
       console.log(`  ${String(w.줄수 ?? '?').padStart(3)}줄 · ${자리글.padEnd(9)} ${w.말}${힌트}`);
     }
+    if (못읽은방.length) console.log(`  ⬜ 못 읽은 방 ${못읽은방.join(' · ')} — «없다»가 아니라 «못 쟀다»`);
     console.log('');
   }
   if (덮인것.length) {
