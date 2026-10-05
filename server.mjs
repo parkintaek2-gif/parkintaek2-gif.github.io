@@ -457,6 +457,57 @@ const handle = async (req, res) => {
    *   지금 KCW 전용이지만, 댓글처럼 다른 사이트도 나중에 같은 코드로 쓸 수 있게 둔다. */
   const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$|^\/v1\/trial$|^\/api\/comments$|^\/comments-widget\.js$|^\/deploy-stamp\.txt$|^\/api\/vote$|^\/vote-widget\.js$/;
 
+  /*
+   * 🔴🔴 [2026-10-06 03:0x · 5번] **폴더 주소에 입구가 없어 404 를 내던 자리.**
+   *
+   * KLifeMap 에 지면을 내고 사이트맵에도 넣고 홈에서 봇이 닿는 것까지 확인했는데
+   * `/unse/` 와 `/data/` 를 눌러 보니 둘 다 404 였다. 그 길로 네 사이트를 다 재니
+   * **입구 없는 폴더가 18곳**이고 그 밑에 약 1만 장이 있었다.
+   *
+   * ⛔ 여기 적힌 것들은 **목록 지면이 이미 있는데 길만 없던 것**이다.
+   *   `/title` 의 목록은 `/titles` 이고, `/japan` 의 목록은 `/japan/companies` 다.
+   *   같은 말을 하는 지면을 또 만들지 않는다 — 구글이 복사본으로 본다.
+   *
+   * ⚠ **접두사를 붙이기 «전»에** 한다. 붙인 뒤에 보내면 손님 주소줄에
+   *   `/wikitip/` 이 드러나고, canonical 과 어긋나 구글이 두 주소를 보게 된다.
+   * ⚠ 301(영구)로 낸다 — meta refresh 보다 검색엔진에 분명하다.
+   * ⚠ 쿼리는 그대로 넘긴다.
+   *
+   * ⛔ 목록 지면이 «없는» 곳은 여기 적지 않는다. 엉뚱한 데로 보내는 것은
+   *   404 보다 나쁘다. 아직 남은 곳 —
+   *     kculturewire  /week · /market · /from     (2번이 목록 지면을 만든다)
+   *     100yearmap    /report · /report/area · /life  (1번)
+   */
+  const 폴더입구 = {
+    'kculturewire.com': {
+      '/title': '/titles', '/article': '/articles', '/tag': '/tags', '/firm': '/firms',
+    },
+    'wiki-tip.com': {
+      '/title': '/titles', '/article': '/articles', '/tag': '/tags', '/firm': '/firms',
+    },
+    'seoulmarkets.com': {
+      '/japan': '/japan/companies', '/japan/company': '/japan/companies',
+      '/taiwan': '/taiwan/companies', '/taiwan/company': '/taiwan/companies',
+      '/uae': '/uae/companies', '/uae/company': '/uae/companies',
+      '/company': '/companies',
+      /* ⚠ 업종 목록은 `/companies` 안에 61갈래로 들어 있다 */
+      '/sector': '/companies',
+    },
+  };
+  {
+    const 표 = 폴더입구[host];
+    if (표 && (req.method === 'GET' || req.method === 'HEAD')) {
+      /* 끝 빗금이 있든 없든 같은 자리로 본다 — `trailingSlash: 'never'` 와 짝이다 */
+      const 민길 = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
+      const 갈곳 = 표[민길];
+      if (갈곳) {
+        res.writeHead(301, { Location: 갈곳 + (parsed.search || ''), 'Cache-Control': 'public, max-age=3600' });
+        res.end();
+        return;
+      }
+    }
+  }
+
   const prefix = SITE_PREFIX[host] ?? '';
   if (prefix && !공유경로.test(pathname) && !pathname.startsWith(prefix)) {
     // ⚠ Astro 가 `dist/100y.html` 로 낸다(폴더가 아니다). 그래서 `/` 는 접두사 **그대로**
