@@ -74,7 +74,7 @@ export const 기준일이름 = [
  *   그 잘못은 오늘 검색 자물쇠에서 이미 한 번 저질렀다(합계 하나로 네 사이트를
  *   같이 막았다). 이름으로 사이트를 가른 뒤에 건다.
  */
-export const 못박은_낡은큰자료 = 5;
+export const 못박은_낡은큰자료 = 4;   /* 2026-10-06 04:0x — kr-listed-company-names 를 받아 5→4 */
 export const 낡음선 = 30;        /* 날 */
 export const 기본몇개 = 20;      /* 큰 것부터 몇 개를 보나 */
 

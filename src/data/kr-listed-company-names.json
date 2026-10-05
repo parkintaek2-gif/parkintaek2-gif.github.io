@@ -1,8 +1,8 @@
 {
  "무엇": "DART CORPCODE.xml 중 stock_code 있는(=상장) 법인만. 5번 geo-fit 자가 「실명(회사이름)」을 읽는 사전으로 쓴다.",
  "출처": "opendart.fss.or.kr corpCode.xml, 로컬 archive/raw/dart-corpcode/CORPCODE.xml",
- "잰때": "2026-09-04T15:38:37.665Z",
- "개수": 3985,
+ "잰때": "2026-10-05T18:53:03.147Z",
+ "개수": 3986,
  "회사들": [
   {
    "ticker": "036720",
@@ -5333,12 +5333,6 @@
    "corp_code": "00155382"
   },
   {
-   "ticker": "024120",
-   "name": "KB Autosys",
-   "회사": "KB오토시스",
-   "corp_code": "00157539"
-  },
-  {
    "ticker": "204020",
    "name": "GRITEE",
    "회사": "그리티",
@@ -6719,12 +6713,6 @@
    "corp_code": "00612188"
   },
   {
-   "ticker": "175330",
-   "name": "JB FINANCIAL GROUP",
-   "회사": "JB금융지주",
-   "corp_code": "00980122"
-  },
-  {
    "ticker": "365590",
    "name": "HiDeep",
    "회사": "하이딥",
@@ -7383,12 +7371,6 @@
    "name": "Incross",
    "회사": "인크로스",
    "corp_code": "00819073"
-  },
-  {
-   "ticker": "001460",
-   "name": "BYC",
-   "회사": "BYC",
-   "corp_code": "00122579"
   },
   {
    "ticker": "348840",
@@ -8765,12 +8747,6 @@
    "corp_code": "01442115"
   },
   {
-   "ticker": "003280",
-   "name": "HEUNG-A SHIPPING",
-   "회사": "흥아해운",
-   "corp_code": "00167208"
-  },
-  {
    "ticker": "417200",
    "name": "LS Materials",
    "회사": "LS머트리얼즈",
@@ -8811,12 +8787,6 @@
    "name": "HY-LOK",
    "회사": "하이록코리아",
    "corp_code": "00165060"
-  },
-  {
-   "ticker": "089860",
-   "name": "LOTTE rental",
-   "회사": "롯데렌탈",
-   "corp_code": "00545716"
   },
   {
    "ticker": "178920",
@@ -9069,12 +9039,6 @@
    "name": "NEW ASIA",
    "회사": "뉴아세아",
    "corp_code": "00138695"
-  },
-  {
-   "ticker": "381970",
-   "name": "K Car",
-   "회사": "케이카",
-   "corp_code": "01323032"
   },
   {
    "ticker": "009900",
@@ -9677,12 +9641,6 @@
    "corp_code": "00409681"
   },
   {
-   "ticker": "482520",
-   "name": "Kyobo 16 Special Purpose Acquisition Company",
-   "회사": "교보16호스팩",
-   "corp_code": "01845701"
-  },
-  {
    "ticker": "048830",
    "name": "NPK",
    "회사": "엔피케이",
@@ -9939,12 +9897,6 @@
    "name": "TDSPHARM",
    "회사": "티디에스팜",
    "corp_code": "01232192"
-  },
-  {
-   "ticker": "029460",
-   "name": "KC",
-   "회사": "케이씨",
-   "corp_code": "00209780"
   },
   {
    "ticker": "290650",
@@ -10961,12 +10913,6 @@
    "corp_code": "01695498"
   },
   {
-   "ticker": "396300",
-   "name": "SeA Mechanics",
-   "회사": "세아메카닉스",
-   "corp_code": "00534701"
-  },
-  {
    "ticker": "047040",
    "name": "DAEWOO ENGINEERING & CONSTRUCTION",
    "회사": "대우건설",
@@ -11259,12 +11205,6 @@
    "name": "ONEUL E&M",
    "회사": "오늘이엔엠",
    "corp_code": "00623184"
-  },
-  {
-   "ticker": "469750",
-   "name": "IVISIONWORKS",
-   "회사": "아이비젼웍스",
-   "corp_code": "01516766"
   },
   {
    "ticker": "376190",
@@ -14525,12 +14465,6 @@
    "corp_code": "00390408"
   },
   {
-   "ticker": "261780",
-   "name": "ARIBIOLAB",
-   "회사": "아리바이오LAB",
-   "corp_code": "01141599"
-  },
-  {
    "ticker": "003560",
    "name": "IHQ",
    "회사": "아이에이치큐",
@@ -14607,12 +14541,6 @@
    "name": "Joong Ang Enervis",
    "회사": "중앙에너비스",
    "corp_code": "00149770"
-  },
-  {
-   "ticker": "096610",
-   "name": "RFsemiTechnologies",
-   "회사": "알에프세미",
-   "corp_code": "00516246"
   },
   {
    "ticker": "012760",
@@ -16277,12 +16205,6 @@
    "corp_code": "00363927"
   },
   {
-   "ticker": "071950",
-   "name": "KOAS",
-   "회사": "코아스",
-   "corp_code": "00210856"
-  },
-  {
    "ticker": "036530",
    "name": "SNT Holdings",
    "회사": "SNT홀딩스",
@@ -17141,12 +17063,6 @@
    "corp_code": "00867849"
   },
   {
-   "ticker": "035250",
-   "name": "Kangwon Land",
-   "회사": "강원랜드",
-   "corp_code": "00255619"
-  },
-  {
    "ticker": "085660",
    "name": "Chabiotech",
    "회사": "차바이오텍",
@@ -17933,12 +17849,6 @@
    "corp_code": "00195229"
   },
   {
-   "ticker": "036120",
-   "name": "Seoul Information Service",
-   "회사": "서울평가정보",
-   "corp_code": "00260745"
-  },
-  {
    "ticker": "102210",
    "name": "TRES",
    "회사": "트레스",
@@ -17985,12 +17895,6 @@
    "name": "KyungchangIndustrial",
    "회사": "경창산업",
    "corp_code": "00102353"
-  },
-  {
-   "ticker": "084680",
-   "name": "E-WORLD",
-   "회사": "이월드",
-   "corp_code": "00540605"
   },
   {
    "ticker": "078350",
@@ -18105,12 +18009,6 @@
    "name": "FINETEK",
    "회사": "파인텍",
    "corp_code": "00820352"
-  },
-  {
-   "ticker": "078130",
-   "name": "KUK-IL PAPER MFG",
-   "회사": "국일제지",
-   "corp_code": "00104573"
   },
   {
    "ticker": "000540",
@@ -18657,12 +18555,6 @@
    "name": "Multicampus",
    "회사": "멀티캠퍼스",
    "corp_code": "00425351"
-  },
-  {
-   "ticker": "128940",
-   "name": "Hanmi Pharm",
-   "회사": "한미약품",
-   "corp_code": "00828497"
   },
   {
    "ticker": "080220",
@@ -20543,12 +20435,6 @@
    "corp_code": "00362122"
   },
   {
-   "ticker": "358570",
-   "name": "GI Innovation",
-   "회사": "지아이이노베이션",
-   "corp_code": "01351080"
-  },
-  {
    "ticker": "032800",
    "name": "Fantagio",
    "회사": "판타지오",
@@ -20661,12 +20547,6 @@
    "name": "GENOLUTION",
    "회사": "제놀루션",
    "corp_code": "01062177"
-  },
-  {
-   "ticker": "212310",
-   "name": "Organ Eco Tech",
-   "회사": "오건에코텍",
-   "corp_code": "01085442"
   },
   {
    "ticker": "333430",
@@ -21129,12 +21009,6 @@
    "name": "SystemandApplicationTechnologies",
    "회사": "에스에이티",
    "corp_code": "00379229"
-  },
-  {
-   "ticker": "038060",
-   "name": "LUMENS",
-   "회사": "루멘스",
-   "corp_code": "00406329"
   },
   {
    "ticker": "061970",
@@ -22379,12 +22253,6 @@
    "corp_code": "00369213"
   },
   {
-   "ticker": "004020",
-   "name": "HYUNDAI STEEL COMPANY",
-   "회사": "현대제철",
-   "corp_code": "00145880"
-  },
-  {
    "ticker": "033310",
    "name": "M2N",
    "회사": "엠투엔",
@@ -22401,12 +22269,6 @@
    "name": "SEOAM MACHINERY INDUSTRY",
    "회사": "서암기계공업",
    "corp_code": "00166528"
-  },
-  {
-   "ticker": "054220",
-   "name": "VitzroSys",
-   "회사": "비츠로시스",
-   "corp_code": "00201432"
   },
   {
    "ticker": "032960",
@@ -22907,12 +22769,6 @@
    "corp_code": "00361594"
   },
   {
-   "ticker": "158430",
-   "name": "ATON",
-   "회사": "아톤",
-   "corp_code": "00595182"
-  },
-  {
    "ticker": "240550",
    "name": "DongBang Medical",
    "회사": "동방메디컬",
@@ -22955,6 +22811,42 @@
    "corp_code": "00357607"
   },
   {
+   "ticker": "089860",
+   "name": "LOTTE rental",
+   "회사": "롯데렌탈",
+   "corp_code": "00545716"
+  },
+  {
+   "ticker": "024120",
+   "name": "KB Autosys",
+   "회사": "KB오토시스",
+   "corp_code": "00157539"
+  },
+  {
+   "ticker": "175330",
+   "name": "JB FINANCIAL GROUP",
+   "회사": "JB금융지주",
+   "corp_code": "00980122"
+  },
+  {
+   "ticker": "482520",
+   "name": "Kyobo 16 Special Purpose Acquisition Company",
+   "회사": "교보16호스팩",
+   "corp_code": "01845701"
+  },
+  {
+   "ticker": "381970",
+   "name": "K Car",
+   "회사": "케이카",
+   "corp_code": "01323032"
+  },
+  {
+   "ticker": "223220",
+   "name": "Logis Mon",
+   "회사": "로지스몬",
+   "corp_code": "01060735"
+  },
+  {
    "ticker": "002420",
    "name": "Wooyang P&L",
    "회사": "우양피앤엘",
@@ -22983,6 +22875,42 @@
    "name": "Daishin Balance No.17 Special Purpose Acquisition Company",
    "회사": "대신밸런스제17호기업인수목적",
    "corp_code": "01792825"
+  },
+  {
+   "ticker": "035250",
+   "name": "Kangwon Land",
+   "회사": "강원랜드",
+   "corp_code": "00255619"
+  },
+  {
+   "ticker": "078130",
+   "name": "KUK-IL PAPER MFG",
+   "회사": "국일제지",
+   "corp_code": "00104573"
+  },
+  {
+   "ticker": "084680",
+   "name": "E-WORLD",
+   "회사": "이월드",
+   "corp_code": "00540605"
+  },
+  {
+   "ticker": "064850",
+   "name": "FnGuide",
+   "회사": "에프앤가이드",
+   "corp_code": "00331016"
+  },
+  {
+   "ticker": "038060",
+   "name": "LUMENS",
+   "회사": "루멘스",
+   "corp_code": "00406329"
+  },
+  {
+   "ticker": "096610",
+   "name": "RFsemiTechnologies",
+   "회사": "알에프세미",
+   "corp_code": "00516246"
   },
   {
    "ticker": "376270",
@@ -23177,6 +23105,12 @@
    "corp_code": "00965318"
   },
   {
+   "ticker": "029460",
+   "name": "KC",
+   "회사": "케이씨",
+   "corp_code": "00209780"
+  },
+  {
    "ticker": "058450",
    "name": "HANJOO ART",
    "회사": "한주에이알티",
@@ -23189,6 +23123,30 @@
    "corp_code": "00303192"
   },
   {
+   "ticker": "003280",
+   "name": "HEUNG-A SHIPPING",
+   "회사": "흥아해운",
+   "corp_code": "00167208"
+  },
+  {
+   "ticker": "036120",
+   "name": "Seoul Information Service",
+   "회사": "서울평가정보",
+   "corp_code": "00260745"
+  },
+  {
+   "ticker": "469750",
+   "name": "IVISIONWORKS",
+   "회사": "아이비젼웍스",
+   "corp_code": "01516766"
+  },
+  {
+   "ticker": "071950",
+   "name": "KOAS",
+   "회사": "코아스",
+   "corp_code": "00210856"
+  },
+  {
    "ticker": "018500",
    "name": "Dongwon Mobility",
    "회사": "동원모빌리티",
@@ -23199,6 +23157,18 @@
    "name": "Bioten",
    "회사": "바이오텐",
    "corp_code": "01352575"
+  },
+  {
+   "ticker": "355690",
+   "name": "ATUM",
+   "회사": "에이텀",
+   "corp_code": "01444380"
+  },
+  {
+   "ticker": "001460",
+   "name": "BYC",
+   "회사": "BYC",
+   "corp_code": "00122579"
   },
   {
    "ticker": "192650",
@@ -23259,6 +23229,12 @@
    "name": "KnJ",
    "회사": "케이엔제이",
    "corp_code": "00769158"
+  },
+  {
+   "ticker": "006490",
+   "name": "FreeT",
+   "회사": "프리티",
+   "corp_code": "00122825"
   },
   {
    "ticker": "072990",
@@ -23435,12 +23411,6 @@
    "corp_code": "00113535"
   },
   {
-   "ticker": "064850",
-   "name": "FnGuide",
-   "회사": "에프앤가이드",
-   "corp_code": "00331016"
-  },
-  {
    "ticker": "052770",
    "name": "ITOXI",
    "회사": "아이톡시",
@@ -23531,6 +23501,12 @@
    "corp_code": "00352499"
   },
   {
+   "ticker": "212310",
+   "name": "Organ Eco Tech",
+   "회사": "오건에코텍",
+   "corp_code": "01085442"
+  },
+  {
    "ticker": "000300",
    "name": "DHAUTONEX",
    "회사": "DH오토넥스",
@@ -23541,6 +23517,12 @@
    "name": "SECERN AI",
    "회사": "시선AI",
    "corp_code": "01315042"
+  },
+  {
+   "ticker": "358570",
+   "name": "GI Innovation",
+   "회사": "지아이이노베이션",
+   "corp_code": "01351080"
   },
   {
    "ticker": "036460",
@@ -23583,12 +23565,6 @@
    "name": "YAS",
    "회사": "야스",
    "corp_code": "00875307"
-  },
-  {
-   "ticker": "355690",
-   "name": "ATUM",
-   "회사": "에이텀",
-   "corp_code": "01444380"
   },
   {
    "ticker": "417030",
@@ -23753,12 +23729,6 @@
    "corp_code": "01307335"
   },
   {
-   "ticker": "223220",
-   "name": "Logis Mon",
-   "회사": "로지스몬",
-   "corp_code": "01060735"
-  },
-  {
    "ticker": "230360",
    "name": "ECHOMARKETING",
    "회사": "에코마케팅",
@@ -23831,12 +23801,6 @@
    "corp_code": "01084364"
   },
   {
-   "ticker": "006490",
-   "name": "FreeT",
-   "회사": "프리티",
-   "corp_code": "00122825"
-  },
-  {
    "ticker": "038680",
    "name": "S NET SYSTEMS",
    "회사": "에스넷",
@@ -23873,10 +23837,52 @@
    "corp_code": "00261373"
   },
   {
+   "ticker": "054220",
+   "name": "VitzroSys",
+   "회사": "비츠로시스",
+   "corp_code": "00201432"
+  },
+  {
    "ticker": "462980",
    "name": "Aiji net",
    "회사": "아이지넷",
    "corp_code": "01728167"
+  },
+  {
+   "ticker": "261780",
+   "name": "ARIBIOLAB",
+   "회사": "아리바이오LAB",
+   "corp_code": "01141599"
+  },
+  {
+   "ticker": "128940",
+   "name": "Hanmi Pharm",
+   "회사": "한미약품",
+   "corp_code": "00828497"
+  },
+  {
+   "ticker": "004020",
+   "name": "HYUNDAI STEEL COMPANY",
+   "회사": "현대제철",
+   "corp_code": "00145880"
+  },
+  {
+   "ticker": "396300",
+   "name": "HT ROBOTICS",
+   "회사": "HT로보틱스",
+   "corp_code": "00534701"
+  },
+  {
+   "ticker": "158430",
+   "name": "ATON",
+   "회사": "아톤",
+   "corp_code": "00595182"
+  },
+  {
+   "ticker": "386380",
+   "name": "Sky Labs",
+   "회사": "스카이랩스",
+   "corp_code": "01586923"
   },
   {
    "ticker": "084180",
