@@ -265,6 +265,9 @@ export const GET: APIRoute = async ({ params }) => {
          꽉 찬다. 자료가 없어 지면이 없었다 — collect-korea-macro-ecos.mjs 로 세웠다.
          ⭐ 실질금리(기준금리 − 물가)가 2026-04~08 다섯 달 마이너스였고 09 에 +0.12% 로 돌아섰다. */
       { loc: '/korea-inflation-rate', changefreq: 'weekly', priority: '0.9' },
+      /* 🔴 [2026-10-05 10:1x · 5번] korea gdp·korea economy 가 자동완성 10줄을 꽉 채우는데
+         답할 지면이 없었다(check-demand-covered). 자료는 오늘 아침에 받아 뒀다. */
+      { loc: '/korea-gdp-growth', changefreq: 'weekly', priority: '0.9' },
       /* 🔴 [2026-09-12 · 4번] F6 무료 영문 지면 넷(Financials·Valuation·Index·Consensus) —
        *   target-changes(Consensus)만 여기 있었고 나머지 셋은 라이브 200인데 이 목록에
        *   없었다. 같은 사고가 이 파일에서 벌써 세 번째다(위 5번 주석 두 곳 참고).

@@ -1,0 +1,258 @@
+---
+/*
+ * `/korea-gdp-growth` — **Korean quarterly GDP growth, from Bank of Korea ECOS.**
+ *
+ * ── Why this page ──────────────────────────────────────────────
+ * Measured 2026-10-05 (en/us autocomplete): `korea gdp` and `korea economy` each
+ * fill all ten autocomplete rows, and `check-demand-covered.mjs` listed both as
+ * having **no page of ours answering them** — not even a title with the words in it.
+ * We have held the series since this morning (`collect-korea-macro-ecos.mjs`,
+ * table 200Y102) and only the inflation page was reading it.
+ *
+ * ⭐ What the series says — **Korea has had four negative quarters since 2021 and
+ *   not one of them was followed by another.** The last back-to-back fall was
+ *   2020Q1–Q2. By the two-consecutive-quarters convention there has been no
+ *   recession since. Growth alternates instead: the sign flipped eight times in
+ *   twenty-one quarters.
+ *
+ * ⛔ Not a forecast and not a view on policy. We print what was published.
+ * ⛔ "Technical recession" is **a convention, not a law** — two consecutive
+ *   quarter-on-quarter falls. Korea's own statistical agency does not date
+ *   recessions that way, and the page says so instead of implying a verdict.
+ * ⛔ Quarter-on-quarter and year-on-year are different numbers. This page is
+ *   quarter-on-quarter, seasonally adjusted, and labels every figure as such.
+ * ⛔ 2020 is in the table but kept out of the averages, and the page says why —
+ *   a −2.6% quarter drags a mean that is meant to describe ordinary quarters.
+ *   Hiding it would be worse; so would letting it set the average silently.
+ */
+import Base from '../layouts/Base.astro';
+import { SITE_URL } from '../consts';
+import macro from '../data/korea-macro.json';
+
+const 수인가 = (x: any) => typeof x === 'number' && Number.isFinite(x);
+const 셋 = macro as any;
+
+const 성장 = ((셋.gdpGrowth?.points ?? []) as { t: string; v: number }[])
+  .filter((p) => p && typeof p.t === 'string' && 수인가(p.v));
+
+/* 🔴 코로나 해를 뺀 구간 — 평균을 낼 때만 뺀다. 표에서는 안 숨긴다 */
+const 코로나뒤 = 성장.filter((p) => p.t >= '2021Q1');
+
+const 음수 = 성장.filter((p) => p.v < 0);
+const 음수코로나뒤 = 코로나뒤.filter((p) => p.v < 0);
+
+/** 두 분기 «연속» 마이너스 — 흔히 말하는 기술적 경기침체의 셈법 */
+const 연속마이너스: string[] = [];
+for (let i = 1; i < 성장.length; i += 1) {
+  if (성장[i].v < 0 && 성장[i - 1].v < 0) 연속마이너스.push(`${성장[i - 1].t}–${성장[i].t}`);
+}
+
+/** 부호가 바뀐 횟수 — 「번갈아 간다」를 셈으로 보인다 */
+function 부호바뀜(것: { v: number }[]) {
+  let n = 0;
+  for (let i = 1; i < 것.length; i += 1) if ((것[i].v < 0) !== (것[i - 1].v < 0)) n += 1;
+  return n;
+}
+
+/** 연속 마이너스 구간을 읽을 수 있는 글로. ⛔ 없으면 「없다」고 적는다 — 빈칸으로 두지 않는다 */
+const 연속글 = 연속마이너스.length
+  ? 연속마이너스.map((x) => x.split('–').map(분기글짧게).join(' and ')).join(', ')
+  : 'none in this series';
+function 분기글짧게(t: string) { return `Q${String(t).slice(-1)} ${String(t).slice(0, 4)}`; }
+
+const 평균 = 코로나뒤.length
+  ? 코로나뒤.reduce((a, p) => a + p.v, 0) / 코로나뒤.length
+  : null;
+/* ⚠ 분기 평균을 네 번 곱하지 않는다 — 복리로 환산한다 */
+const 연율 = 평균 === null ? null : (Math.pow(1 + 평균 / 100, 4) - 1) * 100;
+
+const 가장높은 = 성장.length ? 성장.reduce((a, b) => (b.v > a.v ? b : a)) : null;
+const 가장낮은 = 성장.length ? 성장.reduce((a, b) => (b.v < a.v ? b : a)) : null;
+const 마지막 = 성장.length ? 성장[성장.length - 1] : null;
+
+const 퍼센트 = (v: number | null, 부호 = false) =>
+  (v === null ? '—' : `${부호 && v > 0 ? '+' : ''}${v.toFixed(2)}%`);
+/** 2026Q2 → Q2 2026 — 영어 독자가 읽는 차례로 */
+const 분기글 = (t: string) => `Q${String(t).slice(-1)} ${String(t).slice(0, 4)}`;
+
+const 받은날 = String(셋._meta?.builtAt ?? '');
+const 출처 = String(셋.gdpGrowth?.source ?? 'Bank of Korea');
+const 표번호 = String(셋.gdpGrowth?.table ?? '200Y102');
+
+const TITLE = 음수코로나뒤.length && !연속마이너스.some((x) => x >= '2021')
+  /* ⚠ 레이아웃이 「 | SMarkets」 11자를 뒤에 붙인다 — 그것까지 세어 65자 안으로 둔다.
+     2026-10-05 아침에 73자로 나갔다가 줄인 자리와 같은 병이다. */
+  ? `Korea GDP growth — ${음수코로나뒤.length} negative quarters, none back to back`
+  : 'Korea GDP growth, quarter by quarter';
+
+const DESC = `Korean real GDP growth quarter on quarter, seasonally adjusted, straight from `
+  + `Bank of Korea ECOS table ${표번호}. ${성장.length} quarters. `
+  + `Since 2021 there have been ${음수코로나뒤.length} negative quarters and no two in a row; `
+  + `the average quarter grew ${퍼센트(평균)}, about ${퍼센트(연율)} a year.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea real GDP growth, quarter on quarter',
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets' },
+  url: `${SITE_URL}/korea-gdp-growth`,
+  temporalCoverage: 성장.length ? `${성장[0].t}/${성장[성장.length - 1].t}` : undefined,
+  variableMeasured: ['real GDP growth, quarter on quarter, seasonally adjusted'],
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs">
+      <a href="/">SeoulMarkets</a> <span>›</span> Korea GDP growth
+    </nav>
+
+    <header>
+      <h1>
+        {음수코로나뒤.length} negative quarters since 2021 — and not one of them
+        was followed by another
+      </h1>
+      <p class="lede">
+        Korean real GDP, quarter on quarter and seasonally adjusted, read straight
+        from the Bank of Korea's own database. No forecast, and no view on what the
+        Bank or the government should do next.
+      </p>
+    </header>
+
+    <section class="box">
+      <h2>The finding</h2>
+      <p>
+        Of the <strong>{코로나뒤.length} quarters since the start of 2021</strong>,
+        {' '}<strong>{음수코로나뒤.length} were negative</strong> —
+        {' '}{음수코로나뒤.map((p) => `${분기글(p.t)} (${퍼센트(p.v, true)})`).join(', ')}.
+        {' '}<strong>None of them was followed by a second fall.</strong>
+      </p>
+      <p>
+        The only back-to-back decline in the whole series is
+        {' '}<strong>{연속글}</strong>, when the pandemic closed the
+        quarter. On the common two-consecutive-quarters convention, that is the last
+        time Korea met the test.
+      </p>
+      <p>
+        What the series does instead is <strong>alternate</strong>. The sign flipped
+        {' '}<strong>{부호바뀜(코로나뒤)} times in {코로나뒤.length - 1} steps</strong> since 2021.
+        A quarter of contraction here has been a pause, not a trend — at least so far,
+        and that is a description of what happened, not a prediction of what comes next.
+      </p>
+    </section>
+
+    <section>
+      <h2>Why "technical recession" is a convention, not a verdict</h2>
+      <p>
+        Two consecutive quarters of falling GDP is a rule of thumb, widely used
+        because it is easy to check. <strong>It is not how Korea's statistical
+        agency dates a downturn</strong>, and it takes no account of how deep the
+        falls are or what employment did. We count it here because readers look for
+        it — not because it settles anything.
+      </p>
+      <p class="note">
+        Quarter on quarter and year on year are different numbers and often point
+        different ways. Every figure on this page is <strong>quarter on
+        quarter, seasonally adjusted</strong>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Every quarter we hold</h2>
+      <p class="note">
+        {성장.length} quarters, {성장.length ? `${분기글(성장[0].t)} to ${분기글(성장[성장.length - 1].t)}` : '—'}.
+        {셋.gdpGrowth?.dropped ? ` ${셋.gdpGrowth.dropped} rows arrived without a usable number and were dropped rather than read as zero.` : ''}
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Quarter</th><th>Growth</th><th>Direction</th></tr>
+          </thead>
+          <tbody>
+            {성장.slice().reverse().map((p) => (
+              <tr class={p.v < 0 ? 'down' : ''}>
+                <td>{분기글(p.t)}</td>
+                <td class="num">{퍼센트(p.v, true)}</td>
+                <td>{p.v < 0 ? 'fell' : p.v === 0 ? 'flat' : 'grew'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>The ordinary quarter</h2>
+      <p>
+        Leaving 2020 out, the average quarter since 2021 grew
+        {' '}<strong>{퍼센트(평균)}</strong> — about <strong>{퍼센트(연율)} a year</strong>
+        {' '}if a quarter like that repeated four times.
+      </p>
+      <p class="note">
+        <strong>2020 is in the table above but out of this average</strong>, and we
+        would rather say so than quietly drop it. A −2.6% quarter pulls a mean that
+        is meant to describe ordinary quarters. The annual figure is compounded, not
+        the quarterly average multiplied by four.
+      </p>
+      {가장높은 && 가장낮은 && (
+        <p>
+          The strongest quarter on record here is {분기글(가장높은.t)} at
+          {' '}<strong>{퍼센트(가장높은.v, true)}</strong>; the weakest is
+          {' '}{분기글(가장낮은.t)} at <strong>{퍼센트(가장낮은.v, true)}</strong>.
+          {마지막 && <> The most recent reading is {분기글(마지막.t)}, {퍼센트(마지막.v, true)}.</>}
+        </p>
+      )}
+    </section>
+
+    <section class="method-limits">
+      <h2>What we could not measure</h2>
+      <ul>
+        <li>
+          <strong>Why any quarter moved.</strong> This is the published growth rate
+          and nothing else. Attributing it to exports, construction or policy would
+          be a story we have not measured.
+        </li>
+        <li>
+          <strong>Revisions.</strong> National accounts are revised. We print what
+          the series says on the day we pulled it, and the pull date is below.
+        </li>
+        <li>
+          <strong>Anything about the next quarter.</strong> The alternating pattern
+          is a description of 2021 to now. It is not a rule, and we do not treat it
+          as one.
+        </li>
+      </ul>
+    </section>
+
+    <section class="cite">
+      <h2>Source</h2>
+      <p class="cite-line">
+        {출처} — ECOS table {표번호}, real GDP growth quarter on quarter (seasonally adjusted).
+        {받은날 && <> Pulled {받은날}.</>}
+      </p>
+      <p class="note">
+        Related: <a href="/korea-inflation-rate">Korea inflation against the base rate</a>.
+      </p>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .lead, .lede { font-size: 1.1rem; }
+  .box { background: #f6f7f9; border-left: 3px solid #999; margin: 1.2rem 0; padding: .8rem 1rem; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .95rem; }
+  th, td { text-align: left; border-bottom: 1px solid #e3e5e8; padding: .4rem .6rem; }
+  th { background: #fafbfc; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.down td { background: #fff4f4; }
+  .note { color: #635d75; font-size: .9rem; }
+  .scroll { overflow-x: auto; }
+  .cite-line { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem; word-break: break-word; }
+  @media (prefers-color-scheme: dark) {
+    .box { background: #1c1f24; border-left-color: #666; }
+    th { background: #1a1d21; }
+    th, td { border-bottom-color: #2a2e34; }
+    tr.down td { background: #2a1d1d; }
+  }
+</style>
