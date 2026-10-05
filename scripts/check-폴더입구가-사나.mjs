@@ -51,6 +51,11 @@ export const 사이트들 = [
   { 딱지: 'seoulmarkets', 밑: 'https://seoulmarkets.com', 맵: 'https://seoulmarkets.com/sitemap.xml' },
   { 딱지: 'kcw', 밑: 'https://www.kculturewire.com', 맵: 'https://www.kculturewire.com/sitemap.xml' },
   { 딱지: '100y', 밑: 'https://100yearmap.com', 맵: 'https://100yearmap.com/sitemap.xml' },
+  /* ⚠ klifemap 은 «핵심» 사이트맵(124장)을 본다. 동적 `sitemap.xml` 은 3,009장이지만
+     그 차이인 `/content` 2,800여 장은 **쪽·말을 쿼리로 넘겨**(`?page=2`·`?lang=en`)
+     폴더가 아니다 — 여기서 잴 것이 없다. 폴더 묶음(`/ilju/`·`/unse/`·`/data/`)은
+     핵심 사이트맵에 다 들어 있다.
+     ⛔ 「핵심만 봤다」를 「다 봤다」로 적지 않는다 — 그래서 여기 적어 둔다. */
   { 딱지: 'klifemap', 밑: 'https://klifemap.ai', 맵: 'https://klifemap.ai/sitemap-core.xml' },
 ];
 
