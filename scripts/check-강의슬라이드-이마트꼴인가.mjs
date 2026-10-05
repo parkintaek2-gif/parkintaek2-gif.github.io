@@ -290,4 +290,11 @@ function 주다() {
   process.exit(흠 ? 1 : 0);
 }
 
-주다();
+/* 🔴 [2026-10-06 · 5번] **`주다()` 가 걸림돌 없이 모듈 꼭대기에서 돌고 있었다.**
+   이 자를 `import` 하면 남의 걸음에서 이 자의 검사가 통째로 돌고 `process.exit` 까지 한다 —
+   불러 쓴 쪽은 제 일을 시작도 못 한다. 오늘 실제로 그 일을 당했다.
+   ⚠ 같은 흠을 `tools/build-띠별운세-지면.mjs` 에서 이미 한 번 고쳤다. 이름을 붙여 둔다 —
+     **「걸림돌 없는 꼭대기 부름」**. 이 이름으로 저장소를 훑어 남은 곳을 찾는다. */
+const 내가실행됐다 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (내가실행됐다) 주다();
