@@ -1,9 +1,9 @@
 {
- "잰날": "2026-08-30T08:28:26.143Z",
- "원자료": "countries-2026-08-29.tsv",
- "읽은줄": 501040,
+ "잰날": "2026-10-05T18:55:48.350Z",
+ "원자료": "countries-2026-09-16.tsv",
+ "읽은줄": 506620,
  "못읽은줄": 0,
- "한국작품이든칸": 16408,
+ "한국작품이든칸": 16504,
  "지면있는작품": 546,
  "낸작품": 538,
  "혼자였던편수": 6,
@@ -658,6 +658,78 @@
    ]
   },
   {
+   "title": "Agent Kim Reactivated",
+   "slug": "agent-kim-reactivated",
+   "type": "TV",
+   "markets": 81,
+   "peak": 1,
+   "weeks": 9,
+   "함께있던나라주합": 1012,
+   "함께있던편수": 52,
+   "함께": [
+    {
+     "제목": "Spooky in Love",
+     "나라주": 181,
+     "slug": "spooky-in-love"
+    },
+    {
+     "제목": "Desire",
+     "나라주": 170,
+     "slug": "desire"
+    },
+    {
+     "제목": "Oasis",
+     "나라주": 142,
+     "slug": "oasis"
+    },
+    {
+     "제목": "Our Sticky Love",
+     "나라주": 77,
+     "slug": "our-sticky-love"
+    },
+    {
+     "제목": "The Apartment Job",
+     "나라주": 70,
+     "slug": "the-apartment-job"
+    },
+    {
+     "제목": "Husbands in Action",
+     "나라주": 54,
+     "slug": "husbands-in-action"
+    },
+    {
+     "제목": "Human Vapor",
+     "나라주": 41,
+     "slug": "human-vapor"
+    },
+    {
+     "제목": "Family Business",
+     "나라주": 38,
+     "slug": "family-business"
+    },
+    {
+     "제목": "My Royal Nemesis",
+     "나라주": 34,
+     "slug": "my-royal-nemesis"
+    },
+    {
+     "제목": "Mercy For None",
+     "나라주": 30,
+     "slug": "mercy-for-none"
+    },
+    {
+     "제목": "Notes from the Last Row",
+     "나라주": 29,
+     "slug": "notes-from-the-last-row"
+    },
+    {
+     "제목": "Wrath",
+     "나라주": 24,
+     "slug": "wrath"
+    }
+   ]
+  },
+  {
    "title": "Solo Leveling",
    "slug": "solo-leveling",
    "type": "TV",
@@ -726,78 +798,6 @@
      "제목": "Gyeongseong Creature",
      "나라주": 29,
      "slug": "gyeongseong-creature"
-    }
-   ]
-  },
-  {
-   "title": "Agent Kim Reactivated",
-   "slug": "agent-kim-reactivated",
-   "type": "TV",
-   "markets": 81,
-   "peak": 1,
-   "weeks": 9,
-   "함께있던나라주합": 977,
-   "함께있던편수": 50,
-   "함께": [
-    {
-     "제목": "Desire",
-     "나라주": 170,
-     "slug": "desire"
-    },
-    {
-     "제목": "Spooky in Love",
-     "나라주": 169,
-     "slug": "spooky-in-love"
-    },
-    {
-     "제목": "Oasis",
-     "나라주": 142,
-     "slug": "oasis"
-    },
-    {
-     "제목": "The Apartment Job",
-     "나라주": 69,
-     "slug": "the-apartment-job"
-    },
-    {
-     "제목": "Our Sticky Love",
-     "나라주": 64,
-     "slug": "our-sticky-love"
-    },
-    {
-     "제목": "Husbands in Action",
-     "나라주": 54,
-     "slug": "husbands-in-action"
-    },
-    {
-     "제목": "Human Vapor",
-     "나라주": 41,
-     "slug": "human-vapor"
-    },
-    {
-     "제목": "Family Business",
-     "나라주": 38,
-     "slug": "family-business"
-    },
-    {
-     "제목": "My Royal Nemesis",
-     "나라주": 34,
-     "slug": "my-royal-nemesis"
-    },
-    {
-     "제목": "Mercy For None",
-     "나라주": 30,
-     "slug": "mercy-for-none"
-    },
-    {
-     "제목": "Notes from the Last Row",
-     "나라주": 29,
-     "slug": "notes-from-the-last-row"
-    },
-    {
-     "제목": "Wrath",
-     "나라주": 24,
-     "slug": "wrath"
     }
    ]
   },
@@ -2547,6 +2547,78 @@
    ]
   },
   {
+   "title": "Spooky in Love",
+   "slug": "spooky-in-love",
+   "type": "TV",
+   "markets": 48,
+   "peak": 1,
+   "weeks": 6,
+   "함께있던나라주합": 648,
+   "함께있던편수": 32,
+   "함께": [
+    {
+     "제목": "Agent Kim Reactivated",
+     "나라주": 181,
+     "slug": "agent-kim-reactivated"
+    },
+    {
+     "제목": "Our Sticky Love",
+     "나라주": 172,
+     "slug": "our-sticky-love"
+    },
+    {
+     "제목": "Desire",
+     "나라주": 99,
+     "slug": "desire"
+    },
+    {
+     "제목": "The Apartment Job",
+     "나라주": 58,
+     "slug": "the-apartment-job"
+    },
+    {
+     "제목": "Wrath",
+     "나라주": 29,
+     "slug": "wrath"
+    },
+    {
+     "제목": "Mickey 17",
+     "나라주": 16,
+     "slug": "mickey-17"
+    },
+    {
+     "제목": "Mercy For None",
+     "나라주": 15,
+     "slug": "mercy-for-none"
+    },
+    {
+     "제목": "Family Business",
+     "나라주": 11,
+     "slug": "family-business"
+    },
+    {
+     "제목": "Bitch and Rich",
+     "나라주": 9,
+     "slug": "bitch-and-rich"
+    },
+    {
+     "제목": "Wild Sing",
+     "나라주": 7,
+     "slug": "wild-sing"
+    },
+    {
+     "제목": "Can This Love Be Translated?",
+     "나라주": 6,
+     "slug": "can-this-love-be-translated"
+    },
+    {
+     "제목": "Husbands in Action",
+     "나라주": 5,
+     "slug": "husbands-in-action"
+    }
+   ]
+  },
+  {
    "title": "Our Blues",
    "slug": "our-blues",
    "type": "TV",
@@ -3047,78 +3119,6 @@
      "제목": "The WONDERfools",
      "나라주": 15,
      "slug": "the-wonderfools"
-    }
-   ]
-  },
-  {
-   "title": "Spooky in Love",
-   "slug": "spooky-in-love",
-   "type": "TV",
-   "markets": 48,
-   "peak": 1,
-   "weeks": 6,
-   "함께있던나라주합": 562,
-   "함께있던편수": 30,
-   "함께": [
-    {
-     "제목": "Agent Kim Reactivated",
-     "나라주": 169,
-     "slug": "agent-kim-reactivated"
-    },
-    {
-     "제목": "Our Sticky Love",
-     "나라주": 124,
-     "slug": "our-sticky-love"
-    },
-    {
-     "제목": "Desire",
-     "나라주": 99,
-     "slug": "desire"
-    },
-    {
-     "제목": "The Apartment Job",
-     "나라주": 57,
-     "slug": "the-apartment-job"
-    },
-    {
-     "제목": "Wrath",
-     "나라주": 29,
-     "slug": "wrath"
-    },
-    {
-     "제목": "Mercy For None",
-     "나라주": 15,
-     "slug": "mercy-for-none"
-    },
-    {
-     "제목": "Family Business",
-     "나라주": 11,
-     "slug": "family-business"
-    },
-    {
-     "제목": "Bitch and Rich",
-     "나라주": 9,
-     "slug": "bitch-and-rich"
-    },
-    {
-     "제목": "Wild Sing",
-     "나라주": 6,
-     "slug": "wild-sing"
-    },
-    {
-     "제목": "Husbands in Action",
-     "나라주": 5,
-     "slug": "husbands-in-action"
-    },
-    {
-     "제목": "Can This Love Be Translated?",
-     "나라주": 4,
-     "slug": "can-this-love-be-translated"
-    },
-    {
-     "제목": "Barbie",
-     "나라주": 3,
-     "slug": "barbie"
     }
    ]
   },
@@ -4397,7 +4397,7 @@
    "markets": 90,
    "peak": 1,
    "weeks": 5,
-   "함께있던나라주합": 434,
+   "함께있던나라주합": 435,
    "함께있던편수": 19,
    "함께": [
     {
@@ -4427,7 +4427,7 @@
     },
     {
      "제목": "Our Sticky Love",
-     "나라주": 15,
+     "나라주": 16,
      "slug": "our-sticky-love"
     },
     {
@@ -4660,6 +4660,73 @@
      "제목": "Cleaning Up",
      "나라주": 9,
      "slug": "cleaning-up"
+    }
+   ]
+  },
+  {
+   "title": "Our Sticky Love",
+   "slug": "our-sticky-love",
+   "type": "TV",
+   "markets": 68,
+   "peak": 1,
+   "weeks": 3,
+   "함께있던나라주합": 413,
+   "함께있던편수": 25,
+   "함께": [
+    {
+     "제목": "Spooky in Love",
+     "나라주": 172,
+     "slug": "spooky-in-love"
+    },
+    {
+     "제목": "Agent Kim Reactivated",
+     "나라주": 77,
+     "slug": "agent-kim-reactivated"
+    },
+    {
+     "제목": "Wrath",
+     "나라주": 35,
+     "slug": "wrath"
+    },
+    {
+     "제목": "The Apartment Job",
+     "나라주": 32,
+     "slug": "the-apartment-job"
+    },
+    {
+     "제목": "Mickey 17",
+     "나라주": 18,
+     "slug": "mickey-17"
+    },
+    {
+     "제목": "Desire",
+     "나라주": 16,
+     "slug": "desire"
+    },
+    {
+     "제목": "Bitch and Rich",
+     "나라주": 9,
+     "slug": "bitch-and-rich"
+    },
+    {
+     "제목": "Family Business",
+     "나라주": 9,
+     "slug": "family-business"
+    },
+    {
+     "제목": "Safe",
+     "나라주": 7,
+     "slug": "safe"
+    },
+    {
+     "제목": "Can This Love Be Translated?",
+     "나라주": 5,
+     "slug": "can-this-love-be-translated"
+    },
+    {
+     "제목": "Wild Sing",
+     "나라주": 5,
+     "slug": "wild-sing"
     }
    ]
   },
@@ -5922,6 +5989,78 @@
    ]
   },
   {
+   "title": "Can This Love Be Translated?",
+   "slug": "can-this-love-be-translated",
+   "type": "TV",
+   "markets": 60,
+   "peak": 1,
+   "weeks": 22,
+   "함께있던나라주합": 356,
+   "함께있던편수": 62,
+   "함께": [
+    {
+     "제목": "No Tail to Tell",
+     "나라주": 67,
+     "slug": "no-tail-to-tell"
+    },
+    {
+     "제목": "Undercover Miss Hong",
+     "나라주": 53,
+     "slug": "undercover-miss-hong"
+    },
+    {
+     "제목": "The Art of Sarah",
+     "나라주": 37,
+     "slug": "the-art-of-sarah"
+    },
+    {
+     "제목": "The Great Flood",
+     "나라주": 25,
+     "slug": "the-great-flood"
+    },
+    {
+     "제목": "Pavane",
+     "나라주": 11,
+     "slug": "pavane"
+    },
+    {
+     "제목": "Pro Bono",
+     "나라주": 10,
+     "slug": "pro-bono"
+    },
+    {
+     "제목": "Cashero",
+     "나라주": 9,
+     "slug": "cashero"
+    },
+    {
+     "제목": "Idol I",
+     "나라주": 7,
+     "slug": "idol-i"
+    },
+    {
+     "제목": "To My Beloved Thief",
+     "나라주": 7,
+     "slug": "to-my-beloved-thief"
+    },
+    {
+     "제목": "Agent Kim Reactivated",
+     "나라주": 6,
+     "slug": "agent-kim-reactivated"
+    },
+    {
+     "제목": "Spooky in Love",
+     "나라주": 6,
+     "slug": "spooky-in-love"
+    },
+    {
+     "제목": "The Ugly",
+     "나라주": 6,
+     "slug": "the-ugly"
+    }
+   ]
+  },
+  {
    "title": "Celebrity",
    "slug": "celebrity",
    "type": "TV",
@@ -6248,78 +6387,6 @@
      "제목": "My Roommate Is a Gumiho",
      "나라주": 6,
      "slug": "my-roommate-is-a-gumiho"
-    }
-   ]
-  },
-  {
-   "title": "Can This Love Be Translated?",
-   "slug": "can-this-love-be-translated",
-   "type": "TV",
-   "markets": 60,
-   "peak": 1,
-   "weeks": 22,
-   "함께있던나라주합": 347,
-   "함께있던편수": 60,
-   "함께": [
-    {
-     "제목": "No Tail to Tell",
-     "나라주": 67,
-     "slug": "no-tail-to-tell"
-    },
-    {
-     "제목": "Undercover Miss Hong",
-     "나라주": 53,
-     "slug": "undercover-miss-hong"
-    },
-    {
-     "제목": "The Art of Sarah",
-     "나라주": 37,
-     "slug": "the-art-of-sarah"
-    },
-    {
-     "제목": "The Great Flood",
-     "나라주": 25,
-     "slug": "the-great-flood"
-    },
-    {
-     "제목": "Pavane",
-     "나라주": 11,
-     "slug": "pavane"
-    },
-    {
-     "제목": "Pro Bono",
-     "나라주": 10,
-     "slug": "pro-bono"
-    },
-    {
-     "제목": "Cashero",
-     "나라주": 9,
-     "slug": "cashero"
-    },
-    {
-     "제목": "Idol I",
-     "나라주": 7,
-     "slug": "idol-i"
-    },
-    {
-     "제목": "To My Beloved Thief",
-     "나라주": 7,
-     "slug": "to-my-beloved-thief"
-    },
-    {
-     "제목": "The Ugly",
-     "나라주": 6,
-     "slug": "the-ugly"
-    },
-    {
-     "제목": "My Royal Nemesis",
-     "나라주": 5,
-     "slug": "my-royal-nemesis"
-    },
-    {
-     "제목": "No Other Choice",
-     "나라주": 5,
-     "slug": "no-other-choice"
     }
    ]
   },
@@ -6855,73 +6922,6 @@
    ]
   },
   {
-   "title": "Our Sticky Love",
-   "slug": "our-sticky-love",
-   "type": "TV",
-   "markets": 68,
-   "peak": 1,
-   "weeks": 3,
-   "함께있던나라주합": 316,
-   "함께있던편수": 23,
-   "함께": [
-    {
-     "제목": "Spooky in Love",
-     "나라주": 124,
-     "slug": "spooky-in-love"
-    },
-    {
-     "제목": "Agent Kim Reactivated",
-     "나라주": 64,
-     "slug": "agent-kim-reactivated"
-    },
-    {
-     "제목": "Wrath",
-     "나라주": 35,
-     "slug": "wrath"
-    },
-    {
-     "제목": "The Apartment Job",
-     "나라주": 31,
-     "slug": "the-apartment-job"
-    },
-    {
-     "제목": "Desire",
-     "나라주": 15,
-     "slug": "desire"
-    },
-    {
-     "제목": "Bitch and Rich",
-     "나라주": 9,
-     "slug": "bitch-and-rich"
-    },
-    {
-     "제목": "Family Business",
-     "나라주": 7,
-     "slug": "family-business"
-    },
-    {
-     "제목": "Wild Sing",
-     "나라주": 4,
-     "slug": "wild-sing"
-    },
-    {
-     "제목": "Can This Love Be Translated?",
-     "나라주": 3,
-     "slug": "can-this-love-be-translated"
-    },
-    {
-     "제목": "Mercy For None",
-     "나라주": 3,
-     "slug": "mercy-for-none"
-    },
-    {
-     "제목": "Christmas Carol",
-     "나라주": 2,
-     "slug": "christmas-carol"
-    }
-   ]
-  },
-  {
    "title": "Mantis",
    "slug": "mantis",
    "type": "Films",
@@ -7252,6 +7252,73 @@
    ]
   },
   {
+   "title": "The Apartment Job",
+   "slug": "the-apartment-job",
+   "type": "TV",
+   "markets": 19,
+   "peak": 3,
+   "weeks": 7,
+   "함께있던나라주합": 284,
+   "함께있던편수": 32,
+   "함께": [
+    {
+     "제목": "Agent Kim Reactivated",
+     "나라주": 70,
+     "slug": "agent-kim-reactivated"
+    },
+    {
+     "제목": "Spooky in Love",
+     "나라주": 58,
+     "slug": "spooky-in-love"
+    },
+    {
+     "제목": "Our Sticky Love",
+     "나라주": 32,
+     "slug": "our-sticky-love"
+    },
+    {
+     "제목": "Desire",
+     "나라주": 26,
+     "slug": "desire"
+    },
+    {
+     "제목": "Mercy For None",
+     "나라주": 21,
+     "slug": "mercy-for-none"
+    },
+    {
+     "제목": "Bitch and Rich",
+     "나라주": 9,
+     "slug": "bitch-and-rich"
+    },
+    {
+     "제목": "Human Vapor",
+     "나라주": 9,
+     "slug": "human-vapor"
+    },
+    {
+     "제목": "Husbands in Action",
+     "나라주": 7,
+     "slug": "husbands-in-action"
+    },
+    {
+     "제목": "Wild Sing",
+     "나라주": 6,
+     "slug": "wild-sing"
+    },
+    {
+     "제목": "Can This Love Be Translated?",
+     "나라주": 5,
+     "slug": "can-this-love-be-translated"
+    },
+    {
+     "제목": "Family Business",
+     "나라주": 3,
+     "slug": "family-business"
+    }
+   ]
+  },
+  {
    "title": "Black Knight",
    "slug": "black-knight",
    "type": "TV",
@@ -7501,73 +7568,6 @@
      "제목": "My Happy Ending",
      "나라주": 3,
      "slug": "my-happy-ending"
-    }
-   ]
-  },
-  {
-   "title": "The Apartment Job",
-   "slug": "the-apartment-job",
-   "type": "TV",
-   "markets": 19,
-   "peak": 3,
-   "weeks": 7,
-   "함께있던나라주합": 279,
-   "함께있던편수": 31,
-   "함께": [
-    {
-     "제목": "Agent Kim Reactivated",
-     "나라주": 69,
-     "slug": "agent-kim-reactivated"
-    },
-    {
-     "제목": "Spooky in Love",
-     "나라주": 57,
-     "slug": "spooky-in-love"
-    },
-    {
-     "제목": "Our Sticky Love",
-     "나라주": 31,
-     "slug": "our-sticky-love"
-    },
-    {
-     "제목": "Desire",
-     "나라주": 26,
-     "slug": "desire"
-    },
-    {
-     "제목": "Mercy For None",
-     "나라주": 21,
-     "slug": "mercy-for-none"
-    },
-    {
-     "제목": "Bitch and Rich",
-     "나라주": 9,
-     "slug": "bitch-and-rich"
-    },
-    {
-     "제목": "Human Vapor",
-     "나라주": 9,
-     "slug": "human-vapor"
-    },
-    {
-     "제목": "Husbands in Action",
-     "나라주": 7,
-     "slug": "husbands-in-action"
-    },
-    {
-     "제목": "Wild Sing",
-     "나라주": 6,
-     "slug": "wild-sing"
-    },
-    {
-     "제목": "Can This Love Be Translated?",
-     "나라주": 4,
-     "slug": "can-this-love-be-translated"
-    },
-    {
-     "제목": "Family Business",
-     "나라주": 3,
-     "slug": "family-business"
     }
    ]
   },
@@ -12708,7 +12708,7 @@
    "markets": 11,
    "peak": 1,
    "weeks": 11,
-   "함께있던나라주합": 132,
+   "함께있던나라주합": 134,
    "함께있던편수": 16,
    "함께": [
     {
@@ -12742,14 +12742,14 @@
      "slug": "husbands-in-action"
     },
     {
+     "제목": "Our Sticky Love",
+     "나라주": 9,
+     "slug": "our-sticky-love"
+    },
+    {
      "제목": "Squid Game",
      "나라주": 8,
      "slug": "squid-game"
-    },
-    {
-     "제목": "Our Sticky Love",
-     "나라주": 7,
-     "slug": "our-sticky-love"
     },
     {
      "제목": "My Name",
@@ -15153,6 +15153,73 @@
    ]
   },
   {
+   "title": "Safe",
+   "slug": "safe",
+   "type": "Films",
+   "markets": 16,
+   "peak": 1,
+   "weeks": 16,
+   "함께있던나라주합": 96,
+   "함께있던편수": 23,
+   "함께": [
+    {
+     "제목": "Doctor Slump",
+     "나라주": 17,
+     "slug": "doctor-slump"
+    },
+    {
+     "제목": "Queen of Tears",
+     "나라주": 17,
+     "slug": "queen-of-tears"
+    },
+    {
+     "제목": "Solo Leveling",
+     "나라주": 15,
+     "slug": "solo-leveling"
+    },
+    {
+     "제목": "Chicken Nugget",
+     "나라주": 9,
+     "slug": "chicken-nugget"
+    },
+    {
+     "제목": "Our Sticky Love",
+     "나라주": 7,
+     "slug": "our-sticky-love"
+    },
+    {
+     "제목": "Spooky in Love",
+     "나라주": 4,
+     "slug": "spooky-in-love"
+    },
+    {
+     "제목": "A Killer Paradox",
+     "나라주": 3,
+     "slug": "a-killer-paradox"
+    },
+    {
+     "제목": "Agent Kim Reactivated",
+     "나라주": 3,
+     "slug": "agent-kim-reactivated"
+    },
+    {
+     "제목": "Badland Hunters",
+     "나라주": 3,
+     "slug": "badland-hunters"
+    },
+    {
+     "제목": "Red Eye",
+     "나라주": 2,
+     "slug": "red-eye"
+    },
+    {
+     "제목": "Rewind",
+     "나라주": 2,
+     "slug": "rewind"
+    }
+   ]
+  },
+  {
    "title": "Somebody",
    "slug": "somebody",
    "type": "TV",
@@ -16354,73 +16421,6 @@
      "제목": "Queen of Divorce",
      "나라주": 3,
      "slug": "queen-of-divorce"
-    }
-   ]
-  },
-  {
-   "title": "Safe",
-   "slug": "safe",
-   "type": "Films",
-   "markets": 16,
-   "peak": 1,
-   "weeks": 16,
-   "함께있던나라주합": 81,
-   "함께있던편수": 19,
-   "함께": [
-    {
-     "제목": "Doctor Slump",
-     "나라주": 17,
-     "slug": "doctor-slump"
-    },
-    {
-     "제목": "Queen of Tears",
-     "나라주": 17,
-     "slug": "queen-of-tears"
-    },
-    {
-     "제목": "Solo Leveling",
-     "나라주": 15,
-     "slug": "solo-leveling"
-    },
-    {
-     "제목": "Chicken Nugget",
-     "나라주": 9,
-     "slug": "chicken-nugget"
-    },
-    {
-     "제목": "A Killer Paradox",
-     "나라주": 3,
-     "slug": "a-killer-paradox"
-    },
-    {
-     "제목": "Badland Hunters",
-     "나라주": 3,
-     "slug": "badland-hunters"
-    },
-    {
-     "제목": "Red Eye",
-     "나라주": 2,
-     "slug": "red-eye"
-    },
-    {
-     "제목": "Rewind",
-     "나라주": 2,
-     "slug": "rewind"
-    },
-    {
-     "제목": "Unlocked",
-     "나라주": 2,
-     "slug": "unlocked"
-    },
-    {
-     "제목": "Angel Eyes",
-     "나라주": 1,
-     "slug": "angel-eyes"
-    },
-    {
-     "제목": "Hellbound",
-     "나라주": 1,
-     "slug": "hellbound"
     }
    ]
   },
@@ -20920,6 +20920,53 @@
    ]
   },
   {
+   "title": "Mickey 17",
+   "slug": "mickey-17",
+   "type": "Films",
+   "markets": 14,
+   "peak": 3,
+   "weeks": 2,
+   "함께있던나라주합": 44,
+   "함께있던편수": 7,
+   "함께": [
+    {
+     "제목": "Our Sticky Love",
+     "나라주": 18,
+     "slug": "our-sticky-love"
+    },
+    {
+     "제목": "Spooky in Love",
+     "나라주": 16,
+     "slug": "spooky-in-love"
+    },
+    {
+     "제목": "Agent Kim Reactivated",
+     "나라주": 4,
+     "slug": "agent-kim-reactivated"
+    },
+    {
+     "제목": "My Royal Nemesis",
+     "나라주": 3,
+     "slug": "my-royal-nemesis"
+    },
+    {
+     "제목": "Can This Love Be Translated?",
+     "나라주": 1,
+     "slug": "can-this-love-be-translated"
+    },
+    {
+     "제목": "Sold Out on You",
+     "나라주": 1,
+     "slug": "sold-out-on-you"
+    },
+    {
+     "제목": "The Apartment Job",
+     "나라주": 1,
+     "slug": "the-apartment-job"
+    }
+   ]
+  },
+  {
    "title": "Miraculous Brothers",
    "slug": "miraculous-brothers",
    "type": "TV",
@@ -22060,6 +22107,58 @@
    ]
   },
   {
+   "title": "Wild Sing",
+   "slug": "wild-sing",
+   "type": "Films",
+   "markets": 2,
+   "peak": 1,
+   "weeks": 4,
+   "함께있던나라주합": 38,
+   "함께있던편수": 11,
+   "함께": [
+    {
+     "제목": "Spooky in Love",
+     "나라주": 7,
+     "slug": "spooky-in-love"
+    },
+    {
+     "제목": "The Apartment Job",
+     "나라주": 6,
+     "slug": "the-apartment-job"
+    },
+    {
+     "제목": "Agent Kim Reactivated",
+     "나라주": 5,
+     "slug": "agent-kim-reactivated"
+    },
+    {
+     "제목": "Our Sticky Love",
+     "나라주": 5,
+     "slug": "our-sticky-love"
+    },
+    {
+     "제목": "Husbands in Action",
+     "나라주": 3,
+     "slug": "husbands-in-action"
+    },
+    {
+     "제목": "Hindsight",
+     "나라주": 2,
+     "slug": "hindsight"
+    },
+    {
+     "제목": "The Auditors",
+     "나라주": 2,
+     "slug": "the-auditors"
+    },
+    {
+     "제목": "Christmas Carol",
+     "나라주": 1,
+     "slug": "christmas-carol"
+    }
+   ]
+  },
+  {
    "title": "Fatal Intuition",
    "slug": "fatal-intuition",
    "type": "Films",
@@ -23033,58 +23132,6 @@
      "제목": "Believer 2",
      "나라주": 1,
      "slug": "believer-2"
-    }
-   ]
-  },
-  {
-   "title": "Wild Sing",
-   "slug": "wild-sing",
-   "type": "Films",
-   "markets": 2,
-   "peak": 1,
-   "weeks": 4,
-   "함께있던나라주합": 34,
-   "함께있던편수": 11,
-   "함께": [
-    {
-     "제목": "Spooky in Love",
-     "나라주": 6,
-     "slug": "spooky-in-love"
-    },
-    {
-     "제목": "The Apartment Job",
-     "나라주": 6,
-     "slug": "the-apartment-job"
-    },
-    {
-     "제목": "Agent Kim Reactivated",
-     "나라주": 5,
-     "slug": "agent-kim-reactivated"
-    },
-    {
-     "제목": "Our Sticky Love",
-     "나라주": 4,
-     "slug": "our-sticky-love"
-    },
-    {
-     "제목": "Husbands in Action",
-     "나라주": 3,
-     "slug": "husbands-in-action"
-    },
-    {
-     "제목": "Hindsight",
-     "나라주": 2,
-     "slug": "hindsight"
-    },
-    {
-     "제목": "The Auditors",
-     "나라주": 2,
-     "slug": "the-auditors"
-    },
-    {
-     "제목": "Christmas Carol",
-     "나라주": 1,
-     "slug": "christmas-carol"
     }
    ]
   },
@@ -30865,28 +30912,6 @@
      "제목": "Vincenzo",
      "나라주": 2,
      "slug": "vincenzo"
-    }
-   ]
-  },
-  {
-   "title": "Mickey 17",
-   "slug": "mickey-17",
-   "type": "Films",
-   "markets": 14,
-   "peak": 3,
-   "weeks": 2,
-   "함께있던나라주합": 4,
-   "함께있던편수": 2,
-   "함께": [
-    {
-     "제목": "My Royal Nemesis",
-     "나라주": 3,
-     "slug": "my-royal-nemesis"
-    },
-    {
-     "제목": "Sold Out on You",
-     "나라주": 1,
-     "slug": "sold-out-on-you"
     }
    ]
   },

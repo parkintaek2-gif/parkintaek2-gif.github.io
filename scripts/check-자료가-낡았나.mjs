@@ -82,7 +82,7 @@ export const 못박은_낡은큰자료 = 4;   /* 2026-10-06 04:0x — kr-listed-
  */
 export const 못박은_사이트별 = {
   seoulmarkets: 0,   /* kr-listed-company-names 를 받았다 */
-  kcw: 4,            /* wikitip-title-pages 37일 · kcw-alongside 36 · wikitip-groups 33 · kcw-school-pipeline 32 */
+  kcw: 1,            /* 2026-10-06 04:0x — 셋을 받아 4→1. 남은 wikitip-title-pages 는 «쓰는 자가 없다» */
   '100y': 0,
 };
 export const 낡음선 = 30;        /* 날 */
