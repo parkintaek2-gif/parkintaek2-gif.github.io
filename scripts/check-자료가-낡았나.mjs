@@ -74,7 +74,7 @@ export const 기준일이름 = [
  *   꼴이 된다. 그 잘못은 오늘 검색 자물쇠에서 이미 한 번 저질렀다 —
  *   합계 하나로 네 사이트를 같이 막았다.
  */
-export const 못박은_낡은큰자료 = 4;   /* 2026-10-06 04:0x — kr-listed-company-names 를 받아 5→4 */
+export const 못박은_낡은큰자료 = 0;   /* 2026-10-06 04:0x — 다섯을 다 받았다 */
 
 /**
  * 🔴 사이트마다 못 박는다 — 남의 사이트 자료 때문에 내 배포가 막히지 않게.
@@ -82,7 +82,7 @@ export const 못박은_낡은큰자료 = 4;   /* 2026-10-06 04:0x — kr-listed-
  */
 export const 못박은_사이트별 = {
   seoulmarkets: 0,   /* kr-listed-company-names 를 받았다 */
-  kcw: 1,            /* 2026-10-06 04:0x — 셋을 받아 4→1. 남은 wikitip-title-pages 는 «쓰는 자가 없다» */
+  kcw: 0,            /* 2026-10-06 04:0x — 넷을 다 받아 0. build-wikitip-title-pages.mjs 가 있었다 */
   '100y': 0,
 };
 export const 낡음선 = 30;        /* 날 */
@@ -191,6 +191,60 @@ export function 그사이트낡은것(목록, 딱지, 선 = 낡음선) {
   const 낡음 = 낡은것(목록, 선);
   if (!낡음) return null;
   return 낡음.filter((x) => 어느사이트(x.이름) === 딱지);
+}
+
+/**
+ * 🔴 [2026-10-06 04:0x · 5번] **그 자료를 「받는 자」가 저장소에 있나.**
+ *
+ * 사장님이 바라시는 것은 「**데이터 수집, 가공만 하면 될 수 있는 상황**」이다.
+ * 그러려면 자료마다 **받는 길이 있어야** 한다. 길이 없으면 낡아도 받을 수가 없다.
+ *
+ * ⛔ 「낡았다」와 「낡았는데 받을 길도 없다」는 **다른 일**이다. 뒤가 더 나쁘다.
+ *   앞은 자를 돌리면 끝나고, 뒤는 먼저 자를 만들어야 한다.
+ *
+ * 🔴 **그런데 오늘 내가 바로 그 둘을 뒤바꿔 읽었다.**
+ *   `wikitip-title-pages.json`(37일)을 놓고 `grep writeFileSync` 로 찾아보고
+ *   「쓰는 자가 없다」고 **세션간 메모에까지 적었다.** 그런데 이 함수를 만들어
+ *   재 보니 `build-wikitip-title-pages.mjs` 가 **그대로 있었다.**
+ *   돌리니 한 번에 받아졌다.
+ *   ⇒ 내 손 `grep` 이 못 찾은 것을 「없다」로 읽었다. 자를 먼저 의심해야 했다.
+ *
+ * ⚠ 못 찾아도 「없다」고 단정하지 않는다 — 다른 이름으로 쓸 수도 있다.
+ *   그래서 빈 배열을 돌려주되, 화면에는 「못 찾았다」로 적는다.
+ *
+ * ⛔ **처음에 `writeFileSync` 가 파일 이름과 «같은 문장»에 있다고 봤다가 틀렸다.**
+ *   넷을 재니 넷 다 「못 찾았다」가 나왔다 — 방금 내 손으로 받은 자료까지.
+ *   전부 같은 값이 나오면 자를 먼저 의심한다. 까닭은 이것이었다 —
+ * ```
+ * const 낼곳 = path.join(뿌리, 'src/data', 'kr-listed-company-names.json');
+ * fs.writeFileSync(낼곳, …);        ← 이름과 writeFileSync 가 떨어져 있다
+ * ```
+ *   ⇒ **이름이 적혀 있고 `build-`/`make-` 로 시작하면 받는 자로 본다.**
+ *     넓게 잡아 「있다」를 놓치지 않는 쪽을 고른다 — 이 자는 막지 않고 알리기만 한다.
+ */
+export function 받는자(이름, 방 = path.join(뿌리, 'scripts')) {
+  const 뼈 = String(이름 ?? '').replace(/\.json$/, '');
+  if (!뼈) return null;
+  let 것들;
+  try { 것들 = fs.readdirSync(방).filter((n) => /\.(mjs|js)$/.test(n)); } catch { return null; }
+
+  /* ① 이름이 맞는 자 — 이 저장소의 관례다(build-<자료>.mjs · make-<자료>.mjs).
+        여기 걸리면 «확실한» 받는 자다. */
+  const 꼭맞음 = 것들.filter((n) => n.replace(/\.(mjs|js)$/, '') === 'build-' + 뼈
+    || n.replace(/\.(mjs|js)$/, '') === 'make-' + 뼈);
+  if (꼭맞음.length) return { 확실: 꼭맞음, 후보: [] };
+
+  /* ② 이름이 안 맞으면 내용에 그 이름이 든 짓는 자를 «후보»로만 적는다.
+        ⛔ 읽기만 하는 자도 이름을 품는다 — wikitip-title-pages 는 그렇게 23개가 걸렸다.
+          그것들을 「받는 자」라고 적으면 거짓이다. 그래서 «후보»라고 부른다. */
+  const 후보 = [];
+  for (const n of 것들) {
+    if (!/^(build|make)[-_]/.test(n)) continue;
+    let s;
+    try { s = fs.readFileSync(path.join(방, n), 'utf8'); } catch { continue; }
+    if (s.includes(뼈)) 후보.push(n);
+  }
+  return { 확실: [], 후보 };
 }
 
 /* ── 자가시험 ────────────────────────────────────────────────────────── */
