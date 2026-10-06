@@ -88,6 +88,41 @@ export function 오늘몫을썼나(줄들, 그날 = 오늘(), 몫 = 하루몫) {
   return 줄들.some((x) => x.날 === 그날 && x.결과 === '한도');
 }
 
+/**
+ * 🔴🔴 [2026-10-06 16:4x · 5번] **「무엇을 먼저 넣나」를 못 박는 자리가 없었다.**
+ *
+ * 차례가 사이트맵에 적힌 순서 그대로였다. 그런데 하루 몫이 열 개뿐이다 —
+ * 무엇을 «먼저» 넣느냐가 그 열 개의 값을 정한다.
+ *
+ * 오늘 klifemap 색인이 왜 안 되는지를 찾았다 — 글 2,891장이 3홉(쪽 넘김 58쪽) 뒤에 있어
+ * 구글이 오지 않는다. 그래서 `/all`(글 전체 목록) 한 장을 냈다.
+ * **그 한 장이 2,891장으로 가는 길을 한꺼번에 연다.** 그러니 그것이 맨 먼저 읽혀야 한다.
+ *
+ * ⛔ 사람이 기억해서 손으로 먼저 넣는 구조를 만들지 않는다 — 오늘 그 병으로 여러 번 겪었다.
+ * ⚠ 이 목록은 «길을 여는 장»만 담는다. 낱낱의 글을 여기 넣지 않는다 — 그러면 차례의 뜻이 없다.
+ */
+export const 맨앞에 = [
+  'https://klifemap.ai/all',
+  'https://klifemap.ai/all?lang=en',
+  'https://klifemap.ai/all?lang=ja',
+  'https://klifemap.ai/all?lang=zh',
+];
+
+/**
+ * 맨 앞에 넣을 것을 앞으로 당긴다.
+ * ⛔ 이미 «성공»으로 넣은 것은 당기지 않는다 — 또 넣어도 소용없다.
+ * ⛔ 사이트맵에 없는 주소를 지어내지 않는다. 당기기만 한다.
+ */
+export function 줄세우기(모두, 앞줄 = 맨앞에) {
+  if (!Array.isArray(모두)) return null;
+  const 앞 = []; const 뒤 = [];
+  const 앞집합 = new Set(앞줄 ?? []);
+  for (const u of 모두) (앞집합.has(u) ? 앞 : 뒤).push(u);
+  /* 앞줄에 적은 차례 그대로 세운다 — 사이트맵 차례가 아니라 «우리가 정한» 차례다 */
+  앞.sort((a, b) => (앞줄 ?? []).indexOf(a) - (앞줄 ?? []).indexOf(b));
+  return [...앞, ...뒤];
+}
+
 /** 아직 한 번도 «성공»한 적 없는 주소만 고른다 */
 export function 아직안넣은것(모두, 줄들) {
   if (!Array.isArray(모두)) return null;
@@ -130,6 +165,17 @@ export function 자가시험() {
   T('한도 줄이 없고 덜 썼으면 거짓',
     오늘몫을썼나(대장읽기('2026-10-04\thttps://a/1\t됨'), '2026-10-04', 10) === false);
   T('⛔ 못 재면 null', 오늘몫을썼나(null) === null);
+
+  /* 🔴 [2026-10-06 · 5번] 길을 여는 장을 먼저 넣는가 */
+  T('⭐ 맨 앞에 적은 것을 앞으로 당긴다',
+    줄세우기(['https://a/1', 'https://klifemap.ai/all', 'https://a/2'])[0] === 'https://klifemap.ai/all');
+  T('앞줄에 적은 «차례 그대로» 세운다 — 사이트맵 차례가 아니다',
+    줄세우기(['https://klifemap.ai/all?lang=en', 'https://klifemap.ai/all'])[0] === 'https://klifemap.ai/all');
+  T('⛔ 나머지 차례는 흐트러뜨리지 않는다',
+    줄세우기(['https://a/1', 'https://a/2', 'https://a/3']).join() === 'https://a/1,https://a/2,https://a/3');
+  T('⛔ 사이트맵에 없는 주소를 지어내지 않는다 — 당기기만 한다',
+    줄세우기(['https://a/1']).length === 1);
+  T('⛔ 배열이 아니면 null — 빈 배열이 아니다', 줄세우기(null) === null);
 
   T('🔴 이미 넣은 것은 빼고 고른다',
     아직안넣은것(['https://a/1', 'https://a/9'], 줄).join() === 'https://a/9');
@@ -187,7 +233,10 @@ if (내가실행됐다) {
   const 모두 = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
   if (!모두.length) { console.log('⛔ 사이트맵이 비었다 — 넣지 않는다'); process.exit(1); }
 
-  const 남은것 = 아직안넣은것(모두, 줄들) ?? [];
+  /* ⭐ 길을 여는 장을 먼저 넣는다 — 하루 몫이 열 개뿐이라 차례가 곧 값이다 */
+  const 남은것 = 줄세우기(아직안넣은것(모두, 줄들) ?? []) ?? [];
+  const 앞선것 = 남은것.filter((u) => 맨앞에.includes(u));
+  if (앞선것.length) console.log(`⭐ 길을 여는 장 ${앞선것.length}개를 앞으로 당겼다 — ${앞선것[0]}`);
   const 이번에 = 남은것.slice(0, 하루몫 - (넣은수 ?? 0));
   if (!이번에.length) {
     console.log(`✅ ${사이트맵} 의 ${모두.length}장은 다 넣었다 — 다른 사이트맵을 주십시오`);
