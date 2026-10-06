@@ -92,6 +92,49 @@ export function 빠진것찾기(이미있는것: Url[], { 읽기 = fs.readdirSyn
   return 것;
 }
 
+/**
+ * 🔴🔴 [2026-10-06 11:5x · 5번] **japan·taiwan·uae 4,931장에 `<lastmod>` 가 하나도 없었다.**
+ *
+ * 10-05 에 companies 2,582장을 고치면서 **같은 흠이 있는 셋을 안 따라갔다.**
+ *   japan   3,736장 · lastmod 0
+ *   taiwan  1,090장 · lastmod 0
+ *   uae       105장 · lastmod 0
+ * 7,670장 가운데 4,931장(64%)이 「언제 바뀌었나」를 구글에게 말하지 않고 있었다.
+ *
+ * ⚠ 같은 날 아침 색인을 물었더니 못 읽힌 넷이 «전부» japan·taiwan 이었다.
+ *   (/japan/company/ai-robotics · ewell · w-scope · /taiwan/company/highwealth)
+ *   ⛔ 「그래서 안 읽혔다」고 말할 수는 없다 — 그 둘이 같이 보였을 뿐이다.
+ *     다만 lastmod 는 넣는 것이 맞고, 넣어야 다시 올 때를 정할 근거가 생긴다.
+ *
+ * ⭐ 정직한 날이 자료 안에 있다 — 타래의 `_meta.지은때`(한국어 꼴)와 `_meta.builtAt`(ISO).
+ *   타래를 통째로 다시 지을 때 그 지면들의 «자료가 실제로» 바뀐다. 그 날이 맞다.
+ * ⚠ 그래서 한 묶음이 한 날을 함께 말하게 된다. companies 처럼 회사마다 다르지 않다.
+ *   그것은 거짓이 아니다 — 정말 한꺼번에 바뀌기 때문이다.
+ * ⛔ 「오늘」을 찍지 않는다. 2026-09-23 에 케이라이프맵에서 그러다 구글이 우리
+ *   lastmod 를 통째로 무시하게 만들 뻔했다.
+ * ⛔ 못 읽으면 안 붙인다 — undefined 를 내면 템플릿이 lastmod 줄을 아예 뺀다.
+ */
+export function 지은때읽기(값: any): Date | null {
+  const s = String(값 ?? '').trim();
+  if (!s) return null;
+  /* ① ISO 꼴 — uae 의 builtAt 이 이렇다 */
+  const iso = /^(\d{4})-(\d{2})-(\d{2})(?:[T ]|$)/.exec(s);
+  if (iso) {
+    const d = new Date(`${iso[1]}-${iso[2]}-${iso[3]}T00:00:00Z`);
+    return Number.isFinite(d.getTime()) ? d : null;
+  }
+  /* ② 한국어 꼴 — 「2026. 9. 26. 오후 6:06:37」. ⛔ Date.parse 에 맡기지 않는다 */
+  const ko = /^(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\./.exec(s);
+  if (ko) {
+    const 해 = Number(ko[1]); const 달 = Number(ko[2]); const 날 = Number(ko[3]);
+    if (달 < 1 || 달 > 12 || 날 < 1 || 날 > 31) return null;
+    const p = (n: number) => String(n).padStart(2, '0');
+    const d = new Date(`${해}-${p(달)}-${p(날)}T00:00:00Z`);
+    return Number.isFinite(d.getTime()) ? d : null;
+  }
+  return null;                     /* ⛔ 모르는 꼴은 지어내지 않는다 */
+}
+
 /** 그 회사가 들고 있는 «가장 최근 연도»의 받아온 날. ⛔ 모르면 null */
 export function 받아온날(줄들: any[] | undefined, 표: Map<number, Date>): Date | null {
   if (!줄들?.length || !표.size) return null;
@@ -184,14 +227,16 @@ export const GET: APIRoute = async ({ params }) => {
     const 행들 = ((jp as any).rows as any[]).filter((r) => jp낼만한가(r));
     const 주소표 = 주소표만들기(행들);
     const 업종들 = new Set<string>();
-    const 것: Url[] = [{ loc: '/japan/companies', changefreq: 'weekly', priority: '0.9' }];
+    /* 🔴 [2026-10-06] 타래를 지은 날을 lastmod 로 붙인다. ⛔ 모르면 안 붙는다 */
+    const jp지은때 = 지은때읽기((jp as any)._meta?.지은때) ?? undefined;
+    const 것: Url[] = [{ loc: '/japan/companies', lastmod: jp지은때, changefreq: 'weekly', priority: '0.9' }];
     for (const r of 행들) {
-      것.push({ loc: '/japan/company/' + 주소표.get(String(r.code)), changefreq: 'monthly', priority: '0.6' });
+      것.push({ loc: '/japan/company/' + 주소표.get(String(r.code)), lastmod: jp지은때, changefreq: 'monthly', priority: '0.6' });
       const s2 = jp업종주소(r.sector);
       if (s2) 업종들.add(s2);
     }
     for (const s2 of [...업종들].sort()) {
-      것.push({ loc: '/japan/sector/' + s2, changefreq: 'weekly', priority: '0.7' });
+      것.push({ loc: '/japan/sector/' + s2, lastmod: jp지은때, changefreq: 'weekly', priority: '0.7' });
     }
     urls = 것;
   } else if (section === 'uae') {
@@ -202,10 +247,11 @@ export const GET: APIRoute = async ({ params }) => {
          ⛔ 없는 것을 사이트맵에 적지 않는다. 채워지면 그때 넣는다. */
     const 회사들 = ((uae as any).companies as any[]).filter((c) => uae낼만한가(c));
     const 주소표 = uae주소표만들기(회사들);
-    const 것: Url[] = [{ loc: '/uae/companies', changefreq: 'weekly', priority: '0.9' }];
+    const uae지은때 = 지은때읽기((uae as any)._meta?.builtAt) ?? undefined;
+    const 것: Url[] = [{ loc: '/uae/companies', lastmod: uae지은때, changefreq: 'weekly', priority: '0.9' }];
     for (const c of 회사들) {
       const s = 주소표.get(c.symbol);
-      if (s) 것.push({ loc: '/uae/company/' + s, changefreq: 'monthly', priority: '0.6' });
+      if (s) 것.push({ loc: '/uae/company/' + s, lastmod: uae지은때, changefreq: 'monthly', priority: '0.6' });
     }
     urls = 것;
   } else if (section === 'taiwan') {
@@ -215,14 +261,15 @@ export const GET: APIRoute = async ({ params }) => {
        ⛔ 그래도 사전에 없는 이름은 여전히 null 이고, 그런 곳으로는 지면도 주소도 만들지 않는다. */
     const 행들 = ((tw as any).rows as any[]).filter((r) => tw낼만한가(r));
     const 주소표 = 주소표만들기(행들);
-    const 것: Url[] = [{ loc: '/taiwan/companies', changefreq: 'weekly', priority: '0.9' }];
+    const tw지은때 = 지은때읽기((tw as any)._meta?.지은때) ?? undefined;
+    const 것: Url[] = [{ loc: '/taiwan/companies', lastmod: tw지은때, changefreq: 'weekly', priority: '0.9' }];
     const 업종본것 = new Set<string>();
     for (const r of 행들) {
       const s = tw업종주소(String((r as any).industry_en || ''));
-      if (s && !업종본것.has(s)) { 업종본것.add(s); 것.push({ loc: '/taiwan/sector/' + s, changefreq: 'weekly', priority: '0.7' }); }
+      if (s && !업종본것.has(s)) { 업종본것.add(s); 것.push({ loc: '/taiwan/sector/' + s, lastmod: tw지은때, changefreq: 'weekly', priority: '0.7' }); }
     }
     for (const r of 행들) {
-      것.push({ loc: '/taiwan/company/' + 주소표.get(String(r.code)), changefreq: 'weekly', priority: '0.6' });
+      것.push({ loc: '/taiwan/company/' + 주소표.get(String(r.code)), lastmod: tw지은때, changefreq: 'weekly', priority: '0.6' });
     }
     urls = 것;
   } else if (section === 'pages') {

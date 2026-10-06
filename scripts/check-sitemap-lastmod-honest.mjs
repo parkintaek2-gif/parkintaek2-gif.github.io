@@ -64,6 +64,54 @@ export function 오늘몫(글, 오늘) {
   return { 전체: 전부.length, 오늘: 오늘것, 몫: 오늘것 / 전부.length };
 }
 
+/**
+ * 🔴🔴 [2026-10-06 12:0x · 5번] **이 자가 묻는 것이 하나뿐이었다 — 「거짓말하나」.**
+ *
+ * 위 오늘몫() 에 이렇게 적어 두었었다 — 「lastmod 가 없는 것은 흠이 아니다」.
+ * 그 한 줄 때문에 seoulmarkets 7,670장 가운데 **4,931장(64%)에 lastmod 가 아예 없는 것**을
+ * 두 달 넘게 못 봤다. 자는 날마다 ✅ 를 찍고 있었다.
+ *   japan 3,736장 · taiwan 1,090장 · uae 105장 — 셋 다 lastmod 0
+ *
+ * ⭐ 사이트맵이 거짓말하는 길은 **셋**이다. 하나만 묻고 있었다 —
+ *   ① 날마다 「오늘」이라고 한다            → 구글이 lastmod 를 통째로 무시한다
+ *   ② **아무 말도 안 한다**                 → 다시 올 때를 정할 근거가 없다
+ *   ③ **다 같은 한 날이라고 한다**          → 안 바뀐 지면까지 바뀌었다고 하는 것이다
+ * ⛔ ③ 은 «언제나» 거짓은 아니다 — 타래를 한꺼번에 지으면 정말 한날 바뀐다.
+ *   그래서 빨강이 아니라 ⚠ 로 적는다. 사람이 보고 가린다.
+ */
+export function 빠진몫(글) {
+  if (글 == null) return null;
+  const s = String(글);
+  if (!/<urlset/i.test(s)) return null;      /* ⛔ 묶음(sitemapindex)은 lastmod 가 없어도 된다 */
+  const 주소수 = (s.match(/<loc>/gi) || []).length;
+  if (!주소수) return null;                   /* ⛔ 0 으로 떨어뜨리지 않는다 */
+  const 날수 = (s.match(/<lastmod>/gi) || []).length;
+  const 빠진것 = Math.max(0, 주소수 - 날수);
+  return { 주소수, 날수, 빠진것, 몫: 빠진것 / 주소수 };
+}
+
+/** 한 날에 얼마나 몰렸나. ⛔ 날이 하나도 없으면 null — 「안 몰렸다」가 아니다 */
+export function 한날몫(글) {
+  if (글 == null) return null;
+  const s = String(글);
+  if (!/<urlset/i.test(s)) return null;
+  const 날들 = (s.match(/<lastmod>\s*([0-9]{4}-[0-9]{2}-[0-9]{2})/g) || [])
+    .map((x) => x.slice(-10));
+  if (!날들.length) return null;
+  const 셈 = new Map();
+  for (const d of 날들) 셈.set(d, (셈.get(d) ?? 0) + 1);
+  let 많은날 = null; let 많은수 = 0;
+  for (const [d, n] of 셈) if (n > 많은수) { 많은수 = n; 많은날 = d; }
+  return { 전체: 날들.length, 서로다른날: 셈.size, 많은날, 많은수, 몫: 많은수 / 날들.length };
+}
+
+/** 사이트맵 묶음에서 자식 사이트맵 주소를 편다. ⛔ 묶음이 아니면 빈손 */
+export function 묶음펴기(글) {
+  const s = String(글 ?? '');
+  if (!/<sitemapindex/i.test(s)) return [];
+  return (s.match(/<loc>\s*([^<\s]+)/g) || []).map((x) => x.replace(/^<loc>\s*/, ''));
+}
+
 /** 그날 하루만 놓고 볼 때 「몫이 크다」인가. ⛔ 이것만으로 빨강을 내지 않는다 */
 export function 몫이큰가(잰것) {
   if (!잰것 || 잰것.몫 == null) return false;
@@ -138,6 +186,28 @@ if (process.argv.includes('--자가시험')) {
     몫이큰가(오늘몫(맵(Array(50).fill(0).map((_, i) => (i < 26 ? 오늘 : '2026-01-01'))), 오늘)) === true);
   본다('⛔ 못 잰 것을 크다고 하지 않는다', 몫이큰가(null) === false);
 
+  /* 🔴 [2026-10-06 12:0x · 5번] 「아무 말도 안 한다」와 「다 같은 날이라 한다」를 센다 */
+  const 빈것 = '<urlset>' + '<url><loc>a</loc></url>'.repeat(4)
+    + '<url><loc>b</loc><lastmod>2026-09-16</lastmod></url>' + '</urlset>';
+  본다('🔴 lastmod 가 빠진 몫을 센다', Math.abs(빠진몫(빈것).몫 - 0.8) < 1e-9);
+  본다('주소 수와 날 수를 나란히 적는다', 빠진몫(빈것).주소수 === 5 && 빠진몫(빈것).날수 === 1);
+  본다('⛔ 묶음(sitemapindex)은 재지 않는다 — lastmod 가 없어도 된다',
+    빠진몫('<sitemapindex><sitemap><loc>x</loc></sitemap></sitemapindex>') === null);
+  본다('⛔ 사이트맵이 아니면 null', 빠진몫('<html></html>') === null && 빠진몫(null) === null);
+  본다('⛔ 주소가 없으면 null — 「다 있다」가 아니다', 빠진몫('<urlset></urlset>') === null);
+
+  const 한날 = '<urlset>' + '<url><loc>a</loc><lastmod>2026-09-16</lastmod></url>'.repeat(97)
+    + '<url><loc>b</loc><lastmod>2026-09-23</lastmod></url>'.repeat(3) + '</urlset>';
+  본다('🔴 한 날에 몰린 몫을 센다', Math.abs(한날몫(한날).몫 - 0.97) < 1e-9);
+  본다('가장 많은 날을 집는다', 한날몫(한날).많은날 === '2026-09-16');
+  본다('서로 다른 날이 몇인지 센다', 한날몫(한날).서로다른날 === 2);
+  본다('⛔ 날이 하나도 없으면 null — 「안 몰렸다」가 아니다',
+    한날몫('<urlset><url><loc>a</loc></url></urlset>') === null);
+
+  본다('묶음을 편다', 묶음펴기('<sitemapindex><sitemap><loc>https://a/b.xml</loc></sitemap></sitemapindex>')
+    .length === 1);
+  본다('⛔ 묶음이 아니면 빈손', 묶음펴기('<urlset><url><loc>x</loc></url></urlset>').length === 0);
+
   본다('하루를 뺀다', 하루전('2026-09-23') === '2026-09-22');
   본다('달을 넘어도 뺀다', 하루전('2026-09-01') === '2026-08-31');
   본다('해를 넘어도 뺀다', 하루전('2026-01-01') === '2025-12-31');
@@ -183,6 +253,10 @@ if (process.argv.includes('--자가시험')) {
   const 새줄 = [];
   let 빨강 = 0;
   let 못잼 = 0;
+  /* 🔴 [2026-10-06 12:1x · 5번] **빨강 하나에 끝말을 하나만 두었더니 엉뚱한 말이 나갔다.**
+     「lastmod 를 안 말한다」로 빨강이 났는데 끝에 「날마다 전부 오늘이라 한다」가 찍혔다.
+     까닭이 다르면 고칠 곳도 다르다. 까닭을 따로 센다. */
+  const 빨강까닭 = { 날마다오늘: 0, 말안함: 0 };
 
   for (const 곳 of 볼곳) {
     let 글 = null;
@@ -205,12 +279,48 @@ if (process.argv.includes('--자가시험')) {
 
     if (날수 >= 잇달아며칠) {
       console.log(`   🔴 ${곳.이름} — ${잰것.전체}장 가운데 ${잰것.오늘}장(${글몫})이 「오늘」. **${날수}일째 잇달아** 그렇다`);
-      빨강 += 1;
+      빨강 += 1; 빨강까닭.날마다오늘 += 1;
     } else if (큰가) {
       console.log(`   ⚠ ${곳.이름} — ${잰것.전체}장 가운데 ${잰것.오늘}장(${글몫})이 「오늘」 (${날수}일째)`);
       console.log(`      오늘 정말 그만큼 냈으면 맞다. 내일도 같으면 빨강이 된다`);
     } else {
       console.log(`   ✅ ${곳.이름} — ${잰것.전체}장 가운데 ${잰것.오늘}장(${글몫})이 「오늘」`);
+    }
+  }
+
+  /* 🔴🔴 [2026-10-06 12:0x · 5번] **아무 말도 안 하는 묶음을 찾는다.**
+     이 자는 「거짓말하나」만 물어서, seoulmarkets 7,670장 가운데 4,931장에
+     lastmod 가 «아예 없는 것»을 두 달 넘게 못 봤다. 날마다 ✅ 를 찍고 있었다. */
+  console.log('\n■ 사이트맵이 「언제 바뀌었나」를 아예 안 말하고 있나');
+  for (const 뿌리맵 of [...new Set(볼곳.map((x) => x.주소.replace(/sitemap-[^/]+\.xml$/, "sitemap.xml")))]) {
+    let 묶음글 = null;
+    try {
+      const r = await fetch(뿌리맵);
+      묶음글 = r.ok ? await r.text() : null;
+    } catch { 묶음글 = null; }
+    const 아이들 = 묶음펴기(묶음글);
+    /* ⚠ 묶음이 아닌 사이트맵도 있다(klifemap 은 한 장에 3,007주소다).
+       ⛔ 그것을 「못 쟀다」로 뭉개지 않는다 — 그 자리에서 바로 잰다. */
+    const 볼것 = 아이들.length ? 아이들 : (묶음글 ? [뿌리맵] : []);
+    if (!볼것.length) { console.log(`   ⬜ ${뿌리맵} — 못 받았다`); 못잼 += 1; continue; }
+    for (const 아이 of 볼것) {
+      let g = null;
+      try { const r = await fetch(아이); g = r.ok ? await r.text() : null; } catch { g = null; }
+      const 빠 = 빠진몫(g);
+      const 한 = 한날몫(g);
+      const 짧 = 아이.replace(/^https?:\/\/[^/]+/, "");
+      if (!빠) { console.log(`   ⬜ ${짧} — 못 쟀다`); 못잼 += 1; continue; }
+      if (빠.몫 >= 0.5) {
+        console.log(`   🔴 ${짧} — ${빠.주소수}장 가운데 ${빠.빠진것}장(${(빠.몫 * 100).toFixed(0)}%)이 lastmod 를 «안» 말한다`);
+        빨강 += 1; 빨강까닭.말안함 += 1;
+      } else if (빠.빠진것) {
+        console.log(`   ⚠ ${짧} — ${빠.주소수}장 가운데 ${빠.빠진것}장이 lastmod 를 안 말한다`);
+      } else if (한 && 한.전체 >= 최소장수 && 한.몫 > 0.9) {
+        console.log(`   ⚠ ${짧} — ${한.전체}장 가운데 ${한.많은수}장(${(한.몫 * 100).toFixed(0)}%)이 «같은 날»(${한.많은날})이다`);
+        console.log('      타래를 한꺼번에 지었으면 맞다. 아니면 안 바뀐 지면까지 바뀌었다고 하는 것이다');
+      } else {
+        console.log(`   ✅ ${짧} — ${빠.주소수}장 다 말한다${한 ? ` · 서로 다른 날 ${한.서로다른날}` : ""}`);
+      }
     }
   }
 
@@ -224,13 +334,19 @@ if (process.argv.includes('--자가시험')) {
     console.log(`   ✔ 기록에 쌓았다 — ${기록길} (${남길것.length}줄)`);
   }
 
-  if (빨강) {
+  if (빨강까닭.날마다오늘) {
     console.log('\n⛔ 사이트맵이 «날마다» 「전부 오늘 고쳤다」고 말하고 있다.');
     console.log('   구글은 그런 lastmod 를 «아예 무시»하기 시작한다 — 진짜 고친 날에 알릴 길이 사라진다.');
     console.log('   ✅ 고치는 법: 자료가 안 바뀌는 지면은 lastmod 를 «만든 날»로 고정한다.');
     console.log('               내용을 실제로 고칠 때만 그 날짜를 손으로 올린다.');
-    process.exit(1);
   }
+  if (빨강까닭.말안함) {
+    console.log('\n⛔ 사이트맵이 「언제 바뀌었나」를 «아예 안 말하는» 묶음이 있다.');
+    console.log('   구글이 다시 올 때를 정할 근거가 없다. 큰 묶음일수록 크게 손해다.');
+    console.log('   ✅ 고치는 법: 자료 타래가 들고 있는 «지은 날»을 붙인다(src/pages/sitemap-[section].xml.ts).');
+    console.log('   ⛔ 「오늘」을 찍지 않는다 — 그러면 위의 거짓말이 된다.');
+  }
+  if (빨강) process.exit(1);
   if (못잼) console.log('\n⬜ 못 잰 곳이 있다 — 「초록」으로 읽지 않는다.');
-  else console.log('\n✅ 날마다 거짓말하는 사이트맵 0');
+  else console.log('\n✅ 거짓말하는 사이트맵 0 · 말 안 하는 묶음 0');
 }

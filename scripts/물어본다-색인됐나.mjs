@@ -182,15 +182,53 @@ export async function 하나묻기(토큰, 속성, 주소, 보내기 = fetch) {
  * 구글이 고른 canonical 이 우리가 건 것과 다른가.
  * ⛔ 다르면 그 지면은 «남의 지면의 그림자»로 묶인 것이다 — 겹침 문제의 진짜 모습이다.
  */
+/**
+ * 🔴🔴 [2026-10-06 11:5x · 5번] **글자로 견주다가 거짓 빨강을 냈다.**
+ *
+ * seoulmarkets 홈을 물었더니 —
+ *   `https://seoulmarkets.com`  로 물으면  구글 canonical `…com`  · 우리 `…com/`  → 어긋남
+ *   `https://seoulmarkets.com/` 로 물으면  구글 canonical `…com/` · 우리 `…com/`  → 안 어긋남
+ * **같은 지면인데 내가 어떻게 묻느냐로 답이 뒤집혔다.** 구글이 물은 꼴에 맞춰 답한 것이다.
+ *
+ * 하마터면 「홈이 남의 그림자로 묶였다」고 적을 뻔했다. 그러면 애먼 데를 팠다.
+ * ⇒ 끝의 빗금 하나로 다른 지면이라고 하지 않는다. 견주기 전에 꼴을 맞춘다.
+ * ⛔ 그렇다고 아무 데나 맞추지 않는다 — **뿌리의 빗금만** 뗀다.
+ *   `/a/` 와 `/a` 는 실제로 다른 지면일 수 있다.
+ */
+export function 주소맞추기(주소) {
+  const s = String(주소 ?? '').trim();
+  if (!s) return '';
+  /* 뿌리(scheme://host) 뒤에 빗금만 남은 꼴이면 그 빗금을 뗀다 */
+  return s.replace(/^(https?:\/\/[^/]+)\/$/i, '$1');
+}
+
+/** 두 주소가 «같은 지면»을 가리키나 */
+export function 주소같나(가, 나) {
+  return 주소맞추기(가) === 주소맞추기(나);
+}
+
 export function canonical어긋났나(답) {
   if (!답 || 답.못잼) return null;
   if (!답.구글이고른canonical || !답.우리가건canonical) return null;
-  return 답.구글이고른canonical !== 답.우리가건canonical;
+  return !주소같나(답.구글이고른canonical, 답.우리가건canonical);
 }
 
 async function 자가시험() {
   let 통 = 0; let 탈 = 0;
   const 검 = (이름, 참) => { if (참) { 통++; console.log('✅', 이름); } else { 탈++; console.log('🔴', 이름); } };
+
+  /* 🔴 [2026-10-06 11:5x · 5번] 끝의 빗금 하나로 「어긋났다」고 하던 것을 못 박는다 */
+  검('🔴 뿌리의 끝 빗금은 같은 지면이다 — 어긋났다고 하지 않는다',
+    canonical어긋났나({ 구글이고른canonical: 'https://a.com', 우리가건canonical: 'https://a.com/' }) === false);
+  검('⭐ 거꾸로도 같다',
+    canonical어긋났나({ 구글이고른canonical: 'https://a.com/', 우리가건canonical: 'https://a.com' }) === false);
+  검('⛔ 속 지면의 끝 빗금은 «안» 맞춘다 — 실제로 다른 지면일 수 있다',
+    주소같나('https://a.com/b/', 'https://a.com/b') === false);
+  검('🔴 진짜 어긋난 것은 그대로 잡는다',
+    canonical어긋났나({ 구글이고른canonical: 'https://a.com/x', 우리가건canonical: 'https://a.com/y' }) === true);
+  검('⬜ 못 쟀으면 null 이다 — 「안 어긋났다」가 아니다',
+    canonical어긋났나({ 못잼: true }) === null && canonical어긋났나(null) === null
+    && canonical어긋났나({ 구글이고른canonical: 'https://a.com' }) === null);
 
   검('색인에 있는 것을 가린다', 상태말('Submitted and indexed').색인됐나 === true);
   검('⛔ 「읽었는데 색인 안 함」을 가린다',
