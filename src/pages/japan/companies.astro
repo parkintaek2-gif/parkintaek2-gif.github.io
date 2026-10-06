@@ -9,7 +9,7 @@
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import tape from '../../data/japan-financials-tape.json';
-import { 낼만한가, 업종주소 } from '../../lib/japan-company-page.mjs';
+import { 낼만한가, 업종주소, 재무줄 } from '../../lib/japan-company-page.mjs';
 /* 🔴 [2026-10-04] 업종이 없는 회사로 «가는 길»을 내려면 그들의 주소가 필요하다 */
 import { 주소표만들기 } from '../../lib/company-slug.mjs';
 
@@ -84,7 +84,7 @@ const 업종없는것 = 행들
  *   이미 쓰는 꼴이다 — 거기는 1,057장을 다 걸어서 대만 회사가 전부 2홉이다.
  * ⛔ 등수를 매기지 않는다. 업종도 회사도 이름 차례다.
  */
-const 업종별회사 = new Map<string, Array<{ slug: string; 이름: string }>>();
+const 업종별회사 = new Map<string, Array<{ slug: string; 이름: string; 매출: number | null }>>();
 let 걸린회사 = 0;
 for (const r of 행들) {
   const s = String((r as any).sector || '').trim();
@@ -93,10 +93,15 @@ for (const r of 행들) {
   /* ⛔ 주소나 이름이 없으면 안 건다. 빈 주소로 걸면 손님에게 404 를 내민다 */
   if (!s || !slug || !이름) continue;
   if (!업종별회사.has(s)) 업종별회사.set(s, []);
-  업종별회사.get(s)!.push({ slug, 이름 });
+  /* ⚠ 매출이 없으면 null 로 둔다 — 0 으로 채우면 「매출 0인 회사」가 된다 */
+  업종별회사.get(s)!.push({ slug, 이름, 매출: 재무줄(r)?.revenue ?? null });
   걸린회사 += 1;
 }
 for (const v of 업종별회사.values()) v.sort((a, b) => a.이름.localeCompare(b.이름, 'en'));
+
+/** 줄 끝에 붙이는 수. ⛔ 못 읽은 것은 0 이 아니라 — 다 */
+const bn = (n: number | null) =>
+  n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 0 });
 
 const title = 'Japanese listed companies — financials as filed';
 const description = `${행들.length.toLocaleString('en-GB')} Japanese listed companies, one page each, built from annual securities reports filed through EDINET. Revenue, profit, assets, equity and the ratios computed from them.`;
@@ -162,8 +167,10 @@ const jsonLd = {
       <h2>Every company</h2>
       <p class="note">
         All {걸린회사.toLocaleString('en-GB')} companies that filed a classification we could read,
-        grouped under it and listed alphabetically within the group. Companies filing without one are
-        in the section above. We do not rank them.
+        grouped under it and listed alphabetically within the group. The figure beside each name is the
+        most recent revenue it reported, in billions of yen — what the company filed, not a ranking and
+        not an estimate. A dash means it filed no revenue figure we could read. Companies filing without
+        a classification are in the section above.
       </p>
       {업종들.map((s) => (
         <div class="allgrp">
@@ -173,7 +180,10 @@ const jsonLd = {
           </h3>
           <ul class="alllist">
             {(업종별회사.get(s.이름) ?? []).map((c) => (
-              <li><a href={`/japan/company/${c.slug}`}>{c.이름}</a></li>
+              <li>
+                <a href={`/japan/company/${c.slug}`}>{c.이름}</a>
+                <span class="rev">{bn(c.매출)}</span>
+              </li>
             ))}
           </ul>
         </div>
@@ -237,7 +247,10 @@ const jsonLd = {
   .alllist { list-style: none; padding: 0; margin: 0;
              display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
              gap: .05rem .9rem; }
-  .alllist li { padding: .18rem 0; font-size: .86rem; line-height: 1.45; }
+  .alllist li { display: flex; justify-content: space-between; align-items: baseline;
+                gap: .5rem; padding: .18rem 0; font-size: .86rem; line-height: 1.45; }
+  .alllist .rev { color: #889; font-size: .78rem; font-variant-numeric: tabular-nums;
+                  white-space: nowrap; }
   .alllist a { color: #2a4d8f; text-decoration: none; }
   .alllist a:hover { text-decoration: underline; }
   .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
