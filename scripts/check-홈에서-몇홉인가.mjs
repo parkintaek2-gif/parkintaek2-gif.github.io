@@ -53,10 +53,64 @@ export const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)),
  *   서버가 호스트를 보고 접두사를 붙인다. 그래서 걸을 때 «그 지면의 접두사»를 붙여 찾는다.
  */
 export const 사이트들 = [
-  { 이름: 'seoulmarkets', 접두사: '', 홈: '/' },
-  { 이름: '100yearmap', 접두사: '/100y', 홈: '/100y' },
-  { 이름: 'kculturewire', 접두사: '/wikitip', 홈: '/wikitip' },
+  { 이름: 'seoulmarkets', 접두사: '', 홈: '/', 바깥: 'https://seoulmarkets.com/' },
+  { 이름: '100yearmap', 접두사: '/100y', 홈: '/100y', 바깥: 'https://100yearmap.com/' },
+  { 이름: 'kculturewire', 접두사: '/wikitip', 홈: '/wikitip', 바깥: 'https://www.kculturewire.com/' },
 ];
+
+/**
+ * 🔴🔴 [2026-10-06 17:22 · 5번] **결함 이름 — 「저장소 파일을 라이브인 양 읽는다」**
+ *
+ * 오늘 klifemap 에서 이 결함으로 **하루를 잃었다.** 거기 자는 저장소 파일을 읽었는데,
+ * 그 사이트는 차림표를 «내보낼 때» 끼워 넣는다 — 저장소 홈에는 링크가 0개였다.
+ * 그래서 「고쳤는데 수가 안 움직인다」는 거짓 빨강이 사흘 치 일을 헛돌게 했다.
+ *
+ * ⇒ 강령 ⑤ — 고치면 **인용한 곳까지 따라간다.** 이 자도 `dist/` 를 읽는다.
+ *   여기는 정적 빌드라 괜찮을 «것 같»지만, 「같다」는 잰 것이 아니다.
+ *   ⛔ 「괜찮을 것 같다」를 「괜찮다」로 적지 않는다. **재서 적는다.**
+ *
+ * ⚠ 홈 한 장만 받는다 — 셋이면 세 번이다. 거의 공짜다.
+ * ⛔ 못 받으면 「같다」가 아니라 «못 쟀다»다. 세는 칸이 셋이다.
+ */
+/**
+ * 그 사이트 홈이 dist 안 «어느 파일»인가.
+ *
+ * 🔴 [2026-10-06 17:28 · 5번] 처음에 `<홈>/index.html` 하나만 보고 ⬜ 못잼을 두 번 냈다.
+ *   재 보니 100yearmap 홈은 `dist/100y.html` 이었다 — Astro 는 폴더가 아니라 낱장으로도 낸다.
+ *   ⭐ ⬜ 가 정직하게 울어 준 덕에 잡았다. 「같다」로 적었으면 못 잡았다.
+ * ⛔ 하나만 보고 「없다」로 적지 않는다. 두 꼴을 다 본다.
+ */
+export function 홈파일후보(홈) {
+  const b = String(홈 ?? '/').replace(/^\//, '').replace(/\/+$/, '');
+  if (!b) return ['index.html'];
+  return [`${b}/index.html`, `${b}.html`];
+}
+
+export function 라이브와dist가다른가(dist글, 라이브글) {
+  if (dist글 == null || 라이브글 == null) return { 결: '못잼', 까닭: '한쪽을 못 읽었다' };
+  const a = 안쪽길들(dist글);
+  const b = 안쪽길들(라이브글);
+  const a집 = new Set(a); const b집 = new Set(b);
+  const 라이브에만 = b.filter((x) => !a집.has(x));
+  const dist에만 = a.filter((x) => !b집.has(x));
+  if (!라이브에만.length && !dist에만.length) {
+    return { 결: '같다', 까닭: `둘 다 ${a.length}곳을 건다`, 라이브에만, dist에만 };
+  }
+  return {
+    결: '다르다',
+    까닭: `라이브에만 ${라이브에만.length}곳 · dist 에만 ${dist에만.length}곳`,
+    라이브에만, dist에만,
+  };
+}
+
+/** 라이브 홈을 받아 본다. ⛔ 못 받으면 null — 「링크 0개」로 세지 않는다 */
+export async function 라이브홈받기(주소, 받기 = fetch) {
+  try {
+    const r = await 받기(주소, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; HopSelfCheck/1.0)' } });
+    if (!r.ok) return null;
+    return await r.text();
+  } catch (e) { return null; }
+}
 
 /** 묶음 이름을 지을 때 한 칸 더 보는 접두사 (seoulmarkets 안의 구역도 포함) */
 export const 사이트접두사 = ['/wikitip', '/100y', '/japan', '/taiwan', '/uae'];
@@ -400,6 +454,30 @@ export function 자가시험() {
   const a = 묶.find((x) => x.묶음 === '/a');
   본다('닿은 묶음은 가장 가까운 홉을 낸다', a && a.가장가까운 === 1 && a.닿은장수 === 2);
 
+  /* 🔴🔴 [2026-10-06 · 5번] 「저장소 파일을 라이브인 양 읽는 결함」을 막는 자리.
+     오늘 klifemap 에서 이 결함으로 사흘 치 일이 헛돌았다. 검사로 굳힌다. */
+  본다('⭐ 라이브에만 링크가 있으면 «다르다»로 센다 — 이것이 오늘 잃은 하루의 까닭이다',
+    라이브와dist가다른가('<a href="/a">1</a>', '<a href="/a">1</a><a href="/all">2</a>').결 === '다르다');
+  본다('둘이 같으면 같다',
+    라이브와dist가다른가('<a href="/a">1</a>', '<a href="/a">1</a>').결 === '같다');
+  본다('⛔ 한쪽을 못 읽으면 «같다»가 아니라 못잼 — 세는 칸이 셋이다',
+    라이브와dist가다른가('<a href="/a">1</a>', null).결 === '못잼'
+    && 라이브와dist가다른가(null, '<a href="/a">1</a>').결 === '못잼');
+  본다('⛔ 빈 글과 못 읽음을 섞지 않는다 — 빈 글은 «읽었는데 링크가 없는» 것이다',
+    라이브와dist가다른가('', '').결 === '같다');
+  본다('라이브에만 있는 길을 이름까지 돌려준다 — 수만 주면 어디를 고칠지 모른다',
+    라이브와dist가다른가('', '<a href="/all">x</a>').라이브에만?.[0] === '/all');
+  본다('dist 에만 있는 것도 흠이다 — 배포가 뒤처졌다는 뜻이다',
+    라이브와dist가다른가('<a href="/새것">x</a>', '').결 === '다르다');
+  본다('⛔ 라이브를 못 받으면 null — 「링크 0개」로 세지 않는다',
+    typeof 라이브홈받기 === 'function');
+  본다('⭐ 홈 파일은 두 꼴을 다 본다 — 100y.html 과 100y/index.html',
+    홈파일후보('/100y').join(',') === '100y/index.html,100y.html');
+  본다('뿌리 홈은 index.html 하나다', 홈파일후보('/').join(',') === 'index.html');
+  본다('⛔ 빈 길도 뿌리로 본다', 홈파일후보('').join(',') === 'index.html');
+  본다('⛔ 사이트 셋에 바깥 주소가 다 적혀 있다 — 없으면 못 잰다',
+    사이트들.every((s) => typeof s.바깥 === 'string' && s.바깥.startsWith('https://')));
+
   return 결과;
 }
 
@@ -439,6 +517,26 @@ if (이파일이진입점) {
   }(밑));
 
   console.log(`■ 홈에서 몇 홉이면 닿나 — 지면 ${지면들.length}장\n`);
+
+  /* ⭐ 재기 «전»에 자가 옳은 것을 보고 있는지부터 본다. 오늘 그 차례를 빼먹어 하루를 잃었다 */
+  if (!process.argv.includes('--라이브안본다')) {
+    console.log('   ■ 먼저 — 내가 읽는 dist 가 손님이 받는 것과 같은가');
+    for (const s of 사이트들) {
+      let dist글 = null;
+      for (const c of 홈파일후보(s.홈)) {
+        try { dist글 = fs.readFileSync(path.join(밑, c), 'utf8'); break; } catch (e) { /* 다음 꼴 */ }
+      }
+      const 라이브글 = await 라이브홈받기(s.바깥);
+      const 본것 = 라이브와dist가다른가(dist글, 라이브글);
+      const 빛 = 본것.결 === '같다' ? '✅' : (본것.결 === '못잼' ? '⬜' : '🔴');
+      console.log(`   ${빛} ${s.이름.padEnd(13)} ${본것.결} — ${본것.까닭}`);
+      if (본것.라이브에만?.length) {
+        console.log(`      라이브에만 있는 길 — ${본것.라이브에만.slice(0, 5).join(' · ')}`);
+        console.log('      ⛔ 이것이 있으면 아래 홉 수는 «적게» 나온 것이다 — 믿지 않는다');
+      }
+    }
+    console.log('');
+  }
   console.log('   ⛔ 이 자는 수를 낼 뿐이다. 「몇 홉이면 좋다」를 말하지 않는다.');
   console.log('   ⚠ 한 dist 에 사이트가 셋이다 — 각자 «자기 홈»에서 잰다.\n');
 
