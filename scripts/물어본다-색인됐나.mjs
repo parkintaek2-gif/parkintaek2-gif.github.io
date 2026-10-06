@@ -52,6 +52,47 @@ export const 묶음들 = [
 ];
 
 
+
+
+/**
+ * 🔴 [2026-10-06 10:0x · 5번] **사이트맵이 «묶음»일 때 자식 사이트맵을 물어 버렸다.**
+ *   seoulmarkets 의 `/sitemap.xml` 은 지면이 아니라 사이트맵 열한 개를 가리키는 묶음이다.
+ *   그런데 내 자는 그 안의 `<loc>` 을 그냥 지면으로 알고 `/sitemap-japan.xml` 따위를 물었다.
+ *   구글은 당연히 「모른다」고 했고, 나는 하마터면 **「서울마켓츠가 통째로 색인에 없다」**로 읽을 뻔했다.
+ * ⛔ 자료의 «꼴»을 안 보고 읽으면 엉뚱한 결론이 난다.
+ * ⇒ 묶음이면 한 겹 펴서 진짜 지면 주소를 가져온다.
+ * ⚠ 한 겹만 편다. 묶음 안에 묶음이 또 있으면 그것은 «못 쟀다»로 둔다.
+ */
+export async function 사이트맵묶음펴기(맵글, 받기 = fetch, 최대 = 4) {
+  const locs = [...String(맵글 ?? '').matchAll(/<loc>([^<]+)<\/loc>/g)].map((x) => x[1].trim());
+  const 묶음인가 = /<sitemapindex/i.test(String(맵글 ?? ''));
+  if (!묶음인가) return { 주소들: locs, 폈나: false };
+
+  const 모은것 = [];
+  for (const 하나 of locs.slice(0, 최대)) {
+    try {
+      const 글 = await (await 받기(하나)).text();
+      for (const m of String(글).matchAll(/<loc>([^<]+)<\/loc>/g)) 모은것.push(m[1].trim());
+    } catch { /* 한 장 못 받아도 나머지는 본다 */ }
+  }
+  return { 주소들: 모은것, 폈나: true, 묶음수: locs.length, 편것: Math.min(locs.length, 최대) };
+}
+
+/**
+ * 🔴 [2026-10-06 · 5번] 사이트맵이 주는 주소가 «절대»일 수도 «상대»일 수도 있다.
+ *   kcw 사이트맵은 www 절대주소를 쓴다. 바닥을 또 붙이면 주소가 망가진다.
+ * ⛔ 내가 짜 맞추지 않는다 — 절대면 그대로 쓴다.
+ */
+export function 온주소(바닥, 길) {
+  const s = String(길 ?? '');
+  return /^https?:\/\//i.test(s) ? s : (바닥 + s);
+}
+
+/** 화면에 짧게 보이려고 호스트를 뗀다. ⛔ 묻는 주소는 안 건드린다 */
+export function 보일주소(길) {
+  return String(길 ?? '').replace(/^https?:\/\/[^/]+/i, '') || '/';
+}
+
 /**
  * 🔴 [2026-10-06 09:4x · 5번] **이 자가 klifemap 에서만 돌았다.**
  *   묶음 표가 klifemap 주소 꼴(star·ttigh·ilju·ilzin)로만 돼 있어서,
@@ -60,7 +101,8 @@ export const 묶음들 = [
  * ⚠ 고루 뽑는 것은 묶음별로 보는 것만 못하다. 그래도 「안 쟀다」보다는 낫다.
  */
 export function 고루뽑기(주소들, 몇 = 12) {
-  const 것 = (주소들 || []).filter(Boolean);
+  /* ⛔ 겹친 주소를 먼저 뺀다 — 안 빼면 짧은 목록에서 같은 것을 두 번 묻는다(자가시험이 잡았다) */
+  const 것 = [...new Set((주소들 || []).filter(Boolean))];
   if (것.length <= 몇) return 것.slice();
   const 걸음 = 것.length / 몇;
   const 뽑 = [];
@@ -146,7 +188,7 @@ export function canonical어긋났나(답) {
   return 답.구글이고른canonical !== 답.우리가건canonical;
 }
 
-function 자가시험() {
+async function 자가시험() {
   let 통 = 0; let 탈 = 0;
   const 검 = (이름, 참) => { if (참) { 통++; console.log('✅', 이름); } else { 탈++; console.log('🔴', 이름); } };
 
@@ -194,6 +236,45 @@ function 자가시험() {
     return new Set(뽑).size === 뽑.length;
   })());
 
+  /* 🔴 [2026-10-06] 사이트맵이 www 를 쓴다 — 바닥을 또 붙여 아홉 장을 통째로 못 물었다 */
+  검('⛔ 절대 주소면 바닥을 또 붙이지 않는다',
+    온주소('https://kculturewire.com', 'https://www.kculturewire.com/tag/tourism')
+      === 'https://www.kculturewire.com/tag/tourism');
+  검('상대 주소면 바닥을 붙인다',
+    온주소('https://klifemap.ai', '/content/x') === 'https://klifemap.ai/content/x');
+  검('화면에는 호스트를 떼고 보인다',
+    보일주소('https://www.kculturewire.com/tag/tourism') === '/tag/tourism');
+  검('⛔ 호스트만 있으면 / 로 보인다', 보일주소('https://a.com') === '/');
+  검('⛔ 빈 것·null 에도 안 터진다', 보일주소('') === '/' && 보일주소(null) === '/');
+
+  /* 🔴 [2026-10-06] 사이트맵 묶음을 지면으로 알고 물어 「서울마켓츠가 통째로 색인에 없다」로 읽을 뻔했다 */
+  {
+    const 보통맵 = '<urlset><url><loc>https://a.com/x</loc></url></urlset>';
+    const r1 = await 사이트맵묶음펴기(보통맵);
+    검('⛔ 묶음이 아니면 펴지 않고 그대로 돌려준다',
+      r1.폈나 === false && r1.주소들.length === 1 && r1.주소들[0] === 'https://a.com/x');
+
+    const 묶음맵 = '<sitemapindex><sitemap><loc>https://a.com/s1.xml</loc></sitemap>'
+      + '<sitemap><loc>https://a.com/s2.xml</loc></sitemap></sitemapindex>';
+    const 가짜받기 = async (u) => ({
+      text: async () => (u.endsWith('s1.xml')
+        ? '<urlset><url><loc>https://a.com/p1</loc></url></urlset>'
+        : '<urlset><url><loc>https://a.com/p2</loc></url></urlset>'),
+    });
+    const r2 = await 사이트맵묶음펴기(묶음맵, 가짜받기);
+    검('🔴 묶음이면 한 겹 펴서 «진짜 지면» 주소를 가져온다',
+      r2.폈나 === true && r2.주소들.length === 2 && r2.주소들.includes('https://a.com/p2'));
+    검('몇 개를 폈는지 적는다', r2.묶음수 === 2 && r2.편것 === 2);
+
+    const 터지는받기 = async () => { throw new Error('끊김'); };
+    const r3 = await 사이트맵묶음펴기(묶음맵, 터지는받기);
+    검('⛔ 자식 사이트맵을 못 받아도 안 터진다 — 빈 목록으로 둔다',
+      r3.폈나 === true && r3.주소들.length === 0);
+
+    검('⛔ 빈 글·null 에도 안 터진다',
+      (await 사이트맵묶음펴기('')).주소들.length === 0
+      && (await 사이트맵묶음펴기(null)).주소들.length === 0);
+  }
   검('⛔ 한도가 있으니 묶음당 적게 묻는다', 묶음당몇장 <= 5);
   검('사이트 넷이 다 있다', Object.keys(사이트들).length === 4);
   검('⛔ 속성이 다 sc-domain 꼴', Object.values(사이트들).every((x) => x.속성.startsWith('sc-domain:')));
@@ -203,7 +284,7 @@ function 자가시험() {
 }
 
 async function 주다() {
-  if (process.argv.includes('--자가시험')) return 자가시험();
+  if (process.argv.includes('--자가시험')) return await 자가시험();
 
   const 인자 = (n, 기본) => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : 기본; };
   const 이름 = 인자('--사이트', 'klifemap');
@@ -235,11 +316,23 @@ async function 주다() {
   const 하나 = 인자('--주소', null);
   if (하나) 주소들 = [{ 묶음: '손으로 준 것', 길: 하나 }];
   else {
-    const 맵 = await (await fetch(곳.바닥 + '/sitemap.xml')).text();
-    const 모두 = [...맵.matchAll(/<loc>([^<]+)<\/loc>/g)].map((x) => x[1].replace(곳.바닥, ''));
+    /* 🔴 [2026-10-06 09:5x · 5번] **kcw 에서 아홉 장을 통째로 못 물었다.**
+       그 사이트맵은 `https://www.kculturewire.com/...` 처럼 «www» 절대주소를 쓴다.
+       그런데 내가 비-www 바닥을 «또» 앞에 붙여 주소가 망가졌다.
+       구글은 「You do not own this site」라고 답했고, 나는 하마터면
+       「kcw 는 권한이 없다」로 읽을 뻔했다 — 실은 내가 만든 주소가 틀린 것이었다.
+       ⭐ 자가 그것을 「못 물었다」로 냈기에 「색인 안 됨」으로 번지지 않았다. 셋째 칸이 또 일했다.
+       ⇒ **사이트맵이 주는 절대 주소를 그대로 쓴다.** 내가 짜 맞추지 않는다. */
+    const 맵글 = await (await fetch(곳.바닥 + '/sitemap.xml')).text();
+    const 편것 = await 사이트맵묶음펴기(맵글);
+    if (편것.폈나) {
+      console.log(`   ⚠ /sitemap.xml 은 «묶음»이다 — 사이트맵 ${편것.묶음수}개 가운데 ${편것.편것}개를 펴서 본다\n`);
+    }
+    const 맵 = 맵글;
+    const 모두 = 편것.폈나 ? 편것.주소들 : [...맵.matchAll(/<loc>([^<]+)<\/loc>/g)].map((x) => x[1]);
     console.log(`   사이트맵에 주소 ${모두.length}개\n`);
     for (const 묶 of 묶음들) {
-      const 것 = 모두.filter((s) => 묶.꼴.test(s));
+      const 것 = 모두.filter((s) => 묶.꼴.test(보일주소(s)));
       if (!것.length) continue;
       const 걸음 = Math.max(1, Math.floor(것.length / 묶음당몇장));
       for (let i = 0, n = 0; i < 것.length && n < 묶음당몇장; i += 걸음, n += 1) {
@@ -253,21 +346,23 @@ async function 주다() {
         주소들.push({ 묶음: '사이트맵에서 고루', 길 });
       }
     }
-    주소들.unshift({ 묶음: '홈', 길: '/' });
+    /* ⛔ 홈도 «사이트맵이 쓰는 호스트»로 묻는다 — 비-www 로 물었더니 구글이 「모른다」고 했다.
+       그 사이트가 www 로 서는데 내가 엉뚱한 호스트를 물은 것이다. */
+    주소들.unshift({ 묶음: '홈', 길: 모두.find((s) => /^https?:\/\/[^/]+\/?$/.test(s)) || (곳.바닥 + '/') });
   }
 
   let 색인된것 = 0; let 안된것 = 0; let 못잰것 = 0;
   let 앞묶음 = '';
   for (const { 묶음, 길 } of 주소들) {
     if (묶음 !== 앞묶음) { console.log(`\n── ${묶음}`); 앞묶음 = 묶음; }
-    const 답 = await 하나묻기(토큰, 곳.속성, 곳.바닥 + 길);
+    const 답 = await 하나묻기(토큰, 곳.속성, 온주소(곳.바닥, 길));
     if (답.못잼) { 못잰것 += 1; console.log(`   ⚠ ${길.padEnd(42)} 못 물었다 — ${답.까닭}`); continue; }
     const 뜻 = 상태말(답.coverageState);
     if (뜻.색인됐나 === true) 색인된것 += 1;
     else if (뜻.색인됐나 === false) 안된것 += 1;
     else 못잰것 += 1;
     const 어긋 = canonical어긋났나(답);
-    console.log(`   ${길.padEnd(42)} ${뜻.말}`
+    console.log(`   ${보일주소(길).padEnd(42)} ${뜻.말}`
       + (답.마지막크롤 ? ` · 마지막 크롤 ${String(답.마지막크롤).slice(0, 10)}` : ' · 크롤한 적 없다')
       + (어긋 ? `\n      ⚠ 구글은 canonical 을 «다른 주소»로 골랐다 → ${답.구글이고른canonical}` : ''));
   }

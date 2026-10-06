@@ -350,14 +350,27 @@ const handle = async (req, res) => {
    *
    * ⛔ 딱 아는 호스트만 넣는다. 모르는 호스트를 건드리면 배포 헬스체크가 죽는다.
    * ⛔ GET·HEAD 만 넘긴다 — POST 를 301 로 넘기면 본문이 사라진다.
-   * ⚠ 100yearmap·seoulmarkets·klifemap 은 «non-www 가 정본»이다. 여기 넣지 않는다.
+   * ⚠ 100yearmap·seoulmarkets 는 «non-www 가 정본»이다 — 그래서 방향이 kculturewire 와 «반대»다.
    *   (그쪽 canonical 태그가 non-www 를 가리키는 것을 2026-09-07 에 확인했다)
+   * 🔴 [2026-10-06 10:2x · 5번] **이 주석이 「여기 넣지 않는다」였는데 그것이 틀렸다.**
+   *   정본이 non-www 라면 **www 쪽을 non-www 로 넘겨야** 한다. 100y 는 그렇게 들어갔는데
+   *   seoulmarkets 만 빠져 있었다. 그래서 실측하면 이랬다 —
+   *   ```
+   *   kculturewire.com   비www 301 → www        ✅ 제대로
+   *   100yearmap.com     www  301 → 비www       ✅ 제대로
+   *   seoulmarkets.com   둘 다 200              🔴 아무 데도 안 넘긴다
+   *   ```
+   *   같은 글이 두 주소로 뜨면 둘 다 약해진다(2026-09-07 에 GA4 로 잰 그대로다).
+   *   ⚠ 같은 날 구글에게 물으니 서울마켓츠 **홈이 「크롤은 했는데 색인에 안 넣었다」**였다.
+   *     마지막 크롤이 8월 5일이다. 그것과 이것이 같은 뿌리인지는 **못 가렸다** —
+   *     다만 두 주소가 같은 글을 내는 것은 그 자체로 고칠 흠이다.
    * ⭐ [2026-09-07 · 3번] www.100yearmap.com 도 같은 꼴(순방문자 5·평균 1초·붙든 방문 0%)이라
    *   여기 추가했다. 100yearmap 은 non-www 가 정본이라 **방향이 kculturewire 와 반대다**.
    */
   const 정본호스트 = {
     'kculturewire.com': 'www.kculturewire.com',
     'www.100yearmap.com': '100yearmap.com',
+    'www.seoulmarkets.com': 'seoulmarkets.com',
   };
   const 날호스트 = String(req.headers.host ?? '').split(':')[0].toLowerCase();
   const 정본 = 정본호스트[날호스트];
