@@ -445,5 +445,31 @@ const 낼것 = {
   },
   rows: 줄들,
 };
-fs.writeFileSync(path.join(ROOT, 낼곳), JSON.stringify(낼것, null, 1), 'utf8');
-console.log(`\n📁 적었다 — ${낼곳}`);
+/**
+ * 🔴 [2026-10-06 19:29 · 5번] **시각 칸만 바뀐 것을 「바뀌었다」로 적지 않는다.**
+ *
+ * 이 자는 돌 때마다 `builtAt` 를 새로 찍었다. 알맹이가 한 줄도 안 바뀌어도 파일이
+ * 더러워진다. 그 탓에 **빌드를 돌릴 때마다 배포 관문이 「커밋 안 된 변경」으로 막았다** —
+ * 오늘 저녁에만 세 번 막혔다. 막힐 때마다 뜻 없는 커밋을 하나씩 더 쌓았다.
+ *
+ * ⛔ 자물쇠가 «뜻 없는 일»로 울면 사람은 결국 자물쇠를 건너뛴다. 그것이 더 비싸다.
+ * ⇒ 시각 칸을 뺀 알맹이가 같으면 **안 쓴다.** 이 저장소의 build-kcw-headlines.mjs 가
+ *   이미 쓰는 꼴이다 — 거기 것을 그대로 가져왔다.
+ * ⛔ 못 읽으면 «같다»고 치지 않는다. 그때는 쓴다.
+ */
+const 낼길 = path.join(ROOT, 낼곳);
+let 그대로다 = false;
+try {
+  const 옛 = JSON.parse(fs.readFileSync(낼길, 'utf8'));
+  const { builtAt: _버린다, ...옛머리 } = 옛._meta ?? {};
+  const { builtAt: _버린다2, ...새머리 } = 낼것._meta;
+  그대로다 = JSON.stringify({ ...옛, _meta: 옛머리 }) === JSON.stringify({ ...낼것, _meta: 새머리 });
+} catch { 그대로다 = false; }
+
+if (그대로다) {
+  console.log(`\n⬜ 달라진 것이 없어 «안 썼다» — ${낼곳}`);
+  console.log('   ⚠ 「안 돌았다」가 아니다. 재 보니 알맹이가 같았다는 뜻이다');
+} else {
+  fs.writeFileSync(낼길, JSON.stringify(낼것, null, 1), 'utf8');
+  console.log(`\n📁 적었다 — ${낼곳}`);
+}
