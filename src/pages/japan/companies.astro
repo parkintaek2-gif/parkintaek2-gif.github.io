@@ -47,17 +47,56 @@ const 업종모름 = 행들.length - [...업종별.values()].reduce((a, b) => a 
  * ⛔ 업종을 지어내서 채우지 않는다. 「못 읽었다」가 사실이고 그대로 적는다.
  *   여기서는 **그 회사들로 가는 길만** 낸다.
  */
-const 업종없는것 = (() => {
-  const 것 = 행들.filter((r) => !String((r as any).sector || '').trim());
-  const 표 = 주소표만들기(것);
-  return 것
-    .map((r) => ({
-      이름: String((r as any).name_en || (r as any).nameEn || '').trim(),
-      slug: 표.get(String((r as any).code)),
-    }))
-    .filter((x) => x.이름 && x.slug)
-    .sort((a, b) => a.이름.localeCompare(b.이름, 'en'));
-})();
+/**
+ * 🔴🔴 [2026-10-06 18:00 · 5번] **주소표를 «전체 행»으로 짓는다 — 쪽부분으로 짓지 않는다.**
+ *
+ * 여기 있던 코드는 업종 없는 27행«만»으로 주소표를 지었다. 그런데 회사 낱장을 찍는
+ * `[slug].astro` 는 **3,672행 전부**로 짓는다. `주소표만들기` 는 이름이 겹칠 때만
+ * 코드를 뒤에 붙이므로, **같은 회사가 두 곳에서 서로 다른 주소를 가질 수 있다** —
+ * 그러면 이 목록의 링크가 404 가 된다.
+ *
+ * ⚠ 오늘 재 보니 어긋난 것이 **0곳**이었다. 다만 그것은 «우연»이다 —
+ *   그 27개 이름이 나머지 3,645개와 겹치지 않았을 뿐이다. 회사가 하나 늘면 깨진다.
+ *   ⛔ 「지금 안 깨진다」를 「안 깨진다」로 적지 않는다. 조용히 깨질 자리는 고쳐 둔다.
+ * ⇒ 표를 **한 번만** 짓고 이 지면 전체가 나눠 쓴다. 낱장과 같은 입력, 같은 자.
+ */
+const 주소표 = 주소표만들기(행들);
+
+const 업종없는것 = 행들
+  .filter((r) => !String((r as any).sector || '').trim())
+  .map((r) => ({
+    이름: String((r as any).name_en || (r as any).nameEn || '').trim(),
+    slug: 주소표.get(String((r as any).code)),
+  }))
+  .filter((x) => x.이름 && x.slug)
+  .sort((a, b) => a.이름.localeCompare(b.이름, 'en'));
+
+/**
+ * ⭐ [2026-10-06 18:00 · 5번] **회사 전체 목록 — 3,675장이 3홉에 묻혀 있었다.**
+ *
+ *   홈 → /japan/companies(1홉) → /japan/sector/x(2홉) → /japan/company/y(**3홉**)
+ *   `check-홈에서-몇홉인가.mjs` 로 재니 「2홉 /japan/company 3703장」이라 적혀 있었는데,
+ *   그 줄은 **묶음에서 «가장 가까운 한 장»**의 홉이었다. 분포를 세어 보니
+ *   2홉은 27장(2026-10-04 에 길을 낸 그 섬)뿐이고 **3,675장이 3홉**이었다.
+ *   ⛔ 「2홉」이라 적힌 줄을 보고 안심하고 있었다. 수는 맞았고 내가 잘못 읽었다.
+ *
+ * ⇒ 업종 문은 그대로 두고, 업종별로 묶은 전체 목록을 더한다. `/taiwan/companies` 가
+ *   이미 쓰는 꼴이다 — 거기는 1,057장을 다 걸어서 대만 회사가 전부 2홉이다.
+ * ⛔ 등수를 매기지 않는다. 업종도 회사도 이름 차례다.
+ */
+const 업종별회사 = new Map<string, Array<{ slug: string; 이름: string }>>();
+let 걸린회사 = 0;
+for (const r of 행들) {
+  const s = String((r as any).sector || '').trim();
+  const slug = 주소표.get(String((r as any).code));
+  const 이름 = String((r as any).name_en || (r as any).nameEn || '').trim();
+  /* ⛔ 주소나 이름이 없으면 안 건다. 빈 주소로 걸면 손님에게 404 를 내민다 */
+  if (!s || !slug || !이름) continue;
+  if (!업종별회사.has(s)) 업종별회사.set(s, []);
+  업종별회사.get(s)!.push({ slug, 이름 });
+  걸린회사 += 1;
+}
+for (const v of 업종별회사.values()) v.sort((a, b) => a.이름.localeCompare(b.이름, 'en'));
 
 const title = 'Japanese listed companies — financials as filed';
 const description = `${행들.length.toLocaleString('en-GB')} Japanese listed companies, one page each, built from annual securities reports filed through EDINET. Revenue, profit, assets, equity and the ratios computed from them.`;
@@ -120,6 +159,28 @@ const jsonLd = {
     )}
 
     <section>
+      <h2>Every company</h2>
+      <p class="note">
+        All {걸린회사.toLocaleString('en-GB')} companies that filed a classification we could read,
+        grouped under it and listed alphabetically within the group. Companies filing without one are
+        in the section above. We do not rank them.
+      </p>
+      {업종들.map((s) => (
+        <div class="allgrp">
+          <h3>
+            <a href={`/japan/sector/${s.slug}`}>{s.이름}</a>
+            <span class="cnt">{(업종별회사.get(s.이름) ?? []).length}</span>
+          </h3>
+          <ul class="alllist">
+            {(업종별회사.get(s.이름) ?? []).map((c) => (
+              <li><a href={`/japan/company/${c.slug}`}>{c.이름}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <section>
       <h2>Korea is on the same site</h2>
       <p class="note">
         The Korean listed universe is built the same way, from filings to the Korean regulator.
@@ -164,6 +225,21 @@ const jsonLd = {
   .cnt { color: #889; font-size: .85rem; font-variant-numeric: tabular-nums; }
   .more { font-size: .95rem; }
   .dim { color: #889; }
+  /* 회사 전체 목록 — 글자는 작게, 누를 자리는 넉넉히 */
+  .allgrp { margin: 1.4rem 0; }
+  .allgrp h3 { font-size: .95rem; margin: 0 0 .4rem; padding-bottom: .25rem;
+               border-bottom: 1px solid #e6e9ef; display: flex; justify-content: space-between;
+               align-items: baseline; gap: .6rem; }
+  .allgrp h3 a { color: #223; text-decoration: none; }
+  .allgrp h3 a:hover { text-decoration: underline; }
+  .allgrp h3 .cnt { color: #889; font-size: .78rem; font-weight: 400;
+                    font-variant-numeric: tabular-nums; }
+  .alllist { list-style: none; padding: 0; margin: 0;
+             display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+             gap: .05rem .9rem; }
+  .alllist li { padding: .18rem 0; font-size: .86rem; line-height: 1.45; }
+  .alllist a { color: #2a4d8f; text-decoration: none; }
+  .alllist a:hover { text-decoration: underline; }
   .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
          font-size: .84rem; color: #556; }
   .src p { margin: .5rem 0; }

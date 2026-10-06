@@ -10,11 +10,31 @@
  *   업종 61갈래로 접어서 내고, 회사 낱장으로는 업종 지면을 거쳐 간다.
  * ⛔ 업종을 회사 수나 매출로 «줄 세우지 않는다». 이름 차례로 늘어놓는다.
  * ⛔ 화면에 한국어를 내지 않는다.
+ *
+ * ── 🔴🔴 바로 위 첫 ⛔ 를 고쳐 적는다 (2026-10-06 17:58 · 5번) ──────────
+ * **그 결정은 내가 내렸고, 그때는 없던 측정이 지금 있다.**
+ *
+ *   홈 → /companies(1홉) → /sector/x(2홉) → /company/y(**3홉**)
+ *   재 보니 한국 회사 **2,521장이 모두 3홉**이다(check-홈에서-몇홉인가.mjs).
+ *   구글은 3홉 너머를 사실상 안 따라온다. 2,521장이 「있기는 한데 아무도 안 오는」
+ *   재고가 되어 있었다. 같은 날 klifemap 에서 똑같은 병을 고쳤다.
+ *
+ * ⚠ 그리고 **이 사이트가 이미 반대 꼴을 쓰고 있었다** —
+ *   `/taiwan` 은 회사 1,057장을 다 걸고(399KB), 그래서 대만 회사는 전부 2홉이다.
+ *   `/uae` 도 104장을 다 건다. 한국만 0장이었다. 한 사이트 안에서 꼴이 갈려 있었다.
+ *   ⛔ 「무거워서 안 한다」면 대만도 안 했어야 한다. 까닭이 서로 어긋나 있었다.
+ *
+ * ⇒ **업종 문은 그대로 두고**, 그 아래에 업종별로 묶은 «회사 전체 목록»을 더한다.
+ *   ⛔ 「얇은 목록」이 되지 않게 줄마다 매출을 붙인다 — 이름만 늘어놓지 않는다.
+ *   ⛔ 업종 문을 걷어내지 않는다. 사람은 61갈래로 들어가는 쪽이 읽기 쉽다.
+ *   ⛔ 여기서도 줄 세우지 않는다 — 업종도 회사도 이름 차례다.
+ *   ⛔ 「고쳤다」로 끝내지 않는다 — 배포한 뒤 홉을 다시 잰다.
  */
 import Base from '../layouts/Base.astro';
 import { SITE_URL } from '../consts';
 import fin from '../data/korea-financials-tape.json';
 import { 낼만한가, 조원억 } from '../lib/company-page.mjs';
+import { 주소표만들기 } from '../lib/company-slug.mjs';
 import { 업종말, 업종주소 } from '../lib/sector-en.mjs';
 
 const 행들 = (fin as any).rows as any[];
@@ -43,6 +63,28 @@ for (const [code, rs] of 묶음) {
 }
 const 갈래목록 = [...갈래.entries()].map(([slug, v]) => ({ slug, ...v }))
   .sort((a, b) => a.en.localeCompare(b.en, 'en'));
+
+/* ⭐ 회사 전체 목록 — 봇이 여기서 바로 낱장으로 간다(3홉 → 2홉).
+   ⚠ 주소는 회사 낱장을 찍는 [slug].astro 와 «같은 자»로 만든다. 따로 지으면 어긋난다. */
+const 회사머리 = [...묶음.entries()].map(([code, rs]) => ({ code, ...rs[0] }));
+const 주소표 = 주소표만들기(회사머리);
+const 업종별회사 = new Map<string, Array<{ slug: string; name: string; rev: number | null }>>();
+let 걸린회사 = 0;
+for (const [code, rs] of 묶음) {
+  if (!낼만한가(rs)) continue;
+  const slug = 주소표.get(String(code));
+  const key = 업종주소(rs[0].sector);
+  const name = rs[0].name_en || rs[0].nameEn;
+  /* ⛔ 주소나 이름이 없으면 «안 건다». 빈 주소로 걸면 404 를 손님에게 내민다 */
+  if (!slug || !key || !name) continue;
+  if (!업종별회사.has(key)) 업종별회사.set(key, []);
+  const 최근 = [...rs].sort((a, b) => b.year - a.year)[0];
+  업종별회사.get(key)!.push({ slug, name, rev: 조원억(최근.revenue_krw) });
+  걸린회사 += 1;
+}
+for (const v of 업종별회사.values()) v.sort((a, b) => a.name.localeCompare(b.name, 'en'));
+/* ⛔ 「몇 장을 걸었나」를 눈에 보이게 둔다 — 조용히 줄어들면 아무도 모른다 */
+const 안걸린회사 = 낸회사 - 걸린회사;
 
 const 해들 = [...new Set(행들.map((r) => r.year))].sort();
 
@@ -98,6 +140,36 @@ const jsonLd = {
       </ul>
     </section>
 
+    <section>
+      <h2>Every company</h2>
+      <p class="note">
+        All {걸린회사.toLocaleString('en-GB')} companies with a page, grouped under the classification
+        they file under and listed alphabetically within it. The figure beside each name is the most
+        recent revenue it reported, in billions of won. It is what the company filed — not a ranking,
+        not an estimate, and not a judgement about the company.
+        {안걸린회사 > 0 && (
+          <> {안걸린회사.toLocaleString('en-GB')} filed a classification we could not match, so they
+          are reachable through search but not listed here.</>
+        )}
+      </p>
+      {갈래목록.map((g) => (
+        <div class="allgrp">
+          <h3 id={`all-${g.slug}`}>
+            <a href={`/sector/${g.slug}`}>{g.en}</a>
+            <span class="n">{(업종별회사.get(g.slug) ?? []).length}</span>
+          </h3>
+          <ul class="alllist">
+            {(업종별회사.get(g.slug) ?? []).map((c) => (
+              <li>
+                <a href={`/company/${c.slug}`}>{c.name}</a>
+                <span class="rev">{bn(c.rev)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
     <footer class="src">
       <p>
         <b>Source.</b> Financial statements as filed with Korea's Financial Supervisory Service and
@@ -133,6 +205,24 @@ const jsonLd = {
             text-decoration: none; color: #2a4d8f; font-size: .93rem; }
   .grid a:hover { background: #f4f7fc; border-color: #ccd6e6; }
   .grid .n { color: #889; font-size: .82rem; font-variant-numeric: tabular-nums; }
+  /* 회사 전체 목록 — 글자를 작게 하되 누를 자리는 충분히 둔다 */
+  .allgrp { margin: 1.4rem 0; }
+  .allgrp h3 { font-size: .95rem; margin: 0 0 .4rem; padding-bottom: .25rem;
+               border-bottom: 1px solid #e6e9ef; display: flex; justify-content: space-between;
+               align-items: baseline; gap: .6rem; }
+  .allgrp h3 a { color: #223; text-decoration: none; }
+  .allgrp h3 a:hover { text-decoration: underline; }
+  .allgrp h3 .n { color: #889; font-size: .78rem; font-weight: 400;
+                  font-variant-numeric: tabular-nums; }
+  .alllist { list-style: none; padding: 0; margin: 0;
+             display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+             gap: .05rem .9rem; }
+  .alllist li { display: flex; justify-content: space-between; align-items: baseline;
+                gap: .5rem; padding: .18rem 0; font-size: .86rem; line-height: 1.45; }
+  .alllist a { color: #2a4d8f; text-decoration: none; }
+  .alllist a:hover { text-decoration: underline; }
+  .alllist .rev { color: #889; font-size: .78rem; font-variant-numeric: tabular-nums;
+                  white-space: nowrap; }
   .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
          font-size: .84rem; color: #556; }
   .src p { margin: .5rem 0; }
