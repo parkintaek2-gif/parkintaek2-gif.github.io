@@ -102,6 +102,27 @@ export function 오늘몫을썼나(줄들, 그날 = 오늘(), 몫 = 하루몫) {
  * ⚠ 이 목록은 «길을 여는 장»만 담는다. 낱낱의 글을 여기 넣지 않는다 — 그러면 차례의 뜻이 없다.
  */
 export const 맨앞에 = [
+  /**
+   * 🔴🔴 [2026-10-06 21:45 · 5번] **돈이 되는 페이지를 맨 앞에 둔다.**
+   *
+   * 오늘 재 보니 seoulmarkets.com/data/... (우리가 돈 받고 파는 데이터 상품 페이지)가
+   * **3일간 방문자 0명 · 검색결과 노출 18번**이었다. 기사 쪽은 방문자 12명 · 노출 1,382번.
+   * 까닭은 간단했다 — **이 페이지들을 구글에 한 번도 안 넣었다.**
+   * (색인 요청 기록 28건 중 klifemap 26 · seoulmarkets 1)
+   *
+   * ⛔ 「사이트맵에 있으니 구글이 온다」가 아니다. 오늘 하루 종일 겪은 그 병이다.
+   * ⚠ 차례를 안 정하면 알파벳·사이트맵 순서대로 /article, /tag 같은 목록이 먼저 들어간다.
+   *   목록도 값이 있지만, **파는 물건이 먼저다.**
+   */
+  'https://seoulmarkets.com/data',
+  'https://seoulmarkets.com/data/screener',
+  'https://seoulmarkets.com/data/financials',
+  'https://seoulmarkets.com/data/valuation',
+  'https://seoulmarkets.com/data/largest-companies',
+  'https://seoulmarkets.com/data/indices',
+  'https://seoulmarkets.com/data/consensus',
+  'https://seoulmarkets.com/data/ownership',
+  /* klifemap 글 전체 목록 — 2,891편으로 가는 길. 2026-10-06 에 네 말 모두 들어갔다 */
   'https://klifemap.ai/all',
   'https://klifemap.ai/all?lang=en',
   'https://klifemap.ai/all?lang=ja',
@@ -270,14 +291,49 @@ if (내가실행됐다) {
 
   if (썼나) { console.log(`✅ 오늘(${오늘()}) 몫 ${하루몫}개를 이미 다 썼다 — 내일 다시`); process.exit(0); }
 
-  /* 넣을 차례를 정한다 — 뼈대 먼저, 그 다음 나머지 */
-  const 사이트맵 = 인자.find((a) => a.startsWith('http')) ?? 'https://klifemap.ai/sitemap-core.xml';
+  /**
+   * 🔴🔴 [2026-10-06 21:44 · 5번] **한 사이트만 넣고 있었다. 28건 중 26건이 klifemap 이었다.**
+   *
+   * 기본 사이트맵이 klifemap 하나로 박혀 있었다. 그래서 날마다 열 개를 전부 거기 쓰고,
+   * **SeoulMarkets 상품 판매 페이지 41개는 한 번도 구글에 넣은 적이 없다.**
+   *
+   *   색인 요청 기록 28건 — klifemap 26 · seoulmarkets 1 · 100yearmap 1
+   *   그 결과 seoulmarkets.com/data/... 는 3일간 방문자 0명 · 검색결과 노출 18번
+   *   같은 기간 기사 쪽은 방문자 12명 · 노출 1,382번
+   *
+   * ⇒ 돈이 되는 쪽에 한 번도 안 넣고 있었다. 이것이 방문자 0명의 까닭이다.
+   * ⛔ 「사이트맵에 넣었으니 구글이 온다」가 아니다 — 오늘 하루 종일 겪은 그 병이다.
+   *
+   * ⇒ **사이트를 돌아가며 넣는다.** 인자로 주면 그것만, 안 주면 차례대로.
+   *   ⛔ klifemap 을 버리지 않는다 — 돌아가며 넣는 것이지 갈아타는 것이 아니다.
+   *   ⚠ 상품 페이지는 41개뿐이라 며칠이면 다 들어간다. 그 뒤에는 저절로 다음 차례로 간다.
+   */
+  const 사이트맵차례 = [
+    /* 돈이 되는 쪽부터 — 상품 판매 페이지가 여기 들어 있다 */
+    'https://seoulmarkets.com/sitemap-pages.xml',
+    'https://klifemap.ai/sitemap-core.xml',
+    'https://seoulmarkets.com/sitemap-companies.xml',
+    'https://seoulmarkets.com/sitemap-japan.xml',
+  ];
   const { execFileSync } = await import('node:child_process');
-  let xml = '';
-  try { xml = execFileSync('curl', ['-sS', '--max-time', '20', 사이트맵], { encoding: 'utf8' }); }
-  catch { console.log('⛔ 사이트맵을 못 받았다 — 못 쟀다. 넣지 않는다'); process.exit(1); }
-  const 모두 = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
-  if (!모두.length) { console.log('⛔ 사이트맵이 비었다 — 넣지 않는다'); process.exit(1); }
+  const 받아온다 = (주소) => {
+    try { return execFileSync('curl', ['-sS', '--max-time', '20', 주소], { encoding: 'utf8' }); }
+    catch { return ''; }
+  };
+
+  const 고른것 = 인자.find((a) => a.startsWith('http'));
+  const 볼사이트맵 = 고른것 ? [고른것] : 사이트맵차례;
+  let 모두 = []; let 사이트맵 = null;
+  for (const s of 볼사이트맵) {
+    const xml = 받아온다(s);
+    const 목록 = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
+    if (!목록.length) { console.log(`⬜ ${s} — 못 받았거나 비었다. 다음 것을 본다`); continue; }
+    /* ⭐ 아직 한 번도 안 넣은 것이 남아 있는 사이트맵에서 멈춘다 */
+    const 남은수 = (아직안넣은것(목록, 줄들) ?? []).length;
+    console.log(`   ${s} — ${목록.length}장 중 아직 ${남은수}장 안 넣었다`);
+    if (남은수 > 0) { 모두 = 목록; 사이트맵 = s; break; }
+  }
+  if (!모두.length) { console.log('✅ 차례에 있는 사이트맵을 다 넣었다 — 새 사이트맵을 주십시오'); process.exit(0); }
 
   /* ⭐ 길을 여는 장을 먼저 넣는다 — 하루 몫이 열 개뿐이라 차례가 곧 값이다 */
   const 남은것 = 줄세우기(아직안넣은것(모두, 줄들) ?? []) ?? [];
