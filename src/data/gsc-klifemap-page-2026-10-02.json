@@ -1,0 +1,24 @@
+{
+  "site": "sc-domain:klifemap.ai",
+  "dimension": "page",
+  "window": {
+    "from": "2026-09-04",
+    "to": "2026-10-02",
+    "days": 28
+  },
+  "rowLimit": 25000,
+  "rows": [
+    {
+      "key": "https://klifemap.ai/",
+      "impressions": 5,
+      "clicks": 1,
+      "position": 3.2
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-2026-08-01",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 7.5
+    }
+  ]
+}

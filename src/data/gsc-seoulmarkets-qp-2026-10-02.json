@@ -1,0 +1,1083 @@
+{
+  "site": "sc-domain:seoulmarkets.com",
+  "dimension": "query+page",
+  "window": {
+    "from": "2026-09-04",
+    "to": "2026-10-02",
+    "days": 28
+  },
+  "rowLimit": 25000,
+  "rows": [
+    {
+      "key": "\"ksq_bydd_trd\" krx",
+      "page": "https://seoulmarkets.com/article/korea-four-stocks-half-the-market",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 8.666666666666668
+    },
+    {
+      "key": "\"stk_bydd_trd\" krx open api",
+      "page": "https://seoulmarkets.com/article/korea-four-stocks-half-the-market",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "abu dhabi national takaful company",
+      "page": "https://seoulmarkets.com/uae/company/abu-dhabi-national-takaful",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 87
+    },
+    {
+      "key": "abu dhabi ports company pjsc",
+      "page": "https://seoulmarkets.com/uae/company/abu-dhabi-ports",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "adr120s",
+      "page": "https://seoulmarkets.com/japan/company/adr120s",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "aica kogyo",
+      "page": "https://seoulmarkets.com/japan/company/aica-kogyo-company",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 55
+    },
+    {
+      "key": "anan",
+      "page": "https://seoulmarkets.com/uae/company/anan-investment",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 81
+    },
+    {
+      "key": "asics financial report",
+      "page": "https://seoulmarkets.com/japan/company/asics",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 45
+    },
+    {
+      "key": "baycurrent inc",
+      "page": "https://seoulmarkets.com/japan/company/baycurrent",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 46
+    },
+    {
+      "key": "big companies in korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "big company in korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "big korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "big south korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 73.5
+    },
+    {
+      "key": "biggest companies in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "biggest companies korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 71.75
+    },
+    {
+      "key": "biggest companies south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 71
+    },
+    {
+      "key": "biggest company in korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 62
+    },
+    {
+      "key": "biggest company in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "biggest korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 16,
+      "clicks": 0,
+      "position": 68.5625
+    },
+    {
+      "key": "biggest south korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 73.6
+    },
+    {
+      "key": "branu",
+      "page": "https://seoulmarkets.com/japan/company/branu",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 72
+    },
+    {
+      "key": "bridgestone net worth",
+      "page": "https://seoulmarkets.com/japan/company/bridgestone",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "chemical companies in japan",
+      "page": "https://seoulmarkets.com/japan/sector/chemicals",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "como japan",
+      "page": "https://seoulmarkets.com/japan/company/como",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 25
+    },
+    {
+      "key": "cynd stock",
+      "page": "https://seoulmarkets.com/japan/company/cynd",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "dae sang",
+      "page": "https://seoulmarkets.com/company/daesang",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 72
+    },
+    {
+      "key": "daesang corp",
+      "page": "https://seoulmarkets.com/company/daesang",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "daito trust",
+      "page": "https://seoulmarkets.com/japan/company/daito-trust-construction",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 53
+    },
+    {
+      "key": "denyo co., ltd. earnings results",
+      "page": "https://seoulmarkets.com/japan/company/denyo",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "dreamarts corporation",
+      "page": "https://seoulmarkets.com/japan/company/dreamarts",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "dskr",
+      "page": "https://seoulmarkets.com/company/dsr",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 56
+    },
+    {
+      "key": "ennex.co.th",
+      "page": "https://seoulmarkets.com/company/enex",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 82
+    },
+    {
+      "key": "famous south korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 79
+    },
+    {
+      "key": "fuji seal annual report",
+      "page": "https://seoulmarkets.com/japan/company/fuji-seal-international",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "futaba industrial co ltd",
+      "page": "https://seoulmarkets.com/japan/company/futaba-industrial",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 57
+    },
+    {
+      "key": "gsi creos corporation",
+      "page": "https://seoulmarkets.com/japan/company/gsi-creos",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 35
+    },
+    {
+      "key": "hankyung consensus",
+      "page": "https://seoulmarkets.com/tag/hankyung-consensus",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 5
+    },
+    {
+      "key": "hanwa co ltd",
+      "page": "https://seoulmarkets.com/japan/company/hanwa",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 39
+    },
+    {
+      "key": "hanwa co. ltd",
+      "page": "https://seoulmarkets.com/japan/company/hanwa",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 41
+    },
+    {
+      "key": "how much money has hokkaidosenko.co.jp raised",
+      "page": "https://seoulmarkets.com/japan/company/hokkaidenko",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 2
+    },
+    {
+      "key": "how much money has kawaden.co.jp raised",
+      "page": "https://seoulmarkets.com/japan/company/kawaden",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "japan chemical distribution market",
+      "page": "https://seoulmarkets.com/japan/sector/chemicals",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 98
+    },
+    {
+      "key": "japan maritime logistics services market",
+      "page": "https://seoulmarkets.com/japan/sector/marine-transportation",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 76.5
+    },
+    {
+      "key": "japan medical morphine market",
+      "page": "https://seoulmarkets.com/japan/sector/pharmaceutical",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 96
+    },
+    {
+      "key": "japanese banks",
+      "page": "https://seoulmarkets.com/japan/sector/banks",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 79
+    },
+    {
+      "key": "japanese pharmaceutical company",
+      "page": "https://seoulmarkets.com/japan/sector/pharmaceutical",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 37
+    },
+    {
+      "key": "kokuyo co., ltd. earnings results",
+      "page": "https://seoulmarkets.com/japan/company/kokuyo",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "komatsu matere co.,ltd. earnings results",
+      "page": "https://seoulmarkets.com/japan/company/komatsu-matere",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "konica minolta net worth",
+      "page": "https://seoulmarkets.com/japan/company/konica-minolta",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 5
+    },
+    {
+      "key": "korea big companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "korea biggest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "korea largest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "korea pay data reporting",
+      "page": "https://seoulmarkets.com/article/korea-bigger-firms-pay-more-every-step",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 59
+    },
+    {
+      "key": "korea rating",
+      "page": "https://seoulmarkets.com/company/korea-ratings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 71
+    },
+    {
+      "key": "korea ratings",
+      "page": "https://seoulmarkets.com/company/korea-ratings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 60
+    },
+    {
+      "key": "korean biggest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 85
+    },
+    {
+      "key": "korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 73.8
+    },
+    {
+      "key": "korean stock market biggest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "korean top companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "korean working women",
+      "page": "https://seoulmarkets.com/article/korean-sectors-female-workforce",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 82
+    },
+    {
+      "key": "kospi index constituents weights",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 1
+    },
+    {
+      "key": "kospi member weights",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 1
+    },
+    {
+      "key": "kusuri no aoki holdings co., ltd. earnings results",
+      "page": "https://seoulmarkets.com/japan/company/kusuri-no-aoki-holdings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "kz precision",
+      "page": "https://seoulmarkets.com/company/kz-precision",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "large korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "largest companies in korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "largest companies in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 71.2
+    },
+    {
+      "key": "largest companies south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "largest company in korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "largest company in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 63.5
+    },
+    {
+      "key": "largest korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "largest south korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "major korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 71.33333333333333
+    },
+    {
+      "key": "mitsuba corporation japan",
+      "page": "https://seoulmarkets.com/japan/company/mitsuba",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 27
+    },
+    {
+      "key": "mitsuboshi kogyo co.,ltd. yoy growth revenue",
+      "page": "https://seoulmarkets.com/japan/company/mitsuboshi",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 10.333333333333334
+    },
+    {
+      "key": "mochida pharmaceutical",
+      "page": "https://seoulmarkets.com/japan/company/mochida-pharmaceutical",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 45
+    },
+    {
+      "key": "money forward japan",
+      "page": "https://seoulmarkets.com/japan/company/money-forward",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 55
+    },
+    {
+      "key": "naigai co., ltd. earnings results",
+      "page": "https://seoulmarkets.com/japan/company/naigai-tec",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "nakamoto packs",
+      "page": "https://seoulmarkets.com/japan/company/nakamoto-packs",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "nanto bank",
+      "page": "https://seoulmarkets.com/japan/company/the-nanto-bank",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 59
+    },
+    {
+      "key": "nikki corporation",
+      "page": "https://seoulmarkets.com/japan/company/nikki",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 37
+    },
+    {
+      "key": "nikon corporation japan",
+      "page": "https://seoulmarkets.com/japan/company/nikon",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 93
+    },
+    {
+      "key": "nippon dry chemical",
+      "page": "https://seoulmarkets.com/japan/company/nippon-dry-chemical",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "nippon fine chemical",
+      "page": "https://seoulmarkets.com/japan/company/nippon-fine-chemical",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 82
+    },
+    {
+      "key": "nippon seik",
+      "page": "https://seoulmarkets.com/japan/company/nippon-seiki",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 57
+    },
+    {
+      "key": "nippon shinyaku",
+      "page": "https://seoulmarkets.com/japan/company/nippon-shinyaku",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 49
+    },
+    {
+      "key": "onward holdings",
+      "page": "https://seoulmarkets.com/japan/company/onward-holdings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 49
+    },
+    {
+      "key": "onward holdings co ltd",
+      "page": "https://seoulmarkets.com/japan/company/onward-holdings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 39
+    },
+    {
+      "key": "polaris ai pharma",
+      "page": "https://seoulmarkets.com/company/polaris-ai-pharma",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "popular korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "rakuten revenue",
+      "page": "https://seoulmarkets.com/japan/company/rakuten-group",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "ryoden",
+      "page": "https://seoulmarkets.com/japan/company/ryoden",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 41
+    },
+    {
+      "key": "screen holdings co ltd",
+      "page": "https://seoulmarkets.com/japan/company/screen-holdings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 57
+    },
+    {
+      "key": "se holdings and incubations stock",
+      "page": "https://seoulmarkets.com/japan/company/se-holdings-and-incubations",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 55
+    },
+    {
+      "key": "seibu holdings inc",
+      "page": "https://seoulmarkets.com/japan/company/seibu-holdings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 39
+    },
+    {
+      "key": "seiwa electric",
+      "page": "https://seoulmarkets.com/japan/company/seiwa-electric-mfg",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 31
+    },
+    {
+      "key": "senko japan",
+      "page": "https://seoulmarkets.com/japan/company/senko-group-holdings",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 52
+    },
+    {
+      "key": "shibaura machine co., ltd. earnings results",
+      "page": "https://seoulmarkets.com/japan/company/shibaura-machine",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "shin etsu japan",
+      "page": "https://seoulmarkets.com/japan/company/shin-etsu-chemical",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 78
+    },
+    {
+      "key": "shin-etsu japan",
+      "page": "https://seoulmarkets.com/japan/company/shin-etsu-chemical",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 75
+    },
+    {
+      "key": "sojitz corporation",
+      "page": "https://seoulmarkets.com/japan/company/sojitz",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "sojitz corporation japan",
+      "page": "https://seoulmarkets.com/japan/company/sojitz",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 31
+    },
+    {
+      "key": "sojitz japan",
+      "page": "https://seoulmarkets.com/japan/company/sojitz",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "sourcenext corporation",
+      "page": "https://seoulmarkets.com/japan/company/sourcenext",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 35
+    },
+    {
+      "key": "south korea big companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "south korea biggest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "south korea biggest trading partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-partners-two-giants-one-supplier",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 3
+    },
+    {
+      "key": "south korea industrial rubber market",
+      "page": "https://seoulmarkets.com/sector/rubber-and-plastics",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 81.5
+    },
+    {
+      "key": "south korea rubber molding market",
+      "page": "https://seoulmarkets.com/sector/rubber-and-plastics",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "south korea silicone rubber market",
+      "page": "https://seoulmarkets.com/sector/rubber-and-plastics",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 81.33333333333333
+    },
+    {
+      "key": "south korea top 10 companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 80
+    },
+    {
+      "key": "south korea top 100 companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 63
+    },
+    {
+      "key": "south korea top companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "south korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 79.83333333333333
+    },
+    {
+      "key": "south korean top companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 68.5
+    },
+    {
+      "key": "stella chemifa corporation earnings results",
+      "page": "https://seoulmarkets.com/japan/company/stella-chemifa",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "strike japan",
+      "page": "https://seoulmarkets.com/japan/company/strike-company",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "sumitomo metal",
+      "page": "https://seoulmarkets.com/japan/company/sumitomo-metal-mining",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "taiyo yuden",
+      "page": "https://seoulmarkets.com/japan/company/taiyo-yuden",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 54.8
+    },
+    {
+      "key": "takachiho koheki co.,ltd. analyst price target disagreement * * *",
+      "page": "https://seoulmarkets.com/japan/company/takachiho-koheki",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "takachiho koheki co.,ltd. bullish and bearish analyst opinions *",
+      "page": "https://seoulmarkets.com/japan/company/takachiho-koheki",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "takachiho koheki co.,ltd. forecast and analysis *",
+      "page": "https://seoulmarkets.com/japan/company/takachiho-koheki",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "takachiho koheki co.,ltd. forecast and analysis * * * *",
+      "page": "https://seoulmarkets.com/japan/company/takachiho-koheki",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "the hyakujushi bank, ltd.",
+      "page": "https://seoulmarkets.com/japan/company/the-hyakujushi-bank",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "tokyo gas",
+      "page": "https://seoulmarkets.com/japan/company/tokyo-gas",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "top 10 companies in korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "top 10 companies in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "top 10 company in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "top 10 korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "top 10 south korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 61.5
+    },
+    {
+      "key": "top companies in korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "top companies in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 80.33333333333333
+    },
+    {
+      "key": "top companies of south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 75
+    },
+    {
+      "key": "top companies south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "top company in korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "top korea companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "top korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 74.5
+    },
+    {
+      "key": "top korean company",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "top south korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "top10",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 3
+    },
+    {
+      "key": "toppan japan",
+      "page": "https://seoulmarkets.com/japan/company/toppan-holdings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "topy industries ltd",
+      "page": "https://seoulmarkets.com/japan/company/topy-industries",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 50
+    },
+    {
+      "key": "tsi holdings company profile english",
+      "page": "https://seoulmarkets.com/japan/company/tsi-holdings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 48
+    },
+    {
+      "key": "unerry",
+      "page": "https://seoulmarkets.com/japan/company/unerry",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 45
+    },
+    {
+      "key": "unisol holdings corporation earnings results",
+      "page": "https://seoulmarkets.com/japan/company/unisol-holdings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "vertex corporation",
+      "page": "https://seoulmarkets.com/japan/company/vertex",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "vivozon",
+      "page": "https://seoulmarkets.com/company/vivozon-pharmaceutical",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "what is the company name for albalink.co.jp",
+      "page": "https://seoulmarkets.com/japan/company/albalink",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "ymirlink",
+      "page": "https://seoulmarkets.com/japan/company/ymirlink",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 17
+    },
+    {
+      "key": "yonyu plastics co., ltd. bullish and bearish analyst opinions * * * *",
+      "page": "https://seoulmarkets.com/taiwan/company/yonyu",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "yonyu plastics co., ltd. bullish and bearish analyst opinions * * * * *",
+      "page": "https://seoulmarkets.com/taiwan/company/yonyu",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "yonyu plastics co., ltd. forecast and analysis * *",
+      "page": "https://seoulmarkets.com/taiwan/company/yonyu",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "yonyu plastics co., ltd. forecast and analysis * * * *",
+      "page": "https://seoulmarkets.com/taiwan/company/yonyu",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    }
+  ]
+}
