@@ -33,6 +33,7 @@
  *   node scripts/collect-dart-segments.mjs --해 2025 --몇개 20 --적는다
  *   node scripts/collect-dart-segments.mjs --자가시험
  */
+import { 시가총액표 } from './시가총액읽기.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
@@ -327,20 +328,12 @@ if (내가진입점) {
       .filter((x) => x && 시장들.includes(x.시장) && x.corp);
 
     /* ⭐ 시가총액이 큰 회사부터 받는다.
-       회사목록 차례대로 받으면 아무도 안 찾는 회사부터 채워져 상품이 늦게 선다.
+       * 회사목록 차례대로 받으면 아무도 안 찾는 회사부터 채워져 상품이 늦게 선다.
        ⚠ 시총을 못 찾은 회사는 «버리지 않고» 뒤로 보낸다 — 못 쟀다고 빼면 자료가 준다 */
-    const 시총 = new Map();
-    try {
-      for (const 결 of ['stk_bydd_trd', 'ksq_bydd_trd']) {
-        const 것들 = fs.readdirSync(path.join(뿌리, 'archive', 'raw', 'krx'))
-          .filter((f) => f.startsWith(결) && f.endsWith('.json')).sort();
-        if (!것들.length) continue;
-        const j = JSON.parse(fs.readFileSync(path.join(뿌리, 'archive', 'raw', 'krx', 것들.at(-1)), 'utf8'));
-        for (const r of (Array.isArray(j) ? j : j.list || j.rows || j.data || [])) {
-          if (r.ISU_CD) 시총.set(String(r.ISU_CD), Number(r.MKTCAP) || 0);
-        }
-      }
-    } catch (e) { console.log(`   ⚠ 시가총액을 못 읽었다(${String(e.message).slice(0, 40)}) — 목록 차례로 받는다`); }
+    /* 🔴 [2026-10-06 · 사장님] 「우회적으로 받지 않았나?」 — 여기도 archive/raw/krx 였다.
+       포털 판(archive/raw/stocks)에 시가총액이 이미 있다. 같은 자로 읽는다. */
+    const { 표: 시총, 못읽음: 시총못읽음 } = 시가총액표();
+    if (시총못읽음) console.log(`   ⚠ 시가총액을 못 읽었다 — ${시총못읽음}. 목록 차례로 받는다`);
     if (시총.size) {
       회사들 = 회사들.slice().sort((a, b) => (시총.get(b.종목) ?? -1) - (시총.get(a.종목) ?? -1));
       const 붙은것 = 회사들.filter((x) => 시총.has(x.종목)).length;

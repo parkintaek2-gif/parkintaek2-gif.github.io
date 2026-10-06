@@ -66,6 +66,33 @@ export function 눈감이읽기(줄) {
 }
 
 /** 한 파일에서 금지꼴을 찾는다 */
+/**
+ * 🔴🔴🔴 [2026-10-06 13:5x · 5번] **자물쇠가 글자를 찾는데 코드가 글자를 쪼개 놓았다.**
+ *
+ * 사장님 (2026-10-06): 「KRX 시세 >>> 다른 데서 우회적으로 받지 않았나?」
+ * 그 말씀에 뒤져 보니 **그러고 있었다** —
+ *
+ *   scripts/build-segments-data.mjs:133
+ *     const d = path.join(뿌리, 'archive', 'raw', 'krx');   ← 시가총액(MKTCAP)을 꺼낸다
+ *   → src/data/segments.json → /data/segment-reporting · /trial (둘 다 라이브 200)
+ *
+ * 이 자의 금지 표에 `archive/raw/krx` 가 **이미 적혀 있었다.** 그런데 0건이라 했다.
+ * 까닭 — `줄.includes('archive/raw/krx')` 로 «글자 그대로»를 찾는데,
+ *   코드는 `path.join` 으로 토막을 나눠 두어 그 글자가 한 줄에 «없다».
+ *
+ * ⛔ 금지를 적어 두고 안 잡는 자물쇠는 «없는 것보다 나쁘다» — 초록을 보고 안심한다.
+ * ⇒ 길꼴 금지(`a/b/c`)는 **토막이 차례로 나오는 줄**도 잡는다.
+ * ⚠ 토막 사이에 무엇이 끼어도 된다고 하면 엉뚱한 줄이 걸린다.
+ *   따옴표·쉼표·빗금·공백만 끼도록 좁힌다.
+ */
+export function 쪼갠길도찾기(줄, 금지꼴) {
+  const 토막 = String(금지꼴 ?? '').split('/').filter(Boolean);
+  if (토막.length < 2) return false;            /* 길꼴이 아니면 이 자가 할 일이 없다 */
+  const 사이 = '[\'"`\\s,\\./\\\\]{1,8}';
+  const 재 = new RegExp(토막.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\export function 파일훑기(글, 금지목록) {')).join(사이));
+  return 재.test(String(줄 ?? ""));
+}
+
 export function 파일훑기(글, 금지목록) {
   const 흠 = [];
   const 줄들 = String(글 ?? '').split(/\r?\n/);
@@ -73,12 +100,15 @@ export function 파일훑기(글, 금지목록) {
     const 줄 = 줄들[i];
     if (설명줄인가(줄)) continue;
     for (const g of 금지목록 ?? []) {
-      if (!줄.includes(g.금지꼴)) continue;
+      /* ⭐ 글자 그대로 «또는» 토막으로 쪼개 놓은 꼴 — 둘 다 잡는다 */
+      const 쪼갠것 = !줄.includes(g.금지꼴) && 쪼갠길도찾기(줄, g.금지꼴);
+      if (!줄.includes(g.금지꼴) && !쪼갠것) continue;
       const 눈 = 눈감이읽기(줄);
       if (눈?.유효) continue;
       흠.push({
         줄번호: i + 1, 금지꼴: g.금지꼴, 무엇: g.무엇, 가능한곳: g.가능한곳,
         까닭없는눈감이: Boolean(눈?.있다 && !눈.유효),
+        쪼개놓았나: 쪼갠것,
       });
     }
   }
@@ -130,6 +160,34 @@ function 자가시험() {
   재다('표읽기: 금지꼴이 빈 줄은 버린다', !표.some((r) => !r.금지꼴));
   재다('표읽기: 빈 글도 안 죽는다', 표읽기('').length === 0);
   재다('표읽기: null 도 안 죽는다', 표읽기(null).length === 0);
+
+  /* 🔴🔴 [2026-10-06 · 5번] 쪼개 놓은 길도 잡는다 — 사장님: 「우회적으로 받지 않았나?」
+     금지 표에 archive/raw/krx 가 있는데도 0건이라 했다. path.join 으로 토막을 나눠 뒀기 때문이다.
+     ⛔ 금지를 적어 두고 안 잡는 자물쇠는 «없는 것보다 나쁘다» — 초록을 보고 안심한다. */
+  재다('🔴 path.join 으로 쪼갠 길을 잡는다',
+    쪼갠길도찾기("const d = path.join(뿌리, 'archive', 'raw', 'krx');", 'archive/raw/krx'));
+  재다('따옴표 두 겹도 잡는다',
+    쪼갠길도찾기('path.join(a, "archive", "raw", "krx")', 'archive/raw/krx'));
+  재다('역빗금 길도 잡는다', 쪼갠길도찾기('archive\\\\raw\\\\krx', 'archive/raw/krx'));
+  재다('⛔ 다른 길은 안 잡는다',
+    !쪼갠길도찾기("path.join(뿌리, 'archive', 'raw', 'stocks')", 'archive/raw/krx'));
+  재다('⛔ 토막이 멀리 떨어져 있으면 안 잡는다 — 엉뚱한 줄을 걸지 않는다',
+    !쪼갠길도찾기('archive 폴더는 raw 를 담고 있으며 거기에 krx 도 있다', 'archive/raw/krx'));
+  재다('⛔ 차례가 다르면 안 잡는다', !쪼갠길도찾기("'krx','raw','archive'", 'archive/raw/krx'));
+  재다('⛔ 길꼴이 아닌 금지(주소)는 이 자가 손대지 않는다',
+    !쪼갠길도찾기('data-dbg.krx.co.kr', 'data-dbg.krx.co.kr'));
+  재다('⛔ 빈 것에 안 터진다',
+    !쪼갠길도찾기(null, 'archive/raw/krx') && !쪼갠길도찾기('아무 글', null));
+  재다('⭐ 쪼갠 것도 흠으로 올라오고 그 표가 붙는다', (() => {
+    const h = 파일훑기("path.join(뿌리, 'archive', 'raw', 'krx')",
+      [{ 금지꼴: 'archive/raw/krx', 무엇: '시세', 가능한곳: 'archive/raw/stocks' }]);
+    return h.length === 1 && h[0].쪼개놓았나 === true;
+  })());
+  재다('⭐ 글자 그대로인 것은 쪼갠 것으로 세지 않는다', (() => {
+    const h = 파일훑기('archive/raw/krx',
+      [{ 금지꼴: 'archive/raw/krx', 무엇: '시세', 가능한곳: 'archive/raw/stocks' }]);
+    return h.length === 1 && h[0].쪼개놓았나 === false;
+  })());
 
   재다('설명줄: 두겹빗금', 설명줄인가('  // data-dbg.krx.co.kr 는 쓰지 않는다'));
   재다('설명줄: 별표', 설명줄인가(' * archive/raw/krx'));

@@ -22,6 +22,7 @@
  *   node scripts/build-segments-data.mjs            src/data/segments.json 을 쓴다
  *   node scripts/build-segments-data.mjs --자가시험
  */
+import { 시가총액표 } from './시가총액읽기.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -114,7 +115,7 @@ if (내가진입점) {
   if (process.argv.includes('--자가시험')) process.exit(자가시험() ? 0 : 1);
 
   /* ⛔ `argv[indexOf(…) + 1]` 을 그냥 쓰면, 인자가 «없을 때» -1+1=0 이라
-     argv[0](노드 실행파일 경로)을 집는다. 실제로 그 길로 한 번 터졌다.
+     * argv[0](노드 실행파일 경로)을 집는다. 실제로 그 길로 한 번 터졌다.
      ⇒ 자리를 먼저 보고, 없으면 기본값으로 간다. */
   const 해자리 = process.argv.indexOf('--해');
   const 해 = (해자리 >= 0 ? process.argv[해자리 + 1] : null) || '2025';
@@ -126,19 +127,16 @@ if (내가진입점) {
   const 줄들 = fs.readFileSync(자료길, 'utf8').split('\n').filter(Boolean)
     .map((l) => { try { return JSON.parse(l); } catch (e) { return null; } }).filter(Boolean);
 
-  /* 시가총액 — KRX 최신 두 장에서 붙인다 */
-  const 시총 = new Map();
-  for (const 결 of ['stk_bydd_trd', 'ksq_bydd_trd']) {
-    try {
-      const d = path.join(뿌리, 'archive', 'raw', 'krx');
-      const 것들 = fs.readdirSync(d).filter((f) => f.startsWith(결) && f.endsWith('.json')).sort();
-      if (!것들.length) continue;
-      const j = JSON.parse(fs.readFileSync(path.join(d, 것들.at(-1)), 'utf8'));
-      for (const r of (Array.isArray(j) ? j : j.list || j.rows || j.data || [])) {
-        if (r.ISU_CD) 시총.set(String(r.ISU_CD), Number(r.MKTCAP) || 0);
-      }
-    } catch (e) { /* 없으면 구간을 못 가른다 — 아래에서 「못 쟀다」로 센다 */ }
-  }
+  /* 🔴🔴 [2026-10-06 · 사장님] 「KRX 시세 >>> 다른 데서 우회적으로 받지 않았나?」
+     * 여기가 그 자리였다 — archive/raw/krx(직접 수집분)에서 시가총액을 꺼내 쓰고 있었고,
+     * 그 결과가 src/data/segments.json 을 거쳐 /data/segment-reporting 과 /trial 로 나갔다.
+     * 우리 대장에 내가 적어 둔 금칙 — 「⛔ 팔 파일·광고 지면에 넣지 않는다」 — 을 내가 어겼다.
+     * ⇒ 포털 판(archive/raw/stocks)에 시가총액 칸이 «이미» 있다. 굳이 KRX 를 둘 까닭이 없었다.
+     * ⚠ 포털 판도 2026-09-07 부터 공공누리 제4유형이다. 그것은 사장님이 정하실 일이고,
+       이 고침은 «적어도 우리 규칙은 지키게» 하는 것이다. */
+  const { 표: 시총, 날: 시총날, 못읽음: 시총못읽음 } = 시가총액표();
+  if (시총못읽음) console.log(`   ⚠ 시가총액을 못 읽었다 — ${시총못읽음}. 구간을 못 가른다`);
+  else console.log(`   시가총액 ${시총.size}곳 — 포털 판 ${시총날}`);
 
   const 통 = new Map(구간들.map((g) => [g.이름, { 이름: g.이름, 회사: 0, 하나: 0, 갈래들: [] }]));
   let 원문못받음 = 0, 이름못뽑음 = 0, 시총못붙음 = 0;
@@ -193,7 +191,7 @@ if (내가진입점) {
     구간: 구간표,
     잘게쪼갠곳: 잘게쪼갠곳.slice(0, 12),
     /* 🔴 [2026-09-28] 여기를 우리말로 적었더니 **영문 지면에 그대로 나갔다.**
-       사장님 지시: 화면에 한국어를 내지 않는다. 손님은 영어권이다.
+       * 사장님 지시: 화면에 한국어를 내지 않는다. 손님은 영어권이다.
        ⛔ 지면이 그대로 찍는 칸에 우리말을 넣지 않는다 — 코드 주석은 우리말이어도 된다. */
     출처: 'DART annual reports (Financial Supervisory Service electronic disclosure system); '
       + 'market capitalisation from KRX daily quotations',
