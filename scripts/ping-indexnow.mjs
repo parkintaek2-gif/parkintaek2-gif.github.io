@@ -187,7 +187,18 @@ async function 통보(호스트) {
   /* ⚠ 사이트맵에 **남의 호스트 URL** 이 섞이면 IndexNow 가 통째로 거절한다. 먼저 거른다 */
   const 남의것 = urlList.filter((u) => new URL(u).host !== 호스트);
   if (남의것.length) {
-    console.error(`⛔ ${호스트}: 사이트맵에 다른 호스트 URL 이 ${남의것.length}개 섞여 있다 — ${남의것[0]}`);
+    console.error(`⛔ ${호스트}: 통보할 URL 가운데 ${남의것.length}개가 다른 호스트다 — ${남의것[0]}`);
+    /* 🔴 [2026-10-06 20:59 · 5번] **이 자물쇠가 맞게 막았는데 «엉뚱한 까닭»을 말했다.**
+       오늘 내가 Git Bash 에서 `--host seoulmarkets.com / /companies` 라고 쳤더니
+       MSYS 가 `/` 를 `c:/Program Files/Git/` 로 바꿔 넣었다. 그런데 자는
+       「사이트맵에 다른 호스트가 섞여 있다」고 말했다 — 사이트맵은 멀쩡했다.
+       ⇒ 까닭을 틀리게 말하는 자물쇠는 사람을 엉뚱한 데로 보낸다. 거짓 빨강만큼 비싸다.
+       ⛔ 막는 것은 그대로 둔다. 말만 고친다. */
+    if (남의것.some((u) => /Program%20Files|Program Files|^file:/i.test(u))) {
+      console.error('   ⭐ 이것은 사이트맵 탈이 아니다 — **Git Bash 가 `/` 를 윈도 경로로 바꾼 것**이다');
+      console.error('      ✅ 앞에 MSYS_NO_PATHCONV=1 을 붙여서 다시 치십시오');
+      console.error('         MSYS_NO_PATHCONV=1 node scripts/ping-indexnow.mjs --host <호스트> / /a /b');
+    }
     return false;
   }
 
