@@ -1,21 +1,21 @@
 {
-  "generated": "2026-09-06T06:34+09:00",
+  "generated": "2026-10-09T07:05+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists, joined to Wikidata cast lists (P161) filtered to Korean citizenship (P27), and to Wikidata birth dates (P569). Wikipedia reads from the Wikimedia Pageviews API, human traffic only.",
   "whatThisIs": "One row per person who appears in at least two Korean titles that reached a Netflix weekly top 10 and that have enough weeks of data for us to publish a page.",
   "whatThisIsNot": "This is NOT a filmography. It counts only Netflix top-10 charting titles we publish a page for. A person can have many more credits than the number here. It is a floor, not a total.",
   "minTitles": 2,
   "asOf": "2026-08-25",
   "counts": {
-    "이름총": 1284,
-    "얇아서제외": 650,
-    "생일있음": 531,
-    "생일없음": 103,
+    "이름총": 1302,
+    "얇아서제외": 662,
+    "생일있음": 536,
+    "생일없음": 104,
     "이름겹침": 47,
     "슬러그충돌": 2,
     "조회있음": 40
   },
-  "peopleTotal": 1284,
-  "peoplePublished": 634,
+  "peopleTotal": 1302,
+  "peoplePublished": 640,
   "sameNameSplit": [
     {
       "name": "Lee Joo-young",
@@ -319,10 +319,21 @@
           "peak": 1,
           "firstWeek": "2022-10-30",
           "lastWeek": "2023-05-28"
+        },
+        {
+          "title": "Iron Family",
+          "slug": "iron-family",
+          "type": "TV",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 6,
+          "firstWeek": "2024-10-06",
+          "lastWeek": "2024-10-06"
         }
       ],
-      "titleCount": 5,
-      "places": 4005,
+      "titleCount": 6,
+      "places": 4006,
       "countries": 93,
       "reads30d": null
     },
@@ -947,6 +958,81 @@
       "reads30d": null
     },
     {
+      "name": "Heo Dong-won",
+      "wikiPage": "Heo Dong-won",
+      "slug": "heo-dong-won",
+      "q": "Q55735954",
+      "born": "1980-06-09",
+      "bornUnknownWhy": null,
+      "age": 46,
+      "sign": {
+        "slug": "gemini",
+        "name": "Gemini"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Squid Game",
+          "slug": "squid-game",
+          "type": "TV",
+          "places": 3228,
+          "markets": 93,
+          "weeks": 60,
+          "peak": 1,
+          "firstWeek": "2021-09-19",
+          "lastWeek": "2025-09-07"
+        },
+        {
+          "title": "Deep",
+          "slug": "deep",
+          "type": "Films",
+          "places": 8,
+          "markets": 5,
+          "weeks": 3,
+          "peak": 1,
+          "firstWeek": "2021-07-18",
+          "lastWeek": "2021-08-01"
+        },
+        {
+          "title": "Christmas Carol",
+          "slug": "christmas-carol",
+          "type": "Films",
+          "places": 5,
+          "markets": 2,
+          "weeks": 5,
+          "peak": 3,
+          "firstWeek": "2023-04-16",
+          "lastWeek": "2026-08-16"
+        },
+        {
+          "title": "The Roundup",
+          "slug": "the-roundup",
+          "type": "Films",
+          "places": 5,
+          "markets": 2,
+          "weeks": 5,
+          "peak": 3,
+          "firstWeek": "2022-12-25",
+          "lastWeek": "2023-09-17"
+        },
+        {
+          "title": "The Outlaws",
+          "slug": "the-outlaws",
+          "type": "Films",
+          "places": 4,
+          "markets": 3,
+          "weeks": 4,
+          "peak": 5,
+          "firstWeek": "2021-11-14",
+          "lastWeek": "2022-01-16"
+        }
+      ],
+      "titleCount": 5,
+      "places": 3250,
+      "countries": 93,
+      "reads30d": null
+    },
+    {
       "name": "You Seong-joo",
       "wikiPage": "You Seong-joo",
       "slug": "you-seong-joo",
@@ -996,70 +1082,6 @@
       ],
       "titleCount": 3,
       "places": 3248,
-      "countries": 93,
-      "reads30d": null
-    },
-    {
-      "name": "Heo Dong-won",
-      "wikiPage": "Heo Dong-won",
-      "slug": "heo-dong-won",
-      "q": "Q55735954",
-      "born": "1980-06-09",
-      "bornUnknownWhy": null,
-      "age": 46,
-      "sign": {
-        "slug": "gemini",
-        "name": "Gemini"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Squid Game",
-          "slug": "squid-game",
-          "type": "TV",
-          "places": 3228,
-          "markets": 93,
-          "weeks": 60,
-          "peak": 1,
-          "firstWeek": "2021-09-19",
-          "lastWeek": "2025-09-07"
-        },
-        {
-          "title": "Christmas Carol",
-          "slug": "christmas-carol",
-          "type": "Films",
-          "places": 5,
-          "markets": 2,
-          "weeks": 5,
-          "peak": 3,
-          "firstWeek": "2023-04-16",
-          "lastWeek": "2026-08-16"
-        },
-        {
-          "title": "The Roundup",
-          "slug": "the-roundup",
-          "type": "Films",
-          "places": 5,
-          "markets": 2,
-          "weeks": 5,
-          "peak": 3,
-          "firstWeek": "2022-12-25",
-          "lastWeek": "2023-09-17"
-        },
-        {
-          "title": "The Outlaws",
-          "slug": "the-outlaws",
-          "type": "Films",
-          "places": 4,
-          "markets": 3,
-          "weeks": 4,
-          "peak": 5,
-          "firstWeek": "2021-11-14",
-          "lastWeek": "2022-01-16"
-        }
-      ],
-      "titleCount": 4,
-      "places": 3242,
       "countries": 93,
       "reads30d": null
     },
@@ -1400,6 +1422,147 @@
       "reads30d": null
     },
     {
+      "name": "Yoo Yeon-seok",
+      "wikiPage": "Yoo Yeon-seok",
+      "slug": "yoo-yeon-seok",
+      "q": "Q77621",
+      "born": "1984-04-11",
+      "bornUnknownWhy": null,
+      "age": 42,
+      "sign": {
+        "slug": "aries",
+        "name": "Aries"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "When the Phone Rings",
+          "slug": "when-the-phone-rings",
+          "type": "TV",
+          "places": 372,
+          "markets": 52,
+          "weeks": 10,
+          "peak": 1,
+          "firstWeek": "2024-11-24",
+          "lastWeek": "2025-01-26"
+        },
+        {
+          "title": "Tastefully Yours",
+          "slug": "tastefully-yours",
+          "type": "TV",
+          "places": 247,
+          "markets": 54,
+          "weeks": 8,
+          "peak": 1,
+          "firstWeek": "2025-05-18",
+          "lastWeek": "2025-07-06"
+        },
+        {
+          "title": "Hospital Playlist",
+          "slug": "hospital-playlist",
+          "type": "TV",
+          "places": 219,
+          "markets": 11,
+          "weeks": 26,
+          "peak": 1,
+          "firstWeek": "2021-07-04",
+          "lastWeek": "2022-12-11"
+        },
+        {
+          "title": "Narco-Saints",
+          "slug": "narco-saints",
+          "type": "TV",
+          "places": 164,
+          "markets": 82,
+          "weeks": 10,
+          "peak": 1,
+          "firstWeek": "2022-09-11",
+          "lastWeek": "2022-11-13"
+        },
+        {
+          "title": "Phantom Lawyer",
+          "slug": "phantom-lawyer",
+          "type": "TV",
+          "places": 120,
+          "markets": 20,
+          "weeks": 11,
+          "peak": 1,
+          "firstWeek": "2026-03-15",
+          "lastWeek": "2026-05-24"
+        },
+        {
+          "title": "The Perfect Lie",
+          "slug": "the-perfect-lie",
+          "type": "TV",
+          "places": 58,
+          "markets": 58,
+          "weeks": 1,
+          "peak": 1,
+          "firstWeek": "2026-09-13",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "The Interest of Love",
+          "slug": "the-interest-of-love",
+          "type": "TV",
+          "places": 51,
+          "markets": 12,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2023-01-08",
+          "lastWeek": "2023-03-19"
+        },
+        {
+          "title": "Mr. Sunshine",
+          "slug": "mr-sunshine",
+          "type": "TV",
+          "places": 23,
+          "markets": 1,
+          "weeks": 23,
+          "peak": 7,
+          "firstWeek": "2021-08-22",
+          "lastWeek": "2023-04-23"
+        },
+        {
+          "title": "No Other Choice",
+          "slug": "no-other-choice",
+          "type": "Films",
+          "places": 6,
+          "markets": 1,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2026-02-01",
+          "lastWeek": "2026-03-08"
+        },
+        {
+          "title": "A Werewolf Boy",
+          "slug": "a-werewolf-boy",
+          "type": "Films",
+          "places": 3,
+          "markets": 3,
+          "weeks": 1,
+          "peak": 4,
+          "firstWeek": "2021-09-05",
+          "lastWeek": "2021-09-05"
+        },
+        {
+          "title": "My Heart Puppy",
+          "slug": "my-heart-puppy",
+          "type": "Films",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 6,
+          "firstWeek": "2024-09-29",
+          "lastWeek": "2024-09-29"
+        }
+      ],
+      "titleCount": 11,
+      "places": 1264,
+      "countries": 93,
+      "reads30d": null
+    },
+    {
       "name": "Yoo In-soo",
       "wikiPage": "Yoo In-soo",
       "slug": "yoo-in-soo",
@@ -1470,12 +1633,12 @@
           "title": "Agent Kim Reactivated",
           "slug": "agent-kim-reactivated",
           "type": "TV",
-          "places": 481,
+          "places": 494,
           "markets": 81,
-          "weeks": 9,
+          "weeks": 12,
           "peak": 1,
           "firstWeek": "2026-06-28",
-          "lastWeek": "2026-08-23"
+          "lastWeek": "2026-09-13"
         },
         {
           "title": "Crash Landing on You",
@@ -1501,7 +1664,7 @@
         }
       ],
       "titleCount": 4,
-      "places": 1226,
+      "places": 1239,
       "countries": 82,
       "reads30d": 60698
     },
@@ -1611,136 +1774,6 @@
       "reads30d": 40153
     },
     {
-      "name": "Yoo Yeon-seok",
-      "wikiPage": "Yoo Yeon-seok",
-      "slug": "yoo-yeon-seok",
-      "q": "Q77621",
-      "born": "1984-04-11",
-      "bornUnknownWhy": null,
-      "age": 42,
-      "sign": {
-        "slug": "aries",
-        "name": "Aries"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "When the Phone Rings",
-          "slug": "when-the-phone-rings",
-          "type": "TV",
-          "places": 372,
-          "markets": 52,
-          "weeks": 10,
-          "peak": 1,
-          "firstWeek": "2024-11-24",
-          "lastWeek": "2025-01-26"
-        },
-        {
-          "title": "Tastefully Yours",
-          "slug": "tastefully-yours",
-          "type": "TV",
-          "places": 247,
-          "markets": 54,
-          "weeks": 8,
-          "peak": 1,
-          "firstWeek": "2025-05-18",
-          "lastWeek": "2025-07-06"
-        },
-        {
-          "title": "Hospital Playlist",
-          "slug": "hospital-playlist",
-          "type": "TV",
-          "places": 219,
-          "markets": 11,
-          "weeks": 26,
-          "peak": 1,
-          "firstWeek": "2021-07-04",
-          "lastWeek": "2022-12-11"
-        },
-        {
-          "title": "Narco-Saints",
-          "slug": "narco-saints",
-          "type": "TV",
-          "places": 164,
-          "markets": 82,
-          "weeks": 10,
-          "peak": 1,
-          "firstWeek": "2022-09-11",
-          "lastWeek": "2022-11-13"
-        },
-        {
-          "title": "Phantom Lawyer",
-          "slug": "phantom-lawyer",
-          "type": "TV",
-          "places": 120,
-          "markets": 20,
-          "weeks": 11,
-          "peak": 1,
-          "firstWeek": "2026-03-15",
-          "lastWeek": "2026-05-24"
-        },
-        {
-          "title": "The Interest of Love",
-          "slug": "the-interest-of-love",
-          "type": "TV",
-          "places": 51,
-          "markets": 12,
-          "weeks": 9,
-          "peak": 1,
-          "firstWeek": "2023-01-08",
-          "lastWeek": "2023-03-19"
-        },
-        {
-          "title": "Mr. Sunshine",
-          "slug": "mr-sunshine",
-          "type": "TV",
-          "places": 23,
-          "markets": 1,
-          "weeks": 23,
-          "peak": 7,
-          "firstWeek": "2021-08-22",
-          "lastWeek": "2023-04-23"
-        },
-        {
-          "title": "No Other Choice",
-          "slug": "no-other-choice",
-          "type": "Films",
-          "places": 6,
-          "markets": 1,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2026-02-01",
-          "lastWeek": "2026-03-08"
-        },
-        {
-          "title": "A Werewolf Boy",
-          "slug": "a-werewolf-boy",
-          "type": "Films",
-          "places": 3,
-          "markets": 3,
-          "weeks": 1,
-          "peak": 4,
-          "firstWeek": "2021-09-05",
-          "lastWeek": "2021-09-05"
-        },
-        {
-          "title": "My Heart Puppy",
-          "slug": "my-heart-puppy",
-          "type": "Films",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 6,
-          "firstWeek": "2024-09-29",
-          "lastWeek": "2024-09-29"
-        }
-      ],
-      "titleCount": 10,
-      "places": 1206,
-      "countries": 84,
-      "reads30d": null
-    },
-    {
       "name": "Go Youn-jung",
       "wikiPage": "Go Youn-jung",
       "slug": "go-youn-jung",
@@ -1780,12 +1813,12 @@
           "title": "Can This Love Be Translated?",
           "slug": "can-this-love-be-translated",
           "type": "TV",
-          "places": 214,
+          "places": 216,
           "markets": 60,
-          "weeks": 22,
+          "weeks": 24,
           "peak": 1,
           "firstWeek": "2026-01-18",
-          "lastWeek": "2026-08-23"
+          "lastWeek": "2026-09-06"
         },
         {
           "title": "Resident Playbook",
@@ -1833,7 +1866,7 @@
         }
       ],
       "titleCount": 7,
-      "places": 1193,
+      "places": 1195,
       "countries": 65,
       "reads30d": 52762
     },
@@ -1990,59 +2023,6 @@
       "reads30d": null
     },
     {
-      "name": "Joo Sang-wook",
-      "wikiPage": "Joo Sang-wook",
-      "slug": "joo-sang-wook",
-      "q": "Q491095",
-      "born": "1978-07-18",
-      "bornUnknownWhy": null,
-      "age": 48,
-      "sign": {
-        "slug": "cancer",
-        "name": "Cancer"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Alchemy of Souls",
-          "slug": "alchemy-of-souls",
-          "type": "TV",
-          "places": 623,
-          "markets": 45,
-          "weeks": 45,
-          "peak": 1,
-          "firstWeek": "2022-06-26",
-          "lastWeek": "2023-04-30"
-        },
-        {
-          "title": "Agent Kim Reactivated",
-          "slug": "agent-kim-reactivated",
-          "type": "TV",
-          "places": 481,
-          "markets": 81,
-          "weeks": 9,
-          "peak": 1,
-          "firstWeek": "2026-06-28",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Good Doctor",
-          "slug": "good-doctor",
-          "type": "TV",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 9,
-          "firstWeek": "2022-07-31",
-          "lastWeek": "2022-07-31"
-        }
-      ],
-      "titleCount": 3,
-      "places": 1105,
-      "countries": 81,
-      "reads30d": 48435
-    },
-    {
       "name": "Park Eun-bin",
       "wikiPage": "Park Eun-bin",
       "slug": "park-eun-bin",
@@ -2071,12 +2051,12 @@
           "title": "Spooky in Love",
           "slug": "spooky-in-love",
           "type": "TV",
-          "places": 235,
+          "places": 286,
           "markets": 48,
-          "weeks": 6,
+          "weeks": 9,
           "peak": 1,
           "firstWeek": "2026-07-19",
-          "lastWeek": "2026-08-23"
+          "lastWeek": "2026-09-13"
         },
         {
           "title": "The King's Affection",
@@ -2113,9 +2093,62 @@
         }
       ],
       "titleCount": 5,
-      "places": 1104,
+      "places": 1155,
       "countries": 61,
       "reads30d": 121859
+    },
+    {
+      "name": "Joo Sang-wook",
+      "wikiPage": "Joo Sang-wook",
+      "slug": "joo-sang-wook",
+      "q": "Q491095",
+      "born": "1978-07-18",
+      "bornUnknownWhy": null,
+      "age": 48,
+      "sign": {
+        "slug": "cancer",
+        "name": "Cancer"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Alchemy of Souls",
+          "slug": "alchemy-of-souls",
+          "type": "TV",
+          "places": 623,
+          "markets": 45,
+          "weeks": 45,
+          "peak": 1,
+          "firstWeek": "2022-06-26",
+          "lastWeek": "2023-04-30"
+        },
+        {
+          "title": "Agent Kim Reactivated",
+          "slug": "agent-kim-reactivated",
+          "type": "TV",
+          "places": 494,
+          "markets": 81,
+          "weeks": 12,
+          "peak": 1,
+          "firstWeek": "2026-06-28",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Good Doctor",
+          "slug": "good-doctor",
+          "type": "TV",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 9,
+          "firstWeek": "2022-07-31",
+          "lastWeek": "2022-07-31"
+        }
+      ],
+      "titleCount": 3,
+      "places": 1118,
+      "countries": 81,
+      "reads30d": 48435
     },
     {
       "name": "Park Sung-hoon",
@@ -2235,10 +2268,21 @@
           "peak": 1,
           "firstWeek": "2025-12-28",
           "lastWeek": "2026-01-25"
+        },
+        {
+          "title": "Take a Hike!",
+          "slug": "take-a-hike",
+          "type": "TV",
+          "places": 5,
+          "markets": 2,
+          "weeks": 4,
+          "peak": 5,
+          "firstWeek": "2026-08-23",
+          "lastWeek": "2026-09-13"
         }
       ],
-      "titleCount": 4,
-      "places": 1069,
+      "titleCount": 5,
+      "places": 1074,
       "countries": 84,
       "reads30d": null
     },
@@ -3042,12 +3086,12 @@
           "title": "The Apartment Job",
           "slug": "the-apartment-job",
           "type": "TV",
-          "places": 74,
+          "places": 75,
           "markets": 19,
-          "weeks": 7,
+          "weeks": 8,
           "peak": 3,
           "firstWeek": "2026-07-12",
-          "lastWeek": "2026-08-23"
+          "lastWeek": "2026-08-30"
         },
         {
           "title": "Undercover Miss Hong",
@@ -3062,7 +3106,7 @@
         }
       ],
       "titleCount": 5,
-      "places": 866,
+      "places": 867,
       "countries": 61,
       "reads30d": null
     },
@@ -3333,6 +3377,70 @@
       "reads30d": null
     },
     {
+      "name": "Baek Ji-won",
+      "wikiPage": "Baek Ji-won",
+      "slug": "baek-ji-won",
+      "q": "Q20444753",
+      "born": "1973-04-30",
+      "bornUnknownWhy": null,
+      "age": 53,
+      "sign": {
+        "slug": "taurus",
+        "name": "Taurus"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Extraordinary Attorney Woo",
+          "slug": "extraordinary-attorney-woo",
+          "type": "TV",
+          "places": 518,
+          "markets": 57,
+          "weeks": 37,
+          "peak": 1,
+          "firstWeek": "2022-07-03",
+          "lastWeek": "2023-05-28"
+        },
+        {
+          "title": "Spooky in Love",
+          "slug": "spooky-in-love",
+          "type": "TV",
+          "places": 286,
+          "markets": 48,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2026-07-19",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Dream",
+          "slug": "dream",
+          "type": "Films",
+          "places": 43,
+          "markets": 21,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2023-07-30",
+          "lastWeek": "2023-09-03"
+        },
+        {
+          "title": "Parole Examiner Lee",
+          "slug": "parole-examiner-lee",
+          "type": "TV",
+          "places": 6,
+          "markets": 1,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2024-11-24",
+          "lastWeek": "2024-12-29"
+        }
+      ],
+      "titleCount": 4,
+      "places": 853,
+      "countries": 61,
+      "reads30d": null
+    },
+    {
       "name": "Choi Young-joon",
       "wikiPage": "Choi Young-joon",
       "slug": "choi-young-joon",
@@ -3436,12 +3544,12 @@
           "title": "The Apartment Job",
           "slug": "the-apartment-job",
           "type": "TV",
-          "places": 74,
+          "places": 75,
           "markets": 19,
-          "weeks": 7,
+          "weeks": 8,
           "peak": 3,
           "firstWeek": "2026-07-12",
-          "lastWeek": "2026-08-23"
+          "lastWeek": "2026-08-30"
         },
         {
           "title": "Seoul Vibe",
@@ -3489,9 +3597,95 @@
         }
       ],
       "titleCount": 8,
-      "places": 822,
+      "places": 823,
       "countries": 92,
       "reads30d": null
+    },
+    {
+      "name": "Yoon Kyung-ho",
+      "wikiPage": "Yoon Kyung-ho",
+      "slug": "yoon-kyung-ho",
+      "q": "Q18605616",
+      "born": "1980-07-05",
+      "bornUnknownWhy": null,
+      "age": 46,
+      "sign": {
+        "slug": "cancer",
+        "name": "Cancer"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Agent Kim Reactivated",
+          "slug": "agent-kim-reactivated",
+          "type": "TV",
+          "places": 494,
+          "markets": 81,
+          "weeks": 12,
+          "peak": 1,
+          "firstWeek": "2026-06-28",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "The Trauma Code: Heroes on Call",
+          "slug": "the-trauma-code-heroes-on-call",
+          "type": "TV",
+          "places": 210,
+          "markets": 63,
+          "weeks": 27,
+          "peak": 1,
+          "firstWeek": "2025-01-26",
+          "lastWeek": "2026-07-05"
+        },
+        {
+          "title": "Husbands in Action",
+          "slug": "husbands-in-action",
+          "type": "Films",
+          "places": 85,
+          "markets": 41,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2026-06-21",
+          "lastWeek": "2026-08-16"
+        },
+        {
+          "title": "Mr. Sunshine",
+          "slug": "mr-sunshine",
+          "type": "TV",
+          "places": 23,
+          "markets": 1,
+          "weeks": 23,
+          "peak": 7,
+          "firstWeek": "2021-08-22",
+          "lastWeek": "2023-04-23"
+        },
+        {
+          "title": "Honest Candidate",
+          "slug": "honest-candidate",
+          "type": "Films",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 3,
+          "firstWeek": "2022-09-25",
+          "lastWeek": "2022-10-16"
+        },
+        {
+          "title": "The Desperate Chase",
+          "slug": "the-desperate-chase",
+          "type": "Films",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 4,
+          "firstWeek": "2026-03-08",
+          "lastWeek": "2026-03-15"
+        }
+      ],
+      "titleCount": 6,
+      "places": 818,
+      "countries": 83,
+      "reads30d": 51095
     },
     {
       "name": "Kim Sun-young",
@@ -3574,156 +3768,6 @@
       "titleCount": 6,
       "places": 814,
       "countries": 90,
-      "reads30d": null
-    },
-    {
-      "name": "Yoon Kyung-ho",
-      "wikiPage": "Yoon Kyung-ho",
-      "slug": "yoon-kyung-ho",
-      "q": "Q18605616",
-      "born": "1980-07-05",
-      "bornUnknownWhy": null,
-      "age": 46,
-      "sign": {
-        "slug": "cancer",
-        "name": "Cancer"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Agent Kim Reactivated",
-          "slug": "agent-kim-reactivated",
-          "type": "TV",
-          "places": 481,
-          "markets": 81,
-          "weeks": 9,
-          "peak": 1,
-          "firstWeek": "2026-06-28",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "The Trauma Code: Heroes on Call",
-          "slug": "the-trauma-code-heroes-on-call",
-          "type": "TV",
-          "places": 210,
-          "markets": 63,
-          "weeks": 27,
-          "peak": 1,
-          "firstWeek": "2025-01-26",
-          "lastWeek": "2026-07-05"
-        },
-        {
-          "title": "Husbands in Action",
-          "slug": "husbands-in-action",
-          "type": "Films",
-          "places": 85,
-          "markets": 41,
-          "weeks": 9,
-          "peak": 1,
-          "firstWeek": "2026-06-21",
-          "lastWeek": "2026-08-16"
-        },
-        {
-          "title": "Mr. Sunshine",
-          "slug": "mr-sunshine",
-          "type": "TV",
-          "places": 23,
-          "markets": 1,
-          "weeks": 23,
-          "peak": 7,
-          "firstWeek": "2021-08-22",
-          "lastWeek": "2023-04-23"
-        },
-        {
-          "title": "Honest Candidate",
-          "slug": "honest-candidate",
-          "type": "Films",
-          "places": 4,
-          "markets": 1,
-          "weeks": 4,
-          "peak": 3,
-          "firstWeek": "2022-09-25",
-          "lastWeek": "2022-10-16"
-        },
-        {
-          "title": "The Desperate Chase",
-          "slug": "the-desperate-chase",
-          "type": "Films",
-          "places": 2,
-          "markets": 1,
-          "weeks": 2,
-          "peak": 4,
-          "firstWeek": "2026-03-08",
-          "lastWeek": "2026-03-15"
-        }
-      ],
-      "titleCount": 6,
-      "places": 805,
-      "countries": 83,
-      "reads30d": 51095
-    },
-    {
-      "name": "Baek Ji-won",
-      "wikiPage": "Baek Ji-won",
-      "slug": "baek-ji-won",
-      "q": "Q20444753",
-      "born": "1973-04-30",
-      "bornUnknownWhy": null,
-      "age": 53,
-      "sign": {
-        "slug": "taurus",
-        "name": "Taurus"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Extraordinary Attorney Woo",
-          "slug": "extraordinary-attorney-woo",
-          "type": "TV",
-          "places": 518,
-          "markets": 57,
-          "weeks": 37,
-          "peak": 1,
-          "firstWeek": "2022-07-03",
-          "lastWeek": "2023-05-28"
-        },
-        {
-          "title": "Spooky in Love",
-          "slug": "spooky-in-love",
-          "type": "TV",
-          "places": 235,
-          "markets": 48,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2026-07-19",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Dream",
-          "slug": "dream",
-          "type": "Films",
-          "places": 43,
-          "markets": 21,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2023-07-30",
-          "lastWeek": "2023-09-03"
-        },
-        {
-          "title": "Parole Examiner Lee",
-          "slug": "parole-examiner-lee",
-          "type": "TV",
-          "places": 6,
-          "markets": 1,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2024-11-24",
-          "lastWeek": "2024-12-29"
-        }
-      ],
-      "titleCount": 4,
-      "places": 802,
-      "countries": 61,
       "reads30d": null
     },
     {
@@ -4098,6 +4142,59 @@
       "reads30d": null
     },
     {
+      "name": "Son Na-eun",
+      "wikiPage": "Son Na-eun",
+      "slug": "son-na-eun",
+      "q": "Q492666",
+      "born": "1994-02-10",
+      "bornUnknownWhy": null,
+      "age": 32,
+      "sign": {
+        "slug": "aquarius",
+        "name": "Aquarius"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Agent Kim Reactivated",
+          "slug": "agent-kim-reactivated",
+          "type": "TV",
+          "places": 494,
+          "markets": 81,
+          "weeks": 12,
+          "peak": 1,
+          "firstWeek": "2026-06-28",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Romance in the House",
+          "slug": "romance-in-the-house",
+          "type": "TV",
+          "places": 152,
+          "markets": 37,
+          "weeks": 9,
+          "peak": 2,
+          "firstWeek": "2024-08-11",
+          "lastWeek": "2024-10-06"
+        },
+        {
+          "title": "Ghost Doctor",
+          "slug": "ghost-doctor",
+          "type": "TV",
+          "places": 114,
+          "markets": 23,
+          "weeks": 13,
+          "peak": 1,
+          "firstWeek": "2022-06-26",
+          "lastWeek": "2024-03-10"
+        }
+      ],
+      "titleCount": 3,
+      "places": 760,
+      "countries": 81,
+      "reads30d": 52517
+    },
+    {
       "name": "Ahn Eun-jin",
       "wikiPage": "Ahn Eun-jin",
       "slug": "ahn-eun-jin",
@@ -4287,59 +4384,6 @@
       "reads30d": 39780
     },
     {
-      "name": "Son Na-eun",
-      "wikiPage": "Son Na-eun",
-      "slug": "son-na-eun",
-      "q": "Q492666",
-      "born": "1994-02-10",
-      "bornUnknownWhy": null,
-      "age": 32,
-      "sign": {
-        "slug": "aquarius",
-        "name": "Aquarius"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Agent Kim Reactivated",
-          "slug": "agent-kim-reactivated",
-          "type": "TV",
-          "places": 481,
-          "markets": 81,
-          "weeks": 9,
-          "peak": 1,
-          "firstWeek": "2026-06-28",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Romance in the House",
-          "slug": "romance-in-the-house",
-          "type": "TV",
-          "places": 152,
-          "markets": 37,
-          "weeks": 9,
-          "peak": 2,
-          "firstWeek": "2024-08-11",
-          "lastWeek": "2024-10-06"
-        },
-        {
-          "title": "Ghost Doctor",
-          "slug": "ghost-doctor",
-          "type": "TV",
-          "places": 114,
-          "markets": 23,
-          "weeks": 13,
-          "peak": 1,
-          "firstWeek": "2022-06-26",
-          "lastWeek": "2024-03-10"
-        }
-      ],
-      "titleCount": 3,
-      "places": 747,
-      "countries": 81,
-      "reads30d": 52517
-    },
-    {
       "name": "Kang Han-na",
       "wikiPage": "Kang Han-na",
       "slug": "kang-han-na",
@@ -4402,6 +4446,81 @@
       "places": 737,
       "countries": 80,
       "reads30d": null
+    },
+    {
+      "name": "Jung Hae-in",
+      "wikiPage": "Jung Hae-in",
+      "slug": "jung-hae-in",
+      "q": "Q17504174",
+      "born": "1988-04-01",
+      "bornUnknownWhy": null,
+      "age": 38,
+      "sign": {
+        "slug": "aries",
+        "name": "Aries"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Love Next Door",
+          "slug": "love-next-door",
+          "type": "TV",
+          "places": 369,
+          "markets": 53,
+          "weeks": 14,
+          "peak": 1,
+          "firstWeek": "2024-08-18",
+          "lastWeek": "2026-08-23"
+        },
+        {
+          "title": "Our Sticky Love",
+          "slug": "our-sticky-love",
+          "type": "TV",
+          "places": 246,
+          "markets": 68,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2026-08-09",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "D.P.",
+          "slug": "d-p",
+          "type": "TV",
+          "places": 68,
+          "markets": 10,
+          "weeks": 14,
+          "peak": 1,
+          "firstWeek": "2021-08-29",
+          "lastWeek": "2023-08-27"
+        },
+        {
+          "title": "Prison Playbook",
+          "slug": "prison-playbook",
+          "type": "TV",
+          "places": 33,
+          "markets": 3,
+          "weeks": 28,
+          "peak": 2,
+          "firstWeek": "2021-07-11",
+          "lastWeek": "2023-02-26"
+        },
+        {
+          "title": "12.12: The Day",
+          "slug": "12-12-the-day",
+          "type": "Films",
+          "places": 12,
+          "markets": 1,
+          "weeks": 12,
+          "peak": 1,
+          "firstWeek": "2024-05-12",
+          "lastWeek": "2024-12-22"
+        }
+      ],
+      "titleCount": 5,
+      "places": 728,
+      "countries": 69,
+      "reads30d": 173370
     },
     {
       "name": "Park Jeong-min",
@@ -6094,12 +6213,12 @@
           "title": "Can This Love Be Translated?",
           "slug": "can-this-love-be-translated",
           "type": "TV",
-          "places": 214,
+          "places": 216,
           "markets": 60,
-          "weeks": 22,
+          "weeks": 24,
           "peak": 1,
           "firstWeek": "2026-01-18",
-          "lastWeek": "2026-08-23"
+          "lastWeek": "2026-09-06"
         },
         {
           "title": "The Art of Sarah",
@@ -6136,84 +6255,9 @@
         }
       ],
       "titleCount": 4,
-      "places": 647,
+      "places": 649,
       "countries": 82,
       "reads30d": null
-    },
-    {
-      "name": "Jung Hae-in",
-      "wikiPage": "Jung Hae-in",
-      "slug": "jung-hae-in",
-      "q": "Q17504174",
-      "born": "1988-04-01",
-      "bornUnknownWhy": null,
-      "age": 38,
-      "sign": {
-        "slug": "aries",
-        "name": "Aries"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Love Next Door",
-          "slug": "love-next-door",
-          "type": "TV",
-          "places": 369,
-          "markets": 53,
-          "weeks": 14,
-          "peak": 1,
-          "firstWeek": "2024-08-18",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Our Sticky Love",
-          "slug": "our-sticky-love",
-          "type": "TV",
-          "places": 164,
-          "markets": 68,
-          "weeks": 3,
-          "peak": 1,
-          "firstWeek": "2026-08-09",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "D.P.",
-          "slug": "d-p",
-          "type": "TV",
-          "places": 68,
-          "markets": 10,
-          "weeks": 14,
-          "peak": 1,
-          "firstWeek": "2021-08-29",
-          "lastWeek": "2023-08-27"
-        },
-        {
-          "title": "Prison Playbook",
-          "slug": "prison-playbook",
-          "type": "TV",
-          "places": 33,
-          "markets": 3,
-          "weeks": 28,
-          "peak": 2,
-          "firstWeek": "2021-07-11",
-          "lastWeek": "2023-02-26"
-        },
-        {
-          "title": "12.12: The Day",
-          "slug": "12-12-the-day",
-          "type": "Films",
-          "places": 12,
-          "markets": 1,
-          "weeks": 12,
-          "peak": 1,
-          "firstWeek": "2024-05-12",
-          "lastWeek": "2024-12-22"
-        }
-      ],
-      "titleCount": 5,
-      "places": 646,
-      "countries": 69,
-      "reads30d": 173370
     },
     {
       "name": "Jo Jae-yun",
@@ -7009,6 +7053,45 @@
       "reads30d": null
     },
     {
+      "name": "Ahn Ji-hye",
+      "wikiPage": "Ahn Ji-hye",
+      "slug": "ahn-ji-hye",
+      "q": null,
+      "born": null,
+      "bornUnknownWhy": "notFound",
+      "age": null,
+      "sign": null,
+      "signBoundary": null,
+      "titles": [
+        {
+          "title": "The Glory",
+          "slug": "the-glory",
+          "type": "TV",
+          "places": 601,
+          "markets": 91,
+          "weeks": 29,
+          "peak": 1,
+          "firstWeek": "2023-01-01",
+          "lastWeek": "2025-06-29"
+        },
+        {
+          "title": "Deep",
+          "slug": "deep",
+          "type": "Films",
+          "places": 8,
+          "markets": 5,
+          "weeks": 3,
+          "peak": 1,
+          "firstWeek": "2021-07-18",
+          "lastWeek": "2021-08-01"
+        }
+      ],
+      "titleCount": 2,
+      "places": 609,
+      "countries": 91,
+      "reads30d": null
+    },
+    {
       "name": "Roh Jeong-eui",
       "wikiPage": "Roh Jeong-eui",
       "slug": "roh-jeong-eui",
@@ -7195,6 +7278,48 @@
       "titleCount": 5,
       "places": 606,
       "countries": 57,
+      "reads30d": null
+    },
+    {
+      "name": "Cha Mi-kyung",
+      "wikiPage": "Cha Mi-kyung",
+      "slug": "cha-mi-kyung",
+      "q": "Q105706618",
+      "born": "1965-07-25",
+      "bornUnknownWhy": null,
+      "age": 61,
+      "sign": {
+        "slug": "leo",
+        "name": "Leo"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Dynamite Kiss",
+          "slug": "dynamite-kiss",
+          "type": "TV",
+          "places": 318,
+          "markets": 52,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2025-11-16",
+          "lastWeek": "2026-01-18"
+        },
+        {
+          "title": "Spooky in Love",
+          "slug": "spooky-in-love",
+          "type": "TV",
+          "places": 286,
+          "markets": 48,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2026-07-19",
+          "lastWeek": "2026-09-13"
+        }
+      ],
+      "titleCount": 2,
+      "places": 604,
+      "countries": 55,
       "reads30d": null
     },
     {
@@ -7394,12 +7519,12 @@
           "title": "Can This Love Be Translated?",
           "slug": "can-this-love-be-translated",
           "type": "TV",
-          "places": 214,
+          "places": 216,
           "markets": 60,
-          "weeks": 22,
+          "weeks": 24,
           "peak": 1,
           "firstWeek": "2026-01-18",
-          "lastWeek": "2026-08-23"
+          "lastWeek": "2026-09-06"
         },
         {
           "title": "The Childe",
@@ -7414,7 +7539,7 @@
         }
       ],
       "titleCount": 3,
-      "places": 593,
+      "places": 595,
       "countries": 60,
       "reads30d": 42943
     },
@@ -7705,6 +7830,59 @@
       "reads30d": null
     },
     {
+      "name": "Ong Seongwu",
+      "wikiPage": "Ong Seong-wu",
+      "slug": "ong-seongwu",
+      "q": "Q30311753",
+      "born": "1995-08-25",
+      "bornUnknownWhy": null,
+      "age": 31,
+      "sign": {
+        "slug": "virgo",
+        "name": "Virgo"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Spooky in Love",
+          "slug": "spooky-in-love",
+          "type": "TV",
+          "places": 286,
+          "markets": 48,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2026-07-19",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Strong Girl Nam-soon",
+          "slug": "strong-girl-nam-soon",
+          "type": "TV",
+          "places": 244,
+          "markets": 45,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2023-10-08",
+          "lastWeek": "2023-12-03"
+        },
+        {
+          "title": "Seoul Vibe",
+          "slug": "seoul-vibe",
+          "type": "Films",
+          "places": 45,
+          "markets": 20,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2022-08-28",
+          "lastWeek": "2022-10-02"
+        }
+      ],
+      "titleCount": 3,
+      "places": 575,
+      "countries": 51,
+      "reads30d": null
+    },
+    {
       "name": "Kang Ha-neul",
       "wikiPage": "Kang Ha-neul",
       "slug": "kang-ha-neul",
@@ -7930,13 +8108,13 @@
       "reads30d": null
     },
     {
-      "name": "Cha Mi-kyung",
-      "wikiPage": "Cha Mi-kyung",
-      "slug": "cha-mi-kyung",
-      "q": "Q105706618",
-      "born": "1965-07-25",
+      "name": "Ha Young",
+      "wikiPage": "Ha Young (actress)",
+      "slug": "ha-young",
+      "q": "Q99237221",
+      "born": "1993-08-11",
       "bornUnknownWhy": null,
-      "age": 61,
+      "age": 33,
       "sign": {
         "slug": "leo",
         "name": "Leo"
@@ -7944,32 +8122,43 @@
       "signBoundary": false,
       "titles": [
         {
-          "title": "Dynamite Kiss",
-          "slug": "dynamite-kiss",
+          "title": "Our Sticky Love",
+          "slug": "our-sticky-love",
           "type": "TV",
-          "places": 318,
-          "markets": 52,
-          "weeks": 9,
-          "peak": 1,
-          "firstWeek": "2025-11-16",
-          "lastWeek": "2026-01-18"
-        },
-        {
-          "title": "Spooky in Love",
-          "slug": "spooky-in-love",
-          "type": "TV",
-          "places": 235,
-          "markets": 48,
+          "places": 246,
+          "markets": 68,
           "weeks": 6,
           "peak": 1,
-          "firstWeek": "2026-07-19",
-          "lastWeek": "2026-08-23"
+          "firstWeek": "2026-08-09",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "The Trauma Code: Heroes on Call",
+          "slug": "the-trauma-code-heroes-on-call",
+          "type": "TV",
+          "places": 210,
+          "markets": 63,
+          "weeks": 27,
+          "peak": 1,
+          "firstWeek": "2025-01-26",
+          "lastWeek": "2026-07-05"
+        },
+        {
+          "title": "Doona!",
+          "slug": "doona",
+          "type": "TV",
+          "places": 97,
+          "markets": 43,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2023-10-22",
+          "lastWeek": "2023-11-26"
         }
       ],
-      "titleCount": 2,
+      "titleCount": 3,
       "places": 553,
-      "countries": 55,
-      "reads30d": null
+      "countries": 71,
+      "reads30d": 325050
     },
     {
       "name": "Jung Kyung-ho",
@@ -8067,6 +8256,70 @@
       "places": 552,
       "countries": 39,
       "reads30d": null
+    },
+    {
+      "name": "So Ji-sub",
+      "wikiPage": "So Ji-sub",
+      "slug": "so-ji-sub",
+      "q": "Q484859",
+      "born": "1977-11-04",
+      "bornUnknownWhy": null,
+      "age": 48,
+      "sign": {
+        "slug": "scorpio",
+        "name": "Scorpio"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Agent Kim Reactivated",
+          "slug": "agent-kim-reactivated",
+          "type": "TV",
+          "places": 494,
+          "markets": 81,
+          "weeks": 12,
+          "peak": 1,
+          "firstWeek": "2026-06-28",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Oh My Venus",
+          "slug": "oh-my-venus",
+          "type": "TV",
+          "places": 47,
+          "markets": 17,
+          "weeks": 10,
+          "peak": 3,
+          "firstWeek": "2021-10-10",
+          "lastWeek": "2022-09-04"
+        },
+        {
+          "title": "Confession",
+          "slug": "confession",
+          "type": "Films",
+          "places": 6,
+          "markets": 2,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2023-02-12",
+          "lastWeek": "2024-10-13"
+        },
+        {
+          "title": "A Company Man",
+          "slug": "a-company-man",
+          "type": "Films",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 4,
+          "firstWeek": "2025-06-15",
+          "lastWeek": "2026-07-12"
+        }
+      ],
+      "titleCount": 4,
+      "places": 551,
+      "countries": 81,
+      "reads30d": 156817
     },
     {
       "name": "Shin Hae-sun",
@@ -8497,70 +8750,6 @@
       "reads30d": null
     },
     {
-      "name": "So Ji-sub",
-      "wikiPage": "So Ji-sub",
-      "slug": "so-ji-sub",
-      "q": "Q484859",
-      "born": "1977-11-04",
-      "bornUnknownWhy": null,
-      "age": 48,
-      "sign": {
-        "slug": "scorpio",
-        "name": "Scorpio"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Agent Kim Reactivated",
-          "slug": "agent-kim-reactivated",
-          "type": "TV",
-          "places": 481,
-          "markets": 81,
-          "weeks": 9,
-          "peak": 1,
-          "firstWeek": "2026-06-28",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Oh My Venus",
-          "slug": "oh-my-venus",
-          "type": "TV",
-          "places": 47,
-          "markets": 17,
-          "weeks": 10,
-          "peak": 3,
-          "firstWeek": "2021-10-10",
-          "lastWeek": "2022-09-04"
-        },
-        {
-          "title": "Confession",
-          "slug": "confession",
-          "type": "Films",
-          "places": 6,
-          "markets": 2,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2023-02-12",
-          "lastWeek": "2024-10-13"
-        },
-        {
-          "title": "A Company Man",
-          "slug": "a-company-man",
-          "type": "Films",
-          "places": 4,
-          "markets": 1,
-          "weeks": 4,
-          "peak": 4,
-          "firstWeek": "2025-06-15",
-          "lastWeek": "2026-07-12"
-        }
-      ],
-      "titleCount": 4,
-      "places": 538,
-      "countries": 81,
-      "reads30d": 156817
-    },
-    {
       "name": "Chae Soo-bin",
       "wikiPage": "Chae Soo-bin",
       "slug": "chae-soo-bin",
@@ -8622,6 +8811,56 @@
       "titleCount": 4,
       "places": 536,
       "countries": 76,
+      "reads30d": null
+    },
+    {
+      "name": "Park Jin-woo",
+      "wikiPage": "Park Jin-woo",
+      "slug": "park-jin-woo",
+      "q": null,
+      "born": null,
+      "bornUnknownWhy": "ambiguous",
+      "age": null,
+      "sign": null,
+      "signBoundary": null,
+      "titles": [
+        {
+          "title": "Agent Kim Reactivated",
+          "slug": "agent-kim-reactivated",
+          "type": "TV",
+          "places": 494,
+          "markets": 81,
+          "weeks": 12,
+          "peak": 1,
+          "firstWeek": "2026-06-28",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Military Prosecutor Doberman",
+          "slug": "military-prosecutor-doberman",
+          "type": "TV",
+          "places": 38,
+          "markets": 13,
+          "weeks": 10,
+          "peak": 1,
+          "firstWeek": "2022-09-04",
+          "lastWeek": "2024-07-21"
+        },
+        {
+          "title": "Collectors",
+          "slug": "collectors",
+          "type": "Films",
+          "places": 4,
+          "markets": 3,
+          "weeks": 3,
+          "peak": 1,
+          "firstWeek": "2021-10-17",
+          "lastWeek": "2021-12-12"
+        }
+      ],
+      "titleCount": 3,
+      "places": 536,
+      "countries": 81,
       "reads30d": null
     },
     {
@@ -8837,59 +9076,6 @@
       "reads30d": null
     },
     {
-      "name": "Ong Seongwu",
-      "wikiPage": "Ong Seong-wu",
-      "slug": "ong-seongwu",
-      "q": "Q30311753",
-      "born": "1995-08-25",
-      "bornUnknownWhy": null,
-      "age": 31,
-      "sign": {
-        "slug": "virgo",
-        "name": "Virgo"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Strong Girl Nam-soon",
-          "slug": "strong-girl-nam-soon",
-          "type": "TV",
-          "places": 244,
-          "markets": 45,
-          "weeks": 9,
-          "peak": 1,
-          "firstWeek": "2023-10-08",
-          "lastWeek": "2023-12-03"
-        },
-        {
-          "title": "Spooky in Love",
-          "slug": "spooky-in-love",
-          "type": "TV",
-          "places": 235,
-          "markets": 48,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2026-07-19",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Seoul Vibe",
-          "slug": "seoul-vibe",
-          "type": "Films",
-          "places": 45,
-          "markets": 20,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2022-08-28",
-          "lastWeek": "2022-10-02"
-        }
-      ],
-      "titleCount": 3,
-      "places": 524,
-      "countries": 51,
-      "reads30d": null
-    },
-    {
       "name": "Jang Ki-Yong",
       "wikiPage": "Jang Ki-yong",
       "slug": "jang-ki-yong",
@@ -8943,53 +9129,78 @@
       "reads30d": null
     },
     {
-      "name": "Park Jin-woo",
-      "wikiPage": "Park Jin-woo",
-      "slug": "park-jin-woo",
-      "q": null,
-      "born": null,
-      "bornUnknownWhy": "ambiguous",
-      "age": null,
-      "sign": null,
-      "signBoundary": null,
+      "name": "Jun Suk-ho",
+      "wikiPage": "Jeon Seok-ho",
+      "slug": "jun-suk-ho",
+      "q": "Q18605727",
+      "born": "1984-05-02",
+      "bornUnknownWhy": null,
+      "age": 42,
+      "sign": {
+        "slug": "taurus",
+        "name": "Taurus"
+      },
+      "signBoundary": false,
       "titles": [
         {
-          "title": "Agent Kim Reactivated",
-          "slug": "agent-kim-reactivated",
+          "title": "Love Next Door",
+          "slug": "love-next-door",
           "type": "TV",
-          "places": 481,
-          "markets": 81,
-          "weeks": 9,
+          "places": 369,
+          "markets": 53,
+          "weeks": 14,
           "peak": 1,
-          "firstWeek": "2026-06-28",
+          "firstWeek": "2024-08-18",
           "lastWeek": "2026-08-23"
         },
         {
-          "title": "Military Prosecutor Doberman",
-          "slug": "military-prosecutor-doberman",
+          "title": "Phantom Lawyer",
+          "slug": "phantom-lawyer",
           "type": "TV",
-          "places": 38,
-          "markets": 13,
-          "weeks": 10,
+          "places": 120,
+          "markets": 20,
+          "weeks": 11,
           "peak": 1,
-          "firstWeek": "2022-09-04",
-          "lastWeek": "2024-07-21"
+          "firstWeek": "2026-03-15",
+          "lastWeek": "2026-05-24"
         },
         {
-          "title": "Collectors",
-          "slug": "collectors",
-          "type": "Films",
-          "places": 4,
-          "markets": 3,
-          "weeks": 3,
+          "title": "Jirisan",
+          "slug": "jirisan",
+          "type": "TV",
+          "places": 26,
+          "markets": 8,
+          "weeks": 9,
           "peak": 1,
-          "firstWeek": "2021-10-17",
-          "lastWeek": "2021-12-12"
+          "firstWeek": "2022-10-30",
+          "lastWeek": "2023-05-28"
+        },
+        {
+          "title": "Amazon Bullseye",
+          "slug": "amazon-bullseye",
+          "type": "Films",
+          "places": 6,
+          "markets": 1,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2025-01-26",
+          "lastWeek": "2025-03-02"
+        },
+        {
+          "title": "The Roundup: No Way Out",
+          "slug": "the-roundup-no-way-out",
+          "type": "Films",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 2,
+          "firstWeek": "2023-10-01",
+          "lastWeek": "2023-10-08"
         }
       ],
-      "titleCount": 3,
+      "titleCount": 5,
       "places": 523,
-      "countries": 81,
+      "countries": 53,
       "reads30d": null
     },
     {
@@ -9297,6 +9508,48 @@
       "reads30d": 66356
     },
     {
+      "name": "Kim Sung-kyu",
+      "wikiPage": "Kim Sung-kyu (actor, born 1986)",
+      "slug": "kim-sung-kyu",
+      "q": "Q6409458",
+      "born": "1989-04-28",
+      "bornUnknownWhy": null,
+      "age": 37,
+      "sign": {
+        "slug": "taurus",
+        "name": "Taurus"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Agent Kim Reactivated",
+          "slug": "agent-kim-reactivated",
+          "type": "TV",
+          "places": 494,
+          "markets": 81,
+          "weeks": 12,
+          "peak": 1,
+          "firstWeek": "2026-06-28",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "The Outlaws",
+          "slug": "the-outlaws",
+          "type": "Films",
+          "places": 4,
+          "markets": 3,
+          "weeks": 4,
+          "peak": 5,
+          "firstWeek": "2021-11-14",
+          "lastWeek": "2022-01-16"
+        }
+      ],
+      "titleCount": 2,
+      "places": 498,
+      "countries": 81,
+      "reads30d": null
+    },
+    {
       "name": "Chun Woo-hee",
       "wikiPage": "Chun Woo-hee",
       "slug": "chun-woo-hee",
@@ -9523,101 +9776,6 @@
       "places": 488,
       "countries": 89,
       "reads30d": null
-    },
-    {
-      "name": "Kim Sung-kyu",
-      "wikiPage": "Kim Sung-kyu (actor, born 1986)",
-      "slug": "kim-sung-kyu",
-      "q": "Q6409458",
-      "born": "1989-04-28",
-      "bornUnknownWhy": null,
-      "age": 37,
-      "sign": {
-        "slug": "taurus",
-        "name": "Taurus"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Agent Kim Reactivated",
-          "slug": "agent-kim-reactivated",
-          "type": "TV",
-          "places": 481,
-          "markets": 81,
-          "weeks": 9,
-          "peak": 1,
-          "firstWeek": "2026-06-28",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "The Outlaws",
-          "slug": "the-outlaws",
-          "type": "Films",
-          "places": 4,
-          "markets": 3,
-          "weeks": 4,
-          "peak": 5,
-          "firstWeek": "2021-11-14",
-          "lastWeek": "2022-01-16"
-        }
-      ],
-      "titleCount": 2,
-      "places": 485,
-      "countries": 81,
-      "reads30d": null
-    },
-    {
-      "name": "Ha Young",
-      "wikiPage": "Ha Young (actress)",
-      "slug": "ha-young",
-      "q": "Q99237221",
-      "born": "1993-08-11",
-      "bornUnknownWhy": null,
-      "age": 33,
-      "sign": {
-        "slug": "leo",
-        "name": "Leo"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "The Trauma Code: Heroes on Call",
-          "slug": "the-trauma-code-heroes-on-call",
-          "type": "TV",
-          "places": 210,
-          "markets": 63,
-          "weeks": 27,
-          "peak": 1,
-          "firstWeek": "2025-01-26",
-          "lastWeek": "2026-07-05"
-        },
-        {
-          "title": "Our Sticky Love",
-          "slug": "our-sticky-love",
-          "type": "TV",
-          "places": 164,
-          "markets": 68,
-          "weeks": 3,
-          "peak": 1,
-          "firstWeek": "2026-08-09",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Doona!",
-          "slug": "doona",
-          "type": "TV",
-          "places": 97,
-          "markets": 43,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2023-10-22",
-          "lastWeek": "2023-11-26"
-        }
-      ],
-      "titleCount": 3,
-      "places": 471,
-      "countries": 71,
-      "reads30d": 325050
     },
     {
       "name": "Kim Kwang-kyu",
@@ -11080,70 +11238,6 @@
       "reads30d": null
     },
     {
-      "name": "Jun Suk-ho",
-      "wikiPage": "Jeon Seok-ho",
-      "slug": "jun-suk-ho",
-      "q": "Q18605727",
-      "born": "1984-05-02",
-      "bornUnknownWhy": null,
-      "age": 42,
-      "sign": {
-        "slug": "taurus",
-        "name": "Taurus"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Love Next Door",
-          "slug": "love-next-door",
-          "type": "TV",
-          "places": 369,
-          "markets": 53,
-          "weeks": 14,
-          "peak": 1,
-          "firstWeek": "2024-08-18",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Jirisan",
-          "slug": "jirisan",
-          "type": "TV",
-          "places": 26,
-          "markets": 8,
-          "weeks": 9,
-          "peak": 1,
-          "firstWeek": "2022-10-30",
-          "lastWeek": "2023-05-28"
-        },
-        {
-          "title": "Amazon Bullseye",
-          "slug": "amazon-bullseye",
-          "type": "Films",
-          "places": 6,
-          "markets": 1,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2025-01-26",
-          "lastWeek": "2025-03-02"
-        },
-        {
-          "title": "The Roundup: No Way Out",
-          "slug": "the-roundup-no-way-out",
-          "type": "Films",
-          "places": 2,
-          "markets": 1,
-          "weeks": 2,
-          "peak": 2,
-          "firstWeek": "2023-10-01",
-          "lastWeek": "2023-10-08"
-        }
-      ],
-      "titleCount": 4,
-      "places": 403,
-      "countries": 53,
-      "reads30d": null
-    },
-    {
       "name": "IU",
       "wikiPage": "IU (entertainer)",
       "slug": "iu",
@@ -11637,12 +11731,12 @@
           "title": "The Apartment Job",
           "slug": "the-apartment-job",
           "type": "TV",
-          "places": 74,
+          "places": 75,
           "markets": 19,
-          "weeks": 7,
+          "weeks": 8,
           "peak": 3,
           "firstWeek": "2026-07-12",
-          "lastWeek": "2026-08-23"
+          "lastWeek": "2026-08-30"
         },
         {
           "title": "Dear Hongrang",
@@ -11734,7 +11828,7 @@
         }
       ],
       "titleCount": 10,
-      "places": 395,
+      "places": 396,
       "countries": 76,
       "reads30d": null
     },
@@ -12030,6 +12124,70 @@
       "reads30d": null
     },
     {
+      "name": "Yang Se-jong",
+      "wikiPage": "Yang Se-jong",
+      "slug": "yang-se-jong",
+      "q": "Q28416513",
+      "born": "1992-12-23",
+      "bornUnknownWhy": null,
+      "age": 33,
+      "sign": {
+        "slug": "capricorn",
+        "name": "Capricorn"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Spooky in Love",
+          "slug": "spooky-in-love",
+          "type": "TV",
+          "places": 286,
+          "markets": 48,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2026-07-19",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Doona!",
+          "slug": "doona",
+          "type": "TV",
+          "places": 97,
+          "markets": 43,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2023-10-22",
+          "lastWeek": "2023-11-26"
+        },
+        {
+          "title": "My Country: The New Age",
+          "slug": "my-country-the-new-age",
+          "type": "TV",
+          "places": 3,
+          "markets": 1,
+          "weeks": 3,
+          "peak": 3,
+          "firstWeek": "2021-08-08",
+          "lastWeek": "2021-08-22"
+        },
+        {
+          "title": "Dual",
+          "slug": "dual",
+          "type": "Films",
+          "places": 2,
+          "markets": 2,
+          "weeks": 1,
+          "peak": 9,
+          "firstWeek": "2024-09-29",
+          "lastWeek": "2024-09-29"
+        }
+      ],
+      "titleCount": 4,
+      "places": 388,
+      "countries": 49,
+      "reads30d": 76072
+    },
+    {
       "name": "Yoo Ah-in",
       "wikiPage": "Yoo Ah-in",
       "slug": "yoo-ah-in",
@@ -12230,6 +12388,101 @@
       "titleCount": 4,
       "places": 387,
       "countries": 40,
+      "reads30d": null
+    },
+    {
+      "name": "Kim Do-wan",
+      "wikiPage": "Kim Do-wan",
+      "slug": "kim-do-wan",
+      "q": "Q55728035",
+      "born": "1995-03-08",
+      "bornUnknownWhy": null,
+      "age": 31,
+      "sign": {
+        "slug": "pisces",
+        "name": "Pisces"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Spooky in Love",
+          "slug": "spooky-in-love",
+          "type": "TV",
+          "places": 286,
+          "markets": 48,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2026-07-19",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Doona!",
+          "slug": "doona",
+          "type": "TV",
+          "places": 97,
+          "markets": 43,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2023-10-22",
+          "lastWeek": "2023-11-26"
+        },
+        {
+          "title": "Wedding Impossible",
+          "slug": "wedding-impossible",
+          "type": "TV",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 7,
+          "firstWeek": "2026-04-12",
+          "lastWeek": "2026-04-12"
+        }
+      ],
+      "titleCount": 3,
+      "places": 384,
+      "countries": 48,
+      "reads30d": null
+    },
+    {
+      "name": "Kim Min-ho",
+      "wikiPage": "Kim Min-ho",
+      "slug": "kim-min-ho",
+      "q": "Q20444964",
+      "born": "1990-01-09",
+      "bornUnknownWhy": null,
+      "age": 36,
+      "sign": {
+        "slug": "capricorn",
+        "name": "Capricorn"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Spooky in Love",
+          "slug": "spooky-in-love",
+          "type": "TV",
+          "places": 286,
+          "markets": 48,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2026-07-19",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Doona!",
+          "slug": "doona",
+          "type": "TV",
+          "places": 97,
+          "markets": 43,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2023-10-22",
+          "lastWeek": "2023-11-26"
+        }
+      ],
+      "titleCount": 2,
+      "places": 383,
+      "countries": 48,
       "reads30d": null
     },
     {
@@ -12461,6 +12714,17 @@
           "lastWeek": "2023-09-17"
         },
         {
+          "title": "Iron Family",
+          "slug": "iron-family",
+          "type": "TV",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 6,
+          "firstWeek": "2024-10-06",
+          "lastWeek": "2024-10-06"
+        },
+        {
           "title": "The Housemaid",
           "slug": "the-housemaid",
           "type": "Films",
@@ -12472,8 +12736,8 @@
           "lastWeek": "2024-09-08"
         }
       ],
-      "titleCount": 3,
-      "places": 375,
+      "titleCount": 4,
+      "places": 376,
       "countries": 53,
       "reads30d": null
     },
@@ -12800,6 +13064,56 @@
       "reads30d": null
     },
     {
+      "name": "Kim Han-na",
+      "wikiPage": "Kim Han-na",
+      "slug": "kim-han-na",
+      "q": null,
+      "born": null,
+      "bornUnknownWhy": "notFound",
+      "age": null,
+      "sign": null,
+      "signBoundary": null,
+      "titles": [
+        {
+          "title": "Spooky in Love",
+          "slug": "spooky-in-love",
+          "type": "TV",
+          "places": 286,
+          "markets": 48,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2026-07-19",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Military Prosecutor Doberman",
+          "slug": "military-prosecutor-doberman",
+          "type": "TV",
+          "places": 38,
+          "markets": 13,
+          "weeks": 10,
+          "peak": 1,
+          "firstWeek": "2022-09-04",
+          "lastWeek": "2024-07-21"
+        },
+        {
+          "title": "Love and Leashes",
+          "slug": "love-and-leashes",
+          "type": "Films",
+          "places": 35,
+          "markets": 18,
+          "weeks": 4,
+          "peak": 1,
+          "firstWeek": "2022-02-13",
+          "lastWeek": "2022-03-06"
+        }
+      ],
+      "titleCount": 3,
+      "places": 359,
+      "countries": 48,
+      "reads30d": null
+    },
+    {
       "name": "Park Jin-young",
       "wikiPage": "Park Jin-young",
       "slug": "park-jin-young",
@@ -12894,6 +13208,48 @@
       "titleCount": 7,
       "places": 357,
       "countries": 66,
+      "reads30d": null
+    },
+    {
+      "name": "Ji Hyeon-u",
+      "wikiPage": "Ji Hyun-woo",
+      "slug": "ji-hyeon-u",
+      "q": "Q624969",
+      "born": "1984-11-29",
+      "bornUnknownWhy": null,
+      "age": 41,
+      "sign": {
+        "slug": "sagittarius",
+        "name": "Sagittarius"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Young Lady and Gentleman",
+          "slug": "young-lady-and-gentleman",
+          "type": "TV",
+          "places": 351,
+          "markets": 54,
+          "weeks": 17,
+          "peak": 1,
+          "firstWeek": "2022-08-28",
+          "lastWeek": "2023-06-11"
+        },
+        {
+          "title": "Beauty and Mr. Romantic",
+          "slug": "beauty-and-mr-romantic",
+          "type": "TV",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 7,
+          "firstWeek": "2024-03-31",
+          "lastWeek": "2024-04-21"
+        }
+      ],
+      "titleCount": 2,
+      "places": 355,
+      "countries": 55,
       "reads30d": null
     },
     {
@@ -13366,70 +13722,6 @@
       "reads30d": null
     },
     {
-      "name": "Yang Se-jong",
-      "wikiPage": "Yang Se-jong",
-      "slug": "yang-se-jong",
-      "q": "Q28416513",
-      "born": "1992-12-23",
-      "bornUnknownWhy": null,
-      "age": 33,
-      "sign": {
-        "slug": "capricorn",
-        "name": "Capricorn"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Spooky in Love",
-          "slug": "spooky-in-love",
-          "type": "TV",
-          "places": 235,
-          "markets": 48,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2026-07-19",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Doona!",
-          "slug": "doona",
-          "type": "TV",
-          "places": 97,
-          "markets": 43,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2023-10-22",
-          "lastWeek": "2023-11-26"
-        },
-        {
-          "title": "My Country: The New Age",
-          "slug": "my-country-the-new-age",
-          "type": "TV",
-          "places": 3,
-          "markets": 1,
-          "weeks": 3,
-          "peak": 3,
-          "firstWeek": "2021-08-08",
-          "lastWeek": "2021-08-22"
-        },
-        {
-          "title": "Dual",
-          "slug": "dual",
-          "type": "Films",
-          "places": 2,
-          "markets": 2,
-          "weeks": 1,
-          "peak": 9,
-          "firstWeek": "2024-09-29",
-          "lastWeek": "2024-09-29"
-        }
-      ],
-      "titleCount": 4,
-      "places": 337,
-      "countries": 49,
-      "reads30d": 76072
-    },
-    {
       "name": "Choi Gwang-il",
       "wikiPage": "Choi Gwang-il",
       "slug": "choi-gwang-il",
@@ -13530,101 +13822,6 @@
       "titleCount": 3,
       "places": 334,
       "countries": 52,
-      "reads30d": null
-    },
-    {
-      "name": "Kim Do-wan",
-      "wikiPage": "Kim Do-wan",
-      "slug": "kim-do-wan",
-      "q": "Q55728035",
-      "born": "1995-03-08",
-      "bornUnknownWhy": null,
-      "age": 31,
-      "sign": {
-        "slug": "pisces",
-        "name": "Pisces"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Spooky in Love",
-          "slug": "spooky-in-love",
-          "type": "TV",
-          "places": 235,
-          "markets": 48,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2026-07-19",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Doona!",
-          "slug": "doona",
-          "type": "TV",
-          "places": 97,
-          "markets": 43,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2023-10-22",
-          "lastWeek": "2023-11-26"
-        },
-        {
-          "title": "Wedding Impossible",
-          "slug": "wedding-impossible",
-          "type": "TV",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 7,
-          "firstWeek": "2026-04-12",
-          "lastWeek": "2026-04-12"
-        }
-      ],
-      "titleCount": 3,
-      "places": 333,
-      "countries": 48,
-      "reads30d": null
-    },
-    {
-      "name": "Kim Min-ho",
-      "wikiPage": "Kim Min-ho",
-      "slug": "kim-min-ho",
-      "q": "Q20444964",
-      "born": "1990-01-09",
-      "bornUnknownWhy": null,
-      "age": 36,
-      "sign": {
-        "slug": "capricorn",
-        "name": "Capricorn"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Spooky in Love",
-          "slug": "spooky-in-love",
-          "type": "TV",
-          "places": 235,
-          "markets": 48,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2026-07-19",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Doona!",
-          "slug": "doona",
-          "type": "TV",
-          "places": 97,
-          "markets": 43,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2023-10-22",
-          "lastWeek": "2023-11-26"
-        }
-      ],
-      "titleCount": 2,
-      "places": 332,
-      "countries": 48,
       "reads30d": null
     },
     {
@@ -14067,56 +14264,6 @@
       "reads30d": null
     },
     {
-      "name": "Kim Han-na",
-      "wikiPage": "Kim Han-na",
-      "slug": "kim-han-na",
-      "q": null,
-      "born": null,
-      "bornUnknownWhy": "notFound",
-      "age": null,
-      "sign": null,
-      "signBoundary": null,
-      "titles": [
-        {
-          "title": "Spooky in Love",
-          "slug": "spooky-in-love",
-          "type": "TV",
-          "places": 235,
-          "markets": 48,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2026-07-19",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Military Prosecutor Doberman",
-          "slug": "military-prosecutor-doberman",
-          "type": "TV",
-          "places": 38,
-          "markets": 13,
-          "weeks": 10,
-          "peak": 1,
-          "firstWeek": "2022-09-04",
-          "lastWeek": "2024-07-21"
-        },
-        {
-          "title": "Love and Leashes",
-          "slug": "love-and-leashes",
-          "type": "Films",
-          "places": 35,
-          "markets": 18,
-          "weeks": 4,
-          "peak": 1,
-          "firstWeek": "2022-02-13",
-          "lastWeek": "2022-03-06"
-        }
-      ],
-      "titleCount": 3,
-      "places": 308,
-      "countries": 48,
-      "reads30d": null
-    },
-    {
       "name": "Son Ye-jin",
       "wikiPage": "Son Ye-jin",
       "slug": "son-ye-jin",
@@ -14339,6 +14486,48 @@
       "titleCount": 3,
       "places": 305,
       "countries": 89,
+      "reads30d": null
+    },
+    {
+      "name": "Jo Hye-joo",
+      "wikiPage": "Jo Hye-joo",
+      "slug": "jo-hye-joo",
+      "q": "Q65159912",
+      "born": "1995-04-18",
+      "bornUnknownWhy": null,
+      "age": 31,
+      "sign": {
+        "slug": "aries",
+        "name": "Aries"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Spooky in Love",
+          "slug": "spooky-in-love",
+          "type": "TV",
+          "places": 286,
+          "markets": 48,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2026-07-19",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Reborn Rich",
+          "slug": "reborn-rich",
+          "type": "TV",
+          "places": 13,
+          "markets": 2,
+          "weeks": 13,
+          "peak": 1,
+          "firstWeek": "2022-11-20",
+          "lastWeek": "2025-06-08"
+        }
+      ],
+      "titleCount": 2,
+      "places": 299,
+      "countries": 48,
       "reads30d": null
     },
     {
@@ -14802,6 +14991,70 @@
       "reads30d": null
     },
     {
+      "name": "Lee Jun-hyeok",
+      "wikiPage": "Lee Jun-hyeok (actor, born 1972)",
+      "slug": "lee-jun-hyeok",
+      "q": "Q17314724",
+      "born": "1972-03-19",
+      "bornUnknownWhy": null,
+      "age": 54,
+      "sign": {
+        "slug": "pisces",
+        "name": "Pisces"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Spooky in Love",
+          "slug": "spooky-in-love",
+          "type": "TV",
+          "places": 286,
+          "markets": 48,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2026-07-19",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Collectors",
+          "slug": "collectors",
+          "type": "Films",
+          "places": 4,
+          "markets": 3,
+          "weeks": 3,
+          "peak": 1,
+          "firstWeek": "2021-10-17",
+          "lastWeek": "2021-12-12"
+        },
+        {
+          "title": "Fatal Intuition",
+          "slug": "fatal-intuition",
+          "type": "Films",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 2,
+          "firstWeek": "2024-06-09",
+          "lastWeek": "2024-06-30"
+        },
+        {
+          "title": "Hitman 2",
+          "slug": "hitman-2",
+          "type": "Films",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 3,
+          "firstWeek": "2026-05-03",
+          "lastWeek": "2026-05-10"
+        }
+      ],
+      "titleCount": 4,
+      "places": 296,
+      "countries": 48,
+      "reads30d": null
+    },
+    {
       "name": "Park Bo-young",
       "wikiPage": "Park Bo-young",
       "slug": "park-bo-young",
@@ -14888,6 +15141,70 @@
       "reads30d": null
     },
     {
+      "name": "Ye Soo-jung",
+      "wikiPage": "Ye Soo-jung",
+      "slug": "ye-soo-jung",
+      "q": "Q12607641",
+      "born": "1955-03-25",
+      "bornUnknownWhy": null,
+      "age": 71,
+      "sign": {
+        "slug": "aries",
+        "name": "Aries"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Spooky in Love",
+          "slug": "spooky-in-love",
+          "type": "TV",
+          "places": 286,
+          "markets": 48,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2026-07-19",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Along with the Gods: The Two Worlds",
+          "slug": "along-with-the-gods-the-two-worlds",
+          "type": "Films",
+          "places": 4,
+          "markets": 3,
+          "weeks": 4,
+          "peak": 4,
+          "firstWeek": "2021-12-26",
+          "lastWeek": "2026-08-23"
+        },
+        {
+          "title": "The Desperate Chase",
+          "slug": "the-desperate-chase",
+          "type": "Films",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 4,
+          "firstWeek": "2026-03-08",
+          "lastWeek": "2026-03-15"
+        },
+        {
+          "title": "The Thieves",
+          "slug": "the-thieves",
+          "type": "Films",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 6,
+          "firstWeek": "2022-01-02",
+          "lastWeek": "2022-01-09"
+        }
+      ],
+      "titleCount": 4,
+      "places": 294,
+      "countries": 48,
+      "reads30d": null
+    },
+    {
       "name": "Hong Seo Joon",
       "wikiPage": "Hong Seo Joon",
       "slug": "hong-seo-joon",
@@ -14923,6 +15240,165 @@
       ],
       "titleCount": 2,
       "places": 293,
+      "countries": 53,
+      "reads30d": null
+    },
+    {
+      "name": "Lee Chang-hoon",
+      "wikiPage": "Lee Chang-hoon",
+      "slug": "lee-chang-hoon",
+      "q": "Q55733475",
+      "born": "1980-04-28",
+      "bornUnknownWhy": null,
+      "age": 46,
+      "sign": {
+        "slug": "taurus",
+        "name": "Taurus"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Spooky in Love",
+          "slug": "spooky-in-love",
+          "type": "TV",
+          "places": 286,
+          "markets": 48,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2026-07-19",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Black Dog",
+          "slug": "black-dog",
+          "type": "TV",
+          "places": 4,
+          "markets": 2,
+          "weeks": 3,
+          "peak": 4,
+          "firstWeek": "2022-04-10",
+          "lastWeek": "2022-04-24"
+        }
+      ],
+      "titleCount": 2,
+      "places": 290,
+      "countries": 48,
+      "reads30d": null
+    },
+    {
+      "name": "Kim Mi-kyung",
+      "wikiPage": "Kim Mi-kyung",
+      "slug": "kim-mi-kyung",
+      "q": "Q6677761",
+      "born": "1963-10-14",
+      "bornUnknownWhy": null,
+      "age": 62,
+      "sign": {
+        "slug": "libra",
+        "name": "Libra"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "As You Stood By",
+          "slug": "as-you-stood-by",
+          "type": "TV",
+          "places": 156,
+          "markets": 71,
+          "weeks": 5,
+          "peak": 1,
+          "firstWeek": "2025-11-09",
+          "lastWeek": "2025-12-07"
+        },
+        {
+          "title": "Phantom Lawyer",
+          "slug": "phantom-lawyer",
+          "type": "TV",
+          "places": 120,
+          "markets": 20,
+          "weeks": 11,
+          "peak": 1,
+          "firstWeek": "2026-03-15",
+          "lastWeek": "2026-05-24"
+        },
+        {
+          "title": "It's Okay to Not Be Okay",
+          "slug": "it-s-okay-to-not-be-okay",
+          "type": "TV",
+          "places": 13,
+          "markets": 1,
+          "weeks": 13,
+          "peak": 1,
+          "firstWeek": "2025-07-20",
+          "lastWeek": "2025-10-12"
+        }
+      ],
+      "titleCount": 3,
+      "places": 289,
+      "countries": 71,
+      "reads30d": null
+    },
+    {
+      "name": "Yoon Yu-seon",
+      "wikiPage": "Yoon Yoo-sun",
+      "slug": "yoon-yu-seon",
+      "q": "Q12610386",
+      "born": "1969-01-17",
+      "bornUnknownWhy": null,
+      "age": 57,
+      "sign": {
+        "slug": "capricorn",
+        "name": "Capricorn"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Beyond the Bar",
+          "slug": "beyond-the-bar",
+          "type": "TV",
+          "places": 281,
+          "markets": 53,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2025-08-03",
+          "lastWeek": "2025-09-28"
+        },
+        {
+          "title": "Beauty and Mr. Romantic",
+          "slug": "beauty-and-mr-romantic",
+          "type": "TV",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 7,
+          "firstWeek": "2024-03-31",
+          "lastWeek": "2024-04-21"
+        },
+        {
+          "title": "Abyss",
+          "slug": "abyss",
+          "type": "TV",
+          "places": 3,
+          "markets": 1,
+          "weeks": 3,
+          "peak": 8,
+          "firstWeek": "2022-03-20",
+          "lastWeek": "2022-04-03"
+        },
+        {
+          "title": "Good Doctor",
+          "slug": "good-doctor",
+          "type": "TV",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 9,
+          "firstWeek": "2022-07-31",
+          "lastWeek": "2022-07-31"
+        }
+      ],
+      "titleCount": 4,
+      "places": 289,
       "countries": 53,
       "reads30d": null
     },
@@ -15161,59 +15637,6 @@
       "places": 285,
       "countries": 33,
       "reads30d": 40437
-    },
-    {
-      "name": "Yoon Yu-seon",
-      "wikiPage": "Yoon Yoo-sun",
-      "slug": "yoon-yu-seon",
-      "q": "Q12610386",
-      "born": "1969-01-17",
-      "bornUnknownWhy": null,
-      "age": 57,
-      "sign": {
-        "slug": "capricorn",
-        "name": "Capricorn"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Beyond the Bar",
-          "slug": "beyond-the-bar",
-          "type": "TV",
-          "places": 281,
-          "markets": 53,
-          "weeks": 9,
-          "peak": 1,
-          "firstWeek": "2025-08-03",
-          "lastWeek": "2025-09-28"
-        },
-        {
-          "title": "Abyss",
-          "slug": "abyss",
-          "type": "TV",
-          "places": 3,
-          "markets": 1,
-          "weeks": 3,
-          "peak": 8,
-          "firstWeek": "2022-03-20",
-          "lastWeek": "2022-04-03"
-        },
-        {
-          "title": "Good Doctor",
-          "slug": "good-doctor",
-          "type": "TV",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 9,
-          "firstWeek": "2022-07-31",
-          "lastWeek": "2022-07-31"
-        }
-      ],
-      "titleCount": 3,
-      "places": 285,
-      "countries": 53,
-      "reads30d": null
     },
     {
       "name": "Choo Young-woo",
@@ -15943,6 +16366,92 @@
       "reads30d": null
     },
     {
+      "name": "Yunjin Kim",
+      "wikiPage": "Yunjin Kim",
+      "slug": "yunjin-kim",
+      "q": "Q229389",
+      "born": "1973-11-07",
+      "bornUnknownWhy": null,
+      "age": 52,
+      "sign": {
+        "slug": "scorpio",
+        "name": "Scorpio"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Money Heist: Korea - Joint Economic Area",
+          "slug": "money-heist-korea-joint-economic-area",
+          "type": "TV",
+          "places": 212,
+          "markets": 77,
+          "weeks": 7,
+          "peak": 1,
+          "firstWeek": "2022-06-26",
+          "lastWeek": "2022-12-25"
+        },
+        {
+          "title": "Notes from the Last Row",
+          "slug": "notes-from-the-last-row",
+          "type": "TV",
+          "places": 29,
+          "markets": 21,
+          "weeks": 4,
+          "peak": 2,
+          "firstWeek": "2026-06-28",
+          "lastWeek": "2026-07-19"
+        },
+        {
+          "title": "Yesterday",
+          "slug": "yesterday",
+          "type": "Films",
+          "places": 16,
+          "markets": 13,
+          "weeks": 10,
+          "peak": 3,
+          "firstWeek": "2021-08-22",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Confession",
+          "slug": "confession",
+          "type": "Films",
+          "places": 6,
+          "markets": 2,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2023-02-12",
+          "lastWeek": "2024-10-13"
+        },
+        {
+          "title": "Pawn",
+          "slug": "pawn",
+          "type": "Films",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 9,
+          "firstWeek": "2023-02-12",
+          "lastWeek": "2023-02-19"
+        },
+        {
+          "title": "Shiri",
+          "slug": "shiri",
+          "type": "Films",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 8,
+          "firstWeek": "2025-07-06",
+          "lastWeek": "2025-07-06"
+        }
+      ],
+      "titleCount": 6,
+      "places": 266,
+      "countries": 80,
+      "reads30d": null
+    },
+    {
       "name": "Lee Jeong-hyeon",
       "wikiPage": "Lee Jung-hyun",
       "slug": "lee-jeong-hyeon",
@@ -15993,92 +16502,6 @@
       "titleCount": 3,
       "places": 264,
       "countries": 84,
-      "reads30d": null
-    },
-    {
-      "name": "Yunjin Kim",
-      "wikiPage": "Yunjin Kim",
-      "slug": "yunjin-kim",
-      "q": "Q229389",
-      "born": "1973-11-07",
-      "bornUnknownWhy": null,
-      "age": 52,
-      "sign": {
-        "slug": "scorpio",
-        "name": "Scorpio"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Money Heist: Korea - Joint Economic Area",
-          "slug": "money-heist-korea-joint-economic-area",
-          "type": "TV",
-          "places": 212,
-          "markets": 77,
-          "weeks": 7,
-          "peak": 1,
-          "firstWeek": "2022-06-26",
-          "lastWeek": "2022-12-25"
-        },
-        {
-          "title": "Notes from the Last Row",
-          "slug": "notes-from-the-last-row",
-          "type": "TV",
-          "places": 29,
-          "markets": 21,
-          "weeks": 4,
-          "peak": 2,
-          "firstWeek": "2026-06-28",
-          "lastWeek": "2026-07-19"
-        },
-        {
-          "title": "Yesterday",
-          "slug": "yesterday",
-          "type": "Films",
-          "places": 14,
-          "markets": 12,
-          "weeks": 8,
-          "peak": 4,
-          "firstWeek": "2021-08-22",
-          "lastWeek": "2025-08-03"
-        },
-        {
-          "title": "Confession",
-          "slug": "confession",
-          "type": "Films",
-          "places": 6,
-          "markets": 2,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2023-02-12",
-          "lastWeek": "2024-10-13"
-        },
-        {
-          "title": "Pawn",
-          "slug": "pawn",
-          "type": "Films",
-          "places": 2,
-          "markets": 1,
-          "weeks": 2,
-          "peak": 9,
-          "firstWeek": "2023-02-12",
-          "lastWeek": "2023-02-19"
-        },
-        {
-          "title": "Shiri",
-          "slug": "shiri",
-          "type": "Films",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 8,
-          "firstWeek": "2025-07-06",
-          "lastWeek": "2025-07-06"
-        }
-      ],
-      "titleCount": 6,
-      "places": 264,
-      "countries": 80,
       "reads30d": null
     },
     {
@@ -16424,17 +16847,92 @@
           "title": "Wild Sing",
           "slug": "wild-sing",
           "type": "Films",
-          "places": 6,
+          "places": 7,
           "markets": 2,
-          "weeks": 4,
+          "weeks": 5,
           "peak": 1,
           "firstWeek": "2026-08-02",
-          "lastWeek": "2026-08-23"
+          "lastWeek": "2026-08-30"
         }
       ],
       "titleCount": 9,
-      "places": 257,
+      "places": 258,
       "countries": 52,
+      "reads30d": null
+    },
+    {
+      "name": "Kim Sang-ho",
+      "wikiPage": "Kim Sang-ho (actor)",
+      "slug": "kim-sang-ho",
+      "q": "Q6409308",
+      "born": "1970-07-24",
+      "bornUnknownWhy": null,
+      "age": 56,
+      "sign": {
+        "slug": "leo",
+        "name": "Leo"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Sweet Home",
+          "slug": "sweet-home",
+          "type": "TV",
+          "places": 247,
+          "markets": 42,
+          "weeks": 12,
+          "peak": 1,
+          "firstWeek": "2023-11-12",
+          "lastWeek": "2024-08-25"
+        },
+        {
+          "title": "By Quantum Physics: A Nightlife Venture",
+          "slug": "by-quantum-physics-a-nightlife-venture",
+          "type": "Films",
+          "places": 4,
+          "markets": 2,
+          "weeks": 4,
+          "peak": 3,
+          "firstWeek": "2021-12-19",
+          "lastWeek": "2024-06-09"
+        },
+        {
+          "title": "Wonderful Nightmare",
+          "slug": "wonderful-nightmare",
+          "type": "Films",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 1,
+          "firstWeek": "2026-07-12",
+          "lastWeek": "2026-08-02"
+        },
+        {
+          "title": "Road to Boston",
+          "slug": "road-to-boston",
+          "type": "Films",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 9,
+          "firstWeek": "2026-03-08",
+          "lastWeek": "2026-03-08"
+        },
+        {
+          "title": "Rookie Cops",
+          "slug": "rookie-cops",
+          "type": "TV",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 7,
+          "firstWeek": "2023-10-08",
+          "lastWeek": "2023-10-08"
+        }
+      ],
+      "titleCount": 5,
+      "places": 257,
+      "countries": 43,
       "reads30d": null
     },
     {
@@ -16538,70 +17036,6 @@
       "titleCount": 2,
       "places": 255,
       "countries": 46,
-      "reads30d": null
-    },
-    {
-      "name": "Kim Sang-ho",
-      "wikiPage": "Kim Sang-ho (actor)",
-      "slug": "kim-sang-ho",
-      "q": "Q6409308",
-      "born": "1970-07-24",
-      "bornUnknownWhy": null,
-      "age": 56,
-      "sign": {
-        "slug": "leo",
-        "name": "Leo"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Sweet Home",
-          "slug": "sweet-home",
-          "type": "TV",
-          "places": 247,
-          "markets": 42,
-          "weeks": 12,
-          "peak": 1,
-          "firstWeek": "2023-11-12",
-          "lastWeek": "2024-08-25"
-        },
-        {
-          "title": "By Quantum Physics: A Nightlife Venture",
-          "slug": "by-quantum-physics-a-nightlife-venture",
-          "type": "Films",
-          "places": 4,
-          "markets": 2,
-          "weeks": 4,
-          "peak": 3,
-          "firstWeek": "2021-12-19",
-          "lastWeek": "2024-06-09"
-        },
-        {
-          "title": "Road to Boston",
-          "slug": "road-to-boston",
-          "type": "Films",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 9,
-          "firstWeek": "2026-03-08",
-          "lastWeek": "2026-03-08"
-        },
-        {
-          "title": "Rookie Cops",
-          "slug": "rookie-cops",
-          "type": "TV",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 7,
-          "firstWeek": "2023-10-08",
-          "lastWeek": "2023-10-08"
-        }
-      ],
-      "titleCount": 4,
-      "places": 253,
-      "countries": 43,
       "reads30d": null
     },
     {
@@ -16847,48 +17281,6 @@
       "reads30d": null
     },
     {
-      "name": "Jo Hye-joo",
-      "wikiPage": "Jo Hye-joo",
-      "slug": "jo-hye-joo",
-      "q": "Q65159912",
-      "born": "1995-04-18",
-      "bornUnknownWhy": null,
-      "age": 31,
-      "sign": {
-        "slug": "aries",
-        "name": "Aries"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Spooky in Love",
-          "slug": "spooky-in-love",
-          "type": "TV",
-          "places": 235,
-          "markets": 48,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2026-07-19",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Reborn Rich",
-          "slug": "reborn-rich",
-          "type": "TV",
-          "places": 13,
-          "markets": 2,
-          "weeks": 13,
-          "peak": 1,
-          "firstWeek": "2022-11-20",
-          "lastWeek": "2025-06-08"
-        }
-      ],
-      "titleCount": 2,
-      "places": 248,
-      "countries": 48,
-      "reads30d": null
-    },
-    {
       "name": "Kim Jung-eun",
       "wikiPage": "Kim Jung-eun",
       "slug": "kim-jung-eun",
@@ -17037,70 +17429,6 @@
       "reads30d": null
     },
     {
-      "name": "Lee Jun-hyeok",
-      "wikiPage": "Lee Jun-hyeok (actor, born 1972)",
-      "slug": "lee-jun-hyeok",
-      "q": "Q17314724",
-      "born": "1972-03-19",
-      "bornUnknownWhy": null,
-      "age": 54,
-      "sign": {
-        "slug": "pisces",
-        "name": "Pisces"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Spooky in Love",
-          "slug": "spooky-in-love",
-          "type": "TV",
-          "places": 235,
-          "markets": 48,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2026-07-19",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Collectors",
-          "slug": "collectors",
-          "type": "Films",
-          "places": 4,
-          "markets": 3,
-          "weeks": 3,
-          "peak": 1,
-          "firstWeek": "2021-10-17",
-          "lastWeek": "2021-12-12"
-        },
-        {
-          "title": "Fatal Intuition",
-          "slug": "fatal-intuition",
-          "type": "Films",
-          "places": 4,
-          "markets": 1,
-          "weeks": 4,
-          "peak": 2,
-          "firstWeek": "2024-06-09",
-          "lastWeek": "2024-06-30"
-        },
-        {
-          "title": "Hitman 2",
-          "slug": "hitman-2",
-          "type": "Films",
-          "places": 2,
-          "markets": 1,
-          "weeks": 2,
-          "peak": 3,
-          "firstWeek": "2026-05-03",
-          "lastWeek": "2026-05-10"
-        }
-      ],
-      "titleCount": 4,
-      "places": 245,
-      "countries": 48,
-      "reads30d": null
-    },
-    {
       "name": "Shin Jae-ha",
       "wikiPage": "Shin Jae-ha",
       "slug": "shin-jae-ha",
@@ -17179,70 +17507,6 @@
       "titleCount": 2,
       "places": 243,
       "countries": 89,
-      "reads30d": null
-    },
-    {
-      "name": "Ye Soo-jung",
-      "wikiPage": "Ye Soo-jung",
-      "slug": "ye-soo-jung",
-      "q": "Q12607641",
-      "born": "1955-03-25",
-      "bornUnknownWhy": null,
-      "age": 71,
-      "sign": {
-        "slug": "aries",
-        "name": "Aries"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Spooky in Love",
-          "slug": "spooky-in-love",
-          "type": "TV",
-          "places": 235,
-          "markets": 48,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2026-07-19",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Along with the Gods: The Two Worlds",
-          "slug": "along-with-the-gods-the-two-worlds",
-          "type": "Films",
-          "places": 4,
-          "markets": 3,
-          "weeks": 4,
-          "peak": 4,
-          "firstWeek": "2021-12-26",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "The Desperate Chase",
-          "slug": "the-desperate-chase",
-          "type": "Films",
-          "places": 2,
-          "markets": 1,
-          "weeks": 2,
-          "peak": 4,
-          "firstWeek": "2026-03-08",
-          "lastWeek": "2026-03-15"
-        },
-        {
-          "title": "The Thieves",
-          "slug": "the-thieves",
-          "type": "Films",
-          "places": 2,
-          "markets": 1,
-          "weeks": 2,
-          "peak": 6,
-          "firstWeek": "2022-01-02",
-          "lastWeek": "2022-01-09"
-        }
-      ],
-      "titleCount": 4,
-      "places": 243,
-      "countries": 48,
       "reads30d": null
     },
     {
@@ -17349,48 +17613,6 @@
       "titleCount": 4,
       "places": 240,
       "countries": 62,
-      "reads30d": null
-    },
-    {
-      "name": "Lee Chang-hoon",
-      "wikiPage": "Lee Chang-hoon",
-      "slug": "lee-chang-hoon",
-      "q": "Q55733475",
-      "born": "1980-04-28",
-      "bornUnknownWhy": null,
-      "age": 46,
-      "sign": {
-        "slug": "taurus",
-        "name": "Taurus"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Spooky in Love",
-          "slug": "spooky-in-love",
-          "type": "TV",
-          "places": 235,
-          "markets": 48,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2026-07-19",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Black Dog",
-          "slug": "black-dog",
-          "type": "TV",
-          "places": 4,
-          "markets": 2,
-          "weeks": 3,
-          "peak": 4,
-          "firstWeek": "2022-04-10",
-          "lastWeek": "2022-04-24"
-        }
-      ],
-      "titleCount": 2,
-      "places": 239,
-      "countries": 48,
       "reads30d": null
     },
     {
@@ -18587,6 +18809,103 @@
       "reads30d": null
     },
     {
+      "name": "Ra Mi-ran",
+      "wikiPage": "Ra Mi-ran",
+      "slug": "ra-mi-ran",
+      "q": "Q12593923",
+      "born": "1975-03-06",
+      "bornUnknownWhy": null,
+      "age": 51,
+      "sign": {
+        "slug": "pisces",
+        "name": "Pisces"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "The Good Bad Mother",
+          "slug": "the-good-bad-mother",
+          "type": "TV",
+          "places": 191,
+          "markets": 34,
+          "weeks": 11,
+          "peak": 1,
+          "firstWeek": "2023-04-30",
+          "lastWeek": "2023-07-09"
+        },
+        {
+          "title": "Citizen of a Kind",
+          "slug": "citizen-of-a-kind",
+          "type": "Films",
+          "places": 9,
+          "markets": 1,
+          "weeks": 9,
+          "peak": 1,
+          "firstWeek": "2024-05-26",
+          "lastWeek": "2024-07-21"
+        },
+        {
+          "title": "Black Dog",
+          "slug": "black-dog",
+          "type": "TV",
+          "places": 4,
+          "markets": 2,
+          "weeks": 3,
+          "peak": 4,
+          "firstWeek": "2022-04-10",
+          "lastWeek": "2022-04-24"
+        },
+        {
+          "title": "Honest Candidate",
+          "slug": "honest-candidate",
+          "type": "Films",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 3,
+          "firstWeek": "2022-09-25",
+          "lastWeek": "2022-10-16"
+        },
+        {
+          "title": "Wonderful Nightmare",
+          "slug": "wonderful-nightmare",
+          "type": "Films",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 1,
+          "firstWeek": "2026-07-12",
+          "lastWeek": "2026-08-02"
+        },
+        {
+          "title": "Miss & Mrs. Cops",
+          "slug": "miss-mrs-cops",
+          "type": "Films",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 6,
+          "firstWeek": "2021-12-12",
+          "lastWeek": "2021-12-12"
+        },
+        {
+          "title": "My Love, My Bride",
+          "slug": "my-love-my-bride",
+          "type": "Films",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 6,
+          "firstWeek": "2022-11-20",
+          "lastWeek": "2022-11-20"
+        }
+      ],
+      "titleCount": 7,
+      "places": 214,
+      "countries": 34,
+      "reads30d": null
+    },
+    {
       "name": "Go Doo-shim",
       "wikiPage": "Go Doo-shim",
       "slug": "go-doo-shim",
@@ -18743,92 +19062,6 @@
       "titleCount": 3,
       "places": 210,
       "countries": 92,
-      "reads30d": null
-    },
-    {
-      "name": "Ra Mi-ran",
-      "wikiPage": "Ra Mi-ran",
-      "slug": "ra-mi-ran",
-      "q": "Q12593923",
-      "born": "1975-03-06",
-      "bornUnknownWhy": null,
-      "age": 51,
-      "sign": {
-        "slug": "pisces",
-        "name": "Pisces"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "The Good Bad Mother",
-          "slug": "the-good-bad-mother",
-          "type": "TV",
-          "places": 191,
-          "markets": 34,
-          "weeks": 11,
-          "peak": 1,
-          "firstWeek": "2023-04-30",
-          "lastWeek": "2023-07-09"
-        },
-        {
-          "title": "Citizen of a Kind",
-          "slug": "citizen-of-a-kind",
-          "type": "Films",
-          "places": 9,
-          "markets": 1,
-          "weeks": 9,
-          "peak": 1,
-          "firstWeek": "2024-05-26",
-          "lastWeek": "2024-07-21"
-        },
-        {
-          "title": "Black Dog",
-          "slug": "black-dog",
-          "type": "TV",
-          "places": 4,
-          "markets": 2,
-          "weeks": 3,
-          "peak": 4,
-          "firstWeek": "2022-04-10",
-          "lastWeek": "2022-04-24"
-        },
-        {
-          "title": "Honest Candidate",
-          "slug": "honest-candidate",
-          "type": "Films",
-          "places": 4,
-          "markets": 1,
-          "weeks": 4,
-          "peak": 3,
-          "firstWeek": "2022-09-25",
-          "lastWeek": "2022-10-16"
-        },
-        {
-          "title": "Miss & Mrs. Cops",
-          "slug": "miss-mrs-cops",
-          "type": "Films",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 6,
-          "firstWeek": "2021-12-12",
-          "lastWeek": "2021-12-12"
-        },
-        {
-          "title": "My Love, My Bride",
-          "slug": "my-love-my-bride",
-          "type": "Films",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 6,
-          "firstWeek": "2022-11-20",
-          "lastWeek": "2022-11-20"
-        }
-      ],
-      "titleCount": 6,
-      "places": 210,
-      "countries": 34,
       "reads30d": null
     },
     {
@@ -20465,6 +20698,59 @@
       "reads30d": null
     },
     {
+      "name": "Song Seung-heon",
+      "wikiPage": "Song Seung-heon",
+      "slug": "song-seung-heon",
+      "q": "Q486455",
+      "born": "1976-10-05",
+      "bornUnknownWhy": null,
+      "age": 49,
+      "sign": {
+        "slug": "libra",
+        "name": "Libra"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Black Knight",
+          "slug": "black-knight",
+          "type": "TV",
+          "places": 174,
+          "markets": 77,
+          "weeks": 5,
+          "peak": 1,
+          "firstWeek": "2023-05-14",
+          "lastWeek": "2024-09-29"
+        },
+        {
+          "title": "Wonderful Nightmare",
+          "slug": "wonderful-nightmare",
+          "type": "Films",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 1,
+          "firstWeek": "2026-07-12",
+          "lastWeek": "2026-08-02"
+        },
+        {
+          "title": "Obsessed",
+          "slug": "obsessed",
+          "type": "Films",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 10,
+          "firstWeek": "2023-10-08",
+          "lastWeek": "2023-10-08"
+        }
+      ],
+      "titleCount": 3,
+      "places": 179,
+      "countries": 77,
+      "reads30d": null
+    },
+    {
       "name": "Kim Ji-hyun",
       "wikiPage": "Kim Ji-hyun (actress)",
       "slug": "kim-ji-hyun",
@@ -20554,48 +20840,6 @@
       "titleCount": 3,
       "places": 175,
       "countries": 24,
-      "reads30d": null
-    },
-    {
-      "name": "Song Seung-heon",
-      "wikiPage": "Song Seung-heon",
-      "slug": "song-seung-heon",
-      "q": "Q486455",
-      "born": "1976-10-05",
-      "bornUnknownWhy": null,
-      "age": 49,
-      "sign": {
-        "slug": "libra",
-        "name": "Libra"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Black Knight",
-          "slug": "black-knight",
-          "type": "TV",
-          "places": 174,
-          "markets": 77,
-          "weeks": 5,
-          "peak": 1,
-          "firstWeek": "2023-05-14",
-          "lastWeek": "2024-09-29"
-        },
-        {
-          "title": "Obsessed",
-          "slug": "obsessed",
-          "type": "Films",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 10,
-          "firstWeek": "2023-10-08",
-          "lastWeek": "2023-10-08"
-        }
-      ],
-      "titleCount": 2,
-      "places": 175,
-      "countries": 77,
       "reads30d": null
     },
     {
@@ -20744,12 +20988,12 @@
           "title": "Wild Sing",
           "slug": "wild-sing",
           "type": "Films",
-          "places": 6,
+          "places": 7,
           "markets": 2,
-          "weeks": 4,
+          "weeks": 5,
           "peak": 1,
           "firstWeek": "2026-08-02",
-          "lastWeek": "2026-08-23"
+          "lastWeek": "2026-08-30"
         },
         {
           "title": "Broker",
@@ -20775,7 +21019,7 @@
         }
       ],
       "titleCount": 5,
-      "places": 171,
+      "places": 172,
       "countries": 77,
       "reads30d": null
     },
@@ -20880,48 +21124,6 @@
       "titleCount": 2,
       "places": 170,
       "countries": 67,
-      "reads30d": null
-    },
-    {
-      "name": "Kim Mi-kyung",
-      "wikiPage": "Kim Mi-kyung",
-      "slug": "kim-mi-kyung",
-      "q": "Q6677761",
-      "born": "1963-10-14",
-      "bornUnknownWhy": null,
-      "age": 62,
-      "sign": {
-        "slug": "libra",
-        "name": "Libra"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "As You Stood By",
-          "slug": "as-you-stood-by",
-          "type": "TV",
-          "places": 156,
-          "markets": 71,
-          "weeks": 5,
-          "peak": 1,
-          "firstWeek": "2025-11-09",
-          "lastWeek": "2025-12-07"
-        },
-        {
-          "title": "It's Okay to Not Be Okay",
-          "slug": "it-s-okay-to-not-be-okay",
-          "type": "TV",
-          "places": 13,
-          "markets": 1,
-          "weeks": 13,
-          "peak": 1,
-          "firstWeek": "2025-07-20",
-          "lastWeek": "2025-10-12"
-        }
-      ],
-      "titleCount": 2,
-      "places": 169,
-      "countries": 71,
       "reads30d": null
     },
     {
@@ -21208,6 +21410,56 @@
       "titleCount": 3,
       "places": 165,
       "countries": 72,
+      "reads30d": null
+    },
+    {
+      "name": "Kim Kyung-nam",
+      "wikiPage": "Kim Kyung-nam",
+      "slug": "kim-kyung-nam",
+      "q": null,
+      "born": null,
+      "bornUnknownWhy": "notFound",
+      "age": null,
+      "sign": null,
+      "signBoundary": null,
+      "titles": [
+        {
+          "title": "Phantom Lawyer",
+          "slug": "phantom-lawyer",
+          "type": "TV",
+          "places": 120,
+          "markets": 20,
+          "weeks": 11,
+          "peak": 1,
+          "firstWeek": "2026-03-15",
+          "lastWeek": "2026-05-24"
+        },
+        {
+          "title": "Prison Playbook",
+          "slug": "prison-playbook",
+          "type": "TV",
+          "places": 33,
+          "markets": 3,
+          "weeks": 28,
+          "peak": 2,
+          "firstWeek": "2021-07-11",
+          "lastWeek": "2023-02-26"
+        },
+        {
+          "title": "Connection",
+          "slug": "connection",
+          "type": "TV",
+          "places": 10,
+          "markets": 4,
+          "weeks": 3,
+          "peak": 3,
+          "firstWeek": "2025-03-09",
+          "lastWeek": "2025-03-23"
+        }
+      ],
+      "titleCount": 3,
+      "places": 163,
+      "countries": 21,
       "reads30d": null
     },
     {
@@ -21854,6 +22106,70 @@
       "reads30d": null
     },
     {
+      "name": "Seo Hyun-jin",
+      "wikiPage": "Seo Hyun-jin",
+      "slug": "seo-hyun-jin",
+      "q": "Q485279",
+      "born": "1985-02-27",
+      "bornUnknownWhy": null,
+      "age": 41,
+      "sign": {
+        "slug": "pisces",
+        "name": "Pisces"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "The Trunk",
+          "slug": "the-trunk",
+          "type": "TV",
+          "places": 86,
+          "markets": 41,
+          "weeks": 6,
+          "peak": 1,
+          "firstWeek": "2024-12-01",
+          "lastWeek": "2025-01-05"
+        },
+        {
+          "title": "The Perfect Lie",
+          "slug": "the-perfect-lie",
+          "type": "TV",
+          "places": 58,
+          "markets": 58,
+          "weeks": 1,
+          "peak": 1,
+          "firstWeek": "2026-09-13",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Black Dog",
+          "slug": "black-dog",
+          "type": "TV",
+          "places": 4,
+          "markets": 2,
+          "weeks": 3,
+          "peak": 4,
+          "firstWeek": "2022-04-10",
+          "lastWeek": "2022-04-24"
+        },
+        {
+          "title": "The Three Musketeers",
+          "slug": "the-three-musketeers",
+          "type": "Films",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 7,
+          "firstWeek": "2022-07-03",
+          "lastWeek": "2022-07-10"
+        }
+      ],
+      "titleCount": 4,
+      "places": 150,
+      "countries": 88,
+      "reads30d": null
+    },
+    {
       "name": "Yang Dong-geun",
       "wikiPage": "Yang Dong-geun",
       "slug": "yang-dong-geun",
@@ -22013,6 +22329,81 @@
       "reads30d": null
     },
     {
+      "name": "Uhm Jeong-hwa",
+      "wikiPage": "Uhm Jung-hwa",
+      "slug": "uhm-jeong-hwa",
+      "q": "Q272329",
+      "born": "1969-08-17",
+      "bornUnknownWhy": null,
+      "age": 57,
+      "sign": {
+        "slug": "leo",
+        "name": "Leo"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Our Blues",
+          "slug": "our-blues",
+          "type": "TV",
+          "places": 123,
+          "markets": 12,
+          "weeks": 16,
+          "peak": 1,
+          "firstWeek": "2022-04-17",
+          "lastWeek": "2022-07-31"
+        },
+        {
+          "title": "Mama",
+          "slug": "mama",
+          "type": "Films",
+          "places": 15,
+          "markets": 13,
+          "weeks": 4,
+          "peak": 4,
+          "firstWeek": "2024-06-02",
+          "lastWeek": "2026-02-08"
+        },
+        {
+          "title": "Wonderful Nightmare",
+          "slug": "wonderful-nightmare",
+          "type": "Films",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 1,
+          "firstWeek": "2026-07-12",
+          "lastWeek": "2026-08-02"
+        },
+        {
+          "title": "Montage",
+          "slug": "montage",
+          "type": "Films",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 9,
+          "firstWeek": "2026-05-03",
+          "lastWeek": "2026-05-03"
+        },
+        {
+          "title": "Tidal Wave",
+          "slug": "tidal-wave",
+          "type": "Films",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 8,
+          "firstWeek": "2021-08-08",
+          "lastWeek": "2021-08-08"
+        }
+      ],
+      "titleCount": 5,
+      "places": 144,
+      "countries": 17,
+      "reads30d": null
+    },
+    {
       "name": "Jeong Soon-won",
       "wikiPage": "Jeong Soon-won",
       "slug": "jeong-soon-won",
@@ -22155,70 +22546,6 @@
       "titleCount": 3,
       "places": 140,
       "countries": 36,
-      "reads30d": null
-    },
-    {
-      "name": "Uhm Jeong-hwa",
-      "wikiPage": "Uhm Jung-hwa",
-      "slug": "uhm-jeong-hwa",
-      "q": "Q272329",
-      "born": "1969-08-17",
-      "bornUnknownWhy": null,
-      "age": 57,
-      "sign": {
-        "slug": "leo",
-        "name": "Leo"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Our Blues",
-          "slug": "our-blues",
-          "type": "TV",
-          "places": 123,
-          "markets": 12,
-          "weeks": 16,
-          "peak": 1,
-          "firstWeek": "2022-04-17",
-          "lastWeek": "2022-07-31"
-        },
-        {
-          "title": "Mama",
-          "slug": "mama",
-          "type": "Films",
-          "places": 15,
-          "markets": 13,
-          "weeks": 4,
-          "peak": 4,
-          "firstWeek": "2024-06-02",
-          "lastWeek": "2026-02-08"
-        },
-        {
-          "title": "Montage",
-          "slug": "montage",
-          "type": "Films",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 9,
-          "firstWeek": "2026-05-03",
-          "lastWeek": "2026-05-03"
-        },
-        {
-          "title": "Tidal Wave",
-          "slug": "tidal-wave",
-          "type": "Films",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 8,
-          "firstWeek": "2021-08-08",
-          "lastWeek": "2021-08-08"
-        }
-      ],
-      "titleCount": 4,
-      "places": 140,
-      "countries": 17,
       "reads30d": null
     },
     {
@@ -23321,6 +23648,90 @@
       "reads30d": null
     },
     {
+      "name": "Son Yeo-eun",
+      "wikiPage": "Son Yeo-eun",
+      "slug": "son-yeo-eun",
+      "q": "Q12602721",
+      "born": "1983-08-04",
+      "bornUnknownWhy": null,
+      "age": 43,
+      "sign": {
+        "slug": "leo",
+        "name": "Leo"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Phantom Lawyer",
+          "slug": "phantom-lawyer",
+          "type": "TV",
+          "places": 120,
+          "markets": 20,
+          "weeks": 11,
+          "peak": 1,
+          "firstWeek": "2026-03-15",
+          "lastWeek": "2026-05-24"
+        },
+        {
+          "title": "The Devil's Deal",
+          "slug": "the-devil-s-deal",
+          "type": "Films",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 2,
+          "firstWeek": "2024-05-05",
+          "lastWeek": "2024-05-12"
+        }
+      ],
+      "titleCount": 2,
+      "places": 122,
+      "countries": 20,
+      "reads30d": null
+    },
+    {
+      "name": "Han Su-a",
+      "wikiPage": "Han Su-a",
+      "slug": "han-su-a",
+      "q": "Q115783479",
+      "born": "1998-12-12",
+      "bornUnknownWhy": null,
+      "age": 27,
+      "sign": {
+        "slug": "sagittarius",
+        "name": "Sagittarius"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Noise",
+          "slug": "noise",
+          "type": "Films",
+          "places": 116,
+          "markets": 72,
+          "weeks": 11,
+          "peak": 1,
+          "firstWeek": "2023-01-15",
+          "lastWeek": "2026-08-23"
+        },
+        {
+          "title": "Beauty and Mr. Romantic",
+          "slug": "beauty-and-mr-romantic",
+          "type": "TV",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 7,
+          "firstWeek": "2024-03-31",
+          "lastWeek": "2024-04-21"
+        }
+      ],
+      "titleCount": 2,
+      "places": 120,
+      "countries": 72,
+      "reads30d": null
+    },
+    {
       "name": "Hong Min-gi",
       "wikiPage": "Hong Min-gi",
       "slug": "hong-min-gi",
@@ -23893,6 +24304,70 @@
       "reads30d": null
     },
     {
+      "name": "Ji Seong",
+      "wikiPage": "Ji Sung",
+      "slug": "ji-seong",
+      "q": "Q491763",
+      "born": "1977-02-27",
+      "bornUnknownWhy": null,
+      "age": 49,
+      "sign": {
+        "slug": "pisces",
+        "name": "Pisces"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "The Apartment Job",
+          "slug": "the-apartment-job",
+          "type": "TV",
+          "places": 75,
+          "markets": 19,
+          "weeks": 8,
+          "peak": 3,
+          "firstWeek": "2026-07-12",
+          "lastWeek": "2026-08-30"
+        },
+        {
+          "title": "Doctor John",
+          "slug": "doctor-john",
+          "type": "TV",
+          "places": 12,
+          "markets": 4,
+          "weeks": 12,
+          "peak": 1,
+          "firstWeek": "2021-09-05",
+          "lastWeek": "2025-03-02"
+        },
+        {
+          "title": "The Devil Judge",
+          "slug": "the-devil-judge",
+          "type": "TV",
+          "places": 12,
+          "markets": 5,
+          "weeks": 3,
+          "peak": 4,
+          "firstWeek": "2022-01-02",
+          "lastWeek": "2022-01-16"
+        },
+        {
+          "title": "Connection",
+          "slug": "connection",
+          "type": "TV",
+          "places": 10,
+          "markets": 4,
+          "weeks": 3,
+          "peak": 3,
+          "firstWeek": "2025-03-09",
+          "lastWeek": "2025-03-23"
+        }
+      ],
+      "titleCount": 4,
+      "places": 109,
+      "countries": 20,
+      "reads30d": null
+    },
+    {
       "name": "Ok Ja-yeon",
       "wikiPage": "Ok Ja-yeon",
       "slug": "ok-ja-yeon",
@@ -23932,70 +24407,6 @@
       "titleCount": 2,
       "places": 109,
       "countries": 47,
-      "reads30d": null
-    },
-    {
-      "name": "Ji Seong",
-      "wikiPage": "Ji Sung",
-      "slug": "ji-seong",
-      "q": "Q491763",
-      "born": "1977-02-27",
-      "bornUnknownWhy": null,
-      "age": 49,
-      "sign": {
-        "slug": "pisces",
-        "name": "Pisces"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "The Apartment Job",
-          "slug": "the-apartment-job",
-          "type": "TV",
-          "places": 74,
-          "markets": 19,
-          "weeks": 7,
-          "peak": 3,
-          "firstWeek": "2026-07-12",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Doctor John",
-          "slug": "doctor-john",
-          "type": "TV",
-          "places": 12,
-          "markets": 4,
-          "weeks": 12,
-          "peak": 1,
-          "firstWeek": "2021-09-05",
-          "lastWeek": "2025-03-02"
-        },
-        {
-          "title": "The Devil Judge",
-          "slug": "the-devil-judge",
-          "type": "TV",
-          "places": 12,
-          "markets": 5,
-          "weeks": 3,
-          "peak": 4,
-          "firstWeek": "2022-01-02",
-          "lastWeek": "2022-01-16"
-        },
-        {
-          "title": "Connection",
-          "slug": "connection",
-          "type": "TV",
-          "places": 10,
-          "markets": 4,
-          "weeks": 3,
-          "peak": 3,
-          "firstWeek": "2025-03-09",
-          "lastWeek": "2025-03-23"
-        }
-      ],
-      "titleCount": 4,
-      "places": 108,
-      "countries": 20,
       "reads30d": null
     },
     {
@@ -24455,6 +24866,112 @@
       "reads30d": null
     },
     {
+      "name": "Kim Hye-eun",
+      "wikiPage": "Kim Hye-eun",
+      "slug": "kim-hye-eun",
+      "q": "Q10855924",
+      "born": "1973-03-01",
+      "bornUnknownWhy": null,
+      "age": 53,
+      "sign": {
+        "slug": "pisces",
+        "name": "Pisces"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Itaewon Class",
+          "slug": "itaewon-class",
+          "type": "TV",
+          "places": 74,
+          "markets": 4,
+          "weeks": 64,
+          "peak": 1,
+          "firstWeek": "2021-07-04",
+          "lastWeek": "2022-11-06"
+        },
+        {
+          "title": "Mr. Sunshine",
+          "slug": "mr-sunshine",
+          "type": "TV",
+          "places": 23,
+          "markets": 1,
+          "weeks": 23,
+          "peak": 7,
+          "firstWeek": "2021-08-22",
+          "lastWeek": "2023-04-23"
+        },
+        {
+          "title": "Iron Family",
+          "slug": "iron-family",
+          "type": "TV",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 6,
+          "firstWeek": "2024-10-06",
+          "lastWeek": "2024-10-06"
+        }
+      ],
+      "titleCount": 3,
+      "places": 98,
+      "countries": 4,
+      "reads30d": null
+    },
+    {
+      "name": "Lee Il-hwa",
+      "wikiPage": "Lee Il-hwa",
+      "slug": "lee-il-hwa",
+      "q": "Q15120995",
+      "born": "1970-01-03",
+      "bornUnknownWhy": null,
+      "age": 56,
+      "sign": {
+        "slug": "capricorn",
+        "name": "Capricorn"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "My Name Is Loh Kiwan",
+          "slug": "my-name-is-loh-kiwan",
+          "type": "Films",
+          "places": 50,
+          "markets": 31,
+          "weeks": 5,
+          "peak": 1,
+          "firstWeek": "2024-03-03",
+          "lastWeek": "2024-03-31"
+        },
+        {
+          "title": "Reply 1988",
+          "slug": "reply-1988",
+          "type": "TV",
+          "places": 44,
+          "markets": 5,
+          "weeks": 39,
+          "peak": 3,
+          "firstWeek": "2021-07-04",
+          "lastWeek": "2022-12-11"
+        },
+        {
+          "title": "Beauty and Mr. Romantic",
+          "slug": "beauty-and-mr-romantic",
+          "type": "TV",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 7,
+          "firstWeek": "2024-03-31",
+          "lastWeek": "2024-04-21"
+        }
+      ],
+      "titleCount": 3,
+      "places": 98,
+      "countries": 31,
+      "reads30d": null
+    },
+    {
       "name": "Hyun Bong-sik",
       "wikiPage": "Hyun Bong-sik",
       "slug": "hyun-bong-sik",
@@ -24566,48 +25083,6 @@
       "titleCount": 3,
       "places": 97,
       "countries": 37,
-      "reads30d": null
-    },
-    {
-      "name": "Kim Hye-eun",
-      "wikiPage": "Kim Hye-eun",
-      "slug": "kim-hye-eun",
-      "q": "Q10855924",
-      "born": "1973-03-01",
-      "bornUnknownWhy": null,
-      "age": 53,
-      "sign": {
-        "slug": "pisces",
-        "name": "Pisces"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Itaewon Class",
-          "slug": "itaewon-class",
-          "type": "TV",
-          "places": 74,
-          "markets": 4,
-          "weeks": 64,
-          "peak": 1,
-          "firstWeek": "2021-07-04",
-          "lastWeek": "2022-11-06"
-        },
-        {
-          "title": "Mr. Sunshine",
-          "slug": "mr-sunshine",
-          "type": "TV",
-          "places": 23,
-          "markets": 1,
-          "weeks": 23,
-          "peak": 7,
-          "firstWeek": "2021-08-22",
-          "lastWeek": "2023-04-23"
-        }
-      ],
-      "titleCount": 2,
-      "places": 97,
-      "countries": 4,
       "reads30d": null
     },
     {
@@ -24741,48 +25216,6 @@
       "reads30d": null
     },
     {
-      "name": "Lee Il-hwa",
-      "wikiPage": "Lee Il-hwa",
-      "slug": "lee-il-hwa",
-      "q": "Q15120995",
-      "born": "1970-01-03",
-      "bornUnknownWhy": null,
-      "age": 56,
-      "sign": {
-        "slug": "capricorn",
-        "name": "Capricorn"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "My Name Is Loh Kiwan",
-          "slug": "my-name-is-loh-kiwan",
-          "type": "Films",
-          "places": 50,
-          "markets": 31,
-          "weeks": 5,
-          "peak": 1,
-          "firstWeek": "2024-03-03",
-          "lastWeek": "2024-03-31"
-        },
-        {
-          "title": "Reply 1988",
-          "slug": "reply-1988",
-          "type": "TV",
-          "places": 44,
-          "markets": 5,
-          "weeks": 39,
-          "peak": 3,
-          "firstWeek": "2021-07-04",
-          "lastWeek": "2022-12-11"
-        }
-      ],
-      "titleCount": 2,
-      "places": 94,
-      "countries": 31,
-      "reads30d": null
-    },
-    {
       "name": "Kim Ok-vin",
       "wikiPage": "Kim Ok-vin",
       "slug": "kim-ok-vin",
@@ -24833,59 +25266,6 @@
       "titleCount": 3,
       "places": 92,
       "countries": 51,
-      "reads30d": null
-    },
-    {
-      "name": "Seo Hyun-jin",
-      "wikiPage": "Seo Hyun-jin",
-      "slug": "seo-hyun-jin",
-      "q": "Q485279",
-      "born": "1985-02-27",
-      "bornUnknownWhy": null,
-      "age": 41,
-      "sign": {
-        "slug": "pisces",
-        "name": "Pisces"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "The Trunk",
-          "slug": "the-trunk",
-          "type": "TV",
-          "places": 86,
-          "markets": 41,
-          "weeks": 6,
-          "peak": 1,
-          "firstWeek": "2024-12-01",
-          "lastWeek": "2025-01-05"
-        },
-        {
-          "title": "Black Dog",
-          "slug": "black-dog",
-          "type": "TV",
-          "places": 4,
-          "markets": 2,
-          "weeks": 3,
-          "peak": 4,
-          "firstWeek": "2022-04-10",
-          "lastWeek": "2022-04-24"
-        },
-        {
-          "title": "The Three Musketeers",
-          "slug": "the-three-musketeers",
-          "type": "Films",
-          "places": 2,
-          "markets": 1,
-          "weeks": 2,
-          "peak": 7,
-          "firstWeek": "2022-07-03",
-          "lastWeek": "2022-07-10"
-        }
-      ],
-      "titleCount": 3,
-      "places": 92,
-      "countries": 42,
       "reads30d": null
     },
     {
@@ -25056,6 +25436,59 @@
       "titleCount": 2,
       "places": 89,
       "countries": 9,
+      "reads30d": null
+    },
+    {
+      "name": "Lim Ye-jin",
+      "wikiPage": "Im Ye-jin",
+      "slug": "lim-ye-jin",
+      "q": "Q485134",
+      "born": "1960-01-24",
+      "bornUnknownWhy": null,
+      "age": 66,
+      "sign": {
+        "slug": "aquarius",
+        "name": "Aquarius"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Boys Over Flowers",
+          "slug": "boys-over-flowers",
+          "type": "TV",
+          "places": 76,
+          "markets": 7,
+          "weeks": 49,
+          "peak": 1,
+          "firstWeek": "2022-06-19",
+          "lastWeek": "2023-06-04"
+        },
+        {
+          "title": "A Korean Odyssey",
+          "slug": "a-korean-odyssey",
+          "type": "TV",
+          "places": 8,
+          "markets": 2,
+          "weeks": 7,
+          "peak": 2,
+          "firstWeek": "2021-07-04",
+          "lastWeek": "2023-04-23"
+        },
+        {
+          "title": "Beauty and Mr. Romantic",
+          "slug": "beauty-and-mr-romantic",
+          "type": "TV",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 7,
+          "firstWeek": "2024-03-31",
+          "lastWeek": "2024-04-21"
+        }
+      ],
+      "titleCount": 3,
+      "places": 88,
+      "countries": 10,
       "reads30d": null
     },
     {
@@ -25321,48 +25754,6 @@
       "titleCount": 2,
       "places": 84,
       "countries": 15,
-      "reads30d": null
-    },
-    {
-      "name": "Lim Ye-jin",
-      "wikiPage": "Im Ye-jin",
-      "slug": "lim-ye-jin",
-      "q": "Q485134",
-      "born": "1960-01-24",
-      "bornUnknownWhy": null,
-      "age": 66,
-      "sign": {
-        "slug": "aquarius",
-        "name": "Aquarius"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Boys Over Flowers",
-          "slug": "boys-over-flowers",
-          "type": "TV",
-          "places": 76,
-          "markets": 7,
-          "weeks": 49,
-          "peak": 1,
-          "firstWeek": "2022-06-19",
-          "lastWeek": "2023-06-04"
-        },
-        {
-          "title": "A Korean Odyssey",
-          "slug": "a-korean-odyssey",
-          "type": "TV",
-          "places": 8,
-          "markets": 2,
-          "weeks": 7,
-          "peak": 2,
-          "firstWeek": "2021-07-04",
-          "lastWeek": "2023-04-23"
-        }
-      ],
-      "titleCount": 2,
-      "places": 84,
-      "countries": 9,
       "reads30d": null
     },
     {
@@ -26546,6 +26937,70 @@
       "reads30d": null
     },
     {
+      "name": "Kim Sun-a",
+      "wikiPage": "Kim Sun-a",
+      "slug": "kim-sun-a",
+      "q": "Q488864",
+      "born": "1973-10-01",
+      "bornUnknownWhy": null,
+      "age": 52,
+      "sign": {
+        "slug": "libra",
+        "name": "Libra"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Scent of a Woman",
+          "slug": "scent-of-a-woman",
+          "type": "Films",
+          "places": 49,
+          "markets": 38,
+          "weeks": 5,
+          "peak": 3,
+          "firstWeek": "2023-02-19",
+          "lastWeek": "2025-01-26"
+        },
+        {
+          "title": "Yesterday",
+          "slug": "yesterday",
+          "type": "Films",
+          "places": 16,
+          "markets": 13,
+          "weeks": 10,
+          "peak": 3,
+          "firstWeek": "2021-08-22",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Operation Chromite",
+          "slug": "operation-chromite",
+          "type": "Films",
+          "places": 3,
+          "markets": 2,
+          "weeks": 2,
+          "peak": 9,
+          "firstWeek": "2022-02-06",
+          "lastWeek": "2022-02-13"
+        },
+        {
+          "title": "The Five",
+          "slug": "the-five",
+          "type": "Films",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 4,
+          "firstWeek": "2024-06-02",
+          "lastWeek": "2024-06-09"
+        }
+      ],
+      "titleCount": 4,
+      "places": 70,
+      "countries": 48,
+      "reads30d": null
+    },
+    {
       "name": "Park Ye-young",
       "wikiPage": "Park Ye-young",
       "slug": "park-ye-young",
@@ -26774,70 +27229,6 @@
       "titleCount": 3,
       "places": 68,
       "countries": 9,
-      "reads30d": null
-    },
-    {
-      "name": "Kim Sun-a",
-      "wikiPage": "Kim Sun-a",
-      "slug": "kim-sun-a",
-      "q": "Q488864",
-      "born": "1973-10-01",
-      "bornUnknownWhy": null,
-      "age": 52,
-      "sign": {
-        "slug": "libra",
-        "name": "Libra"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Scent of a Woman",
-          "slug": "scent-of-a-woman",
-          "type": "Films",
-          "places": 49,
-          "markets": 38,
-          "weeks": 5,
-          "peak": 3,
-          "firstWeek": "2023-02-19",
-          "lastWeek": "2025-01-26"
-        },
-        {
-          "title": "Yesterday",
-          "slug": "yesterday",
-          "type": "Films",
-          "places": 14,
-          "markets": 12,
-          "weeks": 8,
-          "peak": 4,
-          "firstWeek": "2021-08-22",
-          "lastWeek": "2025-08-03"
-        },
-        {
-          "title": "Operation Chromite",
-          "slug": "operation-chromite",
-          "type": "Films",
-          "places": 3,
-          "markets": 2,
-          "weeks": 2,
-          "peak": 9,
-          "firstWeek": "2022-02-06",
-          "lastWeek": "2022-02-13"
-        },
-        {
-          "title": "The Five",
-          "slug": "the-five",
-          "type": "Films",
-          "places": 2,
-          "markets": 1,
-          "weeks": 2,
-          "peak": 4,
-          "firstWeek": "2024-06-02",
-          "lastWeek": "2024-06-09"
-        }
-      ],
-      "titleCount": 4,
-      "places": 68,
-      "countries": 48,
       "reads30d": null
     },
     {
@@ -28650,6 +29041,81 @@
       "reads30d": null
     },
     {
+      "name": "Park Ji-hyun",
+      "wikiPage": "Park Ji-hyun (actress)",
+      "slug": "park-ji-hyun",
+      "q": "Q55730087",
+      "born": "1994-11-26",
+      "bornUnknownWhy": null,
+      "age": 31,
+      "sign": {
+        "slug": "sagittarius",
+        "name": "Sagittarius"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "You and Everything Else",
+          "slug": "you-and-everything-else",
+          "type": "TV",
+          "places": 17,
+          "markets": 9,
+          "weeks": 7,
+          "peak": 2,
+          "firstWeek": "2025-09-14",
+          "lastWeek": "2025-10-26"
+        },
+        {
+          "title": "Reborn Rich",
+          "slug": "reborn-rich",
+          "type": "TV",
+          "places": 13,
+          "markets": 2,
+          "weeks": 13,
+          "peak": 1,
+          "firstWeek": "2022-11-20",
+          "lastWeek": "2025-06-08"
+        },
+        {
+          "title": "The Divine Fury",
+          "slug": "the-divine-fury",
+          "type": "Films",
+          "places": 9,
+          "markets": 4,
+          "weeks": 9,
+          "peak": 2,
+          "firstWeek": "2022-01-23",
+          "lastWeek": "2023-10-15"
+        },
+        {
+          "title": "Wild Sing",
+          "slug": "wild-sing",
+          "type": "Films",
+          "places": 7,
+          "markets": 2,
+          "weeks": 5,
+          "peak": 1,
+          "firstWeek": "2026-08-02",
+          "lastWeek": "2026-08-30"
+        },
+        {
+          "title": "Anchor",
+          "slug": "anchor",
+          "type": "Films",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 9,
+          "firstWeek": "2023-04-02",
+          "lastWeek": "2023-04-02"
+        }
+      ],
+      "titleCount": 5,
+      "places": 47,
+      "countries": 10,
+      "reads30d": 72336
+    },
+    {
       "name": "Yoo Hai-jin",
       "wikiPage": "Yoo Hae-jin",
       "slug": "yoo-hai-jin",
@@ -28819,81 +29285,6 @@
       "reads30d": null
     },
     {
-      "name": "Park Ji-hyun",
-      "wikiPage": "Park Ji-hyun (actress)",
-      "slug": "park-ji-hyun",
-      "q": "Q55730087",
-      "born": "1994-11-26",
-      "bornUnknownWhy": null,
-      "age": 31,
-      "sign": {
-        "slug": "sagittarius",
-        "name": "Sagittarius"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "You and Everything Else",
-          "slug": "you-and-everything-else",
-          "type": "TV",
-          "places": 17,
-          "markets": 9,
-          "weeks": 7,
-          "peak": 2,
-          "firstWeek": "2025-09-14",
-          "lastWeek": "2025-10-26"
-        },
-        {
-          "title": "Reborn Rich",
-          "slug": "reborn-rich",
-          "type": "TV",
-          "places": 13,
-          "markets": 2,
-          "weeks": 13,
-          "peak": 1,
-          "firstWeek": "2022-11-20",
-          "lastWeek": "2025-06-08"
-        },
-        {
-          "title": "The Divine Fury",
-          "slug": "the-divine-fury",
-          "type": "Films",
-          "places": 9,
-          "markets": 4,
-          "weeks": 9,
-          "peak": 2,
-          "firstWeek": "2022-01-23",
-          "lastWeek": "2023-10-15"
-        },
-        {
-          "title": "Wild Sing",
-          "slug": "wild-sing",
-          "type": "Films",
-          "places": 6,
-          "markets": 2,
-          "weeks": 4,
-          "peak": 1,
-          "firstWeek": "2026-08-02",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Anchor",
-          "slug": "anchor",
-          "type": "Films",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 9,
-          "firstWeek": "2023-04-02",
-          "lastWeek": "2023-04-02"
-        }
-      ],
-      "titleCount": 5,
-      "places": 46,
-      "countries": 10,
-      "reads30d": 72336
-    },
-    {
       "name": "Ryoo Seung-bum",
       "wikiPage": "Ryoo Seung-bum",
       "slug": "ryoo-seung-bum",
@@ -28955,6 +29346,48 @@
       "titleCount": 4,
       "places": 46,
       "countries": 20,
+      "reads30d": null
+    },
+    {
+      "name": "Choi Min-soo",
+      "wikiPage": "Choi Min-soo",
+      "slug": "choi-min-soo",
+      "q": "Q491143",
+      "born": "1962-03-27",
+      "bornUnknownWhy": null,
+      "age": 64,
+      "sign": {
+        "slug": "aries",
+        "name": "Aries"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Lawless Lawyer",
+          "slug": "lawless-lawyer",
+          "type": "TV",
+          "places": 28,
+          "markets": 11,
+          "weeks": 5,
+          "peak": 1,
+          "firstWeek": "2021-08-01",
+          "lastWeek": "2021-08-29"
+        },
+        {
+          "title": "Yesterday",
+          "slug": "yesterday",
+          "type": "Films",
+          "places": 16,
+          "markets": 13,
+          "weeks": 10,
+          "peak": 3,
+          "firstWeek": "2021-08-22",
+          "lastWeek": "2026-09-13"
+        }
+      ],
+      "titleCount": 2,
+      "places": 44,
+      "countries": 21,
       "reads30d": null
     },
     {
@@ -29061,45 +29494,6 @@
       "titleCount": 2,
       "places": 44,
       "countries": 3,
-      "reads30d": null
-    },
-    {
-      "name": "Kim Kyung-nam",
-      "wikiPage": "Kim Kyung-nam",
-      "slug": "kim-kyung-nam",
-      "q": null,
-      "born": null,
-      "bornUnknownWhy": "notFound",
-      "age": null,
-      "sign": null,
-      "signBoundary": null,
-      "titles": [
-        {
-          "title": "Prison Playbook",
-          "slug": "prison-playbook",
-          "type": "TV",
-          "places": 33,
-          "markets": 3,
-          "weeks": 28,
-          "peak": 2,
-          "firstWeek": "2021-07-11",
-          "lastWeek": "2023-02-26"
-        },
-        {
-          "title": "Connection",
-          "slug": "connection",
-          "type": "TV",
-          "places": 10,
-          "markets": 4,
-          "weeks": 3,
-          "peak": 3,
-          "firstWeek": "2025-03-09",
-          "lastWeek": "2025-03-23"
-        }
-      ],
-      "titleCount": 2,
-      "places": 43,
-      "countries": 7,
       "reads30d": null
     },
     {
@@ -29292,48 +29686,6 @@
       "titleCount": 3,
       "places": 43,
       "countries": 18,
-      "reads30d": null
-    },
-    {
-      "name": "Choi Min-soo",
-      "wikiPage": "Choi Min-soo",
-      "slug": "choi-min-soo",
-      "q": "Q491143",
-      "born": "1962-03-27",
-      "bornUnknownWhy": null,
-      "age": 64,
-      "sign": {
-        "slug": "aries",
-        "name": "Aries"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Lawless Lawyer",
-          "slug": "lawless-lawyer",
-          "type": "TV",
-          "places": 28,
-          "markets": 11,
-          "weeks": 5,
-          "peak": 1,
-          "firstWeek": "2021-08-01",
-          "lastWeek": "2021-08-29"
-        },
-        {
-          "title": "Yesterday",
-          "slug": "yesterday",
-          "type": "Films",
-          "places": 14,
-          "markets": 12,
-          "weeks": 8,
-          "peak": 4,
-          "firstWeek": "2021-08-22",
-          "lastWeek": "2025-08-03"
-        }
-      ],
-      "titleCount": 2,
-      "places": 42,
-      "countries": 20,
       "reads30d": null
     },
     {
@@ -31645,6 +31997,48 @@
       "reads30d": null
     },
     {
+      "name": "Im Soo-hyang",
+      "wikiPage": "Im Soo-hyang",
+      "slug": "im-soo-hyang",
+      "q": "Q492777",
+      "born": "1990-04-19",
+      "bornUnknownWhy": null,
+      "age": 36,
+      "sign": {
+        "slug": "aries",
+        "name": "Aries"
+      },
+      "signBoundary": true,
+      "titles": [
+        {
+          "title": "My ID is Gangnam Beauty",
+          "slug": "my-id-is-gangnam-beauty",
+          "type": "TV",
+          "places": 23,
+          "markets": 11,
+          "weeks": 11,
+          "peak": 4,
+          "firstWeek": "2021-11-07",
+          "lastWeek": "2023-03-05"
+        },
+        {
+          "title": "Beauty and Mr. Romantic",
+          "slug": "beauty-and-mr-romantic",
+          "type": "TV",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 7,
+          "firstWeek": "2024-03-31",
+          "lastWeek": "2024-04-21"
+        }
+      ],
+      "titleCount": 2,
+      "places": 27,
+      "countries": 12,
+      "reads30d": null
+    },
+    {
       "name": "Jeon Hye-jin",
       "wikiPage": "Jeon Hye-jin (actress, born 1976)",
       "slug": "jeon-hye-jin",
@@ -32294,6 +32688,59 @@
       "titleCount": 3,
       "places": 22,
       "countries": 7,
+      "reads30d": null
+    },
+    {
+      "name": "Park Won-sang",
+      "wikiPage": "Park Won-sang",
+      "slug": "park-won-sang",
+      "q": "Q7138143",
+      "born": "1970-01-20",
+      "bornUnknownWhy": null,
+      "age": 56,
+      "sign": {
+        "slug": "aquarius",
+        "name": "Aquarius"
+      },
+      "signBoundary": true,
+      "titles": [
+        {
+          "title": "12.12: The Day",
+          "slug": "12-12-the-day",
+          "type": "Films",
+          "places": 12,
+          "markets": 1,
+          "weeks": 12,
+          "peak": 1,
+          "firstWeek": "2024-05-12",
+          "lastWeek": "2024-12-22"
+        },
+        {
+          "title": "Miracle in Cell No. 7",
+          "slug": "miracle-in-cell-no-7",
+          "type": "Films",
+          "places": 6,
+          "markets": 2,
+          "weeks": 6,
+          "peak": 2,
+          "firstWeek": "2022-09-18",
+          "lastWeek": "2024-01-28"
+        },
+        {
+          "title": "Beauty and Mr. Romantic",
+          "slug": "beauty-and-mr-romantic",
+          "type": "TV",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 7,
+          "firstWeek": "2024-03-31",
+          "lastWeek": "2024-04-21"
+        }
+      ],
+      "titleCount": 3,
+      "places": 22,
+      "countries": 3,
       "reads30d": null
     },
     {
@@ -33201,6 +33648,48 @@
       "reads30d": null
     },
     {
+      "name": "Kim Seung-woo",
+      "wikiPage": "Kim Seung-woo",
+      "slug": "kim-seung-woo",
+      "q": "Q489067",
+      "born": "1969-02-24",
+      "bornUnknownWhy": null,
+      "age": 57,
+      "sign": {
+        "slug": "pisces",
+        "name": "Pisces"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Yesterday",
+          "slug": "yesterday",
+          "type": "Films",
+          "places": 16,
+          "markets": 13,
+          "weeks": 10,
+          "peak": 3,
+          "firstWeek": "2021-08-22",
+          "lastWeek": "2026-09-13"
+        },
+        {
+          "title": "Iris",
+          "slug": "iris",
+          "type": "TV",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 9,
+          "firstWeek": "2022-07-24",
+          "lastWeek": "2022-07-31"
+        }
+      ],
+      "titleCount": 2,
+      "places": 18,
+      "countries": 13,
+      "reads30d": null
+    },
+    {
       "name": "Lee Tae-hwan",
       "wikiPage": "Lee Tae-hwan",
       "slug": "lee-tae-hwan",
@@ -33282,48 +33771,6 @@
       "titleCount": 2,
       "places": 18,
       "countries": 2,
-      "reads30d": null
-    },
-    {
-      "name": "Park Won-sang",
-      "wikiPage": "Park Won-sang",
-      "slug": "park-won-sang",
-      "q": "Q7138143",
-      "born": "1970-01-20",
-      "bornUnknownWhy": null,
-      "age": 56,
-      "sign": {
-        "slug": "aquarius",
-        "name": "Aquarius"
-      },
-      "signBoundary": true,
-      "titles": [
-        {
-          "title": "12.12: The Day",
-          "slug": "12-12-the-day",
-          "type": "Films",
-          "places": 12,
-          "markets": 1,
-          "weeks": 12,
-          "peak": 1,
-          "firstWeek": "2024-05-12",
-          "lastWeek": "2024-12-22"
-        },
-        {
-          "title": "Miracle in Cell No. 7",
-          "slug": "miracle-in-cell-no-7",
-          "type": "Films",
-          "places": 6,
-          "markets": 2,
-          "weeks": 6,
-          "peak": 2,
-          "firstWeek": "2022-09-18",
-          "lastWeek": "2024-01-28"
-        }
-      ],
-      "titleCount": 2,
-      "places": 18,
-      "countries": 3,
       "reads30d": null
     },
     {
@@ -33595,48 +34042,6 @@
       "titleCount": 2,
       "places": 16,
       "countries": 3,
-      "reads30d": null
-    },
-    {
-      "name": "Kim Seung-woo",
-      "wikiPage": "Kim Seung-woo",
-      "slug": "kim-seung-woo",
-      "q": "Q489067",
-      "born": "1969-02-24",
-      "bornUnknownWhy": null,
-      "age": 57,
-      "sign": {
-        "slug": "pisces",
-        "name": "Pisces"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Yesterday",
-          "slug": "yesterday",
-          "type": "Films",
-          "places": 14,
-          "markets": 12,
-          "weeks": 8,
-          "peak": 4,
-          "firstWeek": "2021-08-22",
-          "lastWeek": "2025-08-03"
-        },
-        {
-          "title": "Iris",
-          "slug": "iris",
-          "type": "TV",
-          "places": 2,
-          "markets": 1,
-          "weeks": 2,
-          "peak": 9,
-          "firstWeek": "2022-07-24",
-          "lastWeek": "2022-07-31"
-        }
-      ],
-      "titleCount": 2,
-      "places": 16,
-      "countries": 12,
       "reads30d": null
     },
     {
@@ -34737,6 +35142,56 @@
       "titleCount": 4,
       "places": 12,
       "countries": 4,
+      "reads30d": null
+    },
+    {
+      "name": "Cha Hwa-yeon",
+      "wikiPage": "Cha Hwa-yeon",
+      "slug": "cha-hwa-yeon",
+      "q": null,
+      "born": null,
+      "bornUnknownWhy": "notFound",
+      "age": null,
+      "sign": null,
+      "signBoundary": null,
+      "titles": [
+        {
+          "title": "The Real Has Come!",
+          "slug": "the-real-has-come",
+          "type": "TV",
+          "places": 5,
+          "markets": 2,
+          "weeks": 4,
+          "peak": 5,
+          "firstWeek": "2023-06-18",
+          "lastWeek": "2023-07-09"
+        },
+        {
+          "title": "Beauty and Mr. Romantic",
+          "slug": "beauty-and-mr-romantic",
+          "type": "TV",
+          "places": 4,
+          "markets": 1,
+          "weeks": 4,
+          "peak": 7,
+          "firstWeek": "2024-03-31",
+          "lastWeek": "2024-04-21"
+        },
+        {
+          "title": "White Night",
+          "slug": "white-night",
+          "type": "Films",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 7,
+          "firstWeek": "2023-04-30",
+          "lastWeek": "2023-05-07"
+        }
+      ],
+      "titleCount": 3,
+      "places": 11,
+      "countries": 3,
       "reads30d": null
     },
     {
@@ -36019,6 +36474,48 @@
       "reads30d": null
     },
     {
+      "name": "Um Tae-goo",
+      "wikiPage": "Um Tae-goo",
+      "slug": "um-tae-goo",
+      "q": "Q16174686",
+      "born": "1983-11-09",
+      "bornUnknownWhy": null,
+      "age": 42,
+      "sign": {
+        "slug": "scorpio",
+        "name": "Scorpio"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "Wild Sing",
+          "slug": "wild-sing",
+          "type": "Films",
+          "places": 7,
+          "markets": 2,
+          "weeks": 5,
+          "peak": 1,
+          "firstWeek": "2026-08-02",
+          "lastWeek": "2026-08-30"
+        },
+        {
+          "title": "Hope",
+          "slug": "hope",
+          "type": "Films",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 3,
+          "firstWeek": "2022-02-27",
+          "lastWeek": "2022-03-06"
+        }
+      ],
+      "titleCount": 2,
+      "places": 9,
+      "countries": 3,
+      "reads30d": null
+    },
+    {
       "name": "Jung Gun-joo",
       "wikiPage": "Jung Gun-joo",
       "slug": "jung-gun-joo",
@@ -36273,87 +36770,6 @@
       "titleCount": 3,
       "places": 8,
       "countries": 5,
-      "reads30d": null
-    },
-    {
-      "name": "Um Tae-goo",
-      "wikiPage": "Um Tae-goo",
-      "slug": "um-tae-goo",
-      "q": "Q16174686",
-      "born": "1983-11-09",
-      "bornUnknownWhy": null,
-      "age": 42,
-      "sign": {
-        "slug": "scorpio",
-        "name": "Scorpio"
-      },
-      "signBoundary": false,
-      "titles": [
-        {
-          "title": "Wild Sing",
-          "slug": "wild-sing",
-          "type": "Films",
-          "places": 6,
-          "markets": 2,
-          "weeks": 4,
-          "peak": 1,
-          "firstWeek": "2026-08-02",
-          "lastWeek": "2026-08-23"
-        },
-        {
-          "title": "Hope",
-          "slug": "hope",
-          "type": "Films",
-          "places": 2,
-          "markets": 1,
-          "weeks": 2,
-          "peak": 3,
-          "firstWeek": "2022-02-27",
-          "lastWeek": "2022-03-06"
-        }
-      ],
-      "titleCount": 2,
-      "places": 8,
-      "countries": 3,
-      "reads30d": null
-    },
-    {
-      "name": "Cha Hwa-yeon",
-      "wikiPage": "Cha Hwa-yeon",
-      "slug": "cha-hwa-yeon",
-      "q": null,
-      "born": null,
-      "bornUnknownWhy": "notFound",
-      "age": null,
-      "sign": null,
-      "signBoundary": null,
-      "titles": [
-        {
-          "title": "The Real Has Come!",
-          "slug": "the-real-has-come",
-          "type": "TV",
-          "places": 5,
-          "markets": 2,
-          "weeks": 4,
-          "peak": 5,
-          "firstWeek": "2023-06-18",
-          "lastWeek": "2023-07-09"
-        },
-        {
-          "title": "White Night",
-          "slug": "white-night",
-          "type": "Films",
-          "places": 2,
-          "markets": 1,
-          "weeks": 2,
-          "peak": 7,
-          "firstWeek": "2023-04-30",
-          "lastWeek": "2023-05-07"
-        }
-      ],
-      "titleCount": 2,
-      "places": 7,
-      "countries": 3,
       "reads30d": null
     },
     {
@@ -37305,6 +37721,56 @@
       "reads30d": null
     },
     {
+      "name": "Park In-hwan",
+      "wikiPage": "Park In-hwan (actor)",
+      "slug": "park-in-hwan",
+      "q": null,
+      "born": null,
+      "bornUnknownWhy": "ambiguous",
+      "age": null,
+      "sign": null,
+      "signBoundary": null,
+      "titles": [
+        {
+          "title": "Exit",
+          "slug": "exit",
+          "type": "Films",
+          "places": 2,
+          "markets": 2,
+          "weeks": 2,
+          "peak": 4,
+          "firstWeek": "2021-08-08",
+          "lastWeek": "2022-10-30"
+        },
+        {
+          "title": "Iron Family",
+          "slug": "iron-family",
+          "type": "TV",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 6,
+          "firstWeek": "2024-10-06",
+          "lastWeek": "2024-10-06"
+        },
+        {
+          "title": "Miss Granny",
+          "slug": "miss-granny",
+          "type": "Films",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 8,
+          "firstWeek": "2022-12-18",
+          "lastWeek": "2022-12-18"
+        }
+      ],
+      "titleCount": 3,
+      "places": 4,
+      "countries": 3,
+      "reads30d": null
+    },
+    {
       "name": "Shim Eun Kyung",
       "wikiPage": "Shim Eun-kyung",
       "slug": "shim-eun-kyung",
@@ -37515,45 +37981,6 @@
       "reads30d": null
     },
     {
-      "name": "Park In-hwan",
-      "wikiPage": "Park In-hwan (actor)",
-      "slug": "park-in-hwan",
-      "q": null,
-      "born": null,
-      "bornUnknownWhy": "ambiguous",
-      "age": null,
-      "sign": null,
-      "signBoundary": null,
-      "titles": [
-        {
-          "title": "Exit",
-          "slug": "exit",
-          "type": "Films",
-          "places": 2,
-          "markets": 2,
-          "weeks": 2,
-          "peak": 4,
-          "firstWeek": "2021-08-08",
-          "lastWeek": "2022-10-30"
-        },
-        {
-          "title": "Miss Granny",
-          "slug": "miss-granny",
-          "type": "Films",
-          "places": 1,
-          "markets": 1,
-          "weeks": 1,
-          "peak": 8,
-          "firstWeek": "2022-12-18",
-          "lastWeek": "2022-12-18"
-        }
-      ],
-      "titleCount": 2,
-      "places": 3,
-      "countries": 2,
-      "reads30d": null
-    },
-    {
       "name": "Park Yeong-gyu",
       "wikiPage": "Park Yeong-gyu",
       "slug": "park-yeong-gyu",
@@ -37588,6 +38015,48 @@
           "peak": 9,
           "firstWeek": "2022-05-15",
           "lastWeek": "2022-05-15"
+        }
+      ],
+      "titleCount": 2,
+      "places": 3,
+      "countries": 2,
+      "reads30d": null
+    },
+    {
+      "name": "Shin Hyun-jun",
+      "wikiPage": "Shin Hyun-joon (actor)",
+      "slug": "shin-hyun-jun",
+      "q": "Q490207",
+      "born": "1968-10-28",
+      "bornUnknownWhy": null,
+      "age": 57,
+      "sign": {
+        "slug": "scorpio",
+        "name": "Scorpio"
+      },
+      "signBoundary": false,
+      "titles": [
+        {
+          "title": "The Assassin",
+          "slug": "the-assassin",
+          "type": "Films",
+          "places": 2,
+          "markets": 1,
+          "weeks": 2,
+          "peak": 3,
+          "firstWeek": "2023-07-23",
+          "lastWeek": "2023-07-30"
+        },
+        {
+          "title": "Iron Family",
+          "slug": "iron-family",
+          "type": "TV",
+          "places": 1,
+          "markets": 1,
+          "weeks": 1,
+          "peak": 6,
+          "firstWeek": "2024-10-06",
+          "lastWeek": "2024-10-06"
         }
       ],
       "titleCount": 2,
