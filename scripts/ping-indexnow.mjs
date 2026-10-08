@@ -258,6 +258,27 @@ async function 통보(호스트) {
     }
   }
 
+  /* 🔴🔴 [2026-10-09 · 5번] **네 곳 모두** 보낸 날을 적는다.
+     ⛔ 위 기록은 K Culture Wire 만이다. 나머지 셋은 언제 보냈는지 아무 데도 안 적혀
+       있었고, 그래서 서울마켓 7,949장·KLifeMap 3,044장이 **한 번도 안 나간 것을
+       아무도 몰랐다.** 재는 자가 없으면 안 한 것이 안 한 줄로 안 보인다.
+     ⛔ 손으로 적게 두지 않는다 — 보내는 자리에서 바로 적는다.
+     ⚠ try/catch — 기록에 실패해도 «통보 자체»는 이미 성공한 것이다. */
+  if (res.ok) {
+    try {
+      const { 기록길: 보낸기록길, 오늘글 } = await import('./check-indexnow-보냈나.mjs');
+      const { existsSync, writeFileSync, appendFileSync } = await import('node:fs');
+      if (!existsSync(보낸기록길)) {
+        writeFileSync(보낸기록길, '# IndexNow 보낸 기록 — 날\t호스트\t장수\n', 'utf8');
+      }
+      appendFileSync(보낸기록길, `${오늘글()}\t${호스트}\t${urlList.length}\n`, 'utf8');
+      console.log('   ✔ 보낸 날을 적었다 — docs/indexnow-보낸기록.tsv');
+    } catch (e) {
+      console.log(`   ⚠ 통보는 갔는데 **보낸 날은 못 적었다** — ${e.message}`);
+      console.log('      ⛔ 다음에 검사가 「모른다」고 할 것이다. 「안 보냈다」로 읽지 마라.');
+    }
+  }
+
   if (!res.ok) {
     const 몸 = await res.text();
     console.log(몸);
