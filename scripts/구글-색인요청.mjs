@@ -19,13 +19,71 @@
  *   눌렀다고 색인되는 것도 아니다. 「대기열에 추가」까지가 우리가 할 수 있는 전부다.
  * ⛔ 사장님 창을 닫지 않는다 — disconnect() 만. 내가 연 탭만 닫는다.
  *
+ * ── 🔴🔴 [2026-10-09 · 5번] 속성을 못 박아 둔 탓에 하루 몫 열 개를 통째로 버렸다 ──
+ * 이 자는 **속성을 `sc-domain:klifemap.ai` 로 못 박아** 두고 있었다(아래 24줄 경고 그대로).
+ * 그런데 나는 2026-10-08 에 `날마다-색인요청.mjs` 를 고쳐 **seoulmarkets 주소를 맨 앞으로**
+ * 당겼다. 두 가지가 겹치자 — klifemap 속성에서 seoulmarkets 주소를 검사하게 되어
+ * **단추가 아예 안 나왔다.** 10-09 아침 열 건이 전부 「못찾음」이다.
+ *   ⛔ 「한쪽을 고치면 인용한 곳까지 따라간다」를 내가 어겼다. 경고가 주석에 **적혀 있었는데도**
+ *     말로만 있는 규칙이라 안 걸렸다.
+ *   ⭐ 그래서 속성을 «주소에서 끌어낸다». 사람이 기억해서 맞추는 구조를 없앤다.
+ *
  * 쓰는 법
  *   node scripts/구글-색인요청.mjs <주소> [주소...]
- *   ⚠ 지금은 klifemap.ai 속성에 걸려 있다. 다른 사이트는 속성 주소를 바꿔야 한다.
+ *   node scripts/구글-색인요청.mjs --자가시험
  */
 import puppeteer from 'puppeteer-core';
 
-const 것들 = process.argv.slice(2);
+/**
+ * 주소 → 서치콘솔 속성. **도메인 속성(sc-domain)** 으로 본다.
+ * ⛔ `www.` 는 뗀다 — 도메인 속성은 www 를 따로 두지 않는다.
+ * ⛔ 못 읽는 주소에 기본값을 몰래 넣지 않는다. null 을 내고 부르는 쪽이 「못 쟀다」로 적는다.
+ */
+export function 속성구하기(주소) {
+  let 호스트;
+  try { 호스트 = new URL(String(주소)).hostname.toLowerCase(); } catch { return null; }
+  if (!호스트) return null;
+  const 벗긴것 = 호스트.replace(/^www\./, '');
+  if (!벗긴것.includes('.')) return null;
+  return 'sc-domain:' + 벗긴것;
+}
+
+/** 속성이 같은 것끼리 묶는다. 속성을 못 구한 것은 따로 낸다 */
+export function 속성별묶기(주소들) {
+  const 묶음 = new Map();
+  const 못구함 = [];
+  for (const u of 주소들 ?? []) {
+    const s = 속성구하기(u);
+    if (!s) { 못구함.push(u); continue; }
+    if (!묶음.has(s)) 묶음.set(s, []);
+    묶음.get(s).push(u);
+  }
+  return { 묶음, 못구함 };
+}
+
+export const 속성주소 = (속성) =>
+  'https://search.google.com/search-console?resource_id=' + encodeURIComponent(속성);
+
+if (process.argv.includes('--자가시험')) {
+  const 것 = []; const 다 = (이름, 참) => 것.push({ 이름, 참: !!참 });
+  다('klifemap 주소 → klifemap 속성', 속성구하기('https://klifemap.ai/all') === 'sc-domain:klifemap.ai');
+  다('🔴 seoulmarkets 주소 → seoulmarkets 속성', 속성구하기('https://seoulmarkets.com/data') === 'sc-domain:seoulmarkets.com');
+  다('www 는 뗀다', 속성구하기('https://www.kculturewire.com/x') === 'sc-domain:kculturewire.com');
+  다('주소가 아니면 null — 기본값을 몰래 안 쓴다', 속성구하기('그냥글') === null);
+  다('빈 것도 null', 속성구하기(null) === null);
+  다('속성별로 묶는다', (() => {
+    const { 묶음 } = 속성별묶기(['https://klifemap.ai/a', 'https://seoulmarkets.com/b', 'https://klifemap.ai/c']);
+    return 묶음.size === 2 && 묶음.get('sc-domain:klifemap.ai').length === 2;
+  })());
+  다('못 구한 것은 따로 낸다', 속성별묶기(['아무거나']).못구함.length === 1);
+  다('속성 주소를 제대로 만든다', 속성주소('sc-domain:klifemap.ai').endsWith('sc-domain%3Aklifemap.ai'));
+  const 진 = 것.filter((x) => !x.참);
+  console.log(`구글 색인요청 — 자체 점검 ${것.length - 진.length}/${것.length}`);
+  for (const x of 진) console.log('   🔴 ' + x.이름);
+  process.exit(진.length ? 1 : 0);
+}
+
+const 것들 = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 if (!것들.length) {
   console.log('⛔ 쓰는 법: node scripts/구글-색인요청.mjs <주소> [주소...]');
   process.exit(1);
@@ -33,13 +91,18 @@ if (!것들.length) {
 const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
 const p = await b.newPage();
 const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
+const { 묶음, 못구함 } = 속성별묶기(것들);
+for (const u of 못구함) console.log(`■ ${u}\n   ⬜ 주소에서 속성을 못 구했다 — 안 넣는다`);
 try {
-  await p.goto('https://search.google.com/search-console?resource_id=sc-domain%3Aklifemap.ai',
-    { waitUntil: 'networkidle2', timeout: 90000 });
+ for (const [속성, 주소들] of 묶음) {
+  /* 🔴 속성마다 한 번씩 연다 — 한 속성 화면에서 다른 사이트 주소를 검사하면
+     「색인 생성 요청」 단추가 아예 안 나온다. 그것이 10-09 의 열 건이다. */
+  console.log(`\n── 속성 ${속성} — ${주소들.length}개`);
+  await p.goto(속성주소(속성), { waitUntil: 'networkidle2', timeout: 90000 });
   await 잠깐(4000);
-  for (const u of 것들) {
+  for (const u of 주소들) {
     const 칸 = await p.$('input[aria-label*="검사"], input[placeholder*="검사"], input[type="text"]');
-    if (!칸) { console.log('🔴 검사 입력칸을 못 찾았다'); break; }
+    if (!칸) { console.log(`🔴 ${속성} — 검사 입력칸을 못 찾았다. 이 속성은 건너뛴다`); break; }
     await 칸.click({ clickCount: 3 });
     await 칸.type(u, { delay: 15 });
     await p.keyboard.press('Enter');
@@ -60,4 +123,5 @@ try {
     console.log(`■ ${u}\n   ${줄.join(' / ') || '눌렀는데 알림을 못 읽었다'}`);
     await 잠깐(3000);
   }
+ }
 } finally { await p.close(); b.disconnect(); }
