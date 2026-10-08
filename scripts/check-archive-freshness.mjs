@@ -561,11 +561,55 @@ const 날글 = (d) => (d instanceof Date
   ? `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
   : '—');
 
+/* 🔴🔴 [2026-10-09 · 5번] **「못 받았다」를 적을 자리가 없었다.**
+   ─────────────────────────────────────────────────────────────────────────
+   이 자는 아래에서 「돌려 보고도 안 오면 그때 『못 받았다』로 적는다」고 말해 왔다.
+   그런데 **적는 자리가 어디에도 없었다.** 규칙이 글로만 있었던 것이다.
+   ⇒ 같은 구멍을 매시 점검마다 다시 돌려 보고, 매번 같은 0건을 받았다.
+     오늘(10-09) 시세 넷의 10-08 구멍 하나에 세 번을 썼다.
+   ⭐ `docs/못받은날-기록.tsv` 를 만들고 이 자가 읽는다.
+   ⛔ 줄이 있다고 그 날을 «없는 것»으로 세지 않는다. 구멍은 구멍이라고 그대로 말하고,
+     다만 「재 봤다」는 것을 함께 말한다 — 거짓 초록을 만들지 않는다. */
+const 여기 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+export const 못받은날길 = path.join(여기, 'docs', '못받은날-기록.tsv');
+
+export function 못받은날읽기(글) {
+  if (typeof 글 !== 'string') return null;   /* ⛔ 글이 아니면 「없다」가 아니라 null */
+  const 표 = new Map();
+  for (const l of 글.split(/\r?\n/)) {
+    if (!l.trim() || l.startsWith('#')) continue;
+    const [갈래길, 날, 잰날] = l.split('\t');
+    if (!갈래길 || !/^\d{4}-\d{2}-\d{2}$/.test(String(날))) continue;
+    if (!표.has(갈래길)) 표.set(갈래길, new Map());
+    표.get(갈래길).set(날, 잰날 || '?');
+  }
+  return 표;
+}
+
+/** 그 갈래의 그 날을 재 봤나. @returns {string|null} 잰 날 (없으면 null) */
+export function 재봤나(표, 갈래길, 날) {
+  if (!(표 instanceof Map)) return null;
+  return 표.get(갈래길)?.get(날) ?? null;
+}
+
 const 나 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
 
 if (나 && process.argv.includes('--자가시험')) {
   let 통 = 0; const 실 = [];
   const 검 = (n, ok) => { if (ok) 통 += 1; else 실.push(n); };
+
+  /* 🔴 [2026-10-09] 「못 받았다」를 적을 자리를 새로 만들었다 */
+  {
+    const 표 = 못받은날읽기('# 머리말\narchive/raw/stocks\t2026-10-08\t2026-10-09\t포털 0건\n빈줄아님\n');
+    검('못받은날 — 머리말을 버린다', 표.size === 1);
+    검('못받은날 — 재 본 날을 돌려준다', 재봤나(표, 'archive/raw/stocks', '2026-10-08') === '2026-10-09');
+    검('⛔ 못받은날 — 없는 날은 null', 재봤나(표, 'archive/raw/stocks', '2026-10-07') === null);
+    검('⛔ 못받은날 — 없는 갈래도 null', 재봤나(표, 'archive/raw/없다', '2026-10-08') === null);
+    검('⛔ 못받은날 — 글이 아니면 null (「없다」가 아니다)', 못받은날읽기(null) === null);
+    검('⛔ 못받은날 — 표가 아니면 null', 재봤나(null, 'a', '2026-10-08') === null);
+    검('⛔ 못받은날 — 날짜 꼴이 아닌 줄은 버린다',
+      못받은날읽기('archive/raw/stocks\t어제\t2026-10-09\n').size === 0);
+  }
 
   검('날뽑기 — 20260909 꼴', 날글(날뽑기('stk_bydd_trd-20260909.json', /-(\d{8})\.json$/)) === '2026-09-09');
   검('날뽑기 — 2026-09-09 꼴', 날글(날뽑기('consensus-2026-09-09.json', /(\d{4}-\d{2}-\d{2})\.json$/)) === '2026-09-09');
@@ -817,7 +861,26 @@ if (나) {
     console.log('      09-10 구멍 셋에 수집기를 돌리니 그대로 들어왔다. ⛔ 재 보기 전에 「못 받는다」고 적지 않는다.');
     console.log('   ✅ 돌려 보고도 안 오면 그때 「못 받았다」로 적는다 — 「없다」가 아니다.');
     console.log('   ⛔ 오늘 것이 들어와 있어도 어제 구멍은 그대로다. 마지막 날짜만 보고 「괜찮다」고 하지 않는다');
-    for (const r of 구멍난것) console.log(`      · ${r.이름} (${r.몫}) — ${r.구멍.map(날글).join(' · ')}`);
+    /* 🔴 [2026-10-09] 이미 재 본 날은 그렇게 적는다 — 매시마다 같은 구멍을 다시 돌리지 않게 */
+    let 못받은표 = null;
+    try {
+      못받은표 = fs.existsSync(못받은날길) ? 못받은날읽기(fs.readFileSync(못받은날길, 'utf8')) : new Map();
+    } catch { 못받은표 = null; }   /* ⬜ 못 읽었으면 null — 「재 본 적 없다」로 밀지 않는다 */
+    let 재본수 = 0;
+    for (const r of 구멍난것) {
+      const 칸 = r.구멍.map((d) => {
+        const 잰날 = 못받은표 === null ? null : 재봤나(못받은표, r.길, 날글(d));
+        if (잰날) { 재본수 += 1; return `${날글(d)}(재 봄 ${잰날} · 포털에 없었다)`; }
+        return 날글(d);
+      });
+      console.log(`      · ${r.이름} (${r.몫}) — ${칸.join(' · ')}`);
+    }
+    if (못받은표 === null) {
+      console.log('   ⬜ 못받은날 기록을 못 읽었다 — 「재 본 적 없다」로 읽지 않는다');
+    } else if (재본수) {
+      console.log(`   ⭐ 그중 ${재본수}칸은 **이미 재 봤고 포털에 없었다**(docs/못받은날-기록.tsv).`);
+      console.log('      ⛔ 매시마다 같은 구멍을 다시 돌리지 않는다. 그래도 구멍은 구멍이라고 그대로 적는다');
+    }
   }
   console.log(구멍난것.length ? '⚠ 오늘 몫은 다 들어왔다 — 다만 위 구멍을 먼저 돌려 본다' : '✅ 빠진 갈래 없다');
   process.exit(0);
