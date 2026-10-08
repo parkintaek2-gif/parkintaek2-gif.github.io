@@ -1,103 +1,22 @@
 {
-  "잰때": "2026. 10. 5. 오후 10:08:32",
+  "잰때": "2026. 10. 7. 오후 10:03:28",
   "사이트": {
-    "klifemap": [
+    "kcw": [
       {
-        "주소": "https://klifemap.ai/",
+        "주소": "https://www.kculturewire.com/",
         "빛": "✅",
         "말": "색인됐다",
         "갈래": "색인됨",
-        "마지막크롤": "2026-10-05T06:36:21Z",
+        "마지막크롤": "2026-10-06T04:40:54Z",
         "덮개": "Submitted and indexed",
         "오류": null
       },
       {
-        "주소": "https://klifemap.ai/saju.html",
+        "주소": "https://www.kculturewire.com/about",
         "빛": "🔴",
         "말": "Crawled - currently not indexed",
         "갈래": "왔는데색인안함",
-        "마지막크롤": "2026-10-04T08:19:36Z",
-        "덮개": "Crawled - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/mingli-gunghap.html",
-        "빛": "🔴",
-        "말": "Crawled - currently not indexed",
-        "갈래": "왔는데색인안함",
-        "마지막크롤": "2026-08-17T03:03:55Z",
-        "덮개": "Crawled - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/mingli-taekil.html",
-        "빛": "🔴",
-        "말": "Crawled - currently not indexed",
-        "갈래": "왔는데색인안함",
-        "마지막크롤": "2026-08-18T03:34:23Z",
-        "덮개": "Crawled - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/astro.html",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/tarot.html",
-        "빛": "🔴",
-        "말": "Crawled - currently not indexed",
-        "갈래": "왔는데색인안함",
-        "마지막크롤": "2026-10-04T08:21:35Z",
-        "덮개": "Crawled - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/horoscope.html",
-        "빛": "🔴",
-        "말": "Crawled - currently not indexed",
-        "갈래": "왔는데색인안함",
-        "마지막크롤": "2026-10-05T10:24:28Z",
-        "덮개": "Crawled - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/contents.html",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "Discovered - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/mansecalendar.html",
-        "빛": "🔴",
-        "말": "Crawled - currently not indexed",
-        "갈래": "왔는데색인안함",
-        "마지막크롤": "2026-08-10T11:14:31Z",
-        "덮개": "Crawled - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/ilzin.html",
-        "빛": "🔴",
-        "말": "Crawled - currently not indexed",
-        "갈래": "왔는데색인안함",
-        "마지막크롤": "2026-10-05T10:24:27Z",
-        "덮개": "Crawled - currently not indexed",
-        "오류": null
-      },
-      {
-        "주소": "https://klifemap.ai/daily.html",
-        "빛": "🔴",
-        "말": "Crawled - currently not indexed",
-        "갈래": "왔는데색인안함",
-        "마지막크롤": "2026-08-10T22:51:12Z",
+        "마지막크롤": "2026-09-03T15:18:35Z",
         "덮개": "Crawled - currently not indexed",
         "오류": null
       }
@@ -105,7 +24,6 @@
   },
   "갈래셈": {
     "색인됨": 1,
-    "왔는데색인안함": 8,
-    "발견안됨": 2
+    "왔는데색인안함": 1
   }
 }
