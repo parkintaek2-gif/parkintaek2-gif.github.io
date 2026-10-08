@@ -98,12 +98,29 @@ const 결산해 = 결산 ? String(결산).slice(0, 4) : (줄?.year ? String(줄.
    더하기 «전부터» 그랬다. 일본 회사 이름이 길다(가장 긴 것 126자).
    ⛔ 회사 이름은 자르지 않는다 — 이름과 종목코드가 곧 검색어다.
    ⇒ 이름이 길면 꼬리를 던다. 「stock」은 어느 꼴에서도 남긴다. */
-const 긴제목 = 줄 && 줄.revenue != null
-  ? `${nameEn} (${code}) stock — revenue, profit and assets${결산해 ? `, FY${결산해}` : ''}`
+/* 🔴🔴 [2026-10-09 · 5번] **「stock」은 64위, 「earnings results」는 8.2위였다.**
+   ─────────────────────────────────────────────────────────────────────────
+   바로 위 10-04 판단의 근거는 그때 잰 것이고 지워지지 않는다. 다만 29일치
+   (2026-09-08~10-06) 서치콘솔을 다시 재 보니 셈이 이렇게 갈렸다 —
+       「… earnings results」  줄 11 · 노출 46 · **평균 8.2위**
+       「… stock」            줄  2 · 노출  3 · **평균 64.5위**
+   64위는 사람 눈에 안 닿는 자리다. 8위는 닿는 자리인데 **그 말이 제목에 없었다.**
+   ⇒ 재무를 실은 지면은 「earnings results」로 바꾼다. 손님이 치는 말을 제목에 담는다.
+   ⛔ 「stock」을 통째로 버리지 않는다 — 재무가 «없는» 지면에는 earnings 가 없으므로
+     거기는 그대로 둔다. 없는 것을 있다고 적지 않는다.
+   ⛔ 한국·대만·UAE 지면에는 이 말로 들어온 노출이 **한 줄도 없다.** 거기는 안 바꾼다 —
+     증거가 있는 데만 고친다. 다음에 재서 같은 꼴이 나오면 그때 따라간다.
+   ⚠ 이 고침이 통했는지는 「순위」가 아니라 **클릭 수**로 잰다. 지금은 823장이
+     15위 안에 뜨면서 클릭이 0이다(노출 1,954 · 클릭 10 · 0.5%). */
+const 재무있다 = !!(줄 && 줄.revenue != null);
+const 긴제목 = 재무있다
+  ? `${nameEn} (${code}) earnings results — revenue, profit and assets${결산해 ? `, FY${결산해}` : ''}`
   : `${nameEn} (${code}) stock — company profile and EDINET filings (Japan)`;
 const title = 긴제목.length <= 60
   ? 긴제목
-  : `${nameEn} (${code}) stock${결산해 && 줄?.revenue != null ? ` — FY${결산해}` : ''}`;
+  : (재무있다
+    ? `${nameEn} (${code}) earnings results${결산해 ? ` — FY${결산해}` : ''}`
+    : `${nameEn} (${code}) stock`);
 const 설명줄 = 줄 && 줄.revenue != null
   ? `${nameEn} (${code}) reported JPY ${bn(줄.revenue)}bn of revenue in the financial year ended ${결산 ?? 줄.year}.`
   : `${nameEn} (${code}) — financials as filed with Japan's Financial Services Agency.`;
