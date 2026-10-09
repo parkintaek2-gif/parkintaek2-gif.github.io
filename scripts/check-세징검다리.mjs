@@ -223,10 +223,60 @@ async function 잰다() {
    * ⚠ 재려면 로그인하거나 게스트 결제로 들어가야 하는데, 게스트는 메일 주소가 필요하다 —
    *   ⛔ 손님 메일 주소를 저장소·로그에 적지 않는다. 그래서 길을 따로 마련해야 한다.
    */
-  console.log('\n⚠ 이 검사가 «안 보는» 것 — 주문이 실제로 만들어지나');
+  /* ═══════════════════════════════════════════════════════════════════════
+     ✅ [2026-10-10 00:0x · 5번] **드디어 쟀다 — 주문이 실제로 만들어진다.**
+     ───────────────────────────────────────────────────────────────────────
+     위 10-06 글에 「한 번도 재 본 적이 없다」고 적어 두었다. 오늘 쟀다.
+
+     [무엇을 했나]  POST /api/billing/paypal/create 에 사주 한 건을 보냈다.
+       ⛔ 승인(capture)은 부르지 않았다. 카드번호도 넣지 않았다. 돈은 안 움직였다.
+
+     [무엇이 나왔나]
+       페이팔 주문번호  8B789470NL547684J
+       우리 장부번호    pp_1791546777383_ox3gg8
+       서버가 센 값     USD 14 (정가 20 에서 30% 할인)
+
+     ⭐ **값 조작이 안 된다.** 내가 price:1 · amount:1 로 보냈는데
+       서버는 그것을 «아예 안 봤다». USD견적() 이 service 와 qty 만 읽고
+       값은 요금표에서 다시 센다. 이것이 가장 중요한 확인이었다.
+
+     ⚠ 가다가 내가 두 번 틀렸다 — 적어 둔다.
+       ① 칸 이름을 `key` 로 짐작했다. 실제는 `service` 다. **코드를 열어 보고 알았다.**
+       ② 로컬에서 501(페이팔 안 켜짐)이 온 것을 「값 검산이 돈다」로 세었다.
+         501 은 그 «앞»에서 막힌 것이다. ⭐ 「막혔다」와 「지나갔다」를 가르지 못하는
+         잣대는 거짓 초록을 낸다. 라이브에서 다시 쟀다.
+
+     ⛔ 이 걸음을 지우지 말 것. 「단추가 보인다」와 「주문이 만들어진다」는 다르다. */
+  console.log('\n【주문이 실제로 만들어지나】  ⛔ 승인(capture)은 부르지 않는다');
+  try {
+    const 밑 = (process.env.KLM_BASE || 'https://klifemap.ai').replace(/\/$/, '');
+    const r = await fetch(밑 + '/api/billing/paypal/create', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ items: [{ service: 'saju', qty: 1, price: 1, amount: 1 }] }),
+    });
+    const o = await r.json().catch(() => null);
+    if (r.status === 200 && o && o.ok && o.orderId && o.merchantUid) {
+      console.log(`    ✅ 주문이 만들어진다  — 장부번호 ${String(o.merchantUid).slice(0, 14)}…`);
+      const 센값 = o.quote && typeof o.quote.total === 'number' ? o.quote.total : null;
+      if (센값 !== null && 센값 > 1) {
+        console.log(`    ✅ 값 조작이 안 된다  — 1 이라고 보냈는데 서버는 ${o.quote.currency} ${센값} 로 셌다`);
+      } else {
+        console.log(`    🔴🔴 **값 조작이 된다** — 내가 보낸 값이 그대로 섰다(${센값}). 바로 막아야 한다`);
+        빨강++;
+      }
+    } else {
+      console.log(`    🔴 주문이 안 만들어진다  — HTTP ${r.status} ${o ? (o.까닭 || o.error || '') : ''}`);
+      빨강++;
+    }
+  } catch (e) {
+    console.log(`    ⬜ 못 쟀다 — ${String(e.message).slice(0, 70)}`);
+  }
+  console.log('    ⚠ 여기서 만든 주문은 장부에 pending 으로 남는다. 승인은 안 했으니 돈은 안 움직인다');
+
+  console.log('\n⚠ 아직 이 검사가 «안 보는» 것 — 로그인한 손님의 길');
   console.log('   /checkout.html 은 「결제는 로그인 후 이용하실 수 있습니다」에서 멈춘다(의도된 설계).');
-  console.log('   그 너머(주문 레코드 생성)는 한 번도 재 본 적이 없다.');
-  console.log('   ⛔ 위 「막힌 곳 없음」을 «결제가 된다»로 읽지 않는다.');
+  console.log('   ⛔ 위 「막힌 곳 없음」을 «손님이 끝까지 산다»로 읽지 않는다.');
   return 빨강;
 }
 
