@@ -210,7 +210,40 @@ for (const c of 후보) {
 const 낼방 = path.join(ROOT, 'archive', 'raw', 'dart-breaking');
 mkdirSync(낼방, { recursive: true });
 const 파일 = path.join(낼방, `${날짜}.json`);
-writeFileSync(파일, JSON.stringify({ 날짜, 총: 목록전체.length, 후보 }, null, 1));
+/* 🔴🔴 [2026-10-09 · 5번] **빈 날이 「없다」인지 「못 받았다」인지 알 수 없었다.**
+   ─────────────────────────────────────────────────────────────────────────
+   이 방에 빈 파일이 7개 있다(`후보: []`). 그 빈 칸이
+     ① 그날 속보감 공시가 «정말 없었다»   ② DART 를 «못 받았다»
+   가운데 무엇인지 파일만 봐서는 알 수 없었다.
+   오늘 내가 다른 자료에서 바로 그 빈 칸을 보고 **짐작으로 까닭을 적었다가 틀렸다.**
+   ⭐ 강령 — 「못 잰 것은 못 쟀다고 적는다 · 0 으로 채우지 않는다 · 「미확인」을 숨기지 않는다」
+   ⇒ UAE·두바이 수집기와 같은 꼴로 `_meta.coverage` 를 적는다.
+   ⛔ 「총」이 0 인 것과 「후보」가 0 인 것은 **다르다** — 앞은 목록을 못 받았거나 공시가 없는 것이고,
+     뒤는 공시는 받았는데 속보감이 없는 것이다. 둘을 갈라 적는다.
+   ⛔ 값을 지어내지 않는다. 검사: `node scripts/check-없음과-못잼을-가르나.mjs` */
+const 커버리지 = {
+  attempted: true,
+  listReceived: 목록전체.length,            /* 그날 DART 목록을 몇 건 받았나 */
+  withData: 후보.length > 0,
+  empty: 후보.length === 0,
+  emptyReason: 후보.length > 0
+    ? null
+    : (목록전체.length === 0
+      ? 'no-filings-received-for-the-day'        /* 목록 자체가 0 — 쉬는 날이거나 못 받았다 */
+      : 'filings-received-but-none-met-weight'), /* 공시는 받았는데 속보감이 없었다 */
+};
+writeFileSync(파일, JSON.stringify({
+  _meta: {
+    product: 'DART breaking-news candidates',
+    asOf: 날짜,
+    builtAt: new Date().toISOString(),
+    source: 'DART (Financial Supervisory Service) open API — list.json',
+    coverage: 커버리지,
+  },
+  날짜,
+  총: 목록전체.length,
+  후보,
+}, null, 1));
 
 // 콘솔 요약 — 상위 12
 console.log(`\n속보 후보 ${후보.length}건 (무게순 상위 12):`);
