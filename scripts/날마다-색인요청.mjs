@@ -116,6 +116,17 @@ export function 오늘몫을썼나(줄들, 그날 = 오늘(), 몫 = 하루몫) {
  * ⚠ 이 목록은 «길을 여는 장»만 담는다. 낱낱의 글을 여기 넣지 않는다 — 그러면 차례의 뜻이 없다.
  */
 export const 맨앞에 = [
+  /* 🔴 [2026-10-09 16:2x · 5번] **갓 낸 기사 셋을 맨 앞에 둔다.**
+     ─────────────────────────────────────────────────────────────────────
+     기사가 09-29 이후 열흘째 0편이었다. 오늘 내가 세 편을 썼다(한국은행 ECOS 가계부채).
+     ⭐ 내 실측으로 **기사 한 장이 회사 페이지 7~10장 몫**을 한다
+       (장당 한 달 노출 /article 1.97 대 /company 0.20).
+     ⚠ 갓 낸 글은 사이트맵 차례로는 한참 뒤다. 그래서 여기 적는다.
+     ⛔ 그렇다고 낱낱의 글을 여기 계속 쌓지 않는다 — 색인이 되면 지운다.
+       (「이 목록은 길을 여는 장만 담는다」는 위 규칙의 «한시적» 예외다) */
+  'https://seoulmarkets.com/article/korea-mortgage-gap-men-women',
+  'https://seoulmarkets.com/article/korea-household-debt-who-holds-it',
+  'https://seoulmarkets.com/article/korea-delinquency-corporate-not-household',
   /**
    * 🔴🔴 [2026-10-06 21:45 · 5번] **돈이 되는 페이지를 맨 앞에 둔다.**
    *

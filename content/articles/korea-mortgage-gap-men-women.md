@@ -83,4 +83,6 @@ A reader who wants one sentence from this should take the narrow one: **the aver
 
 Household credit, the broadest official measure, stands at **₩2019.8 trillion** in 2026Q2. Bank loan delinquency of one month or more sits at **0.4% on household loans** in July 2026, against 0.8% on corporate loans and 1.9% on credit-card loans. By that measure the stress in Korean credit right now is not in mortgages.
 
+For who actually holds Korea's household debt — and why the bank-versus-non-bank split has moved less than most coverage assumes — see [Korea's household debt quadrupled in 24 years, and who holds it barely changed](/article/korea-household-debt-who-holds-it). For the repayment side, see [Korea's credit stress is in companies, not households](/article/korea-delinquency-corporate-not-household).
+
 *Figures are from the Bank of Korea's ECOS statistical service, tables 181Y012, 151Y001 and 901Y124, retrieved 2026-10-04. The per-borrower series is published in units of ₩100,000; we converted to millions of won and show one decimal. Not investment advice.*
