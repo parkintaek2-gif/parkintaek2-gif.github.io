@@ -82,7 +82,13 @@ export const 거둘것 = [
   {
     키: 'mortgage_share_new', 표: '181Y015', 주기: 'Q', 처음: '2013Q1',
     이름: 'Share of new mortgage lending', 단위: '%',
-    항목: [['0000', 'All borrowers'], ['A001', 'First-time'], ['A002', 'Top-up'], ['A003', 'Refinance']],
+    /* 🔴 [2026-10-09 · 5번] 이름표가 틀렸었다 — ECOS 원문은 「진입·증액·전환」이다.
+       「First-time」은 «생애최초 주택구입»으로 읽힌다. 그 뜻이 아니다 —
+       ITEM_NAME1 이 「진입」, 곧 **이번 분기에 주담대를 새로 지기 시작한 차주**다.
+       집을 처음 사는 것과 다르다(갈아타며 새로 지는 것도 진입이다).
+       ⛔ 이 이름표 그대로 기사를 썼으면 틀린 사실이 나갔다. 열어 보니 10초였다. */
+    항목: [['0000', 'All borrowers'], ['A001', 'Entry (newly taking on mortgage debt)'],
+           ['A002', 'Top-up (increase on an existing loan)'], ['A003', 'Switch (conversion/refinance)']],
   },
   {
     키: 'mortgage_per_borrower', 표: '181Y012', 주기: 'Q', 처음: '2013Q1',
