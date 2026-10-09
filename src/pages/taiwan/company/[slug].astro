@@ -87,7 +87,24 @@ const num = (n: number | null) =>
 const x2 = (n: number | null) =>
   n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 2 });
 
-const title = `${nameEn} — reported financials (Taiwan)`;
+/* 🔴🔴 [2026-10-09 · 5번] **제목에만 종목코드가 빠져 있었다.**
+   ─────────────────────────────────────────────────────────────────────────
+   재 보니 29일(09-08~10-06) 동안 —
+       /japan/   3,736장 중  607장이 떴다 (16%)
+       /company/ 2,582장 중  324장이 떴다 (13%)
+       /taiwan/  1,090장 중    3장이 떴다 (**0.3%**)
+   같은 사이트 같은 틀인데 50배 차이다. 색인은 돼 있다(`site:` 로 확인 — 첫 쪽 열 줄).
+   눈에 띄는 차이는 **제목**이었다.
+       일본   「KOMATSU MATERE Co., Ltd. (3580) earnings results — FY2026」
+       대만   「YONYU — reported financials (Taiwan)」        ← 코드가 없다
+   ⭐ 코드는 **이미 쥐고 있다** — 바로 아래 설명줄이 `(${code})` 를 쓴다.
+     쥐고 있는 것을 제목에만 안 쓴 것이다.
+   ⛔ 「earnings results」는 **안 넣는다.** 그 말로 들어온 노출이 대만에는 한 줄도 없다.
+     일본에 넣은 것은 평균 8.2위라는 근거가 있어서였다. 근거 없는 데로 옮기지 않는다.
+   ⚠ 이것은 **일관성을 맞춘 것**이지 대만 쪽 검색어 근거가 있어서가 아니다.
+     그러니 이것으로 수가 오를 것이라 말하지 않는다. 기준선만 남긴다 —
+     고치기 «전»: 1,090장 중 29일간 뜬 것 3장 · 노출 12 · 클릭 0 */
+const title = `${nameEn} (${code}) — reported financials (Taiwan)`;
 const 설명줄 = 줄 && 줄.revenue != null
   ? `${nameEn} (${code}) reported TWD ${bn(줄.revenue)}bn of revenue over ${덮는기간?.길게 ?? 'the period covered by its latest filing'}.`
   : `${nameEn} (${code}) — financials as filed with the Taiwan Stock Exchange.`;
