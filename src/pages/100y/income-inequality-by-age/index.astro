@@ -4,7 +4,7 @@
  *
  * 재료: 국가데이터처 KOSIS 「가계금융복지조사」 소득분배지표(101/DT_1HDALF06, 2024년)를
  * 3번이 2026-09-15 KOSIS Open API로 직접 받았다. oecd-elderly-poverty(65세+ 35.9%,
- * OECD 대조)의 짝 지면 — 여기는 나이대를 더 잘게 쪼개고, 지니계수 등 격차 지표를 본다.
+ * OECD 대조)의 짝 페이지 — 여기는 나이대를 더 잘게 쪼개고, 지니계수 등 격차 지표를 본다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
@@ -79,7 +79,7 @@ const jsonLd = {
   </div>
   <p class="note">
     「65세 이상」 한 덩어리로 보면 35.9%지만(<a href="/oecd-elderly-poverty">oecd-elderly-poverty
-    {' '}지면</a> 참조), 나이대를 쪼개면 66~75세 26.6%와 76세 이상 {최고빈곤.상대적빈곤율_50}%로
+    {' '}페이지</a> 참조), 나이대를 쪼개면 66~75세 26.6%와 76세 이상 {최고빈곤.상대적빈곤율_50}%로
     {' '}크게 갈립니다. 「노인」이라는 한 단어로 묶으면 이 격차가 가려집니다.
   </p>
 

@@ -2,11 +2,11 @@
 /**
  * /100y/college-major — **대학 학과** 찾기
  *
- * 🔴 `/major`(고등학교 학과)와 **다른 지면이다.** 이름이 82개 겹친다 — 섞으면 숫자가 어긋난다.
+ * 🔴 `/major`(고등학교 학과)와 **다른 페이지가다.** 이름이 82개 겹친다 — 섞으면 숫자가 어긋난다.
  *
  * ⛔ **등수를 매기지 않는다.** 가나다순으로 놓는다.
  * ⛔ 평균만 싣지 않는다 — **분포를 먼저 그린다.** 평균이 규범이 되면 그게 압박이다.
- * ✅ 원자료가 100명 미만 학과를 안 실은 것을 지면에 적는다. 「우리 과가 없다」의 이유다.
+ * ✅ 원자료가 100명 미만 학과를 안 실은 것을 페이지에 적는다. 「우리 과가 없다」의 이유다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
@@ -62,7 +62,7 @@ const jsonLd = {
   </p>
 
   <p class="note">
-    ⛔ 이 지면에 <strong>등수는 없습니다.</strong> 가나다순으로 놓았습니다.
+    ⛔ 이 페이지에 <strong>등수는 없습니다.</strong> 가나다순으로 놓았습니다.
     저희는 학과를 줄 세우지 않습니다 — <strong>어디에 무엇이 있는지</strong>만 보여드립니다.
   </p>
 
@@ -120,7 +120,7 @@ const jsonLd = {
   <p class="note">
     숫자는 <strong>{출처.이름}</strong>({출처.조사회차} 조사)입니다. 저희가 계산한 값이 아닙니다.
     <br />
-    🔴 이 지면은 <strong>대학</strong> 학과입니다. 고등학교 학과는 <a href="/major">학과 찾기</a>에 따로 있습니다.
+    🔴 이 페이지는 <strong>대학</strong> 학과입니다. 고등학교 학과는 <a href="/major">학과 찾기</a>에 따로 있습니다.
   </p>
   <NextQuestionBrief 모은것="전문대 학과 자료" />
 </HundredYear>

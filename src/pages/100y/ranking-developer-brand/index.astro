@@ -88,12 +88,12 @@ const jsonLd = {
   <p class="note">⚠ {실측.쓰면안되는말}</p>
   <p class="note">⚠ {실측.주의}</p>
 
-  <h2>이 지면이 말하지 않는 것</h2>
+  <h2>이 페이지가 말하지 않는 것</h2>
   <ul>
     {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
   </ul>
   <p class="note">
-    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 두 공개 자료를 나란히
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 페이지는 두 공개 자료를 나란히
     {' '}놓아 보여줄 뿐, 어느 브랜드가 더 좋은지 판정하지 않습니다.
   </p>
 
@@ -116,7 +116,7 @@ const jsonLd = {
     <a href="/ranking-usedcar-brand">← 중고차 브랜드평판 1위, 중고 자동차 판매업 수명 중앙값은 3.54년입니다</a>
   </p>
 
-  <HundredCardnews 벌="시행사부동산개발수명" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
+  <HundredCardnews 벌="시행사부동산개발수명" 장수={5} 머리="이 페이지를 카드 다섯 장으로" />
 
   <HundredAgeWalk 키="ranking-developer-brand" />
 

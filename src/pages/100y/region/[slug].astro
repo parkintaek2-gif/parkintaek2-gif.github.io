@@ -2,7 +2,7 @@
 /**
  * /100y/region/[시·도] — 지역 한 곳
  *
- * 화면 순서 — 학과·대학 지면과 같은 뼈대
+ * 화면 순서 — 학과·대학 페이지와 같은 뼈대
  *   ❶ 한 줄 답     — 「고등학교 520곳 · 대학 69곳이 있습니다」
  *   ❷ 숫자 셋      — 대학 취업률 · 대학 중도탈락률 · 고교 학업중단률 (전부 전국 평균과의 차이)
  *   ❸ 고교 유형     — 일반고가 몇 곳인가
@@ -11,7 +11,7 @@
  *
  * ⛔ 「몇 위」·「상위 몇 %」를 쓰지 않는다. 쓰는 것은 전국 평균과의 차이뿐이다.
  * ⚠ 평균은 **사람 수로 잰 것**이다. 학교들의 평균이 아니다 — `src/lib/region-page.ts` 참조.
- * ⚠ 잰 곳이 없으면 **「못 쟀다」로 적는다.** 0 으로 채우지 않는다.
+ * ⚠ 잰 곳이 없으면 **「못 측정했다」로 적는다.** 0 으로 채우지 않는다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
@@ -21,7 +21,7 @@ import universities from '../../../data/100yearmap/pages-university.json';
 import 중단원본 from '../../../data/100yearmap/school-dropout.json';
 import 폐교원본 from '../../../data/100yearmap/closed-universities.json';
 import { 지역요약만들기, 견줌말 } from '../../../lib/region-page';
-/* 🔴 구·시 목록은 **한 곳**에서 온다 — 지면에서 다시 가르지 않는다 */
+/* 🔴 구·시 목록은 **한 곳**에서 온다 — 페이지에서 다시 가르지 않는다 */
 import 지역단위 from '../../../data/100yearmap/areas.json';
 
 export async function getStaticPaths() {
@@ -50,7 +50,7 @@ const 유형목록 = Object.entries(r.유형).sort((a, b) => b[1] - a[1]);
 /**
  * 🔴 이 시·도 안의 **구·시 목록** (2026-08-08 · 2번 지시로 넣었다).
  *
- * ⚠ 이 지면의 `고교지역` 은 **교육청 기준**이고, 지역 단위는 **주소 기준**이다.
+ * ⚠ 이 페이지의 `고교지역` 은 **교육청 기준**이고, 지역 단위는 **주소 기준**이다.
  *   둘이 다를 수 있어서 **주소로 가른 시·도**(`areas.json` 의 `시도`)로 맞춘다.
  *   ⛔ 「서울특별시교육청」과 「서울특별시」를 글자로 견주면 안 맞는다.
  *
@@ -125,7 +125,7 @@ const jsonLd = {
       ) : (
         <>
           <p class="v">—</p>
-          <p class="note">이 지역에서 취업률을 공시한 대학이 없어 <strong>못 쟀습니다.</strong></p>
+          <p class="note">이 지역에서 취업률을 공시한 대학이 없어 <strong>못 측정했습니다.</strong></p>
         </>
       )}
     </div>
@@ -143,7 +143,7 @@ const jsonLd = {
       ) : (
         <>
           <p class="v">—</p>
-          <p class="note">공시한 대학이 없어 <strong>못 쟀습니다.</strong></p>
+          <p class="note">공시한 대학이 없어 <strong>못 측정했습니다.</strong></p>
         </>
       )}
     </div>
@@ -161,7 +161,7 @@ const jsonLd = {
       ) : (
         <>
           <p class="v">—</p>
-          <p class="note">이 지역 학교가 학교알리미 명단과 이어지지 않아 <strong>못 쟀습니다.</strong></p>
+          <p class="note">이 지역 학교가 학교알리미 명단과 이어지지 않아 <strong>못 측정했습니다.</strong></p>
         </>
       )}
     </div>
@@ -247,7 +247,7 @@ const jsonLd = {
             <li>
               <a href={href(`/report/area/${a.slug}`)}>{a.이름} 고등학교 {a.곳}곳</a>
               <span class="note">
-                {a.한벌로팔만한가 ? '한 표에 · 퍼짐과 함께' : '무료로 열어 둔 지면'}
+                {a.한벌로팔만한가 ? '한 표에 · 퍼짐과 함께' : '무료로 열어 둔 페이지'}
               </span>
             </li>
           ))}

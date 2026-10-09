@@ -71,7 +71,7 @@ const jsonLd = {
             <td>{r.나이}</td>
             <td>{r.응시.toLocaleString()}건</td>
             <td>{r.합격.toLocaleString()}건</td>
-            <td><strong>{r.비율을_낼_수_있나 ? `${r.합격률}%` : '못 쟀다(응시 30건 미만)'}</strong></td>
+            <td><strong>{r.비율을_낼_수_있나 ? `${r.합격률}%` : '못 측정했다(응시 30건 미만)'}</strong></td>
             <td>{r.가장많이본등급}({r.가장많이본등급_응시.toLocaleString()}건)</td>
           </tr>
         ))}
@@ -88,7 +88,7 @@ const jsonLd = {
     나이띠 열두 칸(미상 제외)을 다 더하면 응시 {전체응시.toLocaleString()}건 가운데
     {' '}합격 {전체합격.toLocaleString()}건입니다. 등급마다 셈이 달라 이 합계를 등급별
     {' '}취득 소요일수와 바로 잇지는 않습니다 — 등급별 수치는{' '}
-    <a href="/qual-duration">등급별 국가기술자격 취득 소요일수</a> 지면에 있습니다.
+    <a href="/qual-duration">등급별 국가기술자격 취득 소요일수</a> 페이지에 있습니다.
   </p>
 
   <h2>⚠ 이 자료로 말할 수 없는 것</h2>

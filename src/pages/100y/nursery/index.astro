@@ -11,16 +11,16 @@
  *   ⇒ /age 를 마흔 장으로 늘리는 것은 딱 그 짓이다. **0~5세 자리의 자료를 새로 가져왔다.**
  *
  * ⭐ 우리 모토 — 「」.
- *   그래서 이 지면은 「어디가 나쁘다」를 말하지 않는다. **어디에 없는가**만 그린다.
+ *   그래서 이 페이지는 「어디가 나쁘다」를 말하지 않는다. **어디에 없는가**만 그린다.
  *
- * ⛔ 이 자료가 못 가르는 것을 지면에도 그대로 적는다 —
+ * ⛔ 이 자료가 못 가르는 것을 페이지에도 그대로 적는다 —
  *   분모(그 시·도의 지역이 모두 몇인가)가 표에 없다. 그러니 「몇 %가 없다」를 쓰지 않는다.
  *   지역에 어린이집이 없다는 것이 「그곳 아이가 멀리 다닌다」는 뜻도 아니다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 원본 from '../../../data/100yearmap/nursery-none.json';
-/* 🔴 2번 지시(01:2x) — 이 지면이 적어 둔 한계를 닫으려고 유치원 자료를 여기서도 읽는다 */
+/* 🔴 2번 지시(01:2x) — 이 페이지가 적어 둔 한계를 닫으려고 유치원 자료를 여기서도 읽는다 */
 import 유치원원본 from '../../../data/100yearmap/kindergarten.json';
 import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 
@@ -164,7 +164,7 @@ const jsonLd = {
   </p>
   <p class="note">
     아이가 어느 길로 갈지 사주로 짚어 보는 것은 이 통계와는 다른 전통적인 셈법입니다 —
-    {' '}<a href="https://klifemap.ai/child-career.html?from=100y&at=body" target="_blank" rel="noopener">klifemap.ai의 자녀 진로 지면</a>은
+    {' '}<a href="https://klifemap.ai/child-career.html?from=100y&at=body" target="_blank" rel="noopener">klifemap.ai의 자녀 진로 페이지</a>은
     {' '}판정 없이 그 틀을 설명합니다.
   </p>
 
@@ -180,18 +180,18 @@ const jsonLd = {
   </p>
   <p class="note">
     ⛔ 두 수를 <strong>더하지 마십시오.</strong> 유치원은 학교, 어린이집은 보육시설이라 세는 대상이 다릅니다.
-    {' '}이 지면의 {이번.전국}은 <strong>«지역»의 수</strong>이고 유치원 {유치원전국.곳.toLocaleString()}은
+    {' '}이 페이지의 {이번.전국}은 <strong>«지역»의 수</strong>이고 유치원 {유치원전국.곳.toLocaleString()}은
     {' '}<strong>«시설»의 수</strong>입니다.
   </p>
   <p class="note">
-    ⬜ <strong>아직 못 쟀습니다</strong> — 「어린이집도 유치원도 없는 곳이 몇 곳인가」.
+    ⬜ <strong>아직 못 측정했습니다</strong> — 「어린이집도 유치원도 없는 곳이 몇 곳인가」.
     {' '}두 표를 겹치려면 <strong>같은 단위의 지역 목록</strong>이 있어야 하는데,
     {' '}어린이집 표는 시·도까지만 있고 <strong>지역 «목록»을 주지 않습니다</strong>(같은 기관의 네 표를 다 열어 보았습니다).
     {' '}시설마다 주소가 붙은 자료가 있어야 셀 수 있습니다. 그 문은 아직 못 열었습니다.
   </p>
 
   <p class="note">
-    ⭐ 이 지면은 어린이집이 <strong>한 곳도 없는 지역</strong>만 봅니다.
+    ⭐ 이 페이지는 어린이집이 <strong>한 곳도 없는 지역</strong>만 봅니다.
     {' '}있는 어린이집에 <strong>자리가 남는지</strong>는 <a href="/nursery-fill">「어린이집 정원 대비 현원」</a>에 따로 적었습니다.
   </p>
 

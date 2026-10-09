@@ -5,11 +5,11 @@
  * 🔴 2번이 짚은 자리 — 나이 문이 0~9세와 50세 위에 몰려 있고 **30대가 비어 있다.**
  *   /first-job 으로 20대를 냈고, 그 다음 자리가 여기다.
  *
- * ⛔⛔ 이 지면의 핵심 위험 — **표 둘이 다른 것을 잰다.**
+ * ⛔⛔ 이 페이지의 핵심 위험 — **표 둘이 다른 것을 잰다.**
  *   ① 인구총조사는 «모든 사람»을 나이칸으로 갈라 센다 → 30~34세 미혼 67.4%
  *   ② 인구동향조사 평균 초혼 연령은 «그 해 결혼한 사람»만의 평균 → 남편 33.9세
  *   ②만 보면 「서른넷이면 다들 했겠다」로 읽힌다. ①로 세면 셋 중 둘이 아직이다.
- *   ⇒ ①을 먼저 놓고 ②를 「다른 것을 재는 자」로 뒤에 놓는다. 이 순서가 지면의 뜻이다.
+ *   ⇒ ①을 먼저 놓고 ②를 「다른 것을 재는 자」로 뒤에 놓는다. 이 순서가 페이지의 뜻이다.
  *
  * ⛔ 「서른둘」로 못 쓴다. 표가 다섯 살 묶음이다 — 칸 이름 그대로만 쓴다.
  * ⛔ 시도를 늘어놓지 않는다. 줄을 세우게 된다.
@@ -18,7 +18,7 @@ import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 원본 from '../../../data/100yearmap/marriage-age.json';
-/* 🔴 짝이 되는 지면의 수는 저쪽 자료에서 읽는다 — 두 벌로 적으면 갈라진다 */
+/* 🔴 짝이 되는 페이지의 수는 저쪽 자료에서 읽는다 — 두 벌로 적으면 갈라진다 */
 import 첫일원본 from '../../../data/100yearmap/first-job.json';
 import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 
@@ -45,7 +45,7 @@ const desc =
   `그 평균은 «그 해 결혼한 사람»만 센 값이라 둘을 같은 말로 읽으면 어긋납니다.`;
 
 /**
- * ⭐ FAQPage 구조화데이터 — 6번이 seoulmarkets 집중도 지면에서 검증한 지렛대를
+ * ⭐ FAQPage 구조화데이터 — 6번이 seoulmarkets 집중도 페이지에서 검증한 지렛대를
  *   그대로 옮긴다(2026-08-24 [6번→전체] 공유). 질문은 지어내지 않고 Google 자동완성으로
  *   실측 확인한 문자열 그대로 쓴다 — 「평균 초혼 연령」·「30대 미혼율」 둘 다 10줄급 신호.
  */
@@ -197,7 +197,7 @@ const faqJsonLd = {
   </p>
   <p class="note">
     결혼을 앞두고 사주로 궁합을 맞춰 보는 것은 저희가 세는 통계와는 다른, 훨씬 오래된
-    {' '}셈법입니다 — <a href="https://klifemap.ai/mingli-gunghap.html?from=100y&at=body" target="_blank" rel="noopener">klifemap.ai의 궁합 지면</a>은
+    {' '}셈법입니다 — <a href="https://klifemap.ai/mingli-gunghap.html?from=100y&at=body" target="_blank" rel="noopener">klifemap.ai의 궁합 페이지</a>은
     {' '}그 틀을 판정 없이 설명합니다.
   </p>
 
@@ -238,7 +238,7 @@ const faqJsonLd = {
     <a href="/community">← 커뮤니티 — 「30대 · 아직 결혼하지 않은 사람」 방</a>
   </p>
 
-  <HundredCardnews 벌="서른에결혼했을까" 장수={6} 머리="이 지면을 카드 여섯 장으로" />
+  <HundredCardnews 벌="서른에결혼했을까" 장수={6} 머리="이 페이지를 카드 여섯 장으로" />
 
   <NextQuestionBrief 모은것="혼인 상태 자료" />
 </HundredYear>

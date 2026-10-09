@@ -78,7 +78,7 @@ const 반등폭 = Math.round((최신.합계출산율 - 최저.합계출산율) *
         {표본해들.map((r) => (
           <tr>
             <td>{r.해}</td>
-            <td><strong>{r.합계출산율 ?? '못 쟀다'}</strong></td>
+            <td><strong>{r.합계출산율 ?? '못 측정했다'}</strong></td>
           </tr>
         ))}
       </tbody>

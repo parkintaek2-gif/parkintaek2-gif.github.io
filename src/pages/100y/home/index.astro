@@ -2,10 +2,10 @@
 /**
  * /100y/home — 집을 가진 가구는 몇 살인가
  *
- * 🔴 2번 16시·17시 지시 「다음 나이 문 하나 — 지면 + 카드 + 숏영상을 한 덩어리로」.
+ * 🔴 2번 16시·17시 지시 「다음 나이 문 하나 — 페이지 + 카드 + 숏영상을 한 덩어리로」.
  *   나이 줄에서 40대가 얇았다(/age 층 대문 하나뿐).
  *
- * ⛔⛔ 이 지면의 핵심 위험 — **이것은 「소유율」이 아니다.**
+ * ⛔⛔ 이 페이지의 핵심 위험 — **이것은 「소유율」이 아니다.**
  *   「그 나이대 가구 가운데 몇 %가 집을 가졌나」가 아니라
  *   「집을 가진 가구 가운데 그 나이대가 몇 %인가」다.
  *   ⇒ 답 바로 밑에 그 말을 놓는다. 표보다 «먼저» 놓아야 한다 —
@@ -20,7 +20,7 @@ import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 원본 from '../../../data/100yearmap/home.json';
-/* 🔴 짝이 되는 지면의 수는 저쪽 자료에서 읽는다 — 두 벌로 적으면 갈라진다 */
+/* 🔴 짝이 되는 페이지의 수는 저쪽 자료에서 읽는다 — 두 벌로 적으면 갈라진다 */
 import 직장원본 from '../../../data/100yearmap/longest-job.json';
 import 혼인원본 from '../../../data/100yearmap/marriage-age.json';
 
@@ -181,7 +181,7 @@ const jsonLd = {
     <a href="/community">← 커뮤니티 — 「40~50대 · 집을 가진 나이를 세어 보는 사람」 방</a>
   </p>
 
-  <HundredCardnews 벌="집을가진나이" 장수={6} 머리="이 지면을 카드 여섯 장으로" />
+  <HundredCardnews 벌="집을가진나이" 장수={6} 머리="이 페이지를 카드 여섯 장으로" />
 
   <NextQuestionBrief 모은것="주택소유 자료" />
 </HundredYear>

@@ -1,16 +1,16 @@
 ---
 /**
- * /100y/y/[key] — **밖에 적는 짧은 주소**. 여기서 진짜 지면으로 보낸다.
+ * /100y/y/[key] — **밖에 적는 짧은 주소**. 여기서 진짜 페이지로 보낸다.
  *
- * ⛔ 이 지면은 **읽으라고 만든 것이 아니다.** 손님은 여기서 0.1초 머문다.
+ * ⛔ 이 페이지는 **읽으라고 만든 것이 아니다.** 손님은 여기서 0.1초 머문다.
  *   그래서 글자를 최소로 두고, **자바스크립트가 막혀도** 가게 두 가지 길을 놓는다 —
  *   ① `<meta http-equiv="refresh">` ② 손으로 누를 수 있는 링크
  *
  * ⚠ **301 이 아니다.** 정적 빌드라 상태코드를 못 바꾼다. 손님에게는 같은 값이고,
  *   크롤러에게는 `noindex` 로 「여기 담지 마라」고 말한다.
- * ⛔ 검색에 이 주소가 뜨면 진짜 지면과 겨룬다. 그래서 사이트맵에도 안 넣는다.
+ * ⛔ 검색에 이 주소가 뜨면 진짜 페이지와 겨룬다. 그래서 사이트맵에도 안 넣는다.
  *
- * 🔴 이 지면이 있는 진짜 까닭 — **경로는 우리 로그가 적는다.**
+ * 🔴 이 페이지가 있는 진짜 까닭 — **경로는 우리 로그가 적는다.**
  *   `?from=` 은 서버가 물음표 뒤를 안 적어 못 세는데, `/y/jongno` 는 **오늘부터 세어진다.**
  */
 import { 짧은주소들 } from '../../../lib/short-links';
@@ -44,11 +44,11 @@ const 갈곳 = 것.가는곳;
         그래서 noindex 라도 OG 는 붙인다. 없으면 카드가 허옇게 뜬다.
         (개봉 자가 「OG 카드가 4장 빠짐」으로 잡아 준 것이다)
     */}
-    <meta name="description" content={`${것.말} 지면으로 넘어갑니다 — 백년지도`} />
+    <meta name="description" content={`${것.말} 페이지로 넘어갑니다 — 백년지도`} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="백년지도" />
     <meta property="og:title" content={`${것.말} — 백년지도`} />
-    <meta property="og:description" content={`${것.말} 지면으로 넘어갑니다.`} />
+    <meta property="og:description" content={`${것.말} 페이지로 넘어갑니다.`} />
     <meta property="og:image" content="https://100yearmap.com/og.png" />
     <meta property="og:url" content={`https://100yearmap.com${갈곳.split('?')[0]}`} />
     <style>

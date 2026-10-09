@@ -3,11 +3,11 @@
  * /100y/spending — 마흔에 한 달 돈은 어디로 가나
  *
  * 🔴 2번 지시(8/21 17시·19시) — 「40대 자리를 채우십시오」.
- *   18시에 `/home` 을 냈는데 그 지면의 맨 위 칸이 **50~59세**였다.
+ *   18시에 `/home` 을 냈는데 그 페이지의 맨 위 칸이 **50~59세**였다.
  *   ⇒ **제목까지 40대인 문**이 이것이다. 이 표는 축이 진짜 「가구주 40~49세」다.
  * ⛔ `/age` 가 이미 「빚은 얼마나 지고 있나」를 다룬다 — 빚은 안 건드린다(겹친다).
  *
- * ⛔⛔ 이 지면의 위험 셋 —
+ * ⛔⛔ 이 페이지의 위험 셋 —
  *   ① 「40대」는 **가구주**가 40대라는 뜻이다. 40대 «개인»의 지출이 아니다
  *   ② 나이칸마다 **가구원 수가 다르다**. 액수를 그대로 견주면 어긋난다
  *   ③ 이 표에 **소득이 아예 없다.** 그래서 「벌이에 비해 많다/적다」를 못 쓴다
@@ -25,7 +25,7 @@ import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 import 원본 from '../../../data/100yearmap/spending.json';
-/* 🔴 짝이 되는 지면의 수는 저쪽 자료에서 읽는다 — 두 벌로 적으면 갈라진다 */
+/* 🔴 짝이 되는 페이지의 수는 저쪽 자료에서 읽는다 — 두 벌로 적으면 갈라진다 */
 import 집원본 from '../../../data/100yearmap/home.json';
 
 const 자료 = 원본 as any;
@@ -169,7 +169,7 @@ const jsonLd = {
   <p class="note">
     저희가 물었는데 <strong>이 표에는 소득이 아예 없었습니다</strong> —
     {' '}전체가구·근로자가구 둘 다 「데이터가 존재하지 않습니다」가 돌아왔습니다.
-    {' '}그래서 이 지면은 <strong>쓰는 쪽만</strong> 말합니다.
+    {' '}그래서 이 페이지는 <strong>쓰는 쪽만</strong> 말합니다.
     {' '}<strong>「벌이에 비해 많다/적다」는 저희가 못 씁니다.</strong>
     {' '}없는 것을 다른 표에서 끌어와 나누지 않았습니다.
   </p>

@@ -6,7 +6,7 @@
  *   그리고 나이 문이 0~9세와 50세 위에 몰려 있어 20~40대가 비어 있었다.
  *
  * ⛔ 2번은 「처음 취직하는 **나이**」를 물었는데 **이 표에 나이가 없다.**
- *   있는 것은 «졸업·중퇴 뒤 첫 취업까지 걸린 기간»이다. 나이로 옮겨 적지 않는다 — 지면에도 밝힌다.
+ *   있는 것은 «졸업·중퇴 뒤 첫 취업까지 걸린 기간»이다. 나이로 옮겨 적지 않는다 — 페이지에도 밝힌다.
  *
  * ⛔ 함정 둘을 화면에 박는다 —
  *   ① 표가 사람 수 칸에도 평균 칸에도 「천명개월」을 붙여 놓았다. **단위 이름이 거짓이다**
@@ -16,7 +16,7 @@
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 원본 from '../../../data/100yearmap/first-job.json';
-/* 🔴 짝이 되는 지면의 수는 저쪽 자료에서 읽는다 — 두 벌로 적으면 갈라진다 */
+/* 🔴 짝이 되는 페이지의 수는 저쪽 자료에서 읽는다 — 두 벌로 적으면 갈라진다 */
 import 그만둠원본 from '../../../data/100yearmap/longest-job.json';
 import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 
@@ -189,7 +189,7 @@ const jsonLd = {
   </p>
   <p class="note">
     어느 쪽 일이 맞을지 사주로 보는 것은 이 통계와는 다른 전통적인 셈법입니다 —
-    {' '}<a href="https://klifemap.ai/saju-jigeop.html?from=100y&at=body" target="_blank" rel="noopener">klifemap.ai의 사주 직업 지면</a>은
+    {' '}<a href="https://klifemap.ai/saju-jigeop.html?from=100y&at=body" target="_blank" rel="noopener">klifemap.ai의 사주 직업 페이지</a>은
     {' '}판정 없이 그 틀을 설명합니다.
   </p>
 
