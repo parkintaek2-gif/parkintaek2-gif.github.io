@@ -124,6 +124,12 @@ function 자가시험() {
   return 0;
 }
 
+/* ⛔ [2026-10-09 · 5번] **가져오면 도는 자** — export 가 있는 모듈이 관문 없이
+   맨 바닥에서 돌면, 남이 import 하는 순간 남의 화면에 이 자의 출력이 통째로 끼어든다.
+   오늘 klifemap 쪽에서 그 흠을 네 번 냈고, 여기서 다섯 번째를 배포 관문이 잡았다. */
+const 직접불렸나 = !!process.argv[1]
+  && path.basename(process.argv[1]) === '고친다-손님말-조사까지.mjs';
+if (직접불렸나) {
 자가시험();
 if (process.argv.includes('--자가시험')) process.exit(0);
 
@@ -157,3 +163,4 @@ for (const p of 파일들) {
 console.log(`\n■ 파일 ${파일들.length}개를 봤다 · 바꿀 것 ${파일}개 파일 ${곳}곳`);
 console.log(정말 ? '✅ 고쳤습니다. 이어서 `node scripts/check-순한글조어.mjs <폴더>` 로 0 인지 보십시오.'
                  : '⚠ 아직 안 고쳤습니다 — 실제로 고치려면 `--고친다` 를 붙이십시오.');
+}
