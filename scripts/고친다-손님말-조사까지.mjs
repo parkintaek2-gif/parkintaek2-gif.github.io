@@ -23,6 +23,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 /** 바꿀 말 — 왼쪽은 안 쓴다 */
 export const 바꿀말 = [
@@ -127,8 +128,7 @@ function 자가시험() {
 /* ⛔ [2026-10-09 · 5번] **가져오면 도는 자** — export 가 있는 모듈이 관문 없이
    맨 바닥에서 돌면, 남이 import 하는 순간 남의 화면에 이 자의 출력이 통째로 끼어든다.
    오늘 klifemap 쪽에서 그 흠을 네 번 냈고, 여기서 다섯 번째를 배포 관문이 잡았다. */
-const 직접불렸나 = !!process.argv[1]
-  && path.basename(process.argv[1]) === '고친다-손님말-조사까지.mjs';
+const 직접불렸나 = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (직접불렸나) {
 자가시험();
 if (process.argv.includes('--자가시험')) process.exit(0);
