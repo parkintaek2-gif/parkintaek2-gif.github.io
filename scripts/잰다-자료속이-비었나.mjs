@@ -87,6 +87,17 @@ if (process.argv.includes('--자가시험')) {
   process.exit(진.length ? 1 : 0);
 }
 
+/* 🔴🔴 [2026-10-09 · 5번] **가져오면 도는 자였다 — 오늘 세 번째다.**
+   ① 아침 `check-indexnow-보냈나.mjs` ② 낮 `찾는다-배포표식.mjs` ③ 그리고 이 자.
+   세 번 다 **고쳐 놓고 몇 시간 뒤 또 같은 꼴로 지었다.**
+   ⛔ 기억해서 안 틀리는 구조가 아니다 ⇒ `check-가져오면-도는자.mjs` 로 잡게 했다.
+   ⛔ 내보낼 것이 있는 자는 **직접 불렸을 때만** 돈다. 예외 없다. */
+const { pathToFileURL } = await import('node:url');
+const 직접불렸나 = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (!직접불렸나) {
+  /* 가져다 쓰는 쪽이다 — 아무것도 찍지 않고 여기서 멈춘다 */
+} else {
+
 /* ── 실제로 잰다 ───────────────────────────────────────────────────────── */
 const 보인다 = process.argv.includes('--보인다');
 
@@ -140,3 +151,4 @@ const 못가르는빈것 = 빈것있음.filter((x) => !x.가름);
 console.log('');
 console.log(`⇒ 빈 파일이 있으면서 «까닭을 못 말하는» 갈래 ${못가르는빈것.length}개`);
 console.log('   ⭐ 거기를 고치면 다음 사람이 빈 칸을 보고 짐작하지 않는다');
+}
