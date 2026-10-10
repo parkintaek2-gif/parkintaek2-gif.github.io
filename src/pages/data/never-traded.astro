@@ -1,0 +1,315 @@
+---
+/*
+ * `/data/never-traded` — Korean listings that did not trade once in 27 sessions.
+ * (seoulmarkets.com/data/never-traded)
+ *
+ * ── Why this page (2026-10-10 · 5번) ──────────────────────────────────
+ *   While fixing the KRX field page this morning I counted "rows with no trades
+ *   that day": 134 of 2,872. Pushing that further turned up something nobody
+ *   appears to publish — the companies where that is true of *every* session.
+ *   ```
+ *     90 listings · no trades in 27 consecutive sessions · KRW 7.14tn of market cap
+ *     86 of those 90 also never changed price — a completely frozen number
+ *   ```
+ *   And a harder finding underneath it: a company whose market capitalisation
+ *   tripled on a day it did not trade a single share, with the change field at 0.
+ *
+ * ── ⛔ What this page must not become ────────────────────────────────
+ * ⛔ **It does not say these companies are suspended.** The open feed has no such
+ *   field. No trades can mean a suspension, or simply no matched orders. We cannot
+ *   tell, and saying so is the honest result — it is also half the point of the page.
+ * ⛔ It does not say any of this is a warning sign about any company. We draw the
+ *   terrain; the reader sets their own needle. No advice, no implication of distress.
+ * ⛔ English only. Numbers come from src/data/never-traded.json, never typed by hand.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import facts from '../../data/never-traded.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const f = facts as any;
+const N = (n: number) => Number(n).toLocaleString('en-GB');
+const 조 = (n: number) => `KRW ${(Number(n) / 1e12).toFixed(2)}tn`;
+const 억 = (n: number | null) =>
+  n == null ? '—' : `KRW ${(Number(n) / 1e8).toLocaleString('en-GB', { maximumFractionDigits: 0 })}00mn`;
+const 날 = (d: string) => `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}`;
+
+/* 🔴 [2026-10-10 11:0x] 처음 빌드했을 때 **회사 이름이 한국어로 손님 화면에 나갔다.**
+   「삼부토건 · 에스아이리소스 …」가 영어 지면에 그대로 찍혀 있었다.
+   ⛔ 사장님 2026-08-05 — 「우리 손님은 영어권이다. 화면에 한국어를 안 낸다」
+   아침에 KRX 지면에 같은 규칙을 적어 두고 반나절 만에 내가 어겼다.
+   ✅ 영문 이름은 `korea-financials-tape.json` 의 `name_en` 에 이미 있었다(2,709개 코드).
+     자가 그것을 담아 준다. ⛔ 없으면 **지어내지 않고** 코드만 보인다. */
+const 이름 = (r: any) => (r?.영문이름 ? String(r.영문이름) : null);
+
+const 보드 = ['KOSPI', 'KOSDAQ', 'KONEX'] as const;
+const 보드표 = 보드.map((b) => ({
+  board: b,
+  listed: f.전체시장별?.[b] ?? 0,
+  silent: f.시장별?.[b] ?? 0,
+  pct: f.전체시장별?.[b] ? ((f.시장별?.[b] ?? 0) / f.전체시장별[b]) * 100 : null,
+}));
+
+/* 🔴 가장 센 것 — 거래 0 인데 시가총액이 바뀐 날. 큰 차례로 들어 있다 */
+const 바뀐것 = (f.값바뀜 ?? []) as any[];
+const 으뜸 = 바뀐것[0] ?? null;
+const 으뜸차 = 으뜸 ? (으뜸.뒤시총 ?? 0) - (으뜸.앞시총 ?? 0) : 0;
+const 으뜸배 = 으뜸 && 으뜸.앞시총 ? (으뜸.뒤시총 / 으뜸.앞시총) : null;
+
+const TITLE = `${f.죽은수} Korean listings did not trade once in ${f.거래일수} sessions`;
+const DESC = `Between ${날(f.첫날)} and ${날(f.끝날)}, ${f.죽은수} of ${N(f.본종목)} listings on KOSPI, `
+  + `KOSDAQ and KONEX recorded no trades in any session, while still carrying ${조(f.시총합)} of market `
+  + `capitalisation between them. ${f.얼어붙은수} of them never changed price either. Counted from the `
+  + `Korean government open-data stock price feed; whether any of them is formally suspended is not in that feed.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korean listings with no trades across consecutive sessions',
+  description: DESC,
+  url: `${SITE_URL}/data/never-traded`,
+  keywords: ['KOSPI illiquid stocks', 'KOSDAQ no trading volume', 'KONEX liquidity',
+    'Korean stock market data', 'zero volume stocks Korea', 'stale closing price',
+    'market capitalisation without trading', 'data.go.kr stock prices'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  isAccessibleForFree: true,
+  temporalCoverage: `${날(f.첫날)}/${날(f.끝날)}`,
+  variableMeasured: ['Sessions with zero trades', 'Closing price', 'Listed shares', 'Market capitalisation'],
+};
+
+const faq: Array<[string, string]> = [
+  ['Does no trading mean the stock is suspended?',
+    'We cannot tell from this data, and we do not claim it. The open-data price feed carries no suspension '
+    + 'flag. A session with no trades can mean a formal suspension, or simply that no buy and sell order '
+    + 'matched all day — which is ordinary on a thin board. Anyone who needs the distinction has to go to '
+    + 'the exchange notices, not to a price feed.'],
+  ['How can market capitalisation exist if nothing trades?',
+    'Market capitalisation is listed shares multiplied by the last closing price. When nothing trades, the '
+    + `close carries over from the previous session, so the figure keeps being published. ${f.얼어붙은수} of `
+    + `the ${f.죽은수} listings here never changed price across all ${f.거래일수} sessions, which means their `
+    + 'market capitalisation is the same arithmetic on the same frozen number, repeated daily.'],
+  ['Why does the change field read 0 on a day the price moved?',
+    'Because a capital reduction or share consolidation changes the reference price without a trade. The '
+    + 'feed reports the new close and the new share count, but the day-on-day change and percentage fields '
+    + 'stay at 0. If you build a time series from the change field, those days are invisible — and the price '
+    + 'series will contain a jump you cannot explain from the data you are reading.'],
+  ['Which board is worst affected?',
+    (() => {
+      const 센것 = 보드표.filter((r) => r.pct != null).sort((a, b) => (b.pct ?? 0) - (a.pct ?? 0))[0];
+      return 센것
+        ? `${센것.board}, where ${센것.silent} of ${N(센것.listed)} listings (${(센것.pct ?? 0).toFixed(1)}%) `
+          + 'went the whole period without a trade. That is expected rather than alarming: it is Korea\'s '
+          + 'smallest board by design, and thin trading is what a small-company board looks like.'
+        : 'Not measured.';
+    })()],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>{f.죽은수} Korean listings did not trade once in {f.거래일수} sessions</h1>
+    <p class="lead">
+      Between <b>{날(f.첫날)}</b> and <b>{날(f.끝날)}</b>, {f.죽은수} of {N(f.본종목)} listings on Korea's three
+      boards recorded <b>no trades at all</b> — not in one session, in any of them. Between them they carry{' '}
+      <b>{조(f.시총합)}</b> of market capitalisation. {f.얼어붙은수} of the {f.죽은수} never changed price either.
+    </p>
+
+    <BuyBar 자리="top" 살수있나={false}
+      아직="One window only. A longer history and a suspension cross-reference are not built yet." />
+
+    <section class="stats">
+      <div class="stat"><b>{f.죽은수}</b><span>listings, zero trades in {f.거래일수} sessions</span></div>
+      <div class="stat"><b>{f.얼어붙은수}</b><span>of those never changed price</span></div>
+      <div class="stat"><b>{조(f.시총합)}</b><span>market cap they still carry</span></div>
+      <div class="stat"><b>{N(f.본종목)}</b><span>listings measured</span></div>
+    </section>
+
+    <section>
+      <h2 class="warn-h">Read this first: we cannot tell you why</h2>
+      <p class="warn">
+        A session with no trades can mean a <b>formal suspension</b>, or simply that <b>no buy and sell order
+        matched</b> all day. <b>The open-data price feed carries no suspension flag</b>, so we cannot
+        distinguish the two, and this page does not try. Nothing here says a company is in trouble, and
+        nothing here is a view on any security. It is a count of sessions with no trades, and what the
+        published market-capitalisation figure is made of when that happens.
+      </p>
+    </section>
+
+    <section>
+      <h2>By board</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Board</th><th class="num">Listings</th><th class="num">No trades at all</th><th class="num">Share</th></tr>
+          </thead>
+          <tbody>
+            {보드표.map((r) => (
+              <tr>
+                <td>{r.board}</td>
+                <td class="num">{N(r.listed)}</td>
+                <td class="num">{r.silent}</td>
+                <td class="num">{r.pct == null ? '—' : `${r.pct.toFixed(1)}%`}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        A listing is counted only if it appeared in at least 20 of the {f.거래일수} daily files, so newly
+        listed and newly delisted names are excluded rather than counted as silent.
+      </p>
+    </section>
+
+    {으뜸 && (
+      <section>
+        <h2 class="warn-h">A market value that tripled on a day with no trades</h2>
+        <p>
+          This is the part that matters if you are building anything on this data.{' '}
+          <b>{이름(으뜸) ?? `Listing ${으뜸.코드}`}</b> ({으뜸.코드}, {으뜸.시장}) did not trade a single share in any session of this
+          window. On <b>{날(으뜸.날)}</b> its share count fell from {N(으뜸.앞주식수)} to {N(으뜸.뒤주식수)} and
+          its closing price went from {N(으뜸.앞종가)} to {N(으뜸.뒤종가)} — a capital reduction or
+          consolidation. Its published market capitalisation went from {억(으뜸.앞시총)} to {억(으뜸.뒤시총)}
+          {으뜸배 ? `, about ${으뜸배.toFixed(1)}× ` : ' '}— {억(으뜸차)} more, on a day nothing changed hands.
+        </p>
+        <p class="warn">
+          <b>The feed records that day's change as {으뜸.적힌등락률} and the day-on-day move as 0.</b> If your
+          pipeline reads the change field, that day does not exist. If it reads the close, you get an
+          unexplained jump. Both are wrong in different directions, and neither is the feed lying — the
+          reference price genuinely changed without a trade, and the change field only describes trades.
+        </p>
+        {바뀐것.length > 1 && (
+          <>
+            <p>All {바뀐것.length} such days in this window:</p>
+            <div class="scroll">
+              <table>
+                <thead>
+                  <tr><th>Date</th><th>Company</th><th class="num">Close</th><th class="num">Shares</th>
+                    <th class="num">Market cap</th><th class="num">Change field</th></tr>
+                </thead>
+                <tbody>
+                  {바뀐것.map((r) => (
+                    <tr>
+                      <td class="dim">{날(r.날)}</td>
+                      <td>{이름(r) ?? "—"} <span class="dim">({r.코드})</span></td>
+                      <td class="num">{N(r.앞종가)} → {N(r.뒤종가)}</td>
+                      <td class="num">{N(r.앞주식수)} → {N(r.뒤주식수)}</td>
+                      <td class="num">{억(r.앞시총)} → {억(r.뒤시총)}</td>
+                      <td class="num">{r.적힌등락률}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
+      </section>
+    )}
+
+    <section>
+      <h2>The largest by market capitalisation</h2>
+      <p>
+        Ranked by the market-capitalisation figure the feed publishes for them — which, as above, is listed
+        shares times a price that has not moved. <b>Their presence here says nothing about them beyond the
+        absence of trades in this window.</b>
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Company</th><th>Code</th><th>Board</th><th class="num">Close</th>
+              <th class="num">Market cap</th><th class="num">Distinct closes</th></tr>
+          </thead>
+          <tbody>
+            {(f.큰것 ?? []).map((r: any) => (
+              <tr>
+                <td>{이름(r) ?? "—"}</td>
+                <td class="dim">{r.코드}</td>
+                <td>{r.시장}</td>
+                <td class="num">{N(r.종가)}</td>
+                <td class="num">{억(r.시총)}</td>
+                <td class="num">{r.값가짓수}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        "Distinct closes" is how many different closing prices the listing had across all {f.거래일수}{' '}
+        sessions. A 1 means the published price never moved once.
+      </p>
+    </section>
+
+    <section>
+      <h2>What this page does not tell you</h2>
+      <ul>
+        <li>
+          <b>Whether any of these is suspended.</b> That field is not in the feed. It is the single most
+          useful thing to know here and we do not have it — saying so beats guessing.
+        </li>
+        <li>
+          <b>Why each company has no trades.</b> Suspension, a controlling holder owning nearly everything,
+          a board where thin trading is normal — all produce the same zero.
+        </li>
+        <li>
+          <b>Anything forward-looking.</b> No view on any company, no suggestion that silence here means
+          anything about the business behind it.
+        </li>
+        <li>
+          <b>History beyond this window.</b> {f.거래일수} sessions, {날(f.첫날)} to {날(f.끝날)}. We hold
+          what we have collected, and a longer series is a possible follow-up, not a claim we can make today.
+        </li>
+      </ul>
+      <p class="note">
+        Source: the Korean government open-data stock price service (dataset 15094808, Financial Services
+        Commission), licence marked as carrying no usage restriction. Counts are computed at build time from
+        the daily files we collect; they are not transcribed. See{' '}
+        <a href="/data/krx-open-api-fields">the KRX field map</a> for what each field in that feed means.
+      </p>
+    </section>
+  </article>
+</Base>
+
+<style>
+  /* ⚠ 이 저장소에는 지면 공통 스타일이 «없다» — `/data/` 지면마다 제 것을 갖는다.
+     (`fixed-variable-rate-share.astro` 끝에 같은 꼴이 있다. 거기에 맞춘다)
+     ⛔ 칸 이름만 다르게 쓰지 않는다 — 여기는 `td.num`·`td.dim` 을 쓰므로 둘 다 적는다.
+        아침에 `warn-h` 를 쓰면서 «그 클래스가 어디에도 없는 것»을 안 보고 넘길 뻔했다. */
+  .wrap { max-width: 56rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  h2.warn-h { color: var(--warn, #9a3412); }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; white-space: nowrap; }
+  td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  td.dim, span.dim { color: var(--muted, #666); white-space: nowrap; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  ul li { margin-bottom: .45rem; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+    h2.warn-h { color: #fdba74; }
+    td.dim, span.dim, .note, .stat span { color: #aaa; }
+  }
+</style>
