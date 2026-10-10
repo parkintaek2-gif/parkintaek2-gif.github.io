@@ -1652,12 +1652,25 @@ if (내가실행됐다) {
     const 낸것 = execFileSync('node', ['scripts/check-klifemap-health.mjs'], { cwd: 뿌리, encoding: 'utf8' });
     /* ⏳ 「서비스는 도는데 열쇠를 기다리는 칸」은 빨간불이 아니다 — 다만 «보이게» 남긴다.
        ⛔ 늘 빨간 자리는 안 읽히고, 안 읽히면 그 아래 진짜 빨간불까지 같이 넘어간다 */
-    const 기다림 = 낸것.match(/⏳ 서비스는 성하다[^\n]*/);
-    if (기다림) {
-      console.log(`⏳ ⑨ klifemap     ${기다림[0].replace('⏳ ', '')}`);
+    /* 🔴🔴 [2026-10-10 17:1x · 5번] **아무것도 못 찾으면 「성하다」를 찍고 있었다.**
+       건강 자가 찍는 말이 「⏳ 팔리고는 있다」로 바뀌었는데 여기 무늬는 「⏳ 서비스는 성하다」
+       그대로였다. 둘 다 안 맞으니 기본값 '성하다' 가 나갔다 — **근거 없는 초록불**이다.
+       ⛔ 못 찾았으면 「성하다」가 아니라 「못 읽었다」다. 0 으로 채우지 않는 것과 같은 규칙이다.
+       ⛔ 무늬를 좁게 박아 두면 저쪽 말이 바뀔 때마다 조용히 거짓이 된다 — 넓게 집는다 */
+    const 못쟀다 = 낸것.match(/^ *⬜ [^\n]*/m);
+    const 기다림 = 낸것.match(/^ *⏳ [^\n]*/m);
+    const 성하다 = 낸것.match(/^ *✅ 성하다[^\n]*/m);
+    if (못쟀다) {
+      console.log(`⬜ ⑨ klifemap     ${못쟀다[0].trim().replace('⬜ ', '')}`);
       for (const 줄 of (낸것.match(/^ {6}· .*$/gm) || [])) console.log('     ' + 줄.trim());
+    } else if (기다림) {
+      console.log(`⏳ ⑨ klifemap     ${기다림[0].trim().replace('⏳ ', '')}`);
+      for (const 줄 of (낸것.match(/^ {6}· .*$/gm) || [])) console.log('     ' + 줄.trim());
+    } else if (성하다) {
+      console.log(`✅ ⑨ klifemap     ${성하다[0].trim()}`);
     } else {
-      console.log(`✅ ⑨ klifemap     ${(낸것.match(/✅ 성하다[^\n]*/) || ['성하다'])[0]}`);
+      console.log('⬜ ⑨ klifemap     못 읽었다 — 건강 자가 아는 말을 하나도 안 찍었다');
+      console.log('     ⛔ 「성하다」로 치지 않는다. check-klifemap-health.mjs 를 직접 돌려 본다');
     }
     케맵 = { 됐나: true, 말: '' };
   } catch (e) {
