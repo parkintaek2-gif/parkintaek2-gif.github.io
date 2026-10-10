@@ -8,7 +8,7 @@
  *   that day": 134 of 2,872. Pushing that further turned up something nobody
  *   appears to publish — the companies where that is true of *every* session.
  *   ```
- *     90 listings · no trades in 27 consecutive sessions · KRW 7.14tn of market cap
+ *     90 listings · no trades in 27 sessions we hold · KRW 7.14tn of market cap
  *     86 of those 90 also never changed price — a completely frozen number
  *   ```
  *   And a harder finding underneath it: a company whose market capitalisation
@@ -66,7 +66,7 @@ const DESC = `Between ${날(f.첫날)} and ${날(f.끝날)}, ${f.죽은수} of $
 const datasetLd = {
   '@context': 'https://schema.org',
   '@type': 'Dataset',
-  name: 'Korean listings with no trades across consecutive sessions',
+  name: 'Korean listings with no trades across a run of sessions',
   description: DESC,
   url: `${SITE_URL}/data/never-traded`,
   keywords: ['KOSPI illiquid stocks', 'KOSDAQ no trading volume', 'KONEX liquidity',
@@ -165,6 +165,21 @@ const jsonLd = [datasetLd, faqLd];
       <p class="note">
         A listing is counted only if it appeared in at least 20 of the {f.거래일수} daily files, so newly
         listed and newly delisted names are excluded rather than counted as silent.
+      </p>
+      {/* 🔴 [2026-10-10] 「27 consecutive sessions」는 우리가 보장 못 하는 말이었다.
+          같은 날 아카이빙 구멍을 재 보니 2026-10-08 치가 이틀째 0건이다 — 포털이 그
+          날짜를 안 준다(HTTP 200 · NORMAL SERVICE 인데 0건). 평일이고 까닭은 모른다.
+          ⇒ 포털이 거래일을 빠뜨릴 수 있고, 과거에도 그랬다면 우리는 모른다.
+          ⛔ 「연속」을 주장하지 않는다. 우리가 «못 본 날»이 몇인지 먼저 적는다. */}
+      <p class="note">
+        <b>On the window itself:</b> we hold {f.거래일수} daily files between {날(f.첫날)} and{' '}
+        {날(f.끝날)}. {(f.빠진평일 ?? []).length === 0
+          ? 'Every weekday in that range is present.'
+          : `${(f.빠진평일 ?? []).length} weekdays in that range have no file (${(f.빠진평일 ?? []).map(날).join(', ')}) — Korean market holidays, as far as we can tell.`}
+        {' '}We say "{f.거래일수} sessions" rather than "{f.거래일수} consecutive sessions" on purpose:
+        the feed can return an empty day for a weekday without saying why — it did so for 2026-10-08,
+        two days running, with a normal response code — so we cannot promise that a weekday without a
+        file was a holiday rather than a gap.
       </p>
     </section>
 
