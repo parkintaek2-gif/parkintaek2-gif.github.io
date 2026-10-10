@@ -115,6 +115,9 @@ fs.mkdirSync(대장방, { recursive: true });
 const 이제 = new Date();
 const 오늘 = `${이제.getFullYear()}-${String(이제.getMonth() + 1).padStart(2, '0')}`
   + `-${String(이제.getDate()).padStart(2, '0')}`;
+/* 대장 이름에 쓰는 때 — **시각까지 넣어야** 같은 날 안에서도 견줄 수 있다.
+   글자 차례가 곧 시간 차례가 되도록 `YYYY-MM-DD-HHMM` 으로 둔다 */
+const 지금때 = `${오늘}-${String(이제.getHours()).padStart(2, '0')}${String(이제.getMinutes()).padStart(2, '0')}`;
 
 console.log(`■ 새 글이 몇 편 났나 — ${오늘} ${String(이제.getHours()).padStart(2, '0')}:${String(이제.getMinutes()).padStart(2, '0')}\n`);
 
@@ -124,28 +127,34 @@ for (const s of 사이트) {
   catch (e) { console.log(`■ ${s.이름.padEnd(14)} ⚠ 사이트맵을 못 읽었다 — **못 쟀다** (${String(e.message).slice(0, 24)})`); continue; }
   if (!지금?.length) { console.log(`■ ${s.이름.padEnd(14)} ⚠ 주소가 한 줄도 없다 — **못 쟀다**`); continue; }
 
-  /* 가장 가까운 지난 대장을 찾는다. ⛔ 없으면 「0 편」이 아니라 「못 잰다」다 */
+  /* 🔴 [2026-10-10 10:4x] **대장을 날짜로만 적었더니 이 자가 하루 종일 벙어리였다.**
+     오늘 10:03 에 기준선을 적고, 10:45 에 다시 돌렸더니 또 「견줄 대장이 없다」가 나왔다.
+     지난 대장을 고를 때 `이름-오늘.json` «보다 작은 것»만 봤기 때문이다 —
+     오늘 적은 것은 언제나 빠진다. 그러면 **내일까지 아무 말도 못 한다.**
+     ⛔ 진도는 하루에 여러 번 봐야 쓸모가 있다. 21시에 판정하려면 오전·오후를 봐야 한다.
+     ✅ 대장 이름에 **시각**까지 넣는다. 그리고 「지금 것보다 앞선 것」을 고른다.
+     ⭐ 안 불리는 자는 자가 아니라 도장이다 — 돌려 보고서야 이것을 알았다. */
   const 대장들 = fs.readdirSync(대장방)
     .filter((n) => n.startsWith(`${s.이름}-`) && n.endsWith('.json')).sort();
-  const 지난것 = 대장들.filter((n) => n < `${s.이름}-${오늘}.json`).at(-1);
+  const 지난것 = 대장들.filter((n) => n < `${s.이름}-${지금때}.json`).at(-1);
 
   if (!지난것) {
     console.log(`■ ${s.이름.padEnd(14)} 주소 ${지금.length.toLocaleString()}장`
-      + ` · ⬜ **견줄 대장이 없다 — 오늘이 기준선이다**  (${s.유닛})`);
+      + ` · ⬜ **견줄 대장이 없다 — 지금이 기준선이다**  (${s.유닛})`);
   } else {
     const 앞 = JSON.parse(fs.readFileSync(path.join(대장방, 지난것), 'utf8'));
     const { 는것, 준것 } = 견주기(앞.주소, 지금);
-    const 잰날 = 지난것.replace(`${s.이름}-`, '').replace('.json', '');
+    const 잰때 = 지난것.replace(`${s.이름}-`, '').replace('.json', '').replace(/-(\d{2})(\d{2})$/, ' $1:$2');
     console.log(`■ ${s.이름.padEnd(14)} 주소 ${지금.length.toLocaleString()}장`
-      + ` · ${잰날} 보다 **+${는것.length}** ${준것.length ? `· 사라짐 ${준것.length}` : ''}  (${s.유닛})`);
+      + ` · ${잰때} 보다 **+${는것.length}** ${준것.length ? `· 사라짐 ${준것.length}` : ''}  (${s.유닛})`);
     는것.slice(0, 6).forEach((u) => console.log(`     + ${u.replace(s.밑, '')}`));
     if (는것.length > 6) console.log(`     … 그 밖 ${는것.length - 6}개`);
     준것.slice(0, 3).forEach((u) => console.log(`     🔴 사라짐 ${u.replace(s.밑, '')}`));
   }
 
   if (적어둔다) {
-    fs.writeFileSync(path.join(대장방, `${s.이름}-${오늘}.json`),
-      JSON.stringify({ 잰날: 오늘, 장수: 지금.length, 주소: 지금.sort() }, null, 0) + '\n', 'utf8');
+    fs.writeFileSync(path.join(대장방, `${s.이름}-${지금때}.json`),
+      JSON.stringify({ 잰때: 지금때, 장수: 지금.length, 주소: 지금.sort() }, null, 0) + '\n', 'utf8');
   }
 }
 
