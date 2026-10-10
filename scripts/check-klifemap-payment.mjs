@@ -61,15 +61,22 @@ export function 들어올수있나({ 로그인, 메일보냄 } = {}) {
  */
 export function 돈이들어오나({ 토스, 페이팔 } = {}) {
   const 막힌것 = [];
-  if (!토스 || 토스.ok !== true || 토스.enabled !== true) {
+  const 못잰것 = [];
+  /* 🔴🔴 [2026-10-10 · 5번] 401 을 「꺼졌다」로 읽어 사장님께 「매출 0」이라 올렸다.
+     ⛔ 「못 봤다」와 「꺼졌다」는 다른 말이다. 섞으면 멀쩡한 것을 고치러 가게 되고,
+       진짜로 꺼진 날 아무도 안 믿는다 */
+  if (열쇠에막혔나(토스)) {
+    못잰것.push('토스 — 열쇠가 없어 상태를 못 봤다 (SAJU_API_KEY 를 주면 잰다)');
+  } else if (!토스 || 토스.ok !== true || 토스.enabled !== true) {
     막힌것.push('토스가 꺼져 있다 — 원화로 받을 길이 없다');
   } else if (String(토스.clientKey ?? '').startsWith('test_') || 토스.live === false) {
     막힌것.push('토스가 «심사용 테스트 열쇠»다 — 손님이 눌러도 돈이 안 들어온다');
   }
-  if (!페이팔 || 페이팔.enabled !== true) 막힌것.push('페이팔이 꺼져 있다 — 해외 손님은 못 산다');
+  if (열쇠에막혔나(페이팔)) 못잰것.push('페이팔 — 열쇠가 없어 상태를 못 봤다');
+  else if (!페이팔 || 페이팔.enabled !== true) 막힌것.push('페이팔이 꺼져 있다 — 해외 손님은 못 산다');
   /* 국내가 막히면 매출이 «0»이고, 해외만 막히면 «줄어든» 것이다. 둘을 가른다 */
   const 국내막힘 = 막힌것.some((x) => x.includes('토스'));
-  return { 들어오나: 막힌것.length === 0, 국내막힘, 막힌것 };
+  return { 들어오나: 막힌것.length === 0, 국내막힘, 막힌것, 못잰것 };
 }
 
 /**
@@ -142,7 +149,7 @@ export function 팔리나(답들) {
   if (!문.열렸나) 막힌것.push('손님이 «가입도 로그인도» 못 한다 — 문이 하나도 없다');
   막힌것.push(...돈.막힌것, ...창.막힌것, ...되.막힌것);
   /* ⛔ 못 쟀으면 «막혔다»로 몰지 않는다. 못 쟀다고 따로 말한다 */
-  const 못잰것 = [];
+  const 못잰것 = [...(돈.못잰것 ?? [])];
   if (창.열리나 === null) 못잰것.push('🔴 손님으로 결제창까지 — 못 쟀다 (이 자리가 빈 채로 사고가 났다)');
   if (되.된다 === null) 못잰것.push('산 감명서를 다시 볼 수 있나 — 못 쟀다');
   /* 🔴 문이 막혔거나 국내 결제가 막혔으면 매출은 0 이다. 다시보기가 막히면 반쪽만 판 것이라
@@ -158,16 +165,34 @@ export function 팔리나(답들) {
 
 /* ── 실제로 잰다 ───────────────────────────────────────────────────────── */
 
+/**
+ * ⛔ 열쇠 «값»을 화면에도 기록에도 안 찍는다 — 있으면 머리줄로 보내기만 한다.
+ * ⚠ 몸통에 `상태`(HTTP 코드)를 같이 담는다 — 401 을 「꺼졌다」로 읽지 않기 위해서다.
+ *   (2026-10-10 에 열쇠 자물쇠를 켜면서 이 자가 문밖에 섰다)
+ */
 async function 물어본다(길, 보낼것) {
+  const 열쇠 = process.env.SAJU_API_KEY || process.env.KLIFEMAP_API_KEY || '';
   try {
     const r = await fetch(사이트 + 길, {
       method: 보낼것 ? 'POST' : 'GET',
-      headers: 보낼것 ? { 'Content-Type': 'application/json' } : undefined,
+      headers: {
+        ...(보낼것 ? { 'Content-Type': 'application/json' } : {}),
+        ...(열쇠 ? { 'x-api-key': 열쇠 } : {}),
+      },
       body: 보낼것 ? JSON.stringify(보낼것) : undefined,
       signal: AbortSignal.timeout(25000),
     });
-    return await r.json();
+    let 몸 = null;
+    try { 몸 = await r.json(); } catch { 몸 = null; }
+    return { ...(몸 && typeof 몸 === 'object' ? 몸 : {}), 상태: r.status };
   } catch { return null; }
+}
+
+/** 열쇠가 없어서 못 본 것인가 — 401·403 이거나 몸통이 열쇠 타령을 하면 그렇다 */
+export function 열쇠에막혔나(r) {
+  if (!r) return false;
+  if (r.상태 === 401 || r.상태 === 403) return true;
+  return /api-key|api_key|unauthor|invalid or missing/i.test(String(r?.error ?? ''));
 }
 
 /** 셋째 다리용 — GET 하나를 status 만 뽑아 온다(본문은 로그인 지면만 필요하다) */
@@ -324,13 +349,19 @@ async function 잰다() {
     console.log('');
     console.log('   ✅ 고치는 길 — Cloudtype 스테이지 시크릿에 넣고 다시 띄운다');
     console.log('      TOSS_CLIENT_KEY · TOSS_SECRET_KEY');
-    console.log('      🔴 [2026-09-12 19:1x 실측] **실키가 «아직 발급된 적이 없다».**');
-    console.log('         토스 개발자센터 라이브 갈피 — live_ck_/live_sk_ 둘 다 «없음»,');
-    console.log('         개별 연동 키 칸도 비었고 화면이 「내 키는 전자결제 신청하고');
-    console.log('         확인할 수 있어요 · 이용 신청하기」라고 말한다.');
-    console.log('         ⇒ 막힌 것은 코드도 배포도 아니고 «전자결제 이용 신청»이다.');
-    console.log('         ⛔ 이 자리에 원래 「단건 계약 완료 — 실키가 있다」라고 적혀 있었다.');
-    console.log('            확인 안 하고 적은 거짓이었고, 그 한 줄이 사람을 엉뚱한 데로 보냈다.');
+    console.log('      🔴 **실키는 «있다».** 2026-09-12 21:28 에 토스 개발자센터에서 찾아 넣었다.');
+    console.log('         상점이 둘이라 못 찾았던 것이다 —');
+    console.log('           1769231  주식회사 케이라이프디자인   ← 계약 상점. 실키가 여기 있다');
+    console.log('           1769245  개발 연동 체험 상점        ← 개발자센터가 «기본»으로 여기를 연다');
+    console.log('         체험 상점에서 「라이브」를 눌러도 「전자결제 신청하고 확인할 수 있어요」가');
+    console.log('         뜬다. 그것을 「계약이 안 됐다」로 읽으면 틀린다. **상점부터 고른다.**');
+    console.log('         길: dashboard.tosspayments.com → 주소에 /tm/1769231 → 왼쪽 「개발자센터」를');
+    console.log('             «눌러» 간다(주소를 지어내면 404) → 「API 키」 → 「라이브」 → 「보기」');
+    console.log('         🔴 옆의 「재발급」을 «절대» 누르지 않는다 — 기존 키가 7일 뒤 죽는다');
+    console.log('      ⛔ 이 자리에 위와 «정반대» 되는 말이 박혀 있었다. 그날 19시 글인데');
+    console.log('         «같은 날 21:28 에 뒤집혔는데도» 자에 남아 있었고, 2026-10-10 에 내가');
+    console.log('         그대로 읽어 사장님께 「28일째 매출 0」이라고 올렸다 — 세 번째 거짓이다.');
+    console.log('         ⭐ 자에 «날짜 박힌 사실»을 적을 때는 그 사실이 뒤집히면 자도 같이 고친다.');
     console.log('      OAUTH_GOOGLE/NAVER/KAKAO_CLIENT_ID·SECRET  (손님이 들어오는 문)');
     console.log('      SMTP_* 또는 NCP_*                          (가입 인증코드)');
     console.log('   ⛔ klifemap 에 ctype apply 를 «env 선언 없이» 치지 않는다 — 그것이 09-11 에 다 지웠다');
@@ -473,6 +504,35 @@ function 자가시험() {
   }).판정, '팔린다');
   검('다시보기를 못 쟀으면 「못잰것」에 남는다(팔린다를 부풀리지 않되 막지도 않는다)',
     팔리나(다열림).못잰것.some((x) => x.includes('다시 볼 수 있나')), true);
+
+  /* 🔴🔴 [2026-10-10] 401 을 「토스가 꺼졌다」로 읽어 사장님께 「매출 0」이라 올렸다.
+     ⛔ 넣어 보고 정말 가르는지 본다 — 안 가르는 검사는 거짓 빨강을 낸다 */
+  const 열쇠막힘 = {
+    토스: { ok: false, error: 'invalid or missing x-api-key', 상태: 401 },
+    페이팔: { ok: false, error: 'invalid or missing x-api-key', 상태: 401 },
+  };
+  검('🔴 401 을 «꺼졌다»로 적지 않는다 — 오늘 이것을 틀렸다',
+    돈이들어오나(열쇠막힘).막힌것.length, 0);
+  검('🔴 대신 «못 쟀다»로 둘을 적는다', 돈이들어오나(열쇠막힘).못잰것.length, 2);
+  검('🔴 열쇠에 막힌 것으로 «국내막힘»을 켜지 않는다 — 그것이 「매출 0」을 찍게 했다',
+    돈이들어오나(열쇠막힘).국내막힘, false);
+  검('⛔ 403 도 같이 본다', 열쇠에막혔나({ 상태: 403 }), true);
+  검('⛔ 200 은 열쇠 막힘이 아니다', 열쇠에막혔나({ 상태: 200, ok: true }), false);
+  검('⛔ 열쇠와 상관없이 «정말 꺼진 것»은 그대로 잡는다 — 덜 잡으면 진짜 사고를 놓친다',
+    돈이들어오나({ 토스: { ok: true, enabled: false, 상태: 200 },
+      페이팔: { ok: true, enabled: true, 상태: 200 } }).국내막힘, true);
+  검('⛔ 테스트 열쇠는 여전히 막힌 것이다',
+    돈이들어오나({ 토스: { ok: true, enabled: true, live: true, clientKey: 'test_ck_x', 상태: 200 },
+      페이팔: { enabled: true } }).국내막힘, true);
+
+  /* 🔴 그날 19시 글이 «같은 날 21:28 에» 뒤집혔는데 자에 남아 2026-10-10 까지 거짓을 찍었다.
+     ⚠ 자가시험 블록 자체가 그 말을 담으므로 «찍는 쪽»만 본다 — 안 그러면 스스로를 잡는다 */
+  const 내글 = fs.readFileSync(new URL(import.meta.url), 'utf8');
+  const 찍는쪽 = 내글.slice(0, 내글.indexOf('function 자가시험'));
+  검('⛔ 화면에 찍는 글에 「발급된 적이 없다」가 다시 들어오지 않는다',
+    /발급된 적이 없다/.test(찍는쪽), false);
+  검('🔴 이 검사가 헛돌지 않는다 — 그 말이 들어오면 정말 잡는다',
+    /발급된 적이 없다/.test('실키가 «아직 발급된 적이 없다»'), true);
 
   console.log(`■ 자가시험 ${통과 + 깨짐.length}가지 — 통과 ${통과} · 깨짐 ${깨짐.length}`);
   for (const d of 깨짐) console.log('   🔴 ' + d);
