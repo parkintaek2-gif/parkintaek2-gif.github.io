@@ -1,0 +1,1236 @@
+{
+  "site": "sc-domain:seoulmarkets.com",
+  "dimension": "query",
+  "window": {
+    "from": "2026-09-09",
+    "to": "2026-10-07",
+    "days": 28
+  },
+  "rowLimit": 25000,
+  "rows": [
+    {
+      "key": "\"credit saison\" -site:saisoncard.co.jp",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 28.666666666666668
+    },
+    {
+      "key": "\"intekplus\"",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 5
+    },
+    {
+      "key": "\"ksq_bydd_trd\" krx",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 9.5
+    },
+    {
+      "key": "\"scinex corporation\" 買収 or 取得 -site:crunchbase.com -site:pitchbook.com -site:mergr.com -site:tracxn.com -site:cbinsights.com -site:zoominfo.com -site:dealroom.co -site:mergermarket.com -site:capitaliq.com -site:northdata.com -site:grokipedia.com -site:owler.com -site:linkedin.com -site:facebook.com -site:instagram.com -site:twitter.com -site:x.com -site:reddit.com -site:youtube.com -site:tiktok.com -site:pinterest.com -site:quora.com -site:wikipedia.org -site:glassdoor.com -site:indeed.com -site:jooble.org -site:expertini.com -site:jobly.fi",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "abu dhabi national takaful company",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 87
+    },
+    {
+      "key": "abu dhabi ports company pjsc",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "adnoc logistic and services",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 87
+    },
+    {
+      "key": "adr120s",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "aica kogyo",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 55
+    },
+    {
+      "key": "aligned genetics",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "anan",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 81
+    },
+    {
+      "key": "asics financial report",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 45
+    },
+    {
+      "key": "atom livintech",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 75
+    },
+    {
+      "key": "avant group",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 46.5
+    },
+    {
+      "key": "baycurrent inc",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 46
+    },
+    {
+      "key": "big companies in korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "big company in korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "big korean companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "big south korean companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 77
+    },
+    {
+      "key": "biggest companies in south korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "biggest companies korea",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 70.33333333333333
+    },
+    {
+      "key": "biggest companies south korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 71
+    },
+    {
+      "key": "biggest company in korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "biggest company in south korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "biggest korean companies",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 76.75
+    },
+    {
+      "key": "biggest south korean companies",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 77
+    },
+    {
+      "key": "branu",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 72
+    },
+    {
+      "key": "bridgestone net worth",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "chemical companies in japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "como japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 25
+    },
+    {
+      "key": "companies in korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 90
+    },
+    {
+      "key": "cynd stock",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "dae sang",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 72
+    },
+    {
+      "key": "dae-il corporation",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 87
+    },
+    {
+      "key": "daesang corp",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "daisho",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 71
+    },
+    {
+      "key": "daito trust",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 53
+    },
+    {
+      "key": "denyo co., ltd. earnings results",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "dreamarts corporation",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "dskr",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 56
+    },
+    {
+      "key": "edion corporation",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 96
+    },
+    {
+      "key": "eiken chemical",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 46
+    },
+    {
+      "key": "ennex.co.th",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 82
+    },
+    {
+      "key": "esg uae",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 59.666666666666664
+    },
+    {
+      "key": "evaluate the respiratory pharmaceuticals company kyorin on all cause mortality",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "famous south korean companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 79
+    },
+    {
+      "key": "fuji seal annual report",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "futaba industrial co ltd",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 57
+    },
+    {
+      "key": "genda japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 62
+    },
+    {
+      "key": "giftee inc",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 41
+    },
+    {
+      "key": "gsi creos corporation",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 35
+    },
+    {
+      "key": "hankyung consensus",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 5
+    },
+    {
+      "key": "hanwa co ltd",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 39
+    },
+    {
+      "key": "hanwa co. ltd",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 41
+    },
+    {
+      "key": "hanwa corporation",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 56
+    },
+    {
+      "key": "hanwha",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 96
+    },
+    {
+      "key": "how much money has hokkaidosenko.co.jp raised",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 2
+    },
+    {
+      "key": "how much money has kawaden.co.jp raised",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 3.8
+    },
+    {
+      "key": "hwacheon",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 47.5
+    },
+    {
+      "key": "japan chemical distribution market",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 98
+    },
+    {
+      "key": "japan electricity market",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 94
+    },
+    {
+      "key": "japan maritime logistics services market",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 77
+    },
+    {
+      "key": "japan medical morphine market",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 96
+    },
+    {
+      "key": "japan non-ferrous metals market",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "japan softgel capsule market",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 44
+    },
+    {
+      "key": "japan textile market",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 79
+    },
+    {
+      "key": "japanese banks",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 79
+    },
+    {
+      "key": "japanese pharmaceutical company",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 28.333333333333332
+    },
+    {
+      "key": "kokuyo co., ltd. earnings results",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "komatsu matere co.,ltd. earnings results",
+      "impressions": 10,
+      "clicks": 0,
+      "position": 4.4
+    },
+    {
+      "key": "konica minolta net worth",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 5
+    },
+    {
+      "key": "korea big companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "korea pay data reporting",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 59.5
+    },
+    {
+      "key": "korea rating",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 71
+    },
+    {
+      "key": "korea ratings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 60
+    },
+    {
+      "key": "korean biggest companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 85
+    },
+    {
+      "key": "korean companies",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 78.16666666666667
+    },
+    {
+      "key": "korean top companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "korean working women",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 82
+    },
+    {
+      "key": "krafton inc net worth",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "kusuri no aoki holdings co., ltd. earnings results",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 9.25
+    },
+    {
+      "key": "kz precision",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "large korean companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "largest companies in korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "largest companies in south korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 69.5
+    },
+    {
+      "key": "largest companies south korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 77.5
+    },
+    {
+      "key": "largest company in korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 77
+    },
+    {
+      "key": "largest company in south korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "largest korean companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 70.5
+    },
+    {
+      "key": "major korean companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 67.5
+    },
+    {
+      "key": "mitsuba corporation japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 27
+    },
+    {
+      "key": "mitsuboshi kogyo co.,ltd. yoy growth revenue",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 9.8
+    },
+    {
+      "key": "mochida pharmaceutical",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 45
+    },
+    {
+      "key": "money forward japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 55
+    },
+    {
+      "key": "morita holdings corporation",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "naigai co., ltd. earnings results",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "nakamoto packs",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "nanto bank",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 59
+    },
+    {
+      "key": "nikki corporation",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 37
+    },
+    {
+      "key": "nikon corporation japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 93
+    },
+    {
+      "key": "nippon dry chemical",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 34.75
+    },
+    {
+      "key": "nippon express holdings,inc. earnings results",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "nippon fine chemical",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 82
+    },
+    {
+      "key": "nippon seik",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 57
+    },
+    {
+      "key": "nippon shinyaku",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 52
+    },
+    {
+      "key": "number of employees at kawaden.co.jp",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "one api covering taiwan japan and korea equity data",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "onward holdings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 49
+    },
+    {
+      "key": "onward holdings co ltd",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 39
+    },
+    {
+      "key": "polaris ai pharma",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "popular korean companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "rakuten revenue",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "ryoden",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 41
+    },
+    {
+      "key": "screen holdings co ltd",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 57
+    },
+    {
+      "key": "se holdings and incubations stock",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 55
+    },
+    {
+      "key": "seibu holdings inc",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 39
+    },
+    {
+      "key": "seiwa electric",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 32.4
+    },
+    {
+      "key": "senko japan",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 52
+    },
+    {
+      "key": "shibaura machine co., ltd. earnings results",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 8.166666666666668
+    },
+    {
+      "key": "shiga corp",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "shin etsu japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 78
+    },
+    {
+      "key": "shin-etsu japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 75
+    },
+    {
+      "key": "shinobu foods",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 44
+    },
+    {
+      "key": "shinpoong",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 47
+    },
+    {
+      "key": "softbank corp",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 51
+    },
+    {
+      "key": "sojitz corporation",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "sojitz corporation japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 31
+    },
+    {
+      "key": "sojitz japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "sourcenext corporation",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 35
+    },
+    {
+      "key": "south korea big companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "south korea biggest companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "south korea biggest trading partners",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 3
+    },
+    {
+      "key": "south korea industrial rubber market",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 73.75
+    },
+    {
+      "key": "south korea rubber molding market",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 60.333333333333336
+    },
+    {
+      "key": "south korea silicone rubber market",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 79.375
+    },
+    {
+      "key": "south korea top 10 companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 80
+    },
+    {
+      "key": "south korea top 100 companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 63
+    },
+    {
+      "key": "south korea top companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "south korean companies",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 79.83333333333333
+    },
+    {
+      "key": "south korean top companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 68.5
+    },
+    {
+      "key": "stella chemifa corporation earnings results",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "strike japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "sumitomo heavy industries",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 59
+    },
+    {
+      "key": "sumitomo metal",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "taiyo yuden",
+      "impressions": 12,
+      "clicks": 0,
+      "position": 55.25
+    },
+    {
+      "key": "takachiho koheki co.,ltd. analyst price target disagreement * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "takachiho koheki co.,ltd. analyst price target disagreement * * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "takachiho koheki co.,ltd. bullish and bearish analyst opinions *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "takachiho koheki co.,ltd. bullish and bearish analyst opinions * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "takachiho koheki co.,ltd. bullish and bearish analyst opinions * * * *",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "takachiho koheki co.,ltd. bullish and bearish analyst opinions * * * * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "takachiho koheki co.,ltd. forecast and analysis *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "takachiho koheki co.,ltd. forecast and analysis * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "takachiho koheki co.,ltd. forecast and analysis * * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "takachiho koheki co.,ltd. forecast and analysis * * * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "takachiho koheki co.,ltd. forecast and analysis * * * * *",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "tamura corporation",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 97
+    },
+    {
+      "key": "the hyakujushi bank, ltd.",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 7.5
+    },
+    {
+      "key": "tis japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 53
+    },
+    {
+      "key": "tokyo gas",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "top 10 companies in korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "top 10 companies in south korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 72
+    },
+    {
+      "key": "top 10 korean companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 84
+    },
+    {
+      "key": "top 10 south korean companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "top companies in korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "top companies in south korea",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 80.33333333333333
+    },
+    {
+      "key": "top companies of south korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 75
+    },
+    {
+      "key": "top companies south korea",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 70.5
+    },
+    {
+      "key": "top company in korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "top korea companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "top korean companies",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 82.66666666666667
+    },
+    {
+      "key": "top korean company",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "top korean stocks",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "top south korean companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "top10",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 3
+    },
+    {
+      "key": "toppan japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "topy industries ltd",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 50
+    },
+    {
+      "key": "tosei corporation earnings results",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "trinity industrial corporation",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 28
+    },
+    {
+      "key": "ts corporation korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 38
+    },
+    {
+      "key": "ts tech japan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 90
+    },
+    {
+      "key": "tsi holdings company profile english",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 48
+    },
+    {
+      "key": "unerry",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 45
+    },
+    {
+      "key": "uni-president taiwan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 94
+    },
+    {
+      "key": "unisol holdings corporation earnings results",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "vertex corporation",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "vivozon",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "vt holdings",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 86
+    },
+    {
+      "key": "wacoal holdings corp",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 37
+    },
+    {
+      "key": "watahan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 14
+    },
+    {
+      "key": "what is the company name for albalink.co.jp",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "who is the ceo of hokkaidosenko.co.jp",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 10.25
+    },
+    {
+      "key": "woongjin group",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 45
+    },
+    {
+      "key": "ymirlink",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 17
+    },
+    {
+      "key": "yonyu plastics co., ltd. analyst price target disagreement * * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "yonyu plastics co., ltd. bullish and bearish analyst opinions * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "yonyu plastics co., ltd. bullish and bearish analyst opinions * * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "yonyu plastics co., ltd. bullish and bearish analyst opinions * * * *",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "yonyu plastics co., ltd. bullish and bearish analyst opinions * * * * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "yonyu plastics co., ltd. forecast and analysis * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "yonyu plastics co., ltd. forecast and analysis * * * *",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "zuiko corporation earnings results",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "일본 은행 순위",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 84
+    },
+    {
+      "key": "태양상사 last known annual revenue",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 7.666666666666667
+    }
+  ]
+}

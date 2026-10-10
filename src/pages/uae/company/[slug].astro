@@ -77,7 +77,29 @@ const x3 = (n: number | null) =>
   n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 3 });
 
 const 분기 = 줄?.period ?? null;
-const title = `${name} — reported financials (UAE)`;
+/* 🔴🔴 [2026-10-10 · 5번] **제목에만 종목기호가 빠져 있었다 — 어제 고친 것이 여기까지 안 왔다.**
+   ─────────────────────────────────────────────────────────────────────────
+   10-09 에 대만에서 똑같은 결함을 찾아 고쳤다(`taiwan/company/[slug].astro` 90~107줄).
+   그런데 **UAE 는 따라가지 않았다.** 오늘 갈래별로 다시 재다가 걸렸다 —
+       japan    `(code) earnings results …`        코드 있음
+       taiwan   `(code) — reported financials`     코드 있음 (10-09 고침)
+       company  `(code) — revenue, profit …`       코드 있음
+       uae      `name — reported financials (UAE)` ← **혼자 없다**
+   ⭐ 기호는 **이미 쥐고 있다** — 바로 아래 설명줄이 `(symbol)` 을 쓴다.
+     어제 대만에서 쓴 말 그대로다: 쥐고 있는 것을 제목에만 안 쓴 것이다.
+   ⛔ 「하나를 고치면 인용한 곳까지 따라간다」를 또 어겼다. 어제 대만을 고칠 때
+     같은 꼴의 갈래 넷을 다 봤어야 했다. 고치고 끝내면 나머지가 틀린 채 남는다.
+
+   ⛔ 「earnings results」는 **안 넣는다.** 10-09 에 못 박은 그대로다 —
+     일본에 넣은 것은 평균 8.2위라는 근거가 있어서였고, UAE 에는 그 말로 들어온 노출이 없다.
+     근거 없는 데로 옮기지 않는다.
+   ⚠ 이것은 **갈래 사이의 일관성을 맞춘 것**이지 UAE 쪽 검색어 근거가 있어서가 아니다.
+     그러니 이것으로 수가 오를 것이라 말하지 않는다. 기준선만 남긴다 —
+     고치기 «전»(28일, 09-09~10-07): 105장 중 뜬 것 12장 · 노출 22 · 클릭 0
+       자리가 둘로 갈려 있었다 — 2~10위 여섯 장 · 46~87위 여섯 장
+       ⚠ 처음에 「가운데 자리 46위」로 적었다가 접었다. 쌍봉이라 중앙값이
+         **어느 쪽도 아닌 자리**를 가리킨 것이다. 갈래를 중앙값 하나로 판단하지 않는다. */
+const title = `${name} (${symbol}) — reported financials (UAE)`;
 const 설명줄 = 줄 && 줄.revenue != null
   ? `${name} (${symbol}) reported AED ${mn(줄.revenue)}mn of revenue in ${분기 ?? 'its latest filed quarter'}.`
   : `${name} (${symbol}) — financials as filed with the ${exchangeName ?? 'exchange'}.`;
