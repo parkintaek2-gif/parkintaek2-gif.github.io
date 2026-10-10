@@ -124,17 +124,38 @@ export function 살핀다(몸통) {
  *
  * @returns {{연다:boolean, 막힌것:string[], 못잰것:string[]}}
  */
-export function 돈길살핀다({ 토스, 페이팔, 로그인 } = {}) {
+export function 돈길살핀다({ 토스, 페이팔, 로그인, 건강 } = {}) {
   const 막힌것 = [];
   const 못잰것 = [];
 
-  /** 열쇠가 없어서 못 본 것인가 — 401·403 이거나 몸통이 열쇠 타령을 하면 그렇다 */
+  /** 열쇠가 없어서 못 본 것인가 — 401·403 이거나 몸통이 열쇠 타령을 하면 그렇다.
+      ⛔ 쓰는 자리보다 «위»에 둔다. 아래에 두면 TDZ 로 터진다(2026-10-10 에 그랬다) */
   const 열쇠에막혔나 = (r) => {
     if (!r) return false;
     if (r.상태 === 401 || r.상태 === 403) return true;
     return /api-key|api_key|unauthor|invalid or missing/i.test(String(r?.error ?? r?.몸?.error ?? ''));
   };
 
+  /**
+   * 🔴 [2026-10-10 19:0x · 5번] **열쇠 없이도 재는 길이 생겼다.**
+   * `/api/health` 의 `checks.optional.payments` 가 돈길을 밖으로 낸다(값은 안 낸다).
+   * 401 로 막힌 문을 두드려 「못 쟀다」를 매시 쌓는 대신 **이것을 먼저 본다.**
+   * ⛔ 늘 「못 쟀다」인 자리는 결국 안 읽힌다 — 진짜로 꺼진 날을 못 가린다.
+   * ⚠ 이 칸이 없는(아직 배포 전) 서버면 그냥 아래 옛 길로 간다. 억지로 읽지 않는다.
+   */
+  const 돈 = 건강?.checks?.optional?.payments;
+  if (돈 && typeof 돈 === 'object') {
+    if (돈.toss === 'live') { /* 열렸다 */ }
+    else if (돈.toss === 'test_key_only') 막힌것.push('토스가 «심사용 테스트 열쇠»다 — 손님이 눌러도 돈이 안 들어온다');
+    else 막힌것.push('토스 결제가 꺼져 있다 — 원화로 받을 길이 없다');
+    if (돈.paypal !== 'configured') 막힌것.push('페이팔이 꺼져 있다 — 해외 손님은 못 산다');
+    const 것0 = Array.isArray(로그인?.providers) ? 로그인.providers : [];
+    if (열쇠에막혔나(로그인)) 못잰것.push('소셜 로그인 — 열쇠가 없어 못 봤다');
+    else if (것0.length === 0) 막힌것.push('소셜 로그인이 하나도 없다 — 손님이 문 앞에서 막힌다');
+    return { 연다: 막힌것.length === 0, 막힌것, 못잰것 };
+  }
+
+  /* ⬇ 아래는 health 에 돈길 칸이 «없는» 서버를 위한 옛 길이다 */
   if (열쇠에막혔나(토스)) {
     못잰것.push('토스 — 열쇠가 없어 상태를 못 봤다 (SAJU_API_KEY 를 주면 잰다)');
   } else if (!토스 || 토스.ok !== true || !토스.enabled) {
@@ -296,6 +317,26 @@ function 자가시험() {
   검('⛔ 못 잰 칸이 있으면 막힌 것이 없어도 그냥 «연다»로 끝내지 않는다',
     돈길살핀다(열쇠막힘).못잰것.length > 0, true);
 
+  /* 🔴 [2026-10-10 19:0x] health 가 돈길을 내주면 401 에 안 막힌다.
+     ⛔ 넣어 보고 정말 그 길로 가는지 본다 — 안 가면 매시 「못 쟀다」가 그대로 쌓인다 */
+  const 건강돈길 = (p) => ({ ...열쇠막힘, 건강: { checks: { optional: { payments: p } } } });
+  검('🔴 health 에 돈길이 있으면 401 이어도 «못 쟀다»가 안 나온다',
+    돈길살핀다(건강돈길({ toss: 'live', paypal: 'configured' })).못잰것.length, 0);
+  검('🔴 그때 돈길은 «열린다»로 읽는다',
+    돈길살핀다(건강돈길({ toss: 'live', paypal: 'configured' })).연다, true);
+  검('🔴 토스가 테스트 열쇠면 막힌 것으로 잡는다',
+    돈길살핀다(건강돈길({ toss: 'test_key_only', paypal: 'configured' }))
+      .막힌것.some((x) => x.includes('테스트 열쇠')), true);
+  검('🔴 토스가 아예 꺼졌으면 그렇게 잡는다',
+    돈길살핀다(건강돈길({ toss: 'not_configured', paypal: 'configured' }))
+      .막힌것.some((x) => x.includes('꺼져')), true);
+  검('🔴 페이팔이 꺼졌으면 해외가 닫힌 것으로 잡는다',
+    돈길살핀다(건강돈길({ toss: 'live', paypal: 'not_configured' }))
+      .막힌것.some((x) => x.includes('페이팔')), true);
+  검('⛔ health 에 돈길 칸이 없으면 옛 길로 간다 — 아직 배포 전인 서버다',
+    돈길살핀다({ ...열쇠막힘, 건강: { checks: { optional: {} } } }).못잰것.length, 2);
+  검('⛔ health 가 아예 없어도 안 터진다', 돈길살핀다(열쇠막힘).못잰것.length, 2);
+
   /* ⛔ 다만 AI 리포트는 «상품»이다 — 이건 기다림이 아니라 상함이다 */
   const AI꺼짐 = { status: 'degraded', checks: { database: { status: 'ok' }, engine: { status: 'ok' },
     optional: { aiReports: 'not_configured', email: 'configured', oauth: 'configured' } } };
@@ -351,7 +392,7 @@ const [토스, 페이팔, 로그인] = await Promise.all([
   물어본다('/api/billing/paypal/status'),
   물어본다('/api/auth/providers'),
 ]);
-const 돈길 = 돈길살핀다({ 토스, 페이팔, 로그인 });
+const 돈길 = 돈길살핀다({ 토스, 페이팔, 로그인, 건강: 몸통 });
 
 const 본것 = 살핀다(몸통);
 console.log('■ klifemap — 매출이 나는 서비스다. 밖에서 잰다');
