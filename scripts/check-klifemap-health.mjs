@@ -109,30 +109,52 @@ export function 살핀다(몸통) {
 }
 
 /**
- * 🔴 **돈길을 잰다 — 「손님이 살 수 있나」.**
+ * 🔴🔴 [2026-10-10 17:1x · 5번] **「못 봤다」를 「꺼져 있다」로 적고 있었다.**
  *
- * 이것이 없어서 2026-09-12 아침에 「성하다」를 냈다. 서버가 사는 것과 장사가 되는 것은 다르다.
- * ⛔ 「enabled: true」를 「판다」로 읽지 않는다 — 토스는 «테스트 키»로도 enabled 가 참이다.
- *   test_ 로 시작하는 열쇠는 돈이 안 들어온다. 그것이 닫힌 것과 같다.
+ * 오늘 13시에 내가 klifemap 에 `SAJU_API_KEY` 를 넣어 열쇠 자물쇠를 켰다.
+ * 그러자 이 자가 맨몸으로 두드리던 `/api/billing/toss/status` 가 **401** 을 돌려주기
+ * 시작했고, 이 자는 그것을 「토스 결제가 꺼져 있다 — 원화로 받을 길이 없다」로 적었다.
+ * **결제는 멀쩡한데 내가 못 보고 있는 것**이다.
  *
- * @returns {{연다:boolean, 막힌것:string[]}}
+ * ⭐ 「하나를 고치면 인용한 곳까지 따라간다」 — 열쇠를 켰으면 그 문을 두드리던 자까지
+ *   따라갔어야 했다. 나는 고친 자리만 보고 끝냈다.
+ * ⛔ 「못 쟀다」와 「꺼졌다」는 다른 말이다. 섞으면 멀쩡한 것을 고치러 가게 된다 —
+ *   그리고 진짜로 꺼진 날 아무도 안 믿는다.
+ * ✅ 열쇠가 있으면 보내서 «제대로» 재고, 없으면 ⬜ 못 쟀다고 적는다.
+ *
+ * @returns {{연다:boolean, 막힌것:string[], 못잰것:string[]}}
  */
 export function 돈길살핀다({ 토스, 페이팔, 로그인 } = {}) {
   const 막힌것 = [];
+  const 못잰것 = [];
 
-  if (!토스 || 토스.ok !== true || !토스.enabled) {
+  /** 열쇠가 없어서 못 본 것인가 — 401·403 이거나 몸통이 열쇠 타령을 하면 그렇다 */
+  const 열쇠에막혔나 = (r) => {
+    if (!r) return false;
+    if (r.상태 === 401 || r.상태 === 403) return true;
+    return /api-key|api_key|unauthor|invalid or missing/i.test(String(r?.error ?? r?.몸?.error ?? ''));
+  };
+
+  if (열쇠에막혔나(토스)) {
+    못잰것.push('토스 — 열쇠가 없어 상태를 못 봤다 (SAJU_API_KEY 를 주면 잰다)');
+  } else if (!토스 || 토스.ok !== true || !토스.enabled) {
     막힌것.push('토스 결제가 꺼져 있다 — 원화로 받을 길이 없다');
   } else if (토스.live === false || String(토스.clientKey ?? '').startsWith('test_')) {
     막힌것.push('토스가 «테스트 열쇠»로 돌고 있다 — 손님이 눌러도 돈이 들어오지 않는다');
   }
 
   /* 페이팔은 해외 손님 몫이다. 없으면 «해외가 닫힌 것»이지 국내까지 닫힌 것은 아니다 */
-  if (!페이팔 || 페이팔.enabled !== true) 막힌것.push('페이팔이 꺼져 있다 — 해외 손님은 못 산다');
+  if (열쇠에막혔나(페이팔)) {
+    못잰것.push('페이팔 — 열쇠가 없어 상태를 못 봤다 (SAJU_API_KEY 를 주면 잰다)');
+  } else if (!페이팔 || 페이팔.enabled !== true) {
+    막힌것.push('페이팔이 꺼져 있다 — 해외 손님은 못 산다');
+  }
 
   const 것 = Array.isArray(로그인?.providers) ? 로그인.providers : [];
-  if (것.length === 0) 막힌것.push('소셜 로그인이 하나도 없다 — 손님이 문 앞에서 막힌다');
+  if (열쇠에막혔나(로그인)) 못잰것.push('소셜 로그인 — 열쇠가 없어 못 봤다');
+  else if (것.length === 0) 막힌것.push('소셜 로그인이 하나도 없다 — 손님이 문 앞에서 막힌다');
 
-  return { 연다: 막힌것.length === 0, 막힌것 };
+  return { 연다: 막힌것.length === 0, 막힌것, 못잰것 };
 }
 
 /**
@@ -256,6 +278,24 @@ function 자가시험() {
       페이팔: { enabled: true }, 로그인: { providers: ['google'] } }).연다, false);
   검('아예 못 받았으면 «연다»고 하지 않는다', 돈길살핀다({}).연다, false);
 
+  /* 🔴🔴 [2026-10-10] 오늘 내가 켠 열쇠에 이 자가 막혔다. 401 을 「꺼졌다」로 적었다.
+     ⛔ 넣어 보고 정말 가르는지 본다 — 안 가르는 검사는 거짓 빨강을 낸다 */
+  const 열쇠막힘 = {
+    토스: { ok: false, error: 'invalid or missing x-api-key', 상태: 401 },
+    페이팔: { ok: false, error: 'invalid or missing x-api-key', 상태: 401 },
+    로그인: { ok: true, providers: ['google', 'naver', 'kakao'] },
+  };
+  검('🔴 401 을 «꺼졌다»로 적지 않는다 — 오늘 이것을 틀렸다',
+    돈길살핀다(열쇠막힘).막힌것.length, 0);
+  검('🔴 대신 «못 쟀다»로 둘을 적는다', 돈길살핀다(열쇠막힘).못잰것.length, 2);
+  검('⛔ 403 도 같이 본다', 돈길살핀다({ 토스: { ok: false, 상태: 403 } }).못잰것.length > 0, true);
+  검('⛔ 열쇠와 상관없이 «정말 꺼진 것»은 그대로 잡는다 — 덜 잡으면 진짜 사고를 놓친다',
+    돈길살핀다({ 토스: { ok: true, enabled: false, 상태: 200 },
+      페이팔: { ok: true, enabled: true, 상태: 200 },
+      로그인: { providers: ['google'] } }).막힌것.length, 1);
+  검('⛔ 못 잰 칸이 있으면 막힌 것이 없어도 그냥 «연다»로 끝내지 않는다',
+    돈길살핀다(열쇠막힘).못잰것.length > 0, true);
+
   /* ⛔ 다만 AI 리포트는 «상품»이다 — 이건 기다림이 아니라 상함이다 */
   const AI꺼짐 = { status: 'degraded', checks: { database: { status: 'ok' }, engine: { status: 'ok' },
     optional: { aiReports: 'not_configured', email: 'configured', oauth: 'configured' } } };
@@ -290,10 +330,20 @@ try {
 } catch { 몸통 = null; }
 
 /* 🔴 돈길도 함께 잰다 — 서버가 사는 것과 «장사가 되는 것»은 다르다 */
+/**
+ * ⛔ 열쇠 «값»을 화면에도 기록에도 안 찍는다 — 있으면 머리줄로 보내기만 한다.
+ * ⚠ 몸통에 `상태`(HTTP 코드)를 같이 담는다. 401 을 「꺼졌다」로 읽지 않기 위해서다.
+ */
 async function 물어본다(길) {
+  const 열쇠 = process.env.SAJU_API_KEY || process.env.KLIFEMAP_API_KEY || '';
   try {
-    const r = await fetch('https://klifemap.ai' + 길, { signal: AbortSignal.timeout(20000) });
-    return await r.json();
+    const r = await fetch('https://klifemap.ai' + 길, {
+      signal: AbortSignal.timeout(20000),
+      headers: 열쇠 ? { 'x-api-key': 열쇠 } : {},
+    });
+    let 몸 = null;
+    try { 몸 = await r.json(); } catch { 몸 = null; }
+    return { ...(몸 && typeof 몸 === 'object' ? 몸 : {}), 상태: r.status, 몸 };
   } catch { return null; }
 }
 const [토스, 페이팔, 로그인] = await Promise.all([
@@ -339,14 +389,24 @@ if (고리.고리다) {
 }
 
 /* 🔴 돈길을 «맨 먼저» 낸다. 사장님이 물으시는 것은 「팔리나」이지 「떠 있나」가 아니다 */
-if (돈길.연다) {
-  console.log('   ✅ 돈길 — 손님이 «살 수 있다»');
-} else {
+if (돈길.막힌것.length) {
   console.log('   🔴 돈길이 막혔다 — 손님이 «살 수 없다»');
   for (const x of 돈길.막힌것) console.log('      · ' + x);
+} else if (돈길.못잰것.length) {
+  console.log('   ⬜ 돈길을 못 쟀다 — 「꺼졌다」가 아니다');
+  for (const x of 돈길.못잰것) console.log('      · ' + x);
+  console.log('      ⚠ 2026-10-10 에 열쇠 자물쇠를 켜면서 이 자가 문밖에 섰다.');
+  console.log('        SAJU_API_KEY 를 환경변수로 주면 그대로 잰다. ⛔ 값은 화면에 안 찍는다');
+} else {
+  console.log('   ✅ 돈길 — 손님이 «살 수 있다»');
 }
 
 if (본것.판정 === '성함' && 돈길.연다) {
+  /* ⛔ 못 잰 칸이 있으면 「성하다」라고 하지 않는다 — 안 본 것을 봤다고 적는 것이다 */
+  if (돈길.못잰것.length) {
+    console.log('   ⬜ 서버는 성하다 (status ' + 본것.말 + '). 돈길은 못 쟀다 — 위를 본다');
+    process.exit(0);
+  }
   console.log('   ✅ 성하다 (status ' + 본것.말 + ')');
   process.exit(0);
 }

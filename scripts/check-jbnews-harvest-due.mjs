@@ -21,6 +21,19 @@
  *   기사가 없어서 못 보낸 날에도 거두러는 갔으면 통과다.
  * ⚠ 1번(jbnews) 자리가 07~21시이므로 그 밖의 시각은 재지 않는다.
  *
+ * ── 🔴🔴 [2026-10-10 17:0x · 5번] **쉬는 날에 여섯 회차가 밀렸다고 울었다.**
+ * 오늘은 토요일이다. 수집기는 「오늘은 토요일. 한 편도 안 보낸다」로 바로 멈춘다
+ * (사장님 2026-10-05 「휴일엔 중부매일기사 쓰지 말라니까」).
+ * 그런데 이 자는 **그 물음을 안 하고** 회차 표만 읽어 09·10·11·14·15·16 여섯을
+ * 「안 거뒀다」고 찍었다. 거둘 것이 애초에 없는 날이다.
+ *
+ * ⛔ 거짓으로 우는 자물쇠는 결국 꺼진다 — 꺼진 자물쇠는 없는 것과 같다.
+ * ⭐ 수집기가 「안 보낸다」고 판정하는 날은 이 자도 **같은 까닭으로** 조용해야 한다.
+ *   그 판정을 여기에 다시 적지 않고 `한국-공휴일.mjs` 한 곳에서 가져온다 —
+ *   회차 표를 수집기 한 곳에서만 읽는 것과 같은 까닭이다.
+ * ⚠ 공휴일 표를 모르는 해는 「모른다」이지 「쉰다」가 아니다. 그때는 그냥 잰다 —
+ *   덜 재면 진짜 밀린 회차를 놓치고, 그것이 더 나쁘다.
+ *
  * 쓰는 법
  *   node scripts/check-jbnews-harvest-due.mjs --자가시험
  *   node scripts/check-jbnews-harvest-due.mjs
@@ -28,6 +41,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 쉬는날인가 } from './한국-공휴일.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 기록길 = path.join(뿌리, 'docs', '고정업무-마커', '중부매일-거둔기록.tsv');
@@ -124,6 +138,21 @@ if (process.argv.includes('--자가시험')) {
   const 진짜 = 회차시각들(fs.readFileSync(path.join(뿌리, 'scripts', 'collect-jbnews-sports-articles.mjs'), 'utf8'));
   검('🔴 진짜 회차 표가 비어 있지 않다', 진짜.length > 0, `${진짜.join(' ')}`);
 
+  /* 🔴🔴 [2026-10-10] 오늘 이 자가 토요일에 여섯 회차를 「밀렸다」고 울었다.
+     ⛔ 넣어 보고 정말 조용한지 본다 — 안 잡는 검사는 거짓 초록만 낸다 */
+  const 토 = 쉬는날인가(new Date(2026, 9, 10));          /* 2026-10-10 토요일 */
+  검('🔴 토요일을 쉬는 날로 안다 — 오늘 이것을 안 물어서 거짓 빨간불이 켜졌다',
+    토.안다 === true && 토.쉰다 === true, `${토.까닭}`);
+  const 한글날 = 쉬는날인가(new Date(2026, 9, 9));        /* 2026-10-09 금요일 한글날 */
+  검('🔴 평일이어도 공휴일이면 쉬는 날이다 — 10-05 대체공휴일에 기사가 나갔던 그 꼴',
+    한글날.안다 === true && 한글날.쉰다 === true, `${한글날.까닭}`);
+  const 평일 = 쉬는날인가(new Date(2026, 9, 8));          /* 2026-10-08 목요일 */
+  검('⛔ 평일에는 그대로 잰다 — 덜 재면 진짜 밀린 회차를 놓친다',
+    평일.안다 === true && 평일.쉰다 === false, `${평일.까닭}`);
+  const 모르는해 = 쉬는날인가(new Date(2099, 4, 6));       /* 공휴일 표가 없는 해의 평일 */
+  검('⛔ 공휴일 표가 없는 해는 「모른다」이지 「쉰다」가 아니다 — 그때는 그냥 잰다',
+    모르는해.안다 === false && 모르는해.쉰다 !== true, `${모르는해.까닭}`);
+
   console.log(`\n${깨짐 ? `🔴 ${깨짐}/${센다} 깨졌다` : `✅ ${센다} 다 섰다`}`);
   process.exit(깨짐 ? 1 : 0);
 }
@@ -134,6 +163,15 @@ if (path.resolve(process.argv[1] ?? '') === path.resolve(이자)) {
   const 이제 = new Date();
   const 날 = 이제.toLocaleDateString('sv-SE');          /* ⛔ toISOString 금지 — KST 다 */
   const 지금분 = 이제.getHours() * 60 + 이제.getMinutes();
+
+  /* 🔴 쉬는 날이면 거둘 것이 없다 — 수집기가 보내지 않으므로 밀릴 회차 자체가 없다.
+     ⛔ 「모른다」로는 안 멈춘다. 아는 쉬는 날에만 멈춘다 */
+  const 쉼 = 쉬는날인가(이제);
+  if (쉼.안다 && 쉼.쉰다 === true) {
+    console.log(`✅ 밀린 회차 없다 — 오늘은 ${쉼.까닭}. 수집기가 한 편도 안 보낸다`);
+    console.log('   ⚠ 사장님이 그날만 여시면 수집기에 --휴일에도 를 붙여 돌린다');
+    process.exit(0);
+  }
 
   const 회차 = 회차시각들(fs.readFileSync(path.join(뿌리, 'scripts', 'collect-jbnews-sports-articles.mjs'), 'utf8'));
   if (!회차.length) {
