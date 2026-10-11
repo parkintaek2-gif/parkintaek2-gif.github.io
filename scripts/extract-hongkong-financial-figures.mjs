@@ -38,6 +38,7 @@ if (!process.argv.includes('--약관을-읽었고-라이선스가-있다')) {
  *   node scripts/extract-hongkong-financial-figures.mjs [--개수 20]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -178,7 +179,9 @@ async function 모은다(개수 = 20) {
   }
 
   fs.mkdirSync(낼폴더, { recursive: true });
-  const 낼이름 = `${new Date().toISOString().slice(0, 10)}.json`;
+  /* 🔴 [2026-10-11 · 5번] toISOString() 은 UTC 다 — 밤 9시 뒤에 돌리면 «전날» 파일에 쌓인다.
+     사장님: 「한국표준시간으로 하는 걸 못박아놔」. 이 PC 는 이미 한국시간이다. */
+  const 낼이름 = `${오늘()}.json`;
   const 기존 = fs.existsSync(path.join(낼폴더, 낼이름)) ? JSON.parse(fs.readFileSync(path.join(낼폴더, 낼이름), 'utf8')).벌 : [];
   const 낼것 = {
     _메모: {
