@@ -408,9 +408,13 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/fixed-variable-rate-share', changefreq: 'weekly', priority: '0.7' },
       { loc: '/data/ppi-import-price-gap', changefreq: 'weekly', priority: '0.7' },
       { loc: '/data/industry-production-divergence', changefreq: 'weekly', priority: '0.7' },
-      { loc: '/data/bank-loan-delinquency', changefreq: 'weekly', priority: '0.7' },
+      /* 🔴 [2026-10-11 13:4x · 5번] `/data/bank-loan-delinquency` 와
+         `/data/mortgage-balance-gender-gap` 두 줄을 뺐다 — 그 지면을 **내렸다.**
+         둘 다 korea-household-debt.json 하나로만 서 있었고 그 안의 네 계열이 전부
+         판정이 안 났다(901Y124 은행연합회 🔴 · 나머지 셋 ORG_NAME null ⬜).
+         ⛔ 사이트맵에 남겨 두면 구글이 404 를 긁는다 — 내릴 때 «같이» 뺀다.
+         ⚠ 되살릴 때 이 두 줄도 함께 되돌린다. docs/내린지면/README.md */
       { loc: '/data/trade-by-product', changefreq: 'weekly', priority: '0.7' },
-      { loc: '/data/mortgage-balance-gender-gap', changefreq: 'weekly', priority: '0.7' },
       { loc: '/data/credit-balance', changefreq: 'weekly', priority: '0.7' },
       { loc: '/data/telecom-cpi-base-effect', changefreq: 'monthly', priority: '0.7' },
       { loc: '/data/real-wage-plateau', changefreq: 'monthly', priority: '0.7' },

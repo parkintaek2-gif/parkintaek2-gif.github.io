@@ -41,10 +41,30 @@ export const 못내는자료 = {
     '901Y124 는 은행연합회 작성(🔴 승인 필요) · 151Y001·181Y012·181Y015 는 ORG_NAME null(⬜ 못 쟀다)',
 };
 
+/**
+ * 주석을 걷는다 — **주석에 적힌 이름은 «읽는 것»이 아니다.**
+ *
+ * 🔴 [2026-10-11 13:5x · 5번] 오늘 그 지면 둘을 내리면서 사이트맵에
+ *   「왜 뺐는지」를 주석으로 적었는데, 그 안에 자료 이름이 들어가 **이 자가 또 울었다.**
+ *   지면은 그 자료를 더 이상 안 읽는다 — 주석 한 줄이 남았을 뿐이다.
+ *   ⭐ 「이름이 나오면 읽는 것」은 대리 지표였다. 주석은 돌지 않으니 자료를 못 읽는다.
+ *
+ * ⛔ 줄 «가운데» 의 `//` 는 안 걷는다 — `https://…` 의 두 빗금을 주석으로 읽으면
+ *   그 줄이 통째로 사라져 **이 자가 눈을 감는다.** 줄 맨 앞의 `//` 만 걷는다.
+ * ⛔ 주석으로 감싸서 이 자를 끌 수는 없다 — 주석 안의 import 는 돌지 않으니
+ *   자료가 지면에 닿지도 않는다. 끄려면 코드에서 빼야 하고, 그것이 바로 우리가 바라는 것이다.
+ */
+export function 주석걷기(소스) {
+  return String(소스 ?? '')
+    .replace(/\{\s*\/\*[\s\S]*?\*\/\s*\}/g, ' ')   /* JSX 주석 */
+    .replace(/\/\*[\s\S]*?\*\//g, ' ')             /* 덩이 주석 */
+    .replace(/^[ \t]*\/\/.*$/gm, ' ');             /* 줄 맨 앞의 한 줄 주석만 */
+}
+
 /** 지면이 이 자료를 읽고 있나 — import·fetch·경로 어느 꼴이든 이름이 나오면 읽는 것으로 본다 */
 export function 읽는가(소스, 파일이름) {
   if (!소스 || !파일이름) return false;
-  return String(소스).includes(String(파일이름));
+  return 주석걷기(소스).includes(String(파일이름));
 }
 
 /** 지면 쪽 파일인가 — 손님에게 가는 것만 본다 */
@@ -76,6 +96,26 @@ if (process.argv.includes('--자가시험')) {
     읽는가("await fetch('/data/korea-household-debt.json')", 'korea-household-debt.json'));
   본다('⛔ 다른 자료는 안 잡는다', !읽는가("import d from '../data/gulf.json'", 'korea-household-debt.json'));
   본다('⛔ 빈 것에 안 터진다', !읽는가(null, 'x') && !읽는가('x', null) && !읽는가('', ''));
+
+  /* 🔴 [2026-10-11 13:5x · 5번] **주석에 적힌 이름은 «읽는 것»이 아니다.**
+     그 지면 둘을 내리면서 사이트맵에 「왜 뺐는지」를 주석으로 적었더니 이 자가 또 울었다.
+     지면은 그 자료를 더 이상 안 읽는다 — 주석 한 줄이 남았을 뿐이다. */
+  본다('🔴 덩이 주석 속 이름은 안 잡는다',
+    !읽는가('/* 그 지면을 내렸다 — korea-household-debt.json 때문이다 */\nconst a = 1;',
+      'korea-household-debt.json'));
+  본다('🔴 JSX 주석 속 이름도 안 잡는다',
+    !읽는가("{/* korea-household-debt.json 을 뺐다 */}\n<p>ok</p>", 'korea-household-debt.json'));
+  본다('🔴 줄 맨 앞 한 줄 주석도 걷는다',
+    !읽는가('  // korea-household-debt.json 을 뺐다\nconst a = 1;', 'korea-household-debt.json'));
+
+  /* ⛔⛔ 걷기가 너무 넓으면 이 자가 «눈을 감는다» — 넓힐 때마다 이것부터 본다 */
+  본다('⛔⛔ 주석 «옆»의 진짜 import 는 그대로 잡는다',
+    읽는가("/* 아래는 남긴다 */\nimport d from '../data/korea-household-debt.json';",
+      'korea-household-debt.json'));
+  본다('⛔⛔ 줄 «가운데» 의 // 는 안 걷는다 — https:// 를 주석으로 읽으면 그 줄이 통째로 사라진다',
+    읽는가("const u = 'https://x.test/data/korea-household-debt.json';", 'korea-household-debt.json'));
+  본다('⛔ 주석으로 감싸도 끌 수 없다 — 주석 안의 import 는 돌지 않아 지면에 닿지도 않는다',
+    !읽는가("/* import d from '../data/korea-household-debt.json'; */", 'korea-household-debt.json'));
 
   본다('astro 는 지면이다', 지면인가('src/pages/data/korea-debt.astro'));
   본다('컴포넌트도 지면이다', 지면인가('src/components/Chart.tsx'));
