@@ -264,6 +264,9 @@ export const 붙일수있는갈래 = [
   /* [2026-10-02 · 1번] 사장님 지시(5번 경유) — 국가데이터처 「2026 고령자 통계」 지면 둘.
      ⛔ 기타로 쌓이면 소급이 안 된다. 만든 날 같이 올린다. */
   'elderly-money-gap', 'elderly-work-reason',
+  /* [2026-10-11 · 5번] 같은 고령자 묶음인데 이 한 장이 빠져 `at=기타` 로 나가고 있었다.
+     ⚠ 이 목록은 «두 벌»이다(위쪽 `어른갈래`에도 같은 줄이 있다). 고칠 때 어느 쪽인지 보고 고친다. */
+  'elderly-abuse-rate',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary', 'tutoring', 'tutoring-region', 'tutoring-income',
   /* 🔴 2026-09-11 3번 신설 — 사장님 지시. 학생자살 사망사안 보고서(한겨레 인용) */
