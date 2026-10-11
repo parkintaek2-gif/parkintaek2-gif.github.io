@@ -28,6 +28,7 @@
  *   node scripts/check-지면에-빈자리가-나가나.mjs --자가시험
  */
 import fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -116,6 +117,28 @@ export function 자가시험() {
 }
 
 /* ── 혼자 돌 때 ───────────────────────────────────────────────────────── */
+/**
+ * 🔴 [2026-10-12 · 5번] **라이브에 안 나가는 지면은 세지 않는다.**
+ *   dist/100y/school-type.html 이 「[object Object]」로 빨간불이었는데, 그 지면은
+ *   안 쓰기로 해서 .gitignore 로 막아 둔 중복 지면이다 — 라이브에서 눌러 보니 404 다.
+ *   저장소에 안 올라가니 배포도 안 된다. **안 나가는 지면의 흠은 흠이 아니다.**
+ *   ⛔ 그런데 이 빨간불은 영영 안 꺼지고, 그 옆의 «진짜» 빨간불을 가린다.
+ *   ⛔ 조용히 빼지 않는다 — 몇 장을 안 셌는지 화면에 적는다.
+ */
+function 안나가는지면인가(dist길, 뿌리길) {
+  const 뒤 = path.relative(path.join(뿌리길, 'dist'), dist길).split(path.sep).join('/');
+  const 후보 = [뒤.replace(/\.html$/, '/index.astro'), 뒤.replace(/\.html$/, '.astro')]
+    .map((x) => 'src/pages/' + x);
+  for (const c of 후보) {
+    if (!fs.existsSync(path.join(뿌리길, c))) continue;
+    try {
+      execFileSync('git', ['check-ignore', '-q', c], { cwd: 뿌리길 });
+      return true;                      /* git 이 막는 소스 — 배포에 안 간다 */
+    } catch { return false; }           /* 막히지 않았다 = 나가는 지면이다 */
+  }
+  return false;                         /* 소스를 못 찾으면 «나간다»로 본다 — 안전한 쪽 */
+}
+
 const 내가실행됐다 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
 if (내가실행됐다) {
   if (process.argv.includes('--selftest') || process.argv.includes('--자가시험')) {
@@ -137,8 +160,10 @@ if (내가실행됐다) {
     훑기(밑);
   }
 
-  let 걸린장 = 0; let 걸린수 = 0;
+  let 걸린장 = 0; let 걸린수 = 0; let 안센장 = 0;
   for (const p of 것들) {
+    /* 🔴 라이브에 안 나가는 지면은 세지 않는다 — 안 꺼지는 빨간불이 다른 불을 가린다 */
+    if (안나가는지면인가(p, 뿌리)) { 안센장 += 1; continue; }
     const html = fs.readFileSync(p, 'utf8');
     const 빈것 = 빈강조찾기(html);
     const 샌것 = 샌말찾기(html);
@@ -148,7 +173,7 @@ if (내가실행됐다) {
     for (const x of 빈것.slice(0, 3)) console.log(`     빈 강조 — ${x.둘레}`);
     for (const x of 샌것.slice(0, 3)) console.log(`     「${x.말}」이 샜다 — ${x.둘레}`);
   }
-  console.log(`\n■ 지면 ${것들.length}장 · 걸린 장 ${걸린장}장 · 자리 ${걸린수}곳`);
+  console.log(`\n■ 지면 ${것들.length}장 · 걸린 장 ${걸린장}장 · 자리 ${걸린수}곳` + (안센장 ? ` · ⬜ 안 나가는 지면 ${안센장}장은 안 셌다` : ''));
   if (걸린수) {
     console.log('   ⛔ 이 자는 단정하지 않는다 — 열어 보고 사람이 정한다.');
     console.log('   ⭐ 보는 법 — 그 자리에 «숫자를 넣으려던 것»인가. 그러면 자료의 열쇠 이름이 틀렸다.');
