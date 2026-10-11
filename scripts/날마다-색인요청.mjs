@@ -388,11 +388,27 @@ if (내가실행됐다) {
    *   ⛔ klifemap 을 버리지 않는다 — 돌아가며 넣는 것이지 갈아타는 것이 아니다.
    *   ⚠ 상품 페이지는 41개뿐이라 며칠이면 다 들어간다. 그 뒤에는 저절로 다음 차례로 간다.
    */
+  /* 🔴🔴 [2026-10-12 07:4x · 5번] **차례 자체가 기울어 있었다 — 넷 중 셋이 seoulmarkets.**
+   *
+   *   아침에 「돌아가며 넣는다」를 코드에 넣고 자를 돌렸더니 ✅ 가 떴는데,
+   *   그 ✅ 는 **고치기 «전»의 닷새**를 센 것이었다. 앞으로를 말해 주지 않는다.
+   *   앞으로를 짜 보니 **klifemap 은 나흘에 하루 — 25%** 였다.
+   *   그날은 사이트맵 «하나»에서 열 장을 다 쓰므로(아래 `break`), 차례가 곧 몫이다.
+   *
+   *   ⭐⭐ 쏠림의 «방향»은 고쳤는데 «크기»가 남아 있었다. 고치기는 두 겹이었다.
+   *
+   * ⇒ klifemap/sitemap.xml 을 넣고 **번갈아** 놓는다. 다섯 자리, 3:2 — 40%.
+   *   ⛔ 「klifemap 에 다 준다」로 가지 않는다 — 그것이 오늘 아침 겪은 반대쪽으로 넘어가기다.
+   *     2026-10-06 에는 klifemap 만, 오늘 아침엔 seoulmarkets 만 넣고 있었다.
+   *   ⛔ sitemap-video.xml(1장)은 안 넣는다 — 그날 1장만 쓰고 **아홉 장을 버린다.**
+   *   ⚠ klifemap/sitemap.xml 3,094장은 「Discovered - not crawled」 덩어리일 것이다.
+   *     요청이 덜 듣는 칸이라 core(150장) **뒤에** 놓는다. 앞에 놓지 않는다.
+   *   ✅ 지키는 자: `node scripts/check-고치면서-반대쪽으로-갔나.mjs` (볼날수 5 = 이 주기) */
   const 사이트맵차례 = [
-    /* 돈이 되는 쪽부터 — 상품 판매 페이지가 여기 들어 있다 */
     'https://seoulmarkets.com/sitemap-pages.xml',
     'https://klifemap.ai/sitemap-core.xml',
     'https://seoulmarkets.com/sitemap-companies.xml',
+    'https://klifemap.ai/sitemap.xml',
     'https://seoulmarkets.com/sitemap-japan.xml',
   ];
   const { execFileSync } = await import('node:child_process');
