@@ -229,6 +229,103 @@ if (전체.length === 0) {
   console.log('✅ 붙어 나가는 곳 0건');
   process.exit(0);
 }
-for (const c of 전체) console.log(`  ⛔ ${c.파일}:${c.줄}\n     ${c.글}\n     → 줄 끝에 {' '} 를 넣는다`);
-console.log(`\n⛔ ${전체.length}건. 화면에서만 붙는다 — 소스만 보면 안 보인다.`);
+
+/* ─────────────────────────────────────────────────────────────────────────
+   🔴 [2026-10-11 · 5번] **소스에서 의심하고, 지어 놓은 지면에서 확인한다.**
+
+   이 자는 «소스»만 보는 대리 지표였다. 오늘 스무 건을 dist 에서 하나씩 재 보니
+   진짜로 붙은 것은 열한 건이고 여섯 건은 «헛걸림»이었다 —
+   `<strong> Japan` 처럼 태그 «안»에 공백이 있으면 화면에서는 떨어진다.
+   ⛔ 헛걸림을 고치면 공백이 «두 칸» 된다. 고치다가 더 나빠지는 것이다.
+
+   ⚠ dist 가 없으면(아직 안 지었으면) 확인을 못 한다. 그때는 «못 쟀다»고 적되
+      막지는 않는다 — 못 잰 하나가 잴 수 있는 백을 가린다.
+   ───────────────────────────────────────────────────────────────────────── */
+function 지어놓은지면(소스길) {
+  const 몸 = 소스길.replace(/\\/g, '/').replace(/^src\/pages\//, '').replace(/\.astro$/, '');
+  const 후보 = [
+    'dist/' + 몸 + '.html',
+    'dist/' + 몸 + '/index.html',
+    'dist/' + 몸.replace(/\/index$/, '') + '.html',
+    'dist/' + 몸.replace(/\/index$/, '') + '/index.html',
+  ];
+  for (const c of 후보) if (fs.existsSync(c)) return c;
+  if (/\[/.test(몸)) {
+    const 폴더 = path.dirname('dist/' + 몸);
+    if (fs.existsSync(폴더)) {
+      const 것 = fs.readdirSync(폴더).find((x) => x.endsWith('.html'));
+      if (것) return path.join(폴더, 것);
+    }
+  }
+  return null;
+}
+
+function 지면글(html) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ');
+}
+
+/** 지어 놓은 지면이 소스보다 오래됐나 — 오래됐으면 거기서 본 것은 «옛 화면»이다 */
+function 낡았나(소스길, 지면길) {
+  try {
+    return fs.statSync(지면길).mtimeMs < fs.statSync(소스길).mtimeMs;
+  } catch {
+    return true;                 /* 못 재면 «낡았다»로 본다 — 모르는 것을 통과로 읽지 않는다 */
+  }
+}
+
+/** 보기 글(앞 ↵ 뒤)에서 「붙으면 이런 글자가 된다」를 만든다 */
+function 붙은꼴(보기) {
+  const 쪼갬 = String(보기 ?? '').split('↵');
+  if (쪼갬.length < 2) return null;
+  const 앞 = 쪼갬[0].replace(/<[^>]*>?/g, '').trim();
+  const 뒤 = 쪼갬[1].replace(/<[^>]*>?/g, '').trim().split('{')[0].trim();
+  if (!앞 || !뒤) return null;
+  const 앞끝 = 앞.slice(-14);
+  const 뒤앞 = 뒤.slice(0, 14);
+  if (앞끝.length < 3 || 뒤앞.length < 3) return null;
+  return 앞끝 + 뒤앞;
+}
+
+const 진짜 = [];
+const 헛걸림 = [];
+const 확인못함 = [];
+for (const c of 전체) {
+  const 지면 = 지어놓은지면(c.파일);
+  const 꼴 = 붙은꼴(c.글);
+  if (!지면 || !꼴) { 확인못함.push({ ...c, 까닭: !지면 ? '지어 놓은 지면이 없다' : '앞뒤를 못 뽑았다' }); continue; }
+  /* 🔴 [2026-10-11 실측] 지면이 소스보다 «오래됐으면» 거기서 본 것은 옛 화면이다.
+     소스를 고치기 전으로 되돌렸는데도 이 자가 ✅ 였다 — dist 가 고친 뒤 것이어서다.
+     ⭐ 확인하는 자가 «무엇을 보고 확인했는지»가 참이어야 확인이다. */
+  if (낡았나(c.파일, 지면)) {
+    확인못함.push({ ...c, 까닭: '지면이 소스보다 오래됐다 — 먼저 node scripts/build-once.mjs' });
+    continue;
+  }
+  const t = 지면글(fs.readFileSync(지면, 'utf8'));
+  if (t.includes(꼴)) 진짜.push({ ...c, 꼴 });
+  else 확인못함.push({ ...c, 까닭: '지면에서는 안 붙었다' });
+}
+/* 「지면에서는 안 붙었다」가 곧 헛걸림이다 — 이름을 바로 붙인다 */
+for (let i = 확인못함.length - 1; i >= 0; i -= 1) {
+  if (확인못함[i].까닭 === '지면에서는 안 붙었다') 헛걸림.push(...확인못함.splice(i, 1));
+}
+
+console.log(`   소스가 의심한 곳 ${전체.length} → 지면에서 확인한 진짜 ${진짜.length}`
+  + ` · 헛걸림 ${헛걸림.length} · 확인 못 함 ${확인못함.length}`);
+console.log('');
+
+for (const c of 진짜) console.log(`  ⛔ ${c.파일}:${c.줄}\n     ${c.글}\n     → 줄 끝에 {' '} 를 넣는다  (지면에서 「${c.꼴}」로 붙는다)`);
+for (const c of 헛걸림) console.log(`  ✅ ${c.파일}:${c.줄} — 소스는 의심스러우나 지면에서는 떨어져 있다. ⛔ 고치면 두 칸이 된다`);
+for (const c of 확인못함) console.log(`  ⬜ ${c.파일}:${c.줄} — 확인 못 함 (${c.까닭})`);
+
+if (진짜.length === 0) {
+  console.log(`\n✅ 지면에서 진짜로 붙는 곳 0건`);
+  if (확인못함.length) console.log(`   ⚠ ${확인못함.length}곳은 «못 쟀다» — 「없다」가 아니다. 먼저 node scripts/build-once.mjs`);
+  process.exit(0);
+}
+console.log(`\n⛔ ${진짜.length}건이 지면에서 붙는다. 화면에서만 붙는다 — 소스만 보면 안 보인다.`);
 process.exit(1);
