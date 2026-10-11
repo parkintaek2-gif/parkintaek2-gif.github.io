@@ -137,7 +137,13 @@ async function 라이브() {
   console.log(`우리 설정 — ${슬롯줄.replace(/\s+/g, ' ')}  ⇒ 슬롯비었나=${슬롯비었나}`);
 
   const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
-  const page = await b.newPage();
+  /* 🔴 [2026-10-11 · 5번] **빈 자리에서 잰다.**
+     사장님 크롬(9222)에 저장된 값이 새 탭에 따라온다 — 오늘 klifemap 에서 `bj_lang=zh` 가
+     따라와 지면 열한 장이 모두 중국어로 보였다. 지면이 깨진 줄 알고 고칠 뻔했다.
+     ⭐ 자는 누가 언제 돌려도 같은 답을 내야 자다. 여기서는 광고차단·동의 상태가 묻으면 채움률이 흐려진다. */
+  const { 빈컨텍스트, 빈탭 } = await import('./_빈브라우저.mjs');
+  const 빈자리 = await 빈컨텍스트(b);
+  const page = await 빈탭(빈자리);
   /* [2026-09-17] 우리 점검이 손님으로 세어지지 않게 이름을 댄다 (scripts/lib/우리크롬.mjs) */
   await (await import('./lib/우리크롬.mjs')).이름대기(page, '5번-광고점검');
   let 심사중 = null;
@@ -185,6 +191,7 @@ async function 라이브() {
     return 손댈것;
   } finally {
     await page.close().catch(() => {});
+    await 빈자리.닫기();                   /* 내가 만든 자리만 닫는다 */
     b.disconnect();
   }
 }

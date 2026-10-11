@@ -199,13 +199,21 @@ async function 단추그려지나() {
     const v = await fetch('http://127.0.0.1:9222/json/version', { signal: AbortSignal.timeout(4000) });
     if (!v.ok) return null;
   } catch { return null; }
-  let b = null; let page = null;
+  let b = null; let page = null; let 빈자리 = null;
   try {
     const { createRequire } = await import('node:module');
     const require = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
     const puppeteer = require('puppeteer-core');
     b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
-    page = await b.newPage();                       /* ⭐ 언제나 «새 탭» */
+  /* 🔴 [2026-10-11 · 5번] **빈 자리에서 잰다.**
+     사장님 크롬(9222)에 저장된 값이 새 탭에 따라온다 — 오늘 klifemap 에서 `bj_lang=zh` 가
+     따라와 지면 열한 장이 모두 중국어로 보였다. 지면이 깨진 줄 알고 고칠 뻔했다.
+     ⭐ 자는 누가 언제 돌려도 같은 답을 내야 자다. 손님은 «비회원»으로 온다 — 빈 자리가 오히려 손님에 가깝다. */
+    const { 빈컨텍스트, 빈탭 } = await import('./_빈브라우저.mjs');
+    /* ⛔ 격리: false — 격리된 자리는 제3자 쿠키·팝업을 막아 페이팔 창이 «안 뜬다»(2026-10-11 실측).
+       그것은 손님의 조건이 아니라 크롬 격리창의 조건이다. 까닭은 _빈브라우저.mjs 에 적혀 있다 */
+    빈자리 = await 빈컨텍스트(b, { 격리: false });
+    page = await 빈탭(빈자리);                       /* ⭐ 언제나 «새 탭», 그리고 «빈 자리» */
     /* 🔴 [2026-09-17] 이 점검이 «손님»으로 세어지고 있었다 — 그날 「많이 읽힌 지면」
        1·2·3·4위가 이 자가 두드리는 /v1/subscribe · /v1/research · /v1/hs · /api/download 였다.
        머리글 한 줄로 스스로 이름을 댄다. UA 는 안 건드린다(토스·페이팔이 다르게 굴 수 있다). */
@@ -272,6 +280,7 @@ async function 단추그려지나() {
   finally {
     /* ⛔ b.close() 를 부르지 않는다 — 사장님이 쓰시던 창이 통째로 닫힌다 */
     try { if (page) await page.close(); } catch { /* 넘어간다 */ }
+    try { if (빈자리) await 빈자리.닫기(); } catch { /* 넘어간다 */ }
     try { if (b) b.disconnect(); } catch { /* 넘어간다 */ }
   }
 }
