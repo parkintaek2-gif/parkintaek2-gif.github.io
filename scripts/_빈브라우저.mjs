@@ -66,10 +66,22 @@ export async function 빈컨텍스트(b, { 격리 = true } = {}) {
  * 탭 하나를 «아무것도 기억 못 하는 상태»로 연다.
  * 격리가 안 됐으면 저장된 말 고름을 지우고 연다 — 지우는 것은 goto «앞»이어야 한다.
  */
-export async function 빈탭(컨텍스트묶음, { 격리됐나 } = {}) {
+export async function 빈탭(컨텍스트묶음, { 격리됐나, 몇번 = 3 } = {}) {
   const 컨텍스트 = 컨텍스트묶음.컨텍스트 || 컨텍스트묶음;
   const 격리 = 격리됐나 ?? 컨텍스트묶음.격리됐나 ?? false;
-  const p = await 컨텍스트.newPage();
+
+  /* 🔴 [2026-10-11 실측] 탭을 잇달아 열면 크롬이 Target.createTarget 을 거절한다.
+     열 장을 줄줄이 열다가 가운데서 통째로 터졌다. 쉬었다가 다시 해 본다.
+     ⛔ 한 번 실패를 「못 연다」로 읽지 않는다 — 거의 다 두 번째에 열린다. */
+  let p = null;
+  let 마지막탈 = null;
+  for (let i = 0; i < 몇번; i += 1) {
+    try { p = await 컨텍스트.newPage(); break; } catch (e) {
+      마지막탈 = e;
+      await new Promise((r) => setTimeout(r, 1500 * (i + 1)));
+    }
+  }
+  if (!p) throw new Error('탭을 ' + 몇번 + '번 열어 봤는데 다 거절당했다 — ' + String((마지막탈 || {}).message).slice(0, 80));
   if (!격리) {
     /* ⭐ goto 앞에 걸어야 한다 — 뒤에 지우면 이미 그 말로 그려진 뒤다 */
     await p.evaluateOnNewDocument((칸들) => {
