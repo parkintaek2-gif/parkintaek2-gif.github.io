@@ -177,9 +177,9 @@ function main() {
   }
 
   if (고침) {
-    if (결과 !== 원문) { writeFileSync(파일, 결과); console.log('✅ CLAUDE.md 지시 색인을 갱신했다.'); }
-    else console.log('변경 없음.');
-    return;
+    if (결과 === 원문) { console.log('변경 없음.'); return true; }
+    writeFileSync(파일, 결과);
+    return false;                  /* 아직 안 멎었다 — 부른 쪽이 한 번 더 돌린다 */
   }
 
   if (결과 !== 원문) {
@@ -187,6 +187,24 @@ function main() {
     process.exit(1);
   }
   console.log(`✅ 지시 색인 ${지시.length}건 · 줄 번호 일치`);
+  return true;
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) main();
+/* 🔴 [2026-10-11 · 5번] **멎을 때까지 돌린다.**
+   색인표가 CLAUDE.md «안»에 있어서, 표의 줄 수가 바뀌면 그 아래 지시의 줄 번호가 또 밀린다.
+   곧 이 자는 «자기를 가리키는 색인»이다. 한 번 고치고 커밋하면 다음 검사가 또 깨진다 —
+   2026-10-11 에 실제로 그렇게 됐다(한 번 돌리고 커밋 → 바로 다음 npm test 에서 ✕).
+   ⚠ 실측으로 «두 번»이면 멎는다. 넉넉히 다섯 번까지 해 보고, 그래도 안 멎으면 말하고 멈춘다.
+   ⛔ 「돌렸다」를 「멎었다」로 읽지 않는다. */
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+  const 고침 = process.argv.includes('--fix');
+  if (!고침) { main(); } else {
+    let 멎었나 = false;
+    for (let i = 0; i < 5; i += 1) {
+      멎었나 = main();
+      if (멎었나) break;
+    }
+    if (멎었나) console.log('✅ CLAUDE.md 지시 색인을 갱신했다 — 더 바뀌지 않는다.');
+    else { console.error('✕ 다섯 번 돌려도 색인이 멎지 않는다 — 사람이 봐야 한다.'); process.exit(1); }
+  }
+}
