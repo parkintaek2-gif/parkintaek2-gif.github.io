@@ -1,5 +1,27 @@
 #!/usr/bin/env node
 /**
+ * 🔴🔴🔴 [2026-10-11 16:1x · 5번] **이 자를 돌리지 마십시오. 약관이 막습니다.**
+ *
+ *   오늘 11:5x 에 hkex.com.hk/global/exchange/terms-of-use 를 **원문으로 읽고**
+ *   `collect-hongkong-hkex-disclosures.mjs` 와 `collect-hongkong-hkex-financials.mjs` 둘에
+ *   자물쇠를 걸었는데 **이 자를 빠뜨렸습니다.** 그 둘의 «다음 단계»인데 놓친 것입니다.
+ *
+ *   ⛔ 이 자가 하는 일이 약관이 콕 집어 막는 그것입니다 —
+ *     PDF 를 «열어»(web scraping) 수치를 «뽑아»(text/data mining) 모읍니다(compilations).
+ *     「create or compile derivative works … from the Information」
+ *     「You are not permitted to conduct … any text or data mining or web scraping」
+ *     「whether or not for gain」 — 비상업이어도 안 됩니다.
+ *
+ *   ⭐ 겪은 것 — **자물쇠는 «갈래»가 아니라 «그 자료를 만지는 자 전부»에 건다.**
+ *     수집기만 막고 가공기를 두면 자료는 그대로 쌓입니다. 한 줄 비어 있으면 길이 열려 있는 것입니다.
+ *   ⚠ 까닭과 원문 인용은 `docs/라이선스-대장.tsv` 의 hongkong-hkex-* 세 줄에 있습니다.
+ */
+if (!process.argv.includes('--약관을-읽었고-라이선스가-있다')) {
+  console.error('⛔ HKEX 약관이 스크래핑·2차 가공·재배포를 모두 막습니다 — 위 머리글을 읽으십시오.');
+  console.error('   docs/라이선스-대장.tsv 의 hongkong-hkex-* 줄에 원문 인용이 있습니다.');
+  process.exit(1);
+}
+/**
  * extract-hongkong-financial-figures.mjs — collect-hongkong-hkex-financials.mjs 가 모은
  * 「보고서 목록」에서 실제 PDF를 열어 «매출·순이익 수치»를 뽑는다.
  *

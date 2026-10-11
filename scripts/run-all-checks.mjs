@@ -93,6 +93,7 @@ export const 단계들 = [
   "node scripts/probe-broker-site.mjs --자가시험",
   "node scripts/check-stock-prices-datago.mjs",
   "node scripts/check-licence-register.mjs",
+  "node scripts/check-막힌자료를-만지는자가-다-막혔나.mjs",
   "node scripts/check-forbidden-sources.mjs",
   "node scripts/check-hankyung-analysts-rank-field.mjs",
   /* 🔴 [2026-09-18 · 5번] 백업 저장소(Pages) 빌드를 «우리가 먼저» 잰다.
