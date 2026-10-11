@@ -1,5 +1,5 @@
 # 잰날 2026-10-12
-# 오늘셈 12
+# 오늘셈 37
 # ⛔ 이 파일을 지우면 「오늘 새로 난 지면」을 하루 동안 못 센다
 https://klifemap.ai/
 https://klifemap.ai/content
@@ -118,6 +118,31 @@ https://klifemap.ai/ilju/gyeongsin.html
 https://klifemap.ai/ilju/sinyu.html
 https://klifemap.ai/ilju/imsul.html
 https://klifemap.ai/ilju/gyehae.html
+https://klifemap.ai/articles/ko-1.html
+https://klifemap.ai/articles/ko-2.html
+https://klifemap.ai/articles/ko-3.html
+https://klifemap.ai/articles/ko-4.html
+https://klifemap.ai/articles/ko-5.html
+https://klifemap.ai/articles/ko-6.html
+https://klifemap.ai/articles/ko-7.html
+https://klifemap.ai/articles/ko-8.html
+https://klifemap.ai/articles/en-1.html
+https://klifemap.ai/articles/en-2.html
+https://klifemap.ai/articles/en-3.html
+https://klifemap.ai/articles/en-4.html
+https://klifemap.ai/articles/en-5.html
+https://klifemap.ai/articles/en-6.html
+https://klifemap.ai/articles/ja-1.html
+https://klifemap.ai/articles/ja-2.html
+https://klifemap.ai/articles/ja-3.html
+https://klifemap.ai/articles/ja-4.html
+https://klifemap.ai/articles/ja-5.html
+https://klifemap.ai/articles/ja-6.html
+https://klifemap.ai/articles/zh-1.html
+https://klifemap.ai/articles/zh-2.html
+https://klifemap.ai/articles/zh-3.html
+https://klifemap.ai/articles/zh-4.html
+https://klifemap.ai/articles/zh-5.html
 https://klifemap.ai/today
 https://klifemap.ai/content/taekil-surgery-2027-03
 https://klifemap.ai/content/taekil-contract-2027-03
