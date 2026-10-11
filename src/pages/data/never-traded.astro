@@ -3,6 +3,16 @@
  * `/data/never-traded` — Korean listings that did not trade once in 27 sessions.
  * (seoulmarkets.com/data/never-traded)
  *
+ * ── [2026-10-11 15:1x · 5번] 아래 스타일 블록에서 걷어 온 주석 ────────────
+ *   `check-internal-comment-leak` 이 잡았다 — 그 자리는 손님 화면(view-source)으로 간다.
+ *   ⚠ **빌드가 뭉개 줄 것에 기대지 않는다.** 재 보니 이 지면 것은 실제로는 안 나갔지만,
+ *     빌드 설정이 바뀌는 날 한꺼번에 샌다. 뜻은 여기 남기고 그 자리는 비운다.
+ *
+ *   이 저장소에는 지면 공통 스타일이 «없다» — `/data/` 지면마다 제 것을 갖는다
+ *   (`fixed-variable-rate-share.astro` 끝에 같은 꼴이 있다. 거기에 맞춘다).
+ *   ⛔ 칸 이름만 다르게 쓰지 않는다 — 여기는 `td.num`·`td.dim` 을 쓰므로 둘 다 적는다.
+ *     2026-10-10 아침에 `warn-h` 를 쓰면서 «그 클래스가 어디에도 없는 것»을 안 보고 넘길 뻔했다.
+ *
  * ── Why this page (2026-10-10 · 5번) ──────────────────────────────────
  *   While fixing the KRX field page this morning I counted "rows with no trades
  *   that day": 134 of 2,872. Pushing that further turned up something nobody
@@ -292,10 +302,6 @@ const jsonLd = [datasetLd, faqLd];
 </Base>
 
 <style>
-  /* ⚠ 이 저장소에는 지면 공통 스타일이 «없다» — `/data/` 지면마다 제 것을 갖는다.
-     (`fixed-variable-rate-share.astro` 끝에 같은 꼴이 있다. 거기에 맞춘다)
-     ⛔ 칸 이름만 다르게 쓰지 않는다 — 여기는 `td.num`·`td.dim` 을 쓰므로 둘 다 적는다.
-        아침에 `warn-h` 를 쓰면서 «그 클래스가 어디에도 없는 것»을 안 보고 넘길 뻔했다. */
   .wrap { max-width: 56rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
   h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
   h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }

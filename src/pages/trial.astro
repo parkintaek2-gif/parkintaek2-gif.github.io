@@ -2,6 +2,24 @@
 /**
  * `/trial` — **체험 신청(Request a trial).**
  *
+ * ── [2026-10-11 15:1x · 5번] 아래 본문에서 걷어 온 주석 넷 ────────────────
+ *   `check-internal-comment-leak` 이 잡았다 — 그 자리들은 손님 화면(view-source)으로 간다.
+ *   ⚠ **빌드가 뭉개 줄 것에 기대지 않는다.** 재 보니 이 지면 것은 실제로는 안 나갔지만,
+ *     빌드 설정이 바뀌는 날 한꺼번에 샌다. 뜻은 여기 남기고 그 자리는 비운다.
+ *
+ *   ① 폼을 기본 제출(page reload)로 두지 않는다 — 정적 지면이라 돌아올 자리가 없다.
+ *      보내는 동안 단추를 잠근다. 두 번 눌러 두 건이 들어오면 손님이 두 명으로 세어진다.
+ *   ② `catch` 에서 실패를 조용히 삼키지 않는다 — 손님이 보냈다고 믿고 기다리게 된다.
+ *   ③ `.what li` 의 테두리: 처음에 `1px solid var(--line)` 로 뒀더니 **화면에서 안 보였다.**
+ *      이 사이트의 `--line` 은 거의 투명해서 큰 카드에는 맞지만 작은 칸에는 사라진다.
+ *      떠서 눈으로 보고 잡았다 — 「변수를 썼으니 맞겠지」로 두지 않는다.
+ *      회색 겹침(rgba 127)을 쓰는 까닭은 밝은 바탕에서도 어두운 바탕에서도 같이 보여서다.
+ *   ④ `input/select/textarea` 테두리: 손님이 «칠 자리»를 알아봐야 한다.
+ *      테두리가 묻히면 폼이 폼으로 안 보인다.
+ *
+ * ⛔ 머리글 주석에 스크립트 여는 태그를 **글자 그대로 적지 않는다** —
+ *   그 자가 블록 시작으로 읽어 파일 끝까지 샌 것으로 센다(2026-10-11 에 data/index.astro 에서 겪었다).
+ *
  * 🔴 [2026-09-28 · 5번] 사장님이 한경에이셀(aiceltech.com)을 보라 하셨다.
  *   그쪽 상품 지면과 우리 것을 나란히 놓고 보니, **에이셀에 있고 우리에게만
  *   없던 입구가 이것 하나**였다 — 값을 보고 마음이 동한 기관 손님이
@@ -105,8 +123,6 @@ const 상품들 = [
 </Base>
 
 <script>
-  /* ⚠ 폼을 기본 제출(page reload)로 두지 않는다 — 정적 지면이라 돌아올 자리가 없다.
-     ⛔ 보내는 동안 단추를 잠근다. 두 번 눌러 두 건이 들어오면 손님이 두 명으로 세어진다. */
   const f = document.getElementById('trialform');
   const 단추 = document.getElementById('t-send');
   const 말 = document.getElementById('t-note-out');
@@ -149,7 +165,6 @@ const 상품들 = [
         말.textContent = j.message || 'Something went wrong. Please email admin@klifedesign.net.';
         말.className = 'note bad';
       } catch (err) {
-        /* ⛔ 실패를 조용히 삼키지 않는다 — 손님이 보냈다고 믿고 기다리게 된다 */
         말.textContent = 'Could not reach the server. Please email admin@klifedesign.net.';
         말.className = 'note bad';
       }
@@ -167,10 +182,6 @@ const 상품들 = [
   .tp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .6rem; }
   .tp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.2rem; }
   .what { list-style: none; padding: 0; margin: 0 0 1.6rem; }
-  /* 🔴 [2026-09-28] 처음에 `1px solid var(--line)` 로 뒀더니 **화면에서 안 보였다.**
-     이 사이트의 --line 은 거의 투명해서 큰 카드에는 맞지만 작은 칸에는 사라진다.
-     떠서 눈으로 보고 잡았다. ⛔ 「변수를 썼으니 맞겠지」로 두지 않는다 — 떠서 본다.
-     ⚠ 회색 겹침(rgba 127)을 쓰는 까닭 — 밝은 바탕에서도 어두운 바탕에서도 같이 보인다. */
   .what li { padding: .55rem .9rem; margin: 0 0 .45rem; background: var(--card);
              border: 1px solid rgba(127, 127, 127, .35); border-radius: 7px;
              font-size: .92rem; line-height: 1.55; }
@@ -180,7 +191,6 @@ const 상품들 = [
   .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 0 .7rem; }
   label { font-size: .85rem; font-weight: 600; }
   .req { font-weight: 500; color: var(--muted); font-size: .78rem; margin-left: .3rem; }
-  /* 🔴 손님이 «칠 자리»를 알아봐야 한다. 테두리가 묻히면 폼이 폼으로 안 보인다 */
   input, select, textarea {
     width: 100%; box-sizing: border-box; padding: .6rem .75rem; font: inherit; font-size: .95rem;
     color: var(--ink); background: var(--card);

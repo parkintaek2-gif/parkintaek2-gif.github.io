@@ -29,6 +29,13 @@
  *   SECT_TP_NM 이 시장마다 다르게 찬다는 것. 겪지 않으면 못 쓰는 줄이다.
  *
  * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────────────
+ * ── [2026-10-11 15:1x · 5번] 아래 스타일 블록에서 걷어 온 주석 둘 ────────────
+ *   `check-internal-comment-leak` 이 잡았다 — 그 자리는 손님 화면(view-source)으로 간다.
+ *   ⚠ **빌드가 뭉개 줄 것에 기대지 않는다.** 뜻은 여기 남기고 그 자리는 비운다.
+ *   ① `ul.clauses` — 약관 조항은 «인용한 것이지 우리 말이 아니라는 것»이 눈에 보여야 한다.
+ *   ② 어두운 화면 쪽 `ul.clauses li` — 밝은 바탕값(#fafafa)을 그대로 두면
+ *      어두운 화면에서 흰 칸이 된다. 같이 따라가게 한다.
+ *
  * ⛔ **KRX 자료의 «값»을 싣지 않는다.** 칸 이름의 뜻과 «우리가 센 수»만 낸다 — 재배포가 아니다.
  * ⛔ 화면에 한국어를 내지 않는다 — 손님이 영어권이다.
  *   (ISU_NM 이 한글이라는 «사실»은 영어로 설명한다. 한글 보기를 박지 않는다)
@@ -423,7 +430,6 @@ const jsonLd = {
   .gotchas li { margin: 0 0 .8rem; }
   ul.plain { line-height: 1.65; padding-left: 1.2rem; }
   ul.plain li { margin: 0 0 .4rem; }
-  /* 🔴 [2026-10-10] 약관 조항 — 인용한 것이지 우리 말이 아니라는 것이 눈에 보여야 한다 */
   ul.clauses { list-style: none; padding-left: 0; margin: 1rem 0; }
   ul.clauses li { margin: 0 0 .7rem; padding: .55rem .85rem;
                   border-left: 3px solid #333; background: #fafafa; }
@@ -436,7 +442,6 @@ const jsonLd = {
     th { border-bottom-color: #ccc; }
     td.dim, td.note, .foot, .disclaimer { color: #aaa; }
     code { background: #222; }
-    /* ⛔ 밝은 바탕값(#fafafa)을 그대로 두면 어두운 화면에서 흰 칸이 된다 — 같이 따라간다 */
     ul.clauses li { background: #1c1c1c; border-left-color: #bbb; }
   }
 </style>

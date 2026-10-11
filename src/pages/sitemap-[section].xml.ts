@@ -296,6 +296,13 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/api', changefreq: 'weekly', priority: '0.9' },
       // 파는 지면 — 사는 쪽이 검색으로 찾는 자리다.
       { loc: '/pricing', changefreq: 'weekly', priority: '0.6' },
+      /* 🔴 [2026-10-11 15:2x · 5번] `/trial` 이 **라이브인데 사이트맵에 없었다**
+         (`check-sitemap-page-coverage` 가 잡았다). 색인을 막아 둔 지면도 아니다 —
+         robots 메타가 없어 구글이 들어와도 되는데 우리가 길을 안 알려 주고 있었다.
+         ⭐ 「Request a trial — 표본 파일과 이용조건을 받는다」로 **파는 길목**이다.
+           지금은 /pricing 한 곳에서만 링크된다. 검색에서 바로 들어올 자리다.
+         ⚠ /pricing(0.6)보다 낮게 둔다 — 값을 보는 지면이 앞이고 이것은 그 다음 걸음이다. */
+      { loc: '/trial', changefreq: 'monthly', priority: '0.5' },
       { loc: '/about', changefreq: 'monthly', priority: '0.5' },
       { loc: '/contact', changefreq: 'monthly', priority: '0.4' },
       { loc: '/privacy', changefreq: 'monthly', priority: '0.3' },
