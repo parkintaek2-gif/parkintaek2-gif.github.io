@@ -279,7 +279,7 @@ export function 제목보고표빠졌나(제목) {
  *   사장님이 여신 **PDF 에는 전화·메일·주소 세 줄이 통째로 빠져** 있었다.
  *   PNG 와 PDF 를 다른 경로로 만들었고 PDF 쪽만 깨져 있었던 것이다.
  *   ⇒ **「봤다」는 «보낼 그 파일»을 연 것만 뜻한다.** 만드는 과정에서 뽑은 그림은 아니다.
- *   ⇒ PDF 는 `scratchpad/pdf본다.mjs` 로 크롬에 그대로 열어 본다 — 사장님과 같은 뷰어다.
+ *   ⇒ PDF 는 `scripts/pdf를-그림으로-본다.mjs` 로 크롬에 그대로 열어 본다 — 사장님과 같은 뷰어다.
  * ⛔ 첨부 없는 짧은 알림 메일에는 걸지 않는다 — 글은 내가 방금 쓴 것이라 이미 봤다.
  */
 export function 눈으로봤나(argv) {
@@ -703,7 +703,7 @@ if (내가실행됐다) {
     console.error('\n🔴 안 보냈다 — ' + 봤나.왜);
     console.error('   ① «보낼 파일 그 자체»를 연다 — PDF 면 PDF 를, 첨부가 여럿이면 여럿 다');
     console.error('      ⛔ 만드는 과정에서 뽑은 미리보기 그림은 이 걸음을 대신하지 못한다');
-    console.error('      ✅ PDF 는  node scratchpad/pdf본다.mjs <pdf> <png>  로 크롬에 띄워 본다');
+    console.error('      ✅ PDF 는  node scripts/pdf를-그림으로-본다.mjs <pdf> <png>  로 크롬에 띄워 본다');
     console.error('   ② 전부 본다 — 몇 장이 아니라 전부');
     console.error('   ③ 고칠 것을 고치고, 그러고 --봤다 를 붙여 최종본을 보낸다');
     process.exit(1);
