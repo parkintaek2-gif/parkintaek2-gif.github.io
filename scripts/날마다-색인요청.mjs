@@ -116,6 +116,28 @@ export function 오늘몫을썼나(줄들, 그날 = 오늘(), 몫 = 하루몫) {
  * ⚠ 이 목록은 «길을 여는 장»만 담는다. 낱낱의 글을 여기 넣지 않는다 — 그러면 차례의 뜻이 없다.
  */
 export const 맨앞에 = [
+  /* 🔴🔴 [2026-10-12 07:2x · 5번] **구글이 «보고 나서 안 넣은» 지면을 채웠다. 다시 보러 오게 한다.**
+     ─────────────────────────────────────────────────────────────────────
+     서치콘솔이 klifemap 지면 아홉을 「Crawled - currently not indexed」로 답한다.
+     그건 「못 봤다」가 아니라 **「보고 나서 안 넣기로 했다」**이다.
+     ⇒ 밤사이 얇은 지면 23장을 5장까지 줄였다(열여섯 장을 채웠다).
+       그 가운데 daily.html 은 852 → 2,162자다.
+     ⭐ 내용이 바뀐 지면은 **다시 보러 와야** 판단이 바뀐다.
+       사이트맵 재제출만으로는 언제 올지 모른다. 색인 요청이 그 길이다.
+
+     ⛔ 「냈다」를 「구글이 넣는다」로 읽지 않는다. 며칠 뒤 서치콘솔에서 받아 센다.
+     ⛔ 색인이 되면 이 줄들을 지운다 — 이 목록은 「길을 여는 장」만 담는 곳이다.
+     ⚠ 아직 «안 채운» 지면(tarot 등)은 여기 안 넣었다. 같은 글로 다시 부르면
+       구글이 또 「안 넣기로」 하고, 그 판단이 더 굳는다. */
+  'https://klifemap.ai/daily.html',
+  'https://klifemap.ai/coaching.html',
+  'https://klifemap.ai/intelligence.html',
+  'https://klifemap.ai/about.html',
+  'https://klifemap.ai/gwansang.html',
+  'https://klifemap.ai/refund.html',
+  'https://klifemap.ai/mingli-sungmyung.html',
+  'https://klifemap.ai/horoscope-week.html',
+  'https://klifemap.ai/jeongbon-framework.html',
   /* 🔴 [2026-10-09 16:2x · 5번] **갓 낸 기사 셋을 맨 앞에 둔다.**
      ─────────────────────────────────────────────────────────────────────
      기사가 09-29 이후 열흘째 0편이었다. 오늘 내가 세 편을 썼다(한국은행 ECOS 가계부채).
