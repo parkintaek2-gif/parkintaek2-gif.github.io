@@ -1,0 +1,453 @@
+{
+ "_meta": {
+  "생성": "2026-10-13 00:48:33",
+  "만든자": "scripts/measure-account-name-variants.mjs",
+  "원자료": "src/data/korea-financial-account-english.json",
+  "못잰것": "전체 상장사에 얼마나 들어맞나는 못 쟀다. 원자료는 9개 회사 공시에서 뽑은 표본이고, 그 표본에 677개의 서로 다른 계정명이 나왔다. 2,765개 상장사 전체를 훑는 수집기 자료가 아직 없다 (2026-10-13 00:5x 에 찾아 확인했다). 그래서 「한국 공시의 N%」라고 쓰지 않는다.",
+  "표본회사수": 9,
+  "표본에나온계정명수": 677
+ },
+ "셈": {
+  "한국어꼴": 414,
+  "영문용어": 349,
+  "갈린용어": 45,
+  "갈린용어가끌어안은꼴": 110,
+  "띄어쓰기만": 8,
+  "말이다름": 37,
+  "가장많이갈린꼴수": 5
+ },
+ "갈린것": [
+  {
+   "영문": "Equity attributable to owners of the parent",
+   "꼴수": 5,
+   "꼴들": [
+    "지배기업 소유주지분",
+    "지배기업소유주지분",
+    "지배기업의 소유주에게 귀속되는 자본",
+    "지배기업주주지분",
+    "지배주주지분"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Cash and cash equivalents at beginning of period",
+   "꼴수": 4,
+   "꼴들": [
+    "기초 현금 및 현금성자산",
+    "기초 현금및현금성자산",
+    "기초의 현금및현금성자산",
+    "기초현금및현금성자산"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Revenue",
+   "꼴수": 4,
+   "꼴들": [
+    "매출",
+    "매출액",
+    "수익",
+    "수익(매출액)"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Cash and cash equivalents at end of period",
+   "꼴수": 3,
+   "꼴들": [
+    "기말 현금 및 현금성자산",
+    "기말의 현금및현금성자산",
+    "기말현금및현금성자산"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Cash flows from financing activities",
+   "꼴수": 3,
+   "꼴들": [
+    "재무활동으로 인한 현금흐름",
+    "재무활동으로부터의 현금흐름",
+    "재무활동현금흐름"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Cash flows from investing activities",
+   "꼴수": 3,
+   "꼴들": [
+    "투자활동으로 인한 현금흐름",
+    "투자활동으로부터의 현금흐름",
+    "투자활동현금흐름"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Cash flows from operating activities",
+   "꼴수": 3,
+   "꼴들": [
+    "영업활동으로 인한 현금흐름",
+    "영업활동으로부터의 현금흐름",
+    "영업활동현금흐름"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Cash generated from operations",
+   "꼴수": 3,
+   "꼴들": [
+    "영업에서 창출된 현금",
+    "영업에서 창출된 현금흐름",
+    "영업으로부터 창출된 현금흐름"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Dividends received",
+   "꼴수": 3,
+   "꼴들": [
+    "배당금 수입",
+    "배당금수취",
+    "배당금의 수취"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Exchange differences on translation of foreign operations",
+   "꼴수": 3,
+   "꼴들": [
+    "해외사업장환산손익",
+    "해외사업장환산외환차이",
+    "해외사업환산손익"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Income taxes paid",
+   "꼴수": 3,
+   "꼴들": [
+    "법인세 납부액",
+    "법인세납부",
+    "법인세의 납부"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Investments in associates",
+   "꼴수": 3,
+   "꼴들": [
+    "관계기업에 대한 투자자산",
+    "관계기업투자",
+    "관계기업투자주식"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Net increase (decrease) in cash and cash equivalents",
+   "꼴수": 3,
+   "꼴들": [
+    "현금 및 현금성자산의 순증감",
+    "현금및현금성자산의 순증감",
+    "현금및현금성자산의순증가(감소)"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Other payables",
+   "꼴수": 3,
+   "꼴들": [
+    "기타지급채무",
+    "기타채무",
+    "미지급금"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Other receivables",
+   "꼴수": 3,
+   "꼴들": [
+    "기타수취채권",
+    "기타채권",
+    "미수금"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Total liabilities and equity",
+   "꼴수": 3,
+   "꼴들": [
+    "부채 및 자본 총계",
+    "부채및자본총계",
+    "부채와자본총계"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Acquisition of financial assets at fair value through profit or loss",
+   "꼴수": 2,
+   "꼴들": [
+    "당기손익-공정가치측정금융자산의 취득",
+    "당기손익인식금융자산의 취득"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Acquisition of treasury shares",
+   "꼴수": 2,
+   "꼴들": [
+    "자기주식 취득",
+    "자기주식의 취득"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Borrowings",
+   "꼴수": 2,
+   "꼴들": [
+    "차입금",
+    "차입부채"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Cash and cash equivalents",
+   "꼴수": 2,
+   "꼴들": [
+    "현금 및 현금성자산",
+    "현금및현금성자산"
+   ],
+   "띄어쓰기만": true
+  },
+  {
+   "영문": "Current lease liabilities",
+   "꼴수": 2,
+   "꼴들": [
+    "유동 리스부채",
+    "유동리스부채"
+   ],
+   "띄어쓰기만": true
+  },
+  {
+   "영문": "Disposal of financial assets at fair value through profit or loss",
+   "꼴수": 2,
+   "꼴들": [
+    "당기손익-공정가치측정금융자산의 처분",
+    "당기손익인식금융자산의 처분"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Disposal of treasury shares",
+   "꼴수": 2,
+   "꼴들": [
+    "자기주식 처분",
+    "자기주식의 처분"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Dividends paid",
+   "꼴수": 2,
+   "꼴들": [
+    "배당금의 지급",
+    "배당금지급"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Effect of exchange rate changes on cash and cash equivalents",
+   "꼴수": 2,
+   "꼴들": [
+    "현금및현금성자산에 대한 환율변동효과",
+    "현금및현금성자산의 환율변동효과"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Finance costs",
+   "꼴수": 2,
+   "꼴들": [
+    "금융비용",
+    "금융원가"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Financial assets at fair value through other comprehensive income",
+   "꼴수": 2,
+   "꼴들": [
+    "기타포괄손익-공정가치금융자산",
+    "기타포괄손익-공정가치측정금융자산"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Financial assets at fair value through profit or loss",
+   "꼴수": 2,
+   "꼴들": [
+    "당기손익-공정가치금융자산",
+    "당기손익-공정가치측정금융자산"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Interest paid",
+   "꼴수": 2,
+   "꼴들": [
+    "이자의 지급",
+    "이자지급"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Interest received",
+   "꼴수": 2,
+   "꼴들": [
+    "이자수취",
+    "이자의 수취"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Investments in associates and joint ventures",
+   "꼴수": 2,
+   "꼴들": [
+    "관계기업 및 공동기업 투자",
+    "관계기업및공동기업투자"
+   ],
+   "띄어쓰기만": true
+  },
+  {
+   "영문": "Investments in subsidiaries",
+   "꼴수": 2,
+   "꼴들": [
+    "종속기업에 대한 투자자산",
+    "종속기업투자"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Net income attributable to owners of the parent",
+   "꼴수": 2,
+   "꼴들": [
+    "지배기업주주지분순이익",
+    "지배주주지분순이익"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Non-current lease liabilities",
+   "꼴수": 2,
+   "꼴들": [
+    "비유동 리스부채",
+    "비유동리스부채"
+   ],
+   "띄어쓰기만": true
+  },
+  {
+   "영문": "Other components of equity",
+   "꼴수": 2,
+   "꼴들": [
+    "기타자본구성요소",
+    "기타자본항목"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Other current liabilities",
+   "꼴수": 2,
+   "꼴들": [
+    "기타 유동부채",
+    "기타유동부채"
+   ],
+   "띄어쓰기만": true
+  },
+  {
+   "영문": "Other non-current liabilities",
+   "꼴수": 2,
+   "꼴들": [
+    "기타 비유동 부채",
+    "기타비유동부채"
+   ],
+   "띄어쓰기만": true
+  },
+  {
+   "영문": "Other operating income (expenses)",
+   "꼴수": 2,
+   "꼴들": [
+    "기타영업손익",
+    "기타의영업손익"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Profit (loss) before income tax",
+   "꼴수": 2,
+   "꼴들": [
+    "법인세비용차감전순이익(손실)",
+    "법인세비용차감전이익(손실)"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Profit before income tax",
+   "꼴수": 2,
+   "꼴들": [
+    "법인세비용차감전순이익",
+    "법인세차감전순이익"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Retirement of treasury shares",
+   "꼴수": 2,
+   "꼴들": [
+    "자기주식 소각",
+    "자기주식의 소각"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Selling, general and administrative expenses",
+   "꼴수": 2,
+   "꼴들": [
+    "관리비및판매비",
+    "판매비와관리비"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Total comprehensive income",
+   "꼴수": 2,
+   "꼴들": [
+    "총포괄손익",
+    "총포괄이익"
+   ],
+   "띄어쓰기만": false
+  },
+  {
+   "영문": "Trade and other payables",
+   "꼴수": 2,
+   "꼴들": [
+    "매입채무 및 기타채무",
+    "매입채무및기타채무"
+   ],
+   "띄어쓰기만": true
+  },
+  {
+   "영문": "Trade and other receivables",
+   "꼴수": 2,
+   "꼴들": [
+    "매출채권 및 기타채권",
+    "매출채권및기타채권"
+   ],
+   "띄어쓰기만": true
+  }
+ ],
+ "제표이름": {
+  "재무상태표": "Statement of Financial Position",
+  "손익계산서": "Income Statement",
+  "포괄손익계산서": "Statement of Comprehensive Income",
+  "현금흐름표": "Statement of Cash Flows",
+  "자본변동표": "Statement of Changes in Equity"
+ }
+}

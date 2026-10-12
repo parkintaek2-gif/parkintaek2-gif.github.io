@@ -1,0 +1,200 @@
+---
+/*
+ * `/data/account-name-variants` — one line item, several Korean spellings.
+ * (seoulmarkets.com/data/account-name-variants)
+ *
+ * ── Why this page (2026-10-13 01:1x · 5번) ───────────────────────────
+ *   여섯째 데이터 지면이다. `check-쥔자료에-안쓴축이-있나.mjs` 가 내놓은
+ *   「지면도 기사도 «없는» 축 21개」 가운데 골랐고,
+ *   `check-이축으로-이미낸게있나.mjs` 로 걸리는 것이 없음을 확인했다.
+ *
+ *   고른 까닭 — 우리 매핑 자료를 열어 보니
+ *   **`현금및현금성자산` 과 `현금 및 현금성자산` 이 같은 영문으로 가고 있었다.**
+ *   곧 한국 공시는 같은 항목을 여러 꼴로 적는다. 이름으로 맞추면 깨진다.
+ *
+ *   ⭐ 이 지면에만 있는 것 — **「띄어쓰기만 다른 것」과 「말 자체가 다른 것」을 가른다.**
+ *     앞엣것은 지워서 풀린다. 뒤엣것은 안 풀린다. 둘을 섞으면 일이 쉬워 보인다.
+ *
+ * ── ⛔ What this page must not become ────────────────────────────────
+ * ⛔ **「한국 공시의 N%」라고 쓰지 않는다.** 원자료가 9개 회사 표본이고,
+ *   2,765개 상장사 전체를 훑는 수집기 자료가 아직 없다. 못 잰 것은 못 쟀다고 적는다.
+ * ⛔ 「어느 꼴이 옳다」고 하지 않는다. 다 쓰이는 말이다. 갈린다는 것만 센다.
+ * ⛔ 회사 이름을 붙이지 않는다 — 꼴이 많은 것을 「나쁜 회사」로 읽히게 하지 않는다.
+ * ⛔ English only — 사장님 2026-08-05 「우리 손님은 영어권이다. 화면에 한국어를 안 낸다」.
+ *   ⚠ 다만 **한국어 계정명 그 자체는 자료다.** 그것을 지우면 지면이 쓸모가 없다.
+ *     설명은 영어로, 보여 주는 이름은 원문 그대로.
+ * ⛔ Numbers come from src/data/account-name-variants.json, never typed by hand.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import facts from '../../data/account-name-variants.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const f = facts as any;
+const N = (n: number | null | undefined) =>
+  n == null ? '—' : Number(n).toLocaleString('en-GB');
+
+const 셈 = f.셈 ?? {};
+const 갈린것: any[] = Array.isArray(f.갈린것) ? f.갈린것 : [];
+const 말이다른것 = 갈린것.filter((x: any) => !x.띄어쓰기만);
+const 띄어쓰기만 = 갈린것.filter((x: any) => x.띄어쓰기만);
+const 제표 = Object.entries(f.제표이름 ?? {});
+
+const title = 'One line item, several Korean spellings';
+const description =
+  `In a sample of Korean filings, ${N(셈.한국어꼴)} statement line-item names collapse to `
+  + `${N(셈.영문용어)} English terms. ${N(셈.갈린용어)} of those terms are written more than `
+  + `one way, and only ${N(셈.띄어쓰기만)} of them differ by spacing alone.`;
+---
+
+<Base title={title} description={description} canonical={`${SITE_URL}/data/account-name-variants`}>
+  <article class="wrap">
+    <h1>{title}</h1>
+
+    <p class="lead">
+      If you read Korean company filings by machine, you match line items by name. That
+      works until the same item is written a different way. In the sample we hold,
+      {' '}<b>{N(셈.한국어꼴)}</b> Korean line-item names map onto <b>{N(셈.영문용어)}</b>
+      {' '}English terms — and <b>{N(셈.갈린용어)}</b> of those terms carry more than one
+      Korean spelling. Stripping whitespace fixes {N(셈.띄어쓰기만)} of them. The other
+      {' '}<b>{N(셈.말이다름)}</b> are different words for the same thing.
+    </p>
+
+    <div class="stats">
+      <div class="stat"><b>{N(셈.한국어꼴)}</b><span>Korean line-item names</span></div>
+      <div class="stat"><b>{N(셈.영문용어)}</b><span>distinct English terms</span></div>
+      <div class="stat"><b>{N(셈.갈린용어)}</b><span>terms with more than one spelling</span></div>
+      <div class="stat"><b>{N(셈.가장많이갈린꼴수)}</b><span>spellings for the single worst term</span></div>
+    </div>
+
+    <div class="warn">
+      <b>What this does not say.</b> We cannot tell you what share of an arbitrary Korean
+      filing these names cover. The mapping was built from a {N(f._meta?.표본회사수)}-company
+      sample, in which {N(f._meta?.표본에나온계정명수)} distinct line-item names appeared; the
+      sweep across all listed companies has not been collected yet. So the counts here
+      describe <i>this sample</i>, not the market. We would rather say that than give you a
+      percentage we did not measure.
+    </div>
+
+    <h2>Different words, not different spacing</h2>
+    <p>
+      The distinction matters if you are building anything on top of this. Whitespace you
+      can normalise away in one line of code. A filing that writes <span class="ko">수익</span>
+      {' '}where another writes <span class="ko">매출액</span> is not a formatting problem —
+      both are ordinary Korean for the same IFRS line, and no amount of string cleaning
+      joins them. {N(셈.말이다름)} of the {N(셈.갈린용어)} split terms are of that second kind.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>English term</th>
+            <th class="num">Spellings</th>
+            <th>As written in the filings</th>
+          </tr>
+        </thead>
+        <tbody>
+          {말이다른것.map((x: any) => (
+            <tr>
+              <td>{x.영문}</td>
+              <td class="num">{N(x.꼴수)}</td>
+              <td class="ko">{(x.꼴들 ?? []).join('  ·  ')}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2>The ones whitespace explains</h2>
+    <p>
+      For completeness, here are the {N(셈.띄어쓰기만)} terms whose Korean spellings are
+      identical once spaces are removed. These are the easy half.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>English term</th>
+            <th class="num">Spellings</th>
+            <th>As written in the filings</th>
+          </tr>
+        </thead>
+        <tbody>
+          {띄어쓰기만.map((x: any) => (
+            <tr>
+              <td>{x.영문}</td>
+              <td class="num">{N(x.꼴수)}</td>
+              <td class="ko">{(x.꼴들 ?? []).join('  ·  ')}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2>The five statements</h2>
+    <p>
+      The same holds one level up. These are the statement headings the filings use.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>As written</th><th>English</th></tr>
+        </thead>
+        <tbody>
+          {제표.map(([ko, en]: any) => (
+            <tr><td class="ko">{ko}</td><td>{en}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2>How this was counted</h2>
+    <p class="note">
+      Source: a hand-built map from Korean K-IFRS statement line-item names to standard
+      IFRS English terms — not machine translation. Grouped by English term; each distinct
+      Korean string counts once. A term is marked whitespace-only when removing every space
+      leaves a single string. Nothing here says which spelling is correct: all of them are
+      in use, which is the point. No company is named, because the spread is a property of
+      Korean filing practice rather than of any one filer.
+      {' '}Counted {f._meta?.생성}. The figures on this page are written by
+      {' '}<code>scripts/measure-account-name-variants.mjs</code> and read straight from
+      {' '}<code>src/data/account-name-variants.json</code>; none of them are typed by hand.
+    </p>
+
+    <BuyBar />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 56rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; margin: 1.1rem 0; line-height: 1.6;
+    border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; white-space: nowrap; }
+  td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  /* 한국어 계정명은 «자료»다. 읽히게 둔다 — 지우면 지면이 쓸모가 없다 */
+  .ko { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; }
+  code { font-size: .9em; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+    .note, .stat span { color: #aaa; }
+  }
+</style>

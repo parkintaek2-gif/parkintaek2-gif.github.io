@@ -403,6 +403,10 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/ceo-tenure', changefreq: 'monthly', priority: '0.8' },
       { loc: '/data/workday-denominator', changefreq: 'monthly', priority: '0.8' },
       { loc: '/data/smb-outlook-gap', changefreq: 'monthly', priority: '0.8' },
+      /* ⭐ [2026-10-13 01:4x · 5번] 여섯째 데이터 지면. 지면·목록·사이트맵을 한 커밋에.
+         ⚠ 이번에도 빌드가 끝난 뒤 check-sitemap-page-coverage.mjs 가 잡아 줬다.
+           그 자는 «이미 있었다». 없어서 틀린 것이 아니라 «안 돌려서» 틀렸다. */
+      { loc: '/data/account-name-variants', changefreq: 'monthly', priority: '0.8' },
       // 🔴 [2026-09-18 · 6번] 이 파일의 넷째 사고 — 신용등급·외국인보유·재무축 지면 다섯이
       // 같은 실수로 빠져 있었다(9/15~9/17에 만들고 이 목록에 안 넣음). 사이트맵이 11줄로
       // 보인 진짜 까닭은 「자료가 없어서」가 아니라 이 목록이 낡아서였다.
