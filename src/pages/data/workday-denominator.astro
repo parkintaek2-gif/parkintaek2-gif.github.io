@@ -1,0 +1,284 @@
+---
+/*
+ * `/data/workday-denominator` — the denominator behind Korea's monthly indicators.
+ * (seoulmarkets.com/data/workday-denominator)
+ *
+ * ── Why this page (2026-10-12 19:0x · 5번) ───────────────────────────
+ *   네 번째 데이터 지면이다. 오늘 고친 `check-쥔자료에-안쓴축이-있나.mjs` 가
+ *   「지면도 기사도 «없는» 축 30개」를 내놓았고 그 가운데 골랐다.
+ *   ⛔ 짓기 전에 `check-이축으로-이미낸게있나.mjs` 로 확인했다 — 걸리는 것이 없었다.
+ *     (다만 그 자료는 열쇠가 한글이라 그 자가 얇게 봤다. 자가 그렇게 적는다.)
+ *
+ *   고른 까닭 — **영어권 손님이 한국 월별 지표를 견줄 때 반드시 알아야 하는데
+ *   아무도 안 알려 주는 것**이다.
+ *   ```
+ *     2월 평균 18.5일  vs  7월 평균 21.2일   → 14.4% 차이
+ *     2011년 21.2  →  2025년 19.1           → 15년에 9.9% 줄었다
+ *     그리고 그 시리즈에 **이음매가 둘**
+ *   ```
+ *
+ *   ⭐ 이 지면에만 있는 것 — **이음매의 크기를 계절성과 갈라 본다.**
+ *     자료가 적은 변화율은 12월→1월 «한 달» 비교라 계절성이 섞여 있다(-4.5%).
+ *     앞뒤 열두 달 평균으로 보면 -1.2% 다. **둘 다 적는다** —
+ *     어느 쪽도 거짓이 아니고 무엇을 견주었나가 다를 뿐이다.
+ *
+ * ── ⛔ What this page must not become ────────────────────────────────
+ * ⛔ 「왜 줄었나」를 말하지 않는다. 주 52시간·대체공휴일·표본 변화 — 다 그럴듯하지만
+ *   우리는 안 쟀다. 얼마나 움직였나까지다.
+ * ⛔ 이음매를 이어 붙이지 않는다. 보정 계수를 만들면 그 순간 «우리 수»가 된다.
+ * ⛔ 열두 달이 안 찬 해를 온전한 해와 나란히 놓지 않는다.
+ * ⛔ English only — 사장님 2026-08-05 「우리 손님은 영어권이다. 화면에 한국어를 안 낸다」.
+ * ⛔ Numbers come from src/data/workday-denominator.json, never typed by hand.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import facts from '../../data/workday-denominator.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const f = facts as any;
+const N = (n: number | null | undefined) =>
+  n == null ? '—' : Number(n).toLocaleString('en-GB');
+const pct = (x: number | null | undefined, d = 1) =>
+  x == null ? '—' : `${(Number(x) * 100).toFixed(d)}%`;
+const 일 = (n: number | null | undefined) =>
+  n == null ? '—' : `${Number(n).toFixed(1)} days`;
+const 달 = (s: string | null | undefined) =>
+  !s ? '—' : `${String(s).slice(0, 4)}-${String(s).slice(4, 6)}`;
+const 달이름 = (mm: string) => ([
+  '', 'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+][Number(mm)] ?? mm);
+
+const 달들 = Array.isArray(f.달마다) ? f.달마다 : [];
+const 해줄 = Array.isArray(f.해줄) ? f.해줄 : [];
+const 이음매 = Array.isArray(f.이음매) ? f.이음매 : [];
+/* 달력 차례로 다시 세운다 — 자료는 평균 차례로 왔다 */
+const 달력차례 = [...달들].sort((a: any, b: any) => String(a.달).localeCompare(String(b.달)));
+const 모자란해 = 해줄.filter((r: any) => !r.온전한가);
+
+const title = 'Korea’s monthly numbers have a moving denominator';
+const description =
+  `Korean workplaces operated ${일(f.적은달?.평균)} in an average February against `
+  + `${일(f.많은달?.평균)} in July, and the annual figure fell ${pct(f.해사이몫)} between `
+  + `${f.첫해?.해} and ${f.끝해?.해}. The series also breaks twice.`;
+---
+
+<Base title={title} description={description} canonical={`${SITE_URL}/data/workday-denominator`}>
+  <article class="wrap">
+    <h1>{title}</h1>
+
+    <p class="lead">
+      Every monthly figure out of Korea — output, shipments, hours, payroll — is a count of
+      what happened across however many days the workplace was actually open. That count is
+      itself published, and it moves. Across {N(f.달수)} months from {달(f.첫달)} to
+      {' '}{달(f.끝달)}, an average February ran <b>{일(f.적은달?.평균)}</b> against
+      {' '}<b>{일(f.많은달?.평균)}</b> in July — a {pct(f.달사이몫)} gap before anything
+      economic has happened at all.
+    </p>
+
+    <div class="stats">
+      <div class="stat"><b>{pct(f.달사이몫)}</b><span>February vs July, long-run average</span></div>
+      <div class="stat"><b>{pct(f.해사이몫)}</b><span>{f.첫해?.해} to {f.끝해?.해}, annual mean</span></div>
+      <div class="stat"><b>{일(f.가장적은달?.값)}</b><span>thinnest month ({달(f.가장적은달?.달)})</span></div>
+      <div class="stat"><b>{이음매.length}</b><span>breaks in the series</span></div>
+    </div>
+
+    <h2>The seasonal shape</h2>
+    <p>
+      Averaged over every year we hold, the calendar alone moves the denominator by
+      {' '}{pct(f.달사이몫)}. A month-on-month comparison that ignores it is reading the
+      calendar and calling it the economy.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th class="num">Mean operating days</th>
+            <th class="num">Years counted</th>
+            <th>Relative</th>
+          </tr>
+        </thead>
+        <tbody>
+          {달력차례.map((r: any) => (
+            <tr>
+              <td>{달이름(r.달)}</td>
+              <td class="num">{일(r.평균)}</td>
+              <td class="num">{N(r.해수)}</td>
+              <td>
+                <span
+                  class="bar"
+                  style={`width:${(((r.평균 ?? 0) - 16) / 6 * 100).toFixed(1)}%`}
+                ></span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Bars are scaled from 16 to 22 days so the differences are visible; they do not start
+      at zero, and they are not meant to be read as magnitudes.
+    </p>
+
+    <h2>The long drift</h2>
+    <p>
+      The annual mean fell from {일(f.첫해?.평균)} in {f.첫해?.해} to
+      {' '}{일(f.끝해?.평균)} in {f.끝해?.해} — <b>{pct(f.해사이몫)}</b> over the span.
+      Any Korean monthly series compared across those years is being divided by a number
+      that moved by roughly a tenth. <b>We do not say why it moved.</b> Working-hour law,
+      substitute public holidays and survey redesign are all plausible; none of them is
+      something we measured, so none of them appears here as a cause.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th class="num">Mean operating days</th>
+            <th class="num">Months</th>
+            <th>Complete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {해줄.map((r: any) => (
+            <tr>
+              <td>{r.해}</td>
+              <td class="num">{일(r.평균)}</td>
+              <td class="num">{N(r.개월수)}</td>
+              <td class="dim">{r.온전한가 ? 'Yes' : 'Partial year'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    {모자란해.length > 0 && (
+      <p class="note">
+        {N(모자란해.length)} of these years hold fewer than twelve months. They are marked
+        rather than averaged in as though complete — a partial year is a different object
+        from a full one, and putting them in one column without saying so is how a table
+        starts lying.
+      </p>
+    )}
+
+    <h2 class="warn-h">The series breaks — and the break has two sizes</h2>
+    <p>
+      The statistical office renumbers this survey periodically, and at each changeover the
+      published figure steps. The source states a change rate at the joint. That rate
+      compares December with January — <b>two months that are never alike</b>, because
+      January is structurally one of the thinnest months of the year. So the stated step
+      carries the season inside it.
+    </p>
+    <p>
+      Below, each break is measured twice: once as the source states it, and once as the
+      mean of the twelve months either side, which removes the season.
+      <b> Both are true.</b> They answer different questions, and publishing only the
+      larger one would make the break look worse than it is — publishing only the smaller
+      one would hide what a reader of the raw file actually sees.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Break</th>
+            <th class="num">As stated (month on month)</th>
+            <th class="num">Twelve-month means</th>
+            <th class="num">Months either side</th>
+          </tr>
+        </thead>
+        <tbody>
+          {이음매.map((j: any) => (
+            <tr>
+              <td>{달(j.전)} &rarr; {달(j.후)}</td>
+              <td class="num">{j.못쟀다 ? '—' : pct(j.한달몫)}</td>
+              <td class="num">{j.못쟀다 ? '—' : pct(j.열두달몫)}</td>
+              <td class="num dim">
+                {j.못쟀다 ? j.못쟀다 : `${N(j.앞달수)} / ${N(j.뒤달수)}`}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Where fewer than twelve months have accumulated after a break, we average what exists
+      and print the count rather than waiting or padding. The most recent break has only a
+      few months on the far side, and that figure will move as more arrive.
+    </p>
+
+    <h2 class="warn-h">What this page does not tell you</h2>
+    <div class="warn">
+      <ul>
+        <li>
+          <b>Why the count fell.</b> We measured the movement, not its cause. A page that
+          counted days is not entitled to an explanation it did not test.
+        </li>
+        <li>
+          <b>A spliced series.</b> We could publish one number running cleanly from
+          {' '}{달(f.첫달)} to {달(f.끝달)} by applying a correction factor at each break.
+          We do not, because that number would be ours rather than the statistical
+          office's, and a reader could not check it against the source.
+        </li>
+        <li>
+          <b>How to adjust your own series.</b> Dividing by operating days is one choice
+          among several, and the right one depends on what you are measuring. We draw the
+          terrain; the needle is yours to set.
+        </li>
+        <li>
+          <b>Anything about one firm or one sector.</b> This is a survey-wide figure. A
+          single workplace's calendar is not in here.
+        </li>
+      </ul>
+    </div>
+
+    <p class="note">
+      Source: {f._출처}. Collected {f._받은때}. Every figure on this page is computed at
+      build time from <code>workday-denominator.json</code> by
+      {' '}<code>scripts/measure-workday-denominator.mjs</code>; none is transcribed by
+      hand. Months we could not read are dropped rather than filled with zero, and the
+      counts above say how many went into each average.
+    </p>
+
+    <BuyBar />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 56rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  h2.warn-h { color: var(--warn, #9a3412); }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; white-space: nowrap; }
+  td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  td.dim, span.dim { color: var(--muted, #666); white-space: nowrap; }
+  .bar {
+    display: inline-block; height: .55rem; min-width: 1px; border-radius: 2px;
+    background: var(--accent, #0f4c81); opacity: .55; vertical-align: middle;
+  }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  ul li { margin-bottom: .45rem; }
+  code { font-size: .9em; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+    h2.warn-h { color: #fdba74; }
+    td.dim, span.dim, .note, .stat span { color: #aaa; }
+  }
+</style>

@@ -401,6 +401,7 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/fx-futures-listed-vs-traded', changefreq: 'weekly', priority: '0.8' },
       /* 자료가 해마다 한 번(사업보고서) 바뀌므로 weekly 가 아니라 monthly 다 */
       { loc: '/data/ceo-tenure', changefreq: 'monthly', priority: '0.8' },
+      { loc: '/data/workday-denominator', changefreq: 'monthly', priority: '0.8' },
       // 🔴 [2026-09-18 · 6번] 이 파일의 넷째 사고 — 신용등급·외국인보유·재무축 지면 다섯이
       // 같은 실수로 빠져 있었다(9/15~9/17에 만들고 이 목록에 안 넣음). 사이트맵이 11줄로
       // 보인 진짜 까닭은 「자료가 없어서」가 아니라 이 목록이 낡아서였다.
