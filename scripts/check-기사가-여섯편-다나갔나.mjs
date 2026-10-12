@@ -1,0 +1,252 @@
+#!/usr/bin/env node
+/**
+ * check-기사가-여섯편-다나갔나.mjs
+ *   — 날마다 **여섯 편이 다 나갔나**를 센다. 빠진 회차를 이름으로 말한다.
+ *
+ * ── 🔴🔴 왜 (2026-10-12 10:2x · 5번) ──────────────────────────────────
+ *   사장님 2026-10-06 — 「**9시 예약이면 9시에 기사를 줘**」
+ *
+ *   보낸 자국을 날짜별로 세어 보니 이랬다 —
+ *   ```
+ *   2026-10-05 (월)  09 10 11 14 15        ← 16시 빠짐
+ *   2026-10-06 (화)  09 10 11 14 16        ← 15시 빠짐
+ *   2026-10-07 (수)  09 10 11 14 15 16     ← 여섯 다 ✅
+ *   2026-10-08 (목)  10                    ← **다섯 빠짐**
+ *   ```
+ *   ⭐⭐ 그런데 `잰다-기사가-제때-나갔나.mjs` 는 **나간 것만** 잰다.
+ *     **안 나간 것은 분모에 아예 없다.**
+ *     2026-10-08 은 한 편만 나갔는데 그 한 편이 「✅ 12분 늦음」으로 찍혔다.
+ *
+ *   ⛔ 이것이 오늘 아침 AI 인용 수에서 겪은 **생존자 편향과 똑같은 꼴**이다.
+ *     나간 것만 보면 늘 그럴듯해 보인다.
+ *   ⭐ **늦는 것보다 «안 나가는 것»이 더 크다.** 늦으면 받기라도 한다.
+ *
+ * ── ⚠ 이 자가 가리는 것 ───────────────────────────────────────────────
+ *   ⛔ 주말·공휴일은 안 센다 — 그날은 쉬는 것이 맞다(사장님 2026-10-04).
+ *   ⛔ 「오늘」은 안 센다 — 아직 회차가 남아 있다. 어제까지만 본다.
+ *   ⛔ 자국이 하나도 없는 날과 「다 나간 날」을 섞지 않는다.
+ *   ⚠ 자국은 「보냈다」의 자국이지 「사장님이 읽으셨다」가 아니다.
+ *
+ * 쓰는 법
+ *   node scripts/check-기사가-여섯편-다나갔나.mjs
+ *   node scripts/check-기사가-여섯편-다나갔나.mjs --날수 14
+ *   node scripts/check-기사가-여섯편-다나갔나.mjs --자가시험
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const 자국방 = path.join(뿌리, 'docs', '고정업무-마커', '중부매일-스포츠-보낸자국');
+
+/** 하루에 나가야 할 여섯 회차 — 사장님 지시(2026-09-28)의 여섯이다. 안 늘리고 안 줄인다 */
+export const 하루몫 = ['09', '10', '11', '14', '15', '16'];
+
+/** 자국 파일 이름에서 날짜와 회차를 뽑는다 */
+export function 자국읽기(이름) {
+  const m = String(이름 ?? '').match(/^(\d{4}-\d{2}-\d{2})_(\d{1,2})시\.txt$/);
+  if (!m) return null;
+  return { 날: m[1], 시: m[2].padStart(2, '0') };
+}
+
+/** 그날이 쉬는 날인가 — 토·일.
+ *  ⚠ 요일은 **한국시간**으로 본다. 이 PC 가 KST 다 — toISOString() 을 쓰지 않는다.
+ *  ⛔ 공휴일은 여기서 안 본다 — `한국-공휴일.mjs` 가 정본이고, 아래에서 그 표를 받는다. */
+export function 주말인가(날) {
+  const d = new Date(String(날) + 'T00:00:00');
+  if (Number.isNaN(d.getTime())) return null;
+  const 요일 = d.getDay();
+  return 요일 === 0 || 요일 === 6;
+}
+
+/** 어제부터 거슬러 «달력»으로 날짜를 만든다.
+ *  🔴🔴 [2026-10-12 · 5번] 처음엔 범위를 «자국»에서 만들었다 —
+ *    그러면 **한 편도 안 나간 날이 목록에 뜨지도 않는다.**
+ *    ⭐ 가장 나쁜 날(0편)이 가장 안 보인다. 생존자 편향과 같은 뿌리다. */
+export function 달력에서만든다(날수, 오늘 = new Date()) {
+  const 날들 = [];
+  for (let i = 1; i <= 날수; i++) {
+    const d = new Date(오늘.getFullYear(), 오늘.getMonth(), 오늘.getDate() - i);
+    날들.push(d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0')
+      + '-' + String(d.getDate()).padStart(2, '0'));
+  }
+  return 날들.reverse();     /* 옛날부터 */
+}
+
+/** 날짜별로 어느 회차가 나갔나 */
+export function 날짜별로모은다(이름들) {
+  if (!Array.isArray(이름들)) return null;
+  const 모음 = {};
+  for (const n of 이름들) {
+    const x = 자국읽기(n);
+    if (!x) continue;
+    if (!모음[x.날]) 모음[x.날] = new Set();
+    모음[x.날].add(x.시);
+  }
+  return 모음;
+}
+
+/** 그날 빠진 회차 — 쉬는 날이면 null(세지 않는다) */
+/** 그날 빠진 회차 — 쉬는 날이면 null(세지 않는다)
+ *  ⚠ [2026-10-12 10:3x · 5번] 셋째 인자가 «날짜 목록»이었는데 받아 오는 쪽이 비어서
+ *    2026-10-05(개천절 대체공휴일)을 평일로 셌다. **조용히 틀렸다.**
+ *    ⇒ `한국-공휴일.mjs` 의 `쉬는날인가` 를 그대로 받는다. 표를 베껴 두지 않는다.
+ *    ⛔ 못 받으면 부르는 쪽이 멈춘다 — 여기서 「평일이다」로 떨어뜨리지 않는다. */
+export function 빠진회차(날, 나간것, 쉬는날인가) {
+  if (typeof 쉬는날인가 !== 'function') return undefined;   /* ⛔ 못 쟀다 — null(쉬는 날)과 다르다 */
+  const d = new Date(String(날) + 'T00:00:00');
+  if (Number.isNaN(d.getTime())) return undefined;
+  /* 🔴🔴 [2026-10-12 10:4x · 5번] 여기가 `if (쉬는날인가(d))` 였다 —
+     그 함수는 참/거짓이 아니라 **{ 쉰다, 까닭, 안다 } 객체**를 낸다.
+     객체는 언제나 참이라 **모든 날이 「쉬는 날」**이 됐다. 빨간불이 통째로 꺼졌다.
+     ⛔ 함수를 가져다 쓸 때 그 함수가 «무엇을 돌려주는지»까지 본다.
+     ⭐ 그리고 그 자는 「모른다」를 따로 낸다 — 쉰다: null · 안다: false.
+       ⛔ null 을 false 와 같이 보지 않는다. 모르면 「못 쟀다」다. */
+  const 것 = 쉬는날인가(d);
+  if (!것 || typeof 것 !== 'object') return undefined;
+  if (것.쉰다 === true) return null;                /* 주말이거나 공휴일 */
+  if (것.쉰다 !== false || 것.안다 !== true) return undefined;   /* ⛔ 모르면 못 쟀다 */
+  const 있는것 = 나간것 instanceof Set ? 나간것 : new Set(나간것 ?? []);
+  return 하루몫.filter((h) => !있는것.has(h));
+}
+
+/* ─────────────────────────────── 자가시험 ─────────────────────────────── */
+async function 자가시험() {
+  const { test } = await import('node:test');
+  const A = (await import('node:assert/strict')).default;
+
+  test('자국 이름에서 날짜와 회차를 뽑는다', () => {
+    A.deepEqual(자국읽기('2026-10-08_10시.txt'), { 날: '2026-10-08', 시: '10' });
+    A.deepEqual(자국읽기('2026-10-08_9시.txt'), { 날: '2026-10-08', 시: '09' }, '한 자리도 받는다');
+    A.equal(자국읽기('엉뚱한 파일.txt'), null);
+  });
+  /* ⚠ [2026-10-12 10:4x] 시험들이 셋째 인자를 «날짜 목록»으로 넘기고 있었다.
+     이제 «쉬는날인가 함수»를 넘긴다. 진짜 자를 그대로 가져다 쓴다 —
+     ⛔ 흉내 낸 것으로 재면 진짜가 바뀌어도 시험이 안 깨진다. */
+  const 진짜쉬는날 = (await import('./한국-공휴일.mjs')).쉬는날인가;
+
+  test('🔴 빠진 회차를 이름으로 말한다 — 2026-10-08 에 실제로 다섯이 빠졌다', () => {
+    const r = 빠진회차('2026-10-08', new Set(['10']), 진짜쉬는날);
+    A.deepEqual(r, ['09', '11', '14', '15', '16']);
+  });
+  test('🔴🔴 쉬는날인가() 는 «객체»를 낸다 — 참/거짓으로 읽으면 모든 날이 쉬는 날이 된다', () => {
+    /* 2026-10-12 10:3x 에 실제로 그랬다. 빨간불이 통째로 꺼졌다. */
+    const 것 = 진짜쉬는날(new Date(2026, 9, 7));   /* 수요일, 평일 */
+    A.equal(typeof 것, 'object');
+    A.equal(것.쉰다, false, '평일인데 쉰다고 했다');
+    A.ok(Boolean(것), '객체는 언제나 참이다 — 그래서 if(…) 로 읽으면 안 된다');
+  });
+  test('✅ 여섯 다 나간 날은 빈 목록 — 2026-10-07 이 그랬다', () => {
+    A.deepEqual(빠진회차('2026-10-07', new Set(하루몫), 진짜쉬는날), []);
+  });
+  test('⛔ 주말은 안 센다 — null 이지 「다 빠졌다」가 아니다', () => {
+    /* ⚠ 0 이나 빈 목록으로 내면 토·일마다 빨간불이 뜬다. */
+    A.equal(빠진회차('2026-10-10', new Set(), 진짜쉬는날), null, '토요일');
+    A.equal(빠진회차('2026-10-11', new Set(), 진짜쉬는날), null, '일요일');
+  });
+  test('⛔ 공휴일도 안 센다 — 2026-10-09 는 한글날이다', () => {
+    A.equal(빠진회차('2026-10-09', new Set(), 진짜쉬는날), null, '한글날이다');
+    A.deepEqual(빠진회차('2026-10-05', new Set(), 진짜쉬는날), null,
+      '2026-10-05 는 개천절 대체공휴일이다 — 빈 표를 들고 돌아 평일로 셌던 자리다');
+    A.equal(빠진회차('2026-10-08', new Set(), undefined), undefined,
+      '⛔ 자를 안 주면 못 쟀다 — 「평일이다」로 떨어뜨리지 않는다');
+  });
+  test('⚠ 요일을 한국시간으로 본다 — toISOString 을 안 쓴다', () => {
+    /* ⛔ UTC 로 보면 월요일 새벽이 일요일이 된다. 2026-10-12 아침에 회차가 그랬다. */
+    A.equal(주말인가('2026-10-12'), false, '월요일');
+    A.equal(주말인가('2026-10-11'), true, '일요일');
+  });
+  test('⛔ 날짜가 이상하면 null — 「평일」로 읽지 않는다', () => {
+    A.equal(주말인가('엉뚱한 글'), null);
+  });
+  test('날짜별로 모은다', () => {
+    const r = 날짜별로모은다(['2026-10-07_09시.txt', '2026-10-07_10시.txt', '2026-10-08_10시.txt']);
+    A.equal(r['2026-10-07'].size, 2);
+    A.equal(r['2026-10-08'].size, 1);
+  });
+  test('⛔ 배열이 아니면 null', () => {
+    A.equal(날짜별로모은다(null), null);
+  });
+  test('⚠ 하루 몫 여섯은 사장님이 정하신 것이다 — 코드에 그렇게 적혀 있다', () => {
+    const 나 = fs.readFileSync(fileURLToPath(import.meta.url), 'utf8');
+    A.equal(하루몫.length, 6);
+    A.ok(나.includes('안 늘리고 안 줄인다'));
+  });
+}
+
+const 날수인자 = (() => {
+  const i = process.argv.indexOf('--날수');
+  const v = i >= 0 ? Number(process.argv[i + 1]) : NaN;
+  return Number.isFinite(v) && v > 0 ? Math.floor(v) : 7;
+})();
+
+if (process.argv.includes('--자가시험') || process.argv.includes('--selftest')) {
+  await 자가시험();
+} else {
+  console.log('■ 기사가 날마다 «여섯 편» 다 나갔나');
+  console.log('   🔴 사장님 2026-10-06 — 「9시 예약이면 9시에 기사를 줘」');
+  console.log('   ⭐ 「제때 나갔나」는 **나간 것만** 잰다 — 안 나간 것은 분모에 없다(생존자 편향).');
+  console.log('');
+
+  let 이름들;
+  try { 이름들 = fs.readdirSync(자국방); }
+  catch (e) {
+    console.log('⬜ 자국방을 못 읽었다 — 「다 나갔다」가 아니라 **못 쟀다**: ' + e.message);
+    process.exit(0);
+  }
+
+  /* 공휴일 판정을 그 자에게서 «그대로» 받는다 — ⛔ 날짜 표를 베껴 두지 않는다.
+     🔴 [2026-10-12 10:3x] 처음엔 `공휴일` 이라는 없는 이름을 찾아 빈 표를 들고 돌았고,
+       2026-10-05(개천절 대체공휴일)을 평일로 셌다. **경고도 안 떴다.** */
+  let 쉬는날인가;
+  try {
+    const m = await import('./한국-공휴일.mjs');
+    쉬는날인가 = m.쉬는날인가;
+  } catch (err) {
+    console.log('⬜ 공휴일 자를 못 불렀다 — 「다 나갔다」가 아니라 **못 쟀다**: ' + err.message);
+    process.exit(0);
+  }
+  if (typeof 쉬는날인가 !== 'function') {
+    console.log('⬜ 공휴일 자에 쉬는날인가() 가 없다 — 이름이 바뀌었나. **못 쟀다**');
+    process.exit(0);
+  }
+
+  const 모음 = 날짜별로모은다(이름들);
+  /* 오늘은 빼고 어제까지 — ⛔ 오늘은 아직 회차가 남아 있다 */
+  const 오늘 = (() => {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0')
+      + '-' + String(d.getDate()).padStart(2, '0');
+  })();
+
+  /* 🔴 범위는 «달력»에서 만든다 — 자국에서 만들면 0편인 날이 아예 안 보인다 */
+  const 날들 = 달력에서만든다(날수인자);
+
+  let 흠 = 0; let 센날 = 0;
+  for (const 날 of 날들) {
+    const 빠진 = 빠진회차(날, 모음[날], 쉬는날인가);
+    if (빠진 === undefined) { console.log('   ⬜ ' + 날 + '  못 쟀다'); continue; }
+    const 요일 = ['일', '월', '화', '수', '목', '금', '토'][new Date(날 + 'T00:00:00').getDay()];
+    if (빠진 === null) {
+      console.log('   ⬜ ' + 날 + ' (' + 요일 + ')  쉬는 날 — 안 센다');
+      continue;
+    }
+    센날 += 1;
+    const 나간수 = 하루몫.length - 빠진.length;
+    if (!빠진.length) { console.log('   ✅ ' + 날 + ' (' + 요일 + ')  여섯 편 다 나갔다'); continue; }
+    console.log('   🔴 ' + 날 + ' (' + 요일 + ')  ' + 나간수 + '/6 편'
+      + '   빠진 회차: ' + 빠진.map((h) => h + '시').join(' · '));
+    흠 += 빠진.length;
+  }
+
+  console.log('');
+  if (!센날) { console.log('⬜ 센 평일이 없다 — **못 쟀다**'); process.exit(0); }
+  if (흠) {
+    console.log('🔴 평일 ' + 센날 + '일 가운데 모두 ' + 흠 + '편이 안 나갔다');
+    console.log('   ⭐ 늦는 것보다 «안 나가는 것»이 크다 — 늦으면 받기라도 한다.');
+    console.log('   ⚠ 볼 곳 둘 — ① 회차가 돌긴 했나(예약 화면) ② 돌았는데 거두기가 놓쳤나(자국)');
+    console.log('      node scripts/잰다-회차가-몇분에-떴나.mjs 로 가른다');
+    process.exit(1);
+  }
+  console.log('✅ 센 평일 ' + 센날 + '일 모두 여섯 편이 다 나갔다');
+}
