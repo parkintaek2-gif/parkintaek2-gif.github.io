@@ -1,0 +1,250 @@
+---
+/*
+ * `/data/smb-outlook-gap` — Korea's small-business outlook index against the lived one.
+ * (seoulmarkets.com/data/smb-outlook-gap)
+ *
+ * ── Why this page (2026-10-12 17:1x · 5번) ───────────────────────────
+ *   다섯 번째 데이터 지면이다. 오늘 두 번 고친 「안 쓴 축」 자가
+ *   (이번엔 **의존까지 읽어**) 내놓은 22개에서 골랐다.
+ *   ⛔ 짓기 전에 `check-이축으로-이미낸게있나` 를 돌렸다 — 다만 열쇠가 한글이라
+ *     그 자가 거의 못 봤다(찾을 낱말 0개). 그래서 손으로도 훑었다.
+ *
+ *   잰 수가 드물다 —
+ *   ```
+ *     짝지은 149달 가운데 «149달» 전망이 체감보다 높다 — 100.0%
+ *     중앙 21.3포인트 · 가장 큰 64.4(2020-03) · 가장 작은 1.2(2024-08)
+ *     체감이 100 을 넘은 달은 «하나», 전망은 열다섯
+ *   ```
+ *
+ * ── 🔴 What this page must not become ────────────────────────────────
+ * 🔴 **「소상공인이 낙관한다」고 말하지 않는다.**
+ *   전망 BSI 와 체감 BSI 가 «같은 질문»인지 우리는 모른다. 물음도 표본도 다를 수 있다.
+ *   149/149 는 사람의 기분이 아니라 **두 자가 다른 것을 잰다는 뜻**일 수 있다.
+ *   ⇒ 수를 내놓고, 무엇을 뜻하는지는 **보는 사람이 정한다.** 그것이 나침반이다.
+ * ⛔ 「전망치를 믿지 마라」도 말하지 않는다. 치우친 자도 쓸모가 있다 —
+ *   치우친 만큼을 알면 읽을 수 있다. 우리는 그 치우침을 재 줄 뿐이다.
+ * ⛔ 못 짝지은 달을 0 으로 채우지 않는다.
+ * ⛔ English only — 사장님 2026-08-05 「우리 손님은 영어권이다. 화면에 한국어를 안 낸다」.
+ * ⛔ Numbers come from src/data/smb-outlook-gap.json, never typed by hand.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import facts from '../../data/smb-outlook-gap.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const f = facts as any;
+const N = (n: number | null | undefined) =>
+  n == null ? '—' : Number(n).toLocaleString('en-GB');
+const pct = (x: number | null | undefined, d = 1) =>
+  x == null ? '—' : `${(Number(x) * 100).toFixed(d)}%`;
+const pt = (n: number | null | undefined) =>
+  n == null ? '—' : `${Number(n).toFixed(1)} pts`;
+const 달 = (s: string | null | undefined) =>
+  !s ? '—' : `${String(s).slice(0, 4)}-${String(s).slice(4, 6)}`;
+
+const 벌어진달 = Array.isArray(f.벌어진달) ? f.벌어진달 : [];
+const 좁은달 = Array.isArray(f.좁은달) ? f.좁은달 : [];
+const 해마다 = Array.isArray(f.해마다) ? f.해마다 : [];
+const 모자란해 = 해마다.filter((r: any) => !r.온전한가);
+const 못짝 = (f.못짝지은것?.체감만 ?? 0) + (f.못짝지은것?.전망만 ?? 0);
+
+const title = 'Korea’s small-business outlook has never once undershot';
+const description =
+  `Across ${N(f.짝수)} months, the forward-looking small-business index sat above the `
+  + `lived one every single time — ${N(f.전망이높은달)} of ${N(f.짝수)}, median gap `
+  + `${pt(f.중앙차)}. We publish the gap without claiming to know what causes it.`;
+---
+
+<Base title={title} description={description} canonical={`${SITE_URL}/data/smb-outlook-gap`}>
+  <article class="wrap">
+    <h1>{title}</h1>
+
+    <p class="lead">
+      Korea publishes two business-sentiment readings for small merchants each month: what
+      the coming month is expected to look like, and what the month just lived through
+      actually felt like. Both run on the same 100-point scale, where above 100 means
+      improving. Lined up month by month from {달(f.첫달)} to {달(f.끝달)}, the
+      forward-looking figure sat above the lived one
+      {' '}<b>{N(f.전망이높은달)} times out of {N(f.짝수)}</b> — {pct(f.전망이높은몫)} — with a
+      median gap of <b>{pt(f.중앙차)}</b>.
+    </p>
+
+    <div class="stats">
+      <div class="stat"><b>{pct(f.전망이높은몫)}</b><span>months the outlook sat higher</span></div>
+      <div class="stat"><b>{pt(f.중앙차)}</b><span>median gap</span></div>
+      <div class="stat"><b>{pt(f.가장큰차)}</b><span>widest ({달(f.벌어진달?.[0]?.달)})</span></div>
+      <div class="stat"><b>{N(f.체감이백넘은달)} / {N(f.짝수)}</b><span>months the lived index cleared 100</span></div>
+    </div>
+
+    <div class="warn">
+      <p>
+        <b>Read this as a property of two instruments, not of anyone's mood.</b> We do not
+        know that the two indices put the same question to the same people. A reading of
+        {' '}{N(f.전망이높은달)} out of {N(f.짝수)} in one direction, across twelve years and
+        through a pandemic, is at least as likely to be how the pair is built as it is to
+        be optimism. <b>This page measures the distance. It does not name the cause.</b>
+      </p>
+    </div>
+
+    <h2>How wide, and when</h2>
+    <p>
+      The gap is not constant. It ran {pt(f.가장큰차)} at its widest in
+      {' '}{달(f.벌어진달?.[0]?.달)} and {pt(f.가장작은차)} at its narrowest in
+      {' '}{달(f.좁은달?.[0]?.달)}. A reader converting the forward index into an
+      expectation of the lived one needs that spread, not just the average.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th class="num">Outlook</th>
+            <th class="num">Lived</th>
+            <th class="num">Gap</th>
+          </tr>
+        </thead>
+        <tbody>
+          {벌어진달.map((r: any) => (
+            <tr>
+              <td>{달(r.달)}</td>
+              <td class="num">{Number(r.전망).toFixed(1)}</td>
+              <td class="num">{Number(r.체감).toFixed(1)}</td>
+              <td class="num">{pt(r.차)}</td>
+            </tr>
+          ))}
+          <tr class="sep"><td colspan="4">— narrowest —</td></tr>
+          {좁은달.map((r: any) => (
+            <tr>
+              <td>{달(r.달)}</td>
+              <td class="num">{Number(r.전망).toFixed(1)}</td>
+              <td class="num">{Number(r.체감).toFixed(1)}</td>
+              <td class="num">{pt(r.차)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2>The level, not just the gap</h2>
+    <p>
+      On the shared scale, 100 is the line between improving and worsening. The lived index
+      cleared it in <b>{N(f.체감이백넘은달)}</b> of {N(f.짝수)} months. The forward index
+      cleared it in <b>{N(f.전망이백넘은달)}</b>. Whatever the gap means, the two series do
+      not merely sit at different heights — they fall on opposite sides of the line that the
+      scale itself defines as the interesting one.
+    </p>
+
+    <h2>Year by year</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th class="num">Median gap</th>
+            <th class="num">Months</th>
+            <th>Complete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {해마다.map((r: any) => (
+            <tr>
+              <td>{r.해}</td>
+              <td class="num">{pt(r.중앙차)}</td>
+              <td class="num">{N(r.달수)}</td>
+              <td class="dim">{r.온전한가 ? 'Yes' : 'Partial year'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    {모자란해.length > 0 && (
+      <p class="note">
+        {N(모자란해.length)} of these years hold fewer than twelve months — the series starts
+        mid-year and ends mid-year. They are marked rather than placed beside full years as
+        though equivalent.
+      </p>
+    )}
+    {못짝 > 0 && (
+      <p class="note">
+        {N(못짝)} month{못짝 === 1 ? '' : 's'} appear in only one of the two series and are
+        excluded from every figure above rather than filled in. The forward index runs one
+        month further ahead than the lived one, which is what that exclusion is.
+      </p>
+    )}
+
+    <h2 class="warn-h">What this page does not tell you</h2>
+    <div class="warn">
+      <ul>
+        <li>
+          <b>That the outlook is wrong.</b> Two indices can both be accurate measurements of
+          two different things. We lined them up because they share a scale and a subject,
+          not because we established that they share a question.
+        </li>
+        <li>
+          <b>That you should discount the forward reading.</b> A consistently offset
+          instrument is a usable one — arguably more usable than an erratic unbiased one.
+          Knowing the offset is the point; deciding what to do with it is not ours.
+        </li>
+        <li>
+          <b>Why the distance moves.</b> It widened to {pt(f.가장큰차)} in
+          {' '}{달(f.벌어진달?.[0]?.달)} and narrowed to {pt(f.가장작은차)}. We counted the
+          movement. We did not test a single explanation for it.
+        </li>
+        <li>
+          <b>Anything about one business.</b> This is a survey aggregate across a sector.
+          It is a statistic, not a statement about any merchant.
+        </li>
+      </ul>
+    </div>
+
+    <p class="note">
+      Source: {f._출처}. Table {f._표}. Units: {f._단위}. Collected {f._뽑은날}. Every figure
+      on this page is computed at build time from <code>smb-outlook-gap.json</code> by
+      {' '}<code>scripts/measure-smb-outlook-gap.mjs</code>; none is transcribed by hand.
+    </p>
+
+    <BuyBar />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 56rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  h2.warn-h { color: var(--warn, #9a3412); }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+    margin: 1rem 0;
+  }
+  .warn p { margin: 0; }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; white-space: nowrap; }
+  td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  td.dim, span.dim { color: var(--muted, #666); white-space: nowrap; }
+  tr.sep td {
+    text-align: center; font-size: .78rem; color: var(--muted, #666);
+    padding: .5rem; border-bottom: 0;
+  }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  ul li { margin-bottom: .45rem; }
+  code { font-size: .9em; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+    h2.warn-h { color: #fdba74; }
+    td.dim, span.dim, .note, .stat span, tr.sep td { color: #aaa; }
+  }
+</style>
