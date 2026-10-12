@@ -61,7 +61,25 @@ export const 볼것 = {
   },
   seoulmarkets: {
     siteUrl: 'sc-domain:seoulmarkets.com',
-    주소: ['https://seoulmarkets.com/', 'https://seoulmarkets.com/equities', 'https://seoulmarkets.com/about'],
+    /* 🔴🔴 [2026-10-13 04:4x · 5번] **데이터 지면을 한 장도 안 묻고 있었다.**
+       ─────────────────────────────────────────────────────────────────
+       표본이 첫 화면·equities·about 셋뿐이었다. 셋 다 색인됐으니 ✅ 가 떴다.
+       그런데 그 셋은 «우리가 공들인 자리»가 아니다.
+       ⭐ 유입 재는 자가 적어 두었다 — 「AI 유입은 데이터 지면이 기사의 **6.6배**다」.
+         그러면 색인을 먼저 물어야 하는 것도 데이터 지면이다.
+       ⛔ 표본이 좁으면 ✅ 가 «성하다»가 아니라 «안 봤다»가 된다.
+         klifemap 은 열한 장을 물어 열 장이 빨간불이었다. 여기는 셋만 물어 ✅ 였다.
+       ⇒ 요즘 낸 데이터 지면을 넣는다. **새 지면을 내면 여기에 더한다.** */
+    주소: [
+      'https://seoulmarkets.com/', 'https://seoulmarkets.com/equities', 'https://seoulmarkets.com/about',
+      'https://seoulmarkets.com/data',
+      'https://seoulmarkets.com/data/account-name-variants',
+      'https://seoulmarkets.com/data/smb-outlook-gap',
+      'https://seoulmarkets.com/data/workday-denominator',
+      'https://seoulmarkets.com/data/ceo-tenure',
+      'https://seoulmarkets.com/data/gold-bar-premium',
+      'https://seoulmarkets.com/data/profit-streaks',
+    ],
   },
   kcw: {
     siteUrl: 'sc-domain:kculturewire.com',
