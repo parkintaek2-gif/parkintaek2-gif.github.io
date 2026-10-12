@@ -82,6 +82,50 @@ function 축ded(s) {
   return String(s ?? '').replace(/[-_\s]+/g, '');
 }
 
+/**
+ * 🔴🔴 [2026-10-12 20:3x · 5번] **이름 맞춤이 방금 낸 지면을 「없다」고 했다.**
+ * ─────────────────────────────────────────────────────────────────────
+ * `/data/workday-denominator` 를 내고 배포까지 끝낸 뒤에 이 자를 돌렸더니
+ * `korea-workdays` 가 **여전히 「안 쓴 축」에 있었다.**
+ * ⛔ 지면 이름(workday-denominator)과 자료 이름(korea-workdays)이 다르기 때문이다.
+ *   그리고 그 자료를 읽는 것은 지면이 아니라 **자**(measure-workday-denominator.mjs)다.
+ *
+ * ⭐ 이름을 «짐작»하지 말고 **실제로 무엇을 읽는지**를 본다.
+ *   지면과 자의 글에서 `src/data/<이름>.json` 과 `../../data/<이름>.json` 을 뽑는다.
+ *   이것은 맞춤이 아니라 **의존**이라 틀릴 자리가 없다.
+ * ⚠ 기사는 저장소에 소스가 없어 여전히 낱말로만 본다 — 그 한계는 따로 적는다.
+ */
+export function 글에서자료뽑기(글) {
+  const 찾은것 = new Set();
+  const 꼴 = /(?:src\/data|\.\.\/\.\.\/data|\.\/data|data)\/([A-Za-z0-9_\-/]+)\.(?:json|jsonl)/g;
+  let m = 꼴.exec(String(글 ?? ''));
+  while (m) {
+    찾은것.add(m[1]);
+    m = 꼴.exec(String(글 ?? ''));
+  }
+  return 찾은것;
+}
+
+/** 지면과 자가 «실제로 읽는» 자료 이름을 모은다 */
+export function 읽히는자료(뿌리, fsMod = fs, pathMod = path) {
+  const 모은것 = new Set();
+  const 볼곳 = [
+    { 방: pathMod.join(뿌리, 'src', 'pages', 'data'), 꼬리: /\.(astro|ts|js|mjs)$/i },
+    { 방: pathMod.join(뿌리, 'scripts'), 꼬리: /^measure-.*\.mjs$/i },
+  ];
+  for (const { 방, 꼬리 } of 볼곳) {
+    let 이름들;
+    try { 이름들 = fsMod.readdirSync(방); } catch { continue; }   /* ⬜ 못 읽으면 넘어간다 */
+    for (const n of 이름들) {
+      if (!꼬리.test(n)) continue;
+      let 글;
+      try { 글 = fsMod.readFileSync(pathMod.join(방, n), 'utf8'); } catch { continue; }
+      for (const d of 글에서자료뽑기(글)) 모은것.add(d);
+    }
+  }
+  return 모은것;
+}
+
 /* ─────────────────────────────── 자가시험 ─────────────────────────────── */
 async function 자가시험() {
   const { test } = await import('node:test');
@@ -131,6 +175,35 @@ async function 자가시험() {
     A.equal(쓰였나('bond-yield-curve', ['valuation', 'concentration']), false);
     A.equal(쓰였나('무엇', []), false);
   });
+  /* 🔴 [2026-10-12 20:3x] 이름 맞춤이 방금 낸 지면을 「없다」고 했다 — 의존을 읽는다 */
+  test('🔴 지면 글에서 «실제로 읽는» 자료를 뽑는다', () => {
+    A.deepEqual([...글에서자료뽑기("import f from '../../data/ceo-tenure.json';")], ['ceo-tenure']);
+    A.deepEqual([...글에서자료뽑기("readFileSync(path.join(뿌리, 'src/data/korea-workdays.json'))")],
+      ['korea-workdays']);
+    A.ok(글에서자료뽑기("'src/data/invest-ai/state-latest.jsonl'").has('invest-ai/state-latest'),
+      '폴더가 든 길도 읽는다');
+  });
+  test('⛔ 한 글에 여럿이면 다 뽑는다 — 하나만 보면 샌다', () => {
+    const 글 = "import a from '../../data/x.json';\nreadFileSync('src/data/y.json')";
+    A.deepEqual([...글에서자료뽑기(글)].sort(), ['x', 'y']);
+  });
+  test('⛔ 없으면 빈 집합이다 — null 이 아니다', () => {
+    A.equal(글에서자료뽑기('아무 자료도 안 읽는다').size, 0);
+    A.equal(글에서자료뽑기(null).size, 0);
+  });
+  test('⬜ 방을 못 읽으면 넘어간다 — 터지지 않는다', () => {
+    const 가짜fs = { readdirSync() { throw new Error('없다'); }, readFileSync() { return ''; } };
+    A.equal(읽히는자료('/아무데나', 가짜fs, path).size, 0);
+  });
+  test('🔴 지면이 아니라 «자»가 읽는 자료도 잡는다 — workday 건이 그랬다', () => {
+    const 가짜fs = {
+      readdirSync(방) {
+        return String(방).includes('scripts') ? ['measure-workday-denominator.mjs'] : [];
+      },
+      readFileSync() { return "readFileSync(path.join(뿌리, 'src/data/korea-workdays.json'))"; },
+    };
+    A.ok(읽히는자료('/뿌리', 가짜fs, path).has('korea-workdays'));
+  });
   test('⚠ 이 자가 「만들어라」고 하지 않는다 — 코드에 그렇게 적혀 있다', () => {
     const 나 = fs.readFileSync(fileURLToPath(import.meta.url), 'utf8');
     A.ok(나.includes('「만들어라」고 하지 않는다'));
@@ -153,11 +226,18 @@ if (process.argv.includes('--자가시험') || process.argv.includes('--selftest
   try { 지면들 = fs.readdirSync(path.join(뿌리, 'src', 'pages', 'data')).map(지면이름); }
   catch (e) { console.log('⬜ 지면방을 못 읽었다 — **못 쟀다**: ' + e.message); process.exit(0); }
 
+  /* 🔴 이름을 짐작하지 않고 «실제로 읽히는» 자료를 본다(위 읽히는자료 주석) */
+  const 읽힘 = 읽히는자료(뿌리);
+  const 읽힘정규 = new Set([...읽힘].map((d) => 축ded(축이름(d + '.json')).toLowerCase()));
+
   const 볼것 = 자료들.filter(살펴볼만한가);
-  const 안쓴것 = 볼것.map(축이름).filter((축) => !쓰였나(축, 지면들));
+  const 안쓴것 = 볼것
+    .map(축이름)
+    .filter((축) => !읽힘정규.has(축ded(축).toLowerCase()))
+    .filter((축) => !쓰였나(축, 지면들));
 
   console.log('   자료 ' + 자료들.length + '개 · 그중 살펴볼 만한 것 ' + 볼것.length + '개');
-  console.log('   데이터 지면 ' + 지면들.length + '장');
+  console.log('   데이터 지면 ' + 지면들.length + '장 · 지면과 자가 «실제로 읽는» 자료 ' + 읽힘.size + '개');
   console.log('   ⇒ 지면이 «없는» 축 ' + 안쓴것.length + '개');
   console.log('');
 
@@ -232,7 +312,10 @@ if (process.argv.includes('--자가시험') || process.argv.includes('--selftest
   console.log('');
   console.log('   ⛔ 「지면이 없다 = 내야 한다」가 아니다 — 낼 값이 없는 자료도 있다.');
   console.log('      이 자는 **「살펴볼 것」**을 내놓지 「만들어라」고 하지 않는다.');
-  console.log('   ⚠ 이름만 보고 가른다 — 속을 열어 보지 않았다. 더 좁히려면 사람이 본다.');
+  console.log('   ⚠ 어디까지 쟀나 — ⛔ 「없다」를 「못 찾았다」와 가른다');
+  console.log('      ✅ 지면·자가 «실제로 읽는» 자료는 의존을 읽어 뺐다 — 짐작이 아니다');
+  console.log('      ⚠ 기사는 저장소에 소스가 없어 **낱말로만** 봤다. 이름이 아주 다르면 못 잡는다');
+  console.log('      ⚠ 자료 속은 안 열어 봤다 — 낼 값이 있나는 사람이 본다');
   console.log('   ⭐ 고를 때 — 「그 지면에만 있는 수」가 나오는 자료부터 본다.');
   console.log('      오늘 새벽 얇은 지면 열여섯 장을 채우며 가장 잘 들었던 것이 그것이다.');
 }
