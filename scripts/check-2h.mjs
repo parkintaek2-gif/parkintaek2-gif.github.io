@@ -1621,6 +1621,12 @@ if (내가실행됐다) {
     /* ⭐ 그리고 «목록»쪽을 보는 자도 같이 넣는다. 사이트맵에 있는 것과 손님이 닿는
        것은 다르다 — 오늘 저를 문 것은 목록 쪽이었다. 이 자는 빌드를 안 돌려 1초다. */
     'check-데이터지면이-외톨이인가.mjs',
+    /* 🔴🔴 [2026-10-13 08:5x · 5번] git pull 이 «조용히» 실패하고 있었다.
+       매시 점검마다 error: Please commit or stash them 만 돌아왔는데
+       뒤에 붙인 명령이 잘 돌아서 그 줄을 여섯 시간 흘려보냈다.
+       그 사이 1번·2번이 글을 올렸다면 한 줄도 못 받았다.
+       ⛔ 사람은 조용한 실패를 못 본다. 세어서 말하게 한다. */
+    'check-pull이-막혔나.mjs',
     'check-kcw-memo-clock.mjs', 'check-selftest-counts.mjs', 'check-title-change-cooldown.mjs', 'check-session-entry-crlf.mjs'];
   const 결과 = 검사들.map((자) => ({ 자, 통과: 돌리기(자) }));
   const 진것 = 결과.filter((r) => !r.통과).map((r) => r.자.replace(/^check-kcw-|\.mjs$/g, ''));
