@@ -1,0 +1,252 @@
+---
+/*
+ * `/data/fx-futures-listed-vs-traded` — Korea lists far more currency futures
+ * than it trades. (seoulmarkets.com/data/fx-futures-listed-vs-traded)
+ *
+ * ── Why this page (2026-10-12 13:2x · 5번) ────────────────────────────
+ *   둘째 데이터 지면이다. `check-쥔자료에-안쓴축이-있나.mjs` 가 고른 186개 가운데 하나.
+ *   ⭐ 우리 강령 — 「남들이 안 센 것을 세고, 못 재는 것은 못 잰다고 적는다」.
+ *
+ *   그 자(`measure-fx-futures-listed-vs-traded.mjs`)가 머리에 이렇게 적어 두었다 —
+ *   「**거래량 0 행을 지우지 않고 세는 것이 이 셈의 핵심이다.**」
+ *   대부분의 자료 제공자는 0 행을 버린다. 버리면 이 수가 안 보인다.
+ *
+ *   잰 것 (24 영업일)
+ *   ─────────────────────────────
+ *     상장 종목-날 6,276 가운데 거래가 하나라도 있던 것 221 — 3.5%
+ *     플렉스 4,260 종목-날 가운데 거래된 것 0
+ *     거래량의 99.6%가 미국달러 한 통화
+ *   ─────────────────────────────
+ *
+ * ── ⛔ What this page must not become ────────────────────────────────
+ * ⛔ It does not say the exchange should delist anything. Listing something that
+ *   does not trade is how an exchange keeps a market available; that is a design
+ *   choice, not a failure, and we have not measured whether it works.
+ * ⛔ It does not say these contracts are illiquid «for a reason we know». We counted
+ *   rows. Why a flex contract never prints is not in this feed.
+ * ⛔ 24 sessions is a short window. We say so on the page rather than generalising.
+ * ⛔ English only — 사장님 2026-08-05 「우리 손님은 영어권이다. 화면에 한국어를 안 낸다」.
+ * ⛔ Numbers come from src/data/fx-futures-listed-vs-traded.json, never typed by hand.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ *
+ * ⚠ 그리고 이 지면은 /data 목록에 «같은 커밋에서» 넣는다 —
+ *   2026-10-12 에 앞 지면을 외톨이로 뒀다. 사이트맵에 있는 것과 닿는 것은 다르다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import facts from '../../data/fx-futures-listed-vs-traded.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const f = facts as any;
+const N = (n: number) => Number(n ?? 0).toLocaleString('en-GB');
+const pct = (x: number | null | undefined, d = 1) =>
+  x == null ? '—' : `${(Number(x) * 100).toFixed(d)}%`;
+const 날 = (d: string) => (d ? `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}` : '—');
+
+/* 🔴 [2026-10-12 13:5x · 5번] 처음엔 셋만 손으로 꼽고 나머지를 그대로 흘렸다 —
+   「위안」이 영문 지면에 그대로 나갔다(한국어 84자 가운데 그 두 자).
+   ⛔ 사장님 2026-08-05 — 「우리 손님은 영어권이다. 화면에 한국어를 안 낸다」
+   ⭐⭐ **손으로 꼽은 목록은 늘 모자란다.** 오늘 아침 server.js 의
+     「말을 손으로 꼽아 둔 열여덟 곳」과 같은 꼴이다.
+   ⇒ 표로 두고, **표에 없으면 지어내지 말고 그 사실을 보이게 한다.** */
+const 통화이름표: Record<string, string> = {
+  '미국달러': 'US dollar',
+  '엔': 'Japanese yen',
+  '유로': 'Euro',
+  '위안': 'Chinese yuan',
+  '파운드': 'British pound',
+  '호주달러': 'Australian dollar',
+  '홍콩달러': 'Hong Kong dollar',
+  '싱가포르달러': 'Singapore dollar',
+  '캐나다달러': 'Canadian dollar',
+  '스위스프랑': 'Swiss franc',
+};
+/** ⛔ 표에 없으면 «지어내지 않는다» — 한국어를 내보내지도 않는다.
+ *  못 옮긴 것이 몇인지 아래에서 세어 지면에 적는다. 「재 보고 안 된다고 적는 것도 결과다」. */
+let 못옮긴통화 = 0;
+const 통화영문 = (한: string) => {
+  const v = 통화이름표[String(한 ?? '').trim()];
+  if (v) return v;
+  못옮긴통화 += 1;
+  return 'currency not in our name table';
+};
+
+const 통화들 = Array.isArray(f.통화들) ? f.통화들 : [];
+const 날별 = Array.isArray(f.날별) ? f.날별 : [];
+const 첫날 = 날별.length ? 날별[0].날 : '';
+const 끝날 = 날별.length ? 날별[날별.length - 1].날 : '';
+
+/* 거래량이 큰 차례 — ⛔ 고르지 않는다. 자료가 준 차례 그대로 정렬만 한다 */
+const 통화표 = [...통화들].sort((a, b) => (b.거래량 ?? 0) - (a.거래량 ?? 0));
+
+const title = 'Korea lists 6,276 currency-futures rows. 221 traded.';
+const description =
+  `Across ${f.날수} sessions, ${N(f.거래행합)} of ${N(f.상장행합)} listed currency-futures `
+  + `contract-days printed a single trade — ${pct(f.돈비율)}. All ${N(f.플렉스행)} flex rows: none.`;
+---
+
+<Base title={title} description={description} canonical={`${SITE_URL}/data/fx-futures-listed-vs-traded`}>
+  <article class="wrap">
+    <h1>{title}</h1>
+
+    <p class="lead">
+      A listed contract and a traded contract are not the same thing. Over {f.날수} sessions
+      the Korea Exchange carried <b>{N(f.상장행합)} currency-futures contract-days</b>. On
+      <b>{N(f.거래행합)}</b> of them — {pct(f.돈비율)} — at least one contract changed hands.
+      The rest closed with a price and no trade behind it.
+    </p>
+
+    <div class="stats">
+      <div class="stat"><b>{pct(f.돈비율)}</b><span>of listed contract-days traded</span></div>
+      <div class="stat"><b>{N(f.플렉스거래행)} / {N(f.플렉스행)}</b><span>flex contract-days that traded</span></div>
+      <div class="stat"><b>{pct(f.으뜸몫)}</b><span>of volume in {통화영문(f.으뜸통화)}</span></div>
+      <div class="stat"><b>{N(f.날수)}</b><span>sessions counted</span></div>
+    </div>
+
+    <h2 class="warn-h">Why most data vendors cannot show you this</h2>
+    <div class="warn">
+      <p>
+        The count depends entirely on <b>keeping the zero rows</b>. A feed that drops
+        contract-days with no volume — which is the normal, tidy thing to do — cannot
+        produce this number at all, because the thing being counted is exactly what was
+        dropped. We keep every listed row the exchange published and count the ones with
+        volume of one or more.
+      </p>
+    </div>
+
+    <h2>The flex contracts</h2>
+    <p>
+      {N(f.플렉스행)} of the {N(f.상장행합)} contract-days are flex contracts — negotiated
+      terms registered through the exchange. Across the whole window,
+      <b>{N(f.플렉스거래행)} of them traded</b>. Not a low number: none.
+    </p>
+    <p class="note">
+      ⚠ That is a count, not a verdict. A flex line that never prints may be doing its job —
+      standing ready — and this feed cannot tell us whether anyone wanted it.
+    </p>
+
+    <h2>By currency</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Currency</th>
+            <th class="num">Listed days</th>
+            <th class="num">Traded days</th>
+            <th class="num">Share traded</th>
+            <th class="num">Volume</th>
+            <th class="num">Open interest</th>
+          </tr>
+        </thead>
+        <tbody>
+          {통화표.map((c: any) => (
+            <tr>
+              <td>{통화영문(c.통화)}</td>
+              <td class="num">{N(c.상장행)}</td>
+              <td class="num">{N(c.거래행)}</td>
+              <td class="num">{c.상장행 ? pct(c.거래행 / c.상장행) : '—'}</td>
+              <td class="num">{N(c.거래량)}</td>
+              <td class="num">{N(c.미결제)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      {못옮긴통화 > 0 && (
+        <span>{못옮긴통화} currency label{못옮긴통화 === 1 ? '' : 's'} in this feed are not in our
+        name table, so we show that rather than guessing at a translation. </span>
+      )}
+      Contract-days, not contracts: a single listed line counted once for every session it
+      was listed. {N(f.통화모름행)} rows carried no currency we could read.
+    </p>
+
+    <h2>Session by session</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Session</th><th class="num">Listed</th><th class="num">Traded</th><th class="num">Volume</th></tr>
+        </thead>
+        <tbody>
+          {날별.map((d: any) => (
+            <tr>
+              <td class="dim">{날(d.날)}</td>
+              <td class="num">{N(d.상장행)}</td>
+              <td class="num">{N(d.거래행)}</td>
+              <td class="num">{N(d.거래량)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="warn-h">What this page does not tell you</h2>
+    <div class="warn">
+      <ul>
+        <li>
+          <b>That anything should be delisted.</b> Keeping a contract available without
+          trades is a design choice an exchange makes deliberately. We have not measured
+          whether it works, and this page takes no view on it.
+        </li>
+        <li>
+          <b>Why a contract does not trade.</b> Hedging demand, margin, dealer coverage —
+          none of that is in this feed. We counted rows.
+        </li>
+        <li>
+          <b>That Korean FX futures are «always» like this.</b> {N(f.날수)} sessions,
+          {' '}{날(첫날)} to {날(끝날)}. The window is short and we say so rather than
+          widening the claim.
+        </li>
+        <li>
+          <b>Anything to act on.</b> No recommendation, no implication about any venue or
+          participant. We draw the terrain; the reader sets their own needle.
+        </li>
+      </ul>
+    </div>
+
+    <p class="note">
+      Source: the daily Korean derivatives files we collect, filtered to the currency axis.
+      Every figure is computed at build time from <code>fx-futures-listed-vs-traded.json</code>;
+      none is transcribed by hand. Contract-days with zero volume are kept and counted, which
+      is what makes the ratio measurable at all.
+    </p>
+
+    <BuyBar />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 56rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  h2.warn-h { color: var(--warn, #9a3412); }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .warn p { margin: 0; }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; white-space: nowrap; }
+  td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  td.dim, span.dim { color: var(--muted, #666); white-space: nowrap; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  ul li { margin-bottom: .45rem; }
+  code { font-size: .9em; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+    h2.warn-h { color: #fdba74; }
+    td.dim, span.dim, .note, .stat span { color: #aaa; }
+  }
+</style>
