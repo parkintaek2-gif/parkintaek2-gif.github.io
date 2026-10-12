@@ -1,0 +1,258 @@
+{
+ "_무엇": "How long Korean listed-company CEOs have held the seat.",
+ "_출처": "DART 전자공시 — 임원 현황 (2025 사업보고서)",
+ "_원자료만든때": "2026-10-11 11:08:18",
+ "_잰때": "2026-10-12 15:00:20",
+ "_밝힐것": [
+  "Tenure is the figure the company itself filed; we did not recompute it from appointment dates.",
+  "We do not identify people across companies — the filings carry no birth date, so same-name rows are not merged.",
+  "Rows whose tenure we could not read are counted as unmeasured, never as zero.",
+  "Rows stating a tenure longer than the company has existed are set aside and counted, not deleted."
+ ],
+ "_옆지면": {
+  "주소": "/article/korea-ceo-tenure-eleven-year-median",
+  "무엇": "Our own article counts one chief executive per company (the longest-serving where there are several). This page counts every seat. The two numbers differ for that reason, and both are stated."
+ },
+ "회사수": 2769,
+ "대표수": 3589,
+ "잰수": 3064,
+ "못잰수": 378,
+ "거른수": 147,
+ "나이모름": 49,
+ "거른보기": [
+  {
+   "ticker": "018120",
+   "회사": "JinroDistillers",
+   "사람": "Kim Jong-sik",
+   "직함": "부회장",
+   "햇수": 58,
+   "회사나이": 41.78217276256592,
+   "상근인가": true
+  },
+  {
+   "ticker": "128820",
+   "회사": "DAESUNG INDUSTRIAL",
+   "사람": "Kim Yeong-dae",
+   "직함": "회장",
+   "햇수": 56,
+   "회사나이": 16.286782713488936,
+   "상근인가": true
+  },
+  {
+   "ticker": "011320",
+   "회사": "UNICK",
+   "사람": "Ahn Yeong-gu",
+   "직함": "대표이사",
+   "햇수": 54,
+   "회사나이": 50.47776541676142,
+   "상근인가": true
+  },
+  {
+   "ticker": "001560",
+   "회사": "CHEIL GRINDING WHEEL IND",
+   "사람": "Oh Yu-in",
+   "직함": "대표이사\n회장",
+   "햇수": 53,
+   "회사나이": 51.794698687122896,
+   "상근인가": true
+  },
+  {
+   "ticker": "128820",
+   "회사": "DAESUNG INDUSTRIAL",
+   "사람": "Lee Eun-u",
+   "직함": "사장",
+   "햇수": 52,
+   "회사나이": 16.286782713488936,
+   "상근인가": true
+  },
+  {
+   "ticker": "290670",
+   "회사": "DAEBO MAGNETIC",
+   "사람": "Lee Jun-gak",
+   "직함": "대표이사",
+   "햇수": 51,
+   "회사나이": 31.788812187057868,
+   "상근인가": true
+  }
+ ],
+ "분위": {
+  "p25": 3,
+  "중앙": 9,
+  "p75": 21,
+  "최대": 55
+ },
+ "칸": [
+  {
+   "아래": 0,
+   "위": 1,
+   "이름": "Under 1 year",
+   "수": 164,
+   "몫": 0.05352480417754569
+  },
+  {
+   "아래": 1,
+   "위": 3,
+   "이름": "1–3 years",
+   "수": 549,
+   "몫": 0.179177545691906
+  },
+  {
+   "아래": 3,
+   "위": 5,
+   "이름": "3–5 years",
+   "수": 296,
+   "몫": 0.09660574412532637
+  },
+  {
+   "아래": 5,
+   "위": 10,
+   "이름": "5–10 years",
+   "수": 553,
+   "몫": 0.18048302872062663
+  },
+  {
+   "아래": 10,
+   "위": 20,
+   "이름": "10–20 years",
+   "수": 663,
+   "몫": 0.21638381201044388
+  },
+  {
+   "아래": 20,
+   "위": 30,
+   "이름": "20–30 years",
+   "수": 549,
+   "몫": 0.179177545691906
+  },
+  {
+   "아래": 30,
+   "위": null,
+   "이름": "30+ years",
+   "수": 290,
+   "몫": 0.09464751958224543
+  }
+ ],
+ "스물넘은수": 839,
+ "상근대비": {
+  "상근": {
+   "수": 2924,
+   "중앙": 10
+  },
+  "비상근": {
+   "전체": 161,
+   "잰수": 140,
+   "중앙": 2
+  }
+ },
+ "오래": [
+  {
+   "ticker": "001840",
+   "회사": "EehwaConstruction",
+   "사람": "Choi Sam-gyu",
+   "직함": "대표이사",
+   "햇수": 55,
+   "회사나이": 70.11956732462629,
+   "상근인가": true
+  },
+  {
+   "ticker": "002100",
+   "회사": "KYUNGNONG",
+   "사람": "Lee Byeong-man",
+   "직함": "회장",
+   "햇수": 55,
+   "회사나이": 69.25438871041793,
+   "상근인가": true
+  },
+  {
+   "ticker": "003610",
+   "회사": "PANGRIM",
+   "사람": "Seo Jae-hui",
+   "직함": "회장\n(대표집행\n임원)",
+   "햇수": 55,
+   "회사나이": 63.855179052907275,
+   "상근인가": true
+  },
+  {
+   "ticker": "004890",
+   "회사": "DONGIL INDUSTRIES",
+   "사람": "Oh Sun-taek",
+   "직함": "대표이사\n회장",
+   "햇수": 55,
+   "회사나이": 59.794862961543316,
+   "상근인가": true
+  },
+  {
+   "ticker": "024060",
+   "회사": "HeunguOil",
+   "사람": "Kim Sang-u",
+   "직함": "대표이사사장",
+   "햇수": 54,
+   "회사나이": 59.82497993862019,
+   "상근인가": true
+  },
+  {
+   "ticker": "025540",
+   "회사": "KOREA ELECTRIC TERMINAL",
+   "사람": "Lee Chang-won",
+   "직함": "회 장",
+   "햇수": 53,
+   "회사나이": 53.48124940342782,
+   "상근인가": true
+  },
+  {
+   "ticker": "000910",
+   "회사": "UNION",
+   "사람": "Lee Geon-yeong",
+   "직함": "대표이사\n회 장",
+   "햇수": 52,
+   "회사나이": 73.85127753542231,
+   "상근인가": true
+  },
+  {
+   "ticker": "003010",
+   "회사": "HAEIN",
+   "사람": "Won Gyeong-hui",
+   "직함": "대표이사",
+   "햇수": 52,
+   "회사나이": 65.987951571622,
+   "상근인가": true
+  },
+  {
+   "ticker": "003680",
+   "회사": "HANSUNG ENTERPRISE",
+   "사람": "Lim U-geun",
+   "직함": "대표이사회장",
+   "햇수": 52,
+   "회사나이": 63.58412625921541,
+   "상근인가": true
+  },
+  {
+   "ticker": "008370",
+   "회사": "Wonpoong",
+   "사람": "Lee Mun-hui",
+   "직함": "대표이사\n 사      장",
+   "햇수": 51,
+   "회사나이": 53.76599173215462,
+   "상근인가": true
+  },
+  {
+   "ticker": "009780",
+   "회사": "MSC",
+   "사람": "Kim Gil-je",
+   "직함": "대표이사",
+   "햇수": 51,
+   "회사나이": 52.50381660193292,
+   "상근인가": true
+  },
+  {
+   "ticker": "025530",
+   "회사": "SJM HOLDINGS",
+   "사람": "Kim Yong-ho",
+   "직함": "대표이사\n회장",
+   "햇수": 51,
+   "회사나이": 51.53733542846597,
+   "상근인가": true
+  }
+ ],
+ "회사이름못찾음": 0
+}

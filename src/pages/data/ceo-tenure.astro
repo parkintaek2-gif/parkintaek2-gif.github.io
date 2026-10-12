@@ -1,0 +1,324 @@
+---
+/*
+ * `/data/ceo-tenure` — how long Korean listed-company CEOs have held the seat.
+ * (seoulmarkets.com/data/ceo-tenure)
+ *
+ * ── Why this page (2026-10-12 15:3x · 5번) ───────────────────────────
+ *   세 번째 데이터 지면이다. `check-쥔자료에-안쓴축이-있나.mjs` 가 내놓은 186개에서 골랐다.
+ *   `korea-executives-tape.json` 은 2,769개 회사의 대표 3,589명을 담고 있는데
+ *   `tenure` 칸을 쓴 지면이 하나도 없었다.
+ *
+ *   고른 까닭 — **그 지면에만 있는 수**가 나온다.
+ *   ```
+ *     중앙값 9년 · 가장 긴 것 55년
+ *     20년 넘게 앉은 «자리» 839 — 잰 것의 27.4%
+ *     상근 중앙 10년 / 비상근 중앙 2년   ← 다섯 배가 넘는다
+ *     ⬜ 못 잰 것 378 (10.5%) · ⚠ 설립일보다 길어 따로 센 것 147
+ *   ```
+ *   「한국 기업은 오너 중심이라 대표가 오래 간다」가 통념인데,
+ *   잰 것의 **23.3%는 3년도 안 됐다.** 분포가 양쪽 끝으로 갈라진다.
+ *
+ * ── 🔴 하마터면 기사와 어긋날 뻔했다 (2026-10-12 15:5x) ──────────────
+ *   지면을 다 짓고 빌드한 뒤에야 **우리 기사가 이미 있는 것을 봤다** —
+ *   `/article/korea-ceo-tenure-eleven-year-median`.
+ *   「안 쓴 축」 자가 **데이터 지면만 세고 기사는 안 셌다.**
+ *
+ *   그 기사는 **설립일보다 긴 재임 148건을 걸러냈는데 내 첫 자는 안 걸렀다.**
+ *   그래서 내 지면의 맨 앞 수가 「가장 긴 것 58년」이었다 —
+ *   **기사가 이미 의심스럽다고 밝힌 바로 그 줄이다.**
+ *   ⇒ 같은 거름을 자에 넣었다. 그러자 거른 수가 **147** 로 나왔다(기사 148).
+ *     서로 다른 자료·다른 자로 재서 둘이 맞았다 — 이것이 견줌이다.
+ *   ⭐ 강령 ⑤ 「한 곳을 고치면 인용한 곳까지 따라간다」의 **거꾸로 꼴**이다.
+ *     남이 먼저 고친 것을 내가 안 보고 거친 수로 낼 뻔했다.
+ *
+ * ── ⛔ What this page must not become ────────────────────────────────
+ * ⛔ 「오래 앉는 것이 좋다/나쁘다」를 말하지 않는다. 얼마나 오래인가까지다.
+ * ⛔ 다른 나라와 견주지 않는다 — **우리가 안 쟀다.** 남의 수를 옮겨 적지 않는다.
+ * ⛔ 평균을 앞에 내지 않는다 — 평균이 규범이 되면 나침반이 아니라 압박이 된다.
+ * ⛔ 같은 이름을 한 사람으로 합치지 않는다 — 생년이 없다. 겸직은 아예 안 센다.
+ * ⛔ 못 잰 378명을 0으로 채우지 않는다. 지면에 그대로 적는다.
+ * ⛔ English only — 사장님 2026-08-05 「우리 손님은 영어권이다. 화면에 한국어를 안 낸다」.
+ * ⛔ Numbers come from src/data/ceo-tenure.json, never typed by hand.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import facts from '../../data/ceo-tenure.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const f = facts as any;
+const N = (n: number | null | undefined) =>
+  n == null ? '—' : Number(n).toLocaleString('en-GB');
+const pct = (x: number | null | undefined, d = 1) =>
+  x == null ? '—' : `${(Number(x) * 100).toFixed(d)}%`;
+const 해 = (y: number | null | undefined) => {
+  if (y == null) return '—';
+  const n = Number(y);
+  if (n < 1) return `${Math.round(n * 12)} months`;
+  return `${n % 1 === 0 ? n : n.toFixed(1)} years`;
+};
+
+const 칸 = Array.isArray(f.칸) ? f.칸 : [];
+const 오래 = Array.isArray(f.오래) ? f.오래 : [];
+const 가장큰칸 = 칸.reduce(
+  (a: any, b: any) => ((b?.수 ?? 0) > (a?.수 ?? 0) ? b : a),
+  칸[0] ?? null,
+);
+/* 3년 미만 — 「오래 앉는다」의 반대쪽. ⛔ 고르지 않고 아래 두 칸을 더한다 */
+const 삼년밑 = 칸.slice(0, 2).reduce((s: number, c: any) => s + (c?.수 ?? 0), 0);
+const 삼년밑몫 = f.잰수 ? 삼년밑 / f.잰수 : null;
+const 못잰몫 = f.대표수 ? f.못잰수 / f.대표수 : null;
+const 스물몫 = f.잰수 ? f.스물넘은수 / f.잰수 : null;
+const 거른보기 = Array.isArray(f.거른보기) ? f.거른보기 : [];
+
+const title = 'How long Korea’s listed-company CEOs have held the seat';
+const description =
+  `Across ${N(f.회사수)} listed Korean companies, the median chief executive has held the `
+  + `seat for ${해(f.분위?.중앙)}; ${N(f.스물넘은수)} have held it twenty years or more. `
+  + `${N(f.못잰수)} filings did not state a tenure we could read.`;
+---
+
+<Base title={title} description={description} canonical={`${SITE_URL}/data/ceo-tenure`}>
+  <article class="wrap">
+    <h1>{title}</h1>
+
+    <p class="lead">
+      Korean annual reports state, for each registered executive, how long that person has
+      held the position. We read that field for <b>{N(f.대표수)} chief-executive seats across
+      {' '}{N(f.회사수)} listed companies</b> — seats, not people, because a company can
+      register more than one. The median is {해(f.분위?.중앙)}. The longest we are willing to
+      print is {해(f.분위?.최대)}. {N(f.못잰수)} filings — {pct(못잰몫)} of them — carried no
+      figure we could read, and a further {N(f.거른수)} stated a tenure longer than the
+      company has existed. Neither group is filled in with a zero; both are counted and
+      reported below.
+    </p>
+
+    <div class="stats">
+      <div class="stat"><b>{해(f.분위?.중앙)}</b><span>median tenure</span></div>
+      <div class="stat"><b>{N(f.스물넘은수)}</b><span>held the seat 20 years or more</span></div>
+      <div class="stat"><b>{해(f.분위?.최대)}</b><span>longest tenure that survives our checks</span></div>
+      <div class="stat"><b>{N(f.못잰수)}</b><span>tenure not stated or unreadable</span></div>
+    </div>
+
+    <h2>The rows we set aside</h2>
+    <p>
+      {N(f.거른수)} seats report a tenure longer than their company has existed — a chief
+      executive of fifty-plus years at a firm incorporated more recently than that. The
+      usual explanation is mundane: a company is re-incorporated, renamed or spun out, the
+      incorporation date resets, and the filed tenure carries over service at the earlier
+      entity. We cannot tell which rows are that and which are an error, so we take them out
+      of the distribution and <b>print the count instead of deleting them</b>. A further
+      {' '}{N(f.나이모름)} seats sit at companies whose incorporation date we do not hold;
+      those we leave in, because we have no basis to doubt them.
+    </p>
+    {거른보기.length > 0 && (
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Ticker</th>
+              <th class="num">Stated tenure</th>
+              <th class="num">Company age</th>
+            </tr>
+          </thead>
+          <tbody>
+            {거른보기.map((r: any) => (
+              <tr>
+                <td>{r.회사 ?? <span class="dim">name not in our list</span>}</td>
+                <td class="dim">{r.ticker}</td>
+                <td class="num">{해(r.햇수)}</td>
+                <td class="num">{r.회사나이 == null ? '—' : `${Number(r.회사나이).toFixed(1)} years`}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )}
+    <p class="note">
+      Our own article on this data,
+      {' '}<a href={f._옆지면?.주소 ?? '/article/korea-ceo-tenure-eleven-year-median'}>
+        Korea's listed CEOs: the median has run the company eleven years</a>, set aside 148
+      companies on the same test. It counted one chief executive per company — the
+      longest-serving where there are several — and reached a median of 11.0 years. This page
+      counts every registered seat and reaches {해(f.분위?.중앙)}. <b>Both numbers are right
+      for what they count</b>, and we print them side by side rather than quietly choosing one.
+    </p>
+
+    <h2>The distribution, not the average</h2>
+    <p>
+      An average would put a single number on {N(f.잰수)} very different careers, and a
+      single number read as a norm stops being a map and starts being a push. So here is
+      the whole spread. The largest band is <b>{가장큰칸?.이름}</b> at
+      {' '}{N(가장큰칸?.수)} people, but it holds only {pct(가장큰칸?.몫)} of the total —
+      no band holds even a quarter.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Tenure</th>
+            <th class="num">CEOs</th>
+            <th class="num">Share</th>
+            <th>Of those we could read</th>
+          </tr>
+        </thead>
+        <tbody>
+          {칸.map((c: any) => (
+            <tr>
+              <td>{c.이름}</td>
+              <td class="num">{N(c.수)}</td>
+              <td class="num">{pct(c.몫)}</td>
+              <td>
+                <span class="bar" style={`width:${((c.몫 ?? 0) * 100 * 3.6).toFixed(1)}%`}></span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Bands include the lower bound and exclude the upper one, so a CEO at exactly twenty
+      years sits in the 20–30 row. Percentages are of the {N(f.잰수)} tenures we could read,
+      not of all {N(f.대표수)} chief executives.
+    </p>
+
+    <h2>Both tails are crowded</h2>
+    <p>
+      The common shorthand is that Korean listed companies are owner-led and their chief
+      executives stay for decades. {N(f.스물넘은수)} of them — {pct(스물몫)} — have indeed
+      held the seat twenty years or longer. But at the same time
+      {' '}<b>{N(삼년밑)} ({pct(삼년밑몫)}) have held it under three years</b>. The quartiles
+      say the same thing: {해(f.분위?.p25)} at the first, {해(f.분위?.p75)} at the third.
+      This is not one population with a typical length. It is two groups sharing a table.
+    </p>
+
+    <h2>Full-time and part-time are not the same job</h2>
+    <p>
+      The filings mark whether the executive serves full-time. Among those we could measure,
+      the full-time median is <b>{해(f.상근대비?.상근?.중앙)}</b> against
+      {' '}<b>{해(f.상근대비?.비상근?.중앙)}</b> for the
+      {' '}{N(f.상근대비?.비상근?.전체)} chief executives recorded as not full-time
+      ({N(f.상근대비?.비상근?.잰수)} of whom stated a readable tenure). That is a gap of
+      years, not months — and it means any single median for "the Korean CEO" is averaging
+      across two different arrangements.
+    </p>
+
+    <h2>The longest-serving</h2>
+    <p class="note">
+      Ranked by stated tenure, not by company size. Ties are left in filing order; we do not
+      break them.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Ticker</th>
+            <th>Chief executive</th>
+            <th class="num">Tenure</th>
+            <th>Full-time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {오래.map((r: any) => (
+            <tr>
+              <td>{r.회사 ?? <span class="dim">name not in our list</span>}</td>
+              <td class="dim">{r.ticker}</td>
+              <td>{r.사람 ?? <span class="dim">—</span>}</td>
+              <td class="num">{해(r.햇수)}</td>
+              <td class="dim">{r.상근인가 ? 'Yes' : 'No'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Romanised names are our transliteration of the Korean filing, and may differ from the
+      spelling the person uses. Company names come from the regulator's own English register;
+      where a ticker is missing from it we say so rather than inventing a name.
+    </p>
+
+    <h2 class="warn-h">What this page does not tell you</h2>
+    <div class="warn">
+      <ul>
+        <li>
+          <b>Whether long tenure is good or bad.</b> Stability and entrenchment produce the
+          same number. We counted years in the seat; we did not grade them.
+        </li>
+        <li>
+          <b>How Korea compares.</b> We have not measured chief-executive tenure in any other
+          market, so we do not put one here. A figure we did not count is not a figure we
+          will print.
+        </li>
+        <li>
+          <b>Who holds seats at more than one company.</b> The filings carry no birth date,
+          so two identical names may be one person or two. We do not merge them, and we do
+          not count concurrent appointments at all.
+        </li>
+        <li>
+          <b>What the {N(f.못잰수)} unmeasured CEOs look like.</b> They may skew long or
+          short. Leaving them out of the percentages is the honest option, not a neutral one,
+          and we flag it rather than hide it.
+        </li>
+        <li>
+          <b>Which of the {N(f.거른수)} set-aside rows are wrong.</b> A re-incorporation and
+          a bad join look identical from here. We removed them from the distribution because
+          we cannot verify them, not because we know they are false.
+        </li>
+        <li>
+          <b>Anything about one company from this distribution.</b> It is a shape across
+          {' '}{N(f.회사수)} firms. A shape is not a statement about any single seat.
+        </li>
+      </ul>
+    </div>
+
+    <p class="note">
+      Source: {f._출처}. Tenure is the figure the company itself filed; we did not recompute
+      it from appointment dates. Every number on this page is computed at build time from
+      <code>ceo-tenure.json</code> by <code>scripts/measure-ceo-tenure.mjs</code>; none is
+      transcribed by hand. Rows whose tenure we could not read are reported as unmeasured.
+    </p>
+
+    <BuyBar />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 56rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  h2.warn-h { color: var(--warn, #9a3412); }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; white-space: nowrap; }
+  td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  td.dim, span.dim { color: var(--muted, #666); white-space: nowrap; }
+  .bar {
+    display: inline-block; height: .55rem; min-width: 1px; border-radius: 2px;
+    background: var(--accent, #0f4c81); opacity: .55; vertical-align: middle;
+  }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  ul li { margin-bottom: .45rem; }
+  code { font-size: .9em; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+    h2.warn-h { color: #fdba74; }
+    td.dim, span.dim, .note, .stat span { color: #aaa; }
+  }
+</style>
