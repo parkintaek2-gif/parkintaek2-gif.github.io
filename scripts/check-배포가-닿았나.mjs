@@ -174,6 +174,29 @@ if (process.argv.includes('--자가시험') || process.argv.includes('--selftest
   console.log('');
 
   const r = 판정(것, 견줌상태, 표);
+
+  /* ⭐ [2026-10-12 13:0x · 5번] 잰 것을 «대장»에 쌓는다.
+     CLAUDE.md 397줄은 「2분 만에 200 이 됐다」고 적는다(2026-08-02 실측).
+     오늘 재 보니 2분으로는 안 됐다 — 그때는 지면이 적었을 것이다. 지금은 15,388장이다.
+     ⛔ 「몇 분 걸린다」를 짐작으로 안 적는다. **잴 때마다 적어 두면 며칠 뒤 저절로 나온다.**
+     ⚠ 이 줄은 «잰 때»를 적는 것이지 «배포한 때»가 아니다 — 둘을 섞지 않는다. */
+  try {
+    const 대장 = 'docs/배포닿음-대장.tsv';
+    const d = new Date();
+    const 때 = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0')
+      + '-' + String(d.getDate()).padStart(2, '0') + ' '
+      + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    const fsm = await import('node:fs');
+    if (!fsm.existsSync(대장)) {
+      fsm.writeFileSync(대장, '# 배포가 라이브에 닿았나 — 잴 때마다 한 줄. ⚠ 「잰 때」이지 「배포한 때」가 아니다\n'
+        + '잰때\t길\t빛\t상태\t글자수\t표\n');
+    }
+    fsm.appendFileSync(대장, [때, 볼길, r.빛, 것 ? 것.상태 : '못받음',
+      것 ? 것.글.length : 0, 표 ?? ''].join('\t') + '\n');
+    console.log('   ✔ 대장에 적었다 — ' + 대장);
+  } catch (err) {
+    console.log('   ⬜ 대장에 못 적었다 — ' + err.message);
+  }
   console.log(r.빛 + ' ' + r.말);
   if (r.빛 === '🔴') {
     console.log('   ⇒ 아직이면 몇 분 더 기다린다. 그래도 안 되면 —');
