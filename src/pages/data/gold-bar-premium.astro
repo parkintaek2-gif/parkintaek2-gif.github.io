@@ -1,0 +1,207 @@
+---
+/*
+ * `/data/gold-bar-premium` — two sizes of the same 99.99% gold bar, same exchange,
+ * different closing prices. (seoulmarkets.com/data/gold-bar-premium)
+ *
+ * ── Why this page (2026-10-12 11:5x · 5번) ────────────────────────────
+ *   AI 유입을 지면 «꼴»로 갈라 세니 데이터 지면이 기사의 6.6배였다
+ *   (사이트맵 전체 장 수로 나눈 수다 — 생존자 편향을 뺐다).
+ *   ⇒ 데이터 지면을 더 내는 것이 가장 빠른 길인데, «무엇을 낼지» 정하는 자가 없었다.
+ *   ⭐ 우리 강령 — 「쥔 자료의 «안 쓰던 축»부터 찾아 낸다」.
+ *     `check-쥔자료에-안쓴축이-있나.mjs` 가 187개를 내놓았고, 그 가운데 첫 장이다.
+ *
+ *   고른 까닭 — **통념이 절반쯤 틀린 자리**다.
+ *   ```
+ *     같은 순도(99.99%)로 상장된 1kg 바와 100g 미니바의 종가 차이
+ *     미니가 «싼» 날이 66일 가운데 24일 (36%)
+ *     거래량은 1kg 210,736 vs 미니 9,787 — 스물한 배
+ *   ```
+ *   「작은 규격이 더 비싸다」가 늘 참일 것 같지만, 센 날의 3분의 1은 아니었다.
+ *
+ * ── ⛔ What this page must not become ────────────────────────────────
+ * ⛔ It does not say why the gap moves. We counted the gap, not its cause.
+ *   그 자(`measure-gold-bar-premium.mjs`)도 머리에 그렇게 적어 두었다 —
+ *   「이 자는 «왜»를 말하지 않는다. 얼마나 벌어지나까지다」.
+ * ⛔ It is not advice to buy either size, and not a claim that one is mispriced.
+ *   We draw the terrain; the reader sets their own needle.
+ * ⛔ English only — 사장님 2026-08-05 「우리 손님은 영어권이다. 화면에 한국어를 안 낸다」.
+ * ⛔ Numbers come from src/data/gold-bar-premium.json, never typed by hand.
+ * 🔴 Astro frontmatter (between the `---`) is TypeScript. JSX breaks the build.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import facts from '../../data/gold-bar-premium.json';
+import BuyBar from '../../components/BuyBar.astro';
+
+const f = facts as any;
+const N = (n: number) => Number(n).toLocaleString('en-GB');
+const pct = (x: number | null | undefined, d = 3) =>
+  x == null ? '—' : `${(Number(x) * 100).toFixed(d)}%`;
+const won = (n: number | null | undefined) =>
+  n == null ? '—' : `KRW ${Number(n).toLocaleString('en-GB')}`;
+const 날 = (d: string) => (d ? `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}` : '—');
+
+const 날들 = Array.isArray(f.날들) ? f.날들 : [];
+const 센날 = Number(f.짝지은날 ?? 0);
+const 미니싼날 = Number(f.미니가싼날 ?? 0);
+const 미니비싼날 = Math.max(0, 센날 - 미니싼날);
+const 방향 = f.방향 ?? {};
+
+/* 가장 넓은 쪽부터 열 줄 — ⛔ 고르지 않는다. 벌어진 차례대로다 */
+const 넓은열 = [...날들]
+  .filter((r) => r && typeof r.프리미엄 === 'number')
+  .sort((a, b) => Math.abs(b.프리미엄) - Math.abs(a.프리미엄))
+  .slice(0, 10);
+
+const 첫날 = 날들.length ? 날들[0].날 : '';
+const 끝날 = 날들.length ? 날들[날들.length - 1].날 : '';
+
+const title = 'Two sizes, one gold bar: how far the prices drift';
+const description =
+  `Korea's exchange lists 1kg and 100g bars of the same 99.99% gold. Across ${센날} sessions `
+  + `the 100g bar closed cheaper on ${미니싼날} of them. Median gap ${pct(f.가운데프리미엄)}.`;
+---
+
+<Base title={title} description={description} canonical={`${SITE_URL}/data/gold-bar-premium`}>
+  <article class="wrap">
+    <h1>{title}</h1>
+
+    <p class="lead">
+      The Korea Exchange gold market lists two sizes of the same metal — a 1kg bar and a
+      100g mini bar, both 99.99% fine, both settled on the same venue. They do not close
+      at the same price per gram. Across the {센날} sessions we hold, the mini bar closed
+      <b>more expensive on {N(미니비싼날)} days and cheaper on {N(미니싼날)}</b>.
+    </p>
+
+    <div class="stats">
+      <div class="stat"><b>{pct(f.가운데프리미엄)}</b><span>median premium, 100g over 1kg</span></div>
+      <div class="stat"><b>{N(미니싼날)} / {N(센날)}</b><span>sessions the mini bar closed cheaper</span></div>
+      <div class="stat"><b>{N(f.가운데큰거래량 ?? 0)}</b><span>median 1kg volume</span></div>
+      <div class="stat"><b>{N(f.가운데작은거래량 ?? 0)}</b><span>median 100g volume</span></div>
+    </div>
+
+    <h2>What "premium" means here</h2>
+    <p>
+      One number, computed the same way every session: the 100g close divided by the 1kg
+      close, minus one. A positive figure means the smaller bar was dearer that day. Both
+      series come from the same daily commodity files we collect, matched by trading date —
+      {N(f.읽은날 ?? 0)} files read, {N(f.짝지은날 ?? 0)} days with both sizes present,
+      <b>{N(f.짝못지은날 ?? 0)} days we could not pair</b>.
+    </p>
+
+    <h2>The widest sessions</h2>
+    <p class="note">
+      Ranked by the size of the gap, not by date. Negative means the 100g bar closed cheaper.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Session</th>
+            <th class="num">1kg close</th>
+            <th class="num">100g close</th>
+            <th class="num">Gap</th>
+            <th class="num">1kg volume</th>
+            <th class="num">100g volume</th>
+          </tr>
+        </thead>
+        <tbody>
+          {넓은열.map((r: any) => (
+            <tr>
+              <td class="dim">{날(r.날)}</td>
+              <td class="num">{won(r.큰종가)}</td>
+              <td class="num">{won(r.작은종가)}</td>
+              <td class="num">{pct(r.프리미엄)}</td>
+              <td class="num">{N(r.큰거래량 ?? 0)}</td>
+              <td class="num">{N(r.작은거래량 ?? 0)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Do the two sizes move together?</h2>
+    <p>
+      On {N(방향.같음 ?? 0)} sessions both sizes closed in the same direction; on
+      {' '}{N(방향.갈림 ?? 0)} they split — one up, the other down, same metal, same day.
+      On {N(방향['못쟀다'] ?? 0)} we could not tell, because one side had no change field
+      we could read. <b>We record that rather than counting it as agreement.</b>
+    </p>
+
+    <h2>The volume gap is the larger number</h2>
+    <p>
+      The median 1kg session turns over {N(f.가운데큰거래량 ?? 0)} against
+      {' '}{N(f.가운데작은거래량 ?? 0)} for the 100g bar. The two sizes are not the same
+      market in any practical sense, and the thinner one is where the wider closes sit.
+      <b>We are not saying thin trading causes the gap</b> — we have not tested that, and
+      this page does not claim it.
+    </p>
+
+    <h2 class="warn-h">What this page does not tell you</h2>
+    <div class="warn">
+      <ul>
+        <li>
+          <b>Why the gap moves.</b> Dealer spreads, retail demand for small denominations,
+          settlement handling — all plausible, none measured here. We counted the gap.
+        </li>
+        <li>
+          <b>Whether either size is mispriced.</b> A persistent difference between two
+          contracts is a fact about the order book, not a verdict on value.
+        </li>
+        <li>
+          <b>What you should buy.</b> Nothing on this page is advice. It is a distribution,
+          not a recommendation — and a distribution is not a statement about you.
+        </li>
+        <li>
+          <b>History beyond this window.</b> {N(센날)} sessions, {날(첫날)} to {날(끝날)}.
+          We hold what we have collected. A longer series is a possible follow-up, not a
+          claim we can make today.
+        </li>
+      </ul>
+    </div>
+
+    <p class="note">
+      Source: the daily Korean commodity closing files we collect, filtered to the KRX gold
+      market's two 99.99% contracts. Every figure on this page is computed at build time from
+      <code>gold-bar-premium.json</code>; none is transcribed by hand. Days where only one
+      size was present are reported as unpaired rather than filled in.
+    </p>
+
+    <BuyBar />
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 56rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  h2.warn-h { color: var(--warn, #9a3412); }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; white-space: nowrap; }
+  td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  td.dim, span.dim { color: var(--muted, #666); white-space: nowrap; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  ul li { margin-bottom: .45rem; }
+  code { font-size: .9em; }
+  @media (prefers-color-scheme: dark) {
+    .stat { border-color: #333; }
+    h2.warn-h { color: #fdba74; }
+    td.dim, span.dim, .note, .stat span { color: #aaa; }
+  }
+</style>
