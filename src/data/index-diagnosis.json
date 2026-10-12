@@ -1,94 +1,58 @@
 {
-  "잰때": "2026. 10. 13. 오전 3:53:15",
+  "잰때": "2026. 10. 13. 오전 4:45:31",
   "사이트": {
-    "seoulmarkets": [
+    "100y": [
       {
-        "주소": "https://seoulmarkets.com/",
+        "주소": "https://100yearmap.com/",
         "빛": "✅",
         "말": "색인됐다",
         "갈래": "색인됨",
-        "마지막크롤": "2026-10-08T22:02:18Z",
+        "마지막크롤": "2026-09-27T07:43:18Z",
         "덮개": "Submitted and indexed",
         "오류": null
       },
       {
-        "주소": "https://seoulmarkets.com/equities",
+        "주소": "https://100yearmap.com/about",
         "빛": "✅",
         "말": "색인됐다",
         "갈래": "색인됨",
-        "마지막크롤": "2026-08-20T10:40:43Z",
+        "마지막크롤": "2026-09-20T13:24:25Z",
         "덮개": "Submitted and indexed",
         "오류": null
       },
       {
-        "주소": "https://seoulmarkets.com/about",
+        "주소": "https://100yearmap.com/age",
+        "빛": "🔴",
+        "말": "Crawled - currently not indexed",
+        "갈래": "왔는데색인안함",
+        "마지막크롤": "2026-10-10T06:32:57Z",
+        "덮개": "Crawled - currently not indexed",
+        "오류": null
+      },
+      {
+        "주소": "https://100yearmap.com/after",
         "빛": "✅",
         "말": "색인됐다",
         "갈래": "색인됨",
-        "마지막크롤": "2026-10-11T22:44:34Z",
+        "마지막크롤": "2026-10-09T22:41:39Z",
         "덮개": "Submitted and indexed",
         "오류": null
       },
       {
-        "주소": "https://seoulmarkets.com/data",
+        "주소": "https://100yearmap.com/college-major",
         "빛": "✅",
         "말": "색인됐다",
         "갈래": "색인됨",
-        "마지막크롤": "2026-10-08T20:23:24Z",
+        "마지막크롤": "2026-10-01T17:10:50Z",
         "덮개": "Submitted and indexed",
         "오류": null
       },
       {
-        "주소": "https://seoulmarkets.com/data/account-name-variants",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "URL is unknown to Google",
-        "오류": null
-      },
-      {
-        "주소": "https://seoulmarkets.com/data/smb-outlook-gap",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "URL is unknown to Google",
-        "오류": null
-      },
-      {
-        "주소": "https://seoulmarkets.com/data/workday-denominator",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "URL is unknown to Google",
-        "오류": null
-      },
-      {
-        "주소": "https://seoulmarkets.com/data/ceo-tenure",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "URL is unknown to Google",
-        "오류": null
-      },
-      {
-        "주소": "https://seoulmarkets.com/data/gold-bar-premium",
-        "빛": "🔴",
-        "말": "구글이 한 번도 안 왔다",
-        "갈래": "발견안됨",
-        "마지막크롤": null,
-        "덮개": "URL is unknown to Google",
-        "오류": null
-      },
-      {
-        "주소": "https://seoulmarkets.com/data/profit-streaks",
+        "주소": "https://100yearmap.com/data",
         "빛": "✅",
         "말": "색인됐다",
         "갈래": "색인됨",
-        "마지막크롤": "2026-09-28T13:47:05Z",
+        "마지막크롤": "2026-09-28T03:01:08Z",
         "덮개": "Submitted and indexed",
         "오류": null
       }
@@ -96,6 +60,6 @@
   },
   "갈래셈": {
     "색인됨": 5,
-    "발견안됨": 5
+    "왔는데색인안함": 1
   }
 }

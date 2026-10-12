@@ -83,11 +83,33 @@ export const 볼것 = {
   },
   kcw: {
     siteUrl: 'sc-domain:kculturewire.com',
-    주소: ['https://www.kculturewire.com/', 'https://www.kculturewire.com/about'],
+    /* 🔴🔴 [2026-10-13 05:0x · 5번] **표본이 「첫 화면 + about」 둘뿐이었다.**
+       ⛔ 그 둘은 «늘» 색인되는 자리다. 둘만 물으면 ✅ 가 뜨고 아무것도 안 알려 준다.
+         서울마켓도 같은 꼴이었고, 데이터 지면을 넣자마자 다섯이 빨간불로 나왔다.
+       ⭐ 묻는 자리는 «우리가 공들인 자리»여야 한다. 첫 화면은 어차피 색인된다.
+       ⚠ 글 한 편이 아니라 «갈래 지면»을 고른다 — 글은 지워지면 표본이 깨진다. */
+    주소: [
+      'https://www.kculturewire.com/', 'https://www.kculturewire.com/about',
+      'https://www.kculturewire.com/articles',
+      'https://www.kculturewire.com/actors',
+      'https://www.kculturewire.com/born-on',
+      'https://www.kculturewire.com/catalogue-reach',
+    ],
   },
   '100y': {
     siteUrl: 'sc-domain:100yearmap.com',
-    주소: ['https://100yearmap.com/', 'https://100yearmap.com/about'],
+    /* 🔴🔴 [2026-10-13 05:0x · 5번] **표본이 「첫 화면 + about」 둘뿐이었다.**
+       ⛔ 그 둘은 «늘» 색인되는 자리다. 둘만 물으면 ✅ 가 뜨고 아무것도 안 알려 준다.
+         서울마켓도 같은 꼴이었고, 데이터 지면을 넣자마자 다섯이 빨간불로 나왔다.
+       ⭐ 묻는 자리는 «우리가 공들인 자리»여야 한다. 첫 화면은 어차피 색인된다.
+       ⚠ 글 한 편이 아니라 «갈래 지면»을 고른다 — 글은 지워지면 표본이 깨진다. */
+    주소: [
+      'https://100yearmap.com/', 'https://100yearmap.com/about',
+      'https://100yearmap.com/age',
+      'https://100yearmap.com/after',
+      'https://100yearmap.com/college-major',
+      'https://100yearmap.com/data',
+    ],
   },
 };
 
