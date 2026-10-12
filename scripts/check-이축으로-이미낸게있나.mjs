@@ -42,7 +42,33 @@ export const 흔한낱말 = new Set([
   'date', 'dates', 'year', 'years', 'value', 'values', 'type', 'types', 'row', 'rows',
   'meta', 'total', 'count', 'tape', 'list', 'index', 'en', 'english', 'full', 'raw',
   'item', 'items', 'key', 'keys', 'new', 'old', 'all', 'one', 'two', 'num', 'number',
+  /* 🔴 [2026-10-12 17:5x · 5번] **이것들 때문에 185개 중 166개가 걸렸다.**
+     자료의 열쇠 이름에는 뜻이 없는 영어가 잔뜩 있다 — `window`·`with`·`this`·`what`.
+     기사 제목에도 그런 말이 흔히 들어가 서로 걸린다.
+     ⇒ 글이 되는 말(stopword)과 살림말을 버린다. ⛔ 「드문가」만으로는 못 막았다 —
+       `window` 는 기사 한 장에만 있어 «드문 낱말»로 통과했다. */
+  'with', 'this', 'that', 'from', 'into', 'over', 'under', 'what', 'when', 'where',
+  'which', 'while', 'than', 'then', 'they', 'them', 'their', 'there', 'here', 'have',
+  'has', 'had', 'been', 'were', 'was', 'are', 'and', 'but', 'not', 'for', 'per',
+  'window', 'first', 'last', 'latest', 'next', 'prev', 'month', 'months', 'week',
+  'weeks', 'day', 'days', 'time', 'times', 'now', 'today', 'period', 'range',
+  'source', 'sources', 'note', 'notes', 'method', 'methods', 'generated', 'built',
+  'updated', 'version', 'label', 'labels', 'title', 'titles', 'slug', 'slugs',
+  'unit', 'units', 'line', 'lines', 'text', 'url', 'urls', 'link', 'links',
+  'file', 'files', 'size', 'sizes', 'page', 'pages', 'section', 'sections',
+  'high', 'low', 'open', 'close', 'min', 'max', 'avg', 'mean', 'median', 'sum',
+  'share', 'shares', 'rate', 'rates', 'pct', 'percent', 'ratio', 'level', 'levels',
+  'bare', 'coverage', 'unique', 'totals', 'privacy', 'about', 'other', 'others',
 ]);
+
+/**
+ * ⛔ `_meta` 같은 살림 칸 아래는 안 본다 — 자료의 «내용»이 아니라 우리 살림이다.
+ *   `generated`·`source`·`method`·`privacy` 가 거기서 새어 나와 기사와 걸렸다.
+ */
+export function 살림열쇠인가(열쇠) {
+  const k = String(열쇠 ?? '');
+  return k.startsWith('_') || /^(meta|무엇|출처|잰때|만든때|밝힐것|안담은것)$/.test(k);
+}
 
 /** 찾을 만한 낱말인가 — 세 글자 넘고, 로마자이고, 흔하지 않은 것 */
 export function 찾을만한낱말인가(낱말) {
@@ -70,10 +96,45 @@ export function 열쇠모으기(덩이, 깊이 = 0, 모은것 = new Set()) {
   }
   if (typeof 덩이 !== 'object') return 모은것;
   for (const [k, v] of Object.entries(덩이).slice(0, 120)) {
+    /* ⛔ 살림 칸은 이름도 안 쓰고 속으로도 안 들어간다 */
+    if (살림열쇠인가(k)) continue;
     모은것.add(k);
     열쇠모으기(v, 깊이 + 1, 모은것);
   }
   return 모은것;
+}
+
+/**
+ * 🔴🔴 [2026-10-12 17:4x · 5번] **첫 판은 185개 가운데 166개가 걸렸다 — 양치기 소년이다.**
+ * ─────────────────────────────────────────────────────────────────────
+ * `country-trade-profiles` 가 `five-year-window-cuts-koreas-unbroken-profit-share` 에
+ * 걸렸다. `profit`·`share` 같은 낱말이 기사 수십 장에 흔히 있기 때문이다.
+ * ⛔ 거의 다 걸리면 사람이 안 본다. **경고가 많으면 경고가 아니다.**
+ *
+ * ⭐ 가르는 자 — **그 낱말이 기사 몇 장에 나오나**(희소성).
+ *   오늘 겪은 `tenure` 는 177장 가운데 7장뿐이라 뜻이 있다.
+ *   `share` 처럼 수십 장에 나오는 낱말은 아무것도 말해 주지 않는다.
+ * ⛔ 「둘 이상 겹칠 때만」으로는 못 막는다 — 오늘 건은 `tenure` **하나**로 걸린 것이다.
+ *   낱말 수가 아니라 **낱말의 값**을 봐야 한다.
+ */
+export const 흔한선 = 0.08;   /* 기사의 8% 넘게 나오면 흔한 낱말로 본다 */
+
+/** 기사 이름들에서 낱말마다 「몇 장에 나오나」를 센다 */
+export function 낱말빈도(이름들) {
+  const 셈 = new Map();
+  for (const f of 이름들 ?? []) {
+    const 본것 = new Set(String(f).toLowerCase().split(/[^a-z0-9]+/).filter(Boolean));
+    for (const w of 본것) 셈.set(w, (셈.get(w) ?? 0) + 1);
+  }
+  return 셈;
+}
+
+/** 이 낱말이 그 묶음에서 «드문가» — 드물어야 걸릴 값이 있다 */
+export function 드문낱말인가(낱말, 셈, 전체, 선 = 흔한선) {
+  if (!전체) return true;                       /* 셀 것이 없으면 거르지 않는다 */
+  const n = 셈?.get(String(낱말).toLowerCase()) ?? 0;
+  if (n === 0) return true;                     /* 안 나오면 어차피 안 걸린다 */
+  return n / 전체 <= 선;
 }
 
 /** 주소(또는 파일 이름)가 이 낱말을 품었나 — 낱말 경계로 본다 */
@@ -119,6 +180,47 @@ function 자가시험() {
   같나('가운데 열쇠도 모은다', 열쇠.has('byTicker'), true);
   같나('null 은 그냥 넘긴다', 열쇠모으기(null).size, 0);
 
+  /* 🔴 살림 칸 — 여기서 source·method·generated 가 새어 나와 기사와 걸렸다 */
+  같나('⛔ _meta 는 이름도 안 쓴다', 열쇠.has('_meta'), false);
+  같나('⛔ _meta 속으로도 안 들어간다',
+    열쇠모으기({ _meta: { source: 'x', method: 'y' } }).has('source'), false);
+  같나('⛔ 한글 살림 칸도 안 본다',
+    열쇠모으기({ 출처: { generated: 'x' } }).has('generated'), false);
+  같나('✅ 살림이 아닌 칸은 그대로 본다',
+    열쇠모으기({ byTicker: { x: [{ tenure: 1 }] } }).has('tenure'), true);
+  같나('_ 로 시작하면 살림이다', 살림열쇠인가('_무엇'), true);
+  같나('보통 열쇠는 살림이 아니다', 살림열쇠인가('tenure'), false);
+
+  /* 🔴 글이 되는 말 — window 는 기사 한 장에만 있어 «드문 낱말»로 통과했었다 */
+  같나('⛔ window 는 뜻이 없다', 찾을만한낱말인가('window'), false);
+  같나('⛔ with 도', 찾을만한낱말인가('with'), false);
+  같나('⛔ source 도', 찾을만한낱말인가('source'), false);
+  같나('⛔ share 도 — 어느 기사에나 있다', 찾을만한낱말인가('share'), false);
+  같나('✅ tenure 는 남는다', 찾을만한낱말인가('tenure'), true);
+  같나('✅ buyback 은 남는다', 찾을만한낱말인가('buyback'), true);
+
+  /* ── 🔴 희소성 — 첫 판이 185개 중 166개를 걸어 쓸모가 없었다 ────────── */
+  const 기사흉내 = [
+    'korea-ceo-tenure-eleven-year-median.html',
+    'korea-tenure-gender-gap.html',
+    'korea-profit-share-falls.html',
+    'korea-profit-margin-widens.html',
+    'korea-profit-and-wages.html',
+    'korea-profit-by-sector.html',
+  ];
+  const 셈 = 낱말빈도(기사흉내);
+  같나('profit 은 여섯 장 중 넷에 나온다', 셈.get('profit'), 4);
+  같나('tenure 는 둘뿐이다', 셈.get('tenure'), 2);
+  같나('🔴 흔한 낱말은 버린다 — 넷/여섯은 8% 를 훨씬 넘는다',
+    드문낱말인가('profit', 셈, 6), false);
+  같나('⭐ 드문 낱말은 남긴다 — 오늘 겪은 tenure 가 이것이다',
+    드문낱말인가('tenure', 셈, 100), true);
+  같나('안 나오는 낱말은 거르지 않는다 — 어차피 안 걸린다',
+    드문낱말인가('없는말', 셈, 6), true);
+  같나('⬜ 셀 것이 없으면 거르지 않는다 — ⛔ 「흔하다」로 단정하지 않는다',
+    드문낱말인가('profit', 셈, 0), true);
+  같나('대소문자를 가리지 않는다', 드문낱말인가('TENURE', 셈, 100), true);
+
   /* 🔴 오늘 겪은 바로 그 짝이 잡히나 — 이 자가 헛돌지 않는다는 증거다 */
   const 오늘낱말 = [...열쇠모으기({ byTicker: { x: [{ tenure: '3 years' }] } })]
     .flatMap(낱말로가르기).filter(찾을만한낱말인가);
@@ -130,7 +232,7 @@ function 자가시험() {
 }
 
 /* ── 본체 ───────────────────────────────────────────────────────── */
-function 이미낸것(축) {
+export function 이미낸것(축) {
   /* ① 자료를 읽어 열쇠 낱말을 뽑는다 */
   const 자료길 = path.join(뿌리, 'src', 'data', 축.endsWith('.json') ? 축 : 축 + '.json');
   let 낱말;
@@ -151,11 +253,17 @@ function 이미낸것(축) {
   const 지면 = fs.existsSync(지면방) ? fs.readdirSync(지면방) : null;
   const 기사 = fs.existsSync(기사방) ? fs.readdirSync(기사방) : null;
 
+  /* 🔴 흔한 낱말은 버린다 — 그 낱말이 기사 몇 장에 나오나로 가른다(위 주석) */
+  const 셈 = 낱말빈도(기사 ?? []);
+  const 전체 = (기사 ?? []).length;
+  const 버린낱말 = 낱말.filter((w) => !드문낱말인가(w, 셈, 전체));
+  const 쓸낱말 = 낱말.filter((w) => 드문낱말인가(w, 셈, 전체));
+
   const 맞은것 = [];
   for (const [어디, 목록] of [['지면', 지면], ['기사', 기사]]) {
     if (!목록) continue;
     for (const f of 목록) {
-      const 맞은낱말 = 낱말.filter((w) => 주소가품었나(f, w));
+      const 맞은낱말 = 쓸낱말.filter((w) => 주소가품었나(f, w));
       if (맞은낱말.length) 맞은것.push({ 어디, 이름: f, 낱말: 맞은낱말 });
     }
   }
@@ -165,7 +273,8 @@ function 이미낸것(축) {
   return {
     축,
     자료있나: fs.existsSync(자료길),
-    낱말,
+    낱말: 쓸낱말,
+    버린낱말,
     지면쟀나: 지면 !== null,
     기사쟀나: 기사 !== null,
     기사수: 기사 ? 기사.length : null,
@@ -173,48 +282,64 @@ function 이미낸것(축) {
   };
 }
 
-/* ── 들머리 ─────────────────────────────────────────────────────── */
-if (process.argv.includes('--자가시험')) {
+/* ── 들머리 ───────────────────────────────────────────────────────
+ * 🔴🔴 [2026-10-12 17:3x · 5번] **여기에 진입점 검사가 없어 사고가 났다.**
+ *   `check-쥔자료에-안쓴축이-있나.mjs` 가 이 자를 `import` 한 순간
+ *   아래가 통째로 돌아 도움말을 찍고 **`process.exit(0)` 로 부모를 끝냈다.**
+ *   ⛔ 거두는 자(collect-jbnews-sports-articles.mjs) 2079줄이
+ *     「오늘 다른 자에서 import 한 순간 아래 보내는 일이 통째로 돌았다」고
+ *     **이미 적어 두었는데** 나는 새 자에 그 보호를 안 넣었다.
+ *   ⭐ 겪은 것을 글로만 갖고 새 일에 안 옮기면 그대로 되풀이된다 — 오늘 세 번째다.
+ */
+const 내가진입점 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+
+if (내가진입점 && process.argv.includes('--자가시험')) {
   process.exit(자가시험() ? 0 : 1);
 }
 
-const 축 = process.argv.slice(2).find((a) => !a.startsWith('--'));
-if (!축) {
-  console.log('■ 「이 축으로 이미 낸 게 있나」');
-  console.log('   쓰기  node scripts/check-이축으로-이미낸게있나.mjs <자료이름>');
-  console.log('   보기  node scripts/check-이축으로-이미낸게있나.mjs korea-executives');
-  process.exit(0);
+function 주다() {
+  const 축 = process.argv.slice(2).find((a) => !a.startsWith('--'));
+  if (!축) {
+    console.log('■ 「이 축으로 이미 낸 게 있나」');
+    console.log('   쓰기  node scripts/check-이축으로-이미낸게있나.mjs <자료이름>');
+    console.log('   보기  node scripts/check-이축으로-이미낸게있나.mjs korea-executives');
+    return 0;
+  }
+
+  const r = 이미낸것(축);
+  console.log('■ ' + r.축 + ' — 우리가 이미 이 축으로 낸 것이 있나');
+  if (!r.자료있나) {
+    console.log('   ⬜ src/data/' + r.축 + '.json 을 못 찾았다 — 이름만으로 찾는다');
+  }
+  console.log('   찾는 낱말 ' + r.낱말.length + '개: ' + r.낱말.slice(0, 14).join(' · ')
+    + (r.낱말.length > 14 ? ' …' : ''));
+  if (!r.기사쟀나) {
+    console.log('   ⬜ dist/article 이 없다 — **기사는 못 쟀다.** 0 으로 채우지 않는다.');
+    console.log('      먼저 npx astro build 를 돌린 뒤 이 자를 다시 돌린다.');
+  } else {
+    console.log('   기사 ' + r.기사수 + '장 · 데이터 지면 ' + (r.지면쟀나 ? '쟀다' : '⬜ 못 쟀다'));
+  }
+  console.log('');
+
+  if (!r.맞은것.length) {
+    console.log('✅ 걸리는 것이 없다 — 이 축으로 낸 것이 없어 보인다');
+    console.log('   ⚠ 낱말로만 찾았다. 이름이 아주 다르면 못 잡는다 — 「없다」가 아니라 「못 찾았다」다');
+    return 0;
+  }
+
+  console.log('🔴 이미 낸 것이 ' + r.맞은것.length + '개 걸렸다 — **짓기 전에 읽는다**');
+  for (const m of r.맞은것.slice(0, 12)) {
+    console.log('   [' + m.어디 + '] ' + m.이름);
+    console.log('        맞은 낱말: ' + m.낱말.join(' · '));
+  }
+  if (r.맞은것.length > 12) console.log('   … 그 밖 ' + (r.맞은것.length - 12) + '개');
+  console.log('');
+  console.log('   ⛔ 「이미 있으니 내지 마라」가 아니다 — **먼저 읽어라**다.');
+  console.log('      같은 자료로 다른 축을 내는 것은 좋다. 다만 **수가 어긋나면 안 된다.**');
+  console.log('   ⭐ 2026-10-12 — 기사가 이미 거른 148건을 내 지면이 안 걸러,');
+  console.log('      기사가 「의심스럽다」고 밝힌 줄을 지면 맨 앞에 낼 뻔했다.');
+  return 0;
 }
 
-const r = 이미낸것(축);
-console.log('■ ' + r.축 + ' — 우리가 이미 이 축으로 낸 것이 있나');
-if (!r.자료있나) {
-  console.log('   ⬜ src/data/' + r.축 + '.json 을 못 찾았다 — 이름만으로 찾는다');
-}
-console.log('   찾는 낱말 ' + r.낱말.length + '개: ' + r.낱말.slice(0, 14).join(' · ')
-  + (r.낱말.length > 14 ? ' …' : ''));
-if (!r.기사쟀나) {
-  console.log('   ⬜ dist/article 이 없다 — **기사는 못 쟀다.** 0 으로 채우지 않는다.');
-  console.log('      먼저 npx astro build 를 돌린 뒤 이 자를 다시 돌린다.');
-} else {
-  console.log('   기사 ' + r.기사수 + '장 · 데이터 지면 ' + (r.지면쟀나 ? '쟀다' : '⬜ 못 쟀다'));
-}
-console.log('');
-
-if (!r.맞은것.length) {
-  console.log('✅ 걸리는 것이 없다 — 이 축으로 낸 것이 없어 보인다');
-  console.log('   ⚠ 낱말로만 찾았다. 이름이 아주 다르면 못 잡는다 — 「없다」가 아니라 「못 찾았다」다');
-  process.exit(0);
-}
-
-console.log('🔴 이미 낸 것이 ' + r.맞은것.length + '개 걸렸다 — **짓기 전에 읽는다**');
-for (const m of r.맞은것.slice(0, 12)) {
-  console.log('   [' + m.어디 + '] ' + m.이름);
-  console.log('        맞은 낱말: ' + m.낱말.join(' · '));
-}
-if (r.맞은것.length > 12) console.log('   … 그 밖 ' + (r.맞은것.length - 12) + '개');
-console.log('');
-console.log('   ⛔ 「이미 있으니 내지 마라」가 아니다 — **먼저 읽어라**다.');
-console.log('      같은 자료로 다른 축을 내는 것은 좋다. 다만 **수가 어긋나면 안 된다.**');
-console.log('   ⭐ 2026-10-12 — 기사가 이미 거른 148건을 내 지면이 안 걸러,');
-console.log('      기사가 「의심스럽다」고 밝힌 줄을 지면 맨 앞에 낼 뻔했다.');
+if (내가진입점) process.exit(주다());

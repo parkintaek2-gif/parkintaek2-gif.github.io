@@ -166,9 +166,68 @@ if (process.argv.includes('--자가시험') || process.argv.includes('--selftest
     process.exit(0);
   }
 
-  console.log('   ■ 살펴볼 것 (이름순 · 서른 개까지)');
-  for (const 축 of 안쓴것.slice(0, 30)) console.log('      · ' + 축);
-  if (안쓴것.length > 30) console.log('      … 그 밖 ' + (안쓴것.length - 30) + '개');
+  /* 🔴🔴 [2026-10-12 17:2x · 5번] **이 자가 「이미 쓴 축」을 「안 쓴 축」이라고 내놓았다.**
+     ─────────────────────────────────────────────────────────────────────
+     오늘 korea-executives-tape 를 골라 `/data/ceo-tenure` 를 다 짓고 빌드한 «뒤에야»
+     우리 기사 `/article/korea-ceo-tenure-eleven-year-median` 이 있는 것을 봤다.
+     tenure 축으로 쓴 기사가 **여섯 장 더** 있었다.
+     ⛔ 까닭 — 이 자는 `src/pages/data` 만 센다. **기사는 저장소에 소스가 없고**
+       빌드 산출물(`dist/article`)에만 있어 아예 안 세어졌다.
+     ⭐ 더 나빴던 것 — 그 기사는 설립일보다 긴 재임 148건을 **이미 걸러냈는데**
+       내 첫 자는 안 걸러, 기사가 「의심스럽다」고 밝힌 줄을 지면 맨 앞에 낼 뻔했다.
+     ⇒ 고른 축마다 `check-이축으로-이미낸게있나.mjs` 로 **한 번 더 본다.**
+       ⛔ 이름만으로는 못 잇는다(korea-executives ↔ ceo-tenure). 그 자는 «자료 속 열쇠»로 찾는다.
+     ⚠ dist 가 없으면 **못 쟀다**고 적는다 — 「없다」로 읽지 않는다. */
+  const 기사방 = path.join(뿌리, 'dist', 'article');
+  /* ⬜ 못 쟀으면 null 로 둔다 — 빈 Set 으로 두면 「걸린 것이 없다」가 되어 거짓이 난다 */
+  let 걸린축 = null;
+  if (!fs.existsSync(기사방)) {
+    console.log('   ⬜ dist/article 이 없다 — **기사로 이미 쓴 축을 못 가린다.**');
+    console.log('      아래 목록에 «이미 기사로 낸 축»이 섞여 있을 수 있다.');
+    console.log('      먼저 npx astro build 를 돌리면 이 자가 걸러 준다.');
+  } else {
+    let 이미낸것;
+    try { ({ 이미낸것 } = await import('./check-이축으로-이미낸게있나.mjs')); }
+    catch { 이미낸것 = null; }
+    if (typeof 이미낸것 !== 'function') {
+      console.log('   ⬜ check-이축으로-이미낸게있나 를 못 불러왔다 — **기사 쪽을 못 쟀다**');
+    } else {
+      const 걸린것 = [];
+      for (const 축 of 안쓴것) {
+        let r = null;
+        try { r = 이미낸것(축); } catch { /* 한 축이 깨져도 나머지는 센다 */ }
+        const 기사걸림 = (r?.맞은것 ?? []).filter((x) => x.어디 === '기사');
+        if (기사걸림.length) 걸린것.push({ 축, 수: 기사걸림.length, 첫: 기사걸림[0] });
+      }
+      /* ⭐ [2026-10-12 18:0x · 5번] **목록을 뒤집는다.**
+         처음에는 185개를 내놓고 「이 가운데 155개가 의심스럽다」고 덧붙였다.
+         ⛔ 그건 거꾸로다 — 사람은 **바로 손댈 수 있는 것**을 보고 싶어 한다.
+         걸린 것 가운데 진짜가 많았다(bond-yield-curve ↔ korea-government-bond-yield-curve,
+         cpi-telecom-base-effect ↔ korea-cpi-mobile-fee-base-effect).
+         ⇒ 그러면 「안 쓴 축 185개」라는 말 자체가 틀렸던 것이다. 빼고 보여 준다. */
+      걸린축 = new Set(걸린것.map((g) => g.축));
+      console.log('   기사 ' + fs.readdirSync(기사방).length + '장도 함께 봤다 — '
+        + '그 가운데 **이미 기사로 다룬 듯한 축 ' + 걸린것.length + '개는 아래 목록에서 뺀다**');
+      if (걸린것.length) {
+        console.log('   ⚠ 뺀 보기 — ' + 걸린것.slice(0, 3)
+          .map((g) => g.축 + '(' + g.첫.이름.replace('.html', '').slice(0, 40) + ')').join(' · '));
+        console.log('   ⛔ 「뺐다 = 쓸 수 없다」가 아니다 — 같은 자료의 «다른 축»은 낼 수 있다.');
+        console.log('      다만 짓기 «전»에 그 기사를 읽는다. 수가 어긋나면 안 된다 —');
+        console.log('      2026-10-12 에 기사가 이미 거른 148건을 내 지면이 안 걸러 낼 뻔했다.');
+        console.log('      그 축을 보려면  node scripts/check-이축으로-이미낸게있나.mjs <자료이름>');
+      }
+      console.log('');
+    }
+  }
+
+  /* 기사로 이미 다룬 축을 뺀 것 — ⛔ 못 쟀을 때(걸린축이 null)는 다 보여 준다 */
+  const 깨끗한것 = 걸린축 ? 안쓴것.filter((축) => !걸린축.has(축)) : 안쓴것;
+  console.log('   ■ 살펴볼 것 — ' + (걸린축 ? '지면도 기사도 «없는» 축 ' + 깨끗한것.length + '개' : '(기사는 못 쟀다)'));
+  for (const 축 of 깨끗한것.slice(0, 30)) console.log('      · ' + 축);
+  if (깨끗한것.length > 30) console.log('      … 그 밖 ' + (깨끗한것.length - 30) + '개');
+  if (걸린축 && !깨끗한것.length) {
+    console.log('      (없다 — 쥔 자료가 다 지면이나 기사로 한 번은 나갔다)');
+  }
 
   console.log('');
   console.log('   ⛔ 「지면이 없다 = 내야 한다」가 아니다 — 낼 값이 없는 자료도 있다.');
