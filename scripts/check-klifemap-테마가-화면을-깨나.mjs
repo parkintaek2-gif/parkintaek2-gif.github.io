@@ -121,7 +121,13 @@ const 훑기본문 = `(() => {
       if (m2 && (m2.length < 4 || Number(m2[3]) > 0.5)) return s.backgroundColor;
       e = e.parentElement;
     }
-    return getComputedStyle(document.body).backgroundColor;
+    /* 🔴 [2026-10-13 14:2x] body 가 «투명»이면 여기서 rgba(0,0,0,0) 이 돌아오고,
+       그것을 검정 바탕으로 읽어 **멀쩡한 글자를 「안 보인다」로 찍는다.**
+       새벽빛 테마는 바탕을 html 에 깐다 — 오늘 내 임시 자가 실제로 그렇게 틀렸다. */
+    const b1 = String(getComputedStyle(document.body).backgroundColor);
+    const bm = b1.match(/[\d.]+/g);
+    if (bm && (bm.length < 4 || Number(bm[3]) > 0.5)) return b1;
+    return getComputedStyle(document.documentElement).backgroundColor;
   };
   const 밝기 = (c) => {
     const m = String(c || '').match(/[\\d.]+/g);

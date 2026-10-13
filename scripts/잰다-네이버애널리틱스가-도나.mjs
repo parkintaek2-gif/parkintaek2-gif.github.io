@@ -17,6 +17,13 @@
  *   이 자가 답하는 것은 셋이다 —
  *     ① 스크립트가 지면에 있나  ② 그 사이트의 wa 가 맞나  ③ 브라우저에서 wcs 가 떴나
  *
+ * ── 🔴 집계를 어디서 보나 (사장님 2026-10-13) ────────────────────────
+ * 네이버 애널리틱스 계정 아이디는 **parkintaek@naver.com** 이다 (사장님 말씀).
+ *   ⛔ 내가 로그인하지 않는다. 비밀번호를 다루지 않는다.
+ *   ⇒ 집계 화면은 사장님이 열어 주신 창으로 본다.
+ *   ⚠ 보고 메일(parkintaek2@gmail.com)과 «다른» 주소다. 섞지 않는다 —
+ *     보고가 실제로 어디로 갔는지는 docs/보낸메일.tsv 로 재서 확인했다.
+ *
  * 쓰는 법  node scripts/잰다-네이버애널리틱스가-도나.mjs --자가시험
  *          node scripts/잰다-네이버애널리틱스가-도나.mjs
  */
@@ -52,6 +59,20 @@ export function wa읽기(글) {
  * 판정. ⛔ 「모른다」를 「돈다」로 적지 않는다.
  * @param {{로더:boolean, wa:string|null, 떴나:boolean|null, 바란wa:string}} x
  */
+/**
+ * 🔴 [2026-10-13 14:4x] **「wcs 가 떴다」보다 한 걸음 더 깊은 것이 있다 — «비콘이 나갔나».**
+ *   스크립트가 떠도 wcs_do() 가 안 불리면 아무것도 안 나간다.
+ *   그러면 네이버 화면에는 하루 뒤에도 0 이 찍히고, 우리는 그제야 안다.
+ * ⇒ 지면을 열어 둔 채 **wcs.naver.net 으로 요청이 나가는지** 본다.
+ * ⛔ 요청이 나갔다고 «네이버가 집계했다»는 뜻은 아니다 —
+ *   등록 안 된 wa 면 네이버가 받고 버린다. 그것은 밖에서 못 본다.
+ */
+export function 비콘판정(나갔나) {
+  if (나갔나 === null) return { 빛: '⬜', 말: '못 쟀다' };
+  if (나갔나) return { 빛: '✅', 말: '비콘이 네이버로 나갔다' };
+  return { 빛: '🔴', 말: '비콘이 «안 나갔다» — wcs_do 가 안 불렸거나 CSP 가 막았다' };
+}
+
 export function 판정(x) {
   if (!x || typeof x !== 'object') return { 빛: '⬜', 말: '못 쟀다' };
   if (!x.로더) return { 빛: '🔴', 말: '로더가 지면에 없다 — 붙지 않았다' };
@@ -120,19 +141,29 @@ async function 잰다() {
       let 로더 = false;
       let wa = null;
       let 떴나 = null;
+      let 비콘 = null;
       try {
+        /* ⭐ 지면을 열기 «전»에 귀를 연다 — 열고 나서 달면 이미 나간 것을 놓친다 */
+        비콘 = false;
+        const 듣는다 = (req) => { if (/wcs\.naver\.(net|com)/.test(req.url())) 비콘 = true; };
+        page.on('request', 듣는다);
         await page.goto(s.주소, { waitUntil: 'networkidle2', timeout: 90000 });
         await new Promise((r) => setTimeout(r, 2500));
         const 글 = await page.content();
         로더 = 로더있나(글);
         wa = wa읽기(글);
         떴나 = await page.evaluate(() => Boolean(window.wcs) && typeof window.wcs_do === 'function');
+        await new Promise((r) => setTimeout(r, 2500));   /* 비콘이 나갈 틈을 준다 */
+        page.off('request', 듣는다);
       } catch (e) {
         console.log('  ⬜ ' + s.이름.padEnd(22) + '못 쟀다 — ' + String(e.message).slice(0, 50));
         continue;
       }
       const r = 판정({ 로더, wa, 떴나, 바란wa: s.wa });
+      const bz = 비콘판정(비콘);
       console.log('  ' + r.빛 + ' ' + s.이름.padEnd(22) + r.말);
+      console.log('     ' + bz.빛 + ' ' + bz.말);
+      if (bz.빛 === '🔴') 나쁨 += 1;
       if (r.빛 === '🔴') 나쁨 += 1;
     }
   } finally { await page.close(); b.disconnect(); }
