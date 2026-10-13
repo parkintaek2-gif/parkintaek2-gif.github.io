@@ -607,10 +607,10 @@ export function 못받은날읽기(글) {
   const 표 = new Map();
   for (const l of 글.split(/\r?\n/)) {
     if (!l.trim() || l.startsWith('#')) continue;
-    const [갈래길, 날, 잰날] = l.split('\t');
+    const [갈래길, 날, 잰날, 까닭] = l.split(String.fromCharCode(9));
     if (!갈래길 || !/^\d{4}-\d{2}-\d{2}$/.test(String(날))) continue;
     if (!표.has(갈래길)) 표.set(갈래길, new Map());
-    표.get(갈래길).set(날, 잰날 || '?');
+    표.get(갈래길).set(날, { 잰날: 잰날 || '?', 까닭: 까닭 || '' });
   }
   return 표;
 }
@@ -618,7 +618,24 @@ export function 못받은날읽기(글) {
 /** 그 갈래의 그 날을 재 봤나. @returns {string|null} 잰 날 (없으면 null) */
 export function 재봤나(표, 갈래길, 날) {
   if (!(표 instanceof Map)) return null;
-  return 표.get(갈래길)?.get(날) ?? null;
+  const 칸 = 표.get(갈래길)?.get(날);
+  if (!칸) return null;
+  return typeof 칸 === 'string' ? 칸 : 칸.잰날;
+}
+
+/**
+ * 🔴🔴 [2026-10-13 09:5x · 5번] **이 자가 내가 «안 한» 판정을 찍었다.**
+ *   stocks 에 「대조를 못 했다 — 포털 탓이라고 적지 않는다」고 적어 두었는데,
+ *   이 자는 대장에 줄이 있다는 것만 보고 **「포털에 없었다」**로 찍었다.
+ *   ⛔ 대장은 「재 봤다」와 「무엇으로 밝혀졌나」를 따로 적는데, 자가 뒤를 버렸다.
+ *   ⭐ 자가 보여 주는 것과 재는 것이 다르면 그 자는 사람을 속인다 — 열여섯 번째다.
+ * @returns {boolean} 그 줄이 «못 쟀다»로 적힌 것인가
+ */
+export function 못쟀다로적혔나(표, 갈래길, 날) {
+  if (!(표 instanceof Map)) return false;
+  const 칸 = 표.get(갈래길)?.get(날);
+  if (!칸 || typeof 칸 === 'string') return false;
+  return /⬜|못 쟀다|대조를 못 했다|가리지 못했다/.test(String(칸.까닭 || ''));
 }
 
 /**
@@ -687,6 +704,23 @@ if (나 && process.argv.includes('--자가시험')) {
     검('못받은날 — 재 본 날을 돌려준다', 재봤나(표, 'archive/raw/stocks', '2026-10-08') === '2026-10-09');
     검('⛔ 못받은날 — 없는 날은 null', 재봤나(표, 'archive/raw/stocks', '2026-10-07') === null);
     검('⛔ 못받은날 — 없는 갈래도 null', 재봤나(표, 'archive/raw/없다', '2026-10-08') === null);
+  /* 🔴 [2026-10-13] 대장의 «까닭»을 버려서 「못 쟀다」를 「포털에 없었다」로 찍던 것 */
+  {
+    const 표2 = 못받은날읽기(['archive/raw/stocks', '2026-10-12', '2026-10-13',
+      '⬜ 대조를 못 했다 — 포털 탓이라고 적지 않는다'].join(String.fromCharCode(9)) + String.fromCharCode(10)
+      + ['archive/raw/indices', '2026-10-12', '2026-10-13',
+        '⭐ 대조해서 적는다 — 포털이 아직 안 올렸다'].join(String.fromCharCode(9)));
+    검('🔴 대장에 적힌 «못 쟀다»를 그대로 읽는다 — 안 한 판정을 찍지 않는다',
+      못쟀다로적혔나(표2, 'archive/raw/stocks', '2026-10-12') === true);
+    검('⛔ 대조해서 밝힌 줄은 «못 쟀다»가 아니다',
+      못쟀다로적혔나(표2, 'archive/raw/indices', '2026-10-12') === false);
+    검('✅ 잰 날은 옛 꼴 그대로 돌려 준다 — 쓰는 쪽을 안 깨뜨린다',
+      재봤나(표2, 'archive/raw/stocks', '2026-10-12') === '2026-10-13');
+    검('⛔ 대장에 없는 날은 null — 「쟀다」로 읽지 않는다',
+      재봤나(표2, 'archive/raw/stocks', '2026-10-11') === null);
+    검('⛔ 표가 아니면 false — 「못 쟀다」로 우기지 않는다',
+      못쟀다로적혔나(null, 'a', 'b') === false);
+  }
     검('⛔ 못받은날 — 글이 아니면 null (「없다」가 아니다)', 못받은날읽기(null) === null);
     검('⛔ 못받은날 — 표가 아니면 null', 재봤나(null, 'a', '2026-10-08') === null);
     검('⛔ 못받은날 — 날짜 꼴이 아닌 줄은 버린다',
@@ -980,7 +1014,13 @@ if (나) {
     for (const r of 구멍난것) {
       const 칸 = r.구멍.map((d) => {
         const 잰날 = 못받은표 === null ? null : 재봤나(못받은표, r.길, 날글(d));
-        if (잰날) { 재본수 += 1; return `${날글(d)}(재 봄 ${잰날} · 포털에 없었다)`; }
+        if (잰날) {
+          재본수 += 1;
+          /* ⛔ 「재 봤다」를 「포털에 없었다」로 읽지 않는다 — 대장에 적힌 그대로 말한다 */
+          const 못쟀 = 못받은표 === null ? false : 못쟀다로적혔나(못받은표, r.길, 날글(d));
+          const 뭐라 = 못쟀 ? '⬜ 못 쟀다 — 포털 탓인지 아직 모른다' : '포털에 없었다';
+          return `${날글(d)}(재 봄 ${잰날} · ${뭐라})`;
+        }
         return 날글(d);
       });
       console.log(`      · ${r.이름} (${r.몫}) — ${칸.join(' · ')}`);
