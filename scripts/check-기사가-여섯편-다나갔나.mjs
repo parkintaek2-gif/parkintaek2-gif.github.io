@@ -312,7 +312,18 @@ if (process.argv.includes('--자가시험') || process.argv.includes('--selftest
     const 막힘 = 빠진.filter((h) => 막힌것.has(h));
     const 아예 = 빠진.filter((h) => !막힌것.has(h));
     console.log('   🔴 ' + 날 + ' (' + 요일 + ')  ' + 나간수 + '/6 편');
-    if (아예.length) console.log('        회차가 글을 안 냈다 : ' + 아예.map((h) => h + '시').join(' · '));
+    /* 🔴🔴 [2026-10-13 11:5x · 5번] **이 줄이 증거 없이 단정하고 있었다.**
+       2026-10-12 를 「회차가 글을 안 냈다 : 09시 · 16시」라고 적었는데,
+       예약에 직접 물어 보니 **16시는 떴고 SUCCEEDED 였다**(15:26 떠서 7분 걸렸다).
+       ⇒ 「안 냈다」가 아니라 **「거두기에 자국이 없다」**였다. 둘은 처방이 다르다 —
+         · 안 떴다      예약·시간대·플랫폼을 본다
+         · 떴는데 없다  지시문·데스킹·거두기를 본다
+       ⭐ 자가 못 본 것을 「없었다」로 적으면 사람이 엉뚱한 데를 고친다. */
+    if (아예.length) {
+      console.log('        거두기에 자국이 없다 : ' + 아예.map((h) => h + '시').join(' · '));
+      console.log('          ⬜ 「회차가 안 떴다」가 아니다 — 이 자는 그것을 모른다.');
+      console.log('          ⇒ node scripts/잰다-회차가-떴나.mjs 로 «떴나»를 가른다');
+    }
     if (막힘.length) console.log('        썼는데 데스킹이 막았다: ' + 막힘.map((h) => h + '시').join(' · ')
       + '   ⭐ 막는 것은 옳다. 막고 «잊는» 것이 흠이다');
     흠 += 빠진.length;
@@ -324,7 +335,8 @@ if (process.argv.includes('--자가시험') || process.argv.includes('--selftest
     console.log('🔴 평일 ' + 센날 + '일 가운데 모두 ' + 흠 + '편이 안 나갔다');
     console.log('   ⭐ 늦는 것보다 «안 나가는 것»이 크다 — 늦으면 받기라도 한다.');
     console.log('   ⚠ 볼 곳 둘 — ① 회차가 돌긴 했나(예약 화면) ② 돌았는데 거두기가 놓쳤나(자국)');
-    console.log('      node scripts/잰다-회차가-몇분에-떴나.mjs 로 가른다');
+  console.log('      ① node scripts/잰다-회차가-떴나.mjs      — 예약에 직접 묻는다(떴나·성공했나)');
+  console.log('      ② node scripts/잰다-회차가-몇분에-떴나.mjs  — 화면에 몇 분에 뜨나');
     process.exit(1);
   }
   console.log('✅ 센 평일 ' + 센날 + '일 모두 여섯 편이 다 나갔다');
