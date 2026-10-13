@@ -44,6 +44,12 @@ export const 수집기 = {
   commodities: 'collect-commodities.mjs',
   derivatives: 'collect-derivatives.mjs',
   indices: 'collect-indices.mjs',
+  /* 🔴 [2026-10-13 10:3x] stocks 를 들인다 — 오늘까지 «대조가 안 되는 갈래»였다.
+     collect-stock-prices.mjs 가 「이미 있는 날은 건너뛴다」라 곳간에 있는 날을
+     다시 받아 볼 수가 없었다. 그래서 2026-10-12 구멍을 «못 쟀다»로 남겼다.
+     ⇒ 그 수집기에 --세어만본다 를 냈다(곳간에 쓰지 않고 건수만 센다).
+     ⛔ 이 자는 그 깃발을 반드시 함께 보낸다 — 안 보내면 대조날이 0건으로 와 «우리 탓»이 뜬다. */
+  stocks: { 파일: 'collect-stock-prices.mjs', 덧: ['--세어만본다'] },
 };
 
 /**
@@ -131,7 +137,18 @@ function 자가시험() {
     건너뛰었나('이미 있는 1일은 건너뛴다 / 합계 0건') === true);
   검('⛔ 보통 글을 건너뜀으로 읽지 않는다', 건너뛰었나('합계 171건') === false);
   검('⛔ 빈 값에도 안 터진다', 건너뛰었나(null) === false);
-  console.log(탈 ? `\n🔴 자가시험 ${탈}건 탈` : '\n✅ 자가시험 27개 통과');
+  /* 🔴 [2026-10-13] 갈래 칸이 두 꼴이 됐다 — 글자 하나, 그리고 { 파일, 덧 } */
+  검('✅ 글자 하나인 옛 꼴을 그대로 받는다',
+    수집기풀기('collect-indices.mjs').파일 === 'collect-indices.mjs');
+  검('✅ 옛 꼴에는 덧 깃발이 없다', 수집기풀기('a.mjs').덧.length === 0);
+  검('🔴 { 파일, 덧 } 꼴에서 덧 깃발을 꺼낸다 — 안 보내면 대조날이 0건이 되어 «우리 탓»이 뜬다',
+    수집기풀기({ 파일: 'collect-stock-prices.mjs', 덧: ['--세어만본다'] }).덧[0] === '--세어만본다');
+  검('⛔ 모르는 꼴이면 null — 짐작해서 부르지 않는다',
+    수집기풀기(null) === null && 수집기풀기({}) === null);
+  검('🔴 stocks 가 표에 들어 있고 --세어만본다 를 함께 보낸다',
+    수집기풀기(수집기.stocks)?.덧?.includes('--세어만본다') === true);
+
+  console.log(탈 ? `\n🔴 자가시험 ${탈}건 탈` : '\n✅ 자가시험 32개 통과');
   if (탈) process.exit(1);
 }
 
@@ -169,9 +186,18 @@ export function 깃발(이름, argv) {
 /** 날짜는 YYYYMMDD 여덟 자다 — 수집기가 그 꼴만 받는다 */
 export function 날맞나(값) { return /^[0-9]{8}$/.test(String(값 == null ? "" : 값)); }
 
-function 돌린다(파일, 날) {
-  const r = spawnSync(process.execPath, [path.join(뿌리, 'scripts', 파일), '--date', 날],
-    { cwd: 뿌리, encoding: 'utf8', timeout: 180000 });
+/** 갈래 칸은 글자 하나일 수도, { 파일, 덧 } 일 수도 있다 — 둘 다 받는다 */
+export function 수집기풀기(칸) {
+  if (typeof 칸 === 'string') return { 파일: 칸, 덧: [] };
+  if (칸 && 칸.파일) return { 파일: 칸.파일, 덧: Array.isArray(칸.덧) ? 칸.덧 : [] };
+  return null;
+}
+
+function 돌린다(칸, 날) {
+  const 푼 = 수집기풀기(칸);
+  if (!푼) return '';
+  const r = spawnSync(process.execPath, [path.join(뿌리, 'scripts', 푼.파일), '--date', 날, ...푼.덧],
+    { cwd: 뿌리, encoding: 'utf8', timeout: 300000 });
   return `${r.stdout ?? ''}${r.stderr ?? ''}`;
 }
 

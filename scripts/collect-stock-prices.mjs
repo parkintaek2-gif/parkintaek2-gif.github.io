@@ -92,7 +92,7 @@ export function 정리(x) {
   };
 }
 
-async function 하루(키, 일자) {
+async function 하루(키, 일자, 쓰나 = true) {
   const 모음 = [];
   for (let 쪽 = 1; ; 쪽++) {
     const u = `${URL_}?serviceKey=${키}&numOfRows=${쪽크기}&pageNo=${쪽}&resultType=json&basDt=${일자}`;
@@ -112,7 +112,7 @@ async function 하루(키, 일자) {
   /* ⚠ 하루가 끝나면 **즉시 쓴다.** 모아서 쓰지 않는다.
      store.put 은 로컬(archive/)과 R2 양쪽에 쓴다 — 예전엔 writeFileSync 로 로컬에만 썼고
      그래서 시세 아카이브가 이 PC 한 대에만 쌓였다(4.67GB). 원격 실패는 던지지 않고 경고만 한다. */
-  if (모음.length) {
+  if (모음.length && 쓰나) {
     const body = 모음.map((r) => JSON.stringify(r)).join('\n') + '\n';
     const res = await put(`raw/stocks/${일자}.ndjson`, body, 'application/x-ndjson');
     if (res.remoteError) console.warn(`  ⚠ ${일자} R2 실패: ${String(res.remoteError).slice(0, 80)} (로컬엔 있다)`);
@@ -136,16 +136,29 @@ async function main() {
     for (; d <= e; d.setDate(d.getDate() + 1)) 날들.push(날짜문자(d));
   } else 날들 = [어제()];   /* ⚠ T+1 */
 
+  /**
+   * 🔴 [2026-10-13 10:3x · 5번] **--세어만본다 를 들인다.**
+   *   어제(10-12) 0건이 «포털 탓인지 우리 탓인지» 가리려면,
+   *   곳간에 이미 있는 날을 다시 받아 건수를 대 봐야 한다.
+   *   그런데 이 자는 「이미 있는 날은 건너뛴다」라 **대조 자체가 안 됐다.**
+   *   ⇒ 그래서 오늘 stocks 만 «못 쟀다»로 남았다(docs/못받은날-기록.tsv).
+   * ⛔ 곳간에 «쓰지» 않는다 — 포털이 반쪽만 주는 날 멀쩡한 날을 덮어쓰면 더 나쁘다.
+   *   세는 것과 쌓는 것을 가른다. 그래야 대조가 곳간을 다치게 하지 않는다.
+   */
+  const 세어만본다 = process.argv.includes('--세어만본다');
+
   /* 이미 받은 날은 건너뛴다 — 백필을 끊었다 이어도 처음부터 다시 돌지 않게 */
-  const 건너뜀 = 날들.filter((d) => existsSync(path.join(OUT_DIR, `${d}.ndjson`))).length;
-  날들 = 날들.filter((d) => !existsSync(path.join(OUT_DIR, `${d}.ndjson`)));
+  const 건너뜀 = 세어만본다 ? 0
+    : 날들.filter((d) => existsSync(path.join(OUT_DIR, `${d}.ndjson`))).length;
+  if (!세어만본다) 날들 = 날들.filter((d) => !existsSync(path.join(OUT_DIR, `${d}.ndjson`)));
   if (건너뜀) console.log(`이미 있는 ${건너뜀}일은 건너뛴다`);
+  if (세어만본다) console.log('⬜ --세어만본다 — 곳간에 쓰지 않는다. 건수만 센다(대조용)');
 
   let 합 = 0, 빈날 = 0, 실패 = 0;
   const 짧다 = 날들.length < 40;
   for (const [i, 일자] of 날들.entries()) {
     try {
-      const r = await 하루(키, 일자);
+      const r = await 하루(키, 일자, !세어만본다);
       if (!r.length) { 빈날++; if (짧다) console.log(`  ${일자}  0건 (휴장일일 수 있다)`); continue; }
       합 += r.length;
       if (짧다) {
