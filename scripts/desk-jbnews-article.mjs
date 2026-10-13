@@ -346,7 +346,7 @@ async function 대화만들기(page, 이름) {
  * 그 대화에 한 마디 보내고 답을 다 받는다.
  * @param 부모 이어 말할 때 쓰는 앞 메시지 번호. 없으면 대화의 첫 마디다.
  */
-async function 한마디보내기(page, 대화, 프롬프트, 부모 = null) {
+export async function 한마디보내기(page, 대화, 프롬프트, 부모 = null) {
   return page.evaluate(async (조직, conv, 프롬프트, 부모, 검색도구) => {
     const r = await fetch(`/api/organizations/${조직}/chat_conversations/${conv}/completion`, {
       method: 'POST',
