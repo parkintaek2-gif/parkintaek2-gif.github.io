@@ -191,6 +191,22 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
   <meta name="naver-site-verification" content="bc1122d2c32b22098c77117e0d59633453a48c00" />
   {/* www 붙은 주소는 네이버가 **다른 사이트**로 본다. 그쪽 코드도 같이 둔다 (2026-08-08) */}
   <meta name="naver-site-verification" content="4ef5b77e64e6f2f850759b3a890a216c2232a9ce" />
+  {/*
+    🔴 [2026-10-13 14:0x · 사장님 지시] **네이버 애널리틱스 — 백년지도**
+    사장님이 사이트마다 다른 코드를 주셨다. 원문 그대로 넣는다 — 손대지 않는다.
+    wa 값은 «측정 아이디»다. 비밀이 아니라 브라우저로 그대로 나가는 값이다.
+    ⛔ 사이트마다 wa 가 «다르다». 베껴 쓰면 남의 사이트 수에 섞인다.
+    ⛔ 「붙였다」를 「센다」로 읽지 않는다 — 라이브에서 wcs_do 가 도는지 잰다.
+    ⛔ 이 태그를 지우지 않는다. 지우면 그날부터 손님 수가 통째로 빈다.
+  */}
+  <script type="text/javascript" src="//wcs.pstatic.net/wcslog.js" is:inline></script>
+  <script type="text/javascript" is:inline>
+    if(!wcs_add) var wcs_add = {};
+    wcs_add["wa"] = "1c7cedc7304e670";
+    if(window.wcs) {
+      wcs_do();
+    }
+  </script>
   {noindex && <meta name="robots" content="noindex" />}
     {/* 🔴 [2026-10-05 23:0x · 5번] **Dataset 에 빠진 칸을 여기서 채운다.**
       사장님이 넘겨 주신 구글 메일 — 「데이터세트 구조화된 데이터 문제가 감지됨」.

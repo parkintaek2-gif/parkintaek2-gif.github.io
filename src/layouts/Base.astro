@@ -93,6 +93,26 @@ const orgLd = {
     */}
     <meta name="naver-site-verification" content="fb7b0650be3bca9b51c81a625dc82e78f4fcad0e" />
     {/*
+      🔴 [2026-10-13 14:0x · 사장님 지시] **네이버 애널리틱스.**
+      사장님이 코드를 그대로 주셨다. 원문 그대로 넣는다 — 손대지 않는다.
+      wa 값은 «측정 아이디»다. 비밀이 아니라 브라우저로 그대로 나가는 값이다.
+
+      ⚠ 케이라이프맵에는 CSP 가 빡빡해 script-src 에 wcs.pstatic.net 을 열어야 했다.
+        여기(SeoulMarkets)는 CSP 가 base-uri·object-src·frame-ancestors 뿐이라 열 것이 없다.
+        ⛔ 그렇다고 「열 필요 없다」를 기억으로 적지 않았다 — 라이브 헤더를 재서 확인했다.
+
+      ⛔ 「붙였다」를 「센다」로 읽지 않는다 — 라이브에서 wcs_do 가 실제로 도는지 잰다.
+      ⛔ 이 태그를 지우지 않는다. 지우면 그날부터 손님 수가 통째로 빈다.
+    */}
+    <script type="text/javascript" src="//wcs.pstatic.net/wcslog.js" is:inline></script>
+    <script type="text/javascript" is:inline>
+      if(!wcs_add) var wcs_add = {};
+      wcs_add["wa"] = "127a65fcc0cbb30";
+      if(window.wcs) {
+        wcs_do();
+      }
+    </script>
+    {/*
       애드센스 소유확인 (2026-09-02 · 사장님 직접 지시).
       pub 넘버는 사이트마다 같다(계정 하나). 메타태그만으로 소유확인이 안 돼 스크립트도 넣으라 하셨다.
 
