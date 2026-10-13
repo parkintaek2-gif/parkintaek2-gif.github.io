@@ -179,28 +179,43 @@ async function 잰다(주소들) {
       await new Promise((r) => setTimeout(r, 3000));
       const 잰것 = await page.evaluate(() => {
         const 숫자 = (s) => (String(s).match(/[\d.]+/g) || []).map(Number);
-        /** 투명을 뚫고 위로 올라가 «진짜» 바탕을 찾는다. 그라데이션이면 첫 색을 뽑는다 */
+        /**
+         * 투명을 뚫고 위로 올라가 «진짜» 바탕을 찾는다.
+         *
+         * 🔴🔴 [2026-10-13 14:5x] **그라데이션에서 «멈추면» 아래 바탕을 못 본다.**
+         *   「오늘의 사주」 기둥 「庚申」이 금색 그라데이션 테두리 안에 있는데,
+         *   자가 거기서 멈춰 금색을 바탕으로 집고 **대비 2.57 · 「거의 안 보인다」**고 찍었다.
+         *   화면을 찍어 보니 흰 카드 위 금색 글자로 **아주 잘 보였다.**
+         *   ⭐ 네 번째 거짓 빨강이다. 그라데이션이 반투명이면 «아래»와 섞인다.
+         * ⇒ 멈추지 않고 색을 모으며 계속 올라간다. 그리고 그라데이션이 끼었으면
+         *   빨강으로 «단정하지 않고» ⬜ 못 쟀다로 낸다 — 겹침 합성은 밖에서 못 잰다.
+         */
         const 바탕찾기 = (el) => {
           let n = el;
+          const 모은것 = [];
+          let 그라있었나 = false;
           while (n && n.nodeType === 1) {
             const cs = getComputedStyle(n);
             const gi = cs.backgroundImage;
             if (gi && gi !== 'none') {
-              /* ⭐ 그라데이션은 «여러 색»이다. 첫 색만 보면 한쪽 끝으로 치우친다 —
-                 보라 버튼(#8b4fe6→#5b2bb5)의 밝은 쪽만 재어 3.83 이 나왔다.
-                 ⇒ 색을 다 뽑아 돌려주고, 바깥에서 «가장 나쁜» 대비를 쓴다. */
-              const 색들 = [...gi.matchAll(/rgba?\(([^)]+)\)/g)]
+              그라있었나 = true;
+              const gc = [...gi.matchAll(/rgba?\(([^)]+)\)/g)]
                 .map((m) => m[1].split(String.fromCharCode(44)).map(Number))
                 .filter((v) => v.length >= 3 && v.slice(0, 3).every(Number.isFinite));
-              if (색들.length) return 색들;
-              return null;   /* 그림 배경 — «못 쟀다» */
+              모은것.push(...gc);
+              n = n.parentElement;
+              continue;     /* ⭐ 멈추지 않는다 — 아래 바탕도 후보다 */
             }
             const v = 숫자(cs.backgroundColor);
-            if (v.length >= 3 && (v[3] === undefined || v[3] > 0.35)) return v;
+            if (v.length >= 3 && (v[3] === undefined || v[3] > 0.35)) {
+              모은것.push(v);
+              return { 색들: 모은것, 그라: 그라있었나 };
+            }
             n = n.parentElement;
           }
           const h = 숫자(getComputedStyle(document.documentElement).backgroundColor);
-          return h.length >= 3 ? h : [255, 255, 255];
+          if (h.length >= 3) 모은것.push(h); else 모은것.push([255, 255, 255]);
+          return { 색들: 모은것, 그라: 그라있었나 };
         };
         const 나온다 = [];
         for (const el of document.querySelectorAll('*')) {
@@ -212,8 +227,9 @@ async function 잰다(주소들) {
           if (cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) < 0.1) continue;
           const rc = el.getBoundingClientRect();
           if (rc.width < 2 || rc.height < 2) continue;
+          const bg = 바탕찾기(el);
           나온다.push({
-            글색: 숫자(cs.color), 바탕색: 바탕찾기(el),
+            글색: 숫자(cs.color), 바탕색: bg.색들, 그라: bg.그라,
             태그: el.tagName, 크기: cs.fontSize,
             보기: 글.slice(0, 32),
           });
@@ -225,7 +241,10 @@ async function 잰다(주소들) {
       const 나쁜것 = [];
       for (const x of 잰것) {
         const v = 대비(x.글색, x.바탕색);
-        const r = 판정(v);
+        /* ⭐ 그라데이션이 끼었으면 빨강으로 «단정하지 않는다» —
+           겹친 반투명 층의 합성은 밖에서 못 잰다. ⬜ 못 쟀다로 낸다.
+           ⛔ 그렇다고 ✅ 로도 적지 않는다. 모르는 것은 모른다고 적는다. */
+        const r = (x.그라 && v !== null && v < 읽히는선) ? 판정(null) : 판정(v);
         셈[r.빛] += 1;
         if (r.빛 === '🔴' || r.빛 === '🔴🔴') 나쁜것.push({ ...x, 대비: v, 빛: r.빛 });
       }
