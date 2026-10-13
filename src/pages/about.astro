@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SITE, SITE_URL, PUBLISHER, DISCLAIMER, CATEGORIES, PUBLISHER_SM } from '../consts';
+import { SITE, SITE_URL, PUBLISHER, DISCLAIMER, CATEGORIES } from '../consts';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -168,7 +168,7 @@ const jsonLd = {
         <h2>Corrections</h2>
         <p>
           If a figure here is wrong, we want to know. Write to{' '}
-          <a href={`mailto:${PUBLISHER_SM.email}`}>{PUBLISHER_SM.email}</a>. Substantive corrections are
+          <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>. Substantive corrections are
           made in place with a visible updated date; we do not quietly rewrite published numbers.
         </p>
 
@@ -189,11 +189,14 @@ const jsonLd = {
               사업자 정보 표시로도 부족하지 않다.
               값(legalNameKo·representativeKo·addressKo)은 consts.ts 에 그대로 둔다 —
               한국어판을 낼 때 쓴다. **여기 화면에 다시 넣지 말 것.** */}
-          <strong>{PUBLISHER_SM.legalName} ({PUBLISHER_SM.legalNameKo})</strong><br />
-          Proprietor: {PUBLISHER_SM.representative}<br />
-          {PUBLISHER_SM.address}<br />
-          Business registration number {PUBLISHER_SM.bizRegNo}<br />
-          <a href={`mailto:${PUBLISHER_SM.email}`}>{PUBLISHER_SM.email}</a>
+          <strong>{PUBLISHER.legalName} ({PUBLISHER.legalNameKo})</strong><br />
+        {/* 🔴 [2026-10-13] 「Proprietor」는 «개인사업자»의 말이다. 범진아카데미일 때는 맞았으나
+            이제 발행 주체가 **주식회사**(KLifeDesign InC.)이므로 틀린 말이 된다.
+            ⛔ 상수만 갈아끼우고 그 둘레 «글»을 안 보면, 값은 맞고 말이 틀린 지면이 남는다. */}
+          Representative: {PUBLISHER.representative}<br />
+          {PUBLISHER.address}<br />
+          Business registration number {PUBLISHER.bizRegNo}<br />
+          <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
         </p>
       </div>
 

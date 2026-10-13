@@ -1,5 +1,9 @@
 ---
-import { SITE, CATEGORIES, PUBLISHER_SM, DISCLAIMER, SISTER_SITES } from '../consts';
+/* 🔴 [2026-10-13] PUBLISHER_SM → PUBLISHER. 사장님 「서울마켓츠 푸터의 회사정보를
+   케이컬쳐와이어의 회사정보를 그대로 복사해서 바꿔」 — kculturewire 가 쓰는 그 상수다.
+   ⚠ PUBLISHER_SM(범진아카데미)은 consts.ts 에 그대로 둔다 — /about 등 다른 데서 쓸 수 있고,
+     지우면 그 자리들이 조용히 깨진다. 쓰는 곳을 먼저 세고 나서 지운다. */
+import { SITE, CATEGORIES, PUBLISHER, DISCLAIMER, SISTER_SITES } from '../consts';
 const year = new Date().getFullYear();
 ---
 
@@ -74,6 +78,22 @@ const year = new Date().getFullYear();
         </ul>
       </div>
       {/**
+        * 🔴🔴 [2026-10-13 17:3x] 발행 주체를 **KLifeDesign 으로 되돌렸다.** 사장님 지시 —
+        *   「**서울마켓츠 푸터의 회사정보를 케이컬쳐와이어의 회사정보를 그대로 복사해서 바꿔**」
+        *
+        *   ⚠ 이것은 2026-09-05 의 「서울마켓츠 범진아카데미에 맞게 푸터 수정해라」를
+        *     **뒤집는 지시다.** 옛 주석을 지우지 않고 아래에 남겨 둔다 — 왜 갈랐다가
+        *     왜 합쳤는지를 다음 사람이 알아야 한다.
+        *
+        *   ⚠ 바뀐 것을 또렷이 적는다. 이것은 지면에 적히는 **법적 표시**다 —
+        *     상호      범진아카데미 (Beomjin Academy) → KLifeDesign InC. (주식회사 케이라이프디자인)
+        *     사업자번호  233-06-03536               → 456-87-03384
+        *     주소      세종 조치원읍 충현로 159      → 세종 남세종로 441, 제상가1동 101호
+        *     통신판매   (없었다)                    → 2026-세종-0591
+        *   ⛔ 값을 손으로 베끼지 않는다. kculturewire 가 쓰는 **그 상수(PUBLISHER)**를
+        *     그대로 쓴다. 베끼면 한쪽만 고쳐질 때 두 사이트가 어긋난다.
+        *
+        * ── 아래는 2026-09-05 에 적어 둔 것. 지우지 않는다 ──────────────────────
         * 🔴 [2026-09-05] 발행 주체를 **범진아카데미**로 바꿨다. 사장님 지시 —
         *   「서울마켓츠 범진아카데미에 맞게 푸터 수정해라」
         * ⚠ 이 꼬리말은 **SeoulMarkets 전용**이다. kculturewire·100yearmap 은 각자
@@ -81,14 +101,19 @@ const year = new Date().getFullYear();
         *   그래서 상수를 갈랐다(`PUBLISHER_SM`). 한 상수를 고쳤으면 세 사이트가 같이 바뀐다.
         * ⛔ 통신판매업 신고번호를 뺐다 — 그 번호(2026-세종-0591)는 KLifeDesign 명의이고
         *   주소도 다르다. 남의 번호를 이 상호 아래 적으면 거짓이 된다.
+        *   ⇒ 2026-10-13 사장님 지시로 **상호 자체가 KLifeDesign 이 되었으므로**
+        *     이제 남의 번호가 아니다. 그래서 신고번호도 함께 적는다.
         * ⛔ 대표자 이름은 예전 결정대로 여기 안 적고 /about 에 둔다(2026-08-29 사장님 지시).
         */}
       <div>
         <h2>Published by</h2>
         <ul>
-          <li>{PUBLISHER_SM.legalName} ({PUBLISHER_SM.legalNameKo})</li>
-          <li>{PUBLISHER_SM.address}</li>
-          <li>Business reg. {PUBLISHER_SM.bizRegNo}</li>
+          <li>{PUBLISHER.legalName} ({PUBLISHER.legalNameKo})</li>
+          <li>{PUBLISHER.address}</li>
+          <li>Business reg. {PUBLISHER.bizRegNo}</li>
+          {/* kculturewire 꼬리말과 «같은 줄»이다 — 영문을 앞에, 한국어를 뒤에
+              (사장님 2026-09-11 「두 개를 같이 써」) */}
+          <li>Mail-order licence {PUBLISHER.mailOrderBothEn}</li>
         </ul>
       </div>
       {
@@ -130,7 +155,10 @@ const year = new Date().getFullYear();
         feeds are not real time; each article states the exact as-of timestamp of the data it
         uses. {SITE.name} is not affiliated with, endorsed by, or licensed by the Korea Exchange.
       </p>
-      <p>&copy; {year} {PUBLISHER_SM.legalName}. All rights reserved.</p>
+      {/* 🔴 [2026-10-13] 저작권 줄의 상호도 같이 바꾼다 — 사장님 「회사정보를 그대로 복사해서 바꿔」.
+          ⛔ 위 「Published by」만 바꾸고 여기를 두면 **한 꼬리말에 두 상호**가 나란히 적힌다.
+            ⭐ 하나를 고치면 인용한 곳까지 따라간다. */}
+      <p>&copy; {year} {PUBLISHER.legalName}. All rights reserved.</p>
     </div>
   </div>
 </footer>

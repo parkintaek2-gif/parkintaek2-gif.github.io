@@ -4,7 +4,7 @@ import { 데이터세트채우기 } from '../lib/dataset-채운다';
 import Analytics from '../components/Analytics.astro';
 import Footer from '../components/Footer.astro';
 import PreferredSource from '../components/선호출처.astro';
-import { SITE, SITE_URL, PUBLISHER, ADS, PUBLISHER_SM } from '../consts';
+import { SITE, SITE_URL, PUBLISHER, ADS } from '../consts';
 import { cleanPath } from '../lib/format';
 import '../styles/global.css';
 
@@ -60,11 +60,11 @@ const orgLd = {
   '@type': 'NewsMediaOrganization',
   '@id': `${SITE_URL}/#organization`,
   name: SITE.name,
-  legalName: PUBLISHER_SM.legalName,
+  legalName: PUBLISHER.legalName,
   url: SITE_URL,
-  email: PUBLISHER_SM.email,
-  foundingDate: PUBLISHER_SM.openedOn,
-  address: { '@type': 'PostalAddress', streetAddress: PUBLISHER_SM.address, addressCountry: 'KR' },
+  email: PUBLISHER.email,
+  foundingDate: PUBLISHER.openedOn,
+  address: { '@type': 'PostalAddress', streetAddress: PUBLISHER.address, addressCountry: 'KR' },
   publishingPrinciples: `${SITE_URL}/about`,
   diversityPolicy: `${SITE_URL}/about`,
   ethicsPolicy: `${SITE_URL}/about`,
@@ -202,7 +202,7 @@ const orgLd = {
         (「리포트도, 웹페이지도 고객이 보는 시작과 결과는 엔진보다 더 치밀해야 한다」)
     */}
     <p class="print-only print-imprint">
-      {SITE.name} · {PUBLISHER_SM.legalName} · <span>{canonical}</span>
+      {SITE.name} · {PUBLISHER.legalName} · <span>{canonical}</span>
     </p>
     {/* ins 하나당 한 번씩 광고 요청. 페이지당 스크립트 한 줄로 끝낸다. */}
     {ADS.client !== '' && !광고끔 && <script is:inline set:html={adsPush} />}

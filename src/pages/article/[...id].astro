@@ -13,7 +13,7 @@ import { tagsForArticle } from '../../lib/tags';
    ⛔ 사람이 낱말을 더해서 지키는 구조를 되살리지 않는다. */
 import { 상품고르기 } from '../../lib/article-product';
 import { formatDate, formatAsOf, categoryLabel, iso } from '../../lib/format';
-import { SITE, SITE_URL, PUBLISHER, DISCLAIMER, PUBLISHER_SM } from '../../consts';
+import { SITE, SITE_URL, PUBLISHER, DISCLAIMER } from '../../consts';
 
 export async function getStaticPaths() {
   const articles = await publishedArticles();
@@ -125,7 +125,7 @@ const articleLd = {
     '@type': 'NewsMediaOrganization',
     '@id': `${SITE_URL}/#organization`,
     name: SITE.name,
-    legalName: PUBLISHER_SM.legalName,
+    legalName: PUBLISHER.legalName,
   },
   isAccessibleForFree: true,
   keywords: [...d.tags, ...d.tickers].join(', ') || undefined,

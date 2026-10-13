@@ -148,6 +148,16 @@ export const PUBLISHER = {
    */
   email: 'cs@klifedesign.net',
   foundedYear: 2025, // 법인 개업일 2025-07-15
+  /**
+   * 🔴 [2026-10-13] **더한 칸이다.** 사장님이 SeoulMarkets 꼬리말을 KLifeDesign 으로
+   *   바꾸라 하셔서 `PUBLISHER_SM` 을 쓰던 28자리를 `PUBLISHER` 로 옮겼는데,
+   *   그중 JSON-LD 의 `foundingDate` 가 `PUBLISHER_SM.openedOn` 을 쓰고 있었다.
+   *   **PUBLISHER 에는 그 칸이 없어서 `undefined` 가 될 뻔했다.**
+   *   ⭐ 상수를 갈아끼울 때는 «쓰는 칸이 양쪽에 다 있나»부터 센다.
+   *     화면은 멀쩡하고 구글이 읽는 값만 비는 것이 가장 조용한 흠이다.
+   * ⚠ 법인 개업일이다(위 foundedYear 주석의 2025-07-15 과 같은 사실이다).
+   */
+  openedOn: '2025-07-15',
 } as const;
 
 /**
