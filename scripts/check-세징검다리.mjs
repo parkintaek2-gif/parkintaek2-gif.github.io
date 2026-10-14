@@ -250,9 +250,26 @@ async function 잰다() {
   console.log('\n【주문이 실제로 만들어지나】  ⛔ 승인(capture)은 부르지 않는다');
   try {
     const 밑 = (process.env.KLM_BASE || 'https://klifemap.ai').replace(/\/$/, '');
+    /* 🔴🔴 [2026-10-15 · 5번] **열쇠를 안 싣고 있었다 — 늘 401 이었다.**
+       그래서 이 줄이 날마다 「주문이 안 만들어진다」로 빨갛게 울었는데,
+       10-14 에 라이브에서 손으로 주문을 만들어 보니 **실제로는 잘 선다**
+       (merchantUid bj_1791954643430_45ykf9 · payment id 94).
+       ⛔ 날마다 우는 거짓 빨강은 「진짜 빨강」을 못 믿게 만든다. 그것이 더 큰 손해다.
+       ⇒ 손님 화면이 쓰는 열쇠를 «화면에서 그대로 뽑아» 싣는다 —
+         손님이 실제로 지나는 길과 같아진다.
+       ⛔ 열쇠를 이 파일에 적어 두지 않는다. 적어 두면 바뀌는 날 또 거짓이 된다. */
+    let 열쇠 = process.env.SAJU_API_KEY || '';
+    if (!열쇠) {
+      try {
+        const 글 = await fetch(밑 + '/checkout.html').then((x) => x.text());
+        const m = 글.match(/SAJU_API_KEY\s*=\s*['"]([^'"]+)['"]/);
+        if (m) 열쇠 = m[1];
+      } catch { /* 못 뽑으면 빈 채로 간다 — 아래가 「못 쟀다」로 적는다 */ }
+    }
+    if (!열쇠) console.log('    ⬜ 화면에서 열쇠를 못 뽑았다 — 아래를 「막혔다」로 읽지 말 것');
     const r = await fetch(밑 + '/api/billing/paypal/create', {
       method: 'POST',
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', ...(열쇠 ? { 'x-api-key': 열쇠 } : {}) },
       body: JSON.stringify({ items: [{ service: 'saju', qty: 1, price: 1, amount: 1 }] }),
     });
     const o = await r.json().catch(() => null);
