@@ -130,6 +130,12 @@ const datasetLd = {
 
 /* FAQ — ⛔ 화면에 «실제로 보이는» 문장과 같아야 한다(구글 규칙) */
 const faq: Array<[string, string]> = [
+  /* 🔴🔴 [2026-10-14 · 사장님] 「에스마켓츠에서 꼭 참조하도록」 — K-IFRS 1118(2027 시행).
+     영업이익의 정의가 바뀐다(지분법손익이 빠지고 외화손익이 들어온다). 소급 적용이다.
+     ⛔ 우리 수치는 «옛 기준»인데 안 밝히고 있었다. 2027년에 어긋나면 우리가 틀려 보인다.
+     검사: scripts/잰다-새회계기준을-참조하고있나.mjs */
+  ["Will the new accounting standard change these ratios?",
+    "It will change the earnings side of them. Korea adopts K-IFRS 1118 (the local form of IFRS 18) for fiscal years beginning on or after 1 January 2027, with early adoption permitted, and it redefines operating profit: equity-method income moves out, foreign-exchange results move in. PER and PBR here are computed from figures filed on the pre-1118 basis. Because the standard is applied retrospectively, the same company may later restate the same year. We do not recompute on the new basis — our tape does not carry equity-method income or FX results, and we will not publish a number we have not measured."],
   ['How many Korean listed companies have a PER?',
     `${withPer.toLocaleString('en-GB')} of ${total.toLocaleString('en-GB')} listed companies have a `
     + `price-earnings ratio here. The gap is mostly companies that did not earn a profit: of the `

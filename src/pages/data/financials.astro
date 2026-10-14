@@ -149,6 +149,28 @@ const faq: Array<[string, string]> = [
     'It is annual, so quarterly and half-year figures are not here. '
     + 'It carries the headline accounts — assets, equity, revenue, operating profit, net income — not '
     + 'the full note-level detail of a filing. And it does not include companies that filed nothing.'],
+  /* 🔴🔴 [2026-10-14 · 사장님] 「에스마켓츠에서 꼭 참조하도록」
+     ─────────────────────────────────────────────────────────────────────
+     K-IFRS 제1118호가 2027-01-01 이후 개시 회계연도부터 시행된다.
+     **영업이익의 정의 자체가 바뀐다** — 지분법손익이 빠지고 외화손익이 들어온다.
+     그리고 소급 적용이라 과거 재무제표도 재작성된다.
+     ⛔ 우리가 파는 영업이익은 전부 «옛 기준»인데 어디에도 그렇게 안 적혀 있었다.
+       2027년에 기업 발표와 어긋나면 **우리가 틀린 것처럼 보인다.** 미리 밝힌다.
+     ⚠ 우리가 새 기준으로 «계산»하지는 못한다 — 자료에 지분법손익·외화손익 칸이 없다.
+       그 사실도 함께 적는다. 못 하는 것을 할 수 있는 것처럼 적지 않는다.
+     검사: scripts/잰다-새회계기준을-참조하고있나.mjs */
+  ['Does the new accounting standard change these figures?',
+    'Yes — but not yet, and not here. Korea adopts K-IFRS 1118 (the local form of IFRS 18) '
+    + 'for fiscal years beginning on or after 1 January 2027, with early adoption permitted. '
+    + 'It redefines operating profit: equity-method income moves out of it, into investing; '
+    + 'and foreign-exchange gains and losses move in. For a holding company whose earnings are '
+    + 'mostly equity-method income, reported operating profit can swing from a large profit to '
+    + 'a loss without anything changing in the business. Because the standard is applied '
+    + 'retrospectively, companies will also restate prior years. '
+    + 'Every operating-profit figure on this page is on the pre-1118 basis, as filed. '
+    + 'We do not recompute it on the new basis: this tape carries the headline accounts only, '
+    + 'and equity-method income and FX results are not among them. We would rather say that '
+    + 'than publish a number we have not measured.'],
 ];
 const faqLd = {
   '@context': 'https://schema.org',

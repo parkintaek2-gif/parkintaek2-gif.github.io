@@ -255,6 +255,12 @@ const datasetLd = {
 
 /* FAQ — ⛔ 화면에 «실제로 보이는» 문장과 같아야 한다(구글 규칙) */
 const faq: Array<[string, string]> = [
+  /* 🔴🔴 [2026-10-14 · 사장님] 「에스마켓츠에서 꼭 참조하도록」 — K-IFRS 1118(2027 시행).
+     영업이익의 정의가 바뀐다(지분법손익이 빠지고 외화손익이 들어온다). 소급 적용이다.
+     ⛔ 우리 수치는 «옛 기준»인데 안 밝히고 있었다. 2027년에 어긋나면 우리가 틀려 보인다.
+     검사: scripts/잰다-새회계기준을-참조하고있나.mjs */
+  ["Does the new accounting standard change this ranking?",
+    "It can change the profit ranking, not the market-value one. Korea adopts K-IFRS 1118 (the local form of IFRS 18) for fiscal years beginning on or after 1 January 2027. Equity-method income leaves operating profit and foreign-exchange results enter it. Holding companies — whose earnings are largely equity-method income — can move from a large operating profit to an operating loss with no change in the underlying business. The operating-profit figures here are on the pre-1118 basis, as filed, and companies will restate prior years when they adopt."],
   ['What is the largest company in South Korea?',
     `It depends on what you measure. ${samsung?.nameEn ?? 'Samsung Electronics'} is first by market `
     + `value at ${trn(samsung?.marketCap ?? null)} trillion won on ${priceDate} and first by revenue `

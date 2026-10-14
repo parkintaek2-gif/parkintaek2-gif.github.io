@@ -117,6 +117,12 @@ const datasetLd = {
 
 /* FAQ — ⛔ 화면에 «실제로 보이는» 문장과 같아야 한다(구글 규칙) */
 const faq: Array<[string, string]> = [
+  /* 🔴🔴 [2026-10-14 · 사장님] 「에스마켓츠에서 꼭 참조하도록」 — K-IFRS 1118(2027 시행).
+     영업이익의 정의가 바뀐다(지분법손익이 빠지고 외화손익이 들어온다). 소급 적용이다.
+     ⛔ 우리 수치는 «옛 기준»인데 안 밝히고 있었다. 2027년에 어긋나면 우리가 틀려 보인다.
+     검사: scripts/잰다-새회계기준을-참조하고있나.mjs */
+  ["Does the new accounting standard change these weights?",
+    "Not the weights — they are built from market value, which the standard does not touch. But any earnings figure shown alongside them is on the pre-1118 basis. Korea adopts K-IFRS 1118 (the local form of IFRS 18) for fiscal years beginning on or after 1 January 2027, which redefines operating profit and restates prior years. We note it here so the two sets of numbers are not read as one."],
   ['Is this the KOSPI index weight?',
     'No, and the difference matters. The KOSPI index is built on free-float adjusted market '
     + 'capitalisation, which discounts shares that are not available to trade. This page divides '
