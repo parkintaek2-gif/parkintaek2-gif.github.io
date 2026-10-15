@@ -185,6 +185,8 @@ export const 돌릴것 = [
   ['check-네사이트-보안-라이브.mjs', '--자가시험'],
   ['check-만세력손님-안으로-가나.mjs', '--자가시험'],
   ['세션간메모-월별로-자른다.mjs', '--자가시험'],
+  ['잰다-파는-자료가-묵었나.mjs', '--자가시험'],
+  ['check-sold-data-freshness.mjs', '--자가시험'],
 ];
 
 export function 자가시험() {

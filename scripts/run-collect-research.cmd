@@ -20,6 +20,25 @@ echo ---------- %DATE% %TIME% ---------->> "%LOG%"
 
 node scripts\collect-research.mjs --pages=20 >> "%LOG%" 2>&1
 
+rem 2026-10-15 (unit 2): collect-research.mjs only refills archive/raw/research/{date}/.
+rem The paid API reads archive/index/research.ndjson instead - a separate file this
+rem collector never rebuilt. Nothing in this schedule rebuilt it either, so it sat
+rem frozen at Sep 26 while collection kept running clean: customers got 73-day-old
+rem data with every request returning 200. Found by the index-staleness checker
+rem under scripts/ (Korean filename, run it directly to see which product is
+rem stale); fixed once by hand - wiring the rebuild into this same schedule so
+rem it can't go stale silently again. See
+rem scripts/build-research-index.mjs header for why NDJSON and why R2 (the API
+rem reads the index from R2, not from this machine).
+node scripts\build-research-index.mjs --upload >> "%LOG%" 2>&1
+
+rem Self-check: confirm what customers actually receive is fresh, not just that the
+rem build step exited 0. This is the same tool that caught the 73-day staleness -
+rem running it every day here means the next silent break shows up in this log
+rem instead of surviving for weeks unnoticed. Calls the ASCII wrapper, not the
+rem Korean-named checker directly - see check-sold-data-freshness.mjs header.
+node scripts\check-sold-data-freshness.mjs >> "%LOG%" 2>&1
+
 rem Get-Content without -Encoding guessed the wrong codepage here and mangled the
 rem Korean log lines (2026-09-26, first real run - checked with `file`, bytes were
 rem valid UTF-8 but content was garbled, meaning the read step mis-decoded it).
