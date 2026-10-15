@@ -30,6 +30,7 @@ import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import tape from '../../data/korea-valuation-tape.json';
 import BuyBar from '../../components/BuyBar.astro';
+import CiteAs from '../../components/CiteAs.astro';
 
 type Row = {
   ticker: string | null; nameEn: string | null; market: string | null;
@@ -310,6 +311,7 @@ const jsonLd = [datasetLd, faqLd];
         anyone should do. <b>This is not investment advice.</b>
       </p>
     </section>
+    <CiteAs title={TITLE} path="/data/kospi-weights" year={2026} />
   <BuyBar 자리="bottom" />
   </article>
 </Base>

@@ -1,0 +1,45 @@
+---
+/*
+ * CiteAs.astro — "이 지면을 어떻게 인용하나"를 /data/ 지면에 박는다.
+ *
+ * ── 왜 (2026-10-15 · 2번, 사장님 승인) ─────────────────────────────
+ * 5번이 10-05에 kculturewire.com/exports 를 뜯어 "되는 열 가지"를 찾았다.
+ * 그중 ⑩("Please cite as …")이 www.kculturewire.com/exports(KCW)·WikiTip
+ * 쪽엔 이미 있었는데, /data/*.astro(seoulmarkets, 꼴 A 지면들, ChatGPT가
+ * 이미 인용하고 있는 valuation.astro 포함)엔 하나도 없었다.
+ * 이 조각은 그 KCW/WikiTip 문구를 그대로 가져와 SeoulMarkets 이름으로 바꾼 것 —
+ * 새로 고안하지 않았다, 이미 되던 것을 베꼈다.
+ *
+ * ⛔ 연도를 `new Date()` 로 안 뽑는다 — 빌드마다 바뀌면 같은 지면이 어제와
+ *   다른 인용을 준다(WikiTip.astro 의 같은 주석 참고). 쓰는 쪽에서 연도를 준다.
+ *
+ * [아직 안 한 것 — 지어내지 않는다]
+ *   KCW의 ⑥⑦⑧⑨(검사·빠진것·정정기록·말하지않는것)는 각 /data 지면의 자료를
+ *   직접 다시 검증해야 채울 수 있어 이 조각엔 없다. 이 조각은 ⑩(인용법)만 담당한다.
+ *   /corrections 페이지도 SeoulMarkets엔 아직 없다 — 그래서 여기서 그 링크를
+ *   걸지 않는다(없는 페이지로 걸면 404).
+ */
+interface Props {
+  title: string;
+  path: string; // "/data/valuation" 처럼 SITE_URL 뒤에 붙는 길
+  year: number;
+}
+const { title, path, year } = Astro.props;
+const url = `https://seoulmarkets.com${path}`;
+---
+
+<p class="cite">
+  <b>Citing this page.</b> Please cite as{' '}
+  <span class="cite-line">SeoulMarkets, <em>{title}</em>, {year}, {url}</span>
+  {' '}— and if a number here is wrong,{' '}
+  <a href="/contact">tell us</a>.
+</p>
+
+<style>
+  .cite { font-size: .82rem; }
+  .cite-line {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: .78rem;
+    word-break: break-word;
+  }
+</style>
