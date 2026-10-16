@@ -53,9 +53,18 @@ const machineryImportShare = im['기계 및 운수장비'] / imTotal;
 const fuelExportShare = ex['광물성연료윤활유 및 관련물질'] / exTotal;
 const fuelImportShare = im['광물성연료윤활유 및 관련물질'] / imTotal;
 
-const TITLE = `Korea's exports run ${pct(ex['기계 및 운수장비'], exTotal)} machinery — its imports are `
+/* 🔴 [2026-10-16 · 5번] 자동완성 실측 — 우리 축에서 «가장 큰 말»이 여기 있었다.
+ *     korea exports(1번째 · 파생 10줄) · south korea exports(1번째 · 10줄) ·
+ *     korea imports(1번째 · 9줄) · what does korea export(1번째 · 6줄) ·
+ *     korea top exports(1번째) · korea trade balance(1번째)
+ *   그런데 H1 이 「What Korea trades」 라 「exports」 가 한 번도 안 들어 있었고,
+ *   제목은 「Korea’s exports」 라 아포스트로피가 낀 소유격이었다. 치는 말은 「korea exports」 다.
+ * ⇒ 제목과 H1 을 치는 말 그대로 바꾸되 숫자는 그대로 살렸다.
+ * ⛔ 2026-10-30 전에는 다시 고치지 않는다 (식은기간 14일).
+ */
+const TITLE = `Korea exports by product: ${pct(ex['기계 및 운수장비'], exTotal)} machinery — its imports are `
   + `${pct(im['광물성연료윤활유 및 관련물질'], imTotal)} fuel`;
-const DESC = `In ${latestYear}, machinery and transport equipment made up ${pct(ex['기계 및 운수장비'], exTotal)} `
+const DESC = `Korea exports and imports by product. In ${latestYear}, machinery and transport equipment made up ${pct(ex['기계 및 운수장비'], exTotal)} `
   + `of Korea's $${(exTotal / 1_000_000).toFixed(0)}bn in exports, but only ${pct(im['기계 및 운수장비'], imTotal)} `
   + `of its $${(imTotal / 1_000_000).toFixed(0)}bn in imports. Mineral fuels run the other way: `
   + `${pct(im['광물성연료윤활유 및 관련물질'], imTotal)} of imports against ${pct(ex['광물성연료윤활유 및 관련물질'], exTotal)} `
@@ -100,9 +109,10 @@ const jsonLd = [datasetLd, faqLd];
 
 <Base title={TITLE} description={DESC} jsonLd={jsonLd}>
   <article class="wrap">
-    <h1>What Korea trades — not who it trades with</h1>
+    <h1>Korea exports and imports by product</h1>
     <p class="lead">
-      In <b>{latestYear}</b>, machinery and transport equipment made up <b>{pct(ex['기계 및 운수장비'], exTotal)}</b>{' '}
+      What does Korea export, and what does it buy? In <b>{latestYear}</b>, machinery and transport
+      equipment made up <b>{pct(ex['기계 및 운수장비'], exTotal)}</b>{' '}
       of Korea's exports — but only <b>{pct(im['기계 및 운수장비'], imTotal)}</b> of its imports. Mineral fuels
       run the other way: <b>{pct(im['광물성연료윤활유 및 관련물질'], imTotal)}</b> of imports against just{' '}
       <b>{pct(ex['광물성연료윤활유 및 관련물질'], exTotal)}</b> of exports.
