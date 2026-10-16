@@ -13,10 +13,17 @@ import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import data from '../../data/governance.json';
 
-const TITLE = `Korean company boards of directors — ${data.임원총수.toLocaleString()} officers, who sits on them`;
+/* 🔴 [2026-10-16 · 5번] 자동완성 실측 — korea corporate governance(1번째 · 파생 8줄).
+ *   우리 축에서 큰 말인데 제목에 「corporate governance」 가 없었다. 이사회 구성은
+ *   거버넌스의 한복판인데 우리는 「boards of directors」 라고만 썼다.
+ * ⇒ 치는 말을 앞에 세우고 우리가 실제로 가진 것(이사회 구성)을 뒤에 붙였다.
+ * ⛔ 2026-10-30 전에는 다시 고치지 않는다 (식은기간 14일).
+ */
+const TITLE = `Korea corporate governance by sector — ${data.임원총수.toLocaleString()} board officers, who sits on them`;
 const SAMPLE = `${data.임원총수.toLocaleString()} officers across listed companies · by sector`;
 const DESC =
-  'Korean listed-company boards by sector: the share of women, how many are owner-led, how long the '
+  'Korea corporate governance, measured: listed-company boards by sector — the share of women, '
+  + 'how many are owner-led, how long the '
   + 'chief executive has served, and the age of the room — from every company\'s own filing.';
 
 const rows = data.업종;
@@ -33,7 +40,7 @@ const jsonLd = {
   <div class="wrap">
     <article class="pp">
       <p class="kicker">SeoulMarkets · data for licence</p>
-      <h1>Korean company boards of directors — who sits on them</h1>
+      <h1>Korea corporate governance by sector</h1>
       <p class="sample">{SAMPLE}</p>
       <p class="lead">
         Every listed company files who runs it — each officer's gender, title, tenure and whether they

@@ -88,7 +88,12 @@ const reasonEn = (why: string) =>
 const lossMaking = joined.filter((r) => r.netIncome !== null && r.netIncome <= 0).length;
 
 const fiscalYear = meta.fiscalYear as number;
-const TITLE = 'What is in the Korean financial-statement tape — coverage, basis and the gaps';
+/* 🔴 [2026-10-16 · 5번] 자동완성 실측 — korea financial statements(1번째).
+ *   제목·H1 이 「the Korean financial-statement tape」 였다. 「tape」 는 우리 내부어이고,
+ *   손님이 치는 꼴은 「financial statements」(복수) 다. 한 글자 차이로 안 걸린다.
+ * ⛔ 2026-10-30 전에는 다시 고치지 않는다 (식은기간 14일).
+ */
+const TITLE = 'Korea financial statements data — what is in it, coverage, basis and the gaps';
 const DESC =
   `Annual financial statements for ${num(joined.length)} of ${num(total)} listed Korean companies `
   + `(${pct(joined.length, total)}) for ${fiscalYear}, in English and free. Coverage is not even: `
@@ -184,7 +189,7 @@ const jsonLd = [datasetLd, faqLd];
 
 <Base title={TITLE} description={DESC} jsonLd={jsonLd}>
   <article class="wrap">
-    <h1>What is in the Korean financial-statement tape</h1>
+    <h1>Korea financial statements data</h1>
     <p class="lead">
       Annual statements for <b>{num(joined.length)}</b> of {num(total)} listed Korean companies,
       fiscal year <b>{fiscalYear}</b>, in English and free. This page is about coverage — what we

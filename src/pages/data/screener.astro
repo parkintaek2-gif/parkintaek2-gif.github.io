@@ -99,7 +99,14 @@ const 지름길 = [
   { 이름: 'Revenue over $1bn', 건다: { v: { min: 1000 } } },
 ];
 
-const TITLE = 'Asia and Gulf stock screener — filter listed companies by the figures they filed';
+/* 🔴 [2026-10-16 · 5번] 자동완성 실측 — korean stock screener(1번째) ·
+ *   korea stock screener(1번째). 파생은 1줄이라 큰 말은 아니지만 «의도가 정확»하다.
+ *   그런데 제목이 「Asia and Gulf stock screener」 라 「Korean」 이 없었고,
+ *   H1 은 「Asia & Gulf screener」 라 「stock」 조차 없었다.
+ * ⛔ 이 지면은 한국만이 아니다 — 그래서 Korean 을 앞에 세우되 Asian·Gulf 를 지우지 않았다.
+ * ⛔ 2026-10-30 전에는 다시 고치지 않는다 (식은기간 14일).
+ */
+const TITLE = 'Korean stock screener — filter Asia and Gulf listed companies by the figures they filed';
 const DESC = 'Screen ' + 줄수.toLocaleString('en-US') + ' companies listed in Seoul, Abu Dhabi and Dubai '
   + 'by market cap, revenue, profit, PER, PBR, ROE and debt. Unlike other screeners, this one counts '
   + 'the companies each filter removes because the figure does not exist.';
@@ -121,7 +128,7 @@ const jsonLd = {
   <div class="wrap">
     <div class="page-head">
       <p class="kicker">Sources &amp; Markets · free tool</p>
-      <h1>Asia &amp; Gulf screener</h1>
+      <h1>Korean stock screener — Asia &amp; Gulf</h1>
       <BuyBar 자리="top" />
       <p>
         Filter <b>{줄수.toLocaleString('en-US')}</b> listed companies across{' '}

@@ -65,7 +65,11 @@ const byFamily = families.map((f) => {
 const snapshotDate = meta.snapshotDate as string;
 const fmtDate = (d: string) => `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}`;
 
-const TITLE = 'Korea Index Tape — 168 KRX indices in English, coverage and gaps';
+/* 🔴 [2026-10-16 · 5번] 자동완성 실측 — korea stock indices(1번째) · krx indices(1번째).
+ *   제목이 「Korea Index Tape」 로 시작했다. 「tape」 는 우리 내부어라 아무도 안 친다.
+ * ⛔ 2026-10-30 전에는 다시 고치지 않는다 (식은기간 14일).
+ */
+const TITLE = 'Korea stock indices — all 168 KRX indices in English, coverage and gaps';
 const DESC =
   `Every KRX-family index published on the ${fmtDate(snapshotDate)} snapshot — `
   + `${num(total)} indices, ${pct(withNameEn, total)} with an English name, in English and free. `
@@ -132,7 +136,7 @@ const jsonLd = [datasetLd, faqLd];
 
 <Base title={TITLE} description={DESC} jsonLd={jsonLd}>
   <article class="wrap">
-    <h1>Korea Index Tape</h1>
+    <h1>Korea stock indices — every KRX index</h1>
     <p class="lead">
       <b>{num(total)}</b> KRX-family indices as of <b>{fmtDate(snapshotDate)}</b>, in English and
       free. This page is about coverage — what we hold, what each column actually measures, and
