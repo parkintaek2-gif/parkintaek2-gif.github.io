@@ -1,6 +1,6 @@
 ---
-title: "The biggest Korean companies by market cap — and why most rankings double-count Samsung"
-dek: "The biggest Korean companies by market cap: Samsung Electronics is 29% of the whole market, SK hynix 21% — nearly half between them. Most rankings count Samsung twice, because its preferred shares list separately. Not advice."
+title: "Most Korea market-cap rankings count Samsung twice — here is the list when you do not"
+dek: "Samsung Electronics is 29% of the Korean stock market and SK hynix 21% — nearly half between them. Most rankings count Samsung twice, because its preferred shares list separately, pushing the true tenth firm off the table."
 category: equities
 pubDate: 2026-08-23
 dataAsOf: 2026-08-21T00:00:00+09:00
@@ -10,7 +10,13 @@ author: Newsroom
 # 「biggest korean companies」·「korean companies by market cap」인데, 우리는
 # 「largest listed companies」라고 써 두고 있었다. 치는 말과 쓴 말이 달랐다.
 # ⛔ 파일 이름(슬러그)은 바꾸지 않는다 — 바꾸면 쌓인 색인이 처음으로 돌아간다.
-tags: ["biggest korean companies", "korean companies by market cap", "largest korean companies", "top 10 korean companies", "biggest company in korea", "samsung market cap", "kospi", "market-cap", "korea stock market"]
+# 🔴 [2026-10-16 · 5번] 10/4 에 제목을 「치는 말」에 맞춘 뒤 자리가 66위 → 73위로 «더» 내려갔다.
+# 재 보니 까닭은 자기잠식이었다 — /data/largest-companies 가 같은 말 다발을 이미 쥐고 있는데
+# 이 기사까지 같은 말로 맞추는 바람에 둘이 서로 겨뤘다(「korean companies」 에 기사 80위·자료 80위).
+# ⇒ 역할을 갈랐다. 「biggest/largest korean companies」 는 자료 지면에 넘기고,
+#   이 기사는 「삼성을 두 번 세는 문제」 하나만 판다. 제목·dek·tags·리드·H2 에서 겹치는 말을 뺐다.
+# ⛔ 자료 지면 제목은 10/18 까지 못 고친다(10/4 변경의 식은기간). 그래서 기사 쪽만 손댔다.
+tags: ["samsung market cap", "samsung preferred shares", "kospi concentration", "korea market concentration", "sk hynix market cap", "kospi", "market-cap", "korea stock market"]
 tickers: []
 sources:
   - org: "Korea Exchange (KRX OPEN API)"
@@ -28,11 +34,11 @@ excluded:
 image: /charts/largest-companies.svg
 ---
 
-The single most-searched question about the Korean stock market has a surprisingly slippery answer: which are **the biggest Korean companies by market cap**? Slippery because the rankings most sites publish quietly count one company twice.
+Ask which firms sit at the top of the Korean stock market and most published rankings give the same answer — and quietly count one company twice. Samsung Electronics lists its preferred shares as a separate line, so an issue-level table seats Samsung in two chairs and pushes the true tenth company off the page. The full four-way ranking of every listed firm is in our data page on [the largest companies in Korea](/data/largest-companies); this piece is about what the double count does to it.
 
 ![Bar chart: Korea's 10 largest listed companies by share of total market value, company level with preferred shares merged. Samsung Electronics 29.4%, SK hynix 20.5%, then a steep drop to SK Square 2.4% and smaller.](/charts/largest-companies.svg)
 
-## The top 10 Korean companies by market cap: two of them are nearly half
+## Two companies are nearly half the market
 
 At company level — merging each firm's common and preferred shares — **Samsung Electronics is 29.4% of the entire market** (KOSPI and KOSDAQ combined) and **SK hynix is 20.5%.** Those two alone are **49.9%** — essentially half of everything listed in Korea sits in two chipmakers riding the memory and AI cycle. After them the drop is a cliff: third place, SK Square, is 2.4%.
 
