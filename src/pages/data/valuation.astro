@@ -87,9 +87,19 @@ const byMarket = ['Y', 'K', 'N'].map((k) => ({
 const priceDate = fmtDd(meta.priceAsOf);
 const fiscalYear = meta.fiscalYear;
 
-const TITLE = 'Korea valuation tape — PER, PBR and ROE for every listed Korean company';
+/* 🔴 [2026-10-16 · 5번] 이 지면은 AI 검색이 28일에 7번 내린 «우리 최다» 지면인데,
+ * 구글에서는 「korea pe ratio」·「kospi pe ratio」 에 노출이 «0회» 였다. 까닭을 재 보니
+ * 지면 전체에 「PE ratio」 라는 말이 «한 글자도» 없었다 — 우리는 PER 이라고만 썼다.
+ * ⭐ PER 은 한국·일본식 줄임말이고, 영어권 손님은 「PE ratio」 라고 친다.
+ *   자동완성 실측 — kospi pe ratio(1번째·파생 5줄) · korea pe ratio(1번째) ·
+ *   south korea pe ratio(1번째) · korean stock pe ratio(1번째) · korea pbr(1번째).
+ * ⇒ 제목·H1·리드에 「PE ratio」 를 넣고 우리 내부어 「tape」 를 앞에서 뺐다.
+ * ⛔ 2026-10-30 전에는 이 제목을 다시 고치지 않는다 (식은기간 14일).
+ * ⛔ 고칠 때는 TITLE·H1·DESC 셋을 «같이» 본다. 따로 고치면 서로 다른 말을 한다.
+ */
+const TITLE = 'Korea PE ratio by company — KOSPI and KOSDAQ valuation (PER, PBR, ROE)';
 const DESC =
-  `PER, PBR and ROE for ${total.toLocaleString('en-GB')} companies listed on KOSPI, KOSDAQ and KONEX, `
+  `PE ratio (PER), PBR and ROE for ${total.toLocaleString('en-GB')} companies listed on KOSPI, KOSDAQ and KONEX, `
   + `built from DART annual filings for ${fiscalYear} against market caps on ${priceDate}. `
   + `${withPer.toLocaleString('en-GB')} have a PER — the rest are loss-making or unfiled, and we say `
   + `which. Free, in English, with both dates on every row so you can recompute. Not investment advice.`;
@@ -184,9 +194,9 @@ const trn = (n: number | null) => (n === null ? '—' : `${(n / 1e12).toFixed(1)
 
 <Base title={TITLE} description={DESC} jsonLd={jsonLd}>
   <article class="wrap">
-    <h1>Korea valuation tape</h1>
+    <h1>Korea PE ratio by company</h1>
     <p class="lead">
-      PER, PBR and ROE for every company listed in Korea, in English, free.
+      The PE ratio — written PER in Korea and Japan — with PBR and ROE for every company listed in Korea, in English, free.
       Market capitalisation as of <b>{priceDate}</b>; earnings and equity from the{' '}
       <b>{fiscalYear}</b> annual report. Both dates sit on every row.
     </p>
