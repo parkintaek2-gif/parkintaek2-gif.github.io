@@ -80,6 +80,31 @@ export function 빠진손님말(글) {
   return 모자람;
 }
 
+/**
+ * 「⛔ YYYY-MM-DD 전에는 다시 고치지 않는다」 를 읽어 «언제 효과를 재야 하나» 를 돌려준다.
+ *
+ * 🔴 [2026-10-16] 제목을 고친 뒤 14일은 다시 건드리지 않기로 했다. 그런데 «언제 재러
+ *   돌아올지»를 사람 기억에 맡기면 영영 안 돌아온다. 그래서 지면 자신이 날짜를 들고 있고,
+ *   이 스크립트가 날마다 그 날짜를 본다.
+ */
+export function 식은기간(소스, 오늘 = new Date()) {
+  /* ⛔ 한 줄짜리 정규식에 역슬래시를 쓰지 않는다 — 이 저장소에서 heredoc 이 먹는다.
+     그래서 «줄 단위»로 먼저 거르고, 날짜만 간단한 꼴로 뽑는다. */
+  const 줄들 = String(소스 ?? "").split(String.fromCharCode(10));
+  for (const 줄 of 줄들) {
+    if (!/고치지 않는다|다시 안 고친다/.test(줄)) continue;
+    if (!/전에는|까지/.test(줄)) continue;
+    const d = /(20[0-9][0-9])-([0-9][0-9])-([0-9][0-9])/.exec(줄);
+    if (!d) continue;
+    const 풀리는날 = new Date(Number(d[1]), Number(d[2]) - 1, Number(d[3]));
+    const 하루 = 24 * 60 * 60 * 1000;
+    const 오늘0시 = new Date(오늘.getFullYear(), 오늘.getMonth(), 오늘.getDate());
+    const 남은날 = Math.round((풀리는날 - 오늘0시) / 하루);
+    return { 날짜: d[1] + "-" + d[2] + "-" + d[3], 남은날, 잴때인가: 남은날 <= 0 };
+  }
+  return null;
+}
+
 /** .astro 에서 TITLE 상수를 끄집어 낸다 */
 export function 제목뽑기(소스) {
   const m = /const\s+TITLE\s*=\s*(['"`])([\s\S]*?)\1/.exec(String(소스 ?? ''));
@@ -123,6 +148,16 @@ if (곧바로부른것 && process.argv.includes('--자가시험')) {
   참('제목을 겹따옴표에서 뽑는다', 제목뽑기('const TITLE = "Korea PE ratio";') === 'Korea PE ratio');
   참('TITLE 이 없으면 null', 제목뽑기('const X = 1;') === null);
 
+  /* 식은기간 — 사람 기억이 아니라 지면이 날짜를 들고 있게 한다 */
+  const 글 = '⛔ 2026-10-30 전에는 이 제목을 다시 고치지 않는다 (식은기간 14일).';
+  참('식은기간 날짜를 읽는다', 식은기간(글, new Date(2026, 9, 16))?.날짜 === '2026-10-30');
+  참('남은 날을 센다', 식은기간(글, new Date(2026, 9, 16))?.남은날 === 14);
+  참('아직이면 잴 때가 아니다', 식은기간(글, new Date(2026, 9, 16))?.잴때인가 === false);
+  참('그 날이 되면 잴 때다', 식은기간(글, new Date(2026, 9, 30))?.잴때인가 === true);
+  참('지났어도 잴 때다', 식은기간(글, new Date(2026, 10, 5))?.잴때인가 === true);
+  참('그런 줄이 없으면 null', 식은기간('그냥 주석') === null);
+  참('빈 것에도 안 터진다', 식은기간(null) === null);
+
   console.log((깨짐 ? '⛔ ' + 깨짐 + '개 깨짐 · ' : '✅ ') + 통과 + '개 통과');
   process.exit(깨짐 ? 1 : 0);
 }
@@ -131,6 +166,25 @@ if (곧바로부른것 && process.argv.includes('--자가시험')) {
 if (곧바로부른것 && !process.argv.includes('--자가시험')) {
   const 폴더 = path.join(뿌리, 'src', 'pages', 'data');
   const 파일들 = fs.readdirSync(폴더).filter((n) => n.endsWith('.astro') && n !== 'index.astro');
+
+  /* ⭐ 먼저 «이제 효과를 재야 할 지면»부터 알린다 — 고치기보다 이것이 급하다 */
+  const 재야할것 = [];
+  const 식는중 = [];
+  for (const 이름 of 파일들) {
+    const 식 = 식은기간(fs.readFileSync(path.join(폴더, 이름), 'utf8'));
+    if (!식) continue;
+    (식.잴때인가 ? 재야할것 : 식는중).push({ 이름: 이름.replace('.astro', ''), ...식 });
+  }
+  if (재야할것.length) {
+    console.log('🔴 식은기간이 지났다 — «효과를 재러» 돌아갈 지면 ' + 재야할것.length + '장');
+    for (const x of 재야할것) console.log('   ' + x.이름.padEnd(30) + x.날짜 + ' 에 풀렸다 (' + (-x.남은날) + '일 지남)');
+    console.log('     ⇒ GSC 를 다시 받아 그 지면의 자리가 올랐나 본다. 안 올랐으면 되돌린다.');
+    console.log('');
+  } else if (식는중.length) {
+    console.log('⬜ 식는 중 — 아직 건드리지 않는다');
+    for (const x of 식는중) console.log('   ' + x.이름.padEnd(30) + x.날짜 + ' 까지 (' + x.남은날 + '일 남음)');
+    console.log('');
+  }
 
   console.log('■ 우리 말로 쓰고 «손님 말»로 안 쓴 지면 — src/pages/data/*.astro ' + 파일들.length + '장');
   console.log('  ⛔ 손님이 치는 말이 지면에 없으면 그 말로는 영영 안 걸린다.');
