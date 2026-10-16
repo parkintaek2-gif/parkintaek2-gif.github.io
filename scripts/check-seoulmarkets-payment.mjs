@@ -62,6 +62,36 @@ import { 상품 as 상품표 } from '../src/data/licence-products.mjs';
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 사이트 = 'https://seoulmarkets.com';
 
+/**
+ * 🔴🔴 [2026-10-16 · 5번] **소켓 오류 하나가 점검을 통째로 죽이고 있었다.**
+ *
+ *   21:41 과 21:50 두 판 모두 「페이팔이 두 번 잇따라 막혔다 — 매출이 0 이다」가 찍혔다.
+ *   사장님께 그렇게 알릴 참이었다. 직접 돌려 보니 까닭이 이것이었다 —
+ *   ```
+ *   SocketError: other side closed   (UND_ERR_SOCKET)
+ *       throw er; // Unhandled 'error' event
+ *   ```
+ *   ⛔ `물어본다()` 에 try/catch 가 있지만 **EventEmitter 의 'error' 는 그것으로 안 잡힌다.**
+ *     판정이 나오기 «전»에 프로세스가 죽고, 묶음 점검은 종료코드만 보고 「막혔다」로 셌다.
+ *
+ *   ⚠ 간헐적이다 — 같은 날 다른 판에서는 「✅ 팔린다」가 나왔다. 그래서 더 위험하다.
+ *     멀쩡한 결제를 두고 「매출 0」을 알리면, 정말 막혔을 때 그 알림을 안 믿게 된다.
+ *
+ * ⭐ 그래서 **「확인하지 못했다」를 종료코드 2 로 따로 낸다.**
+ *   ⛔ 오류를 삼켜서 0 으로 내지 않는다 — 그러면 진짜 고장을 놓친다.
+ *   ⛔ 1 로도 내지 않는다 — 1 은 「막혔다」다. 둘은 다른 말이다.
+ */
+export const 못잰종료코드 = 2;
+for (const 갈래 of ['uncaughtException', 'unhandledRejection']) {
+  process.on(갈래, (e) => {
+    const 말 = String(e?.code ?? e?.message ?? e).slice(0, 120);
+    console.log('');
+    console.log('   ⬜ 확인하지 못했다 — 점검 도중 연결이 끊겼다: ' + 말);
+    console.log('   ⛔ 이것은 「막혔다」가 아니다. 다시 재야 한다.');
+    process.exit(못잰종료코드);
+  });
+}
+
 /* ── 판정만 떼어 낸다 (밖에 안 나가고 시험할 수 있게) ───────────────────── */
 
 /**
