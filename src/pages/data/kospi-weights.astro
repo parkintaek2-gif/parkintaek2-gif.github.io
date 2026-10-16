@@ -85,9 +85,20 @@ const num = (n: number) => n.toLocaleString('en-GB');
 const trn = (n: number | null) => (n === null ? '—'
   : (n / 1e12) >= 100 ? Math.round(n / 1e12).toLocaleString('en-GB') : (n / 1e12).toFixed(1));
 
-const TITLE = 'What share of KOSPI is each company? Free, in English, with the float caveat stated';
+/* 🔴 [2026-10-16 · 5번] 자동완성 실측 — 사람이 치는 말은 이것이다.
+ *     kospi market cap(1번째 · 파생 9줄) · kospi constituents(1번째 · 5줄) ·
+ *     kospi index weights(1번째 · 3줄) · kospi companies list(1번째)
+ *   그런데 제목이 «물음 꼴»이라 그 말이 하나도 안 들어 있었다. 그래서 그 말로는 안 걸린다.
+ *
+ * ⛔⛔ 「index weights」 는 «쓰지 않는다». 이 지면은 free-float 지수편입비중이 아니라
+ *   full market cap 기준이다. 치는 말이 크다고 해서 우리가 안 가진 것을 제목에 적으면
+ *   손님을 속이는 것이다. 「못 잰 것은 못 쟀다고 적는다」 가 제목에도 똑같이 든다.
+ *   ⇒ 우리가 «실제로 가진» 말만 썼다 — market cap · constituents.
+ * ⛔ 2026-10-30 전에는 이 제목을 다시 고치지 않는다 (식은기간 14일).
+ */
+const TITLE = 'KOSPI market cap by company — every constituent ranked, free and in English';
 const DESC =
-  `Every KOSPI company's share of total market value — ${num(kospi.length)} companies on `
+  `KOSPI market cap by company: every constituent ranked — ${num(kospi.length)} companies on `
   + `${priceDate}, ranked, free and in English. The two largest are ${두곳.toFixed(1)} percent of `
   + `the market between them. This is share of full market capitalisation, not the free-float index `
   + `weight, and we say so on every table. Not investment advice.`;
@@ -165,9 +176,9 @@ const jsonLd = [datasetLd, faqLd];
 
 <Base title={TITLE} description={DESC} jsonLd={jsonLd}>
   <article class="wrap">
-    <h1>What share of KOSPI is each company?</h1>
+    <h1>KOSPI market cap by company</h1>
     <p class="lead">
-      {num(kospi.length)} KOSPI companies ranked by share of total market value on{' '}
+      Every KOSPI constituent — {num(kospi.length)} companies — ranked by market cap and by share of total market value on{' '}
       <b>{priceDate}</b>. Free, in English, company-level. The two largest are{' '}
       <b>{두곳.toFixed(1)}%</b> of the market between them.
     </p>
