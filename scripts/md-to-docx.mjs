@@ -64,6 +64,36 @@ export function 토막내기(줄) {
 }
 
 /** 마크다운을 덩이 목록으로 읽는다 — {갈래, …} */
+/**
+ * 그림의 «실제» 폭·높이를 바이트에서 잰다 (PNG·JPEG).
+ *
+ * 🔴 왜 재는가 — 비율을 어림해서 넣으면 사진이 눌리거나 늘어난다.
+ *   워드는 준 대로 그릴 뿐 바로잡아 주지 않는다. ⛔ 못 재면 «지어내지 않고» null 을 낸다.
+ */
+export function 그림크기재기(바이트, 갈래) {
+  const b = Buffer.isBuffer(바이트) ? 바이트 : Buffer.from(바이트 ?? []);
+  if (갈래 === 'png') {
+    /* 8바이트 서명 + IHDR 길이(4) + 'IHDR'(4) → 16번째부터 폭·높이 */
+    if (b.length < 24 || b.readUInt32BE(0) !== 0x89504e47) return null;
+    return { 폭: b.readUInt32BE(16), 높이: b.readUInt32BE(20) };
+  }
+  if (갈래 === 'jpg') {
+    if (b.length < 4 || b[0] !== 0xff || b[1] !== 0xd8) return null;
+    let i = 2;
+    while (i + 9 < b.length) {
+      if (b[i] !== 0xff) { i += 1; continue; }
+      const m = b[i + 1];
+      /* SOF0~SOF15 가 크기를 쥔다. ⛔ C4(허프만)·C8·CC 는 SOF 가 아니다 */
+      if (m >= 0xc0 && m <= 0xcf && m !== 0xc4 && m !== 0xc8 && m !== 0xcc) {
+        return { 폭: b.readUInt16BE(i + 7), 높이: b.readUInt16BE(i + 5) };
+      }
+      i += 2 + b.readUInt16BE(i + 2);
+    }
+    return null;
+  }
+  return null;
+}
+
 export function 덩이읽기(글) {
   const 줄들 = String(글 ?? '').replace(/\r/g, '').split('\n');
   const 덩이 = [];
@@ -90,6 +120,13 @@ export function 덩이읽기(글) {
       덩이.push({ 갈래: '표', 머리, 몸 });
       continue;
     }
+
+    /* 🔴 [2026-10-17 · 5번] 사진 — `![캡션](경로)`
+       보도자료에 사진이 들어가야 해서 더했다. 사진이 없으면 보도자료가 아니다.
+       ⚠ 목록(`-`)보다 «먼저» 본다 — `- ![…](…)` 꼴이면 목록이 먼저 집어간다.
+       ⛔ 경로가 없거나 파일이 없으면 «지어내지 않고» 캡션만 남긴다. 그래야 빠진 것이 보인다. */
+    const 사 = l.match(/^\s*!\[([^\]]*)\]\(([^)]+)\)\s*$/);
+    if (사) { 덩이.push({ 갈래: '사진', 캡션: 사[1], 길: 사[2].trim() }); i += 1; continue; }
 
     const 제 = l.match(/^(#{1,4})\s+(.*)$/);
     if (제) { 덩이.push({ 갈래: '제목', 깊이: 제[1].length, 글: 제[2] }); i += 1; continue; }
@@ -185,6 +222,37 @@ export function 문서만들기(글, { 제목 = '' } = {}) {
         spacing: { before: d.깊이 <= 2 ? 300 : 200, after: 100 },
         keepNext: true,
       }));
+      continue;
+    }
+
+    if (d.갈래 === '사진') {
+      /* ⛔ ImageRun 은 `type:` 을 반드시 받는다. 확장자에서 집는다.
+         ⚠ 폭은 본문폭(9360 DXA = 6.5인치 = 624pt)에 맞춘다 — 넘치면 워드가 잘라 낸다.
+           높이는 «실제 비율»로 잰다. 비율을 어림하면 사진이 눌려 보인다. */
+      const 온길 = path.isAbsolute(d.길) ? d.길 : path.resolve(process.cwd(), d.길);
+      if (fs.existsSync(온길)) {
+        const 결 = (path.extname(온길).slice(1) || 'png').toLowerCase();
+        const 갈래 = 결 === 'jpeg' ? 'jpg' : 결;
+        const 바이트 = fs.readFileSync(온길);
+        const 잰것 = 그림크기재기(바이트, 갈래);
+        const 폭 = 624;
+        const 높이 = 잰것 ? Math.round((폭 * 잰것.높이) / 잰것.폭) : Math.round(폭 * 0.62);
+        몸통.push(new D.Paragraph({
+          children: [new D.ImageRun({ data: 바이트, type: 갈래, transformation: { width: 폭, height: 높이 } })],
+          alignment: D.AlignmentType.CENTER,
+          spacing: { before: 200, after: 60 },
+          keepNext: true,
+        }));
+      } else {
+        console.log(`⚠ 사진이 없다 — ${d.길} (캡션만 남긴다)`);
+      }
+      if (d.캡션) {
+        몸통.push(new D.Paragraph({
+          children: [new D.TextRun({ text: d.캡션, size: 18, font: 글꼴, color: '5A6678' })],
+          alignment: D.AlignmentType.CENTER,
+          spacing: { after: 220 },
+        }));
+      }
       continue;
     }
 
@@ -302,6 +370,54 @@ export function 줄넘은굵게(md) {
   return 걸린것;
 }
 
+/**
+ * 🔴 [2026-10-17 · 5번] 「2 만 9 천 원」 — 워드가 숫자와 한글 사이를 «저절로» 벌린다.
+ *
+ * 보도자료를 PDF 로 뽑아 눈으로 보니 「4개 언어」가 **「4 개 언어」**, 「2만 9천 원」이
+ * **「2 만 9 천 원」**으로 찍혀 있었다. 원고에는 붙여 썼다.
+ * `autoSpaceDE`(동아시아·라틴) · `autoSpaceDN`(동아시아·숫자)가 기본으로 켜져 있어 그런 줄 알고 껐다.
+ *
+ * 🔴 **껐는데도 똑같이 벌어졌다. 그러니 이것이 원인이 아니다.**
+ *   다시 재 보니 docx 속 글자는 「4개 언어」로 «정확했다» — document.xml 을 풀어 세었다.
+ *   벌어져 보이는 것은 워드가 PDF 로 뽑는 조판(또는 그것을 그리는 뷰어)의 자리배치이고,
+ *   **글자는 멀쩡하다.** 받는 쪽이 복사해 쓰면 붙어 있다.
+ * ⚠ 그래도 이 설정은 남겨 둔다 — 한국어 문서에서 자동 간격은 끄는 쪽이 맞다.
+ *   ⛔ 다만 «이것이 그 증상을 고쳤다»고 읽지 마라. 안 고쳤다. 재 보고 안 됐다고 적는 것도 결과다.
+ *
+ * ⛔ 끄지 못해도 «터지지 않는다». 원래 통을 그대로 낸다.
+ */
+export async function 자동간격끄기(통) {
+  try {
+    const JSZip = require('jszip');
+    const z = await JSZip.loadAsync(통);
+    const f = z.file('word/styles.xml');
+    if (!f) return { 통, 껐나: false, 까닭: 'styles.xml 이 없다' };
+    let xml = await f.async('string');
+    if (/autoSpaceD[EN]/.test(xml)) return { 통, 껐나: true, 까닭: '이미 꺼져 있다' };
+
+    const 끄기 = '<w:autoSpaceDE w:val="0"/><w:autoSpaceDN w:val="0"/>';
+    if (xml.includes('<w:pPrDefault>')) {
+      /* 자기닫힘 `<w:pPr/>` 이면 펼쳐서 넣고, 아니면 여는 표 뒤에 넣는다 */
+      if (/<w:pPrDefault>\s*<w:pPr\s*\/>/.test(xml)) {
+        xml = xml.replace(/<w:pPrDefault>\s*<w:pPr\s*\/>/, `<w:pPrDefault><w:pPr>${끄기}</w:pPr>`);
+      } else if (xml.includes('<w:pPr>')) {
+        xml = xml.replace('<w:pPr>', `<w:pPr>${끄기}`);
+      } else {
+        xml = xml.replace('<w:pPrDefault>', `<w:pPrDefault><w:pPr>${끄기}</w:pPr>`);
+      }
+    } else if (xml.includes('<w:docDefaults>')) {
+      xml = xml.replace('<w:docDefaults>', `<w:docDefaults><w:pPrDefault><w:pPr>${끄기}</w:pPr></w:pPrDefault>`);
+    } else {
+      return { 통, 껐나: false, 까닭: 'docDefaults 를 못 찾았다' };
+    }
+    z.file('word/styles.xml', xml);
+    const 새통 = await z.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' });
+    return { 통: 새통, 껐나: true, 까닭: null };
+  } catch (e) {
+    return { 통, 껐나: false, 까닭: e.message };
+  }
+}
+
 export async function 워드로만들기(md길, out길) {
   const D = require('docx');
   const 글 = fs.readFileSync(md길, 'utf8');
@@ -315,7 +431,9 @@ export async function 워드로만들기(md길, out길) {
   const 첫제목 = 글.match(/^#\s+(.+)$/m);
   const 본문 = 첫제목 ? 글.replace(첫제목[0], '') : 글;
   const 문서 = 문서만들기(본문, { 제목: 첫제목 ? 첫제목[1] : '' });
-  const 통 = await D.Packer.toBuffer(문서);
+  const 날것 = await D.Packer.toBuffer(문서);
+  const { 통, 껐나, 까닭 } = await 자동간격끄기(날것);
+  if (!껐나) console.log(`⚠ 숫자·한글 자동 간격을 못 껐다 — ${까닭}`);
   fs.mkdirSync(path.dirname(out길), { recursive: true });
   fs.writeFileSync(out길, 통);
   return out길;
@@ -351,6 +469,26 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
     && 덩.some((d) => d.갈래 === '코드') && 덩.some((d) => d.갈래 === '문단'));
   const 코 = 덩.find((d) => d.갈래 === '코드');
   본다('코드 울타리 속을 줄 목록으로 갖는다', Array.isArray(코.줄) && 코.줄[0] === '코드줄');
+
+  /* 🔴 [2026-10-17] 사진 — 보도자료에 넣으려고 더한 갈래 */
+  const 사덩 = 덩이읽기('![첫 화면입니다](사진/1-첫화면.jpg)');
+  본다('사진을 읽는다', 사덩[0].갈래 === '사진' && 사덩[0].길 === '사진/1-첫화면.jpg');
+  본다('사진 캡션을 읽는다', 사덩[0].캡션 === '첫 화면입니다');
+  본다('캡션이 비어도 사진이다', 덩이읽기('![](a.png)')[0].갈래 === '사진');
+  본다('⛔ 사진이 아닌 대괄호는 사진이 아니다', 덩이읽기('[그냥 링크](a.png)')[0].갈래 === '문단');
+
+  /* ⛔ 그림 크기를 «실제로» 재는가 — 어림하면 사진이 눌린다 */
+  const png = Buffer.alloc(24);
+  png.writeUInt32BE(0x89504e47, 0); png.writeUInt32BE(1200, 16); png.writeUInt32BE(800, 20);
+  const 잰png = 그림크기재기(png, 'png');
+  본다('PNG 크기를 잰다', 잰png && 잰png.폭 === 1200 && 잰png.높이 === 800);
+
+  const jpg = Buffer.from([0xff, 0xd8, 0xff, 0xc0, 0x00, 0x11, 0x08, 0x02, 0x58, 0x03, 0x20,
+    0x03, 0x01, 0x22, 0x00, 0x02, 0x11, 0x01, 0x03, 0x11, 0x01]);
+  const 잰jpg = 그림크기재기(jpg, 'jpg');
+  본다('JPEG 크기를 잰다 — 높이가 폭보다 먼저 온다', 잰jpg && 잰jpg.높이 === 600 && 잰jpg.폭 === 800);
+  본다('⛔ 못 재면 지어내지 않고 null 을 낸다',
+    그림크기재기(Buffer.from([1, 2, 3]), 'png') === null && 그림크기재기(Buffer.alloc(0), 'jpg') === null);
 
   /* 🔴 [2026-10-04] 굵게가 줄을 넘어 별표가 종이에 찍히던 자리 */
   본다('🔴 굵게가 줄을 넘으면 잡는다',
