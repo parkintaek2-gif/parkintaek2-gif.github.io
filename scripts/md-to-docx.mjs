@@ -386,35 +386,66 @@ export function 줄넘은굵게(md) {
  *
  * ⛔ 끄지 못해도 «터지지 않는다». 원래 통을 그대로 낸다.
  */
-export async function 자동간격끄기(통) {
+/**
+ * 문서 전체의 «문단 기본값»을 박는다 — 왼쪽 정렬 + 숫자·한글 자동 간격 끄기.
+ *
+ * ── 🔴 왜 (2026-10-17 · 5번) ─────────────────────────────────────────
+ * 보도자료 PDF 에서 「1만 원」이 「1 만 원」으로, 「4개 언어」가 「4 개 언어」로 벌어졌다.
+ * docx 속 글자는 «정확했다»(document.xml 을 풀어서 확인). 벌어진 것은 조판이다.
+ *
+ * ⭐ 낮에 autoSpaceDE/DN 을 껐는데 아무 변화가 없었다. 그때는 「원인이 아니다」로 적었다.
+ *   다시 재 보니 «끄는 데 실패하고 있었다» — docx-js 가 낸 styles.xml 에는 이미
+ *   «빈» `<w:pPrDefault/>` 가 있는데 앞선 자가 그것을 못 보고 하나를 더 넣어,
+ *   pPrDefault 가 «둘»이 됐다. 워드는 뒤의 빈 것을 보고 앞의 설정을 버린다.
+ *   ⛔ 「XML 에 넣었다」를 「워드가 따랐다」로 읽지 않는다. 종이에서 확인한다.
+ *
+ * ⭐ 그리고 벌어짐의 «몸통»은 한국어 워드의 기본 양쪽맞춤이다 —
+ *   오른쪽 끝을 맞추려고 낱말 사이를 늘린다. 왼쪽 정렬로 박으면 늘릴 까닭이 없어진다.
+ *   보도자료도 본래 왼쪽 정렬로 낸다.
+ */
+export async function 문단기본박기(통) {
   try {
     const JSZip = require('jszip');
     const z = await JSZip.loadAsync(통);
     const f = z.file('word/styles.xml');
-    if (!f) return { 통, 껐나: false, 까닭: 'styles.xml 이 없다' };
+    if (!f) return { 통, 박았나: false, 까닭: 'styles.xml 이 없다' };
     let xml = await f.async('string');
-    if (/autoSpaceD[EN]/.test(xml)) return { 통, 껐나: true, 까닭: '이미 꺼져 있다' };
-
-    const 끄기 = '<w:autoSpaceDE w:val="0"/><w:autoSpaceDN w:val="0"/>';
-    if (xml.includes('<w:pPrDefault>')) {
-      /* 자기닫힘 `<w:pPr/>` 이면 펼쳐서 넣고, 아니면 여는 표 뒤에 넣는다 */
-      if (/<w:pPrDefault>\s*<w:pPr\s*\/>/.test(xml)) {
-        xml = xml.replace(/<w:pPrDefault>\s*<w:pPr\s*\/>/, `<w:pPrDefault><w:pPr>${끄기}</w:pPr>`);
-      } else if (xml.includes('<w:pPr>')) {
-        xml = xml.replace('<w:pPr>', `<w:pPr>${끄기}`);
-      } else {
-        xml = xml.replace('<w:pPrDefault>', `<w:pPrDefault><w:pPr>${끄기}</w:pPr>`);
-      }
-    } else if (xml.includes('<w:docDefaults>')) {
-      xml = xml.replace('<w:docDefaults>', `<w:docDefaults><w:pPrDefault><w:pPr>${끄기}</w:pPr></w:pPrDefault>`);
-    } else {
-      return { 통, 껐나: false, 까닭: 'docDefaults 를 못 찾았다' };
+    if (xml.includes('autoSpaceDE') && xml.includes('<w:jc w:val="left"/>')) {
+      return { 통, 박았나: true, 까닭: '이미 박혀 있다' };
     }
+
+    /* ⚠ 자식 차례를 스키마(CT_PPrBase)가 «강제»한다 — autoSpace 가 jc 보다 앞이다.
+       뒤집어 넣으면 워드가 「고쳐야 연다」고 말한다. */
+    const 안 = '<w:autoSpaceDE w:val="0"/><w:autoSpaceDN w:val="0"/><w:jc w:val="left"/>';
+    const 온전한것 = '<w:pPrDefault><w:pPr>' + 안 + '</w:pPr></w:pPrDefault>';
+
+    /* 🔴 docx-js 가 낸 styles.xml 에는 «빈» <w:pPrDefault/> 가 이미 들어 있다.
+       그것을 «갈아 끼운다». 못 보고 하나를 더 넣으면 둘이 되어 설정이 통째로 죽는다.
+       ⛔ 정규식을 쓰지 않는다 — 글자 그대로 찾는다. */
+    const 빈꼴 = ['<w:pPrDefault/>', '<w:pPrDefault />',
+      '<w:pPrDefault><w:pPr/></w:pPrDefault>', '<w:pPrDefault><w:pPr /></w:pPrDefault>'];
+    const 걸린꼴 = 빈꼴.find((k) => xml.includes(k));
+
+    if (걸린꼴) {
+      xml = xml.replace(걸린꼴, 온전한것);
+    } else if (xml.includes('<w:pPrDefault><w:pPr>')) {
+      xml = xml.replace('<w:pPrDefault><w:pPr>', '<w:pPrDefault><w:pPr>' + 안);
+    } else if (xml.includes('<w:docDefaults>')) {
+      xml = xml.replace('<w:docDefaults>', '<w:docDefaults>' + 온전한것);
+    } else {
+      return { 통, 박았나: false, 까닭: 'docDefaults 를 못 찾았다' };
+    }
+
+    /* ⛔ 둘이 되면 워드가 «뒤의 빈 것»을 보고 앞의 설정을 버린다 — 2026-10-17 에 실제로 그랬다.
+       이 한 줄이 「넣었다」와 「먹었다」를 가른다. */
+    const 몇 = xml.split('<w:pPrDefault').length - 1;
+    if (몇 !== 1) return { 통, 박았나: false, 까닭: `pPrDefault 가 ${몇}개다 — 하나여야 한다` };
+
     z.file('word/styles.xml', xml);
     const 새통 = await z.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' });
-    return { 통: 새통, 껐나: true, 까닭: null };
+    return { 통: 새통, 박았나: true, 까닭: null };
   } catch (e) {
-    return { 통, 껐나: false, 까닭: e.message };
+    return { 통, 박았나: false, 까닭: e.message };
   }
 }
 
@@ -432,8 +463,8 @@ export async function 워드로만들기(md길, out길) {
   const 본문 = 첫제목 ? 글.replace(첫제목[0], '') : 글;
   const 문서 = 문서만들기(본문, { 제목: 첫제목 ? 첫제목[1] : '' });
   const 날것 = await D.Packer.toBuffer(문서);
-  const { 통, 껐나, 까닭 } = await 자동간격끄기(날것);
-  if (!껐나) console.log(`⚠ 숫자·한글 자동 간격을 못 껐다 — ${까닭}`);
+  const { 통, 박았나, 까닭 } = await 문단기본박기(날것);
+  if (!박았나) console.log(`⚠ 문단 기본값을 못 박았다 — ${까닭}`);
   fs.mkdirSync(path.dirname(out길), { recursive: true });
   fs.writeFileSync(out길, 통);
   return out길;
@@ -531,6 +562,25 @@ if (내가진입점 && (process.argv.includes('--자가시험') || process.argv.
     fs.unlinkSync(통로);
   } catch (e) {
     본다('진짜 docx 를 짓는다 — ' + String(e.message).slice(0, 60), false);
+  }
+
+  /* 🔴 문단 기본값이 «하나»로 들어갔나 — 둘이면 워드가 뒤의 빈 것을 보고 버린다 (2026-10-17) */
+  try {
+    const D2 = require('docx');
+    const 문서2 = 문서만들기('문단입니다.', { 제목: '제목' });
+    const { 통: 통2, 박았나, 까닭: 까닭2 } = await 문단기본박기(await D2.Packer.toBuffer(문서2));
+    본다('문단 기본값을 박는다' + (박았나 ? '' : ' — ' + 까닭2), 박았나);
+    const JSZip2 = require('jszip');
+    const xml2 = await (await JSZip2.loadAsync(통2)).file('word/styles.xml').async('string');
+    const 몇 = xml2.split('<w:pPrDefault').length - 1;
+    본다(`🔴 pPrDefault 가 하나뿐이다 (${몇}개)`, 몇 === 1);
+    본다('왼쪽 정렬을 박았다', xml2.includes('<w:jc w:val="left"/>'));
+    본다('자동 간격을 껐다', xml2.includes('autoSpaceDE'));
+    /* ⚠ 차례가 어긋나면 워드가 「고쳐야 연다」고 말한다 — autoSpace 가 jc «앞»이다 */
+    본다('⚠ 스키마 차례를 지킨다 (autoSpace → jc)',
+      xml2.indexOf('autoSpaceDN') < xml2.indexOf('<w:jc w:val="left"/>'));
+  } catch (e) {
+    본다('문단 기본값 검사 — ' + String(e.message).slice(0, 60), false);
   }
 
   console.log(탈 ? `\n🔴 ${탈}개 떨어졌다` : '\n✅ 자가시험 통과');
