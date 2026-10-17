@@ -147,13 +147,19 @@ if (내가진입점) {
     await 칸.click();
     await 잠깐(700);
 
-    /* 🔴 줄바꿈은 전송키다 — Shift+Enter 로 «넣고» 마지막에 Enter 를 한 번만 (위 머리글) */
-    const 줄들 = 시킬글.split('\n');
-    for (let i = 0; i < 줄들.length; i++) {
-      if (i) { await page.keyboard.down('Shift'); await page.keyboard.press('Enter'); await page.keyboard.up('Shift'); }
-      if (줄들[i]) await page.keyboard.type(줄들[i], { delay: 4 });
-    }
-    await 잠깐(1200);
+    /* 🔴 [2026-10-17] 한 글자씩 «치면» 긴 글이 안 들어간다 —
+       준PO 1차전 지시문 2,815자를 delay 4ms 로 쳤더니 «1%»만 들어가고 섰다.
+       치는 11초 동안 칸이 포커스를 잃는다. 글이 길수록 더 자주 깨진다.
+       ⇒ CDP 의 Input.insertText(= sendCharacter) 로 «한 번에» 넣는다. 2,848자가 100% 들어갔다.
+       ⭐ 줄바꿈이 키 이벤트가 아니라 «글자»로 들어가므로 중간에 전송되지 않는다 —
+         Shift+Enter 를 끼워 넣을 까닭 자체가 사라진다. 위 머리글의 「줄바꿈은 전송키다」는
+         «치는 길»에만 걸리는 말이었다.
+       ⚠ 앞선 시도의 잔재가 칸에 남아 있으면 비율 계산이 흐려지므로 먼저 비운다. */
+    await page.keyboard.down('Control'); await page.keyboard.press('KeyA'); await page.keyboard.up('Control');
+    await page.keyboard.press('Backspace');
+    await 잠깐(500);
+    await page.keyboard.sendCharacter(시킬글);
+    await 잠깐(1500);
 
     /* ⛔ 「쳤다」를 「들어갔다」로 읽지 않는다 — 칸에 실제로 얼마나 들어갔나를 센다 */
     const 친것 = await page.evaluate(() => document.querySelector('div[contenteditable="true"]')?.innerText ?? '');
