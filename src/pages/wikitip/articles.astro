@@ -60,6 +60,15 @@ const 갈래셈 = 기사.reduce<Record<string, number>>((a, e) => {
 /** 정정이 붙은 기사 수. 숨기지 않고 **여기서 먼저 말한다.** */
 const 정정있는기사 = 기사.filter((e) => (e.data.corrections ?? []).length > 0).length;
 
+/**
+ * 🔴 2026-10-17 [5번 → 1번] — 구글이 `/articles` 를 크롤링만 하고 안 싣는다.
+ * 까닭: 제목·요약만 늘어놓은 목록은 «값이 없다»고 본다(세 사이트에서 같은 꼴).
+ * 처방: 줄마다 그 기사가 «쟀다»고 적어 둔 crossChecks 중 숫자가 든 것 하나를 붙인다.
+ * 숫자가 든 crossCheck 가 없는 기사(못 잰 경우)는 억지로 만들지 않고 비워 둔다.
+ */
+const 수치줄 = (e: (typeof 기사)[number]) =>
+  (e.data.crossChecks ?? []).find((c) => /\d/.test(c)) ?? null;
+
 const 첫날 = 기사.length ? 기사[기사.length - 1].data.pubDate : null;
 
 const TITLE = 'Every article we have published';
@@ -89,6 +98,7 @@ const jsonLd = {
       position: i + 1,
       url: `https://www.kculturewire.com/article/${e.id}`,
       name: e.data.title,
+      ...(수치줄(e) ? { description: 수치줄(e) } : {}),
     })),
   },
 };
@@ -126,6 +136,7 @@ const jsonLd = {
         </div>
         <a class="t" href={`/article/${e.id}`}>{e.data.title}</a>
         <p class="dek">{e.data.dek}</p>
+        {수치줄(e) && <p class="stat">{수치줄(e)}</p>}
         {e.data.pages.length > 0 && (
           <p class="from">
             Built from{' '}
@@ -148,6 +159,7 @@ const jsonLd = {
     .fix { border: 1px solid var(--line); border-radius: 999px; padding: 0 .45rem; }
     .t { display: block; margin: .25rem 0 .3rem; font-size: 1.12rem; font-weight: 600; line-height: 1.35; }
     .dek { margin: 0; color: var(--muted); }
+    .stat { margin: .4rem 0 0; font-size: .9rem; color: var(--ink); font-weight: 500; }
     .from { margin: .45rem 0 0; font-size: .85rem; color: var(--muted); }
   </style>
 </WikiTip>
