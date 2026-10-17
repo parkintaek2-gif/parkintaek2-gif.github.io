@@ -1,0 +1,151 @@
+#!/usr/bin/env node
+/**
+ * 잰다-내일날씨.mjs — **기상청에서 내일 예보를 직접 받아 온다.**
+ *
+ * ── 🔴 왜 (2026-10-17 · 사장님) ───────────────────────────────────
+ * 「**날씨 기사를 쓰자 [내일 날씨]를 제목 제일 앞에 넣음.
+ *   키워드에 대전 날씨, 청주 날씨를 꼭 포함해서 씀.
+ *   매일 10시에 기사를 받을 수 있게 예약 해놔. 대신 스포츠기사는 한 건을 줄여..
+ *   (기상청 날씨누리 링크) 여기서 팩트체크해. 연합뉴스 등 다른 언론 기사를 참조하고.**」
+ *
+ * ⭐ 숫자는 «기상청에서 직접» 받는다. 남의 기사에서 베끼지 않는다.
+ *   동네예보 RSS 는 기상청이 내놓는 정본이고, 날씨누리 화면과 같은 자료다.
+ * ⛔ 받아 온 값이 비어 있으면 「맑음 0도」로 메우지 않는다 — 못 쟀다고 적고 선다.
+ *
+ * 쓰는 법
+ *   node scripts/잰다-내일날씨.mjs              내일 예보를 사실 묶음으로 찍는다
+ *   node scripts/잰다-내일날씨.mjs --자가시험
+ */
+import process from 'node:process';
+
+/** 🔴 사장님이 키워드로 못박으신 두 곳이 맨 앞이다 — 「대전 날씨, 청주 날씨를 꼭 포함」 */
+export const 잴곳 = [
+  ['대전', '3000000000'],
+  ['청주', '4311100000'],
+  ['세종', '3611025000'],
+];
+
+export const 하늘 = { 1: '맑음', 3: '구름많음', 4: '흐림' };
+export const 비꼴 = { 0: '없음', 1: '비', 2: '비/눈', 3: '눈', 4: '소나기' };
+
+/** XML 한 덩이에서 값 하나 — 없으면 null (0 으로 메우지 않는다) */
+export function 값(덩이, 이름) {
+  const m = String(덩이 ?? '').match(new RegExp(`<${이름}>([^<]*)</${이름}>`));
+  if (!m) return null;
+  const v = m[1].trim();
+  if (v === '' || v === '-999.0' || v === '-999') return null;
+  return v;
+}
+
+/** RSS 전문 → data 덩이 배열 */
+export function 덩이들(글) {
+  return [...String(글 ?? '').matchAll(/<data seq="\d+">([\s\S]*?)<\/data>/g)].map((m) => m[1]);
+}
+
+/**
+ * 하루치로 추린다. day: 0=오늘 1=내일 2=모레
+ * ⛔ tmn/tmx 는 하루 중 «몇 시에만» 실려 온다 — 빠진 시각을 0 으로 읽으면 안 된다.
+ */
+export function 하루추린다(덩이목록, 날 = 1) {
+  const 것 = 덩이목록.filter((d) => 값(d, 'day') === String(날));
+  if (!것.length) return null;
+  const 수 = (이름) => 것.map((d) => 값(d, 이름)).filter((v) => v != null).map(Number);
+  const 최저 = 수('tmn'); const 최고 = 수('tmx'); const 기온 = 수('temp');
+  const 확률 = 수('pop'); const 비 = 것.map((d) => 값(d, 'pty')).filter(Boolean);
+  const 하늘값 = 것.map((d) => 값(d, 'sky')).filter(Boolean);
+  const 비옴 = 비.filter((p) => p !== '0');
+  return {
+    시각수: 것.length,
+    최저: 최저.length ? Math.min(...최저) : (기온.length ? Math.min(...기온) : null),
+    최고: 최고.length ? Math.max(...최고) : (기온.length ? Math.max(...기온) : null),
+    최대강수확률: 확률.length ? Math.max(...확률) : null,
+    비오나: 비옴.length > 0,
+    비꼴: 비옴.length ? (비꼴[비옴[0]] ?? '비') : '없음',
+    비시간수: 비옴.length,
+    하늘: 하늘값.length ? (하늘[하늘값.sort((a, b) => 하늘값.filter((v) => v === b).length - 하늘값.filter((v) => v === a).length)[0]] ?? null) : null,
+  };
+}
+
+/** 사람이 읽는 한 줄 — ⛔ 못 잰 값은 「확인하지 못했다」로 적는다 */
+export function 한줄(이름, r) {
+  if (!r) return `${이름} ⬜ 확인하지 못했다 — 예보를 받지 못했다`;
+  const 저 = r.최저 == null ? '확인 안 됨' : `${r.최저}도`;
+  const 고 = r.최고 == null ? '확인 안 됨' : `${r.최고}도`;
+  const 확 = r.최대강수확률 == null ? '확인 안 됨' : `${r.최대강수확률}%`;
+  return `${이름} 아침 최저 ${저} · 낮 최고 ${고} · 하늘 ${r.하늘 ?? '확인 안 됨'}`
+    + ` · 강수확률 최대 ${확}${r.비오나 ? ` · ${r.비꼴} ${r.비시간수}시간` : ''}`;
+}
+
+export async function 받아온다(코드) {
+  const r = await fetch(`https://www.weather.go.kr/w/rss/dfs/hr1-forecast.do?zone=${코드}`);
+  if (!r.ok) return null;
+  return await r.text();
+}
+
+/* ── 자가시험 ─────────────────────────────────────────────────────── */
+export function 자가시험() {
+  const 것 = [];
+  const 검 = (이름, 참) => 것.push({ 이름, 참: !!참 });
+  const 한덩이 = '<hour>10</hour><day>1</day><temp>12.0</temp><tmx>18.0</tmx><tmn>-999.0</tmn>'
+    + '<sky>4</sky><pty>1</pty><pcp>1.0</pcp><pop>70</pop>';
+  const 둘째 = '<hour>6</hour><day>1</day><temp>9.0</temp><tmx>-999.0</tmx><tmn>8.0</tmn>'
+    + '<sky>4</sky><pty>0</pty><pcp>0.0</pcp><pop>30</pop>';
+  const 오늘것 = '<hour>14</hour><day>0</day><temp>27.0</temp><tmx>27.0</tmx><tmn>-999.0</tmn>'
+    + '<sky>1</sky><pty>0</pty><pcp>0.0</pcp><pop>0</pop>';
+
+  검('값을 뽑는다', 값(한덩이, 'temp') === '12.0');
+  검('🔴 -999 는 «없음»이다 — 0 으로 읽지 않는다', 값(한덩이, 'tmn') === null);
+  검('⛔ 없는 이름은 null', 값(한덩이, '없는것') === null);
+  검('⛔ 빈 글은 null', 값('', 'temp') === null);
+
+  const 쪼갠것 = 덩이들(`<data seq="0">${한덩이}</data><data seq="1">${둘째}</data>`);
+  검('덩이를 쪼갠다', 쪼갠것.length === 2);
+
+  const 내일 = 하루추린다([한덩이, 둘째, 오늘것], 1);
+  검('🔴 내일 것만 고른다 — 오늘 27도가 섞이지 않는다', 내일.시각수 === 2 && 내일.최고 === 18);
+  검('최저는 tmn 에서 온다', 내일.최저 === 8);
+  검('강수확률은 가장 큰 값', 내일.최대강수확률 === 70);
+  검('비 오는 시각을 센다', 내일.비오나 && 내일.비시간수 === 1);
+  검('비 꼴을 읽는다', 내일.비꼴 === '비');
+  검('⛔ 대조군 — 오늘은 비가 없다', 하루추린다([오늘것], 0).비오나 === false);
+  검('⛔ 그 날 자료가 없으면 null', 하루추린다([오늘것], 2) === null);
+
+  검('한 줄에 도시 이름이 들어간다', 한줄('대전', 내일).startsWith('대전'));
+  검('🔴 못 쟀으면 그렇게 적는다', /확인하지 못했다/.test(한줄('대전', null)));
+  검('⛔ 못 잰 값을 0 으로 적지 않는다',
+    /확인 안 됨/.test(한줄('청주', { 시각수: 1, 최저: null, 최고: null, 최대강수확률: null, 비오나: false, 하늘: null })));
+
+  검('🔴 대전과 청주가 목록 맨 앞에 있다', 잴곳[0][0] === '대전' && 잴곳[1][0] === '청주');
+
+  for (const x of 것) console.log(`${x.참 ? '✅' : '🔴'} ${x.이름}`);
+  const 탈 = 것.filter((x) => !x.참).length;
+  console.log(탈 ? `\n🔴 자가시험 ${탈}건 탈` : `\n✅ 자가시험 ${것.length} 통과`);
+  return 탈 === 0;
+}
+
+/* ── 손으로 돌릴 때 ───────────────────────────────────────────────── */
+if (process.argv[1] && process.argv[1].includes('잰다-내일날씨')) {
+  if (process.argv.includes('--자가시험')) {
+    process.exit(자가시험() ? 0 : 1);
+  }
+  const 이제 = new Date();
+  const 내일 = new Date(이제.getTime() + 24 * 60 * 60 * 1000);
+  const 날짜 = `${내일.getMonth() + 1}월 ${내일.getDate()}일`;
+  const 요일 = ['일', '월', '화', '수', '목', '금', '토'][내일.getDay()];
+  console.log(`■ 내일(${날짜} ${요일}요일) 예보 — 기상청 동네예보, ${이제.toTimeString().slice(0, 5)} 받음\n`);
+
+  let 못잰곳 = 0;
+  for (const [이름, 코드] of 잴곳) {
+    const 글 = await 받아온다(코드);
+    if (!글) { console.log(한줄(이름, null)); 못잰곳 += 1; continue; }
+    const 쪽이름 = (글.match(/<category>([^<]*)<\/category>/) ?? [])[1] ?? '';
+    const r = 하루추린다(덩이들(글), 1);
+    console.log(한줄(이름, r) + `   (기상청 ${쪽이름})`);
+    if (!r) 못잰곳 += 1;
+  }
+  if (못잰곳) {
+    console.log(`\n🔴 ${못잰곳}곳을 못 쟀다. ⛔ 「맑음」으로 메우지 않는다. 다시 재고 쓴다.`);
+    process.exit(2);
+  }
+  console.log('\n✅ 세 곳 다 쟀다');
+}
