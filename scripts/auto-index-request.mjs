@@ -30,9 +30,9 @@
  * ⛔ 낱장 수천 장을 밀어 넣지 않는다 — **문만** 한다. 문이 열리면 아래는 링크로 간다.
  *
  * 쓰는 법
- *   node scripts/색인요청-날마다.mjs --잰다      어느 문이 닫혔나만 본다(안 누른다)
- *   node scripts/색인요청-날마다.mjs             닫힌 문에 요청한다(할당량까지)
- *   node scripts/색인요청-날마다.mjs --자가시험
+ *   node scripts/auto-index-request.mjs --잰다      어느 문이 닫혔나만 본다(안 누른다)
+ *   node scripts/auto-index-request.mjs             닫힌 문에 요청한다(할당량까지)
+ *   node scripts/auto-index-request.mjs --자가시험
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -167,7 +167,7 @@ export function 자가시험() {
 }
 
 /* ── 손으로 돌릴 때 ───────────────────────────────────────────────────── */
-const 나인가 = process.argv[1] && process.argv[1].includes('색인요청-날마다');
+const 나인가 = process.argv[1] && process.argv[1].includes('auto-index-request');
 if (나인가 && process.argv.includes('--자가시험')) process.exit(자가시험() ? 0 : 1);
 
 if (나인가) {
