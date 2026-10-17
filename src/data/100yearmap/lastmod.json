@@ -3,7 +3,7 @@
   "⛔": "손으로 고치지 않는다. node scripts/build-100y-lastmod.mjs 가 다시 쓴다",
   "만든자": "scripts/build-100y-lastmod.mjs",
   "날": {
-    "/contact": "2026-10-09",
+    "/contact": "2026-10-17",
     "/school-progression-rank": "2026-10-11",
     "/cardiac-arrest": "2026-10-09",
     "/fall-injury": "2026-09-03",
@@ -38,7 +38,7 @@
     "/elderly-money-gap": "2026-10-02",
     "/elderly-work-reason": "2026-10-02",
     "/": "2026-10-09",
-    "/about": "2026-10-09",
+    "/about": "2026-10-17",
     "/price": "2026-10-09",
     "/terms": "2026-10-09",
     "/privacy": "2026-10-09",
@@ -46,7 +46,7 @@
     "/after": "2026-10-09",
     "/work": "2026-10-09",
     "/how-long": "2026-10-09",
-    "/size": "2026-10-09",
+    "/size": "2026-10-17",
     "/data": "2026-10-09",
     "/research": "2026-10-09",
     "/sitemap-image.xml": "2026-09-23",
@@ -137,7 +137,7 @@
     "갈래:college-major": "2026-10-09",
     "갈래:school": "2026-10-09",
     "갈래:university": "2026-10-09",
-    "갈래:area": "2026-10-09",
+    "갈래:area": "2026-10-17",
     "갈래:report": "2026-10-09"
   }
 }
