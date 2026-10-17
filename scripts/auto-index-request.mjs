@@ -40,6 +40,7 @@ import { fileURLToPath } from 'node:url';
 
 export const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 이력길 = 'docs/색인요청-이력.tsv';
+export const 수요지면길 = 'docs/수요지면.tsv';   /* demand-pages.mjs 가 적는다 */
 
 /**
  * 「문」 — 그 아래 지면이 여럿 달린 목록 지면.
@@ -110,6 +111,25 @@ export function 이력줄(주소, 말, 이제 = new Date()) {
   return `${날}\t${주소}\t${깨끗}`;
 }
 
+/**
+ * 🔴 [2026-10-17] 수요가 이미 잰 낱장을 색인 줄 «뒤»에 세운다.
+ *   문 하나가 수천 장을 열고 낱장 하나는 한 장이다 — 그래서 뒤다.
+ *   ⚠ 노출이 많은 낱장이 그 안에서 먼저다. 「아래」 자리에 노출을 넣어 차례를 맞춘다.
+ *   ⛔ 「아래 1,000장」처럼 보이면 안 되므로 1 을 넘지 않게 눌러 둔다.
+ */
+export function 수요지면읽기(글, 자원 = "sc-domain:seoulmarkets.com") {
+  return String(글 ?? "").split("\n")
+    .map((x) => x.trim()).filter((x) => x && !x.startsWith("#"))
+    .map((x) => x.split("\t"))
+    .filter((x) => x.length >= 4 && x[3].startsWith("/"))
+    .map((x) => ({
+      자원,
+      주소: "https://seoulmarkets.com" + x[3],
+      아래: Math.min(1, Number(x[1]) / 10000),   /* 문보다 «항상» 뒤 */
+      수요: Number(x[1]) || 0,
+    }))
+    .sort((a, b) => b.수요 - a.수요);
+}
 /** 이력 파일을 읽어 [{ 날, 주소, 말 }] 로 */
 export function 이력읽기(글) {
   return String(글 ?? '').split('\n')
@@ -160,6 +180,16 @@ export function 자가시험() {
   const 읽 = 이력읽기('# 주석\n2026-10-17\thttps://a\t받았다\n\n깨진줄\n');
   검('이력을 읽는다', 읽.length === 1 && 읽[0].주소 === 'https://a');
 
+  {
+    const t = "# 머리\ndaoudata\t45\t6.2\t/company/daou-data\ngemvax\t13\t3.6\t/company/gemvax-and-kael\n";
+    const d = 수요지면읽기(t);
+    검('수요 지면을 읽는다', d.length === 2);
+    검('노출 많은 것이 먼저다', d[0].주소.endsWith('/company/daou-data'));
+    검('🔴 수요 지면은 «문보다 뒤»에 선다 — 문 하나가 수천 장을 연다',
+      d.every((x) => x.아래 <= 1) && 문들.every((x) => x.아래 > 1));
+    검('⛔ 깨진 줄에 안 터진다', 수요지면읽기('아무거나\n\n').length === 0);
+    검('⛔ 빈 것에 안 터진다', 수요지면읽기(null).length === 0);
+  }
   검('🔴 문 목록에 /school 이 들어 있다 — 아래가 가장 많다',
     문들.some((x) => x.주소.endsWith('/school') && x.아래 > 2000));
   검('⛔ 문 목록이 낱장을 물고 있지 않다',
@@ -216,7 +246,14 @@ if (나인가) {
 
   const 이력 = fs.existsSync(path.join(뿌리, 이력길))
     ? 이력읽기(fs.readFileSync(path.join(뿌리, 이력길), 'utf8')) : [];
-  const 할것 = 오늘할것(진단, 이력);
+  /* 🔴 [2026-10-17] 문을 다 연 날에는 수요가 이미 잰 낱장이 다음 차례다.
+     ⛔ 여기 있는 주소는 demand-pages.mjs 가 «실물로 200 을 보고» 적은 것이다. */
+  let 수요 = [];
+  try {
+    const q = path.join(뿌리, 수요지면길);
+    if (fs.existsSync(q)) 수요 = 수요지면읽기(fs.readFileSync(q, "utf8"));
+  } catch { /* 없으면 그냥 문만 한다 */ }
+  const 할것 = 오늘할것([...진단, ...수요.map((x) => ({ ...x, 색인됨: false }))], 이력);
 
   console.log(`\n■ 닫힌 문 ${진단.filter((x) => !x.색인됨).length}개 · 오늘 요청할 것 ${할것.length}개`);
   if (!할것.length) { console.log('⬜ 오늘 할 것이 없다 — 다 열렸거나 요 보름 안에 이미 요청했다'); process.exit(0); }
