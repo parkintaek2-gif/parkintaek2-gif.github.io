@@ -32,7 +32,7 @@ import { fileURLToPath } from 'node:url';
    갈라 두면 한쪽만 고쳐지고 두 보고가 «다른 수»를 낸다 — scripts/lib/ga4.mjs 한 곳에 둔다.
    ⚠ 여기서 다시 내보내는 것은 이 자의 자가시험과 이 자를 import 하는 곳을 위해서다. */
 export { 갈래, 우리것인가, 사이트이름, 날짜풀기 } from './lib/ga4.mjs';
-import { 갈래, 우리것인가, 사이트이름, 날짜풀기 } from './lib/ga4.mjs';
+import { 갈래, 우리것인가, 사이트이름, 날짜풀기, 집계덜된날들 } from './lib/ga4.mjs';
 
 /**
  * 앞뒤 반을 갈라 견준다 — 「요즘 떨어지나」를 재는 가장 단순한 자다.
@@ -196,7 +196,22 @@ if (내가직접돌았나) {
   const 거르개넣은날 = '2026-10-04';
   const 섞인날들 = 날들.filter((d) => d < 거르개넣은날);
 
-  const 견줌 = 앞뒤견줌(날짜별);
+  /* 🔴🔴 [2026-10-17] 집계가 덜 된 날이 추세를 통째로 뒤집는다.
+     그날 10-16 이 11명으로 들어와 「🔴 떨어지는 중 -16%」가 찍혔다. 실시간에는
+     사람이 보이고 있었다. ⛔ 「덜 세어진 것」을 「줄어든 것」으로 올리지 않는다. */
+  const 덜센날 = 집계덜된날들(날짜별);
+  if (덜센날.length) {
+    console.log();
+    for (const d2 of 덜센날) {
+      console.log(`🔴 ${d2} ${날짜별[d2]}명 — **집계가 덜 된 것으로 보인다.** 아래 견줌에서 뺐다.`);
+    }
+    console.log('   ⛔ 「그날 손님이 줄었다」로 읽지 않는다. 하루 뒤에 다시 재면 제 수가 들어와 있다.');
+    console.log('   ⚠ 실시간 창구(runRealtimeReport)에는 그때도 사람이 보였다 — 태그는 살아 있다.');
+  }
+  const 깨끗한날짜별 = Object.fromEntries(
+    Object.entries(날짜별).filter(([k]) => !덜센날.includes(k)));
+
+  const 견줌 = 앞뒤견줌(깨끗한날짜별);
   if (견줌) {
     const 화살 = 견줌.바뀜 < -0.05 ? '🔴 떨어지는 중' : 견줌.바뀜 > 0.05 ? '✅ 오르는 중' : '⬜ 거의 그대로';
     /* 🔴 섞인 날이 하나라도 있으면 «화살표를 믿지 말라»고 먼저 적는다 */
@@ -209,8 +224,8 @@ if (내가직접돌았나) {
     console.log(`\n■ 앞 ${견줌.반}일 vs 뒤 ${견줌.반}일 — ${화살}${섞인날들.length ? '  ⚠ 우리 클릭 섞임' : ''}`);
     console.log(`   앞 ${견줌.반}일 하루 평균  ${견줌.앞평균.toFixed(1)}명`);
     console.log(`   뒤 ${견줌.반}일 하루 평균  ${견줌.뒤평균.toFixed(1)}명   (${(견줌.바뀜 * 100).toFixed(0)}%)`);
-    const 전체평균 = Object.values(날짜별).reduce((a, b) => a + b, 0) / 날들.length;
-    console.log(`   ${날들.length}일 전체 평균      ${전체평균.toFixed(1)}명  ← 「하루 ${Math.round(전체평균)}명꼴」이라 말해 온 수`);
+    const 전체평균 = Object.values(깨끗한날짜별).reduce((a, b) => a + b, 0) / Object.keys(깨끗한날짜별).length;
+    console.log(`   ${Object.keys(깨끗한날짜별).length}일 전체 평균      ${전체평균.toFixed(1)}명  ← 「하루 ${Math.round(전체평균)}명꼴」이라 말해 온 수`);
     if (견줌.뒤평균 < 전체평균) {
       console.log(`   ⚠ 요즘 하루가 전체 평균보다 ${(전체평균 - 견줌.뒤평균).toFixed(1)}명 낮다 — 사장님이 짚으신 것이 이것이다.`);
     }
@@ -220,10 +235,16 @@ if (내가직접돌았나) {
   const 사이트들 = Object.keys(사이트날짜별).sort((a, b) =>
     Object.values(사이트날짜별[b]).reduce((x, y) => x + y, 0) - Object.values(사이트날짜별[a]).reduce((x, y) => x + y, 0));
   const 뒤이레 = 날들.slice(-7);
+  if (덜센날.some((d) => 뒤이레.includes(d))) {
+    console.log('   ⚠ 「·」 는 집계가 덜 된 날이다 — 0 이 아니라 **못 쟀다**. 앞뒤 견줌에서도 뺐다.');
+  }
   console.log(`   사이트                 ${뒤이레.map((d) => d.slice(5)).join('  ')}   앞뒤`);
   for (const s of 사이트들) {
-    const 줄 = 뒤이레.map((d) => String(사이트날짜별[s][d] || 0).padStart(5)).join(' ');
-    const g = 앞뒤견줌(사이트날짜별[s]);
+    /* 🔴 [2026-10-17] 덜 센 날은 «표에는 그대로 두되»(숨기면 더 나쁘다) 앞뒤 견줌에서는 뺀다 */
+    const 줄 = 뒤이레.map((d) => (덜센날.includes(d) ? '    ·' : String(사이트날짜별[s][d] || 0).padStart(5))).join(' ');
+    const 사이트깨끗 = Object.fromEntries(
+      Object.entries(사이트날짜별[s]).filter(([k]) => !덜센날.includes(k)));
+    const g = 앞뒤견줌(사이트깨끗);
     const 표 = g ? `${g.바뀜 > 0 ? '+' : ''}${(g.바뀜 * 100).toFixed(0)}%` : '못 잼';
     console.log(`   ${s.padEnd(22)} ${줄}   ${표.padStart(6)}`);
   }
