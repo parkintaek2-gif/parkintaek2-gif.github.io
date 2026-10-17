@@ -9,6 +9,8 @@
  * ⛔ 등수를 매기지 않는다. 이름 차례로만 세운다.
  */
 import Base from '../../layouts/Base.astro';
+/* 🔴 [2026-10-17] 나라 문끼리 서로 걸어 준다 — 조각의 머리글에 잰 수가 있다 */
+import OtherMarkets from '../../components/OtherMarkets.astro';
 import { SITE_URL } from '../../consts';
 import facts from '../../data/uae-company-facts.json';
 import { 낼만한가, 주소표만들기, 거래소이름, 재무줄 } from '../../lib/uae-company-page.mjs';
@@ -101,6 +103,8 @@ const jsonLd = {
         ranked against one another.
       </p>
     </footer>
+
+    <OtherMarkets 현재="uae" />
   </article>
 </Base>
 

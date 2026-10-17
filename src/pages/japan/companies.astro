@@ -7,6 +7,8 @@
  * ⛔ 등수를 매기지 않는다. 업종은 이름 차례다.
  */
 import Base from '../../layouts/Base.astro';
+/* 🔴 [2026-10-17] 나라 문끼리 서로 걸어 준다 — 조각의 머리글에 잰 수가 있다 */
+import OtherMarkets from '../../components/OtherMarkets.astro';
 import { SITE_URL } from '../../consts';
 import tape from '../../data/japan-financials-tape.json';
 import { 낼만한가, 업종주소, 재무줄 } from '../../lib/japan-company-page.mjs';
@@ -213,6 +215,8 @@ const jsonLd = {
         leave it blank rather than writing zero.
       </p>
     </footer>
+
+    <OtherMarkets 현재="japan" />
   </article>
 </Base>
 

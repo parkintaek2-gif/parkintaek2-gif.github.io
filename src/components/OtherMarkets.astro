@@ -1,0 +1,112 @@
+---
+/*
+ * `OtherMarkets` — **나라별 회사 지면의 문끼리 서로를 가리키게 한다.**
+ *
+ * ── 🔴🔴 왜 (2026-10-17 · 5번) ─────────────────────────────────────────
+ * 구글에게 직접 물어서 나온 수다. 짐작이 아니다.
+ *
+ * ```
+ *   /companies         ✅ 색인됨            2026-10-13 에 왔다 갔다
+ *   /japan/companies   ✅ 색인됨            2026-09-27 에 왔다 갔다
+ *   /taiwan/companies  🔴 한 번도 안 왔다   「발견됨 - 현재 색인이 생성되지 않음」
+ *   /uae/companies     🔴 한 번도 안 왔다   「발견됨 - 현재 색인이 생성되지 않음」
+ * ```
+ *
+ * ⚠ 「발견됨 - 색인 안 됨」은 **구글이 주소를 알고도 가지 않기로 한 것**이다.
+ *   robots 도 noindex 도 걸려 있지 않다. 기술 문제가 아니다.
+ *
+ * ⭐ 까닭을 재 보니 — **대만·UAE 문으로 가는 길이 첫 화면 한 곳뿐이었다.**
+ *   이미 색인된 `/companies` 도, `/japan/companies` 도 그 둘을 걸지 않았다.
+ *   첫 화면은 링크가 221개다. 그 안에 묻힌 링크 하나로는 구글이 안 움직인다.
+ *   ⇒ **이미 구글이 오는 지면**에서 안 오는 지면으로 길을 낸다. 그것이 이 조각이다.
+ *
+ * ⛔ 검색엔진을 꾀려고 링크만 늘어놓는 것이 아니다 — 회사 수를 함께 적는다.
+ *   네 시장을 다 보러 온 사람에게 실제로 쓸모가 있어야 한다.
+ * ⛔ 시장을 줄 세우지 않는다. 이름 차례다.
+ * ⛔ 화면에 한국어를 내지 않는다 — 우리 손님은 영어권이다.
+ *
+ * ⚠ 수는 «지면이 실제로 있는 회사»만 센다. 못 센 것을 0 으로 채우지 않는다.
+ */
+import koreaTape from '../data/korea-financials-tape.json';
+import japanTape from '../data/japan-financials-tape.json';
+import taiwanTape from '../data/taiwan-financials-tape.json';
+import uaeFacts from '../data/uae-company-facts.json';
+import { 낼만한가 as 한국낼만한가 } from '../lib/company-page.mjs';
+import { 낼만한가 as 일본낼만한가 } from '../lib/japan-company-page.mjs';
+import { 낼만한가 as 대만낼만한가 } from '../lib/taiwan-company-page.mjs';
+import { 낼만한가 as uae낼만한가 } from '../lib/uae-company-page.mjs';
+
+interface Props {
+  /** 지금 서 있는 시장 — 제 자신은 안 건다 */
+  현재: 'korea' | 'japan' | 'taiwan' | 'uae';
+}
+const { 현재 } = Astro.props as Props;
+
+/** ⚠ 각 나라가 제 지면에서 쓰는 거르개를 그대로 쓴다 — 여기서 새로 정하지 않는다 */
+const 셈 = (행들: any[], 거르개: (r: any) => boolean) => {
+  try {
+    const 이름들 = new Set(
+      (행들 ?? []).filter((r) => 거르개(r))
+        .map((r) => String(r.code ?? r.ticker ?? r.symbol ?? r.name_en ?? r.name ?? '')),
+    );
+    이름들.delete('');
+    return 이름들.size || null;      /* ⛔ 0 을 수로 내보내지 않는다 — 「못 셌다」다 */
+  } catch { return null; }
+};
+
+const 시장들 = [
+  {
+    키: 'korea', 이름: 'Korea', 주소: '/companies',
+    수: 셈((koreaTape as any).rows, 한국낼만한가),
+    말: 'Filed revenue, profit, assets and equity, from the regulator’s own disclosure database.',
+  },
+  {
+    키: 'japan', 이름: 'Japan', 주소: '/japan/companies',
+    수: 셈((japanTape as any).rows, 일본낼만한가),
+    말: 'Filed figures from EDINET, one page per listed filer.',
+  },
+  {
+    키: 'taiwan', 이름: 'Taiwan', 주소: '/taiwan/companies',
+    수: 셈((taiwanTape as any).rows, 대만낼만한가),
+    말: 'Filed figures from the Market Observation Post System.',
+  },
+  {
+    키: 'uae', 이름: 'United Arab Emirates', 주소: '/uae/companies',
+    수: 셈((uaeFacts as any).companies, uae낼만한가),
+    말: 'Filed figures from the ADX and DFM disclosure feeds.',
+  },
+].filter((x) => x.키 !== 현재);
+---
+
+<nav class="other-markets" aria-label="Other markets">
+  <h2>The same filings, other markets</h2>
+  <p class="note">
+    We build one page per listed company from each regulator’s own disclosure feed.
+    These are the other three markets we have done so far.
+  </p>
+  <ul>
+    {시장들.map((m) => (
+      <li>
+        <a href={m.주소}>
+          <span class="nm">{m.이름}</span>
+          <span class="n">{m.수 ? `${m.수.toLocaleString('en-GB')} companies` : 'count not measured'}</span>
+          <span class="d">{m.말}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .other-markets { margin: 3rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--rule, #e5e5e5); }
+  .other-markets h2 { font-size: 1.05rem; margin: 0 0 .35rem; }
+  .other-markets .note { margin: 0 0 1rem; font-size: .9rem; color: var(--muted, #666); max-width: 62ch; }
+  .other-markets ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+  .other-markets a { display: block; padding: .85rem 1rem; border: 1px solid var(--rule, #e5e5e5);
+    border-radius: 6px; text-decoration: none; color: inherit; }
+  .other-markets a:hover { border-color: var(--ink, #222); }
+  .other-markets .nm { display: block; font-weight: 600; }
+  .other-markets .n { display: block; font-size: .85rem; color: var(--muted, #666); margin-top: .1rem; }
+  .other-markets .d { display: block; font-size: .82rem; color: var(--muted, #666); margin-top: .4rem; line-height: 1.45; }
+</style>

@@ -9,6 +9,8 @@
  * ⛔ 그래도 사전에 없는 이름은 여전히 null 이다. 짐작해서 붙이지 않는다.
  */
 import Base from '../../layouts/Base.astro';
+/* 🔴 [2026-10-17] 나라 문끼리 서로 걸어 준다 — 조각의 머리글에 잰 수가 있다 */
+import OtherMarkets from '../../components/OtherMarkets.astro';
 import { SITE_URL } from '../../consts';
 import tape from '../../data/taiwan-financials-tape.json';
 import { 주소표만들기 } from '../../lib/company-slug.mjs';
@@ -173,6 +175,8 @@ const jsonLd = {
         capital stock: 388 of 396 came to exactly 1,000.
       </p>
     </footer>
+
+    <OtherMarkets 현재="taiwan" />
   </article>
 </Base>
 
