@@ -58,6 +58,12 @@ export const 문들 = [
   { 자원: 'sc-domain:100yearmap.com', 주소: 'https://100yearmap.com/rankings', 아래: 60 },
   { 자원: 'sc-domain:100yearmap.com', 주소: 'https://100yearmap.com/all', 아래: 50 },
   { 자원: 'sc-domain:100yearmap.com', 주소: 'https://100yearmap.com/research', 아래: 40 },
+  /* 🔴 [2026-10-17] K Culture Wire — 기사 문이 2026-08-24 에 와서 보고 안 실렸다 */
+  { 자원: 'sc-domain:kculturewire.com', 주소: 'https://www.kculturewire.com/articles', 아래: 900 },
+  { 자원: 'sc-domain:kculturewire.com', 주소: 'https://www.kculturewire.com/person', 아래: 800 },
+  { 자원: 'sc-domain:kculturewire.com', 주소: 'https://www.kculturewire.com/actors', 아래: 300 },
+  { 자원: 'sc-domain:kculturewire.com', 주소: 'https://www.kculturewire.com/data', 아래: 120 },
+  { 자원: 'sc-domain:kculturewire.com', 주소: 'https://www.kculturewire.com/all-ten', 아래: 60 },
 ];
 
 /**
