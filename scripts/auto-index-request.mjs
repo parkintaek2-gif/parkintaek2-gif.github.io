@@ -65,6 +65,8 @@ export const 문들 = [
   { 자원: 'sc-domain:kculturewire.com', 주소: 'https://www.kculturewire.com/actors', 아래: 300 },
   { 자원: 'sc-domain:kculturewire.com', 주소: 'https://www.kculturewire.com/data', 아래: 120 },
   { 자원: 'sc-domain:kculturewire.com', 주소: 'https://www.kculturewire.com/all-ten', 아래: 60 },
+  /* 🔴 [2026-10-18] klifemap — /all 자체가 "URL is unknown to Google", 아래 1,295개 전부 잠김(2번, 10-17 13:19 제안) */
+  { 자원: 'sc-domain:klifemap.ai', 주소: 'https://klifemap.ai/all', 아래: 1295 },
 ];
 
 /**
