@@ -1,5 +1,5 @@
-# 잰날 2026-10-13
-# 오늘셈 5
+# 잰날 2026-10-18
+# 오늘셈 62
 # ⛔ 이 파일을 지우면 「오늘 새로 난 지면」을 하루 동안 못 센다
 https://klifemap.ai/
 https://klifemap.ai/content
@@ -58,6 +58,8 @@ https://klifemap.ai/man-nai.html
 https://klifemap.ai/cheongan-jiji.html
 https://klifemap.ai/sinnyeon-unse.html
 https://klifemap.ai/ilju/
+https://klifemap.ai/unse/
+https://klifemap.ai/data/
 https://klifemap.ai/ilju/gapja.html
 https://klifemap.ai/ilju/eulchuk.html
 https://klifemap.ai/ilju/byeongin.html
@@ -118,6 +120,7 @@ https://klifemap.ai/ilju/gyeongsin.html
 https://klifemap.ai/ilju/sinyu.html
 https://klifemap.ai/ilju/imsul.html
 https://klifemap.ai/ilju/gyehae.html
+https://klifemap.ai/articles/
 https://klifemap.ai/articles/ko-1.html
 https://klifemap.ai/articles/ko-2.html
 https://klifemap.ai/articles/ko-3.html
@@ -142,9 +145,56 @@ https://klifemap.ai/articles/zh-3.html
 https://klifemap.ai/articles/zh-4.html
 https://klifemap.ai/articles/zh-5.html
 https://klifemap.ai/today
+https://klifemap.ai/content/ilzin-2026-10-18
+https://klifemap.ai/content/taekil-moving-2027-12
+https://klifemap.ai/content/taekil-opening-2027-12
+https://klifemap.ai/content/taekil-wedding-2027-12
+https://klifemap.ai/content/taekil-surgery-2027-12
+https://klifemap.ai/content/taekil-contract-2027-12
+https://klifemap.ai/content/ilzin-2026-10-17
+https://klifemap.ai/content/taekil-moving-2027-11
+https://klifemap.ai/content/taekil-opening-2027-11
+https://klifemap.ai/content/taekil-wedding-2027-11
+https://klifemap.ai/content/taekil-surgery-2027-11
+https://klifemap.ai/content/taekil-contract-2027-11
+https://klifemap.ai/content/taekil-moving-2027-10
+https://klifemap.ai/content/taekil-opening-2027-10
+https://klifemap.ai/content/taekil-wedding-2027-10
+https://klifemap.ai/content/taekil-surgery-2027-10
+https://klifemap.ai/content/ilzin-2026-10-16
+https://klifemap.ai/content/taekil-contract-2027-10
+https://klifemap.ai/content/taekil-moving-2027-09
+https://klifemap.ai/content/taekil-opening-2027-09
+https://klifemap.ai/content/taekil-wedding-2027-09
+https://klifemap.ai/content/taekil-surgery-2027-09
+https://klifemap.ai/content/taekil-contract-2027-09
+https://klifemap.ai/content/astrology-report-price-calculation-not-ai-zh
+https://klifemap.ai/content/astrology-report-price-calculation-not-ai-ja
+https://klifemap.ai/content/astrology-report-price-calculation-not-ai-en
+https://klifemap.ai/content/taekil-moving-2027-08
+https://klifemap.ai/content/taekil-opening-2027-08
+https://klifemap.ai/content/taekil-wedding-2027-08
+https://klifemap.ai/content/ilzin-2026-10-15
+https://klifemap.ai/content/taekil-surgery-2027-08
+https://klifemap.ai/content/taekil-contract-2027-08
+https://klifemap.ai/content/taekil-moving-2027-07
+https://klifemap.ai/content/taekil-opening-2027-07
+https://klifemap.ai/content/taekil-wedding-2027-07
+https://klifemap.ai/content/taekil-surgery-2027-07
+https://klifemap.ai/content/taekil-contract-2027-07
+https://klifemap.ai/content/taekil-moving-2027-06
+https://klifemap.ai/content/taekil-opening-2027-06
+https://klifemap.ai/content/ilzin-2026-10-14
+https://klifemap.ai/content/taekil-wedding-2027-06
+https://klifemap.ai/content/taekil-surgery-2027-06
+https://klifemap.ai/content/taekil-contract-2027-06
+https://klifemap.ai/content/taekil-moving-2027-05
+https://klifemap.ai/content/taekil-opening-2027-05
+https://klifemap.ai/content/taekil-wedding-2027-05
 https://klifemap.ai/content/taekil-surgery-2027-05
 https://klifemap.ai/content/taekil-contract-2027-05
 https://klifemap.ai/content/taekil-moving-2027-04
+https://klifemap.ai/content/ilzin-2026-10-13
 https://klifemap.ai/content/taekil-opening-2027-04
 https://klifemap.ai/content/taekil-wedding-2027-04
 https://klifemap.ai/content/taekil-surgery-2027-04
@@ -154,6 +204,7 @@ https://klifemap.ai/content/taekil-opening-2027-03
 https://klifemap.ai/content/taekil-wedding-2027-03
 https://klifemap.ai/content/taekil-surgery-2027-03
 https://klifemap.ai/content/taekil-contract-2027-03
+https://klifemap.ai/content/ilzin-2026-10-12
 https://klifemap.ai/content/taekil-moving-2027-02
 https://klifemap.ai/content/taekil-opening-2027-02
 https://klifemap.ai/content/taekil-wedding-2027-02
@@ -163,6 +214,7 @@ https://klifemap.ai/content/ttigh-dwaeji-dwaeji
 https://klifemap.ai/content/ttigh-gae-dwaeji
 https://klifemap.ai/content/ttigh-gae-gae
 https://klifemap.ai/content/ttigh-dak-dwaeji
+https://klifemap.ai/content/ilzin-2026-10-11
 https://klifemap.ai/content/ttigh-dak-gae
 https://klifemap.ai/content/ttigh-dak-dak
 https://klifemap.ai/content/ttigh-wonsungi-dwaeji
@@ -172,6 +224,7 @@ https://klifemap.ai/content/ttigh-wonsungi-wonsungi
 https://klifemap.ai/content/ttigh-yang-dwaeji
 https://klifemap.ai/content/ttigh-yang-gae
 https://klifemap.ai/content/ttigh-yang-dak
+https://klifemap.ai/content/ilzin-2026-10-10
 https://klifemap.ai/content/ttigh-yang-wonsungi
 https://klifemap.ai/content/ttigh-yang-yang
 https://klifemap.ai/content/ttigh-mal-dwaeji
@@ -181,6 +234,7 @@ https://klifemap.ai/content/ttigh-mal-wonsungi
 https://klifemap.ai/content/taekil-moving-2027-01
 https://klifemap.ai/content/taekil-opening-2027-01
 https://klifemap.ai/content/taekil-wedding-2027-01
+https://klifemap.ai/content/ilzin-2026-10-09
 https://klifemap.ai/content/taekil-surgery-2027-01
 https://klifemap.ai/content/ttigh-mal-yang
 https://klifemap.ai/content/taekil-contract-2027-01
@@ -190,6 +244,7 @@ https://klifemap.ai/content/ttigh-baem-gae
 https://klifemap.ai/content/ttigh-baem-dak
 https://klifemap.ai/content/ttigh-baem-wonsungi
 https://klifemap.ai/content/ttigh-baem-yang
+https://klifemap.ai/content/ilzin-2026-10-08
 https://klifemap.ai/content/ttigh-baem-mal
 https://klifemap.ai/content/ttigh-baem-baem
 https://klifemap.ai/content/ttigh-yong-dwaeji
@@ -199,6 +254,7 @@ https://klifemap.ai/content/ttigh-yong-wonsungi
 https://klifemap.ai/content/ttigh-yong-yang
 https://klifemap.ai/content/ttigh-yong-mal
 https://klifemap.ai/content/ttigh-yong-baem
+https://klifemap.ai/content/ilzin-2026-10-07
 https://klifemap.ai/content/ttigh-yong-yong
 https://klifemap.ai/content/ttigh-tokki-dwaeji
 https://klifemap.ai/content/ttigh-tokki-gae
@@ -208,6 +264,7 @@ https://klifemap.ai/content/ttigh-tokki-yang
 https://klifemap.ai/content/ttigh-tokki-mal
 https://klifemap.ai/content/ttigh-tokki-baem
 https://klifemap.ai/content/ttigh-tokki-yong
+https://klifemap.ai/content/ilzin-2026-10-06
 https://klifemap.ai/content/ttigh-tokki-tokki
 https://klifemap.ai/content/ttigh-horangi-dwaeji
 https://klifemap.ai/content/ttigh-horangi-gae
@@ -217,6 +274,7 @@ https://klifemap.ai/content/ttigh-horangi-yang
 https://klifemap.ai/content/ttigh-horangi-mal
 https://klifemap.ai/content/ttigh-horangi-baem
 https://klifemap.ai/content/ttigh-horangi-yong
+https://klifemap.ai/content/ilzin-2026-10-05
 https://klifemap.ai/content/ttigh-horangi-tokki
 https://klifemap.ai/content/ttigh-horangi-horangi
 https://klifemap.ai/content/ttigh-so-dwaeji
@@ -226,6 +284,7 @@ https://klifemap.ai/content/ttigh-so-wonsungi
 https://klifemap.ai/content/ttigh-so-yang
 https://klifemap.ai/content/ttigh-so-mal
 https://klifemap.ai/content/ttigh-so-baem
+https://klifemap.ai/content/ilzin-2026-10-04
 https://klifemap.ai/content/ttigh-so-yong
 https://klifemap.ai/content/ttigh-so-tokki
 https://klifemap.ai/content/ttigh-so-horangi
@@ -235,6 +294,7 @@ https://klifemap.ai/content/ttigh-jwi-gae
 https://klifemap.ai/content/ttigh-jwi-dak
 https://klifemap.ai/content/ttigh-jwi-wonsungi
 https://klifemap.ai/content/ttigh-jwi-yang
+https://klifemap.ai/content/ilzin-2026-10-03
 https://klifemap.ai/content/ttigh-jwi-mal
 https://klifemap.ai/content/ttigh-jwi-baem
 https://klifemap.ai/content/ttigh-jwi-yong
@@ -248,6 +308,7 @@ https://klifemap.ai/content/myth-what-we-dont-sell
 https://klifemap.ai/content/ttigh-jwi-jwi
 https://klifemap.ai/content/tti-2027-dwaeji
 https://klifemap.ai/content/tti-2027-gae
+https://klifemap.ai/content/ilzin-2026-10-02
 https://klifemap.ai/content/tti-2027-dak
 https://klifemap.ai/content/tti-2027-wonsungi
 https://klifemap.ai/content/tti-2027-yang
@@ -261,6 +322,7 @@ https://klifemap.ai/content/myth-yongsin-not-color
 https://klifemap.ai/content/tti-2027-tokki
 https://klifemap.ai/content/tti-2027-horangi
 https://klifemap.ai/content/tti-2027-so
+https://klifemap.ai/content/ilzin-2026-10-01
 https://klifemap.ai/content/tti-2027-jwi
 https://klifemap.ai/content/tti-2026-dwaeji
 https://klifemap.ai/content/tti-2026-gae
