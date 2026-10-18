@@ -21,7 +21,7 @@
 import { 쉬는날인가 as 오늘쉬는날인가 } from './한국-공휴일.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 const require = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
@@ -3249,6 +3249,9 @@ try {
       console.log(`  ${시}시 📮 보냈다 — ${보낼제목.slice(0, 50)} (${나이})`);
     } catch (e) {
       console.log(`  ${시}시 🔴 못 보냈다 — ${String(e?.message ?? e).slice(0, 120)}`);
+      /* 🔴 [2026-10-18] 120자로 자르면 «왜 막혔는지»가 통째로 잘린다. 자물쇠가 적은 까닭이 뒤에 있다. */
+      const 속 = String(e?.stdout ?? "") + String(e?.stderr ?? "");
+      for (const l of 속.split(String.fromCharCode(10))) if (/⛔|🔴/.test(l)) console.log("         " + l.trim());
       없음++;
     } finally { try { fs.rmSync(임시, { force: true }); } catch { /* 넘어간다 */ } }
   }
