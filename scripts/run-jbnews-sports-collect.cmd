@@ -26,6 +26,17 @@ rem    ⇒ /du 0007:10 — 09:23 부터 16:23 까지 여덟 번(09~16시)에서 
 rem    ⭐ 자는 두 겹이다. 여기 창을 누가 다시 늘려도 수집기가 17시부터는 안 보낸다
 rem      (collect-jbnews-sports-articles.mjs 의 보낼때인가()). 한 겹만 믿지 않는다.
 rem
+rem  🔴🔴 [2026-10-18 · 사장님] **토요일 밤 창을 따로 더했다** — 로또 회차 때문이다.
+rem    「매주 토요일 로또 추첨 결과 기사를 쓰게 예약해놔」 · 추첨은 토요일 20:35.
+rem    로또 회차는 토요일 21:30 에 도는데, 위 창(09:23~16:23)에는 «한 번도 안 온다».
+rem    ⇒ 예약은 걸렸는데 기사는 안 나가는 꼴이 된다. 날씨에서 똑같이 겪었다.
+rem    ⭐ 「예약을 걸었다」를 「기사가 온다」로 읽지 않는다. 거두러 가는 창까지 봐야 끝이다.
+rem
+rem    더한 트리거 — 주간 · 토요일 · 21:40 시작 · 30분마다 · 2시간 (21:40~23:40)
+rem    보는 법   Get-ScheduledTask -TaskName "SeoulMarkets-중부매일스포츠-거두기" ^| %{$_.Triggers}
+rem    ⚠ 수집기도 두 겹이다 — 로또거둘때인가() 가 «토요일 21~23시»에만 연다.
+rem      다른 날 밤에 이 창이 떠도 로또는 안 거둔다.
+rem
 rem  거는 법 (관리자 아님)
 rem    schtasks /create /tn "SeoulMarkets-중부매일스포츠-거두기" ^
 rem      /tr "\"C:\Users\User\Documents\GitHub\dataeconomics\scripts\run-jbnews-sports-collect.cmd\"" ^
