@@ -168,6 +168,43 @@ async function 잰다() {
   적는다('돈 내기', '점성학 — 결제 뒤 출생정보를 다시 묻지 않는다',
     { 됐나: /localStorage\.setItem\(AS_PENDING,/.test(점성.글 || '') });
 
+  /* ───── 🔴🔴 돈 내는 자리로 «가는 길»이 있나 ─────
+     사장님 2026-10-18 — 「결제하고 싶어도 결제 못했구만. 징검다리 3개는 왜 확인 안하나」
+
+     ⚠ 위 칸들은 「/checkout.html 이 열리는가」를 잰다. 열린다. 주문도 된다.
+       그런데 손님은 주소를 쳐서 들어오지 않는다 — **읽던 지면에서 눌러서** 간다.
+     ⇒ 읽는 지면마다 «값이 보이는 유료 입구»가 있는지 여기서 센다. */
+  const 읽는지면 = [
+    'astro.html', 'rising-sign.html', 'horoscope.html', 'horoscope-week.html',
+    'astro-synastry.html', 'saju.html', 'mingli-gunghap.html', 'mingli-taekil.html',
+    'mansecalendar.html', 'yuksipgapja.html', 'man-nai.html', 'index.html',
+  ];
+  const 입구없는곳 = [];
+  for (const 쪽 of 읽는지면) {
+    const r = await 물어본다(뿌리주소 + '/' + 쪽);
+    const g = r.글 || '';
+    /* 부품 한 줄이 있거나, 그 지면이 자기 유료 칸을 들고 있으면 입구가 있는 것이다 */
+    const 있나 = /paid-entry\.js/.test(g) || /id="asPaidTop"/.test(g);
+    if (!있나) 입구없는곳.push(쪽);
+  }
+  적는다('돈 내기', '읽는 지면마다 유료 입구가 있다',
+    { 됐나: 입구없는곳.length === 0,
+      덧말: 입구없는곳.length ? ('없는 곳 ' + 입구없는곳.length + ' — ' + 입구없는곳.join(' · '))
+        : (읽는지면.length + '곳 모두') });
+
+  /* 🔴 한 줄이 «있다»를 「그려진다」로 세지 않는다.
+     2026-10-18 에 그 한 줄이 있던 지면도 칸을 안 냈다 — 부품이 가격표를 한 칸 틀린
+     자리에서 읽어 언제나 빈손이었기 때문이다. 읽는 자리가 맞는지 여기서 맞춰 본다. */
+  const 부품 = await 물어본다(뿌리주소 + '/paid-entry.js');
+  const 부품글 = 부품.글 || '';
+  const 값표r = await 물어본다(뿌리주소 + '/api/billing/prices');
+  const 상품칸 = 값표r.j && 값표r.j.table && 값표r.j.table.services;
+  const 맞게읽나 = /table\.services\[/.test(부품글) && !/j\.table\[x\.key\]/.test(부품글);
+  적는다('돈 내기', '유료 입구 부품이 가격표를 «맞는 자리»에서 읽는다',
+    { 됐나: !!(상품칸 && 맞게읽나),
+      덧말: !상품칸 ? '가격표에 services 칸이 없다'
+        : (맞게읽나 ? '' : '🔴 j.table[key] 로 읽고 있다 — 언제나 빈손이다') });
+
   /* ───── ③ 다시 보기 ───── */
   const 대시 = await 물어본다(뿌리주소 + '/dashboard.html');
   적는다('다시 보기', '내 기록 화면이 열린다', { 됐나: 대시.상태 === 200, 덧말: `HTTP ${대시.상태}` });
