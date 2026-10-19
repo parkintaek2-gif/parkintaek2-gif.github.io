@@ -1,0 +1,184 @@
+#!/usr/bin/env node
+/**
+ * check-jbnews-sent-today.mjs
+ *   — **오늘 중부매일 기사가 몇 건 «실제로 나갔나»를 세고, 모자라면 사장님께 알린다.**
+ *
+ * ── 🔴🔴 왜 지었나 (2026-10-19 20:0x · 5번) ──────────────────────────
+ * 사장님 —
+ * ```
+ *   「메일 제 때 보내지 않아 내가 중부매일계정 자동기사를 복사해서 쓴 적이 몇 번 있음.
+ *     제대로 만들어」
+ * ```
+ * 재 보니 거두는 자가 **1시간마다** 돌고 있었다. 회차가 글을 끝내도 최대 한 시간을
+ * 기다렸다가 간다. 게다가 창이 09:23~16:33 으로 좁아 16시 회차가 늦으면 **영영 안 갔다.**
+ * ⇒ 2026-10-19 에 **10분마다 · 08:00~22:00** 으로 고쳤다. 이 자는 그것이 듣는지를 본다.
+ *
+ * ── ⭐ 무엇을 증거로 삼나 — 여기서 한 번 틀렸다 ──────────────────────
+ * 처음에 `docs/보낸메일.tsv` 를 셌다. 그랬더니 「오늘 6건 중 2건만 갔다」가 나왔다.
+ * **틀렸다.** 자국방을 보니 여섯 건이 다 나가 있었다. 그 파일은 적은 뒤 «커밋»해야
+ * 남는데, 작업 스케줄러가 돌 때 커밋이 실패하면 **메일은 갔는데 기록만 사라진다.**
+ *
+ * ⭐ **자국은 send-mail 이 탈 없이 끝난 뒤에만 쓰인다.** 메일에 가장 가까운 증거다.
+ *   ⛔ 「내가 적은 기록」을 「일어난 일」로 읽지 않는다.
+ *
+ * 쓰는 법
+ *   node scripts/check-jbnews-sent-today.mjs              재기만 한다
+ *   node scripts/check-jbnews-sent-today.mjs --알린다      모자라면 사장님께 메일
+ *   node scripts/check-jbnews-sent-today.mjs --자가시험
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+
+const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+export const 사장님 = 'parkintaek2@gmail.com';
+const 자국방 = path.join(뿌리, 'docs/고정업무-마커/중부매일-스포츠-보낸자국');
+
+/** 오늘 (KST) — ⚠ 이 PC 가 이미 KST 다. toISOString 을 쓰지 않는다 */
+export function 오늘(이제 = new Date()) {
+  const p = (n) => String(n).padStart(2, '0');
+  return `${이제.getFullYear()}-${p(이제.getMonth() + 1)}-${p(이제.getDate())}`;
+}
+
+/**
+ * 그날 나가야 하는 회차.
+ * ```
+ * 평일   스포츠 5 (09·11·14·15·16시) + 날씨 1 (10시) = 여섯
+ * 주말   스포츠는 안 쓴다 (사장님 2026-10-04) — 날씨만. 토요일은 로또를 더한다
+ * ```
+ */
+export function 나가야하는것(날, 휴일인가 = false) {
+  const 요일 = new Date(날 + 'T12:00:00').getDay();
+  const 것 = ['10'];                                  /* 날씨는 날마다 */
+  if (![0, 6].includes(요일) && !휴일인가) 것.push('09', '11', '14', '15', '16');
+  if (요일 === 6) 것.push('21');                      /* 토요일 로또 */
+  return 것.sort();
+}
+
+/**
+ * 그날 «실제로 나간» 기사를 자국방에서 읽는다.
+ * 자국 파일 이름은 `2026-10-19_09시.txt`, 첫 줄이 보낸 때, 둘째 줄이 제목이다.
+ */
+export function 나간것(날, 읽기 = 실제로읽기) {
+  return 읽기(날).map(([시, 재료]) => {
+    const 줄 = String(재료).split(/\r?\n/);
+    return { 시, 때: (줄[0] || '').trim(), 제목: (줄[1] || '').trim() };
+  });
+}
+
+function 실제로읽기(날, 방 = 자국방) {
+  let 이름들 = [];
+  try { 이름들 = fs.readdirSync(방); } catch { return []; }
+  return 이름들
+    .filter((f) => f.startsWith(날 + '_') && f.endsWith('시.txt'))
+    .map((f) => [f.slice(날.length + 1, -5), fs.readFileSync(path.join(방, f), 'utf8')]);
+}
+
+/** 자국의 첫 줄(`2026. 10. 19. 오전 9:26:11`)에서 시·분을 뽑는다 */
+export function 때를뽑는다(줄) {
+  const m = String(줄).match(/(오전|오후)\s*(\d{1,2}):(\d{2})/);
+  if (!m) return null;
+  let 시 = Number(m[2]) % 12;
+  if (m[1] === '오후') 시 += 12;
+  return { 시, 분: Number(m[3]) };
+}
+
+/* ── 자가시험 ───────────────────────────────────────── */
+if (process.argv.includes('--자가시험')) {
+  let 통과 = 0, 깨짐 = 0;
+  const 본다 = (이름, 한것, 바란것) => {
+    const a = JSON.stringify(한것), b = JSON.stringify(바란것);
+    if (a === b) { 통과++; console.log('  ✅ ' + 이름); }
+    else { 깨짐++; console.log('  🔴 ' + 이름 + '\n     한 것  ' + a + '\n     바란 것 ' + b); }
+  };
+
+  본다('평일은 여섯', 나가야하는것('2026-10-19').length, 6);            /* 월요일 */
+  본다('토요일은 날씨+로또 둘', 나가야하는것('2026-10-17'), ['10', '21']);
+  본다('일요일은 날씨 하나', 나가야하는것('2026-10-18'), ['10']);
+  본다('공휴일은 날씨 하나', 나가야하는것('2026-10-19', true), ['10']);
+
+  const 가짜 = (날) => 날 !== '2026-10-19' ? [] : [
+    ['09', '2026. 10. 19. 오전 9:26:11\n[스포츠] 2026-10-19 09시 — 어쩌고\n받는곳 ' + 사장님],
+    ['10', '2026. 10. 19. 오전 9:58:59\n[날씨] 2026-10-19 10시 — 비\n받는곳 ' + 사장님],
+  ];
+  본다('자국에서 둘을 읽는다', 나간것('2026-10-19', 가짜).length, 2);
+  본다('날짜가 다르면 없다', 나간것('2026-10-18', 가짜).length, 0);
+  본다('회차 번호를 뽑는다', 나간것('2026-10-19', 가짜).map((x) => x.시), ['09', '10']);
+  본다('제목을 뽑는다', 나간것('2026-10-19', 가짜)[1].제목, '[날씨] 2026-10-19 10시 — 비');
+
+  본다('오전 9:26 을 읽는다', 때를뽑는다('2026. 10. 19. 오전 9:26:11'), { 시: 9, 분: 26 });
+  본다('오후 4:11 은 16시다', 때를뽑는다('2026. 10. 19. 오후 4:11:21'), { 시: 16, 분: 11 });
+  본다('오후 12:05 는 정오다', 때를뽑는다('2026. 10. 19. 오후 12:05:00'), { 시: 12, 분: 5 });
+  본다('못 읽으면 null', 때를뽑는다('어쩌고'), null);
+
+  console.log(`\n  ${깨짐 ? '🔴' : '✅'} ${통과}/${통과 + 깨짐}`);
+  process.exit(깨짐 ? 1 : 0);
+}
+
+/* ── 잰다 ──────────────────────────────────────────── */
+const 날 = 오늘();
+const 바란것 = 나가야하는것(날);
+const 간것 = 나간것(날);
+const 지금시 = new Date().getHours();
+
+const 닿은것 = [], 빠진것 = [], 아직인것 = [], 늦은것 = [];
+for (const 시 of 바란것) {
+  const 맞는것 = 간것.find((x) => x.시 === 시);
+  if (!맞는것) {
+    if (지금시 < Number(시)) 아직인것.push(시);
+    else 빠진것.push(시);
+    continue;
+  }
+  const t = 때를뽑는다(맞는것.때);
+  const 늦음 = t ? (t.시 * 60 + t.분) - Number(시) * 60 : null;
+  닿은것.push({ 시, 때: t ? `${String(t.시).padStart(2, '0')}:${String(t.분).padStart(2, '0')}` : '?', 늦음 });
+  if (늦음 !== null && 늦음 > 30) 늦은것.push(`${시}시(${늦음}분)`);
+}
+
+console.log('■ 오늘 나간 중부매일 기사 — ' + 날);
+console.log('  나간 것 ' + 닿은것.length + ' / ' + 바란것.length + '\n');
+for (const x of 닿은것) {
+  const 꼬리 = x.늦음 === null ? '' : x.늦음 > 30 ? `  🔴 ${x.늦음}분 늦다` : `  (+${x.늦음}분)`;
+  console.log('  ✅ ' + (x.시 + '시').padEnd(6) + x.때 + 꼬리);
+}
+for (const x of 빠진것) console.log('  🔴 ' + (x + '시').padEnd(6) + '안 갔다');
+for (const x of 아직인것) console.log('  ⬜ ' + (x + '시').padEnd(6) + '아직 때가 안 됐다');
+
+if (!빠진것.length && !늦은것.length) { console.log('\n✅ 때가 지난 것은 다 제때 나갔다'); process.exit(0); }
+
+const 탈 = [];
+if (빠진것.length) 탈.push('안 간 것 ' + 빠진것.map((x) => x + '시').join(' · '));
+if (늦은것.length) 탈.push('30분 넘게 늦은 것 ' + 늦은것.join(' · '));
+console.log('\n🔴 ' + 탈.join(' / '));
+
+if (!process.argv.includes('--알린다')) {
+  console.log('   (--알린다 를 붙이면 사장님께 메일한다)');
+  process.exit(1);
+}
+
+/* ⭐ 화면에만 찍는 것은 요청이 아니다 — 사장님께 보낸다 (사장님 2026-10-19) */
+const 글머리 = `사장님,
+
+오늘(${날}) 중부매일 기사 ${바란것.length}건 가운데 탈이 있어 알려 드립니다.
+
+${탈.map((x) => '· ' + x).join('\n')}
+
+나간 것 — ${닿은것.map((x) => x.시 + '시 ' + x.때).join(' · ') || '없습니다'}
+
+제가 까닭을 찾아 보내겠습니다. 중부매일 계정에서 복사하지 않으셔도 됩니다.
+
+— 5번
+`;
+const 쪽지 = path.join(뿌리, 'archive/tmp-기사빠짐.txt');
+fs.mkdirSync(path.dirname(쪽지), { recursive: true });
+fs.writeFileSync(쪽지, 글머리, 'utf8');
+try {
+  execFileSync(process.execPath, [path.join(뿌리, 'scripts/send-mail.mjs'),
+    `--받는곳=${사장님}`, `--제목=[기사 탈] ${날} — ${탈.join(' / ')}`,
+    `--글=${쪽지}`, '--흐르게', '--보낸다'], { cwd: 뿌리, stdio: 'inherit' });
+  console.log('✅ 사장님께 알렸다');
+} catch (e) {
+  console.log('🔴 메일을 못 보냈다 — ' + String(e?.message ?? e).slice(0, 200));
+  process.exitCode = 1;
+}
