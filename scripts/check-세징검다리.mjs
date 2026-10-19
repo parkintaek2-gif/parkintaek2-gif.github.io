@@ -199,7 +199,13 @@ async function 잰다() {
   const 부품글 = 부품.글 || '';
   const 값표r = await 물어본다(뿌리주소 + '/api/billing/prices');
   const 상품칸 = 값표r.j && 값표r.j.table && 값표r.j.table.services;
-  const 맞게읽나 = /table\.services\[/.test(부품글) && !/j\.table\[x\.key\]/.test(부품글);
+  /* 🔴 [2026-10-19] 여기서 `table.services[` 라고 «대괄호까지» 붙여 찾고 있었다.
+     그런데 고친 부품은 한 번 변수에 담아 쓴다 — `j.table.services;` 다음 `상품표[x.key]`.
+     그래서 라이브가 바르게 고쳐진 뒤에도 이 칸만 빨간불로 남았다.
+     ⭐ 내가 직접 잰 것과 자가 다르게 말하면 «자»를 먼저 의심한다.
+       잰 것: 라이브에 table.services 1회·j.table[x.key] 0회. 코드는 옳았고 자가 좁았다.
+     ⛔ 「어떻게 썼나」(글자 모양)로 재지 않는다. 「틀린 자리를 읽나」만 막는다. */
+  const 맞게읽나 = /table\.services/.test(부품글) && !/j\.table\[\s*x\.key\s*\]/.test(부품글);
   적는다('돈 내기', '유료 입구 부품이 가격표를 «맞는 자리»에서 읽는다',
     { 됐나: !!(상품칸 && 맞게읽나),
       덧말: !상품칸 ? '가격표에 services 칸이 없다'
