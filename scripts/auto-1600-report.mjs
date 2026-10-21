@@ -267,7 +267,28 @@ if (내가진입점) {
   const 임시md = path.join(뿌리, 'docs', '보고서', `${날}-16시업무보고-5번-자동.md`);
   fs.mkdirSync(path.dirname(임시md), { recursive: true });
   fs.writeFileSync(임시md, 글, 'utf8');
-  console.log(`   커밋 ${재료.커밋.length} · 메일 ${재료.메일.length} · 마커 ${재료.마커.size}갈래`);
+  console.log(`   커밋 ${재료.커밋.length} · 메일 ${재료.메일.length} · 마커 ${재료.마커.size}종류`);
+
+  /* 🔴🔴 [2026-10-22 · 사장님] 「보고서에도 순한글 쓰지말아야지」
+     이 자는 사람 없이 «저절로» 보내는 자라, 사람이 눈으로 거를 기회가 아예 없다.
+     ⇒ 나가기 전에 스스로 잰다. 걸리면 안 보내고 멈춘다 — 틀린 글이 저절로 나가는 것보다
+       그날 보고가 비는 쪽이 낫다(자물쇠가 매시 05분에 그 빈자리를 울린다).
+     ⚠ 사람이 쓴 글이 아니라 **이 자의 틀**에 순한글이 있으면 날마다 샌다. */
+  try {
+    const { 재기 } = await import('./순한글-금지어.mjs');
+    const 걸린것 = 재기(글);
+    if (걸린것.length) {
+      console.log('\n🔴 순한글이 들어 있다 — **안 보낸다.**');
+      for (const x of 걸린것) console.log(`   「${x.말}」→「${x.대신}」 ${x.수}곳`);
+      console.log('   ⛔ 이 자의 틀을 고쳐야 한다. 날마다 같은 자리에서 샌다.');
+      process.exit(1);
+    }
+  } catch (e) {
+    /* ⛔ 검사를 «못 돌린 것»을 「통과」로 읽지 않는다 — 못 쟀으면 못 쟀다고 적고 멈춘다 */
+    console.log(`\n🔴 순한글 검사를 못 돌렸다 — ${String(e?.message ?? e).slice(0, 120)}`);
+    console.log('   ⛔ 못 쟀으면 안 보낸다. 「아마 괜찮다」로 넘기지 않는다.');
+    process.exit(1);
+  }
 
   /* 🔴 [2026-10-03] 사장님 「**표가 다 깨진다. 슬라이드나 워드로 보내**」 — PDF 를 걷었다 */
   const pdf = 임시md.replace(/\.md$/, '.docx');
