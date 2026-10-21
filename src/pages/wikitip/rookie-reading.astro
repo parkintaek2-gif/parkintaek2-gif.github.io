@@ -50,7 +50,7 @@ const 으뜸배 = Math.round(배수(으뜸) * 10) / 10;
 
 /* 🔴 제목·본문이 말하는 수가 자료와 어긋나면 빌드를 세운다 */
 if (신인.length !== 5) throw new Error(`2025년 데뷔 팀이 다섯이 아니라 ${신인.length}팀이다 — 제목이 「다섯」이라 말한다.`);
-if (오름.length + 그대로.length + 내림.length !== 신인.length) throw new Error('세 갈래를 더해도 다섯이 아니다.');
+if (오름.length + 그대로.length + 내림.length !== 신인.length) throw new Error('세 종류를 더해도 다섯이 아니다.');
 if (오름.length !== 1) throw new Error(`올라간 팀이 하나가 아니라 ${오름.length}팀이다 — 제목을 다시 써야 한다.`);
 if (으뜸.label !== 'Cortis') throw new Error(`가장 많이 오른 팀이 Cortis 가 아니라 ${으뜸.label} 이다.`);
 if (으뜸배 !== 9.5) throw new Error(`제목이 9.5배라 말하는데 자료는 ${배수(으뜸).toFixed(1)}배다.`);

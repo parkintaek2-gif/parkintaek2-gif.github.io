@@ -47,7 +47,7 @@ if (d.counts.up !== 오름.length || d.counts.flat !== 그대로.length || d.cou
   throw new Error(`자료의 셈과 지면의 셈이 다르다 — 자료 ${JSON.stringify(d.counts)}`);
 }
 if (오름.length !== 0) throw new Error(`오른 건이 ${오름.length}건 생겼다 — 제목이 「하나도 없다」라 말한다. 다시 써야 한다.`);
-if (오름.length + 그대로.length + 내림.length !== 다찬것.length) throw new Error('세 갈래를 더해도 여섯이 아니다.');
+if (오름.length + 그대로.length + 내림.length !== 다찬것.length) throw new Error('세 종류를 더해도 여섯이 아니다.');
 
 const 쉼표 = (n: number | null) => (n === null ? '—' : Number(n).toLocaleString('en-US'));
 const 큰순 = [...다찬것].sort((a, b) => (b.ratio ?? 0) - (a.ratio ?? 0));
