@@ -116,7 +116,15 @@ if (내가실행됐다) {
   console.log(`✅ 열쇠 파일 있음 (32자) · ${집}/${열쇠.이름} 에서 열린다`);
 
   let 주소들;
-  if (process.argv.includes('--전부')) {
+  /* 🔴 [2026-10-22] 새로 낸 두 장만 알리고 싶은데 길이 「고정 지면」과 「전부」뿐이었다.
+     사이트맵을 통째로 다시 보내는 것은 과한 제출이라 받는 쪽 신뢰를 깎는다.
+     ⛔ 없는 주소를 통보해도 신뢰가 깎인다 — 200 이 나오는 것만 적어 넣는다. */
+  const 골라낸자리 = process.argv.indexOf('--골라');
+  if (골라낸자리 > -1 && process.argv[골라낸자리 + 1]) {
+    주소들 = process.argv[골라낸자리 + 1].split(',').map((s) => s.trim()).filter(Boolean)
+      .map((s) => (s.startsWith('http') ? s : 집 + (s.startsWith('/') ? s : '/' + s)));
+    console.log(`골라서 ${주소들.length}개를 보낸다`);
+  } else if (process.argv.includes('--전부')) {
     const 답 = await fetch(집 + '/sitemap.xml');
     주소들 = 사이트맵주소(await 답.text());
     console.log(`사이트맵에서 ${주소들.length.toLocaleString()}개를 뽑았다`);
