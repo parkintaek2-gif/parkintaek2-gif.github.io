@@ -89,7 +89,8 @@ if (내가실행됐다) {
   try {
     if (걸음 === '본다') {
       const p = await b.newPage(); 닫을탭.push(p);
-      await p.goto('https://nid.naver.com/user2/help/myInfo', { waitUntil: 'domcontentloaded', timeout: 25000 });
+      /* 🔴 [2026-10-22] 25초로는 모자랐다 — 이 화면이 느리다. 넉넉히 준다 */
+      await p.goto('https://nid.naver.com/user2/help/myInfo', { waitUntil: 'domcontentloaded', timeout: 90000 });
       await new Promise((r) => setTimeout(r, 2500));
       const 글 = await p.evaluate(() => document.body.innerText.replace(/\s+/g, ' ').slice(0, 400));
       console.log(들어갔나(글) ? '✅ 로그인돼 있다' : '🔴 로그인 안 돼 있다');
