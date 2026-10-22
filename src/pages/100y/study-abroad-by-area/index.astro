@@ -1,0 +1,206 @@
+---
+/**
+ * /100y/study-abroad-by-area — **해외 대학 진학, 지역별·학교별**
+ *
+ * ── 왜 만들었나 (2026-10-22 저녁 · 1번 · 5번 지시 「지역 × 입시로 네 장 더」) ──
+ * 롱테일  「해외 대학 진학 고등학교」·「유학 많이 가는 지역」을 묻는 사람에게 숫자로 답하는 지면이
+ *         없었다. 공시에 «국외» 칸이 따로 있는데 아무도 동네로 안 갈랐다.
+ *
+ * ── ⭐ 재 보고 바꾼 것 ──────────────────────────────────────────────────
+ * 처음엔 다른 장처럼 «시군구 비율»로 세우려 했다. 재 보니 국외 진학 732명 가운데
+ * **상위 10개 학교가 250명**이고, 횡성군 1위(14.6%)는 학교 한 곳(민족사관고)이 만든 수다.
+ * ⇒ 동네의 성격으로 읽히면 거짓이 된다. 그래서 **학교 표를 먼저**, 동네 표를 다음에 놓고
+ *   동네 표마다 «그 동네 국외 진학의 몇 %가 한 학교인가»를 같이 적는다.
+ *
+ * ⛔ 이 장만 갈래를 거르지 않는다 — 국외 진학은 국제고·외고(특목고)와 자율고에 몰려 있어
+ *   일반고·자율고만 세면 절반 가까이가 빠진다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 진로자료 from '../../../data/100yearmap/school-career.json';
+import schools from '../../../data/100yearmap/pages-school.json';
+import { 시군구로더함, 지역링크 } from '../../../lib/school-area-sum';
+import { 지역가르기 } from '../../../lib/school-area';
+
+const 자료 = 진로자료 as any;
+const 행들 = (자료.자료 as any[]).filter((r) => typeof r.진학률 === 'number');
+const 학교표 = new Map((schools as any[]).map((x) => [String(x.code), x]));
+const 셈 = 시군구로더함(행들, null, (r) => ({ 분모: Number(r.졸업자) || 0, 분자: Number(r.국외) || 0 }));
+
+/* 학교 쪽 — 지역을 가를 수 있는 학교만(동네 표와 같은 모집단) */
+const 학교들 = 행들
+  .map((r) => {
+    const x: any = 학교표.get(String(r.code));
+    const g = x ? 지역가르기(x.주소) : null;
+    return x && g ? { code: String(r.code), 이름: x.title, 갈래: x.고교유형, 지역: g, 졸: r.졸업자, 국외: Number(r.국외) || 0 } : null;
+  })
+  .filter((x): x is NonNullable<typeof x> => !!x && x.국외 > 0)
+  .sort((a, b) => b.국외 - a.국외 || b.졸 - a.졸);
+const 위학교 = 학교들.slice(0, 15);
+const 위10합 = 학교들.slice(0, 10).reduce((s, x) => s + x.국외, 0);
+const 한학교최다 = new Map<string, any>();
+for (const s of 학교들) if (!한학교최다.has(s.지역.열쇠)) 한학교최다.set(s.지역.열쇠, s);
+
+const 위동네 = [...셈.모든곳].filter((x) => x.분자 > 0).sort((a, b) => b.분자 - a.분자 || b.률 - a.률).slice(0, 15);
+const 영곳 = 셈.모든곳.filter((x) => x.분자 === 0).length;
+const 맨위학교 = 위학교[0];
+
+const 수 = (n: number) => Number(n).toLocaleString('ko-KR');
+const 률 = (n: number | null | undefined, 자리 = 1) => (n == null ? '—' : `${n.toFixed(자리)}%`);
+
+const TITLE = `해외 대학 진학 고등학교·지역 — ${수(셈.전체분자)}명 중 상위 10개교가 ${수(위10합)}명`;
+const desc =
+  `해외 대학 진학 많은 고등학교와 지역. 학교알리미 ${자료.출처.공시연도}년 공시에서 졸업한 해에 국외 대학에 등록한 ` +
+  `졸업생은 ${수(셈.전체분자)}명(${률(셈.전체률, 2)})이고, 상위 10개 학교가 ${수(위10합)}명을 차지합니다. ` +
+  `시군구 ${셈.모든곳.length}곳 가운데 ${영곳}곳은 0명입니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '해외 대학 진학 — 고등학교별·시군구별 졸업생 국외 진학자 수',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 자료.출처.이름 },
+    license: 'https://www.kogl.or.kr/info/licenseType1.do',
+    spatialCoverage: '대한민국 시·군·구',
+    variableMeasured: ['졸업자', '국외 진학자'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '해외 대학에 가장 많이 진학하는 고등학교는 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `${자료.출처.공시연도}년 공시 기준 ${위학교.slice(0, 5).map((x) => `${x.이름} ${x.국외}명`).join(', ')} 순입니다. 졸업한 해에 국외 대학에 등록한 사람만 셉니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '고등학교 졸업생 가운데 해외 대학에 바로 가는 사람은 얼마나 되나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `저희가 이은 졸업생 ${수(셈.전체분모)}명 가운데 ${수(셈.전체분자)}명(${률(셈.전체률, 2)})입니다. 상위 10개 학교가 ${수(위10합)}명으로, 몇몇 학교에 몰려 있습니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>해외 대학 진학,<br class="pcbr" /> 어느 학교·동네에서 가나</h1>
+  <p class="sub">
+    고3 졸업생 가운데 <strong>그해 바로 국외 대학에 등록한 사람</strong>을 학교알리미{' '}
+    {자료.출처.공시연도}년 공시에서 셌습니다. 모든 갈래(일반고·자율고·특목고)를 넣었습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">국외 대학에 바로 간 졸업생</p>
+    <p class="answer-num">{수(셈.전체분자)}명</p>
+    <p class="answer-sub">
+      졸업자 {수(셈.전체분모)}명의 {률(셈.전체률, 2)} · 상위 10개 학교가 {수(위10합)}명 ·
+      시군구 {셈.모든곳.length}곳 가운데 {영곳}곳은 0명
+    </p>
+  </div>
+
+  <p>
+    ⚠ <strong>동네보다 학교의 수입니다.</strong> 국외 진학은 몇몇 학교에 몰려 있어서, 그 학교가 있는
+    시군구가 비율 1위가 됩니다. 그래서 학교 표를 먼저 놓고, 동네 표에는 «그 동네에서 가장 많이 보낸 학교»를
+    함께 적었습니다.
+  </p>
+
+  <h2>해외 대학 진학이 많은 고등학교 15곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학교</th><th>지역</th><th>국외 진학</th></tr></thead>
+      <tbody>
+        {위학교.map((x) => (
+          <tr>
+            <th><a href={`/school/${x.code}`}>{x.이름}</a></th>
+            <td>{지역링크(x.지역.열쇠) ? <a href={지역링크(x.지역.열쇠)!}>{x.지역.이름}</a> : x.지역.이름}</td>
+            <td class="num"><strong>{x.국외}명</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    {맨위학교.이름}는 졸업생 {수(맨위학교.졸)}명 가운데 {맨위학교.국외}명이 국외 대학에 등록했습니다.
+    학교 갈래는 공시·NEIS 의 것을 그대로 썼습니다.
+  </p>
+
+  <h2>해외 대학 진학이 많은 시군구 15곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>국외 진학</th><th>가장 많이 보낸 학교</th></tr></thead>
+      <tbody>
+        {위동네.map((x) => {
+          const 한곳 = 한학교최다.get(x.열쇠);
+          return (
+            <tr>
+              <th>{지역링크(x.열쇠) ? <a href={지역링크(x.열쇠)!}>{x.시도} {x.이름}</a> : `${x.시도} ${x.이름}`}</th>
+              <td class="num"><strong>{x.분자}명</strong></td>
+              <td>{한곳 ? `${한곳.이름} ${한곳.국외}명(${Math.round((한곳.국외 / x.분자) * 100)}%)` : '—'}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>시도별 해외 대학 진학</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>졸업자</th><th>국외 진학</th><th>비율</th></tr></thead>
+      <tbody>
+        {셈.시도들.map((x) => (
+          <tr>
+            <th>{x.이름}</th>
+            <td class="num">{수(x.분모)}명</td>
+            <td class="num">{수(x.분자)}명</td>
+            <td class="num"><strong>{률(x.률, 2)}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>졸업한 해의 등록만 셉니다.</strong> 한 해 준비해서 나간 사람, 국내 대학을 다니다 옮긴
+      사람은 들어가지 않습니다. 해외 유학 전체의 수가 아닙니다.</li>
+    <li>어느 나라·어느 대학인지는 공시에 없습니다.</li>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 0명인 동네에서도 나가는 사람은 있고,
+      다음 해에 나가는 사람도 있습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/university-rate-by-area">4년제 대학 진학률 지역별</a></li>
+    <li><a href="/junior-college-rate-by-area">전문대 진학률 지역별</a></li>
+    <li><a href="/repeat-rate-by-area">재수생 비율 지역별</a></li>
+    <li><a href="/dropout-by-area">고등학교 학업중단율 지역별</a></li>
+    <li><a href="/ranking-university-global">세계 대학 순위 속 한국 대학</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>졸업생 진로</strong> — {자료.출처.이름} {자료.출처.공시연도}년 공시 ·{' '}
+    {자료.출처.이용허락범위} · 저희가 받은 날 {자료.통계.받은때}
+  </p>
+  <p class="note"><strong>학교 목록·갈래·주소</strong> — NEIS 교육정보 개방 포털</p>
+  <p class="note">
+    ⚠ 사람 수는 공시된 값이고, <strong>시군구로 더한 것과 비율은 저희가 낸 것</strong>입니다.
+    주소로 시군구를 가를 수 없는 학교는 뺐습니다.
+  </p>
+
+  <NextQuestionBrief 모은것="학교알리미 졸업생 진로 공시의 국외 진학 칸을 학교·시군구로 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

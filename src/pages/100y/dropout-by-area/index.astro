@@ -1,0 +1,212 @@
+---
+/**
+ * /100y/dropout-by-area — **고등학교 학업중단율 지역별** (시·군·구)
+ *
+ * ── 왜 만들었나 (2026-10-22 저녁 · 1번 · 5번 지시 「지역 × 입시로 네 장 더」) ──
+ * 이슈  2027학년도 수능 원서 접수에서 검정고시 출신 지원자가 2만2,767명(4.1%)으로
+ *       1994학년도 이후 가장 많았다(KICE 2026-09-08 발표 · 머니투데이·한경 등 보도).
+ *       학교를 그만두고 검정고시로 수능을 보는 길 — 그 앞단이 학업중단이다.
+ * 축    /report/area/<시군구> 손님의 다음 물음 — 「우리 동네 고등학교는 그만두는 사람이 많나」.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 「학업중단 = 검정고시 = 수능」으로 잇지 않는다. 이 공시는 중단한 «수»만 있고 그 뒤 길은 없다.
+ * ⛔ 일반고·자율고만 표로 세운다 — 특성화고는 중단의 성격이 달라(취업 등) 섞으면 동네가 아니라
+ *   «특성화고가 있나»를 재게 된다. 모든 갈래는 시도 표에 따로 둔다.
+ * ⛔ 「전국 학업중단률」이라 쓰지 않는다 — school-dropout.json 의 「⛔ 쓰면 안 되는 말」.
+ * ⛔ 재학생 900명 미만(학년당 300명 꼴)은 표에서 뺀다 — 한두 명이 흔든다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 중단자료 from '../../../data/100yearmap/school-dropout.json';
+import { 시군구로더함, 중간값, 지역링크 } from '../../../lib/school-area-sum';
+
+const 자료 = 중단자료 as any;
+const 문턱 = 900;
+const 뽑기 = (r: any) => ({ 분모: Number(r.재학생) || 0, 분자: Number(r.학업중단) || 0 });
+const 셈 = 시군구로더함(자료.자료 as any[], /일반고|자율고/, 뽑기);
+const 모든갈래 = 시군구로더함(자료.자료 as any[], null, 뽑기);
+const 올린곳 = 셈.올린곳(문턱);
+const 못올린곳 = 셈.모든곳.length - 올린곳.length;
+const 가운데 = 중간값(올린곳.map((x) => x.률));
+const 높은쪽 = 올린곳.slice(0, 15);
+const 낮은쪽 = 올린곳.slice(-10).reverse();
+const 맨위 = 올린곳[0];
+const 맨아래 = 올린곳[올린곳.length - 1];
+const 높은쪽서울 = 높은쪽.filter((x) => x.시도 === '서울특별시').length;
+
+const 수 = (n: number) => Number(n).toLocaleString('ko-KR');
+const 률 = (n: number | null | undefined) => (n == null ? '—' : `${n.toFixed(1)}%`);
+const 률2 = (n: number | null | undefined) => (n == null ? '—' : `${n.toFixed(2)}%`);
+
+const TITLE = `고등학교 학업중단율 지역별 — 시군구 ${올린곳.length}곳, ${맨위.이름} ${률(맨위.률)}`;
+const desc =
+  `고등학교 학업중단율(자퇴 등) 지역별 통계. 일반고·자율고 재학생 가운데 한 해 동안 학업을 중단한 비율을 ` +
+  `시군구 ${올린곳.length}곳으로 갈랐습니다. ${맨위.시도} ${맨위.이름} ${률(맨위.률)}부터 ` +
+  `${맨아래.시도} ${맨아래.이름} ${률(맨아래.률)}까지, 가운데값 ${률(가운데)}. 학교알리미 ${자료.출처.공시연도}년 공시.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '고등학교 학업중단율 지역별 — 시군구별 일반고·자율고 재학생 학업중단 비율',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 자료.출처.이름 },
+    license: 'https://www.kogl.or.kr/info/licenseType1.do',
+    spatialCoverage: '대한민국 시·군·구',
+    variableMeasured: ['재학생', '학업중단 학생', '학업중단율'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '고등학교 자퇴(학업중단)가 많은 지역은 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `일반고·자율고 재학생 기준으로 ${높은쪽.slice(0, 5).map((x) => `${x.시도} ${x.이름} ${률(x.률)}`).join(', ')} 순입니다. 재학생 ${수(문턱)}명 미만인 곳은 뺐습니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '학업중단과 검정고시 수능 지원자는 관계가 있나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: '2027학년도 수능에서 검정고시 출신 지원자는 2만2,767명으로 1994학년도 이후 가장 많았습니다(한국교육과정평가원 발표). 다만 학교알리미 공시는 학업을 중단한 학생 수만 있고 그 뒤에 검정고시를 봤는지는 없어, 두 수를 이어 셀 수는 없습니다.',
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>고교 학업중단율 지역별,<br class="pcbr" /> 시군구 {올린곳.length}곳</h1>
+  <p class="sub">
+    고등학교를 다니다 <strong>한 해 동안 그만둔 학생</strong>은 동네마다 얼마나 다를까요?
+    학교알리미 {자료.출처.공시연도}년 공시를 일반고·자율고만 골라 시군구로 더했습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">재학생 가운데 학업중단 — 시군구 {올린곳.length}곳</p>
+    <p class="answer-num">{률(맨아래.률)} ~ {률(맨위.률)}</p>
+    <p class="answer-sub">
+      가운데값 {률(가운데)} · 재학생 {수(셈.전체분모)}명 가운데 {수(셈.전체분자)}명({률2(셈.전체률)})
+    </p>
+  </div>
+
+  <p>
+    올해 수능(11월 19일) 원서 접수에서 <strong>검정고시 출신 지원자가 2만2,767명</strong>으로
+    1994학년도 이후 가장 많았습니다(한국교육과정평가원 2026-09-08 발표). 학교를 그만두고 다른 길로
+    수능을 보는 사람이 늘었다는 뜻입니다. ⚠ 다만 <strong>이 지면의 학업중단 수와 검정고시 지원자를
+    이어 셀 수는 없습니다</strong> — 공시에는 그만둔 수만 있고, 그 뒤에 무엇을 했는지는 없습니다.
+  </p>
+
+  <h2>학업중단율이 높은 시군구 15곳</h2>
+  <p>
+    재학생 {수(문턱)}명 이상인 {올린곳.length}곳 가운데입니다. 선에 못 미친 {못올린곳}곳은 표에서
+    뺐고 전체 셈에는 넣었습니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>학교</th><th>재학생</th><th>학업중단</th></tr></thead>
+      <tbody>
+        {높은쪽.map((x) => (
+          <tr>
+            <th>{지역링크(x.열쇠) ? <a href={지역링크(x.열쇠)!}>{x.시도} {x.이름}</a> : `${x.시도} ${x.이름}`}</th>
+            <td class="num">{x.곳}곳</td>
+            <td class="num">{수(x.분모)}명</td>
+            <td class="num"><strong>{률(x.률)}</strong> <span class="sm">({수(x.분자)}명)</span></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    15곳 가운데 <strong>{높은쪽서울}곳이 서울</strong>이고, 나머지는 군·중소도시가 많습니다.
+    대도시와 농촌이 함께 위에 있어 «도시냐 시골이냐» 한 가지로는 설명되지 않습니다.
+    까닭은 이 자료로 재지 않았습니다.
+  </p>
+
+  <h2>학업중단율이 낮은 시군구 10곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>학교</th><th>재학생</th><th>학업중단</th></tr></thead>
+      <tbody>
+        {낮은쪽.map((x) => (
+          <tr>
+            <th>{지역링크(x.열쇠) ? <a href={지역링크(x.열쇠)!}>{x.시도} {x.이름}</a> : `${x.시도} ${x.이름}`}</th>
+            <td class="num">{x.곳}곳</td>
+            <td class="num">{수(x.분모)}명</td>
+            <td class="num"><strong>{률(x.률)}</strong> <span class="sm">({수(x.분자)}명)</span></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>시도별 학업중단율</h2>
+  <p>
+    일반고·자율고와, 특성화고·특목고까지 넣은 모든 갈래를 나란히 둡니다. 갈래별 차이는{' '}
+    <a href="/dropout-by-school-type">고교유형별 학업중단률</a>에 있습니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>일반고·자율고</th><th>모든 갈래</th></tr></thead>
+      <tbody>
+        {셈.시도들.map((x) => {
+          const 전 = 모든갈래.시도들.find((y) => y.이름 === x.이름);
+          return (
+            <tr>
+              <th>{x.이름}</th>
+              <td class="num"><strong>{률2(x.률)}</strong> <span class="sm">({수(x.분자)}명)</span></td>
+              <td class="num">{전 ? 률2(전.률) : '못 모음'} {전 && <span class="sm">({수(전.분자)}명)</span>}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>학업중단이 곧 실패가 아닙니다.</strong> 검정고시로 일찍 수능을 보거나, 유학·대안교육으로
+      옮기는 사람도 이 칸에 들어갑니다. 공시는 그 갈래를 나누지 않습니다.</li>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong></li>
+    <li>학교가 있는 곳으로 셌습니다. 학생이 사는 곳과 다를 수 있습니다.</li>
+    <li>한 해 동안의 수입니다. 같은 학생이 3년 동안 겪는 확률이 아닙니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/repeat-rate-by-area">재수생 비율 지역별</a></li>
+    <li><a href="/university-rate-by-area">4년제 대학 진학률 지역별</a></li>
+    <li><a href="/junior-college-rate-by-area">전문대 진학률 지역별</a></li>
+    <li><a href="/study-abroad-by-area">해외 대학 진학 지역별·학교별</a></li>
+    <li><a href="/n-su-ratio-by-province">N수생 비율 시도별</a></li>
+    <li>우리 동네 고등학교 한 장 — <a href="/region">지역 목록</a>에서 고르십시오</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학업중단 학생 수</strong> — {자료.출처.이름} {자료.출처.공시연도}년 공시 「{자료.출처.공시항목}」 ·{' '}
+    {자료.출처.이용허락범위} · 저희가 받은 날 {자료.통계.받은때}
+  </p>
+  <p class="note"><strong>학교 목록·갈래·주소</strong> — NEIS 교육정보 개방 포털</p>
+  <p class="note">
+    <strong>검정고시 출신 수능 지원자</strong> — 한국교육과정평가원 2027학년도 수능 응시원서 접수 결과
+    (2026-09-08 발표, 언론 보도로 확인)
+  </p>
+  <p class="note">
+    ⚠ 사람 수는 공시된 값이고, <strong>시군구로 더한 것과 비율은 저희가 낸 것</strong>입니다.
+    나라가 발표한 학업중단률이 아닙니다.
+  </p>
+
+  <NextQuestionBrief 모은것="학교알리미 학업중단 공시를 시군구로 더한 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .sm { font-size: 0.85em; color: var(--muted, #666); }
+</style>

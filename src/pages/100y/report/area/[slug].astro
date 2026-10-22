@@ -42,6 +42,8 @@ import 진로자료 from '../../../../data/100yearmap/school-career.json';
 import { 단위 as 전체지역 } from '../../../../data/100yearmap/areas.json';
 import { 지역가르기, 슬러그풀기, 한벌로팔만한가, 열쇠만들기 } from '../../../../lib/school-area';
 import { 퍼센트, 한자리 } from '../../../../lib/number-format';
+import 중단자료 from '../../../../data/100yearmap/school-dropout.json';
+import { 입시줄들, 몇째 } from '../../../../lib/school-area-sum';
 /* 🔴 값과 다음 칸은 **한 곳**에서 온다 — 페이지마다 9,900 을 적으면 값이 바뀔 때 일부만 고쳐진다 */
 import {
   값글자, 한벌에드는것, 다음칸, 알림메일주소, 파는지면알림, 무료지면알림, 파는지면검색, 미리보기, 미리보기그만, 사는주소, 사기전안내,
@@ -308,6 +310,17 @@ const faqJsonLd = {
     },
   ],
 };
+/**
+ * ⭐ 2026-10-22 저녁 · 1번 (5번 지시) — **이 지면으로 들어온 손님이 다음에 볼 것.**
+ *   네이버 손님은 거의 다 이 지면으로 들어온다(5번 7일 실측). 그런데 여기서 «우리 동네의
+ *   입시 숫자»로 나가는 길이 없었다. 다섯 축에서 이 동네 한 줄씩을 꺼내 놓는다.
+ * ⛔ 문턱에 못 미친 동네는 순위를 쓰지 않는다 — 「못 올림」으로 적는다. 0 으로 채우지 않는다.
+ */
+const 이동네열쇠 = 열쇠만들기(시도, 구);
+const 입시줄 = (입시줄들((진로자료 as any).자료, (중단자료 as any).자료) as any[]).map((축) => {
+  const 내것 = 축.셈.모든곳.find((x: any) => x.열쇠 === 이동네열쇠) ?? null;
+  return { ...축, 내것, 째: 몇째(축.줄, 이동네열쇠), 몇곳: 축.줄.length };
+});
 const 합친jsonLd = [가린표, faqJsonLd].filter(Boolean);
 const 최종jsonLd = 합친jsonLd.length > 1 ? 합친jsonLd : 합친jsonLd[0];
 ---
@@ -630,6 +643,38 @@ const 최종jsonLd = 합친jsonLd.length > 1 ? 합친jsonLd : 합친jsonLd[0];
       </>
     )
   }
+
+  <h2>{구}, 입시 숫자로 보면</h2>
+  <p class="note">
+    같은 공시를 전국 시군구와 나란히 세웠습니다. 순위는 높을수록 그 비율이 큰 쪽입니다 —
+    좋고 나쁨이 아닙니다. 이것은 통계이지 당신이 아닙니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>축</th><th>{구}</th><th>전국에서</th></tr></thead>
+      <tbody>
+        {입시줄.map((축: any) => (
+          <tr>
+            <th><a href={축.길}>{축.이름}</a></th>
+            <td class="num">
+              {축.내것
+                ? 축.명수
+                  ? `${축.내것.분자.toLocaleString('ko-KR')}명`
+                  : `${축.내것.률.toFixed(1)}%`
+                : '못 모음'}
+            </td>
+            <td class="num">
+              {축.명수
+                ? `전국 ${축.셈.전체분자.toLocaleString('ko-KR')}명 중`
+                : 축.째
+                  ? `${축.째}위 / ${축.몇곳}곳`
+                  : 축.내것 ? '학생 적어 순위 없음' : '—'}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 
   <h2>이 한 장에 없는 것</h2>
   <p class="note">

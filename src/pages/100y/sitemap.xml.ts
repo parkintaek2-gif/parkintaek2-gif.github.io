@@ -428,6 +428,11 @@ export const GET: APIRoute = () => {
        들어오는 것을 보고(5번 실측) 같은 이슈를 시군구·시도로 가른 두 장. */
     { path: '/repeat-rate-by-area', priority: '0.8', changefreq: 'yearly' },
     { path: '/n-su-ratio-by-province', priority: '0.8', changefreq: 'yearly' },
+    /* 2026-10-22 저녁 · 1번 — 같은 축(지역 × 입시) 네 장 더. /report/area 에서 이리로 잇는다 */
+    { path: '/university-rate-by-area', priority: '0.8', changefreq: 'yearly' },
+    { path: '/junior-college-rate-by-area', priority: '0.8', changefreq: 'yearly' },
+    { path: '/study-abroad-by-area', priority: '0.7', changefreq: 'yearly' },
+    { path: '/dropout-by-area', priority: '0.8', changefreq: 'yearly' },
     /* 🔴 2026-09-09 — 「사탐런」 씨앗. 같은 수능 지원자 안에서 탐구 과목 선택
        구성비(사탐만/과탐만/교차)가 2026→2027학년도 어떻게 바뀌었는지 — 위
        /csat-applicant-mix(자격별 지원자 수)와는 다른 축이다. */
