@@ -1,0 +1,199 @@
+---
+/**
+ * /100y/n-su-ratio-by-province — **N수생 비율 시도별** (두 자료로 맞대어 본다)
+ *
+ * ── 왜 만들었나 (2026-10-22 · 1번) ─────────────────────────────────────
+ * 이슈  2027학년도 수능(11월 19일)에 N수생 19만6,473명 — 23년 만에 최대(KICE 2026-09-08).
+ *       시도교육청마다 「졸업생 지원자 늘었다」를 따로 냈다.
+ * 축    우리는 같은 질문에 답하는 자료를 «둘» 쥐고 있다 —
+ *         ① 수능 지원자 가운데 졸업생 몫 (시도교육청 보도자료 · 2027학년도)
+ *         ② 고교 졸업생 가운데 대학에 바로 안 간 몫 (학교알리미 2024년 공시 · 일반고·자율고)
+ *       하나는 «시험장 쪽», 하나는 «졸업장 쪽»에서 센다. 맞대면 서로 검산이 된다.
+ *       이웃 지면 /repeat-rate-by-area 가 ②를 시군구로 가른 것이다.
+ *
+ * ⛔ 두 수를 빼거나 나누지 않는다 — 해(학년도)도, 분모도 다르다. 나란히 놓기만 한다.
+ * ⛔ 서울·경기는 ①이 없다(교육청 발표를 못 모았다). 0 으로 채우지 않고 「못 모음」으로 적는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 수능원본 from '../../../data/100yearmap/csat-applicant-mix.json';
+import schools from '../../../data/100yearmap/pages-school.json';
+import 진로자료 from '../../../data/100yearmap/school-career.json';
+import { 지역가르기 } from '../../../lib/school-area';
+
+const 수능 = 수능원본 as any;
+const 진로 = 진로자료 as any;
+const 전국27 = 수능.전국_2027학년도;
+
+/* 교육청 보도자료의 짧은 이름 → NEIS 주소의 시·도 이름 */
+const 긴이름: Record<string, string> = {
+  경남: '경상남도', 충북: '충청북도', 대구: '대구광역시', 경북: '경상북도', 충남: '충청남도',
+  세종: '세종특별자치시', '전남광주(통합)': '전남광주통합특별시', 부산: '부산광역시',
+  인천: '인천광역시', 제주: '제주특별자치도', 강원: '강원특별자치도', 전북: '전북특별자치도',
+  대전: '대전광역시', 울산: '울산광역시',
+};
+
+/* ② 고교 졸업생 쪽 — 일반고·자율고만, 졸업자를 더해서 센다 */
+const 진로표 = new Map((진로.자료 as any[]).map((r) => [r.code, r]));
+const 졸업쪽 = new Map<string, { 졸: number; 밖: number }>();
+for (const x of schools as any[]) {
+  const r: any = 진로표.get(x.code);
+  if (!r || typeof r.진학률 !== 'number') continue;
+  if (!/일반고|자율고/.test(String(x.고교유형 ?? ''))) continue;
+  const g = 지역가르기(x.주소);
+  if (!g) continue;
+  const v = 졸업쪽.get(g.시도) ?? { 졸: 0, 밖: 0 };
+  v.졸 += Number(r.졸업자) || 0; v.밖 += Number(r.그밖) || 0;
+  졸업쪽.set(g.시도, v);
+}
+
+const 시험쪽 = new Map<string, any>();
+for (const r of 수능.지역들 as any[]) 시험쪽.set(긴이름[r.지역] ?? r.지역, r);
+
+const 줄들 = [...졸업쪽.entries()]
+  .map(([이름, v]) => {
+    const s = 시험쪽.get(이름);
+    return {
+      이름,
+      시험비율: s ? Number(s.졸업생.비율) : null,
+      시험졸업생: s ? Number(s.졸업생.인원) : null,
+      시험증감: s?.졸업생.전년대비 ?? null,
+      졸업비율: v.졸 ? (v.밖 / v.졸) * 100 : null,
+      졸업자: v.졸,
+    };
+  })
+  .sort((a, b) => (b.시험비율 ?? -1) - (a.시험비율 ?? -1));
+
+const 둘다 = 줄들.filter((x) => x.시험비율 != null && x.졸업비율 != null);
+const 시험없음 = 줄들.filter((x) => x.시험비율 == null).map((x) => x.이름);
+const 맨위 = 둘다[0];
+
+/* 두 줄 세우기가 얼마나 겹치나 — 순위 상관(스피어만). 수 하나로 «같은 방향인가»만 본다 */
+const 순위 = (a: number[]) => { const o = a.map((v, i) => [v, i]).sort((p, q) => q[0] - p[0]); const r = Array(a.length); o.forEach(([, i], k) => (r[i] = k + 1)); return r; };
+const ra = 순위(둘다.map((x) => x.시험비율!));
+const rb = 순위(둘다.map((x) => x.졸업비율!));
+const n = 둘다.length;
+const 상관 = n > 2 ? 1 - (6 * ra.reduce((s, v, i) => s + (v - rb[i]) ** 2, 0)) / (n * (n * n - 1)) : null;
+
+const 률 = (v: number | null | undefined) => (v == null ? '—' : `${v.toFixed(1)}%`);
+const 수 = (v: number) => Number(v).toLocaleString('ko-KR');
+
+const TITLE = `N수생 비율 시도별 — 수능 지원자 ${n}개 시도, ${맨위.이름} ${률(맨위.시험비율)}`;
+const desc =
+  `N수생 비율 시도별 비교. 2027학년도 수능 지원자 가운데 졸업생(N수생) 몫은 ${맨위.이름} ${률(맨위.시험비율)}가 ` +
+  `가장 컸고 전국은 ${률(전국27.졸업생.비율)}입니다. 고교 졸업생 가운데 대학에 바로 안 간 비율(학교알리미)과 ` +
+  `나란히 놓아 두 자료가 같은 방향인지 봅니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: 'N수생 비율 시도별 — 수능 지원자 졸업생 비중과 고교 졸업생 대학 미진학 비율',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    variableMeasured: ['수능 지원자 중 졸업생 비율', '고교 졸업생 중 대학 미진학 비율'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'N수생 비율이 가장 높은 시도는 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `발표된 ${n}개 시도 가운데 2027학년도 수능 지원자 중 졸업생 비율은 ${둘다.slice(0, 3).map((x) => `${x.이름} ${률(x.시험비율)}`).join(', ')} 순입니다. 전국은 ${률(전국27.졸업생.비율)}(KICE)입니다. ${시험없음.join('·')}은 교육청 발표를 모으지 못해 빠져 있습니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '2027학년도 수능 N수생은 몇 명인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `한국교육과정평가원 발표(2026-09-08)로 졸업생 ${수(전국27.졸업생.인원)}명, 검정고시 등을 더한 N수생 합계 ${수(전국27.N수생합계.인원)}명입니다. ${전국27.N수생합계.비고}입니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>N수생 비율 시도별,<br class="pcbr" /> 두 자료로 맞대어 보기</h1>
+  <p class="sub">
+    2027학년도 수능(11월 19일) 지원자 가운데 <strong>N수생은 {수(전국27.N수생합계.인원)}명</strong>,
+    2004학년도 이후 23년 만에 가장 많습니다. 그렇다면 N수생 비율은 시도마다 얼마나 다를까요?
+    시험장 쪽(수능 지원자)과 졸업장 쪽(고교 졸업생), 두 자료로 나란히 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">수능 지원자 가운데 졸업생(N수생) 몫 — 발표된 {n}개 시도</p>
+    <p class="answer-num">{률(둘다[n - 1].시험비율)} ~ {률(맨위.시험비율)}</p>
+    <p class="answer-sub">전국 {률(전국27.졸업생.비율)} · 졸업생 {수(전국27.졸업생.인원)}명(전년보다 +{수(전국27.졸업생.전년대비)}명)</p>
+  </div>
+
+  <h2>시도별 N수생 비율 — 두 자료 나란히</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>시·도</th><th>① 수능 지원자 중 졸업생</th><th>졸업생 지원자 전년대비</th><th>② 고교 졸업생 중 대학 바로 안 감</th></tr>
+      </thead>
+      <tbody>
+        {줄들.map((x) => (
+          <tr>
+            <th>{x.이름}</th>
+            <td class="num">{x.시험비율 == null ? '못 모음' : <><strong>{률(x.시험비율)}</strong> ({수(x.시험졸업생!)}명)</>}</td>
+            <td class="num">{x.시험비율 == null ? '—' : x.시험증감 == null ? '교육청 미공개' : `${x.시험증감 > 0 ? '+' : ''}${수(x.시험증감)}명`}</td>
+            <td class="num">{률(x.졸업비율)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ① 2027학년도 수능 응시원서 접수 결과(시도교육청 보도자료, 2026년 9월) ·
+    ② 학교알리미 {진로.출처.공시연도}년 공시, 일반고·자율고 졸업자 기준.
+    ⚠ <strong>{시험없음.join('·')}</strong>은 ①을 모으지 못했습니다 — 0이 아니라 «못 모음»입니다.
+  </p>
+
+  <h2>두 자료가 같은 방향을 가리키나</h2>
+  <p>
+    {n}개 시도를 ①로 줄 세운 것과 ②로 줄 세운 것이 얼마나 겹치는지 셌습니다(순위상관).
+    1이면 순서가 똑같고 0이면 아무 관계가 없습니다. 값은 <strong>{상관 == null ? '—' : 상관.toFixed(2)}</strong>입니다.
+  </p>
+  <p class="note">
+    {상관 != null && 상관 >= 0.5
+      ? '두 자료는 대체로 같은 쪽을 가리킵니다 — 졸업생이 대학에 바로 가지 않는 시도에서 수능 지원자 가운데 졸업생 몫도 큽니다.'
+      : '두 자료의 순서가 많이 어긋납니다. 해(학년도)가 다르고, ①에는 다른 시도에서 고교를 마친 사람·검정고시가 섞이며, ②의 「그 밖」에는 취업·미상이 섞이기 때문일 수 있습니다 — 어느 것 때문인지는 재지 않았습니다.'}
+  </p>
+  <p class="note">
+    ⛔ 두 수를 빼거나 나누지 않습니다. ①은 2027학년도 지원자, ②는 {진로.출처.공시연도}년 공시 졸업자로{' '}
+    <strong>해도 분모도 다릅니다.</strong> 나란히 놓기만 했습니다.
+  </p>
+
+  <h2>시군구로 더 잘게 보면</h2>
+  <p>
+    ②를 시군구로 가른 지면이 있습니다 — <a href="/repeat-rate-by-area">재수생 비율 지역별</a>.
+    서울 강남구·서초구처럼 시도 평균에 묻히는 차이가 거기서 보입니다.
+    수능 지원자 수의 해마다 흐름은 <a href="/csat-applicant-mix">수능 지원자, 재학생은 줄고 N수생은 늘고</a>에 있습니다.
+  </p>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>N수생 비율이 높다고 그 지역 학생이 «못한» 것이 아닙니다.</strong> 한 해 더 준비하는
+      쪽을 고른 사람이 많다는 뜻일 수 있습니다. 이 자료로는 가를 수 없습니다.</li>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong></li>
+    <li>①의 「졸업생」은 그 시도 교육청에 원서를 낸 졸업생입니다. 고교를 다른 시도에서 마쳤을 수 있습니다.</li>
+  </ul>
+
+  <p class="note">
+    출처 — ① {수능.출처.이름} · ② {진로.출처.이름}({진로.출처.이용허락범위}).
+    비율 ①은 교육청 발표값, ②와 순위상관은 저희가 낸 것입니다.
+  </p>
+
+  <NextQuestionBrief 모은것="시도교육청 수능 접수 결과와 학교알리미 졸업생 진로를 맞대어 본 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
