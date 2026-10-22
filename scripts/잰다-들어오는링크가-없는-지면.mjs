@@ -34,13 +34,25 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+/**
+ * 🔴🔴 [2026-10-22 13:4x] **퍼센트 인코딩을 풀지 않아 118장을 «거짓 고아»로 셌다.**
+ *   백년지도 학과 지면은 파일명이 한글 원문(`가정교육과.html`)인데
+ *   링크는 `/college-major/%EA%B0%80%EC%A0%95%EA%B5%90%EC%9C%A1%EA%B3%BC` 다.
+ *   둘을 다른 주소로 보는 바람에 「2% 가 막혔다」가 나왔다 — 실제로는 다 이어져 있었다.
+ *   ⇒ 양쪽을 **푼 뒤에** 맞춘다. ⛔ 못 푸는 글자가 섞이면 원문 그대로 쓴다.
+ */
+export function 주소풀기(u) {
+  const s = String(u ?? '');
+  try { return decodeURIComponent(s); } catch (e) { return s; }
+}
+
 /** 파일 경로를 손님이 여는 주소로 바꾼다 — `a/b.html` → `/a/b`, `a/index.html` → `/a` */
 export function 주소로(뿌리, 길) {
   let s = String(길 ?? '').slice(String(뿌리 ?? '').length).replace(/\\/g, '/');
   if (!s.startsWith('/')) s = '/' + s;
   s = s.replace(/\/index\.html?$/i, '') || '/';
   s = s.replace(/\.html?$/i, '');
-  return s === '' ? '/' : s;
+  return 주소풀기(s === '' ? '/' : s);
 }
 
 /** 글에서 우리 지면으로 가는 주소만 뽑는다 */
@@ -52,7 +64,7 @@ export function 링크뽑기(글) {
     if (/\.(css|js|png|jpg|jpeg|svg|webp|ico|xml|json|txt|webmanifest|pdf|md)$/i.test(u)) continue;
     u = u.replace(/\/index\.html?$/i, '').replace(/\.html?$/i, '');
     u = u.replace(/\/+$/, '') || '/';
-    난것.add(u);
+    난것.add(주소풀기(u));
   }
   return [...난것];
 }
@@ -76,6 +88,20 @@ if (process.argv.includes('--자가시험')) {
   본다('⛔ 토막표·물음표는 떼고 센다',
     링크뽑기('<a href="/a#b">x</a><a href="/a?c=1">y</a>').join() === '/a');
   본다('⛔ 빈 것에 안 터진다', 링크뽑기(null).length === 0 && 주소로('', null) === '/');
+
+  /* 🔴 [2026-10-22] 퍼센트 인코딩을 안 풀어 백년지도 학과 118장을 «거짓 고아»로 셌다 */
+  본다('🔴 링크의 퍼센트 인코딩을 푼다',
+    링크뽑기('<a href="/college-major/%EA%B0%80%EC%A0%95%EA%B5%90%EC%9C%A1%EA%B3%BC">x</a>')
+      .join() === '/college-major/가정교육과');
+  본다('🔴 파일 이름 쪽도 같은 주소가 된다',
+    주소로('dist/100y', 'dist/100y/college-major/가정교육과.html') === '/college-major/가정교육과');
+  본다('🔴 그래서 둘이 맞는다',
+    링크뽑기('<a href="/college-major/%EA%B0%80%EC%A0%95%EA%B5%90%EC%9C%A1%EA%B3%BC">x</a>')[0]
+      === 주소로('dist/100y', 'dist/100y/college-major/가정교육과.html'));
+  본다('⛔ 괄호가 든 학과 이름도', 주소풀기('/a/%EA%B0%84%ED%98%B8%EA%B3%BC(4%EB%85%84%EC%A0%9C)')
+    === '/a/간호과(4년제)');
+  본다('⛔ 못 푸는 글자가 섞여도 안 터진다 — 원문 그대로 쓴다', 주소풀기('/a/%zz') === '/a/%zz');
+  본다('⛔ 풀 것이 없으면 그대로', 주소풀기('/a/b') === '/a/b');
 
   console.log(탈.length ? `\n🔴 자가시험 ${탈.length}건 탈` : `\n✅ 자가시험 ${통} 통과`);
   process.exit(탈.length ? 1 : 0);
