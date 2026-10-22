@@ -46,6 +46,18 @@ export function 주소풀기(u) {
   try { return decodeURIComponent(s); } catch (e) { return s; }
 }
 
+/**
+ * 🔴 [2026-10-22 14:0x] **「물러난 주소」 지면은 고아로 세지 않는다.**
+ *   K Culture Wire 에는 한 번 발행해서 구글에 알린 뒤 내리기로 한 주소마다
+ *   「Retired address — 이 주소는 물러났습니다」 안내 지면이 놓여 있다.
+ *   404 로 버리지 않고 무슨 일이 있었는지 적어 둔 것이다 — 묘비이지 흠이 아니다.
+ *   ⇒ 아무도 안 가리키는 것이 **당연하다.** 세면 35장이 흠으로 보이는데 실제로는 몇 장뿐이다.
+ * ⛔ 나는 이것을 「유령 지면」으로 읽고 지울 뻔했다. 열어 보고서야 알았다.
+ */
+export function 물러난주소인가(글) {
+  return /Retired address|이 주소는 물러났습니다/.test(String(글 ?? '').slice(0, 4000));
+}
+
 /** 파일 경로를 손님이 여는 주소로 바꾼다 — `a/b.html` → `/a/b`, `a/index.html` → `/a` */
 export function 주소로(뿌리, 길) {
   let s = String(길 ?? '').slice(String(뿌리 ?? '').length).replace(/\\/g, '/');
@@ -103,6 +115,16 @@ if (process.argv.includes('--자가시험')) {
   본다('⛔ 못 푸는 글자가 섞여도 안 터진다 — 원문 그대로 쓴다', 주소풀기('/a/%zz') === '/a/%zz');
   본다('⛔ 풀 것이 없으면 그대로', 주소풀기('/a/b') === '/a/b');
 
+  /* 🔴 [2026-10-22] 「물러난 주소」 안내 지면을 고아로 세어 35장을 흠으로 읽을 뻔했다 */
+  본다('🔴 물러난 주소 안내를 알아본다',
+    물러난주소인가('<title>Retired address — K Culture Wire</title>') === true);
+  본다('🔴 한국어 꼴도', 물러난주소인가('<p>이 주소는 물러났습니다</p>') === true);
+  본다('⛔ 대조군 — 보통 지면은 아니다',
+    물러난주소인가('<title>Kpop groups by size</title><p>263 line-ups</p>') === false);
+  본다('⛔ 빈 것에 안 터진다', 물러난주소인가(null) === false && 물러난주소인가('') === false);
+  본다('⛔ 글 한참 뒤에 그 말이 나오는 것까지 묘비로 보지 않는다',
+    물러난주소인가('x'.repeat(5000) + 'Retired address') === false);
+
   console.log(탈.length ? `\n🔴 자가시험 ${탈.length}건 탈` : `\n✅ 자가시험 ${통} 통과`);
   process.exit(탈.length ? 1 : 0);
 }
@@ -154,11 +176,13 @@ const 파일들 = [];
 
 const 있는주소 = new Set(파일들.map((p) => 주소로(뿌리, p)));
 const 들어오는수 = new Map();
+const 묘비 = new Set();        /* 「물러난 주소」 안내 지면 — 고아로 안 센다 */
 let 나가는합 = 0;
 
 for (const p of 파일들) {
   let 글; try { 글 = fs.readFileSync(p, 'utf8'); } catch { continue; }
   const 나 = 주소로(뿌리, p);
+  if (물러난주소인가(글)) 묘비.add(나);
   for (const u of 링크뽑기(글)) {
     if (u === 나) continue;                  /* 자기 자신은 안 센다 */
     if (!있는주소.has(u)) continue;          /* 없는 지면은 안 센다 */
@@ -167,11 +191,14 @@ for (const p of 파일들) {
   }
 }
 
-const 막힌것 = [...있는주소].filter((u) => !들어오는수.has(u) && u !== '/');
+/* ⛔ 「물러난 주소」와 404 는 아무도 안 가리키는 것이 «당연하다» — 흠으로 세지 않는다 */
+const 막힌것 = [...있는주소]
+  .filter((u) => !들어오는수.has(u) && u !== '/' && u !== '/404' && !묘비.has(u));
 const 수들 = [...들어오는수.values()];
-console.log(`\n■ ${뿌리} — 지면 ${있는주소.size}장`);
+console.log(`\n■ ${사이트} (${뿌리}) — 지면 ${있는주소.size}장`);
 console.log(`   나가는 링크 합계      ${나가는합}개 (지면당 ${(나가는합 / Math.max(있는주소.size, 1)).toFixed(1)}개)`);
 console.log(`   들어오는 링크가 있는 지면 ${들어오는수.size}장`);
+console.log(`   ⬜ 물러난 주소 안내    ${묘비.size}장 (아무도 안 가리키는 것이 당연해서 뺀다)`);
 console.log(`   ${막힌것.length ? '🔴' : '✅'} 아무도 안 가리키는 지면 ${막힌것.length}장`
   + ` (${Math.round((막힌것.length / Math.max(있는주소.size, 1)) * 100)}%)`);
 console.log(`   한 지면이 최다        ${수들.length ? Math.max(...수들) : 0}번 가리켜진다`);
