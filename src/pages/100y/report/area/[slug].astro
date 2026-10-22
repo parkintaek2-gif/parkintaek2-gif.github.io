@@ -217,7 +217,7 @@ const 한벌인가 = 한벌로팔만한가(곳들.length);
  *   ⚠ 지금은 `파는지면검색.연다` 가 꺼져 있어 **아무것도 안 가린다.**
  *     검색에 안 열려 있으니 가릴 까닭이 없다. 8/15 에 스위치를 켜면 **둘이 같이** 걸린다 —
  *     ① 검색에 열리고 ② 숫자가 다섯 곳만 보인다. 한 스위치로 묶어 둔 까닭이다.
- *   ⛔ 무료 페이지(9곳 이하)은 **절대 안 가린다.** 무료라고 적어 놓고 가리면 거짓말이다.
+ *   ⛔ 무료 페이지(9곳 이하)는 **절대 안 가린다.** 무료라고 적어 놓고 가리면 거짓말이다.
  *
  * 🔴 2026-09-10 — `미리보기그만` 이 켜져 **더는 가리지 않는다.** 사장님이 유료 부분에
  *   관심이 한 명이라도 있었는지 재라고 하셨고, klifemap payments·referral_hits·GA4를
@@ -501,7 +501,7 @@ const 최종jsonLd = 합친jsonLd.length > 1 ? 합친jsonLd : 합친jsonLd[0];
       <thead>
         <tr>
           <th>학교</th>
-          <th>갈래</th>
+          <th>종류</th>
           <th>졸업생</th>
           <th>진학</th>
           <th>그 밖</th>
@@ -662,14 +662,14 @@ const 최종jsonLd = 합친jsonLd.length > 1 ? 합친jsonLd : 합친jsonLd[0];
     )}
   </p>
   <p class="note">
-    <strong>학교 목록·갈래·주소</strong> — NEIS 교육정보 개방 포털
+    <strong>학교 목록·종류·주소</strong> — NEIS 교육정보 개방 포털
   </p>
   <p class="note">
     ⚠ 사람 수는 공시된 값이고, <strong>비율과 가운데값은 저희가 낸 것</strong>입니다. 나라가
     발표한 비율이 아닙니다.
   </p>
   <p class="note">
-    ⚠ 전국 갈래별 가운데값은 진학률이 있는 {(진로자료 as any).자료.filter((r: any) => r.진학률 != null).length.toLocaleString()}곳으로
+    ⚠ 전국 종류별 가운데값은 진학률이 있는 {(진로자료 as any).자료.filter((r: any) => r.진학률 != null).length.toLocaleString()}곳으로
     냈습니다.
   </p>
 

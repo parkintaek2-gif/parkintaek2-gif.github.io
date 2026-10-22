@@ -127,10 +127,10 @@ const jsonLd = {
     {' '}「기르는 사람들 가운데, 젊을수록 개보다 고양이를 고른 비중이 높다」입니다.
   </p>
 
-  <h2>그 밖의 갈래</h2>
+  <h2>그 밖의 종류</h2>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>갈래</th><th>양육률</th></tr></thead>
+      <thead><tr><th>종류</th><th>양육률</th></tr></thead>
       <tbody>
         {성별.map((r) => <tr><td>{r.칸}</td><td>{r.양육몫}%</td></tr>)}
         {지역별.map((r) => <tr><td>{r.칸}</td><td>{r.양육몫}%</td></tr>)}
@@ -141,7 +141,7 @@ const jsonLd = {
   <p class="note">
     ⚠ 권역별({권역별.map((r) => `${r.칸} ${r.양육몫}%`).join(' · ')})은
     {' '}가장 작은 칸이 {Math.min(...권역별.map((r) => r.사례수)).toLocaleString()}가구뿐이라
-    {' '}<strong>줄을 세우지 않습니다.</strong> 표본이 작은 갈래일수록 오차가 큽니다.
+    {' '}<strong>줄을 세우지 않습니다.</strong> 표본이 작은 종류일수록 오차가 큽니다.
   </p>
 
   <h2>저희가 맞춰 본 것</h2>

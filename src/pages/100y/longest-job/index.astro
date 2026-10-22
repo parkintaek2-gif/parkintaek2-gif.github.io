@@ -108,7 +108,7 @@ const jsonLd = {
   <h2>왜 그만두었나</h2>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>까닭</th><th>사람</th><th>몫</th></tr></thead>
+      <thead><tr><th>이유</th><th>사람</th><th>몫</th></tr></thead>
       <tbody>
         {(까닭.까닭별 as any[]).map((r) => (
           <tr>
@@ -129,7 +129,7 @@ const jsonLd = {
     {' '}{Math.round(정년.몫)}명이 <strong>정년퇴직으로</strong> 그만두었다는 뜻입니다.
   </p>
   <p>
-    가장 많은 까닭은 <strong>{까닭말[맨위.까닭]}</strong>으로 {맨위.몫}%입니다.
+    가장 많은 이유는 <strong>{까닭말[맨위.까닭]}</strong>으로 {맨위.몫}%입니다.
     {' '}스스로 정한 때가 아니라 <strong>일자리 쪽 사정으로</strong> 그만둔 사람이 그만큼 있었다는 뜻입니다.
   </p>
 
@@ -148,7 +148,7 @@ const jsonLd = {
 
   <p class="note">
     일을 십성(十星)의 다섯 종류로 나눠 보는 것은 이 통계와는 다른 전통적인 셈법입니다 —
-    {' '}<a href="https://klifemap.ai/sipseong.html?from=100y&at=body" target="_blank" rel="noopener">klifemap.ai의 십성 페이지</a>은
+    {' '}<a href="https://klifemap.ai/sipseong.html?from=100y&at=body" target="_blank" rel="noopener">klifemap.ai의 십성 페이지</a>는
     {' '}판정 없이 그 틀을 설명합니다.
   </p>
 
