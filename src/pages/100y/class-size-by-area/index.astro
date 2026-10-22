@@ -1,0 +1,196 @@
+---
+/**
+ * /100y/class-size-by-area — **고등학교 학급당 학생 수 지역별** (시·군·구)
+ *
+ * ── 왜 만들었나 (2026-10-23 · 1번 · 지역 × 입시 축 이어서) ────────────────
+ * 롱테일  「과밀학급 지역」·「우리 동네 고등학교 한 반 몇 명」을 묻는 사람에게 시군구로 답하는
+ *         지면이 없었다. /class-size-distribution 은 학교 분포만, 동네로는 안 갈랐다.
+ * 축      /report/area/<시군구> 로 들어온 손님의 다음 물음.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 학교 평균을 다시 평균 내지 않는다 — 학생 합 ÷ 학급 합(lib/school-area-sum).
+ * ⛔ 「과밀학급 수」를 세지 않는다 — 공시는 학교 단위 평균이라 반 하나하나는 모른다.
+ * ⛔ 학급 30개 미만인 곳은 표에서 뺀다(학교 한두 곳이 흔든다).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 학급자료 from '../../../data/100yearmap/school-class-size.json';
+import { 시군구로더함, 중간값, 지역링크 } from '../../../lib/school-area-sum';
+
+const 자료 = 학급자료 as any;
+const 문턱 = 30;
+const 셈 = 시군구로더함(자료.자료 as any[], null, (r) => ({ 분모: Number(r.학급) || 0, 분자: Number(r.학생) || 0 }));
+const 평균 = (x: { 분자: number; 분모: number }) => (x.분모 ? x.분자 / x.분모 : 0);
+const 올린곳 = 셈.모든곳.filter((x) => x.분모 >= 문턱).sort((a, b) => 평균(b) - 평균(a));
+const 못올린곳 = 셈.모든곳.length - 올린곳.length;
+const 가운데 = 중간값(올린곳.map(평균));
+const 높은쪽 = 올린곳.slice(0, 15);
+const 낮은쪽 = 올린곳.slice(-10).reverse();
+const 맨위 = 올린곳[0];
+const 맨아래 = 올린곳[올린곳.length - 1];
+const 시도들 = [...셈.시도들].sort((a, b) => 평균(b) - 평균(a));
+const 높은쪽경기 = 높은쪽.filter((x) => x.시도 === '경기도').length;
+const 삼십넘는학교 = (자료.자료 as any[]).filter((r) => r.학급당학생 >= 30).length;
+const 전체평균 = 셈.전체분모 ? 셈.전체분자 / 셈.전체분모 : null;
+
+const 수 = (n: number) => Number(n).toLocaleString('ko-KR');
+const 명 = (n: number | null | undefined) => (n == null ? '—' : `${n.toFixed(1)}명`);
+
+const TITLE = `고등학교 학급당 학생 수 지역별 — 시군구 ${올린곳.length}곳, ${맨위.이름} ${명(평균(맨위))}`;
+const desc =
+  `고등학교 학급당 학생 수 지역별 통계. 학교알리미 ${자료.출처.공시연도}년 공시의 학생 수와 학급 수를 시군구로 더해 ` +
+  `한 반 평균을 냈습니다. ${맨위.시도} ${맨위.이름} ${명(평균(맨위))}부터 ${맨아래.시도} ${맨아래.이름} ${명(평균(맨아래))}까지, ` +
+  `가운데값 ${명(가운데)}.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '고등학교 학급당 학생 수 지역별 — 시군구별 학생 수 ÷ 학급 수',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 자료.출처.이름 },
+    license: 'https://www.kogl.or.kr/info/licenseType1.do',
+    spatialCoverage: '대한민국 시·군·구',
+    variableMeasured: ['학생 수', '학급 수', '학급당 학생 수'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '고등학교 학급당 학생 수가 가장 많은 지역은 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `${높은쪽.slice(0, 5).map((x) => `${x.시도} ${x.이름} ${명(평균(x))}`).join(', ')} 순입니다. 상위 15곳 가운데 ${높은쪽경기}곳이 경기도입니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '고등학교 한 반은 평균 몇 명인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `저희가 이은 고등학교의 학생 ${수(셈.전체분자)}명을 학급 ${수(셈.전체분모)}개로 나누면 한 반 ${명(전체평균)}입니다. 시군구 가운데값은 ${명(가운데)}입니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>고등학교 학급당 학생 수<br class="pcbr" /> 지역별, 시군구 {올린곳.length}곳</h1>
+  <p class="sub">
+    우리 동네 고등학교는 <strong>한 반에 몇 명</strong>일까요? 학교알리미 {자료.출처.공시연도}년 공시의
+    학생 수와 학급 수를 시군구로 더해 나눴습니다. 모든 갈래의 고등학교를 넣었습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">한 반 평균 — 시군구 {올린곳.length}곳</p>
+    <p class="answer-num">{명(평균(맨아래))} ~ {명(평균(맨위))}</p>
+    <p class="answer-sub">
+      가운데값 {명(가운데)} · 전체 학생 {수(셈.전체분자)}명 ÷ 학급 {수(셈.전체분모)}개 = {명(전체평균)}
+    </p>
+  </div>
+
+  <p>
+    ⚠ <strong>반 하나하나의 수가 아닙니다.</strong> 공시는 학교마다 학생 수와 학급 수만 내므로, 이것은
+    «그 동네 고등학교 반의 평균»입니다. 그래서 「과밀학급이 몇 개」는 세지 않았습니다. 학교 평균이
+    30명을 넘는 학교는 {수((자료.자료 as any[]).length)}곳 가운데 {수(삼십넘는학교)}곳입니다.
+  </p>
+
+  <h2>한 반 학생이 많은 시군구 15곳</h2>
+  <p>
+    학급 {문턱}개 이상인 {올린곳.length}곳 가운데입니다. 선에 못 미친 {못올린곳}곳은 표에서 뺐고
+    전체 셈에는 넣었습니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>학교</th><th>학급</th><th>한 반</th></tr></thead>
+      <tbody>
+        {높은쪽.map((x) => (
+          <tr>
+            <th>{지역링크(x.열쇠) ? <a href={지역링크(x.열쇠)!}>{x.시도} {x.이름}</a> : `${x.시도} ${x.이름}`}</th>
+            <td class="num">{x.곳}곳</td>
+            <td class="num">{수(x.분모)}</td>
+            <td class="num"><strong>{명(평균(x))}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    15곳 가운데 <strong>{높은쪽경기}곳이 경기도</strong>입니다. 화성·용인·김포가 위에 몰려 있습니다.
+    왜 그런지는 이 자료로 재지 않았습니다 — 재지 않은 것을 까닭으로 적지 않습니다.
+  </p>
+
+  <h2>한 반 학생이 적은 시군구 10곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>학교</th><th>학급</th><th>한 반</th></tr></thead>
+      <tbody>
+        {낮은쪽.map((x) => (
+          <tr>
+            <th>{지역링크(x.열쇠) ? <a href={지역링크(x.열쇠)!}>{x.시도} {x.이름}</a> : `${x.시도} ${x.이름}`}</th>
+            <td class="num">{x.곳}곳</td>
+            <td class="num">{수(x.분모)}</td>
+            <td class="num"><strong>{명(평균(x))}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>시도별 고등학교 학급당 학생 수</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>학생</th><th>학급</th><th>한 반</th></tr></thead>
+      <tbody>
+        {시도들.map((x) => (
+          <tr>
+            <th>{x.이름}</th>
+            <td class="num">{수(x.분자)}명</td>
+            <td class="num">{수(x.분모)}</td>
+            <td class="num"><strong>{명(평균(x))}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>반이 작다고 좋은 학교, 크다고 나쁜 학교가 아닙니다.</strong> 학생이 줄어드는 곳은 반이
+      작아지고, 학교가 모자란 곳은 반이 커집니다. 수업의 질은 이 숫자가 말해 주지 않습니다.</li>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong></li>
+    <li>학교가 있는 곳으로 셌습니다. 학생이 사는 곳과 다를 수 있습니다.</li>
+    <li>학교 하나하나의 반 크기 분포는 <a href="/class-size-distribution">학급당 학생 수 — 학교마다 이렇게 다릅니다</a>에 있습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/university-rate-by-area">4년제 대학 진학률 지역별</a></li>
+    <li><a href="/repeat-rate-by-area">재수생 비율 지역별</a></li>
+    <li><a href="/dropout-by-area">고등학교 학업중단율 지역별</a></li>
+    <li><a href="/coed-school-by-area">남녀공학 고등학교 비율 지역별</a></li>
+    <li>우리 동네 고등학교 한 장 — <a href="/region">지역 목록</a>에서 고르십시오</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학생 수·학급 수</strong> — {자료.출처.이름} {자료.출처.공시연도}년 공시 「{자료.출처.공시항목}」 ·{' '}
+    {자료.출처.이용허락범위} · 저희가 받은 날 {자료.통계.받은때}
+  </p>
+  <p class="note"><strong>학교 목록·주소</strong> — NEIS 교육정보 개방 포털</p>
+  <p class="note">
+    ⚠ 학생·학급 수는 공시된 값이고, <strong>시군구로 더한 것과 나눈 값은 저희가 낸 것</strong>입니다.
+    학생이 0명으로 공시된 {자료.통계.학생0이라뺌}곳은 뺐습니다.
+  </p>
+
+  <NextQuestionBrief 모은것="학교알리미 학급별 학생수 공시를 시군구로 더한 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

@@ -1,0 +1,183 @@
+---
+/**
+ * /100y/coed-school-by-area — **남녀공학 고등학교 비율 지역별** (시·군·구)
+ *
+ * ── 왜 만들었나 (2026-10-23 · 1번 · 지역 × 입시 축 이어서) ────────────────
+ * 롱테일  고입을 앞둔 집이 묻는 「우리 동네에 남고·여고가 몇 곳」에 시군구로 답하는 지면이 없었다.
+ *         NEIS 학교기본정보의 공학 칸(남여공학·남·여)을 시군구로 센다.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 학생이 아니라 «학교» 수다. 큰 공학 한 곳과 작은 여고 한 곳이 같은 한 표다 — 지면에 밝힌다.
+ * ⛔ 공학이 좋다/나쁘다를 쓰지 않는다.
+ * ⛔ 학교 5곳 미만인 곳은 비율 표에 올리지 않는다(한 곳이 20%p 를 흔든다).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import schools from '../../../data/100yearmap/pages-school.json';
+import { 시군구로더함, 중간값, 지역링크 } from '../../../lib/school-area-sum';
+
+const 학교들 = (schools as any[]).filter((x) => x.종류 === '고등학교' && /^(남여공학|남|여)$/.test(String(x.공학 ?? '')));
+const 공학셈 = 시군구로더함(학교들, null, (x) => ({ 분모: 1, 분자: x.공학 === '남여공학' ? 1 : 0 }));
+const 남고셈 = 시군구로더함(학교들, null, (x) => ({ 분모: 1, 분자: x.공학 === '남' ? 1 : 0 }));
+const 남고표 = new Map(남고셈.모든곳.map((x) => [x.열쇠, x.분자]));
+const 문턱 = 5;
+const 올린곳 = 공학셈.올린곳(문턱);
+const 못올린곳 = 공학셈.모든곳.length - 올린곳.length;
+const 가운데 = 중간값(올린곳.map((x) => x.률));
+const 낮은쪽 = [...올린곳].reverse().slice(0, 15);
+const 다공학 = 올린곳.filter((x) => x.분자 === x.분모).sort((a, b) => a.열쇠.localeCompare(b.열쇠, 'ko'));
+const 전체남고 = 학교들.filter((x) => x.공학 === '남').length;
+const 전체여고 = 학교들.filter((x) => x.공학 === '여').length;
+
+const 수 = (n: number) => Number(n).toLocaleString('ko-KR');
+const 률 = (n: number | null | undefined) => (n == null ? '—' : `${n.toFixed(1)}%`);
+const 맨아래 = 낮은쪽[0];
+
+const TITLE = `남녀공학 고등학교 비율 지역별 — 남고 ${전체남고}곳·여고 ${전체여고}곳은 어디에`;
+const desc =
+  `남녀공학 고등학교 비율 지역별 통계. 고등학교 ${수(학교들.length)}곳 가운데 공학이 ${수(공학셈.전체분자)}곳(${률(공학셈.전체률)}), ` +
+  `남고 ${전체남고}곳, 여고 ${전체여고}곳입니다. 공학 비율이 가장 낮은 곳은 ${맨아래.시도} ${맨아래.이름} ${률(맨아래.률)}. NEIS 학교기본정보.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '남녀공학 고등학교 비율 지역별 — 시군구별 공학·남고·여고 수',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 'NEIS 교육정보 개방 포털' },
+    spatialCoverage: '대한민국 시·군·구',
+    variableMeasured: ['고등학교 수', '남녀공학 학교 수', '남자고등학교 수', '여자고등학교 수'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '남고·여고가 많은 지역은 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `고등학교 ${문턱}곳 이상인 시군구 가운데 남녀공학 비율이 낮은 곳은 ${낮은쪽.slice(0, 5).map((x) => `${x.시도} ${x.이름} ${률(x.률)}`).join(', ')}입니다. 학생 수가 아니라 학교 수로 셌습니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '우리나라 고등학교는 남녀공학이 얼마나 되나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `NEIS 에 공학 구분이 있는 고등학교 ${수(학교들.length)}곳 가운데 ${수(공학셈.전체분자)}곳(${률(공학셈.전체률)})이 남녀공학이고, 남고 ${전체남고}곳, 여고 ${전체여고}곳입니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>남녀공학 고등학교 비율<br class="pcbr" /> 지역별, 시군구 {올린곳.length}곳</h1>
+  <p class="sub">
+    고등학교를 고를 때 <strong>우리 동네에 남고·여고가 몇 곳</strong>인지부터 묻게 됩니다.
+    NEIS 학교기본정보의 공학 구분으로 시군구마다 셌습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">고등학교 {수(학교들.length)}곳 가운데 남녀공학</p>
+    <p class="answer-num">{률(공학셈.전체률)}</p>
+    <p class="answer-sub">
+      공학 {수(공학셈.전체분자)}곳 · 남고 {전체남고}곳 · 여고 {전체여고}곳 · 시군구 가운데값 {률(가운데)}
+    </p>
+  </div>
+
+  <p>
+    ⚠ <strong>학생이 아니라 학교를 셌습니다.</strong> 학생 1,000명 공학과 300명 여고가 같은 한 곳입니다.
+    그래서 «그 동네 학생 가운데 몇 %가 공학에 다니나»와는 다를 수 있습니다.
+  </p>
+
+  <h2>남녀공학 비율이 낮은 시군구 15곳 — 남고·여고가 많은 곳</h2>
+  <p>
+    고등학교 {문턱}곳 이상인 {올린곳.length}곳 가운데입니다. {문턱}곳 미만인 {못올린곳}곳은 한 곳이 비율을
+    크게 흔들어 표에서 뺐습니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>학교</th><th>공학</th><th>남고</th><th>여고</th></tr></thead>
+      <tbody>
+        {낮은쪽.map((x) => {
+          const 남 = 남고표.get(x.열쇠) ?? 0;
+          return (
+            <tr>
+              <th>{지역링크(x.열쇠) ? <a href={지역링크(x.열쇠)!}>{x.시도} {x.이름}</a> : `${x.시도} ${x.이름}`}</th>
+              <td class="num">{x.분모}</td>
+              <td class="num"><strong>{률(x.률)}</strong></td>
+              <td class="num">{남}</td>
+              <td class="num">{x.분모 - x.분자 - 남}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>고등학교가 모두 남녀공학인 시군구</h2>
+  <p>
+    고등학교 {문턱}곳 이상이면서 남고·여고가 한 곳도 없는 곳은 <strong>{다공학.length}곳</strong>입니다.
+  </p>
+  <p class="note">
+    {다공학.slice(0, 40).map((x, i) => (
+      <>
+        {i > 0 && ' · '}
+        {지역링크(x.열쇠) ? <a href={지역링크(x.열쇠)!}>{x.시도} {x.이름}</a> : `${x.이름}`}
+      </>
+    ))}
+    {다공학.length > 40 && ` 외 ${다공학.length - 40}곳`}
+  </p>
+
+  <h2>시도별 남녀공학 비율</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>학교</th><th>공학</th><th>비율</th></tr></thead>
+      <tbody>
+        {공학셈.시도들.map((x) => (
+          <tr>
+            <th>{x.이름}</th>
+            <td class="num">{x.분모}</td>
+            <td class="num">{x.분자}</td>
+            <td class="num"><strong>{률(x.률)}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>공학이 낫다, 남고·여고가 낫다를 말하지 않습니다.</strong> 고를 수 있는 학교가 동네마다
+      어떻게 놓여 있는지를 보여 줄 뿐입니다.</li>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong></li>
+    <li>고교 배정은 시도마다 규칙이 달라, 같은 시군구 학교에 꼭 배정되는 것은 아닙니다.</li>
+    <li>NEIS 가 공학 구분을 비워 둔 학교는 세지 않았습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/class-size-by-area">고등학교 학급당 학생 수 지역별</a></li>
+    <li><a href="/university-rate-by-area">4년제 대학 진학률 지역별</a></li>
+    <li><a href="/repeat-rate-by-area">재수생 비율 지역별</a></li>
+    <li><a href="/dropout-by-area">고등학교 학업중단율 지역별</a></li>
+    <li>우리 동네 고등학교 한 장 — <a href="/region">지역 목록</a>에서 고르십시오</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학교 목록·공학 구분·주소</strong> — NEIS 교육정보 개방 포털 학교기본정보 ·
+    저희가 받은 때 {(schools as any[])[0]?.기준시각?.slice(0, 10)}
+  </p>
+  <p class="note">⚠ 학교 구분은 NEIS 값 그대로이고, <strong>시군구로 센 것과 비율은 저희가 낸 것</strong>입니다.</p>
+
+  <NextQuestionBrief 모은것="NEIS 학교기본정보의 공학 구분을 시군구로 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
