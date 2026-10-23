@@ -1,0 +1,166 @@
+---
+/**
+ * /100y/freshman-fill-by-province — **대학 신입생 충원율 시도별 · 4년제와 전문대를 갈라서**
+ *
+ * ── 왜 만들었나 (2026-10-23 · 1번 · 지역 × 입시) ──────────────────────────
+ * 이슈  수능(11/19) 뒤 정시까지 이어지는 입시철. N수생이 23년 만에 최대인 해에 대학은 어디가 비나.
+ * 축    /freshman-fill-region 은 수도권·비수도권 둘로만 갈랐다. 같은 공시를 «시도 × 4년제·전문대»로
+ *       가르니 빈자리는 지역보다 «갈래»에 먼저 몰려 있었다 — 90% 미만 51곳 가운데 전문대가 34곳.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 공시는 학교별 비율만 준다(정원·등록 수가 없다). 그래서 «더해서 나눈» 지역 비율을 만들지 않는다 —
+ *   가운데값과 90% 미만 곳 수만 낸다.
+ * ⛔ 학교 5곳 미만인 칸은 가운데값을 안 쓴다(한두 곳이 흔든다). 곳 수만 적는다.
+ * ⛔ 학교 이름을 줄 세우지 않는다. 학교 하나하나는 /university/<id> 지면에 있다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 대학들 from '../../../data/100yearmap/pages-university.json';
+
+const 학교 = (대학들 as any[]).filter((x) => typeof x.신입생충원율?.값 === 'number');
+const 공시연도 = (대학들 as any[])[0]?.공시연도;
+const 중간값 = (a: number[]) => {
+  if (!a.length) return null;
+  const b = [...a].sort((x, y) => x - y);
+  const m = b.length >> 1;
+  return b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2;
+};
+const 문턱 = 5;
+const 갈래 = ['대학', '전문대학'] as const;
+const 묶음 = (목록: any[]) => {
+  const v = 목록.map((x) => x.신입생충원율.값);
+  return { 곳: v.length, 가운데: v.length >= 문턱 ? 중간값(v) : null, 미만: v.filter((n) => n < 90).length };
+};
+const 갈래별 = Object.fromEntries(갈래.map((g) => [g, 묶음(학교.filter((x) => x.구분 === g))]));
+const 시도들 = [...new Set(학교.map((x) => x.지역))]
+  .map((시도) => ({
+    시도,
+    대학: 묶음(학교.filter((x) => x.지역 === 시도 && x.구분 === '대학')),
+    전문대학: 묶음(학교.filter((x) => x.지역 === 시도 && x.구분 === '전문대학')),
+  }))
+  .sort((a, b) => (b.대학.미만 + b.전문대학.미만) - (a.대학.미만 + a.전문대학.미만) || a.시도.localeCompare(b.시도, 'ko'));
+const 전체미만 = 갈래별['대학'].미만 + 갈래별['전문대학'].미만;
+const 몫 = (a: number, b: number) => (b ? `${((a / b) * 100).toFixed(1)}%` : '—');
+const 률 = (n: number | null) => (n == null ? '—' : `${n.toFixed(1)}%`);
+const 대 = 갈래별['대학'];
+const 전 = 갈래별['전문대학'];
+
+const TITLE = `대학 신입생 충원율 시도별 — 90% 못 채운 ${전체미만}곳 중 전문대 ${전.미만}곳`;
+const desc =
+  `대학 신입생 충원율 시도별 통계(대학알리미 ${공시연도}년 공시). 신입생 충원율이 90%에 못 미친 ${전체미만}곳 가운데 ` +
+  `전문대학이 ${전.미만}곳, 4년제 대학이 ${대.미만}곳입니다. 전문대는 ${전.곳}곳 중 ${몫(전.미만, 전.곳)}, 4년제는 ${대.곳}곳 중 ${몫(대.미만, 대.곳)}입니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '대학 신입생 충원율 시도별 — 4년제·전문대 가운데값과 90% 미만 곳 수',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: '한국대학교육협의회 대학정보공시(대학알리미)' },
+    spatialCoverage: '대한민국 시·도',
+    variableMeasured: ['신입생 충원율'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '신입생을 못 채운 대학은 어디에 많나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `${공시연도}년 공시에서 신입생 충원율이 90%에 못 미친 곳은 ${전체미만}곳이고, 그 가운데 ${전.미만}곳이 전문대학입니다. 시도로는 ${시도들.slice(0, 3).map((x) => `${x.시도} ${x.대학.미만 + x.전문대학.미만}곳`).join(', ')} 순입니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '4년제 대학과 전문대학의 신입생 충원율은 얼마나 다른가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `학교별 신입생 충원율의 가운데값은 4년제 ${률(대.가운데)}, 전문대학 ${률(전.가운데)}입니다. 90%에 못 미친 곳의 몫은 4년제 ${몫(대.미만, 대.곳)}, 전문대학 ${몫(전.미만, 전.곳)}입니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>대학 신입생 충원율 시도별,<br class="pcbr" /> 4년제와 전문대를 갈라서</h1>
+  <p class="sub">
+    신입생 자리를 못 채운 대학은 어디에 있을까요? 대학알리미 {공시연도}년 공시의 신입생 충원율
+    (모집정원 대비 신입생 등록자 비율)을 시도와 갈래로 나눴습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">신입생 충원율 90% 미만 — {학교.length}곳 가운데</p>
+    <p class="answer-num">{전체미만}곳</p>
+    <p class="answer-sub">
+      전문대학 {전.미만}곳({전.곳}곳 중 {몫(전.미만, 전.곳)}) · 4년제 {대.미만}곳({대.곳}곳 중 {몫(대.미만, 대.곳)})
+    </p>
+  </div>
+
+  <p>
+    「지방대가 비었다」고들 말합니다. 같은 공시를 갈래로 먼저 가르면 다른 모습이 보입니다. 학교별 가운데값은
+    4년제 <strong>{률(대.가운데)}</strong>, 전문대 <strong>{률(전.가운데)}</strong>로, 4년제는 대부분 거의 다
+    찼습니다. <strong>빈자리는 지역보다 전문대에 먼저 몰려 있습니다.</strong>
+  </p>
+
+  <h2>시도별 — 90% 못 채운 곳이 많은 순</h2>
+  <p>
+    가운데값은 학교 {문턱}곳 이상인 칸에만 적었습니다. {문턱}곳 미만인 칸은 한두 곳이 값을 크게 흔들어
+    곳 수만 둡니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>시·도</th><th>4년제 곳</th><th>4년제 가운데</th><th>4년제 90%↓</th><th>전문대 곳</th><th>전문대 가운데</th><th>전문대 90%↓</th></tr>
+      </thead>
+      <tbody>
+        {시도들.map((x) => (
+          <tr>
+            <th>{x.시도}</th>
+            <td class="num">{x.대학.곳}</td>
+            <td class="num">{x.대학.곳 ? 률(x.대학.가운데) : '—'}</td>
+            <td class="num"><strong>{x.대학.미만}</strong></td>
+            <td class="num">{x.전문대학.곳}</td>
+            <td class="num">{x.전문대학.곳 ? 률(x.전문대학.가운데) : '—'}</td>
+            <td class="num"><strong>{x.전문대학.미만}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>충원율이 낮다고 나쁜 학교가 아닙니다.</strong> 모집 정원을 크게 잡았거나, 학령인구가 빨리 줄어든
+      곳일 수 있습니다. 그 까닭은 이 공시로 가를 수 없습니다.</li>
+    <li>공시는 학교마다 비율만 줍니다. 그래서 지역 전체의 충원율을 더해서 내지 않고, 가운데값과 곳 수로만 봅니다.</li>
+    <li>한 해({공시연도}년) 공시입니다. 해마다 달라질 수 있습니다.</li>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 학교 하나의 사정은 그 학교 지면에서 보십시오.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/freshman-fill-region">신입생 충원율, 수도권·비수도권</a></li>
+    <li><a href="/university-enrollment-fill">대학 재학생 충원율</a></li>
+    <li><a href="/junior-college-rate-by-area">전문대 진학률 지역별</a></li>
+    <li><a href="/university-rate-by-area">4년제 대학 진학률 지역별</a></li>
+    <li><a href="/ranking-juniorcollege-brand">전문대학 순위</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>신입생 충원율</strong> — 한국대학교육협의회 대학정보공시(대학알리미) {공시연도}년 공시 ·
+    학교 {(대학들 as any[]).length}곳 가운데 값이 있는 {학교.length}곳
+  </p>
+  <p class="note">⚠ 비율은 공시된 값이고, <strong>시도·갈래로 묶은 가운데값과 곳 수는 저희가 낸 것</strong>입니다.</p>
+
+  <NextQuestionBrief 모은것="대학알리미 신입생 충원율 공시를 시도·갈래로 묶은 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
