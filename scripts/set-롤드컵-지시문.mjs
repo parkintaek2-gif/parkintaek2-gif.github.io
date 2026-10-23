@@ -59,9 +59,9 @@ export const 맡길것 = [
      기사 받을 수 있게 조치해」.
      ⛔ 09시 회차는 한국시간 08:25 에 도는데 그때 «09시 경기가 아직 안 끝났다».
        그래서 09시는 롤드컵에서 빼고 아시안패러게임 종합을 맡긴다(아침 지시). */
-  { 시: '09', id: 'trig_01GeyrdjqmGjtu3cCt6ynZHm', 글: 'docs/지시-패러게임-09시.txt', 몇건: 1 },
-  { 시: '11', id: 'trig_01X5A3DCXwYi2T3bBosKTQnk', 글: 'docs/지시-롤드컵-11시.txt', 몇건: 2 },
-  { 시: '14', id: 'trig_01RgAwm6L1q4nBhanUgz3s8N', 글: 'docs/지시-롤드컵-14시.txt', 몇건: 2 },
+  { 시: '09', id: 'trig_01GeyrdjqmGjtu3cCt6ynZHm', 글: 'docs/지시-롤드컵-3건.txt', 몇건: 3 },
+  { 시: '11', id: 'trig_01X5A3DCXwYi2T3bBosKTQnk', 글: 'docs/지시-롤드컵-마지막2경기.txt', 몇건: 1 },
+  { 시: '14', id: 'trig_01RgAwm6L1q4nBhanUgz3s8N', 글: 'docs/지시-패러게임-09시.txt', 몇건: 1 },
   { 시: '15', id: 'trig_01EwjhZx3AKXuEyHK82N9DEn', 글: 'docs/지시-롤드컵-15시.txt', 몇건: 1 },
 ];
 
