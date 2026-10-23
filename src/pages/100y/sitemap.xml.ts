@@ -437,6 +437,8 @@ export const GET: APIRoute = () => {
     { path: '/coed-school-by-area', priority: '0.7', changefreq: 'yearly' },
     { path: '/graduates-by-area', priority: '0.7', changefreq: 'yearly' },
     { path: '/freshman-fill-by-province', priority: '0.8', changefreq: 'yearly' },
+    { path: '/university-employment-by-province', priority: '0.8', changefreq: 'yearly' },
+    { path: '/university-dropout-by-province', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-09-09 — 「사탐런」 씨앗. 같은 수능 지원자 안에서 탐구 과목 선택
        구성비(사탐만/과탐만/교차)가 2026→2027학년도 어떻게 바뀌었는지 — 위
        /csat-applicant-mix(자격별 지원자 수)와는 다른 축이다. */

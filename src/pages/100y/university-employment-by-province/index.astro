@@ -1,0 +1,139 @@
+---
+/**
+ * /100y/university-employment-by-province — **대학 취업률 시도별 · 4년제와 전문대를 갈라서**
+ *
+ * ── 왜 만들었나 (2026-10-23 · 1번 · 지역 × 입시) ──────────────────────────
+ * 롱테일  수시·정시 사이에 「어느 지역 대학이 취업이 잘 되나」를 묻는 사람에게 시도 × 갈래로 답하는
+ *         지면이 없었다. /university-employment-spread 는 학교 사이 퍼짐을 본다 — 지역으로는 안 갈랐다.
+ * 재 보니 전문대 취업률이 «모든 시도»에서 4년제보다 높고, 서울에서만 둘이 거의 같다.
+ *
+ * ⛔ 취업자 ÷ 취업대상자를 더해서 나눈다(lib/university-province). 학교 비율 평균이 아니다.
+ * ⛔ 취업률이 높다고 «좋은» 대학이 아니다 — 진학·군입대 등은 대상자에서 빠지고, 일자리의 질은 안 잰다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import { 시도갈래로더함 } from '../../../lib/university-province';
+
+const { 시도들: 원, 전체, 공시연도 } = 시도갈래로더함((x) =>
+  typeof x.취업자 === 'number' && typeof x.취업대상자 === 'number' ? { 분자: x.취업자, 분모: x.취업대상자 } : null,
+);
+const 차 = (x: any) => (x.전문대학.률 ?? 0) - (x.대학.률 ?? 0);
+const 시도들 = [...원].sort((a, b) => 차(b) - 차(a));
+const 전문대가높은곳 = 시도들.filter((x) => x.대학.률 != null && x.전문대학.률 != null && 차(x) > 0).length;
+const 작은차 = [...시도들].sort((a, b) => 차(a) - 차(b))[0];
+
+const 수 = (n: number) => Number(n).toLocaleString('ko-KR');
+const 률 = (n: number | null) => (n == null ? '—' : `${n.toFixed(1)}%`);
+const p = (n: number) => `${n > 0 ? '+' : ''}${n.toFixed(1)}%p`;
+
+const TITLE = `대학 취업률 시도별 — 전문대 ${률(전체.전문대학.률)} · 4년제 ${률(전체.대학.률)}`;
+const desc =
+  `대학 취업률 시도별 통계(대학알리미 ${공시연도}년 공시). 취업자를 취업대상자로 나눠 시도와 4년제·전문대로 갈랐습니다. ` +
+  `전국 전문대 ${률(전체.전문대학.률)}, 4년제 ${률(전체.대학.률)}이고, ${시도들.length}개 시도 가운데 ${전문대가높은곳}곳에서 전문대가 높습니다. ` +
+  `차이가 가장 작은 곳은 ${작은차.시도}(${p(차(작은차))})입니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '대학 취업률 시도별 — 4년제·전문대학 취업자 ÷ 취업대상자',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: '한국대학교육협의회 대학정보공시(대학알리미)' },
+    spatialCoverage: '대한민국 시·도',
+    variableMeasured: ['취업자', '취업대상자', '취업률'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '전문대와 4년제 대학 중 취업률은 어디가 높나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `대학알리미 ${공시연도}년 공시로 취업자를 취업대상자로 나누면 전문대학 ${률(전체.전문대학.률)}, 4년제 대학 ${률(전체.대학.률)}입니다. ${시도들.length}개 시도 가운데 ${전문대가높은곳}곳에서 전문대가 높습니다. 다만 진학자·입대자 등은 취업대상자에서 빠지고, 일자리의 질은 이 수에 들어 있지 않습니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '대학 취업률이 높은 지역은 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `4년제 대학 기준으로 ${[...원].filter((x) => x.대학.률 != null).sort((a, b) => (b.대학.률 ?? 0) - (a.대학.률 ?? 0)).slice(0, 3).map((x) => `${x.시도} ${률(x.대학.률)}`).join(', ')}, 전문대학 기준으로 ${[...원].filter((x) => x.전문대학.률 != null).sort((a, b) => (b.전문대학.률 ?? 0) - (a.전문대학.률 ?? 0)).slice(0, 3).map((x) => `${x.시도} ${률(x.전문대학.률)}`).join(', ')} 순입니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>대학 취업률 시도별,<br class="pcbr" /> 4년제와 전문대를 갈라서</h1>
+  <p class="sub">
+    어느 지역 대학을 나오면 취업이 잘 될까요? 대학알리미 {공시연도}년 공시의 취업자와 취업대상자를 시도와
+    갈래로 더해 나눴습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">취업률 — 전국</p>
+    <p class="answer-num">전문대 {률(전체.전문대학.률)} · 4년제 {률(전체.대학.률)}</p>
+    <p class="answer-sub">
+      전문대 {전체.전문대학.곳}곳 {수(전체.전문대학.분자)} / {수(전체.전문대학.분모)}명 · 4년제 {전체.대학.곳}곳{' '}
+      {수(전체.대학.분자)} / {수(전체.대학.분모)}명
+    </p>
+  </div>
+
+  <p>
+    {시도들.length}개 시도 가운데 <strong>{전문대가높은곳}곳에서 전문대 취업률이 4년제보다 높습니다.</strong>{' '}
+    둘이 가장 가까운 곳은 {작은차.시도}({p(차(작은차))})입니다.
+  </p>
+
+  <h2>시도별 — 전문대가 4년제보다 높은 폭이 큰 순</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>4년제</th><th>전문대</th><th>차이</th></tr></thead>
+      <tbody>
+        {시도들.map((x) => (
+          <tr>
+            <th>{x.시도}</th>
+            <td class="num">{률(x.대학.률)} <span class="sm">({x.대학.곳})</span></td>
+            <td class="num">{률(x.전문대학.률)} <span class="sm">({x.전문대학.곳})</span></td>
+            <td class="num"><strong>{x.대학.률 != null && x.전문대학.률 != null ? p(차(x)) : '—'}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">괄호 안은 학교 수입니다. 학교가 한두 곳인 칸은 그 학교의 값이나 다름없습니다.</p>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>취업률은 「취업대상자」 가운데 비율입니다.</strong> 대학원 진학·군 입대·외국인 유학생 등은
+      대상자에서 빠집니다. 4년제는 진학자가 많아 대상자 구성이 다릅니다.</li>
+    <li>일자리의 질(임금·정규직 여부)은 이 수에 없습니다. 높다고 더 좋은 길이라는 뜻이 아닙니다.</li>
+    <li>학교가 있는 시도로 셌습니다. 취업한 곳이 어디인지는 이 공시에 없습니다.</li>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong></li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/university-dropout-by-province">대학 중도탈락률 시도별</a></li>
+    <li><a href="/freshman-fill-by-province">대학 신입생 충원율 시도별</a></li>
+    <li><a href="/university-employment-spread">대학 취업률, 학교마다 얼마나 다른가</a></li>
+    <li><a href="/junior-college-rate-by-area">전문대 진학률 지역별</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>취업자·취업대상자</strong> — 한국대학교육협의회 대학정보공시(대학알리미) {공시연도}년 공시
+  </p>
+  <p class="note">⚠ 사람 수는 공시된 값이고, <strong>시도·갈래로 더해 나눈 비율은 저희가 낸 것</strong>입니다.</p>
+
+  <NextQuestionBrief 모은것="대학알리미 취업 공시를 시도·갈래로 더한 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .sm { font-size: .85em; color: var(--muted, #666); }
+</style>

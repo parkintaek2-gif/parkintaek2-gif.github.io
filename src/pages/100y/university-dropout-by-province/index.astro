@@ -1,0 +1,135 @@
+---
+/**
+ * /100y/university-dropout-by-province — **대학 중도탈락률 시도별 · 4년제와 전문대를 갈라서**
+ *
+ * ── 왜 만들었나 (2026-10-23 · 1번 · 지역 × 입시) ──────────────────────────
+ * 롱테일  N수생이 23년 만에 최대인 해 — 대학에 들어가서도 그만두고 다시 보는 사람이 그 안에 있다.
+ *         /university-dropout-rate 는 국공립·사립으로만 봤다. 시도 × 갈래로는 아무도 안 갈랐다.
+ *
+ * ⛔ 중도탈락자 ÷ 재적학생을 더해서 나눈다(lib/university-province). 학교 비율 평균이 아니다.
+ * ⛔ 「재수하려고 그만둔 사람」으로 읽지 않는다 — 공시는 자퇴·미등록·제적 등을 한 칸에 센다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import { 시도갈래로더함 } from '../../../lib/university-province';
+
+const { 시도들: 원, 전체, 공시연도 } = 시도갈래로더함((x) =>
+  typeof x.중도탈락자 === 'number' && typeof x.재적학생 === 'number' ? { 분자: x.중도탈락자, 분모: x.재적학생 } : null,
+);
+const 시도들 = [...원].sort((a, b) => (b.전문대학.률 ?? 0) - (a.전문대학.률 ?? 0));
+const 전문대가높은곳 = 원.filter((x) => x.대학.률 != null && x.전문대학.률 != null && x.전문대학.률 > x.대학.률).length;
+const 대위 = [...원].filter((x) => x.대학.률 != null).sort((a, b) => (b.대학.률 ?? 0) - (a.대학.률 ?? 0));
+
+const 수 = (n: number) => Number(n).toLocaleString('ko-KR');
+const 률 = (n: number | null) => (n == null ? '—' : `${n.toFixed(1)}%`);
+
+const TITLE = `대학 중도탈락률 시도별 — 전문대 ${률(전체.전문대학.률)} · 4년제 ${률(전체.대학.률)}`;
+const desc =
+  `대학 중도탈락률 시도별 통계(대학알리미 ${공시연도}년 공시). 중도탈락자를 재적학생으로 나눠 시도와 4년제·전문대로 갈랐습니다. ` +
+  `전국 전문대 ${률(전체.전문대학.률)}, 4년제 ${률(전체.대학.률)}. 4년제는 ${대위[0].시도} ${률(대위[0].대학.률)}가 가장 높고 ` +
+  `${대위.at(-1)!.시도} ${률(대위.at(-1)!.대학.률)}가 가장 낮습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '대학 중도탈락률 시도별 — 4년제·전문대학 중도탈락자 ÷ 재적학생',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: '한국대학교육협의회 대학정보공시(대학알리미)' },
+    spatialCoverage: '대한민국 시·도',
+    variableMeasured: ['중도탈락자', '재적학생', '중도탈락률'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '대학 중도탈락률이 높은 지역은 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `4년제 대학은 ${대위.slice(0, 3).map((x) => `${x.시도} ${률(x.대학.률)}`).join(', ')}, 전문대학은 ${시도들.slice(0, 3).map((x) => `${x.시도} ${률(x.전문대학.률)}`).join(', ')} 순입니다(대학알리미 ${공시연도}년 공시, 중도탈락자 ÷ 재적학생).`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '전문대와 4년제 중 중도탈락률은 어디가 높나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `전국으로 전문대학 ${률(전체.전문대학.률)}, 4년제 대학 ${률(전체.대학.률)}입니다. ${원.length}개 시도 가운데 ${전문대가높은곳}곳에서 전문대가 높습니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>대학 중도탈락률 시도별,<br class="pcbr" /> 4년제와 전문대를 갈라서</h1>
+  <p class="sub">
+    대학에 들어간 뒤 한 해 동안 그만두는 학생은 지역마다 얼마나 다를까요? 대학알리미 {공시연도}년 공시의
+    중도탈락자와 재적학생을 시도와 갈래로 더해 나눴습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">중도탈락률 — 전국</p>
+    <p class="answer-num">전문대 {률(전체.전문대학.률)} · 4년제 {률(전체.대학.률)}</p>
+    <p class="answer-sub">
+      전문대 {수(전체.전문대학.분자)} / {수(전체.전문대학.분모)}명 · 4년제 {수(전체.대학.분자)} / {수(전체.대학.분모)}명
+    </p>
+  </div>
+
+  <p>
+    {원.length}개 시도 가운데 {전문대가높은곳}곳에서 전문대가 4년제보다 높습니다. 4년제는{' '}
+    <strong>{대위[0].시도} {률(대위[0].대학.률)}</strong>가 가장 높고{' '}
+    <strong>{대위.at(-1)!.시도} {률(대위.at(-1)!.대학.률)}</strong>가 가장 낮습니다.
+  </p>
+
+  <h2>시도별 — 전문대 중도탈락률이 높은 순</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>4년제</th><th>전문대</th></tr></thead>
+      <tbody>
+        {시도들.map((x) => (
+          <tr>
+            <th>{x.시도}</th>
+            <td class="num">{률(x.대학.률)} <span class="sm">({x.대학.곳})</span></td>
+            <td class="num"><strong>{률(x.전문대학.률)}</strong> <span class="sm">({x.전문대학.곳})</span></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">괄호 안은 학교 수입니다. 학교가 한두 곳인 칸은 그 학교의 값이나 다름없습니다.</p>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>그만둔 까닭은 이 공시에 없습니다.</strong> 자퇴·미등록·미복학·제적이 한 칸에 들어 있습니다.
+      다른 대학으로 옮기려고 다시 수능을 보는 사람도 여기에 들어가지만, 그 몫은 셀 수 없습니다.</li>
+    <li>높다고 나쁜 대학이 아닙니다. 길을 바꾸는 것도 하나의 선택입니다.</li>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong></li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/university-employment-by-province">대학 취업률 시도별</a></li>
+    <li><a href="/freshman-fill-by-province">대학 신입생 충원율 시도별</a></li>
+    <li><a href="/university-dropout-rate">대학 중도탈락률, 국공립·사립</a></li>
+    <li><a href="/dropout-by-area">고등학교 학업중단율 지역별</a></li>
+    <li><a href="/repeat-rate-by-area">재수생 비율 지역별</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>중도탈락자·재적학생</strong> — 한국대학교육협의회 대학정보공시(대학알리미) {공시연도}년 공시
+  </p>
+  <p class="note">⚠ 사람 수는 공시된 값이고, <strong>시도·갈래로 더해 나눈 비율은 저희가 낸 것</strong>입니다.</p>
+
+  <NextQuestionBrief 모은것="대학알리미 중도탈락 공시를 시도·갈래로 더한 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .sm { font-size: .85em; color: var(--muted, #666); }
+</style>
