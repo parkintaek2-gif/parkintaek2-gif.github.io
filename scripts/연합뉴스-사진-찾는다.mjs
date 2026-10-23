@@ -167,7 +167,34 @@ export function 실체풀기(글) {
  * 기사 제목(또는 본문 첫 줄)으로 연합뉴스 사진을 찾는다.
  * @returns {Promise<{찾았나:boolean, 사진?:string, 주소?:string, 제목?:string, 겹침?:number, 본것:number}>}
  */
+/**
+ * **프로농구 기사인가** — 그러면 사진은 연합뉴스가 아니라 KBL 에서 찾는다.
+ *
+ * 🔴🔴 [2026-10-23 · 사장님] 마레이 34리바운드 기사의 사진을 내가 연합뉴스에서만
+ *   찾다가 못 찾자 **사장님이 KBL 홈페이지에서 손수 찾아 쓰셨다.** 그리고 이르셨다 —
+ *     「마레이는 kbl 홈페이지에 있는 거 찾아 썼다. **프로농구 사진은 KBL에서 찾아 앞으론**」
+ *   ⛔ 사장님 손을 빌린 것 자체가 흠이다. 리그가 자기 경기 사진을 가장 많이, 가장 빨리 올린다.
+ */
+export const KBL사진면 = 'https://www.kbl.or.kr/media/photo';
+export function 프로농구인가(찾는말) {
+  const t = String(찾는말 ?? '');
+  if (/프로농구|KBL|리바운드|어시스트/i.test(t)) return true;
+  /* 2026-27 열 팀 — 지역명 없이 적혀도 알아본다 */
+  const 팀 = ['삼성', '정관장', 'DB', 'SK', 'KT', '한국가스공사', '소노', '현대모비스', 'LG', 'KCC'];
+  const 걸린팀 = 팀.filter((x) => t.includes(x));
+  /* ⚠ 「LG」·「삼성」·「KT」는 야구·배구에도 있다. 농구 말이 함께 있어야 농구로 본다 —
+     그러지 않으면 야구 기사를 농구로 읽는다(10-23 에 「LG 장시환 은퇴」를 집었다). */
+  return 걸린팀.length > 0 && /농구|코트|골밑|쿼터|득점/.test(t);
+}
+
 export async function 사진찾기(찾는말, 옵션 = {}) {
+  /* 🔴 프로농구면 KBL 을 먼저 가리킨다 — 사장님 2026-10-23 */
+  if (프로농구인가(찾는말) && !옵션.KBL은건너뛴다) {
+    console.log(`  📷 프로농구다 — 사진은 **KBL** 에서 찾는다 (사장님 2026-10-23)`);
+    console.log(`     ${KBL사진면}`);
+    console.log('     ⚠ 이 면은 자바스크립트로 그려진다. 크롬(9222)으로 열어야 꼭지가 보인다.');
+    console.log('     ⬜ 아래 연합뉴스 결과는 «보조»다. KBL 을 먼저 본다.');
+  }
   const 길들 = 옵션.목록길 || 목록길;
   const 받기 = 옵션.받기 || (async (u) => {
     const r = await fetch(u, { headers: { 'user-agent': 'Mozilla/5.0 (compatible; KLifeMapBot/1.0)' } });
