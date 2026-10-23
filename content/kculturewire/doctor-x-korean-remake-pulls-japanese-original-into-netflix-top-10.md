@@ -37,7 +37,7 @@ Netflix's per-country file for the week of 12–18 October shows something else 
 
 Netflix's per-country file runs back to July 2021, 277 weeks across 94 countries. In all of that, the Japanese series had reached a national Top 10 only a handful of times before this month.
 
-| Week | Country | Rank of the Japanese original |
+| Week | Country | Original's rank |
 |---|---|---|
 | 23 Oct 2022 | Japan | 9 |
 | 6 Sep 2026 | Hong Kong | 10 |
