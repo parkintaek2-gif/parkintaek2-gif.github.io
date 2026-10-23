@@ -25,6 +25,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
+/* ⚠ 지역의 «차례»는 잰다-내일날씨.mjs 의 잴곳 하나가 정본이다 — 여기 다시 적지 않는다 */
+import { 잴곳, 꼭있어야할곳 } from './잰다-내일날씨.mjs';
 
 export const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 뼈대길 = 'docs/지시-중부매일-날씨-뼈대.txt';
@@ -38,8 +40,13 @@ export function 사실묶기(잰글, 이제 = new Date()) {
   const g = String(잰글 ?? '');
   if (!g.trim()) return null;
   if (/확인하지 못했다|못 쟀다/.test(g)) return null;
+  /* 🔴 [2026-10-23 · 사장님] 「청주 → 충북 → 대전 → 세종 → 천안 등 충남 순」.
+     ⚠ 차례는 «잴곳»이 정한다. 여기서 또 적으면 두 자리가 어긋난다. */
   const 줄 = g.split('\n').map((x) => x.trim())
-    .filter((x) => /^(대전|청주|세종)\s/.test(x));
+    .filter((x) => 잴곳.some(([이]) => x.startsWith(`${이} `)));
+  /* ⛔ 청주·대전은 사장님이 키워드로 못박으신 곳이다 — 하나라도 없으면 안 시킨다.
+     나머지는 못 재면 그 줄만 빠진다. 못 잰 곳 하나로 기사 전체를 세우지 않는다. */
+  if (!꼭있어야할곳.every((이) => 줄.some((x) => x.startsWith(`${이} `)))) return null;
   if (줄.length < 3) return null;
   const 내일 = new Date(이제.getTime() + 24 * 60 * 60 * 1000);
   const 요일 = ['일', '월', '화', '수', '목', '금', '토'][내일.getDay()];
@@ -81,7 +88,13 @@ export function 자가시험() {
   const 뼈 = fs.existsSync(path.join(뿌리, 뼈대길)) ? fs.readFileSync(path.join(뿌리, 뼈대길), 'utf8') : '';
   검('🔴 뼈대에 자리표가 있다', 뼈.includes(자리표));
   검('🔴 뼈대가 [내일 날씨] 를 못박는다', 뼈.includes('[내일 날씨]'));
-  검('🔴 뼈대가 대전·청주를 못박는다', 뼈.includes('대전과 청주를 반드시'));
+  검('🔴 뼈대가 청주·대전을 못박는다', 뼈.includes('청주와 대전을 반드시'));
+  /* 🔴 [2026-10-23 · 사장님] 「청주 날씨를 먼저 보도, 그 다음에 충북, 대전, 세종,
+     천안 등 충남 순으로 내용을 구성해라」 — 뼈대가 이 차례를 말해 줘야 기사가 그리 나온다. */
+  검('🔴 뼈대가 지역 차례를 못박는다 (청주 → 충북 → 대전 → 세종 → 충남)',
+    뼈.includes('청주를 맨 먼저 쓰고') && 뼈.includes('천안 등 충남 차례로'));
+  검('🔴 뼈대가 제목에서도 청주를 앞에 놓으라 한다',
+    뼈.includes('청주를 대전보다 앞에'));
   검('🔴 뼈대가 웹 검색을 막는다', 뼈.includes('웹 검색은 하지 마십시오'));
   검('🔴 뼈대가 바이라인을 머리에 넣으라고 한다', 뼈.includes('[중부매일 박인택 기자]'));
   검('🔴 뼈대가 없는 수치를 지어내지 말라고 한다', 뼈.includes('지어내지 마십시오'));
