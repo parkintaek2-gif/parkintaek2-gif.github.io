@@ -437,6 +437,7 @@ export const GET: APIRoute = () => {
     { path: '/teacher-ratio-by-area', priority: '0.7', changefreq: 'yearly' },
     { path: '/coed-school-by-area', priority: '0.7', changefreq: 'yearly' },
     { path: '/graduates-by-area', priority: '0.7', changefreq: 'yearly' },
+    { path: '/century-old-high-schools-by-area', priority: '0.7', changefreq: 'yearly' },
     { path: '/freshman-fill-by-province', priority: '0.8', changefreq: 'yearly' },
     { path: '/university-employment-by-province', priority: '0.8', changefreq: 'yearly' },
     { path: '/university-dropout-by-province', priority: '0.7', changefreq: 'yearly' },

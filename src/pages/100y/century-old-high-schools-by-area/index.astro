@@ -1,0 +1,181 @@
+---
+/**
+ * /100y/century-old-high-schools-by-area — **설립 100년이 넘은 고등학교, 지역별**
+ *
+ * ── 왜 만들었나 (2026-10-23 · 1번 · 지역 축 롱테일) ──────────────────────
+ * /report/area 지면에 이미 «문 연 지 100년이 넘은 학교» 칸이 있다(2번 · 2026-08-08). 그 수를 전국으로
+ * 모은 지면이 없었다. 「오래된 고등학교」·「100년 된 학교」를 묻는 사람에게 시도·시군구로 답한다.
+ *
+ * ── ⛔ 지키는 것 (report/area 의 규칙을 그대로) ───────────────────────────
+ * ⛔ 설립일은 NEIS 가 준 값이다. 학교가 스스로 세는 개교기념일과 다를 수 있다 — 「몇 년째」로 단정하지 않고
+ *   «NEIS 설립 연도»로 적는다. 학교가 통합·이전·전환되며 설립일이 새로 잡힌 경우도 있어, 0곳인 시도를
+ *   «오래된 학교가 없다»로 읽지 않는다.
+ * ⛔ 오래된 것을 「명문」·「전통」으로 읽히게 쓰지 않는다. 햇수는 햇수다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import schools from '../../../data/100yearmap/pages-school.json';
+import { 시군구로더함, 지역링크 } from '../../../lib/school-area-sum';
+
+const 올해 = new Date().getFullYear(); // 이 PC 는 KST 다
+const 설립연 = (x: any) => (/^\d{8}$/.test(String(x.설립일 ?? '')) ? Number(String(x.설립일).slice(0, 4)) : null);
+const 고교 = (schools as any[]).filter((x) => x.종류 === '고등학교' && 설립연(x) != null);
+const 백년 = 고교.filter((x) => 올해 - 설립연(x)! >= 100).sort((a, b) => 설립연(a)! - 설립연(b)! || a.title.localeCompare(b.title, 'ko'));
+const 셈 = 시군구로더함(고교, null, (x) => ({ 분모: 1, 분자: 올해 - 설립연(x)! >= 100 ? 1 : 0 }));
+const 시도들 = [...셈.시도들].sort((a, b) => b.분자 - a.분자 || a.이름.localeCompare(b.이름, 'ko'));
+const 많은동네 = [...셈.모든곳].filter((x) => x.분자 > 0).sort((a, b) => b.분자 - a.분자 || a.열쇠.localeCompare(b.열쇠, 'ko')).slice(0, 15);
+const 영시도 = 시도들.filter((x) => x.분자 === 0).map((x) => x.이름);
+const 연대 = new Map<number, number>();
+for (const x of 고교) { const d = Math.floor(설립연(x)! / 10) * 10; 연대.set(d, (연대.get(d) ?? 0) + 1); }
+const 연대들 = [...연대.entries()].sort((a, b) => a[0] - b[0]);
+const 최다연대 = [...연대들].sort((a, b) => b[1] - a[1])[0];
+const 서울 = 시도들.find((x) => x.이름 === '서울특별시');
+
+const 수 = (n: number) => Number(n).toLocaleString('ko-KR');
+const 기준해 = 올해 - 100;
+
+const TITLE = `설립 100년 넘은 고등학교 ${백년.length}곳 — 지역별로 보면`;
+const desc =
+  `설립 100년이 넘은 고등학교(NEIS 설립 연도 ${기준해}년 이전)는 고등학교 ${수(고교.length)}곳 가운데 ${백년.length}곳입니다. ` +
+  `서울 ${서울?.분자 ?? 0}곳이 가장 많고, 가장 이른 설립 연도는 ${설립연(백년[0])}년입니다. 시도·시군구별로 셌습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '설립 100년 넘은 고등학교 — 시도·시군구별 수',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 'NEIS 교육정보 개방 포털' },
+    spatialCoverage: '대한민국 시·도, 시·군·구',
+    variableMeasured: ['고등학교 수', '설립 연도'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '우리나라에서 가장 오래된 고등학교는 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `NEIS 설립 연도로 보면 ${백년.slice(0, 4).map((x) => `${x.title}(${설립연(x)}년)`).join(', ')} 순입니다. 학교가 스스로 세는 개교 연도와 다를 수 있습니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '설립 100년이 넘은 고등학교는 몇 곳인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `NEIS 설립 연도가 ${기준해}년 이전인 고등학교는 ${백년.length}곳입니다. 시도별로 ${시도들.filter((x) => x.분자 > 0).slice(0, 4).map((x) => `${x.이름} ${x.분자}곳`).join(', ')} 순입니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>설립 100년 넘은 고등학교,<br class="pcbr" /> 지역별로 보면</h1>
+  <p class="sub">
+    문을 연 지 100년이 넘은 고등학교는 어디에 있을까요? NEIS 학교기본정보의 설립일로 고등학교{' '}
+    {수(고교.length)}곳을 셌습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">NEIS 설립 연도 {기준해}년 이전 — 고등학교 {수(고교.length)}곳 가운데</p>
+    <p class="answer-num">{백년.length}곳</p>
+    <p class="answer-sub">
+      서울 {서울?.분자 ?? 0}곳 · 가장 이른 설립 {설립연(백년[0])}년 · 가장 많이 문을 연 때 {최다연대[0]}년대({수(최다연대[1])}곳)
+    </p>
+  </div>
+
+  <p>
+    ⚠ <strong>설립일은 NEIS 가 준 값입니다.</strong> 학교가 스스로 세는 개교 연도와 다를 수 있고, 통합·이전·전환으로
+    설립일이 새로 잡힌 학교도 있습니다. 그래서 0곳으로 나온 시도({영시도.join(' · ') || '없음'})를 «오래된 학교가
+    없는 곳»으로 읽지 마십시오. 오래됐다고 더 좋은 학교라는 뜻도 아닙니다.
+  </p>
+
+  <h2>시도별 — 설립 100년 넘은 고등학교</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>100년 넘은 곳</th><th>고등학교</th></tr></thead>
+      <tbody>
+        {시도들.map((x) => (
+          <tr>
+            <th>{x.이름}</th>
+            <td class="num"><strong>{x.분자}곳</strong></td>
+            <td class="num">{x.분모}곳</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>많은 시군구 15곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>100년 넘은 곳</th><th>고등학교</th></tr></thead>
+      <tbody>
+        {많은동네.map((x) => (
+          <tr>
+            <th>{지역링크(x.열쇠) ? <a href={지역링크(x.열쇠)!}>{x.시도} {x.이름}</a> : `${x.시도} ${x.이름}`}</th>
+            <td class="num"><strong>{x.분자}곳</strong></td>
+            <td class="num">{x.분모}곳</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">학교가 지금 있는 곳으로 셌습니다. 문을 연 곳에서 옮겨 온 학교도 있습니다.</p>
+
+  <h2>설립 연도가 가장 이른 고등학교 15곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학교</th><th>지역</th><th>NEIS 설립 연도</th></tr></thead>
+      <tbody>
+        {백년.slice(0, 15).map((x) => (
+          <tr>
+            <th><a href={x.url}>{x.title}</a></th>
+            <td>{x.주소.split(' ').slice(0, 2).join(' ')}</td>
+            <td class="num">{설립연(x)}년</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>고등학교는 언제 많이 문을 열었나 — 설립 연대별</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>연대</th><th>문을 연 곳</th></tr></thead>
+      <tbody>
+        {연대들.map(([d, n]) => (
+          <tr><th>{d}년대</th><td class="num">{수(n)}곳</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">지금 있는 학교만 셉니다. 문을 닫은 학교는 이 표에 없습니다.</p>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/graduates-by-area">고등학교 졸업생 수 지역별</a></li>
+    <li><a href="/coed-school-by-area">남녀공학 고등학교 비율 지역별</a></li>
+    <li><a href="/class-size-by-area">고등학교 학급당 학생 수 지역별</a></li>
+    <li>우리 동네 고등학교 한 장 — <a href="/region">지역 목록</a>에서 고르십시오</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학교 목록·설립일·주소</strong> — NEIS 교육정보 개방 포털 학교기본정보 · 저희가 받은 때{' '}
+    {(schools as any[])[0]?.기준시각?.slice(0, 10)}
+  </p>
+  <p class="note">⚠ 설립일은 NEIS 값 그대로이고, <strong>지역으로 센 것은 저희가 낸 것</strong>입니다.</p>
+
+  <NextQuestionBrief 모은것="NEIS 학교기본정보의 설립일을 시도·시군구로 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
