@@ -523,6 +523,10 @@ const jsonLd = [articleLd, breadcrumbLd, datasetLd].filter(Boolean);
   .body :global(th) { font-weight: 700; color: var(--muted); font-size: .8rem;
                       letter-spacing: .03em; text-transform: uppercase; }
   .body :global(td:nth-child(n+3)) { text-align: right; font-variant-numeric: tabular-nums; }
+  /* 🔴 2026-10-23 · 1번 — nowrap 이 «머리글·제목»까지 한 줄로 묶어 표를 폰보다 넓혔다.
+     2칸 표의 숫자 칸이 화면 밖으로 나가 «빈 칸»으로 보였다.
+     숫자에는 띄어쓰기가 없어 접어도 숫자가 갈리지 않는다 — 그래서 모든 칸을 접는다 */
+  .body :global(th), .body :global(td) { white-space: normal; }
 
   /* 나가는 길 — 다 읽은 사람이 다음으로 갈 자리. 8/7 까지 없었다. */
   .onward { margin-top: 2.2rem; }
