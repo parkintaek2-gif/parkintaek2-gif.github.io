@@ -490,6 +490,14 @@ ins.adsbygoogle[data-ad-status='unfilled'] {
   margin: 0;
   min-width: 28rem;
 }
+/*
+ * 🔴 2026-10-23 · 1번 — 위 28rem(448px) 이 **칸이 적은 표까지** 폰(390px)보다 넓게 만들었다.
+ * 2칸 표(만기 | 금리)는 오른쪽 칸이 화면 밖으로 나가 «빈 표»로 보였다. 옆으로 밀어야만 보였다.
+ * ⇒ 넷 칸 이하인 표는 화면 폭에 맞춘다. 다섯 칸 이상만 28rem 을 지켜 옆으로 민다.
+ */
+.prose .table-scroll table:not(:has(tr > :nth-child(5))) {
+  min-width: 0;
+}
 
 .prose svg {
   max-width: 100%;
