@@ -1,0 +1,179 @@
+---
+/**
+ * /100y/graduates-by-area — **고등학교 졸업생 수 지역별** (시·군·구)
+ *
+ * ── 왜 만들었나 (2026-10-23 · 1번 · 지역 × 입시 축) ─────────────────────
+ * 이슈  수능(11/19)을 앞두고 「우리 동네 고3 이 몇 명」을 묻는 사람에게 시군구로 답하는 지면이 없었다.
+ *       KICE 발표로 올해 수능 지원자는 55만1,864명, 그 가운데 재학생이 줄었다(2026-09-08).
+ * 축    /report/area/<시군구> 손님의 다음 물음 — 「우리 동네 경쟁자는 몇 명인가」.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 이 수는 2024년 공시(그해 2월 졸업)다. 올해 수능 지원자와 «빼거나 나누지» 않는다 — 해가 다르다.
+ * ⛔ 공시 진로 자료가 덮는 학교만이다(특성화고는 거의 빠져 있다). 「전국 고3 전부」라 쓰지 않는다.
+ * ⛔ 여학생 비율은 표로 세우지 않는다 — 여고가 있느냐로 갈려 동네 성격처럼 읽힌다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 진로자료 from '../../../data/100yearmap/school-career.json';
+import { 시군구로더함, 중간값, 지역링크 } from '../../../lib/school-area-sum';
+
+const 자료 = 진로자료 as any;
+const 셈 = 시군구로더함(자료.자료 as any[], null, (r) => ({ 분모: Number(r.졸업자) || 0, 분자: 0 }));
+const 큰순 = [...셈.모든곳].sort((a, b) => b.분모 - a.분모);
+const 많은쪽 = 큰순.slice(0, 20);
+const 적은쪽 = 큰순.slice(-15).reverse();
+const 가운데 = 중간값(큰순.map((x) => x.분모));
+const 시도들 = [...셈.시도들].sort((a, b) => b.분모 - a.분모);
+const 전체 = 셈.전체분모;
+const 위20합 = 많은쪽.reduce((s, x) => s + x.분모, 0);
+const 천명미만 = 큰순.filter((x) => x.분모 < 1000).length;
+
+const 수 = (n: number) => Number(n).toLocaleString('ko-KR');
+const 몫 = (n: number) => `${((n / 전체) * 100).toFixed(1)}%`;
+const 맨위 = 큰순[0];
+
+const TITLE = `고등학교 졸업생 수 지역별 — 시군구 ${큰순.length}곳, ${맨위.이름} ${수(맨위.분모)}명`;
+const desc =
+  `고등학교 졸업생 수 지역별 통계. 학교알리미 ${자료.출처.공시연도}년 공시 졸업생 ${수(전체)}명을 시군구 ${큰순.length}곳으로 갈랐습니다. ` +
+  `${맨위.시도} ${맨위.이름} ${수(맨위.분모)}명이 가장 많고, 시군구 가운데값은 ${수(가운데 ?? 0)}명입니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '고등학교 졸업생 수 지역별 — 시군구별 졸업자 수',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 자료.출처.이름 },
+    license: 'https://www.kogl.or.kr/info/licenseType1.do',
+    spatialCoverage: '대한민국 시·군·구',
+    variableMeasured: ['졸업자 수'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '고등학교 졸업생이 가장 많은 지역은 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `${많은쪽.slice(0, 5).map((x) => `${x.시도} ${x.이름} ${수(x.분모)}명`).join(', ')} 순입니다(학교알리미 ${자료.출처.공시연도}년 공시).`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '시도별 고등학교 졸업생 수는 얼마나 되나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `${시도들.map((x) => `${x.이름} ${수(x.분모)}명`).join(', ')}입니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>고등학교 졸업생 수 지역별,<br class="pcbr" /> 시군구 {큰순.length}곳</h1>
+  <p class="sub">
+    우리 동네에서 한 해에 <strong>고등학교를 졸업하는 사람</strong>은 몇 명일까요? 학교알리미{' '}
+    {자료.출처.공시연도}년 공시의 졸업자 수를 학교가 있는 시군구로 더했습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">졸업생 — 시군구 {큰순.length}곳</p>
+    <p class="answer-num">{수(전체)}명</p>
+    <p class="answer-sub">
+      가장 많은 {맨위.이름} {수(맨위.분모)}명 · 시군구 가운데값 {수(가운데 ?? 0)}명 · 1,000명이 안 되는 곳 {천명미만}곳
+    </p>
+  </div>
+
+  <p>
+    ⚠ <strong>올해 수능 지원자와는 다른 수입니다.</strong> 이것은 {자료.출처.공시연도}년 공시(그해 2월 졸업)이고,
+    올해 수능 지원자는 한국교육과정평가원 발표로 55만1,864명입니다. 해와 세는 대상이 달라 두 수를 빼거나
+    나누지 않습니다. 또 공시 진로 자료가 덮는 학교만 셌습니다 — 특성화고는 거의 들어 있지 않습니다.
+  </p>
+
+  <h2>졸업생이 많은 시군구 20곳</h2>
+  <p>20곳이 전체의 {몫(위20합)}입니다.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>학교</th><th>졸업생</th><th>전체 몫</th></tr></thead>
+      <tbody>
+        {많은쪽.map((x) => (
+          <tr>
+            <th>{지역링크(x.열쇠) ? <a href={지역링크(x.열쇠)!}>{x.시도} {x.이름}</a> : `${x.시도} ${x.이름}`}</th>
+            <td class="num">{x.곳}곳</td>
+            <td class="num"><strong>{수(x.분모)}명</strong></td>
+            <td class="num">{몫(x.분모)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>졸업생이 적은 시군구 15곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>학교</th><th>졸업생</th></tr></thead>
+      <tbody>
+        {적은쪽.map((x) => (
+          <tr>
+            <th>{지역링크(x.열쇠) ? <a href={지역링크(x.열쇠)!}>{x.시도} {x.이름}</a> : `${x.시도} ${x.이름}`}</th>
+            <td class="num">{x.곳}곳</td>
+            <td class="num"><strong>{수(x.분모)}명</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>시도별 고등학교 졸업생 수</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>졸업생</th><th>전체 몫</th></tr></thead>
+      <tbody>
+        {시도들.map((x) => (
+          <tr>
+            <th>{x.이름}</th>
+            <td class="num"><strong>{수(x.분모)}명</strong></td>
+            <td class="num">{몫(x.분모)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>학교가 있는 곳으로 셌습니다.</strong> 학생이 사는 곳과 다를 수 있습니다 — 기숙사가 있는 학교가 있는
+      군은 그 군에 사는 고3보다 수가 많을 수 있습니다.</li>
+    <li>졸업생이 많다고 입시가 더 어렵다는 뜻이 아닙니다. 대학 정원은 지역으로 나뉘지 않습니다.</li>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong></li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/repeat-rate-by-area">재수생 비율 지역별</a></li>
+    <li><a href="/university-rate-by-area">4년제 대학 진학률 지역별</a></li>
+    <li><a href="/n-su-ratio-by-province">N수생 비율 시도별</a></li>
+    <li><a href="/class-size-by-area">고등학교 학급당 학생 수 지역별</a></li>
+    <li>우리 동네 고등학교 한 장 — <a href="/region">지역 목록</a>에서 고르십시오</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>졸업자 수</strong> — {자료.출처.이름} {자료.출처.공시연도}년 공시 「{자료.출처.공시항목}」 ·{' '}
+    {자료.출처.이용허락범위} · 저희가 받은 날 {자료.통계.받은때}
+  </p>
+  <p class="note"><strong>학교 목록·주소</strong> — NEIS 교육정보 개방 포털</p>
+  <p class="note"><strong>수능 지원자 수</strong> — 한국교육과정평가원 2027학년도 수능 응시원서 접수 결과(2026-09-08 발표, 언론 보도로 확인)</p>
+  <p class="note">⚠ 졸업자 수는 공시된 값이고, <strong>시군구로 더한 것과 몫은 저희가 낸 것</strong>입니다.</p>
+
+  <NextQuestionBrief 모은것="학교알리미 졸업생 진로 공시의 졸업자 수를 시군구로 더한 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
