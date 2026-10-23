@@ -120,8 +120,35 @@ export function 입시줄들(진로행: any[], 중단행: any[]) {
   return 입시줄캐시;
 }
 
+/**
+ * /report/area 의 «학교 환경» 두 축 — 학급당 학생 수 · 남녀공학 비율 (2026-10-23 · 5번 요청).
+ * ⚠ /class-size-by-area · /coed-school-by-area 와 같은 셈·같은 문턱이어야 한다.
+ * 줄 은 «큰 값이 위»로 세운다. 값글자 는 그 지면이 쓰는 단위 그대로.
+ */
+let 환경줄캐시: any = null;
+export function 학교환경줄들(학급행: any[], 학교행: any[]) {
+  if (환경줄캐시) return 환경줄캐시;
+  const n = (v: any) => Number(v) || 0;
+  const 학급 = 시군구로더함(학급행, null, (r) => ({ 분모: n(r.학급), 분자: n(r.학생) }));
+  const 평균 = (x: 지역셈) => (x.분모 ? x.분자 / x.분모 : 0);
+  const 학교들 = 학교행.filter((x) => x.종류 === '고등학교' && /^(남여공학|남|여)$/.test(String(x.공학 ?? '')));
+  const 공학 = 시군구로더함(학교들, null, (x) => ({ 분모: 1, 분자: x.공학 === '남여공학' ? 1 : 0 }));
+  환경줄캐시 = [
+    { 길: '/class-size-by-area', 이름: '고등학교 한 반 학생 수', 셈: 학급,
+      줄: 학급.모든곳.filter((x) => x.분모 >= 30).sort((a, b) => 평균(b) - 평균(a)), 값: 평균,
+      값글자: (x: 지역셈) => `${평균(x).toFixed(1)}명` },
+    { 길: '/coed-school-by-area', 이름: '남녀공학 고등학교 비율', 셈: 공학,
+      줄: 공학.올린곳(5), 값: (x: 지역셈) => x.률,
+      값글자: (x: 지역셈) => `${x.률.toFixed(1)}%` },
+  ];
+  return 환경줄캐시;
+}
+
 /** 한 줄 세우기 안에서 몇 번째인가 (1부터). 없으면 null */
-export const 몇째 = (줄: 지역셈[], 열쇠: string) => {
-  const i = 줄.findIndex((x) => x.열쇠 === 열쇠);
-  return i < 0 ? null : i + 1;
+/* ⚠ 같은 값은 같은 순위다 — 공학 100% 인 곳이 48곳인데 줄 순서대로 세면 «30위»로 보였다 */
+export const 몇째 = (줄: 지역셈[], 열쇠: string, 값: (x: 지역셈) => number = (x) => x.률) => {
+  const 나 = 줄.find((x) => x.열쇠 === 열쇠);
+  if (!나) return null;
+  const v = Math.round(값(나) * 1000);
+  return 1 + 줄.filter((x) => Math.round(값(x) * 1000) > v).length;
 };

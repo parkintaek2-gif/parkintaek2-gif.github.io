@@ -43,7 +43,8 @@ import { 단위 as 전체지역 } from '../../../../data/100yearmap/areas.json';
 import { 지역가르기, 슬러그풀기, 한벌로팔만한가, 열쇠만들기 } from '../../../../lib/school-area';
 import { 퍼센트, 한자리 } from '../../../../lib/number-format';
 import 중단자료 from '../../../../data/100yearmap/school-dropout.json';
-import { 입시줄들, 몇째 } from '../../../../lib/school-area-sum';
+import { 입시줄들, 학교환경줄들, 몇째 } from '../../../../lib/school-area-sum';
+import 학급자료 from '../../../../data/100yearmap/school-class-size.json';
 /* 🔴 값과 다음 칸은 **한 곳**에서 온다 — 페이지마다 9,900 을 적으면 값이 바뀔 때 일부만 고쳐진다 */
 import {
   값글자, 한벌에드는것, 다음칸, 알림메일주소, 파는지면알림, 무료지면알림, 파는지면검색, 미리보기, 미리보기그만, 사는주소, 사기전안내,
@@ -320,6 +321,11 @@ const 이동네열쇠 = 열쇠만들기(시도, 구);
 const 입시줄 = (입시줄들((진로자료 as any).자료, (중단자료 as any).자료) as any[]).map((축) => {
   const 내것 = 축.셈.모든곳.find((x: any) => x.열쇠 === 이동네열쇠) ?? null;
   return { ...축, 내것, 째: 몇째(축.줄, 이동네열쇠), 몇곳: 축.줄.length };
+});
+/* 2026-10-23 · 5번 요청 — 학급당 학생 수·남녀공학 두 지면으로 가는 길. 같은 꼴(축·내 값·전국에서) */
+const 환경줄 = (학교환경줄들((학급자료 as any).자료, schools as any[]) as any[]).map((축) => {
+  const 내것 = 축.셈.모든곳.find((x: any) => x.열쇠 === 이동네열쇠) ?? null;
+  return { ...축, 내것, 째: 몇째(축.줄, 이동네열쇠, 축.값), 몇곳: 축.줄.length };
 });
 const 합친jsonLd = [가린표, faqJsonLd].filter(Boolean);
 const 최종jsonLd = 합친jsonLd.length > 1 ? 합친jsonLd : 합친jsonLd[0];
@@ -669,6 +675,24 @@ const 최종jsonLd = 합친jsonLd.length > 1 ? 합친jsonLd : 합친jsonLd[0];
                 : 축.째
                   ? `${축.째}위 / ${축.몇곳}곳`
                   : 축.내것 ? '학생 적어 순위 없음' : '—'}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>{구}, 학교 환경으로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>축</th><th>{구}</th><th>전국에서</th></tr></thead>
+      <tbody>
+        {환경줄.map((축: any) => (
+          <tr>
+            <th><a href={축.길}>{축.이름}</a></th>
+            <td class="num">{축.내것 ? 축.값글자(축.내것) : '못 모음'}</td>
+            <td class="num">
+              {축.째 ? `${축.째}위 / ${축.몇곳}곳` : 축.내것 ? '학교 적어 순위 없음' : '—'}
             </td>
           </tr>
         ))}
