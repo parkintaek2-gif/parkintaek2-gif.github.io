@@ -30,11 +30,29 @@ import { createRequire } from 'node:module';
 
 export const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-/** 회차 표는 «수집기 하나»에서만 읽는다 — 두 곳에 적으면 한 곳만 고쳐진다 */
+/**
+ * 회차 표는 «수집기 하나»에서만 읽는다 — 두 곳에 적으면 한 곳만 고쳐진다.
+ * 다만 그 수집기 안에 표가 **여럿**이다. 전부 읽는다.
+ *
+ * 🔴🔴 [2026-10-23 · 5번] 사장님이 「날씨기사 다시 줘」 하셨는데 시키지 못했다 —
+ *   「🔴 10시 회차가 표에 없다 — 있는 것: 09 11 14 15 16」
+ *   까닭은 이 함수가 «온회차»(스포츠)만 읽었기 때문이다. 날씨 회차는 일부러
+ *   스포츠 표에서 빼 두었다 — 주말 자물쇠와 「오늘은 스포츠 그만」이 날씨를
+ *   막으면 안 되기 때문이다.
+ *   ⛔ 표를 나눈 것은 옳았다. **나뉜 줄 모르고 한쪽만 읽은 것**이 흠이다.
+ */
 export function 회차읽기(글) {
-  const 덩이 = String(글 ?? '').match(/const (?:온회차|회차) = \[([\s\S]*?)\];/);
-  if (!덩이) return [];
-  return [...덩이[1].matchAll(/\['(\d{2})',\s*'(trig_[0-9A-Za-z]+)'\]/g)].map((m) => [m[1], m[2]]);
+  const g = String(글 ?? '');
+  const 모은것 = [];
+  const 본것 = new Set();
+  for (const m of g.matchAll(/const (?:온회차|날씨회차|로또회차|회차) = \[([\s\S]*?)\];/g)) {
+    for (const x of m[1].matchAll(/\['(\d{2})',\s*'(trig_[0-9A-Za-z]+)'\]/g)) {
+      if (본것.has(x[1])) continue;   /* 같은 시각이 두 표에 있으면 먼저 만난 것을 쓴다 */
+      본것.add(x[1]);
+      모은것.push([x[1], x[2]]);
+    }
+  }
+  return 모은것;
 }
 
 /**
