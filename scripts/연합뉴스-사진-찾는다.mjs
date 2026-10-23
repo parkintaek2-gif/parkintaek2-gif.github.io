@@ -25,11 +25,23 @@
  */
 import process from 'node:process';
 
-/** 훑을 연합뉴스 종목 목록 — 중부매일 스포츠가 다루는 것들 */
+/**
+ * 훑을 연합뉴스 종목 목록 — 중부매일 스포츠가 다루는 것들
+ *
+ * 🔴🔴 [2026-10-23 · 5번] **농구·배구 면이 빠져 있었다.**
+ *   사장님이 「연합외신 사진 검색해봐」 하셔서 프로농구 기사(마레이 34리바운드)로
+ *   돌려 보니 「못 찾았다 — 훑은 꼭지 264」가 나왔다. 그런데 사진이 없는 것이 아니라
+ *   **농구 면을 아예 안 보고 있었다.**
+ *   ⛔ 「내가 보는 범위」를 내가 정하면 못 본 것이 «없는 것»이 된다.
+ *     이 자는 264꼭지를 훑었다고 당당히 말했다 — 훑은 수가 많다고 범위가 넓은 것이 아니다.
+ *   ⚠ 연합뉴스 스포츠 면은 다섯이다(2026-10-23 /sports/all 에서 받아 적었다) —
+ *     baseball · football · golf · basketball-volleyball · all
+ */
 export const 목록길 = [
   'https://www.yna.co.kr/sports/baseball',
   'https://www.yna.co.kr/sports/football',
   'https://www.yna.co.kr/sports/golf',
+  'https://www.yna.co.kr/sports/basketball-volleyball',
   'https://www.yna.co.kr/sports/all',
 ];
 
