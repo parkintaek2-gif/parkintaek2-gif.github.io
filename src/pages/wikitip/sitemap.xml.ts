@@ -243,12 +243,6 @@ const 영상그림 = new Set((videoData.videos ?? []).map((v: any) => v.set));
    ⚠ 아래 열두 편의 제목은 **라이브 지면 제목에서 가져왔다** — 지어내지 않았다. */
 const videoSets = [
   {
-    set: 'bts-latin-america-tour-spanish-wikipedia-overtakes-english-voiced',
-    page: '/article/bts-latin-america-tour-spanish-wikipedia-overtakes-english',
-    title: 'Spanish Wikipedia Is Reading BTS More Than English Wikipedia for the First Time This Year',
-    description: '17 seconds: From March to September, Spanish Wikipedia read the BTS article at a sixth of the English rate or less. Since the Latin American leg of the Arirang World Tour opened in Bogotá on 2 October, Spanish has outread English on seven days, peaking at 1.48 times on 22 October.',
-  },
-  {
     set: 'squid-game-is-half-of-korean-netflix-in-latvia-and-2-percent-in-vietnam-voiced',
     page: '/what-moves-english-reading',
     title: 'Squid Game Is 47% of Every Korean Netflix Chart Slot in Latvia. In Vietnam the Biggest Title Is 2.4%.',
