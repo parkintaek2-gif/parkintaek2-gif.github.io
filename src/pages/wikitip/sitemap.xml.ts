@@ -243,6 +243,12 @@ const 영상그림 = new Set((videoData.videos ?? []).map((v: any) => v.set));
    ⚠ 아래 열두 편의 제목은 **라이브 지면 제목에서 가져왔다** — 지어내지 않았다. */
 const videoSets = [
   {
+    set: 'lisa-press-play-minnie-same-day-thai-wikipedia-minnie-outread-lisa-voiced',
+    page: '/article/lisa-press-play-minnie-same-day-thai-wikipedia-minnie-outread-lisa',
+    title: 'Lisa and Minnie Released EPs on the Same Day. On Thai Wikipedia, Minnie Out-Read Lisa',
+    description: '20 seconds: On 23 October 2026 Lisa and Minnie, K-pop\'s two Thai stars, both released EPs. On Thai Wikipedia that day Minnie had 407 reads and Lisa 207, though Lisa usually leads. On English Wikipedia Lisa had 12,079. Reads, not streams.',
+  },
+  {
     set: 'bts-latin-america-tour-spanish-wikipedia-overtakes-english-voiced',
     page: '/article/bts-latin-america-tour-spanish-wikipedia-overtakes-english',
     title: 'BTS on Wikipedia: Spanish Overtook English During the Latin American Tour',

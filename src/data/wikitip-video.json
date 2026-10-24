@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-24T10:12+09:00",
+  "generated": "2026-10-25T08:02+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -170,6 +170,13 @@
       "uploadDate": "2026-09-03",
       "thumb": "/video/thumb/least-voiced.jpg",
       "src": "/video/least-voiced.mp4"
+    },
+    {
+      "set": "lisa-press-play-minnie-same-day-thai-wikipedia-minnie-outread-lisa-voiced",
+      "seconds": 20.5,
+      "uploadDate": "2026-10-25",
+      "thumb": "/video/thumb/lisa-press-play-minnie-same-day-thai-wikipedia-minnie-outread-lisa-voiced.jpg",
+      "src": "/video/lisa-press-play-minnie-same-day-thai-wikipedia-minnie-outread-lisa-voiced.mp4"
     },
     {
       "set": "lopsided",
