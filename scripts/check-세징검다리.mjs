@@ -334,6 +334,56 @@ async function 잰다() {
   }
   console.log('    ⚠ 여기서 만든 주문은 장부에 pending 으로 남는다. 승인은 안 했으니 돈은 안 움직인다');
 
+  /* 🔴🔴 [2026-10-24 · 사장님 「다시는 오류가 안 생기게 조치해」] **원화 길을 아무도 안 재고 있었다.**
+     바로 위 걸음은 `/api/billing/paypal/create` — 달러·페이팔 길이다.
+     한국 손님이 실제로 지나는 길은 `/api/billing/checkout`(원화·토스)인데
+     그 자리가 **날마다 501 Not Implemented 를 내고 있었다.**
+     화면이 501 «몸통»에 실린 주문번호를 집어 써서 굴러갔기 때문에
+     어떤 자물쇠도 울지 않았다 — 열흘이 걸려 사장님이 먼저 아셨다.
+     ⛔ 「페이팔이 선다」를 「결제가 선다」로 읽지 않는다. 두 길은 다른 코드다.
+     ⭐ 여기서 보는 것은 «번호» 하나다 — 원화 주문은 200 이어야 한다. */
+  console.log('\n【원화 주문(토스 길)이 오류 번호를 내지 않나】  ⛔ 승인(capture)은 부르지 않는다');
+  try {
+    const 밑 = (process.env.KLM_BASE || 'https://klifemap.ai').replace(/\/$/, '');
+    let 열쇠 = process.env.SAJU_API_KEY || '';
+    if (!열쇠) {
+      try {
+        const 글 = await fetch(밑 + '/checkout.html').then((x) => x.text());
+        const m = 글.match(/SAJU_API_KEY\s*=\s*['"]([^'"]+)['"]/) || 글.match(/API_KEY\s*=\s*['"]([^'"]+)['"]/);
+        if (m) 열쇠 = m[1];
+      } catch { /* 못 뽑으면 빈 채로 간다 — 아래가 「못 쟀다」로 적는다 */ }
+    }
+    if (!열쇠) {
+      console.log('    ⬜ 화면에서 열쇠를 못 뽑았다 — 아래를 「막혔다」로 읽지 말 것');
+    } else {
+      const r = await fetch(밑 + '/api/billing/checkout', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-api-key': 열쇠 },
+        body: JSON.stringify({
+          items: [{ service: 'saju', qty: 1 }],
+          membershipTier: 'general', purchaseType: 'single',
+          contactEmail: 'klm-check@example.com',
+        }),
+      });
+      const o = await r.json().catch(() => null);
+      if (r.status >= 500) {
+        console.log(`    🔴🔴 **원화 주문에 오류 번호가 나간다 — HTTP ${r.status}** ${o ? String(o.error || '') : ''}`);
+        console.log('       ⛔ 화면이 굴러가더라도 이것은 「된다」가 아니다. 서버가 못 한다고 답하고 있다');
+        빨강++;
+      } else if (r.status !== 200) {
+        console.log(`    🔴 원화 주문이 200 이 아니다 — HTTP ${r.status} ${o ? String(o.error || '') : ''}`);
+        빨강++;
+      } else if (!o || !o.merchantUid || !(o.quote && o.quote.finalTotal > 0)) {
+        console.log('    🔴 200 은 받았는데 주문번호·금액이 없다 — 화면이 이 둘로 결제창을 연다');
+        빨강++;
+      } else {
+        console.log(`    ✅ 원화 주문 200  — 장부번호 ${String(o.merchantUid).slice(0, 14)}… · ${o.quote.finalTotal.toLocaleString()}원 · ${o.method || '토스'}`);
+      }
+    }
+  } catch (e) {
+    console.log(`    ⬜ 못 쟀다 — ${String(e.message).slice(0, 70)}`);
+  }
+
   console.log('\n⚠ 아직 이 검사가 «안 보는» 것 — 로그인한 손님의 길');
   console.log('   /checkout.html 은 「결제는 로그인 후 이용하실 수 있습니다」에서 멈춘다(의도된 설계).');
   console.log('   ⛔ 위 「막힌 곳 없음」을 «손님이 끝까지 산다»로 읽지 않는다.');
