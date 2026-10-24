@@ -94,6 +94,10 @@
     "k3i-buyer-with-5-point-8-billion-won-in-assets-is-paying-21-billion-won-for-control": {
       "내레이션": "K3I's buyer has 5.8 billion won in assets. It's paying 21 billion won for control -- 2,916,667 shares, nearly 40% of the company, from the founder's family.",
       "설명": "Korea's Financial Services Commission DART filing, both companies' own disclosed figures. Not investment advice."
+    },
+    "korea-treasury-curve-flattest-10-year-low-october-2026": {
+      "내레이션": "Korea's 10-year treasury yield closed at 4.154% on 22 October, the lowest of 49 days. It was 4.599% on 15 September. The gap over the 3-year is now 31.4 basis points.",
+      "설명": "Korea Exchange bond market closes. Not investment advice."
     }
   }
 }

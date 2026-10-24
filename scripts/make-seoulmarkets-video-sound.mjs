@@ -80,17 +80,41 @@ const 임시 = fs.mkdtempSync(path.join(os.tmpdir(), 'smk-sound-'));
 const 읽을것 = [대본.내레이션, 대본.설명].filter(Boolean).join(' ');
 
 // ① 내레이션 (신경망 목소리)
-const { MsEdgeTTS, OUTPUT_FORMAT } = await import('msedge-tts');
-const tts = new MsEdgeTTS();
-await tts.setMetadata(목소리, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
-const { audioFilePath: 내레이션 } = await tts.toFile(임시, 읽을것);
+let 내레이션, 쓴목소리 = 목소리;
+try {
+  const { MsEdgeTTS, OUTPUT_FORMAT } = await import('msedge-tts');
+  const tts = new MsEdgeTTS();
+  await tts.setMetadata(목소리, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
+  ({ audioFilePath: 내레이션 } = await tts.toFile(임시, 읽을것));
+} catch (e) {
+  /* 🔴 [2026-10-24 · 1번] Edge TTS 가 403(새 판에서도 막힘)이라 영상 몫이 0 이 됐다 —
+     make-kcw-short-from-cards.mjs 와 같게 이 PC 의 Windows SAPI 영어 목소리로 대신 낸다.
+     ⛔ 이것도 안 되면 멈춘다. 무음판은 내지 않는다. */
+  console.log(`  ⚠ Edge 목소리를 못 받았다 — ${String(e.message).split('\n')[0]} → Windows SAPI(Zira)`);
+  const 웨이브 = path.join(임시, 'sapi.wav');
+  const ps1 = path.join(임시, 'sapi.ps1');
+  const 따옴 = (s) => String(s).replace(/'/g, "''");
+  fs.writeFileSync(ps1, '﻿' + [
+    'Add-Type -AssemblyName System.Speech',
+    '$s = New-Object System.Speech.Synthesis.SpeechSynthesizer',
+    "$s.SelectVoice('Microsoft Zira Desktop')",
+    '$s.Rate = 1',
+    `$s.SetOutputToWaveFile('${따옴(웨이브)}')`,
+    `$s.Speak('${따옴(읽을것)}')`,
+    '$s.Dispose()',
+  ].join('\r\n'), 'utf8');
+  execFileSync('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', ps1], { stdio: ['ignore', 'pipe', 'pipe'] });
+  if (!fs.existsSync(웨이브) || fs.statSync(웨이브).size < 10000) { console.error('🔴 SAPI 로도 소리를 못 만들었다 — 무음판을 내지 않고 멈춘다'); process.exit(1); }
+  내레이션 = 웨이브;
+  쓴목소리 = 'Microsoft Zira Desktop (SAPI)';
+}
 const 말초 = 영상길이(내레이션);
 if (넘치나(말초, 영상초)) {
   console.error(`🔴 말이 ${말초?.toFixed(2)}초 → 시작 0.4초 뒤 끝이 화면 ${영상초.toFixed(2)}초를 넘는다.`);
   console.error('   ⛔ 화면을 늘이지 않는다. 대본을 줄이거나 더 빠른 목소리로 바꾼다.');
   process.exit(1);
 }
-console.log(`  ✔ 내레이션 ${목소리} · 말 ${말초.toFixed(2)}초 (화면 ${영상초.toFixed(2)}초 안)`);
+console.log(`  ✔ 내레이션 ${쓴목소리} · 말 ${말초.toFixed(2)}초 (화면 ${영상초.toFixed(2)}초 안)`);
 
 // ② 배경음악 (우리가 합성 — 남의 음원 아님)
 const 음악 = path.join(임시, 'music.wav');
