@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-24T10:04+09:00",
+  "generated": "2026-10-24T10:12+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -44,6 +44,13 @@
       "uploadDate": "2026-08-21",
       "thumb": "/video/thumb/brands.jpg",
       "src": "/video/brands.mp4"
+    },
+    {
+      "set": "bts-latin-america-tour-spanish-wikipedia-overtakes-english-voiced",
+      "seconds": 19.5,
+      "uploadDate": "2026-10-24",
+      "thumb": "/video/thumb/bts-latin-america-tour-spanish-wikipedia-overtakes-english-voiced.jpg",
+      "src": "/video/bts-latin-america-tour-spanish-wikipedia-overtakes-english-voiced.mp4"
     },
     {
       "set": "btsborn",
