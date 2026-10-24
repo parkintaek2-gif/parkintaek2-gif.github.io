@@ -1,0 +1,10 @@
+{
+  "무엇": "VKOSPI 와 VKOSPI 선물 거래량 — SeoulMarkets 기사 vkospi-55-october-15-volatility-futures-barely-trade 와 같은 수",
+  "출처": "Korea Exchange (KRX OPEN API) derivatives daily, VKOSPI futures underlying value and volume, collected daily by SeoulMarkets",
+  "받은날": "2026-10-24",
+  "낮은날": { "날": "8 October", "값": 36.81 },
+  "높은날": { "날": "15 October", "값": 55.38, "코스피": -7.57, "선물계약": 7 },
+  "가장많은선물": { "날": "8 September", "계약": 84 },
+  "거래없는날": 4,
+  "날수": 34
+}
