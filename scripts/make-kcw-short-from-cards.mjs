@@ -258,9 +258,38 @@ try {
   const { audioFilePath } = await tts.toFile(소리앞, 대본.내레이션);
   소리길 = audioFilePath;
 } catch (e) {
-  console.log(`🔴 소리를 못 만들었다 — ${String(e.message).split('\n')[0]}`);
-  console.log('   ⛔ 무음판을 내지 않는다(사장님 「무성 콘텐트 다신 만들지 말 것」). 여기서 멈춘다.');
-  process.exit(1);
+  console.log(`⚠ Edge 목소리를 못 받았다 — ${String(e.message).split('\n')[0]}`);
+  /*
+   * 🔴 [2026-10-24 · 1번] Edge TTS 가 403, 새 판(2.1.0)에서도 «Unexpected server response 200» 으로
+   *   막혀 영상 몫이 0 이 됐다. 이 PC 의 Windows SAPI 영어 목소리(Microsoft Zira Desktop)로 대신 낸다 —
+   *   make-voice-100y.mjs 가 한국어로 쓰는 것과 같은 길(System.Speech, 로컬, 열쇠 없음).
+   *   ⛔ 이것도 안 되면 그대로 멈춘다 — 무음판은 여전히 내지 않는다.
+   */
+  try {
+    const 웨이브 = path.join(소리앞, 'sapi.wav');
+    const ps1 = path.join(소리앞, 'sapi.ps1');
+    const 따옴 = (s) => String(s).replace(/'/g, "''");
+    fs.writeFileSync(ps1, '﻿' + [
+      'Add-Type -AssemblyName System.Speech',
+      '$s = New-Object System.Speech.Synthesis.SpeechSynthesizer',
+      "$s.SelectVoice('Microsoft Zira Desktop')",
+      '$s.Rate = 1',
+      `$s.SetOutputToWaveFile('${따옴(웨이브)}')`,
+      `$s.Speak('${따옴(대본.내레이션)}')`,
+      '$s.Dispose()',
+    ].join('\r\n'), 'utf8');
+    execFileSync('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', ps1], { stdio: ['ignore', 'pipe', 'pipe'] });
+    if (fs.existsSync(웨이브) && fs.statSync(웨이브).size > 10000) {
+      소리길 = 웨이브;
+      console.log('   ↳ Windows SAPI(Microsoft Zira Desktop)로 냈다');
+    }
+  } catch (e2) {
+    console.log(`🔴 SAPI 로도 못 만들었다 — ${String(e2.message).split('\n')[0]}`);
+  }
+  if (!소리길) {
+    console.log('   ⛔ 무음판을 내지 않는다(사장님 「무성 콘텐트 다신 만들지 말 것」). 여기서 멈춘다.');
+    process.exit(1);
+  }
 }
 if (!소리길 || !fs.existsSync(소리길)) {
   console.log('🔴 소리 파일이 안 나왔다 — 무음판을 내지 않고 멈춘다.');
@@ -273,6 +302,9 @@ execFileSync(ffmpeg경로, [
   '-i', 소리길,
   '-vf', 'scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2,fps=30',
   '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k',
+  /* 🔴 [2026-10-24 · 1번] 목소리가 화면보다 짧으면 -shortest 가 «화면»을 잘라 마지막 카드(주소·한계)가 사라졌다
+     (SAPI 12.4초 · 카드 17초). apad 로 목소리 뒤를 비워 늘려, 영상 길이는 늘 카드가 정하게 한다. */
+  '-af', 'apad',
   '-shortest', 낼길,
 ], { stdio: ['ignore', 'pipe', 'pipe'] });
 
