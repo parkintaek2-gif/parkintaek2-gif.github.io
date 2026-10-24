@@ -377,6 +377,23 @@
    "그림": "/100y/video/thumb/social-trust-by-age.jpg",
    "올라간때": "2026-09-24T12:32:43+09:00",
    "기간": "PT17S"
+  },
+  {
+   "슬러그": "online-high-school-by-area",
+   "이름": "공립 온라인학교 17곳 — 시도마다 하나씩",
+   "한줄": "NEIS 에 오른 시도 공립 온라인학교는 17곳입니다. 2023년 3월 경남온라인학교가 처음이고 2025년 9월 온세종학교가 마지막입니다.",
+   "몇살손님": "10대 · 학부모",
+   "파일": "/100y/video/공립온라인학교.mp4",
+   "초": 18,
+   "자": "scripts/make-video-100y-from-cards.mjs",
+   "만든날": "2026-10-24",
+   "올린날": null,
+   "올린날 근거": "⚠ 아직 밖에 안 올렸다. 올린 날을 지어내지 않는다",
+   "댈지면": "/online-high-school-by-area",
+   "출처": "NEIS 교육정보 개방 포털 학교기본정보 — 각종학교(고) 가운데 온라인학교",
+   "⛔ 이영상이 지킨 것": "이미 눈으로 본 카드뉴스 다섯 장(make-cardnews-100y-online-school.mjs)을 그대로 이었다. 대사는 카드에 있는 수(17곳·2023년 3월·2025년 9월)만 읽고, 누가 다닐 수 있는지는 NEIS 에 없어 홈페이지로 보낸다. 목소리 make-voice-100y.mjs(Windows SAPI Heami). mean_volume 실측 -22.3dB.",
+   "그림": "/100y/video/thumb/online-high-school-by-area.jpg",
+   "기간": "PT18S"
   }
  ],
  "② 어떻게 셌나": {
