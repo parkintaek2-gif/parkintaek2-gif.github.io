@@ -1,0 +1,115 @@
+---
+/**
+ * /100y/same-name-high-schools — **이름이 같은 고등학교** — 전국에 둘 이상 있는 이름
+ *
+ * ── 왜 만들었나 (2026-10-25 · 1번 · 지역 × 학교 환경 축 이어서) ──────────────
+ * 롱테일 「경일고등학교」「강동고등학교」처럼 같은 이름을 찾다 엉뚱한 학교에 닿는 사람에게, 어느 지역에 몇 곳 있는지 갈라 보여 준다.
+ *        이름으로 찾는 사람이 많다 — 학교 지면 하나하나로 바로 보낸다.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ NEIS 이름이 글자 그대로 같은 것만 묶는다. «서울경일고»처럼 앞에 지명이 붙은 것은 다른 이름이다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import schools from '../../../data/100yearmap/pages-school.json';
+
+const 고교 = (schools as any[]).filter((x) => x.종류 === '고등학교');
+const 묶음 = new Map<string, any[]>();
+for (const x of 고교) 묶음.set(x.title, [...(묶음.get(x.title) ?? []), x]);
+const 같은 = [...묶음.entries()]
+  .filter(([, v]) => v.length > 1)
+  .map(([이름, v]) => ({ 이름, 학교: [...v].sort((a, b) => a.지역.localeCompare(b.지역, 'ko')) }))
+  .sort((a, b) => b.학교.length - a.학교.length || a.이름.localeCompare(b.이름, 'ko'));
+const 학교수 = 같은.reduce((a, r) => a + r.학교.length, 0);
+const 셋이상 = 같은.filter((r) => r.학교.length >= 3);
+const 같은지역 = 같은.filter((r) => new Set(r.학교.map((x) => x.지역)).size < r.학교.length);
+const 연 = (x: any) => (/^\d{8}$/.test(String(x.설립일)) ? `${String(x.설립일).slice(0, 4)}년` : '—');
+const 짧게 = (s: string) => s.replace(/(특별자치도|특별자치시|특별시|광역시|도)$/, '').replace('전남광주통합특별시', '전남광주');
+
+const TITLE = `이름이 같은 고등학교 ${같은.length}쌍 — ${학교수}곳, 경일고는 네 곳`;
+const desc =
+  `NEIS 에서 이름이 글자 그대로 같은 고등학교는 ${같은.length}개 이름, ${학교수}곳입니다. ` +
+  `세 곳 이상 겹치는 이름이 ${셋이상.length}개(${셋이상.slice(0, 4).map((r) => r.이름.replace('고등학교', '고')).join('·')} 등)입니다. 이름마다 지역·설립 연도를 갈라 실었습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '전국에 같은 이름이 둘 이상인 고등학교 목록',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 'NEIS 교육정보 개방 포털' },
+    spatialCoverage: '대한민국 시·도',
+    variableMeasured: ['학교 이름', '지역', '설립일'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: 셋이상.slice(0, 6).map((r) => ({
+      '@type': 'Question',
+      name: `${r.이름}는 어디에 있나요?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `NEIS 에 «${r.이름}»은 ${r.학교.length}곳 있습니다: ${r.학교.map((x) => `${x.지역}(${x.주소?.split(' ').slice(0, 2).join(' ') ?? ''}, 설립 ${연(x)})`).join(', ')}.`,
+      },
+    })),
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>이름이 같은 고등학교 —<br class="pcbr" /> {같은.length}개 이름, {학교수}곳</h1>
+  <p class="sub">
+    «경일고등학교»를 찾았는데 다른 지역 학교가 나온 적이 있습니까. 전국에는 이름이 글자 그대로 같은 고등학교가
+    <strong>{같은.length}개 이름</strong>, <strong>{학교수}곳</strong> 있습니다. 지역과 설립 연도로 갈라 놓았습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">NEIS 고등학교 {고교.length.toLocaleString()}곳 가운데 이름이 겹치는 곳</p>
+    <p class="answer-num">{학교수}곳</p>
+    <p class="answer-sub">세 곳 이상 겹치는 이름 {셋이상.length}개 · 같은 시도 안에서 겹치는 이름 {같은지역.length}개</p>
+  </div>
+
+  <h2>이름별 — 어느 지역에 있나</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>이름</th><th>곳</th><th>지역 · 설립</th></tr></thead>
+      <tbody>
+        {같은.map((r) => (
+          <tr>
+            <th>{r.이름}</th>
+            <td class="num">{r.학교.length}</td>
+            <td>{r.학교.map((x, i) => (<>{i > 0 && ' · '}<a href={x.url}>{짧게(x.지역)}</a> {연(x)}</>))}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 이름이 같아도 서로 다른 학교입니다. 지역을 눌러 학교 지면에서 주소를 확인하십시오.</li>
+    <li>NEIS 이름이 글자 그대로 같은 것만 묶었습니다. 앞에 지명이 붙은 이름(예: «서울○○고»)은 다른 이름으로 셉니다.</li>
+    <li>같은 시도 안에서 이름이 겹치는 곳은 통합 이전 지역(예: 전남·광주)이 함께 들어 있을 수 있습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/high-school-age-by-area">고등학교 나이 지역별</a></li>
+    <li><a href="/tech-name-high-school">인공지능·반도체 고등학교 — 새 이름, 오래된 학교</a></li>
+    <li><a href="/new-high-school-by-area">최근 10년 새로 문 연 고등학교</a></li>
+    <li><a href="/coed-school-by-area">남녀공학 비율 지역별</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학교 이름·지역·설립일</strong> — NEIS 교육정보 개방 포털 학교기본정보 ·
+    저희가 받은 때 {(schools as any[])[0]?.기준시각?.slice(0, 10)}
+  </p>
+
+  <NextQuestionBrief 모은것="NEIS 학교기본정보에서 이름이 글자 그대로 같은 고등학교를 묶어 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

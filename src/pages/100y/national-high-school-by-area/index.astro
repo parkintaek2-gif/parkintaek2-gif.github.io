@@ -1,0 +1,160 @@
+---
+/**
+ * /100y/national-high-school-by-area — **국립 고등학교 목록 시도별** — NEIS 설립 구분 «국립»
+ *
+ * ── 왜 만들었나 (2026-10-25 · 1번 · 지역 × 학교 환경 축 이어서) ──────────────
+ * 롱테일 「국립 고등학교」「사대부고」「국립고 어디 있나」를 찾는 사람에게 NEIS 에 오른 곳을 다 보여 준다.
+ *        사립(/private-high-school-by-area) 지면의 짝이다 — 공립·사립 사이에 이 갈래가 따로 있다.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 갈래(사대부고·예술·해사·공업·과학영재·군)는 학교 «이름»으로 가른 것이다. NEIS 에 그런 칸은 없다 — 밝힌다.
+ * ⛔ 누가 들어갈 수 있는지, 학비가 얼마인지는 NEIS 에 없다. 쓰지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import schools from '../../../data/100yearmap/pages-school.json';
+
+const 고교 = (schools as any[]).filter((x) => x.종류 === '고등학교');
+const 국립 = 고교
+  .filter((x) => x.설립 === '국립')
+  .sort((a, b) => String(a.설립일).localeCompare(String(b.설립일)));
+const 갈래 = (t: string) =>
+  /사범대학부설|교원대학교부설/.test(t) ? '대학 부설(사대부고)'
+  : /국악|예술/.test(t) ? '예술'
+  : /해사/.test(t) ? '해사'
+  : /공업/.test(t) ? '공업'
+  : /과학영재/.test(t) ? '과학영재'
+  : /공군/.test(t) ? '군'
+  : '기타';
+const 갈래순 = ['대학 부설(사대부고)', '공업', '예술', '해사', '과학영재', '군', '기타'];
+const 갈래수 = 갈래순.map((g) => ({ g, n: 국립.filter((x) => 갈래(x.title) === g).length })).filter((r) => r.n > 0);
+const 사대 = 갈래수.find((r) => r.g === '대학 부설(사대부고)')?.n ?? 0;
+const 지역수 = new Map<string, number>();
+for (const x of 국립) 지역수.set(x.지역, (지역수.get(x.지역) ?? 0) + 1);
+const 지역표 = [...new Set(고교.map((x) => x.지역))]
+  .map((r) => ({ 지역: r, n: 지역수.get(r) ?? 0 }))
+  .sort((a, b) => b.n - a.n || a.지역.localeCompare(b.지역, 'ko'));
+const 없는곳 = 지역표.filter((r) => r.n === 0);
+const 구분수 = (k: string) => 고교.filter((x) => x.설립 === k).length;
+const 연월 = (d: string) => (/^\d{8}$/.test(d) ? `${d.slice(0, 4)}년 ${Number(d.slice(4, 6))}월` : '—');
+const 비율 = (a: number, b: number) => ((a / b) * 100).toFixed(1);
+
+const TITLE = `국립 고등학교 ${국립.length}곳 — 사대부고 ${사대}곳, 시도별 목록`;
+const desc =
+  `NEIS 설립 구분이 «국립»인 고등학교는 전국 ${고교.length.toLocaleString()}곳 가운데 ${국립.length}곳(${비율(국립.length, 고교.length)}%)입니다. ` +
+  `국립대 사범대 부설고가 ${사대}곳으로 가장 많고, 국악·전통예술·해사·기계공업·과학영재·공군항공 학교가 있습니다. ${없는곳.length}개 시도에는 없습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '국립 고등학교 시도별 목록',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 'NEIS 교육정보 개방 포털' },
+    spatialCoverage: '대한민국 시·도',
+    variableMeasured: ['학교 이름', '지역', '고교 유형', '설립일'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '국립 고등학교는 몇 곳인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `NEIS 기준 ${국립.length}곳입니다. 공립 ${구분수('공립').toLocaleString()}곳, 사립 ${구분수('사립').toLocaleString()}곳과 나란히 놓으면 ${비율(국립.length, 고교.length)}%입니다. ${갈래수.map((r) => `${r.g} ${r.n}곳`).join(', ')}(갈래는 학교 이름으로 나눈 것입니다).`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '사대부고는 어디에 있나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `국립 사대부고는 ${국립.filter((x) => 갈래(x.title) === '대학 부설(사대부고)').map((x) => `${x.title}(${x.지역})`).join(', ')}입니다. 사립 대학의 부설고는 설립 구분이 사립이라 이 목록에 없습니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>국립 고등학교 —<br class="pcbr" /> 전국 {국립.length}곳, 절반 넘게 사대부고</h1>
+  <p class="sub">
+    고등학교는 대부분 공립이나 사립입니다. 그 사이에 나라가 직접 세운 <strong>국립</strong>이 {국립.length}곳 있습니다.
+    NEIS 에 오른 곳을 시도별로, 오래된 순서대로 모두 실었습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">NEIS 고등학교 {고교.length.toLocaleString()}곳 가운데 설립 구분 «국립»</p>
+    <p class="answer-num">{국립.length}곳</p>
+    <p class="answer-sub">공립 {구분수('공립').toLocaleString()} · 사립 {구분수('사립').toLocaleString()} · 국립 {국립.length} · 기타 {구분수('기타')}</p>
+  </div>
+
+  <h2>어떤 학교들인가</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>갈래 (이름으로 나눔)</th><th>학교 수</th></tr></thead>
+      <tbody>
+        {갈래수.map((r) => (<tr><th>{r.g}</th><td class="num">{r.n}</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+  <p>⚠ 갈래는 NEIS 칸이 아니라 <strong>학교 이름</strong>으로 나눈 것입니다. NEIS 고교유형으로는 일반고 {국립.filter((x) => x.고교유형 === '일반고').length}곳, 특목고 {국립.filter((x) => x.고교유형 === '특목고').length}곳입니다.</p>
+
+  <h2>시도별</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>국립 고등학교</th></tr></thead>
+      <tbody>
+        {지역표.map((r) => (<tr><th>{r.지역}</th><td class="num">{r.n}</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>전체 목록 (오래된 순)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학교</th><th>지역</th><th>갈래</th><th>NEIS 설립</th></tr></thead>
+      <tbody>
+        {국립.map((x) => (
+          <tr>
+            <th><a href={x.url}>{x.title}</a></th>
+            <td>{x.지역}</td>
+            <td>{갈래(x.title)}</td>
+            <td class="num">{연월(x.설립일)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 국립이라는 것은 세운 주체가 나라라는 뜻일 뿐, 학교의 수준을 말하지 않습니다.</li>
+    <li>누가 들어갈 수 있는지(지역 배정·전형), 학비는 학교마다 다르고 NEIS 에 없습니다. 학교 홈페이지에서 확인하십시오.</li>
+    <li>사립 대학이 세운 부설고는 설립 구분이 «사립»이라 여기 없습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/private-high-school-by-area">사립 고등학교 비율 지역별</a></li>
+    <li><a href="/special-purpose-high-school-by-area">특목고·자율고 지역별</a></li>
+    <li><a href="/new-high-school-by-area">최근 10년 새로 문 연 고등학교</a></li>
+    <li><a href="/century-old-high-schools-by-area">100년 넘은 고등학교 지역별</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학교 목록·설립 구분·고교유형·설립일</strong> — NEIS 교육정보 개방 포털 학교기본정보 ·
+    저희가 받은 때 {(schools as any[])[0]?.기준시각?.slice(0, 10)}
+  </p>
+
+  <NextQuestionBrief 모은것="NEIS 학교기본정보에서 설립 구분이 국립인 고등학교를 시도별로 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

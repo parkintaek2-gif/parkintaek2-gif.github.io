@@ -1,0 +1,156 @@
+---
+/**
+ * /100y/alternative-high-school-by-area — **각종학교(고) 지역별** — 대안·예술·위탁 직업·국제 학교
+ *
+ * ── 왜 만들었나 (2026-10-25 · 1번 · 지역 × 학교 환경 축 이어서) ──────────────
+ * 롱테일 「대안고등학교」「각종학교」「산업정보학교(위탁)」를 찾는 사람에게 NEIS 에 오른 곳을 다 보여 준다.
+ *        온라인학교(/online-high-school-by-area)와 평생학교(/adult-high-school-by-area)의 짝 — 일반 고등학교 밖의 길.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 갈래(대안·예술·위탁 직업·국제)는 학교 «이름»으로 가른 것이다. NEIS 에 그런 칸은 없다 — 밝힌다.
+ * ⛔ 학력 인정 여부·입학 자격은 NEIS 에 없다. 쓰지 않는다. 학교 홈페이지로 보낸다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import schools from '../../../data/100yearmap/pages-school.json';
+
+const 각종전체 = (schools as any[]).filter((x) => x.종류 === '각종학교(고)');
+const 온라인 = (x: any) => /온라인학교|온학교|온세종/.test(String(x.title));
+const 각종 = 각종전체.filter((x) => !온라인(x));
+const 기술 = (schools as any[]).filter((x) => x.종류 === '고등기술학교');
+const 갈래 = (t: string) =>
+  /산업정보|산업학교|대전산업정보/.test(t) ? '위탁 직업(산업정보학교 등)'
+  : /예술|음악|연극|영화|문화/.test(t) ? '예술'
+  : /국제|글로벌|세계로|링컨/.test(t) ? '국제'
+  : '대안·기타';
+const 갈래순 = ['대안·기타', '예술', '위탁 직업(산업정보학교 등)', '국제'];
+const 갈래수 = 갈래순.map((g) => ({ g, n: 각종.filter((x) => 갈래(x.title) === g).length }));
+const 지역목록 = [...new Set((schools as any[]).filter((x) => x.종류 === '고등학교').map((x) => x.지역))];
+const 지역표 = 지역목록
+  .map((r) => ({ 지역: r, n: 각종.filter((x) => x.지역 === r).length, 공립: 각종.filter((x) => x.지역 === r && x.설립 === '공립').length }))
+  .sort((a, b) => b.n - a.n || a.지역.localeCompare(b.지역, 'ko'));
+const 첫째 = 지역표[0];
+const 없는곳 = 지역표.filter((r) => r.n === 0);
+const 공립 = 각종.filter((x) => x.설립 === '공립').length;
+const 목록 = [...각종].sort((a, b) => a.지역.localeCompare(b.지역, 'ko') || a.title.localeCompare(b.title, 'ko'));
+
+const TITLE = `대안·예술·위탁 고등학교(각종학교) ${각종.length}곳 — 시도별 목록`;
+const desc =
+  `NEIS 학교 종류 «각종학교(고)»는 ${각종전체.length}곳이고, 온라인학교 ${각종전체.length - 각종.length}곳을 빼면 ${각종.length}곳입니다. ` +
+  `${첫째.지역}가 ${첫째.n}곳으로 가장 많고 ${없는곳.length}개 시도는 없습니다. 대안학교·예술학교·산업정보학교(위탁)·국제학교를 이름으로 나눠 모두 실었습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '각종학교(고) 시도별 목록',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 'NEIS 교육정보 개방 포털' },
+    spatialCoverage: '대한민국 시·도',
+    variableMeasured: ['학교 이름', '지역', '설립 구분'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '각종학교(고)는 무엇이고 몇 곳인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `일반 고등학교와 다른 틀로 운영되는 학교를 NEIS 는 «각종학교»로 묶습니다. 고등학교 단계는 ${각종전체.length}곳이고 온라인학교를 빼면 ${각종.length}곳입니다. 학력이 인정되는지, 누가 들어갈 수 있는지는 학교마다 달라 홈페이지에서 확인해야 합니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '산업정보학교(위탁 직업교육)는 어디에 있나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `이름으로 고른 위탁 직업 갈래는 ${각종.filter((x) => 갈래(x.title).startsWith('위탁')).map((x) => `${x.title}(${x.지역})`).join(', ')}입니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>대안·예술·위탁 고등학교 —<br class="pcbr" /> 각종학교 {각종.length}곳, 시도별</h1>
+  <p class="sub">
+    일반 고등학교와 다른 틀로 운영되는 곳을 NEIS 는 <strong>각종학교</strong>로 묶습니다. 대안학교, 예술학교,
+    다니던 고등학교에 적을 두고 직업을 배우러 가는 <strong>산업정보학교</strong>가 여기에 있습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">NEIS 각종학교(고) {각종전체.length}곳 − 온라인학교 {각종전체.length - 각종.length}곳</p>
+    <p class="answer-num">{각종.length}곳</p>
+    <p class="answer-sub">공립 {공립} · 사립 {각종.length - 공립} · {첫째.지역} {첫째.n}곳 · 없는 시도 {없는곳.length}곳</p>
+  </div>
+
+  <h2>어떤 학교들인가</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>갈래 (이름으로 나눔)</th><th>학교 수</th></tr></thead>
+      <tbody>
+        {갈래수.map((r) => (<tr><th>{r.g}</th><td class="num">{r.n}</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+  <p>⚠ 갈래는 NEIS 칸이 아니라 <strong>학교 이름</strong>으로 나눈 것입니다. «대안·기타»에는 이름만으로 갈래를 알 수 없는 학교가 모두 들어 있습니다.
+    이 밖에 NEIS 학교 종류 «고등기술학교»가 {기술.length}곳({기술.map((x) => x.title).join(', ')}) 있습니다.</p>
+
+  <h2>시도별</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>각종학교(고)</th><th>그중 공립</th></tr></thead>
+      <tbody>
+        {지역표.map((r) => (<tr><th>{r.지역}</th><td class="num">{r.n}</td><td class="num">{r.공립}</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>전체 목록</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학교</th><th>지역</th><th>갈래</th><th>설립</th></tr></thead>
+      <tbody>
+        {목록.map((x) => (
+          <tr>
+            <th><a href={x.url}>{x.title}</a></th>
+            <td>{x.지역}</td>
+            <td>{갈래(x.title)}</td>
+            <td>{x.설립}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 어느 길이 맞는지는 이 표가 정하지 않습니다. 어떤 길이 어디에 있는지만 보여 줍니다.</li>
+    <li>⚠ <strong>학력 인정 여부·입학 자격·학비는 NEIS 에 없습니다.</strong> 반드시 학교 홈페이지와 시도교육청 안내로 확인하십시오.</li>
+    <li>NEIS 에 오르지 않은 미인가 대안학교는 여기 없습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/online-high-school-by-area">공립 온라인학교 시도별</a></li>
+    <li><a href="/adult-high-school-by-area">평생학교(고) 지역별 — 늦게 고등학교를 다니는 곳</a></li>
+    <li><a href="/national-high-school-by-area">국립 고등학교 시도별</a></li>
+    <li><a href="/dropout-by-area">학업중단율 지역별</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학교 목록·종류·설립 구분</strong> — NEIS 교육정보 개방 포털 학교기본정보 ·
+    저희가 받은 때 {(schools as any[])[0]?.기준시각?.slice(0, 10)}
+  </p>
+
+  <NextQuestionBrief 모은것="NEIS 학교기본정보에서 각종학교(고)를 골라 온라인학교를 빼고 시도별로 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

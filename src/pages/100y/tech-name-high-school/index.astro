@@ -1,0 +1,172 @@
+---
+/**
+ * /100y/tech-name-high-school — **이름에 인공지능·반도체·소프트웨어가 든 고등학교** — 세운 해는 대부분 수십 년 전
+ *
+ * ── 왜 만들었나 (2026-10-25 · 1번 · 지역 × 학교 환경 축 이어서) ──────────────
+ * 롱테일 「인공지능고등학교」「반도체고등학교」「소프트웨어 마이스터고」를 찾는 사람에게 다 보여 준다.
+ * 우리 축 NEIS 설립일을 나란히 놓으면 «새 이름 = 새 학교»가 아니라는 것이 보인다. 48곳 가운데
+ *        대부분이 1930~1990년대에 세워진 학교다 — 공업·상업·전자 고등학교가 이름을 바꾼 것으로 읽힌다.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 옛 이름은 NEIS 에 없다. 학교마다 옛 이름을 지어 적지 않는다 — «설립일이 오래됐다»까지만 쓴다.
+ * ⛔ 이름에 그 낱말이 든 것만 골랐다. 그 분야를 가르치지만 이름에 없는 학교는 빠진다 — 밝힌다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import schools from '../../../data/100yearmap/pages-school.json';
+
+const 낱말 = ['인공지능', '소프트웨어', '반도체', '바이오', '에너지', '디지털', '미디어', '게임', '로봇', 'IT', '애니메이션', '뷰티'];
+const 고교 = (schools as any[]).filter((x) => x.종류 === '고등학교' && /^\d{8}$/.test(String(x.설립일)));
+const 해 = (x: any) => Number(String(x.설립일).slice(0, 4));
+const 든것 = 고교
+  .filter((x) => 낱말.some((w) => String(x.title).includes(w)))
+  .sort((a, b) => String(a.설립일).localeCompare(String(b.설립일)));
+const 낱말표 = 낱말
+  .map((w) => {
+    const m = 든것.filter((x) => String(x.title).includes(w));
+    return { w, n: m.length, 가장옛: m[0] ? 해(m[0]) : null };
+  })
+  .filter((r) => r.n > 0)
+  .sort((a, b) => b.n - a.n);
+const 기준해 = 2005;
+const 옛 = 든것.filter((x) => 해(x) < 기준해).length;
+const 새 = 든것.filter((x) => 해(x) >= 2016);
+const 중간해 = 해(든것[Math.floor(든것.length / 2)]);
+const 지역수 = new Map<string, number>();
+for (const x of 든것) 지역수.set(x.지역, (지역수.get(x.지역) ?? 0) + 1);
+const 지역표 = [...지역수.entries()].sort((a, b) => b[1] - a[1]);
+const 연 = (x: any) => `${해(x)}년`;
+
+const TITLE = `인공지능·반도체·소프트웨어 고등학교 ${든것.length}곳 — ${옛}곳은 ${기준해}년 전에 세워졌다`;
+const desc =
+  `학교 이름에 인공지능·소프트웨어·반도체·바이오·에너지 같은 낱말이 든 고등학교는 ${든것.length}곳입니다. ` +
+  `NEIS 설립일로 보면 ${옛}곳이 ${기준해}년 전에 세워졌고, 2016년 이후 새로 생긴 곳은 ${새.length}곳뿐입니다. 학교·지역·설립 연도를 모두 실었습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '첨단 분야 낱말이 이름에 든 고등학교 목록과 설립 연도',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 'NEIS 교육정보 개방 포털' },
+    spatialCoverage: '대한민국 시·도',
+    variableMeasured: ['학교 이름', '설립일', '지역', '고교 유형'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '인공지능 고등학교는 어디에 있나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `이름에 «인공지능»이 든 고등학교는 ${든것.filter((x) => x.title.includes('인공지능')).map((x) => `${x.title}(${x.지역}, NEIS 설립 ${연(x)})`).join(', ')}입니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '반도체 고등학교는 몇 곳인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `이름에 «반도체»가 든 고등학교는 ${든것.filter((x) => x.title.includes('반도체')).length}곳입니다: ${든것.filter((x) => x.title.includes('반도체')).map((x) => `${x.title}(${x.지역})`).join(', ')}.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '이 학교들은 새로 생긴 학교인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `대부분 아닙니다. NEIS 설립일로 ${든것.length}곳 가운데 ${옛}곳이 ${기준해}년 전에 세워졌습니다. 2016년 이후 설립은 ${새.map((x) => x.title).join('·')} ${새.length}곳입니다. 오래된 학교가 이름과 학과를 바꾼 경우로 읽힙니다(옛 이름은 NEIS 에 없습니다).`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>인공지능·반도체 고등학교 {든것.length}곳 —<br class="pcbr" /> 새 이름, 오래된 학교</h1>
+  <p class="sub">
+    이름에 <strong>인공지능·소프트웨어·반도체</strong> 같은 낱말이 든 고등학교를 모았습니다. NEIS 설립일을 나란히 놓으면
+    {든것.length}곳 가운데 <strong>{옛}곳이 {기준해}년 전</strong>에 세워진 학교입니다. 절반은 {중간해}년이나 그 전에 세워졌습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">이름에 첨단 분야 낱말이 든 고등학교</p>
+    <p class="answer-num">{든것.length}곳</p>
+    <p class="answer-sub">{기준해}년 전 설립 {옛}곳 · 2016년 이후 설립 {새.length}곳</p>
+  </div>
+
+  <p>
+    가장 오래된 곳은 NEIS 설립 {연(든것[0])}의 <a href={든것[0].url}>{든것[0].title}</a>입니다. 처음부터 그 이름이었을 리 없는 해입니다.
+    새 이름은 새 학교가 아니라 <strong>오래된 학교가 가르치는 것을 바꾼 흔적</strong>으로 읽는 편이 맞습니다.
+    2016년 이후 새로 세워진 곳은 {새.map((x) => `${x.title}(${연(x)})`).join(', ')}입니다.
+  </p>
+
+  <h2>낱말별</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>이름에 든 낱말</th><th>학교 수</th><th>가장 오래된 설립</th></tr></thead>
+      <tbody>
+        {낱말표.map((r) => (<tr><th>{r.w}</th><td class="num">{r.n}</td><td class="num">{r.가장옛}년</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">한 학교 이름에 낱말이 둘 들면(예: 디지털+미디어) 양쪽에 다 셉니다. 그래서 합이 {든것.length}보다 큽니다.</p>
+
+  <h2>시도별</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>학교 수</th></tr></thead>
+      <tbody>
+        {지역표.map(([r, n]) => (<tr><th>{r}</th><td class="num">{n}</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>전체 목록 (NEIS 설립 순)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학교</th><th>지역</th><th>유형</th><th>NEIS 설립</th></tr></thead>
+      <tbody>
+        {든것.map((x) => (
+          <tr>
+            <th><a href={x.url}>{x.title}</a></th>
+            <td>{x.지역}</td>
+            <td>{x.고교유형 ?? '—'} · {x.설립}</td>
+            <td class="num">{연(x)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 이름이 무엇을 가르치는지 다 말해 주지 않습니다. 학과는 학교 지면에서 확인하십시오.</li>
+    <li>⚠ <strong>옛 이름은 NEIS 에 없습니다.</strong> 저희는 설립일이 오래됐다는 것까지만 확인했습니다. 학교마다 언제 이름을 바꿨는지는 학교 홈페이지에서 보십시오.</li>
+    <li>이름에 낱말이 든 학교만 골랐습니다. 같은 분야를 가르치지만 이름에 없는 학교는 빠져 있습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/new-high-school-by-area">최근 10년 새로 문 연 고등학교</a></li>
+    <li><a href="/vocational-high-school-by-area">특성화고 비율 지역별</a></li>
+    <li><a href="/special-purpose-high-school-by-area">특목고·자율고 지역별 (마이스터고 포함)</a></li>
+    <li><a href="/century-old-high-schools-by-area">100년 넘은 고등학교 지역별</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학교 이름·설립일·유형</strong> — NEIS 교육정보 개방 포털 학교기본정보 ·
+    저희가 받은 때 {(schools as any[])[0]?.기준시각?.slice(0, 10)}
+  </p>
+
+  <NextQuestionBrief 모은것="NEIS 학교기본정보에서 이름에 첨단 분야 낱말이 든 고등학교를 골라 설립일과 나란히 놓은 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

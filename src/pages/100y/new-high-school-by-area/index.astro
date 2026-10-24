@@ -1,0 +1,172 @@
+---
+/**
+ * /100y/new-high-school-by-area — **최근 10년 새로 문 연 고등학교 시도별** — 2016년 이후 NEIS 설립일
+ *
+ * ── 왜 만들었나 (2026-10-25 · 1번 · 지역 × 학교 환경 축 이어서) ──────────────
+ * 이슈   2026년 8월 경기도교육청이 신도시 학교 6곳(고교 2곳)의 중앙투자심사 통과를 알렸고, 부산 명지3고는
+ *        2029년 3월 개교를 잡았다. 학생 수는 주는데 고등학교는 어디에 새로 생기나 — 그 물음에 NEIS 로 답한다.
+ * 롱테일 「우리 동네 새 고등학교」「신설 고등학교 목록」을 찾는 사람에게 문 연 순서대로 다 보여 준다.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 설립일은 NEIS 값이다. 이름을 바꾸거나 갈래를 바꾼 학교가 새 날짜로 오를 수 있다 — 그렇다고 밝힌다.
+ * ⛔ 아직 문 열지 않은 학교(심사 통과·공사 중)는 NEIS 에 없다. 쓰지 않는다.
+ * ⛔ «좋은 학교»·«인기» 같은 말을 붙이지 않는다. 어디에 생겼는지만 놓는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import schools from '../../../data/100yearmap/pages-school.json';
+
+const 시작해 = 2016;
+const 고교 = (schools as any[]).filter((x) => x.종류 === '고등학교' && /^\d{8}$/.test(String(x.설립일)));
+const 해 = (x: any) => Number(String(x.설립일).slice(0, 4));
+const 새 = 고교
+  .filter((x) => 해(x) >= 시작해)
+  .sort((a, b) => String(b.설립일).localeCompare(String(a.설립일)) || a.title.localeCompare(b.title, 'ko'));
+const 연월 = (d: string) => `${d.slice(0, 4)}년 ${Number(d.slice(4, 6))}월`;
+
+const 지역수 = new Map<string, number>();
+for (const x of 새) 지역수.set(x.지역, (지역수.get(x.지역) ?? 0) + 1);
+const 지역표 = [...new Set(고교.map((x) => x.지역))]
+  .map((r) => ({ 지역: r, 새: 지역수.get(r) ?? 0, 전체: 고교.filter((x) => x.지역 === r).length }))
+  .sort((a, b) => b.새 - a.새 || b.전체 - a.전체);
+const 없는곳 = 지역표.filter((r) => r.새 === 0);
+const 첫째 = 지역표[0];
+const 해별 = new Map<number, number>();
+for (const x of 새) 해별.set(해(x), (해별.get(해(x)) ?? 0) + 1);
+const 해목록 = [...해별.entries()].sort((a, b) => a[0] - b[0]);
+const 공립 = 새.filter((x) => x.설립 === '공립').length;
+const 일반고 = 새.filter((x) => x.고교유형 === '일반고').length;
+const 비율 = (a: number, b: number) => ((a / b) * 100).toFixed(1);
+
+const TITLE = `최근 10년 새로 문 연 고등학교 — ${새.length}곳, ${첫째.지역} ${첫째.새}곳`;
+const desc =
+  `NEIS 설립일이 ${시작해}년 이후인 고등학교는 ${새.length}곳(전체 ${고교.length.toLocaleString()}곳의 ${비율(새.length, 고교.length)}%)입니다. ` +
+  `${첫째.지역}가 ${첫째.새}곳으로 절반을 넘고, ${없는곳.length}개 시도는 한 곳도 없습니다. 학교 이름·지역·설립일을 모두 실었습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: `${시작해}년 이후 설립된 고등학교 시도별 목록`,
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 'NEIS 교육정보 개방 포털' },
+    spatialCoverage: '대한민국 시·도',
+    temporalCoverage: `${시작해}/2026`,
+    variableMeasured: ['학교 이름', '설립일', '지역', '설립 구분', '고교 유형'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '최근 10년 동안 고등학교는 몇 곳 새로 생겼나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `NEIS 설립일 기준 ${시작해}년 이후 ${새.length}곳입니다. ${첫째.지역} ${첫째.새}곳, ${지역표[1].지역} ${지역표[1].새}곳 순이고 ${없는곳.map((r) => r.지역).join('·')}는 한 곳도 없습니다. 이름이나 갈래를 바꾼 학교가 새 날짜로 오른 경우가 섞여 있을 수 있습니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '올해(2026년) 문 연 고등학교는 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `NEIS 설립일이 2026년인 곳은 ${새.filter((x) => 해(x) === 2026).length}곳입니다: ${새.filter((x) => 해(x) === 2026).map((x) => `${x.title}(${x.지역})`).join(', ')}.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>최근 10년 새로 문 연 고등학교 —<br class="pcbr" /> {새.length}곳 중 {첫째.새}곳이 {첫째.지역}</h1>
+  <p class="sub">
+    학생은 줄어도 고등학교는 새로 생깁니다. 다만 <strong>사람이 새로 모이는 곳</strong>에만 생깁니다.
+    NEIS 설립일이 {시작해}년 이후인 고등학교를 시도별로, 문 연 순서대로 모두 실었습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">NEIS 고등학교 {고교.length.toLocaleString()}곳 가운데 {시작해}년 이후 설립</p>
+    <p class="answer-num">{새.length}곳</p>
+    <p class="answer-sub">{첫째.지역} {첫째.새}곳({비율(첫째.새, 새.length)}%) · 한 곳도 없는 시도 {없는곳.length}곳</p>
+  </div>
+
+  <p>
+    새로 생긴 {새.length}곳 가운데 공립이 {공립}곳, 일반고가 {일반고}곳입니다. 2026년 8월 경기도교육청은 신도시 학교 6곳(고등학교 2곳)이
+    교육부 중앙투자심사를 통과했다고 밝혔고, 부산 명지3고는 2029년 3월 개교를 잡았습니다. 아직 문 열지 않은 학교는 NEIS 에 없어 이 표에 들어 있지 않습니다.
+  </p>
+
+  <h2>시도별 — 새로 생긴 곳과 지금 있는 곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>{시작해}년 이후</th><th>고등학교 전체</th><th>비율</th></tr></thead>
+      <tbody>
+        {지역표.map((r) => (
+          <tr>
+            <th>{r.지역}</th>
+            <td class="num">{r.새}</td>
+            <td class="num">{r.전체}</td>
+            <td class="num">{비율(r.새, r.전체)}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>해마다 몇 곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>새로 생긴 고등학교</th></tr></thead>
+      <tbody>
+        {해목록.map(([y, n]) => (<tr><th>{y}년</th><td class="num">{n}</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>문 연 순서 (최근부터)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학교</th><th>지역</th><th>유형</th><th>NEIS 설립</th></tr></thead>
+      <tbody>
+        {새.map((x) => (
+          <tr>
+            <th><a href={x.url}>{x.title}</a></th>
+            <td>{x.지역}</td>
+            <td>{x.고교유형 ?? '—'} · {x.설립}</td>
+            <td class="num">{연월(x.설립일)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 새 학교가 어디에 생겼는지를 보여 줄 뿐, 어느 학교가 낫다는 뜻이 아닙니다.</li>
+    <li>⚠ 설립일은 NEIS 값입니다. <strong>이름이나 갈래를 바꾼 학교</strong>, 옮겨 간 학교가 새 날짜로 올라 있을 수 있습니다. 개별 학교는 홈페이지에서 내력을 확인하십시오.</li>
+    <li>새 학교가 없는 시도라고 학교가 모자란 것은 아닙니다. 학생이 줄어든 곳은 새로 짓지 않고 있는 학교로 받습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/century-old-high-schools-by-area">100년 넘은 고등학교 지역별 — 반대쪽 끝</a></li>
+    <li><a href="/online-high-school-by-area">공립 온라인학교 시도별</a></li>
+    <li><a href="/private-high-school-by-area">사립 고등학교 비율 지역별</a></li>
+    <li><a href="/class-size-by-area">학급당 학생 수 지역별</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학교 목록·종류·설립일</strong> — NEIS 교육정보 개방 포털 학교기본정보 ·
+    저희가 받은 때 {(schools as any[])[0]?.기준시각?.slice(0, 10)} ·
+    <strong>신설 계획</strong> — 경기도교육청 2026년 8월 발표(한국교육신문 보도), 부산 명지3고(KNN 보도)
+  </p>
+
+  <NextQuestionBrief 모은것="NEIS 학교기본정보에서 설립일이 2016년 이후인 고등학교를 시도별로 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

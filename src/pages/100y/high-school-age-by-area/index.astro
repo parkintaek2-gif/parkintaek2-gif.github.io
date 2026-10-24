@@ -1,0 +1,135 @@
+---
+/**
+ * /100y/high-school-age-by-area — **고등학교 나이 지역별** — NEIS 설립일로 잰 «학교가 몇 살인가»
+ *
+ * ── 왜 만들었나 (2026-10-25 · 1번 · 지역 × 학교 환경 축 이어서) ──────────────
+ * 롱테일 「우리 지역 고등학교는 오래됐나」「세종 고등학교 설립」— 시도마다 학교가 언제 세워졌는지 가운데값으로 놓는다.
+ * 우리 축 100년 넘은 학교(/century-old-high-schools-by-area)와 새로 생긴 학교(/new-high-school-by-area)의 가운데를 잇는다.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 설립일은 NEIS 값이다. 옮기거나 합친 학교는 처음 날짜를 지닐 수 있다 — 건물 나이가 아니다. 밝힌다.
+ * ⛔ 오래됐다 = 낫다, 새것 = 낫다 어느 쪽도 쓰지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import schools from '../../../data/100yearmap/pages-school.json';
+
+const 올해 = 2026;
+const 고교 = (schools as any[]).filter((x) => x.종류 === '고등학교' && /^\d{8}$/.test(String(x.설립일)));
+const 해 = (x: any) => Number(String(x.설립일).slice(0, 4));
+const 가운데 = (a: number[]) => { const b = [...a].sort((p, q) => p - q); return b[Math.floor(b.length / 2)]; };
+const 지역표 = [...new Set(고교.map((x) => x.지역))]
+  .map((r) => {
+    const 해들 = 고교.filter((x) => x.지역 === r).map(해);
+    return {
+      지역: r,
+      n: 해들.length,
+      가운데해: 가운데(해들),
+      평균나이: 올해 - 해들.reduce((a, b) => a + b, 0) / 해들.length,
+      쉰넘음: 해들.filter((y) => 올해 - y >= 50).length,
+      스물안: 해들.filter((y) => 올해 - y < 20).length,
+    };
+  })
+  .sort((a, b) => a.가운데해 - b.가운데해 || b.평균나이 - a.평균나이);
+const 전국가운데 = 가운데(고교.map(해));
+const 가장옛 = 지역표[0];
+const 가장젊은 = 지역표[지역표.length - 1];
+const 비율 = (a: number, b: number) => ((a / b) * 100).toFixed(1);
+
+const TITLE = `고등학교 나이 지역별 — ${가장옛.지역} 가운데값 ${가장옛.가운데해}년, ${가장젊은.지역} ${가장젊은.가운데해}년`;
+const desc =
+  `NEIS 설립일로 잰 고등학교의 나이입니다. 전국 ${고교.length.toLocaleString()}곳의 가운데 설립 연도는 ${전국가운데}년입니다. ` +
+  `가장 오래된 쪽은 ${가장옛.지역}(가운데값 ${가장옛.가운데해}년), 가장 젊은 쪽은 ${가장젊은.지역}(${가장젊은.가운데해}년)입니다. 17개 시도 평균 나이·50년 넘은 학교 수를 실었습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '시도별 고등학교 설립 연도 가운데값과 평균 나이',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 'NEIS 교육정보 개방 포털' },
+    spatialCoverage: '대한민국 시·도',
+    variableMeasured: ['설립 연도 가운데값', '평균 학교 나이', '50년 넘은 학교 수', '20년 안 된 학교 수'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '고등학교가 가장 오래된 지역은 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `NEIS 설립일 가운데값으로 ${가장옛.지역}(${가장옛.가운데해}년), ${지역표[1].지역}(${지역표[1].가운데해}년), ${지역표[2].지역}(${지역표[2].가운데해}년) 순입니다. 가장 젊은 곳은 ${가장젊은.지역}(${가장젊은.가운데해}년)입니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>고등학교 나이 지역별 —<br class="pcbr" /> {가장옛.지역} {가장옛.가운데해}년, {가장젊은.지역} {가장젊은.가운데해}년</h1>
+  <p class="sub">
+    우리 지역 고등학교는 몇 살일까요. NEIS 설립일을 시도별로 줄 세워 <strong>가운데값</strong>을 놓았습니다.
+    전국 {고교.length.toLocaleString()}곳의 가운데는 <strong>{전국가운데}년</strong>입니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">설립 연도 가운데값 — 가장 오래된 쪽과 가장 젊은 쪽</p>
+    <p class="answer-num">{가장옛.가운데해} ↔ {가장젊은.가운데해}</p>
+    <p class="answer-sub">{가장옛.지역} 평균 {가장옛.평균나이.toFixed(1)}살 · {가장젊은.지역} 평균 {가장젊은.평균나이.toFixed(1)}살</p>
+  </div>
+
+  <p>
+    사람이 오래 살아온 곳은 학교도 오래됐고, 사람이 새로 모인 곳은 학교도 젊습니다. 학교 나이는 그 지역에 사람이 언제 몰렸는지를 비춥니다.
+    경기·인천·울산·세종의 가운데값이 1990년대 이후인 것은 그 뒤에 들어선 도시들 때문입니다.
+  </p>
+
+  <h2>17개 시도 — 오래된 순</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>고교 수</th><th>설립 가운데값</th><th>평균 나이</th><th>50년 넘음</th><th>20년 안 됨</th></tr></thead>
+      <tbody>
+        {지역표.map((r) => (
+          <tr>
+            <th>{r.지역}</th>
+            <td class="num">{r.n}</td>
+            <td class="num">{r.가운데해}년</td>
+            <td class="num">{r.평균나이.toFixed(1)}살</td>
+            <td class="num">{r.쉰넘음} ({비율(r.쉰넘음, r.n)}%)</td>
+            <td class="num">{r.스물안} ({비율(r.스물안, r.n)}%)</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 오래된 학교가 낫다는 뜻도, 새 학교가 낫다는 뜻도 아닙니다.</li>
+    <li>⚠ <strong>학교 나이는 건물 나이가 아닙니다.</strong> 옮기거나 새로 지은 학교도 처음 설립일을 지닐 수 있습니다.</li>
+    <li>평균은 아주 오래된 몇 곳에 끌려가기 쉬워 가운데값을 먼저 놓았습니다. 고교 수가 적은 시도(세종·제주)는 몇 곳만으로 값이 크게 움직입니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/century-old-high-schools-by-area">100년 넘은 고등학교 지역별</a></li>
+    <li><a href="/new-high-school-by-area">최근 10년 새로 문 연 고등학교</a></li>
+    <li><a href="/tech-name-high-school">인공지능·반도체 고등학교 — 새 이름, 오래된 학교</a></li>
+    <li><a href="/class-size-by-area">학급당 학생 수 지역별</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학교 목록·설립일</strong> — NEIS 교육정보 개방 포털 학교기본정보 ·
+    저희가 받은 때 {(schools as any[])[0]?.기준시각?.slice(0, 10)} · 나이는 {올해}년에서 설립 연도를 뺀 값
+  </p>
+
+  <NextQuestionBrief 모은것="NEIS 학교기본정보의 설립일로 시도별 고등학교 설립 연도 가운데값과 평균 나이를 잰 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
