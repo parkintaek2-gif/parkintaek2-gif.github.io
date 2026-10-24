@@ -9,5 +9,8 @@ cd /d C:\Users\User\Documents\GitHub\dataeconomics
 echo ===== %DATE% %TIME% ===== >> "docs\고정업무-마커\일요일지시-되돌리기.log"
 node scripts\set-롤드컵-지시문.mjs --되돌린다 >> "docs\고정업무-마커\일요일지시-되돌리기.log" 2>&1
 node scripts\set-롤드컵-주말회차.mjs --되돌린다 >> "docs\고정업무-마커\일요일지시-되돌리기.log" 2>&1
+REM 야구 PO 1차전을 받으려고 「스포츠 15시」를 빌려 18시로 옮겨 놨다.
+REM 안 되돌리면 그 회차가 평일 14:25 에 영영 안 뜬다.
+node scripts\set-야구PO-회차시각.mjs --되돌린다 >> "docs\고정업무-마커\일요일지시-되돌리기.log" 2>&1
 echo ----- 되돌린 뒤 다시 읽는다 ----- >> "docs\고정업무-마커\일요일지시-되돌리기.log"
 node scripts\잰다-회차목록.mjs >> "docs\고정업무-마커\일요일지시-되돌리기.log" 2>&1
