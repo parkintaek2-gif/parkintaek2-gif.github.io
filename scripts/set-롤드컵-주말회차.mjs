@@ -37,9 +37,10 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 
 export const 바꿀회차 = [
-  { 시: '11', id: 'trig_01X5A3DCXwYi2T3bBosKTQnk' },
-  { 시: '14', id: 'trig_01RgAwm6L1q4nBhanUgz3s8N' },
-  { 시: '15', id: 'trig_01EwjhZx3AKXuEyHK82N9DEn' },
+  /* 🔴 [2026-10-25 일요일] 사장님이 일요일 기사 세 건을 지시하셨다 —
+     롤드컵 종합+26일 대진 · KBL 종합 · 날씨.
+     09시와 10시(날씨)는 이미 날마다 돈다. KBL 을 받을 자리가 없어 16시만 연다.
+     ⛔ 끝나면 --되돌린다 로 평일만으로 돌린다. */
   { 시: '16', id: 'trig_01ErSZQm2VhuNYMRBi3MCufF' },
 ];
 
@@ -55,6 +56,24 @@ export function 평일만으로(cron) {
   const c = String(cron ?? '');
   if (!c.includes('1-6')) return null;
   return c.replace('1-6', '1-5');
+}
+
+/**
+ * 평일만(1-5) 또는 월~토(1-6) → **날마다**(*).
+ *
+ * 🔴 [2026-10-25 · 사장님] 일요일 기사 세 건을 지시하셨다 —
+ *   「1. 롤드컵 전 경기 종합+다음날 대진 일정 기사 1건
+ *    2. 25일 KBL 프로농구 종합 중심으로 24일 경기결과 짧게 언급하는 기사 1건
+ *    3. 다음날 날씨 중심 + 당일 날씨 부연 기사」
+ *   09시와 10시(날씨)는 이미 날마다 돈다. KBL 을 받을 자리가 없어 하나를 더 연다.
+ * ⛔ 「휴일엔 중부매일 기사를 쓰지 않는다」는 평소 지시이고, 이번은 사장님이 직접
+ *   그날 쓰라고 시키신 것이다. 끝나면 다시 평일만으로 돌린다.
+ */
+export function 날마다로(cron) {
+  const c = String(cron ?? '');
+  if (c.includes('1-5')) return c.replace('1-5', '*');
+  if (c.includes('1-6')) return c.replace('1-6', '*');
+  return null;                                   /* 이미 날마다다 */
 }
 
 export function 자가시험() {
@@ -103,7 +122,11 @@ async function 돈다(무엇) {
         if (무엇 === '본다') { 낸것.push({ 시, 이름: 전.name, 옛, 지금: 옛 }); continue; }
         const 새 = 무엇 === '바꾼다'
           ? (옛.includes('1-5') ? 옛.replace('1-5', '1-6') : null)
-          : (옛.includes('1-6') ? 옛.replace('1-6', '1-5') : null);
+          : 무엇 === '날마다'
+            ? (옛.includes('1-5') ? 옛.replace('1-5', '*')
+              : (옛.includes('1-6') ? 옛.replace('1-6', '*') : null))
+            : (옛.includes('1-6') ? 옛.replace('1-6', '1-5')
+              : (/\*\s*$/.test(옛) ? 옛.replace(/\*\s*$/, '1-5') : null));
         if (!새) { 낸것.push({ 시, 이름: 전.name, 옛, 지금: 옛, 한것: '바꿀 것이 없다' }); continue; }
         const res = await fetch(`/api/organizations/${oid}/cowork/scheduled_tasks/${id}`, {
           method: 'PATCH',
@@ -119,7 +142,9 @@ async function 돈다(무엇) {
     }, { 회차들: 바꿀회차, 무엇 });
     let 탈 = 0;
     for (const x of 결과) {
-      const 바랐던것 = 무엇 === '바꾼다' ? '1-6' : (무엇 === '되돌린다' ? '1-5' : null);
+      const 바랐던것 = 무엇 === '바꾼다' ? '1-6'
+        : 무엇 === '날마다' ? '* * *'
+          : (무엇 === '되돌린다' ? '1-5' : null);
       const 됐나 = !바랐던것 || (x.지금 || '').includes(바랐던것);
       if (!됐나) 탈 += 1;
       console.log(`${무엇 === '본다' ? '　' : (됐나 ? '✅' : '🔴')} ${시표(x.시)} ${(x.이름 || '').slice(0, 34).padEnd(36)}`);
@@ -137,8 +162,9 @@ const 내가실행됐다 = process.argv[1]
 if (내가실행됐다) {
   if (process.argv.includes('--자가시험')) process.exit(자가시험() ? 0 : 1);
   const 무엇 = process.argv.includes('--바꾼다') ? '바꾼다'
-    : process.argv.includes('--되돌린다') ? '되돌린다'
-      : process.argv.includes('--본다') ? '본다' : null;
+    : process.argv.includes('--날마다') ? '날마다'
+      : process.argv.includes('--되돌린다') ? '되돌린다'
+        : process.argv.includes('--본다') ? '본다' : null;
   if (!무엇) {
     console.log('쓰는 법: --본다 | --바꾼다 | --되돌린다 | --자가시험');
     process.exit(1);
