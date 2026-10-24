@@ -1,0 +1,169 @@
+---
+/**
+ * /100y/private-elementary-school-by-area — **사립초등학교 지역별** (73곳 전부, 시도·시군구)
+ *
+ * ── 왜 만들었나 (2026-10-24 · 1번 · 지역 × 학교 환경 축 이어서) ──────────────
+ * 롱테일  「사립초 어디에 있나」「우리 시에 사립초가 있나」에 답하는 지면이 없었다.
+ *         /elementary 가 쓰는 NEIS 초등학교 자료(elementary.json)의 설립 칸으로 사립만 골라 다 싣는다.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 사립이 더 좋다/비싸다를 쓰지 않는다 — 학비는 우리가 안 쟀다.
+ * ⛔ 설립 연도는 NEIS 값이다. 학교가 세는 개교 연도와 다를 수 있다(/elementary 와 같은 규칙).
+ * ⛔ 학교 이름을 다 싣되, 순위를 매기지 않는다 — 시도·시군구·이름 순으로만 늘어놓는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 초등 from '../../../data/100yearmap/elementary.json';
+import { 지역링크 } from '../../../lib/school-area-sum';
+
+const 모두 = ((초등 as any).자료 as any[]).filter((x) => x.시도);
+const 사립 = 모두.filter((x) => x.설립 === '사립');
+const 국립 = 모두.filter((x) => x.설립 === '국립').length;
+/* NEIS 시도 칸에 «평택시»·«전라남도» 같은 낱개 값이 1~2곳 섞여 있다 — 학교 10곳 이상인 값만 시도로 세운다(전체 셈에는 넣는다) */
+const 시도순 = [...new Set(모두.map((x) => x.시도))].filter((s) => 모두.filter((x) => x.시도 === s).length >= 10);
+const 시도표 = 시도순
+  .map((s) => ({ 이름: s, 학교: 모두.filter((x) => x.시도 === s).length, 사립: 사립.filter((x) => x.시도 === s) }))
+  .sort((a, b) => b.사립.length - a.사립.length || a.이름.localeCompare(b.이름, 'ko'));
+const 없는시도 = 시도표.filter((x) => x.사립.length === 0).map((x) => x.이름);
+const 서울 = 시도표.find((x) => x.이름 === '서울특별시');
+const 시군구셈 = new Map<string, number>();
+for (const x of 사립) 시군구셈.set(x.열쇠, (시군구셈.get(x.열쇠) ?? 0) + 1);
+const 많은곳 = [...시군구셈.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ko')).slice(0, 10);
+const 오래된 = [...사립].filter((x) => x.설립연).sort((a, b) => a.설립연 - b.설립연 || a.title.localeCompare(b.title, 'ko'));
+
+const 수 = (n: number) => Number(n).toLocaleString('ko-KR');
+const 률 = (a: number, b: number) => (b ? `${((a / b) * 100).toFixed(1)}%` : '—');
+
+const TITLE = `사립초등학교 지역별 — 전국 ${사립.length}곳, 서울 ${서울?.사립.length ?? 0}곳`;
+const desc =
+  `사립초등학교 지역별 목록. 초등학교 ${수(모두.length)}곳 가운데 사립은 ${사립.length}곳(${률(사립.length, 모두.length)})이고, ` +
+  `서울에 ${서울?.사립.length ?? 0}곳이 있습니다. 사립초가 없는 시도: ${없는시도.join(', ') || '없음'}. NEIS 학교기본정보, 학교 이름까지 모두.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '사립초등학교 지역별 — 시도·시군구별 사립초 목록',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 'NEIS 교육정보 개방 포털' },
+    spatialCoverage: '대한민국 시·도, 시·군·구',
+    variableMeasured: ['초등학교 수', '사립초등학교 수', '설립 연도'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '사립초등학교는 전국에 몇 곳인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `NEIS 에 있는 초등학교 ${수(모두.length)}곳 가운데 사립은 ${사립.length}곳입니다. 서울이 ${서울?.사립.length ?? 0}곳으로 절반을 넘습니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '사립초등학교가 없는 지역은 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `사립초등학교가 한 곳도 없는 시도는 ${없는시도.join(', ') || '없습니다'}입니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>사립초등학교 지역별 —<br class="pcbr" /> 전국 {사립.length}곳 전부</h1>
+  <p class="sub">
+    우리 시·도에 <strong>사립초등학교</strong>가 있을까요? NEIS 학교기본정보의 초등학교 {수(모두.length)}곳 가운데
+    사립 {사립.length}곳을 지역마다 모두 실었습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">초등학교 {수(모두.length)}곳 가운데 사립</p>
+    <p class="answer-num">{사립.length}곳</p>
+    <p class="answer-sub">
+      {률(사립.length, 모두.length)} · 서울 {서울?.사립.length ?? 0}곳 · 국립 {국립}곳 · 사립초 없는 시도 {없는시도.length}곳
+    </p>
+  </div>
+
+  <p>
+    ⚠ <strong>학비나 학교 수준은 재지 않았습니다.</strong> 공립·사립은 학교를 세운 주체의 구분입니다. 설립 연도는
+    NEIS 값이라 학교가 세는 개교 연도와 다를 수 있습니다.
+  </p>
+
+  <h2>시도별 사립초등학교</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>초등학교</th><th>사립</th></tr></thead>
+      <tbody>
+        {시도표.map((x) => (
+          <tr><th>{x.이름}</th><td class="num">{수(x.학교)}</td><td class="num"><strong>{x.사립.length}</strong></td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  {없는시도.length > 0 && <p class="note">사립초등학교가 한 곳도 없는 시도: <strong>{없는시도.join(' · ')}</strong></p>}
+
+  <h2>사립초가 많은 시군구</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>사립초</th></tr></thead>
+      <tbody>
+        {많은곳.map(([k, n]) => (
+          <tr><th>{지역링크(k) ? <a href={지역링크(k)!}>{k}</a> : k}</th><td class="num">{n}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>지역별 사립초등학교 전체 목록</h2>
+  {시도표.filter((x) => x.사립.length > 0).map((s) => (
+    <>
+      <h3>{s.이름} — {s.사립.length}곳</h3>
+      <p class="note">
+        {[...s.사립].sort((a, b) => a.구.localeCompare(b.구, 'ko') || a.title.localeCompare(b.title, 'ko')).map((x, i) => (
+          <>{i > 0 && ' · '}{x.title}({x.구}{x.설립연 ? `, ${x.설립연}` : ''})</>
+        ))}
+      </p>
+    </>
+  ))}
+
+  <h2>NEIS 설립 연도가 가장 이른 사립초 5곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학교</th><th>지역</th><th>설립 연도</th></tr></thead>
+      <tbody>
+        {오래된.slice(0, 5).map((x) => (<tr><th>{x.title}</th><td>{x.시도} {x.구}</td><td class="num">{x.설립연}년</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>공립이 낫다, 사립이 낫다를 말하지 않습니다.</strong> 고를 수 있는 학교가 어디에 있는지를 보여 줄 뿐입니다.</li>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong></li>
+    <li>학교가 지금 있는 주소로 셌습니다. 모집 방식과 통학 범위는 학교마다 다릅니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/elementary">초등학교는 몇 살인가요 — 설립 연도로 본 초등학교</a></li>
+    <li><a href="/private-high-school-by-area">사립 고등학교 비율 지역별</a></li>
+    <li><a href="/special-purpose-high-school-by-area">특목고·자율고 지역별</a></li>
+    <li>우리 동네 학교 한 장 — <a href="/region">지역 목록</a>에서 고르십시오</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note"><strong>학교 목록·설립 구분·주소·설립일</strong> — NEIS 교육정보 개방 포털 학교기본정보(초등학교)</p>
+  <p class="note">⚠ 설립 구분은 NEIS 값 그대로이고, <strong>지역으로 센 것은 저희가 낸 것</strong>입니다.</p>
+
+  <NextQuestionBrief 모은것="NEIS 초등학교 기본정보의 설립 구분을 시도·시군구로 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

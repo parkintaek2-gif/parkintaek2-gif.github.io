@@ -1,0 +1,128 @@
+---
+/**
+ * /100y/online-high-school-by-area — **공립 온라인학교 시도별** — 2023년부터 시도마다 하나씩 생긴 17곳
+ *
+ * ── 왜 만들었나 (2026-10-24 · 1번 · 지역 × 학교 환경 축 이어서) ──────────────
+ * 롱테일  「서울온라인학교」「우리 시도 온라인학교」를 찾는 사람에게, NEIS 에 오른 곳을 연 순서대로 다 보여 준다.
+ *         NEIS 학교 종류 «각종학교(고)» 가운데 이름에 «온라인학교»·«온학교»·«온세종»이 든 곳.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 무엇을 가르치는지, 누가 다닐 수 있는지는 NEIS 에 없다 — 쓰지 않는다. 학교 홈페이지로 보낸다.
+ * ⛔ 설립일은 NEIS 값이다.
+ * ⛔ 이름으로 골랐다 — 이름에 그 말이 없는 온라인 과정은 빠질 수 있다고 밝힌다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import schools from '../../../data/100yearmap/pages-school.json';
+
+const 온라인 = (schools as any[])
+  .filter((x) => x.종류 === '각종학교(고)' && /온라인학교|온학교|온세종/.test(String(x.title)))
+  .sort((a, b) => String(a.설립일).localeCompare(String(b.설립일)) || a.title.localeCompare(b.title, 'ko'));
+const 연월 = (d: string) => (/^\d{8}$/.test(d) ? `${d.slice(0, 4)}년 ${Number(d.slice(4, 6))}월` : '—');
+const 해별 = new Map<string, number>();
+for (const x of 온라인) { const y = String(x.설립일).slice(0, 4); 해별.set(y, (해별.get(y) ?? 0) + 1); }
+const 첫 = 온라인[0];
+const 끝 = 온라인[온라인.length - 1];
+const 각종 = (schools as any[]).filter((x) => x.종류 === '각종학교(고)').length;
+
+const TITLE = `공립 온라인학교 시도별 — ${온라인.length}곳, ${연월(첫.설립일)} ${첫.title}부터`;
+const desc =
+  `NEIS 에 오른 시도 온라인학교(고) ${온라인.length}곳을 문 연 순서대로 실었습니다. 처음 문을 연 곳은 ${연월(첫.설립일)} ${첫.title}, ` +
+  `가장 늦은 곳은 ${연월(끝.설립일)} ${끝.title}입니다. 학교 이름·지역·설립일·홈페이지.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '공립 온라인학교(고) 시도별 목록과 설립일',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 'NEIS 교육정보 개방 포털' },
+    spatialCoverage: '대한민국 시·도',
+    variableMeasured: ['학교 이름', '설립일', '지역'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '온라인학교는 몇 곳이 있나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `NEIS 에 «각종학교(고)»로 오른 시도 온라인학교는 ${온라인.length}곳입니다. ${[...해별.entries()].map(([y, n]) => `${y}년 ${n}곳`).join(', ')}이 문을 열었습니다. 누가 다닐 수 있는지는 학교마다 홈페이지에서 확인해야 합니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>공립 온라인학교 시도별 —<br class="pcbr" /> 3년 사이 {온라인.length}곳</h1>
+  <p class="sub">
+    {연월(첫.설립일)} <strong>{첫.title}</strong>부터, 시도교육청마다 <strong>온라인학교</strong>가 하나씩
+    생겼습니다. NEIS 에 오른 곳을 문 연 순서대로 모두 실었습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">NEIS 각종학교(고) {각종}곳 가운데 온라인학교</p>
+    <p class="answer-num">{온라인.length}곳</p>
+    <p class="answer-sub">{[...해별.entries()].map(([y, n]) => `${y}년 ${n}곳`).join(' · ')}</p>
+  </div>
+
+  <p>
+    ⚠ <strong>무엇을 가르치는지, 누가 다닐 수 있는지는 NEIS 에 없습니다.</strong> 학교마다 다르니 아래 홈페이지에서
+    확인하십시오. 이름에 «온라인학교»·«온학교»·«온세종»이 든 곳만 골랐습니다.
+  </p>
+
+  <h2>문 연 순서</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학교</th><th>지역</th><th>NEIS 설립</th></tr></thead>
+      <tbody>
+        {온라인.map((x) => (
+          <tr>
+            <th><a href={x.url}>{x.title}</a></th>
+            <td>{x.지역}</td>
+            <td class="num">{연월(x.설립일)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>학교 홈페이지</h2>
+  <ul>
+    {온라인.map((x) => (
+      <li>{x.title} — {x.홈페이지 ? <a href={x.홈페이지} rel="nofollow noopener" target="_blank">{x.홈페이지.replace(/^https?:\/\//, '').replace(/\/$/, '')}</a> : '없음'}</li>
+    ))}
+  </ul>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 배우는 길이 어디에 생겼는지를 보여 줄 뿐입니다.</li>
+    <li>설립일은 NEIS 값이라 학교가 처음 수업한 날과 다를 수 있습니다.</li>
+    <li>학교가 있는 주소는 사무를 보는 곳입니다. 온라인학교에서 주소가 곧 통학 범위라는 뜻은 아닙니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/adult-high-school-by-area">평생학교(고) 지역별 — 늦게 고등학교를 다니는 곳</a></li>
+    <li><a href="/special-purpose-high-school-by-area">특목고·자율고 지역별</a></li>
+    <li><a href="/vocational-high-school-by-area">특성화고 비율 지역별</a></li>
+    <li>우리 동네 고등학교 한 장 — <a href="/region">지역 목록</a>에서 고르십시오</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학교 목록·종류·설립일·홈페이지</strong> — NEIS 교육정보 개방 포털 학교기본정보 ·
+    저희가 받은 때 {(schools as any[])[0]?.기준시각?.slice(0, 10)}
+  </p>
+
+  <NextQuestionBrief 모은것="NEIS 학교기본정보에서 온라인학교를 골라 설립일 순으로 늘어놓은 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

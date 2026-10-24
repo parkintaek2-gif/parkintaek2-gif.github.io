@@ -1,0 +1,146 @@
+---
+/**
+ * /100y/adult-high-school-by-area — **평생학교(고) 지역별** — 늦게 고등학교를 다니는 곳
+ *
+ * ── 왜 만들었나 (2026-10-24 · 1번 · 0~100세 축 × 지역) ───────────────────
+ * 롱테일  「어른이 다니는 고등학교」「만학도 고등학교 어디」에 시도로 답하는 지면이 없었다.
+ *         백년지도는 열아홉에서 끝나지 않는다 — NEIS 가 «평생학교(고)»로 분류한 곳을 모두 싣는다.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 학력 인정 여부·입학 자격·학비는 학교마다 다르고 우리가 확인하지 않았다 — 「졸업하면 ○○」를 쓰지 않는다.
+ *   학교 이름에 «학력인정»이 든 것은 이름 그대로 둔다.
+ * ⛔ 같은 학교의 2년제·야간 과정은 NEIS 에 따로 올라 있다 — «과정» 수와 «학교» 수를 나눠 적는다.
+ * ⛔ 시도는 주소가 아니라 NEIS 지역 칸으로 가른다(주소가 빈 곳·옛 도 이름이 있다).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import schools from '../../../data/100yearmap/pages-school.json';
+
+const 과정들 = (schools as any[]).filter((x) => /^평생학교\(고\)/.test(String(x.종류 ?? '')));
+const 학교이름 = (t: string) => t.replace(/\((2년제|3년제|야간)\)\s*$/, '').trim();
+const 학교표 = new Map<string, { 이름: string; 지역: string; 과정: any[] }>();
+for (const x of 과정들) {
+  const k = `${x.지역}|${학교이름(x.title)}`;
+  const v = 학교표.get(k) ?? { 이름: 학교이름(x.title), 지역: x.지역, 과정: [] };
+  v.과정.push(x);
+  학교표.set(k, v);
+}
+const 학교들 = [...학교표.values()];
+const 시도들 = [...new Set(학교들.map((x) => x.지역))]
+  .map((s) => ({ 이름: s, 학교: 학교들.filter((x) => x.지역 === s).sort((a, b) => a.이름.localeCompare(b.이름, 'ko')) }))
+  .sort((a, b) => b.학교.length - a.학교.length || a.이름.localeCompare(b.이름, 'ko'));
+const 고교시도 = [...new Set((schools as any[]).filter((x) => x.종류 === '고등학교').map((x) => x.지역))];
+const 없는시도 = 고교시도.filter((s) => !시도들.some((x) => x.이름 === s)).sort((a, b) => a.localeCompare(b, 'ko'));
+const 이년 = 과정들.filter((x) => /2년6학기/.test(x.종류)).length;
+const 삼년 = 과정들.filter((x) => /3년6학기/.test(x.종류)).length;
+const 서울 = 시도들.find((x) => x.이름 === '서울특별시');
+const 과정이름 = (x: any) => (/2년6학기/.test(x.종류) ? '2년 6학기' : '3년 6학기');
+
+const TITLE = `평생학교(고) 지역별 — 늦게 고등학교를 다니는 곳 ${학교들.length}곳`;
+const desc =
+  `NEIS 가 평생학교(고)로 분류한 고등학교 과정 ${과정들.length}개, 학교로는 ${학교들.length}곳입니다. ` +
+  `서울 ${서울?.학교.length ?? 0}곳. 한 곳도 없는 시도: ${없는시도.join(', ') || '없음'}. 시도별로 학교 이름까지 모두 실었습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '평생학교(고) 지역별 목록',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 'NEIS 교육정보 개방 포털' },
+    spatialCoverage: '대한민국 시·도',
+    variableMeasured: ['평생학교(고) 과정 수', '학교 수'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '어른이 다닐 수 있는 고등학교(평생학교)는 어디에 있나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `NEIS 가 평생학교(고)로 분류한 곳은 ${학교들.length}곳입니다. ${시도들.slice(0, 3).map((x) => `${x.이름} ${x.학교.length}곳`).join(', ')} 순으로 많습니다. 입학 자격과 학력 인정은 학교마다 확인해야 합니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>평생학교(고) 지역별 —<br class="pcbr" /> 늦게 고등학교를 다니는 곳</h1>
+  <p class="sub">
+    고등학교는 열여섯에만 가는 곳이 아닙니다. NEIS 가 <strong>평생학교(고)</strong>로 분류한 곳을 시도마다 모두
+    실었습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">NEIS 평생학교(고)</p>
+    <p class="answer-num">{학교들.length}곳</p>
+    <p class="answer-sub">
+      과정 {과정들.length}개(2년 6학기 {이년} · 3년 6학기 {삼년}) · 서울 {서울?.학교.length ?? 0}곳 · 한 곳도 없는 시도 {없는시도.length}곳
+    </p>
+  </div>
+
+  <p>
+    ⚠ <strong>입학 자격·학력 인정·학비는 학교마다 다르고, 저희는 확인하지 않았습니다.</strong> 다니시기 전에 학교와
+    시도교육청에 꼭 물어보십시오. 같은 학교의 2년제·야간 과정은 NEIS 에 따로 올라 있어, 학교 수와 과정 수가 다릅니다.
+  </p>
+
+  <h2>시도별 평생학교(고)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>학교</th><th>과정</th></tr></thead>
+      <tbody>
+        {시도들.map((s) => (
+          <tr><th>{s.이름}</th><td class="num"><strong>{s.학교.length}</strong></td><td class="num">{s.학교.reduce((n, x) => n + x.과정.length, 0)}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  {없는시도.length > 0 && <p class="note">NEIS 에 평생학교(고)가 한 곳도 없는 시도: <strong>{없는시도.join(' · ')}</strong></p>}
+
+  <h2>지역별 전체 목록</h2>
+  {시도들.map((s) => (
+    <>
+      <h3>{s.이름} — {s.학교.length}곳</h3>
+      <ul>
+        {s.학교.map((x) => (
+          <li>
+            <a href={x.과정[0].url}>{x.이름}</a>
+            {' '}<span class="note">({x.과정.map(과정이름).join(' · ')})</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  ))}
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 늦게 배우는 길이 어디에 있는지를 보여 줄 뿐입니다.</li>
+    <li>검정고시처럼 학교에 다니지 않는 길은 여기 없습니다.</li>
+    <li>학교 이름의 «학력인정»은 학교가 쓰는 이름 그대로입니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/age">나이로 보는 백년지도</a></li>
+    <li><a href="/special-purpose-high-school-by-area">특목고·자율고 지역별</a></li>
+    <li><a href="/vocational-high-school-by-area">특성화고 비율 지역별</a></li>
+    <li>우리 동네 고등학교 한 장 — <a href="/region">지역 목록</a>에서 고르십시오</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학교 목록·학교 종류·지역</strong> — NEIS 교육정보 개방 포털 학교기본정보 ·
+    저희가 받은 때 {(schools as any[])[0]?.기준시각?.slice(0, 10)}
+  </p>
+
+  <NextQuestionBrief 모은것="NEIS 학교기본정보의 학교 종류(평생학교)를 시도로 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
