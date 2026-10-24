@@ -1,0 +1,176 @@
+---
+/**
+ * /100y/special-purpose-high-school-by-area — **특목고·자율고 지역별** (과학고·외고·국제고 어디에)
+ *
+ * ── 왜 만들었나 (2026-10-24 · 1번 · 지역 × 학교 환경 축 이어서) ──────────────
+ * 롱테일  「과학고 몇 곳」「외고 있는 지역」「자율고 많은 곳」을 시도로 답하는 지면이 없었다.
+ *         NEIS 학교기본정보의 고교유형(특목고·자율고)을 시도·시군구로 센다.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 특목고 «안의 갈래»(과학고·외고·예술고…)는 NEIS 가 따로 주지 않는다 — **학교 이름으로 가른 것**이고,
+ *   이름에 갈래가 안 드러나는 곳은 「그 밖」으로 둔다. 지면에 그렇게 밝힌다.
+ * ⛔ 자율고는 NEIS 에서 자사고·자공고를 가르지 않는다 — 가르지 않는다.
+ * ⛔ 「명문」「좋은 학교」로 읽히게 쓰지 않는다. 학교 수다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import schools from '../../../data/100yearmap/pages-school.json';
+import { 시군구로더함 } from '../../../lib/school-area-sum';
+import { 지역가르기 } from '../../../lib/school-area';
+
+const 학교들 = (schools as any[]).filter((x) => x.종류 === '고등학교' && /^(일반고|특성화고|자율고|특목고)$/.test(String(x.고교유형 ?? '')));
+const 특목셈 = 시군구로더함(학교들, null, (x) => ({ 분모: 1, 분자: x.고교유형 === '특목고' ? 1 : 0 }));
+const 자율셈 = 시군구로더함(학교들, null, (x) => ({ 분모: 1, 분자: x.고교유형 === '자율고' ? 1 : 0 }));
+const 자율표 = new Map(자율셈.시도들.map((x) => [x.이름, x.분자]));
+
+/* 이름으로 가른다 — 앞에서부터 처음 맞는 갈래 하나 */
+const 갈래들: [string, RegExp][] = [
+  ['과학고', /과학고|과학영재/],
+  ['외고·국제고', /외국어고|국제고/],
+  ['마이스터고', /마이스터/],
+  ['예술고', /예술|국악|예고/],
+  ['체육고', /체육/],
+];
+const 갈래 = (x: any) => (갈래들.find(([, r]) => r.test(String(x.title))) ?? ['그 밖'])[0];
+const 특목 = 학교들.filter((x) => x.고교유형 === '특목고');
+const 갈래이름 = [...갈래들.map(([n]) => n), '그 밖'];
+const 갈래수 = 갈래이름.map((n) => ({ 이름: n, 수: 특목.filter((x) => 갈래(x) === n).length }));
+const 시도갈래 = (시도: string, n: string) => 특목.filter((x) => 갈래(x) === n && 지역가르기(x.주소)?.시도 === 시도).length;
+const 특목시도 = [...특목셈.시도들].sort((a, b) => b.분자 - a.분자 || a.이름.localeCompare(b.이름, 'ko'));
+const 특목있는곳 = 특목셈.모든곳.filter((x) => x.분자 > 0).length;
+const 자율있는곳 = 자율셈.모든곳.filter((x) => x.분자 > 0).length;
+const 자율없는시도 = 자율셈.시도들.filter((x) => x.분자 === 0).map((x) => x.이름);
+
+const 수 = (n: number) => Number(n).toLocaleString('ko-KR');
+const 과학 = 갈래수.find((x) => x.이름 === '과학고')!.수;
+const 외고 = 갈래수.find((x) => x.이름 === '외고·국제고')!.수;
+
+const TITLE = `특목고·자율고 지역별 — 과학고 ${과학}곳·외고 국제고 ${외고}곳은 어디에`;
+const desc =
+  `특목고·자율고 지역별 통계. 고등학교 ${수(학교들.length)}곳 가운데 특목고 ${특목셈.전체분자}곳, 자율고 ${자율셈.전체분자}곳입니다. ` +
+  `학교 이름으로 가르면 과학고 ${과학}곳, 외고·국제고 ${외고}곳. 시도·시군구별로 셌습니다. NEIS 학교기본정보.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '특목고·자율고 지역별 — 시도별 과학고·외고·국제고·자율고 수',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: 'NEIS 교육정보 개방 포털' },
+    spatialCoverage: '대한민국 시·도, 시·군·구',
+    variableMeasured: ['특목고 수', '자율고 수', '특목고 갈래별 수(학교 이름 기준)'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '과학고와 외고는 몇 곳인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `NEIS 에서 특목고로 분류된 ${특목셈.전체분자}곳을 학교 이름으로 가르면 과학고 ${과학}곳, 외고·국제고 ${외고}곳입니다. NEIS 는 특목고 안의 갈래를 따로 주지 않아 이름으로 갈랐습니다.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '자율고(자사고·자공고)가 많은 지역은 어디인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `자율고 ${자율셈.전체분자}곳 가운데 ${[...자율셈.시도들].sort((a, b) => b.분자 - a.분자).slice(0, 3).map((x) => `${x.이름} ${x.분자}곳`).join(', ')} 순으로 많습니다. NEIS 는 자사고와 자공고를 가르지 않습니다.`,
+        },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>특목고·자율고 지역별 —<br class="pcbr" /> 과학고·외고는 어디에</h1>
+  <p class="sub">
+    과학고·외고·예술고 같은 <strong>특목고</strong>와 <strong>자율고</strong>는 시도마다 몇 곳일까요?
+    NEIS 학교기본정보의 고교유형으로 고등학교 {수(학교들.length)}곳을 셌습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">고등학교 {수(학교들.length)}곳 가운데</p>
+    <p class="answer-num">특목고 {특목셈.전체분자} · 자율고 {자율셈.전체분자}</p>
+    <p class="answer-sub">
+      과학고 {과학}곳 · 외고·국제고 {외고}곳 · 특목고가 있는 시군구 {특목있는곳}곳 · 자율고가 있는 시군구 {자율있는곳}곳
+    </p>
+  </div>
+
+  <p>
+    ⚠ <strong>특목고 안의 갈래는 학교 이름으로 가른 것입니다.</strong> NEIS 는 과학고·외고 같은 갈래를 따로 주지
+    않습니다. 이름에 갈래가 드러나지 않는 곳은 「그 밖」에 넣었습니다. 자율고는 NEIS 에서 자사고와 자공고를
+    가르지 않아 저희도 가르지 않았습니다.
+  </p>
+
+  <h2>특목고 갈래별 학교 수 (이름 기준)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>갈래</th><th>학교</th></tr></thead>
+      <tbody>
+        {갈래수.map((x) => (<tr><th>{x.이름}</th><td class="num">{x.수}</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    「그 밖」은 이름에 공업·해사·수산·에너지·반도체처럼 산업 분야가 드러나는 학교가 대부분입니다. 마이스터고로
+    지정됐어도 이름에 «마이스터»가 없으면 여기 들어갑니다.
+  </p>
+
+  <h2>시도별 특목고·자율고</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>고교</th><th>특목고</th><th>과학고</th><th>외고·국제고</th><th>자율고</th></tr></thead>
+      <tbody>
+        {특목시도.map((x) => (
+          <tr>
+            <th>{x.이름}</th>
+            <td class="num">{x.분모}</td>
+            <td class="num"><strong>{x.분자}</strong></td>
+            <td class="num">{시도갈래(x.이름, '과학고')}</td>
+            <td class="num">{시도갈래(x.이름, '외고·국제고')}</td>
+            <td class="num">{자율표.get(x.이름) ?? 0}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  {자율없는시도.length > 0 && (
+    <p class="note">자율고가 한 곳도 없는 시도: <strong>{자율없는시도.join(' · ')}</strong></p>
+  )}
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>특목고·자율고가 더 좋은 학교라는 뜻이 아닙니다.</strong> 고를 수 있는 학교가 시도마다 어떻게
+      놓여 있는지를 보여 줄 뿐입니다.</li>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong></li>
+    <li>특목고는 대개 시도 전체, 또는 전국에서 학생을 뽑습니다. 학교가 있는 시군구 학생만 다니는 곳이 아닙니다.</li>
+    <li>마이스터고는 NEIS 에서 대부분 특목고로 잡혀 여기 특목고 수에 들어 있습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/vocational-high-school-by-area">특성화고 비율 지역별</a></li>
+    <li><a href="/private-high-school-by-area">사립 고등학교 비율 지역별</a></li>
+    <li><a href="/coed-school-by-area">남녀공학 고등학교 비율 지역별</a></li>
+    <li><a href="/century-old-high-schools-by-area">설립 100년 넘은 고등학교 지역별</a></li>
+    <li>우리 동네 고등학교 한 장 — <a href="/region">지역 목록</a>에서 고르십시오</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>학교 목록·고교유형·주소</strong> — NEIS 교육정보 개방 포털 학교기본정보 ·
+    저희가 받은 때 {(schools as any[])[0]?.기준시각?.slice(0, 10)}
+  </p>
+  <p class="note">⚠ 고교유형은 NEIS 값 그대로이고, <strong>특목고 안의 갈래(이름 기준)와 지역 셈은 저희가 낸 것</strong>입니다.</p>
+
+  <NextQuestionBrief 모은것="NEIS 학교기본정보의 고교유형을 시도·시군구로 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

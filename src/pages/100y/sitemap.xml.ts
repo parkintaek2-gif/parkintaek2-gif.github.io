@@ -440,6 +440,7 @@ export const GET: APIRoute = () => {
     { path: '/century-old-high-schools-by-area', priority: '0.7', changefreq: 'yearly' },
     { path: '/private-high-school-by-area', priority: '0.7', changefreq: 'yearly' },
     { path: '/vocational-high-school-by-area', priority: '0.7', changefreq: 'yearly' },
+    { path: '/special-purpose-high-school-by-area', priority: '0.7', changefreq: 'yearly' },
     { path: '/freshman-fill-by-province', priority: '0.8', changefreq: 'yearly' },
     { path: '/university-employment-by-province', priority: '0.8', changefreq: 'yearly' },
     { path: '/university-dropout-by-province', priority: '0.7', changefreq: 'yearly' },
