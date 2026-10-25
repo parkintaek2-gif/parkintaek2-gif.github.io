@@ -119,11 +119,18 @@ if (process.argv.includes('--selftest')) {
   process.exit(실패 ? 1 : 0);
 }
 
+/* ⚠ 마지막 판이 끝나도 일정의 state 는 한동안 inProgress 로 남는다(10/26 젠지-리옹에서 봤다).
+   승패(outcome)가 양쪽에 찍혔으면 끝난 것으로 본다 */
+function 끝났나(e) {
+  return e.state === 'completed'
+    || (e.match?.teams ?? []).every((t) => t.result?.outcome === 'win' || t.result?.outcome === 'loss');
+}
+
 const 경기들 = await 일정전부();
 const 해별 = {};
 for (const 해 of ['2023', '2024', '2025', '2026']) {
-  const 스위스 = 경기들.filter((e) => e.startTime.startsWith(해) && e.blockName === 'Swiss' && e.state === 'completed');
-  const 녹아웃 = 경기들.filter((e) => e.startTime.startsWith(해) && /Quarter|Semi|Final/.test(e.blockName) && e.state === 'completed');
+  const 스위스 = 경기들.filter((e) => e.startTime.startsWith(해) && e.blockName === 'Swiss' && 끝났나(e));
+  const 녹아웃 = 경기들.filter((e) => e.startTime.startsWith(해) && /Quarter|Semi|Final/.test(e.blockName) && 끝났나(e));
   const 끝자리 = {};
   for (const e of 녹아웃) for (const t of e.match.teams) {
     끝자리[t.code] = t.result.outcome === 'win' && e.blockName === 'Finals' ? 'Champion' : `${e.blockName.replace(/s$/, '')}`;

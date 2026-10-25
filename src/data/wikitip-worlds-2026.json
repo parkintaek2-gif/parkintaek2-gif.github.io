@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-26T06:33+09:00",
+ "generated": "2026-10-26T08:22+09:00",
  "whatThisIs": "Worlds 2026 counted two ways: the Swiss Stage order of qualification from Riot's official schedule (2024, 2025 and 2026), and Wikipedia reading of each team's article by language edition.",
  "whatThisIsNot": "Not a prediction. Past years show how earlier fields went, not how this one will. Wikipedia reads count look-ups, not viewers or fans.",
  "sources": {
@@ -196,7 +196,7 @@
    }
   },
   "2026": {
-   "swissMatchesCompleted": 19,
+   "swissMatchesCompleted": 20,
    "firstSwissMatch": "2026-10-23T17:00:00Z",
    "qualifiedInOrder": [
     {
@@ -205,17 +205,24 @@
      "record": "3-0",
      "place": 1,
      "finish": null
+    },
+    {
+     "team": "GEN",
+     "name": "Gen.G Esports",
+     "record": "3-0",
+     "place": 2,
+     "finish": null
     }
    ],
    "records": {
-    "GEN": "2-0",
+    "GEN": "3-0",
     "HLE": "1-2",
     "MKOI": "2-1",
     "KC": "1-1",
     "DK": "3-0",
     "CFO": "1-1",
     "T1": "1-1",
-    "LYON": "2-0",
+    "LYON": "2-1",
     "TES": "2-1",
     "G2": "1-2",
     "IG": "2-1",

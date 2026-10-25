@@ -4,7 +4,7 @@ dek: "Dplus Kia beat Movistar KOI 2-0 on 26 October (KST) to qualify first. Riot
 category: industry
 genre: esports
 pubDate: 2026-10-26
-dataAsOf: 2026-10-26T06:20:00+09:00
+dataAsOf: 2026-10-26T08:25:00+09:00
 author: Newsroom
 tags: ["worlds-2026", "league-of-legends", "lck", "dplus-kia", "showmaker", "movistar-koi", "swiss-stage", "esports"]
 sources:
@@ -57,6 +57,6 @@ Two years is a very small sample. It does not say a 3-0 start is a disadvantage,
 
 ## Who is next
 
-Gen.G, the other LCK team at 2-0, play LYON at 07:00 KST on 26 October for the second quarter-final spot. Hanwha Life lost to Invictus Gaming and are 1-2; T1 are 1-1 and play CTBC Flying Oyster on 27 October.
+Gen.G, the other LCK team at 2-0, beat LYON 2-1 three hours later and took the second spot ([the result](/article/gen-g-beat-lyon-2-1-join-dplus-kia-worlds-2026-quarter-finals-lck-first-two)). Hanwha Life lost to Invictus Gaming and are 1-2; T1 are 1-1 and play CTBC Flying Oyster on 27 October.
 
 *Match results and game statistics from Riot Games' official LoL Esports schedule and live stats feed. Times are Korea Standard Time.*

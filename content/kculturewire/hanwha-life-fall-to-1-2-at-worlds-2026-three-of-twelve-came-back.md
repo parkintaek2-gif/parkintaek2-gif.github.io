@@ -4,7 +4,7 @@ dek: "Invictus Gaming beat Hanwha Life 29 kills to 9 on 26 October (KST), and G2
 category: industry
 genre: esports
 pubDate: 2026-10-26
-dataAsOf: 2026-10-26T06:20:00+09:00
+dataAsOf: 2026-10-26T08:25:00+09:00
 author: Newsroom
 tags: ["worlds-2026", "league-of-legends", "lck", "hanwha-life", "invictus-gaming", "g2-esports", "t1", "swiss-stage", "esports"]
 sources:
@@ -56,6 +56,6 @@ Three of twelve is a description of two past fields. It is not a probability for
 
 ## Where the LCK stands
 
-Dplus Kia are through at 3-0 ([the first team in](/article/dplus-kia-first-into-worlds-2026-quarter-finals-first-in-has-not-won)). Gen.G are 2-0 and play LYON at 07:00 KST on 26 October. T1 are 1-1 and play CTBC Flying Oyster at 02:00 KST on 27 October. Hanwha Life's next opponent comes from round four, which Riot had not yet paired when we wrote.
+Dplus Kia are through at 3-0 ([the first team in](/article/dplus-kia-first-into-worlds-2026-quarter-finals-first-in-has-not-won)). Gen.G joined them at 3-0 by beating LYON 2-1 later that morning ([the result](/article/gen-g-beat-lyon-2-1-join-dplus-kia-worlds-2026-quarter-finals-lck-first-two)). T1 are 1-1 and play CTBC Flying Oyster at 02:00 KST on 27 October. Hanwha Life's next opponent comes from round four, which Riot had not yet paired when we wrote.
 
 *Results and game statistics from Riot Games' official LoL Esports schedule and live stats feed. Times are Korea Standard Time.*
