@@ -27,4 +27,14 @@ echo ===== read on %DATE% %TIME% =====
 node "scripts\ga4-daily.mjs"
 echo ----- realtime (is the tag alive at all) -----
 node "scripts\ga4-realtime.mjs"
+
+REM ----- Naver login review: tell the owner the day the verdict lands. 5번 2026-10-26 -----
+REM   Submitted 2026-10-26 00:05. Naver said 3-4 business days, and the verdict arrives by
+REM   mail to the owner's Naver address -- an address he does NOT read day to day.
+REM   Leaving it there means he finds out and tells us. That is backwards.
+REM   The tool mails him ONLY on the day the status changes; a quiet day sends nothing.
+REM   ASCII wrapper because cmd mangles the Korean filename to CP949.
+echo ----- naver login review -----
+node "scripts\check-naver-review.mjs"
+
 exit /b 0
