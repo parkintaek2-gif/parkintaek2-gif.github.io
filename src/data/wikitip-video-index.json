@@ -1,11 +1,11 @@
 {
-  "generated": "2026-10-25T08:02+09:00",
+  "generated": "2026-10-26T06:40+09:00",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 54,
+    "영상": 55,
     "짝찾음": 51,
-    "짝못찾음": 3,
+    "짝못찾음": 4,
     "두지면에걸린것": 0,
     "지면에서읽음": 51
   },
@@ -148,6 +148,16 @@
       "page": "/debut-age",
       "says": "Fourteen seconds, read aloud: stars who debuted before eighteen are read 11.89 per million; those who started at twenty-six or later, 2.43. Median career length barely differs across the four bands, so this is not the older ones simply having had less time.",
       "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "dplus-kia-first-into-worlds-2026-quarter-finals-first-in-has-not-won-voiced",
+      "src": "/video/dplus-kia-first-into-worlds-2026-quarter-finals-first-in-has-not-won-voiced.mp4",
+      "thumb": "/video/thumb/dplus-kia-first-into-worlds-2026-quarter-finals-first-in-has-not-won-voiced.jpg",
+      "seconds": 23.5,
+      "page": null,
+      "says": null,
+      "saysFrom": null,
       "alsoOn": []
     },
     {

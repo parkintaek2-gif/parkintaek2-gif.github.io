@@ -243,6 +243,12 @@ const 영상그림 = new Set((videoData.videos ?? []).map((v: any) => v.set));
    ⚠ 아래 열두 편의 제목은 **라이브 지면 제목에서 가져왔다** — 지어내지 않았다. */
 const videoSets = [
   {
+    set: 'dplus-kia-first-into-worlds-2026-quarter-finals-first-in-has-not-won-voiced',
+    page: '/article/dplus-kia-first-into-worlds-2026-quarter-finals-first-in-has-not-won',
+    title: 'Dplus Kia First Into Worlds 2026 Quarter-Finals at 3-0. The Last Two Teams First In Did Not Win',
+    description: '23 seconds: Dplus Kia beat Movistar KOI 2-0 on 26 October 2026 (KST), 16 kills to 8 and 17 to 5, to reach the Worlds quarter-finals first at 3-0. In 2024 and 2025 the first team in did not win; T1 won after qualifying fifth and eighth. A count from Riot\'s official records, not a forecast.',
+  },
+  {
     set: 'lisa-press-play-minnie-same-day-thai-wikipedia-minnie-outread-lisa-voiced',
     page: '/article/lisa-press-play-minnie-same-day-thai-wikipedia-minnie-outread-lisa',
     title: 'Lisa and Minnie Released EPs on the Same Day. On Thai Wikipedia, Minnie Out-Read Lisa',
@@ -1113,6 +1119,8 @@ export const GET: APIRoute = async () => {
        자동완성 10줄을 꽉 채운다. 397편의 주간 차트 이력이 이미 있었다.
        ⭐ 재 보니 「오래 머문 것」과 「널리 퍼진 것」 상위 15 가운데 셋만 겹친다 */
     { path: '/kdrama-netflix', priority: '0.9', changefreq: 'weekly' },
+    /* [2026-10-26 · 1번] 롤드컵 2026 축 지면 — 공식 일정의 8강 진출 순서(2024·2025) + 16팀 언어별 열람. 이슈 4편이 여기 묶인다 */
+    { path: '/worlds-2026', priority: '0.9', changefreq: 'daily' },
     { path: '/ages', priority: '0.9', changefreq: 'monthly' },
     /* 🔴 [2026-10-05 06:2x · 5번] kpop groups · kpop girl groups · kpop boy groups ·
        kpop members 가 모두 자동완성 10줄을 꽉 채운다. 263팀 1,588명이 이미 있었다.

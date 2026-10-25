@@ -1,10 +1,10 @@
 {
-  "generated": "2026-10-05 05:32 KST",
+  "generated": "2026-10-26 06:25 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 147,
-    "머리글있음": 147,
+    "본지면": 148,
+    "머리글있음": 148,
     "머리글없음": 0
   },
   "missing": [],
@@ -154,6 +154,7 @@
     "/workforce": "Who works in K-pop and Korean games",
     "/works-and-readers": "Actors with five charting titles are read seven times as often, and that still tells you little about any one of them",
     "/world-share": "Korean titles are 7.9% of the world's Netflix top 10",
+    "/worlds-2026": "Worlds 2026, counted two ways",
     "/written-down-first": "The same Korean title reaches four Wikipedias in a fixed order, and the biggest one is not first",
     "/zodiac": "The animal years of Korean actors who reached a Netflix chart"
   }
