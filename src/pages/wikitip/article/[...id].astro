@@ -22,6 +22,8 @@ import cardnewsData from '../../../data/wikitip-cardnews.json';
 import WikiTip from '../../../layouts/WikiTip.astro';
 import { 이웃표 } from '../../../lib/kcw-neighbours.mjs';
 import ContentRail from '../../../components/ContentRail.astro';
+import starPages from '../../../data/klifemap-star-pages.json';
+import { 자매링크 } from '../../../lib/sister-link';
 
 export async function getStaticPaths() {
   const all = await getCollection('kcwArticles');
@@ -52,6 +54,32 @@ const 태그지면 = new Set([...태그수].filter(([, n]) => n >= 2).map(([s]) 
    ⛔ 장수를 손으로 적지 않는다. build-kcw-cardnews-index.mjs 가 파일을 세어 적어 둔다 */
 const 카드뉴스 = (cardnewsData.sets ?? []).find((c) => c.set === entry.id) ?? null;
 const { Content } = await render(entry);
+
+/**
+ * 🔴 [2026-10-26 · 5번] **이 기사의 주인공이 KLifeMap 에 지면을 가지고 있으면 그리로 보낸다.**
+ *
+ * 그날 KLifeMap 을 재니 — 돈 되는 지면 12장이 구글 색인에 하나도 없고, 그 가운데 열 장은
+ * 구글이 «읽고도 안 넣었다». 사이트맵·robots·hreflang·내부 링크·본문 길이에 흠은 없었다.
+ * 남은 설명은 «밖에서 들어오는 링크»인데, 우리 네 사이트는 **첫 화면끼리만** 이어져 있었다.
+ * KCW 기사 한 장을 열어 보니 klifemap 링크가 바닥글 하나(첫 화면行)뿐이었다.
+ *
+ * ⇒ 주제가 맞는 속 지면끼리 잇는다. KCW 기사 43편이 KLifeMap 스타 지면 24명분으로 간다.
+ *
+ * ⛔ **본문에서 이름을 찾지 않는다.** 본문으로 재니 「V」가 146편, 「Ten」이 43편 걸렸다 —
+ *   로마숫자와 열(ten)이 사람 이름으로 잡힌 것이다. 태그는 사람이 그 기사의 주인공으로
+ *   붙인 것이라 그 거짓이 없다. **태그만 본다.**
+ * ⛔ 주소를 지어내지 않는다 — `klifemap-star-pages.json` 은 `/all?lang=en` 화면에 실제로
+ *   걸려 있는 링크를 긁어 만든 표다.
+ */
+const 스타표 = new Map(
+  (starPages.스타 ?? []).map((s: any) => [String(s.이름).toLowerCase(), s]),
+);
+const 이기사의스타 = [...new Map(
+  (d.tags ?? [])
+    .map((t: string) => 스타표.get(String(t).toLowerCase()))
+    .filter(Boolean)
+    .map((s: any) => [s.이름, s]),
+).values()] as any[];
 
 /**
  * 같은 자료 지면을 쓴 다른 기사. **규칙으로 뽑는다** — 손으로 고르면 다음에 빠진다.
@@ -374,6 +402,41 @@ const jsonLd = [articleLd, breadcrumbLd, datasetLd].filter(Boolean);
       <section class="onward">
         <h3>Written from the same data</h3>
         <ul>{이웃.map((e) => <li><a href={`/article/${e.id}`}>{e.data.title}</a></li>)}</ul>
+      </section>
+    )}
+
+    {/*
+      이 기사의 주인공이 KLifeMap 에 지면을 가지고 있을 때만 그린다.
+      ⛔ 빈 상자를 만들지 않는다 — 태그가 안 맞는 262편에는 아무것도 안 나온다.
+      ⚠ 「운세를 봐 준다」고 쓰지 않는다. 공개된 생일로 «계산한 자료»를 보여 주는 곳이다.
+    */}
+    {이기사의스타.length > 0 && (
+      <section class="onward">
+        <h3>Birth charts — {이기사의스타.map((s) => s.이름).join(', ')}</h3>
+        <p class="note">
+          Four Pillars (BaZi) and the Western chart, computed from published birth dates.
+          The charts are data, not a verdict on anyone.
+        </p>
+        <ul>
+          {이기사의스타.map((s) => (
+            <>
+              {s.saju && (
+                <li>
+                  <a href={자매링크(`https://klifemap.ai${s.saju}?lang=en`, 'article')}>
+                    {s.이름} — Four Pillars (BaZi)
+                  </a>
+                </li>
+              )}
+              {s.astro && (
+                <li>
+                  <a href={자매링크(`https://klifemap.ai${s.astro}?lang=en`, 'article')}>
+                    {s.이름} — birth chart and signs
+                  </a>
+                </li>
+              )}
+            </>
+          ))}
+        </ul>
       </section>
     )}
 
