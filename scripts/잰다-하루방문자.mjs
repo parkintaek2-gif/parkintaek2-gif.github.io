@@ -183,7 +183,8 @@ export function 거르개(우리도시값 = 우리도시, 봇목록 = 봇도시)
   return { 우리, 봇, 손님만: 그리고(아니다(우리), 아니다(봇)) };
 }
 
-async function 재온다(날수) {
+/* 보고서(report-unit-content-check.mjs)도 이 자를 쓴다 — 자가 둘이면 수가 갈린다 */
+export async function 재온다(날수) {
   const { 토큰받기 } = await import('./lib/ga4.mjs');
   const t = await 토큰받기();
   if (t.못잼) { console.log('🔴 못 쟀다 — ' + t.못잼); return null; }
