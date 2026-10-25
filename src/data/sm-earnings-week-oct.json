@@ -1,0 +1,16 @@
+{
+  "무엇": "2026-10-26~30 3분기 실적 발표 28개사(아시아경제 10/25 일정)에 대한 한경 컨센서스 기업 보고서 목표주가 변화 — SeoulMarkets 기사 korea-q3-earnings-week-october-26-30-2026-analyst-target-prices 와 같은 수",
+  "출처": "Hankyung Consensus broker report list (archive/raw/hankyung-consensus/consensus-2026-10-24.json, 710 reports, 12 publishers) · earnings calendar: The Asia Business Daily, 25 October 2026",
+  "받은날": "2026-10-24",
+  "회사수": 28,
+  "보고서수": 46,
+  "보고서없는회사": 8,
+  "합계": { "내림": 11, "올림": 9, "그대로": 9, "이전없음": 13, "목표없음": 4 },
+  "날별": [
+    { "날": "Mon 26", "회사": 3, "보고서": 2, "내림": 0, "올림": 1 },
+    { "날": "Tue 27", "회사": 7, "보고서": 8, "내림": 2, "올림": 1 },
+    { "날": "Wed 28", "회사": 7, "보고서": 16, "내림": 3, "올림": 2 },
+    { "날": "Thu 29", "회사": 7, "보고서": 11, "내림": 2, "올림": 3 },
+    { "날": "Fri 30", "회사": 4, "보고서": 9, "내림": 4, "올림": 2 }
+  ]
+}
