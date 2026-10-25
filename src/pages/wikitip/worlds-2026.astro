@@ -76,7 +76,7 @@ const 언어 = (l: string) => ({ en: 'English', zh: 'Chinese', fr: 'French', es:
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} page="/worlds-2026" noAds={true}>
   <h1>Worlds 2026, counted two ways</h1>
   <p class="lead">
-    The results are everywhere. We count two things the scoreboard does not show: the
+    The results are everywhere. We count two things the scoreboard does not show: the{' '}
     <b>order</b> teams have reached the quarter-finals in past years and how far those teams went,
     and the <b>language</b> each 2026 team is read in on Wikipedia.
   </p>
@@ -84,8 +84,8 @@ const 언어 = (l: string) => ({ en: 'English', zh: 'Chinese', fr: 'French', es:
 
   <section>
     <h2>2026 Swiss Stage records so far</h2>
-    <p class="note">From Riot's official schedule. Three wins reach the quarter-finals; three losses go home.
-      {올해.qualifiedInOrder.length} team{올해.qualifiedInOrder.length === 1 ? ' has' : 's have'} qualified:
+    <p class="note">From Riot's official schedule. Three wins reach the quarter-finals; three losses go home.{' '}
+      {올해.qualifiedInOrder.length} team{올해.qualifiedInOrder.length === 1 ? ' has' : 's have'} qualified:{' '}
       {올해.qualifiedInOrder.map((q: any) => `${q.name} (${q.record})`).join(', ')}.</p>
     <div class="scroll-x">
       <table>
@@ -170,3 +170,8 @@ const 언어 = (l: string) => ({ en: 'English', zh: 'Chinese', fr: 'French', es:
 
   <KcwRelatedArticles page="/worlds-2026" />
 </WikiTip>
+
+<style>
+  /* 출처 줄의 긴 주소가 휴대폰 너비(390)를 83px 밀어냈다 — 2026-10-26 */
+  .src li { overflow-wrap: anywhere; }
+</style>
