@@ -1,0 +1,130 @@
+---
+/**
+ * /100y/csat-vocational-inquiry-by-province — **수능 직업탐구 지원자 시도별·과목별** — 4,421명 가운데 제주가 몇 명인가
+ *
+ * ── 왜 만들었나 (2026-10-26 · 1번 · 「수능 D-24 — 평가원 원표」 축, 롱테일) ──────────────
+ * 롱테일 「직업탐구 응시자 수」「성공적인 직업생활 몇 명」「직탐 지원자」를 찾는 사람에게. 특성화고·마이스터고 학생과 학부모가 묻는 말이다.
+ * 축     평가원 붙임1(시도별 직업탐구 1·2과목)·붙임2(과목별) 두 해(csat-kice-tables.json).
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 직업탐구 지원자가 적다고 «드물다·불리하다»를 쓰지 않는다. 몇 명인지만 놓는다.
+ * ⛔ 과목 인원은 과목 선택 수다(2과목이면 두 번).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/csat-kice-tables.json';
+
+const d = 원 as any;
+const 앞시 = d.시도별['2026'];
+const 뒤시 = d.시도별['2027'];
+const 앞과 = d.과목별['2026'].직업탐구;
+const 뒤과 = d.과목별['2027'].직업탐구;
+const 시도: string[] = d.시도순;
+const 쉼 = (n: number) => n.toLocaleString();
+const 부호 = (n: number) => (n > 0 ? `+${쉼(n)}` : n < 0 ? `−${쉼(-n)}` : '0');
+const 율 = (a: number, b: number) => ((a / b) * 100).toFixed(1);
+const 전국 = 뒤시.계.직탐계;
+const 지역 = 시도
+  .map((k) => ({ k, 뒤: 뒤시[k].직탐계, 앞: 앞시[k].직탐계, 두과목: 뒤시[k].직탐2, 몫: 율(뒤시[k].직탐계, 전국), 안몫: 율(뒤시[k].직탐계, 뒤시[k].계), 지원몫: 율(뒤시[k].계, 뒤시.계.계) }))
+  .sort((a, b) => b.뒤 - a.뒤);
+const 제주 = 지역.find((r) => r.k === '제주')!;
+const 과목 = Object.keys(뒤과).map((s) => ({ s, 앞: 앞과[s], 뒤: 뒤과[s], 차: 뒤과[s] - 앞과[s] })).sort((a, b) => b.뒤 - a.뒤);
+
+const TITLE = `수능 직업탐구 지원자 시도별 — ${쉼(전국)}명, 제주 ${쉼(제주.뒤)}명`;
+const desc =
+  `2027학년도 수능에서 직업탐구를 고른 지원자는 ${쉼(전국)}명(전년 ${쉼(앞시.계.직탐계)}명)입니다. ` +
+  `${지역[0].k} ${쉼(지역[0].뒤)}명, ${지역[1].k} ${쉼(지역[1].뒤)}명, 제주 ${쉼(제주.뒤)}명 순입니다. 제주는 전국 지원자의 ${제주.지원몫}%인데 직업탐구 지원자의 ${제주.몫}%입니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2026·2027학년도 수능 직업탐구 지원자 시도별·과목별',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: '한국교육과정평가원' },
+    spatialCoverage: '대한민국 17개 시·도',
+    variableMeasured: ['직업탐구 지원자(1과목·2과목)', ...Object.keys(뒤과).map((s) => `${s} 지원자`)],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '2027 수능 직업탐구 지원자는 몇 명인가요?',
+        acceptedAnswer: { '@type': 'Answer', text: `평가원 집계 ${쉼(전국)}명(2과목 ${쉼(뒤시.계.직탐2)}명·1과목 ${쉼(뒤시.계.직탐1)}명)입니다. 2026학년도는 ${쉼(앞시.계.직탐계)}명이었습니다. 수능 지원자 ${쉼(뒤시.계.계)}명의 ${율(전국, 뒤시.계.계)}%입니다.` },
+      },
+      {
+        '@type': 'Question',
+        name: '직업탐구 과목별 지원자는?',
+        acceptedAnswer: { '@type': 'Answer', text: 과목.map((r) => `${r.s} ${쉼(r.뒤)}명`).join(', ') + '. 2과목을 고르면 «성공적인 직업생활»이 필수입니다.' },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>수능 직업탐구 지원자 시도별 —<br class="pcbr" /> {쉼(전국)}명 가운데 제주 {쉼(제주.뒤)}명</h1>
+  <p class="sub">
+    2027학년도 수능 지원자 {쉼(뒤시.계.계)}명 가운데 직업탐구를 고른 사람은 <strong>{쉼(전국)}명</strong>, 1,000명 가운데 {(전국 / 뒤시.계.계 * 1000).toFixed(0)}명꼴입니다.
+    어느 시도에 몇 명인지, 어느 과목을 골랐는지 평가원 원표로 놓았습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">직업탐구 지원자 — 2026학년도 {쉼(앞시.계.직탐계)}명 → 2027학년도</p>
+    <p class="answer-num">{쉼(전국)}명</p>
+    <p class="answer-sub">제주 {제주.몫}% (전국 지원자 가운데 제주 몫은 {제주.지원몫}%) · 2과목 {쉼(뒤시.계.직탐2)}명 · 1과목 {쉼(뒤시.계.직탐1)}명</p>
+  </div>
+
+  <h2>시도별 — 직업탐구 지원자 많은 순</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>2027학년도</th><th>2026학년도</th><th>증감</th><th>직탐 중 몫</th><th>그 시도 지원자 중</th></tr></thead>
+      <tbody>
+        {지역.map((r) => (
+          <tr><th>{r.k}</th><td class="num">{쉼(r.뒤)}</td><td class="num">{쉼(r.앞)}</td><td class="num">{부호(r.뒤 - r.앞)}</td><td class="num">{r.몫}%</td><td class="num">{r.안몫}%</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>과목별 — 과목 선택 수</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>과목</th><th>2027학년도</th><th>2026학년도</th><th>증감</th></tr></thead>
+      <tbody>
+        {과목.map((r) => (<tr><th>{r.s}</th><td class="num">{쉼(r.뒤)}</td><td class="num">{쉼(r.앞)}</td><td class="num">{부호(r.차)}</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 몇 명이 직업탐구를 골랐는지일 뿐, 그 선택이 어떻다는 뜻이 아닙니다.</li>
+    <li>과목 인원은 <strong>과목 선택 수</strong>입니다. 2과목을 고른 사람은 «성공적인 직업생활»과 다른 한 과목, 두 번 셉니다.</li>
+    <li>왜 제주의 몫이 큰지 — 학교 구성, 지역 전형 — 는 이 표가 답하지 않습니다. 재지 않았습니다.</li>
+    <li>시도별로 어느 직업탐구 과목을 골랐는지는 평가원 표에 없어 못 쟀습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/csat-applicants-by-province">2027 수능 지원자 시도별 — 이 축의 중심 지면</a></li>
+    <li><a href="/csat-inquiry-subject-count">사회·과학탐구 17과목 지원자 수</a></li>
+    <li><a href="/vocational-high-school-by-area">특성화고 지역별</a></li>
+    <li><a href="/csat-second-language-count">제2외국어·한문 지원자 수</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>시도별·과목별 지원자</strong> — 한국교육과정평가원 「2027학년도 대학수학능력시험 응시원서 접수 결과」(2026-09-08) 붙임1·2,
+    「2026학년도 …」(2025-09-09) 붙임1·2 · 과목 합 = 2과목×2 + 1과목으로 검산 · 저희가 받은 때 {d.만든날}
+  </p>
+
+  <NextQuestionBrief 모은것="한국교육과정평가원 수능 직업탐구 시도별·과목별 지원자 원표를 두 해 맞대어 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

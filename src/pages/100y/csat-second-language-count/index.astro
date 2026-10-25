@@ -1,0 +1,123 @@
+---
+/**
+ * /100y/csat-second-language-count — **수능 제2외국어·한문 9과목 지원자 수** — 아랍어·일본어·한문… 시도별 선택 몫까지
+ *
+ * ── 왜 만들었나 (2026-10-26 · 1번 · 「수능 D-24 — 평가원 원표」 축, 롱테일) ──────────────
+ * 롱테일 「수능 아랍어 응시자 수」「수능 일본어 몇 명」「제2외국어 응시인원」을 해마다 찾는 사람에게, 과목 이름으로 바로 답한다.
+ * 축     평가원 붙임1(시도별 제2외국어/한문 선택함)·붙임2(과목별) 두 해(csat-kice-tables.json).
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 과목이 «등급 받기 쉽다»를 쓰지 않는다. 등급·표준점수는 이 표에 없다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/csat-kice-tables.json';
+
+const d = 원 as any;
+const 앞 = d.과목별['2026'].제2외국어한문;
+const 뒤 = d.과목별['2027'].제2외국어한문;
+const 앞시 = d.시도별['2026'];
+const 뒤시 = d.시도별['2027'];
+const 시도: string[] = d.시도순;
+const 쉼 = (n: number) => n.toLocaleString();
+const 부호 = (n: number) => (n > 0 ? `+${쉼(n)}` : `−${쉼(-n)}`);
+const 율 = (a: number, b: number) => ((a / b) * 100).toFixed(1);
+const 과목 = Object.keys(뒤)
+  .map((s) => ({ s, 앞: 앞[s], 뒤: 뒤[s], 차: 뒤[s] - 앞[s], 변: 율(뒤[s] - 앞[s], 앞[s]), 몫: 율(뒤[s], 뒤시.계.제2외선택) }))
+  .sort((a, b) => b.뒤 - a.뒤);
+const 지역 = 시도
+  .map((k) => ({ k, 고름: 뒤시[k].제2외선택, 몫: Number(율(뒤시[k].제2외선택, 뒤시[k].계)), 몫앞: Number(율(앞시[k].제2외선택, 앞시[k].계)) }))
+  .sort((a, b) => b.몫 - a.몫);
+const 아랍 = 과목.find((r) => r.s === '아랍어Ⅰ')!;
+
+const TITLE = `수능 제2외국어·한문 지원자 수 — ${쉼(뒤시.계.제2외선택)}명, 아랍어 ${쉼(아랍.뒤)}명`;
+const desc =
+  `2027학년도 수능 지원자 ${쉼(뒤시.계.계)}명 가운데 ${쉼(뒤시.계.제2외선택)}명(${율(뒤시.계.제2외선택, 뒤시.계.계)}%)이 제2외국어/한문을 골랐습니다. ` +
+  `${과목[0].s} ${쉼(과목[0].뒤)}명, ${과목[1].s} ${쉼(과목[1].뒤)}명 순이고 아랍어Ⅰ은 ${쉼(아랍.뒤)}명입니다. 9과목과 17개 시도를 모두 실었습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2026·2027학년도 수능 제2외국어/한문 과목별·시도별 지원자',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: '한국교육과정평가원' },
+    variableMeasured: Object.keys(뒤).map((s) => `${s} 지원자 수`),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: 과목.slice(0, 9).map((r) => ({
+      '@type': 'Question',
+      name: `2027 수능 ${r.s} 지원자는 몇 명인가요?`,
+      acceptedAnswer: { '@type': 'Answer', text: `평가원 집계 ${쉼(r.뒤)}명으로 2026학년도 ${쉼(r.앞)}명보다 ${부호(r.차)}명입니다. 제2외국어/한문을 고른 ${쉼(뒤시.계.제2외선택)}명 가운데 ${r.몫}%입니다.` },
+    })),
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>수능 제2외국어·한문 9과목 지원자 수 —<br class="pcbr" /> {쉼(뒤시.계.제2외선택)}명</h1>
+  <p class="sub">
+    2027학년도 수능 지원자 100명 가운데 <strong>{율(뒤시.계.제2외선택, 뒤시.계.계)}명</strong>이 5교시 제2외국어/한문을 골랐습니다.
+    1년 전에는 {율(앞시.계.제2외선택, 앞시.계.계)}명이었습니다. 과목 아홉, 시도 열일곱을 모두 놓았습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">제2외국어/한문을 고른 지원자 — 2026학년도 {쉼(앞시.계.제2외선택)}명 → 2027학년도</p>
+    <p class="answer-num">{쉼(뒤시.계.제2외선택)}명</p>
+    <p class="answer-sub">9과목 모두 늘었습니다 · 가장 많은 과목 {과목[0].s} {쉼(과목[0].뒤)}명</p>
+  </div>
+
+  <h2>9과목 — 지원자 많은 순</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>과목</th><th>2027학년도</th><th>2026학년도</th><th>증감</th><th>증감률</th><th>몫</th></tr></thead>
+      <tbody>
+        {과목.map((r) => (
+          <tr><th>{r.s}</th><td class="num">{쉼(r.뒤)}</td><td class="num">{쉼(r.앞)}</td><td class="num">{부호(r.차)}</td><td class="num">{r.변}%</td><td class="num">{r.몫}%</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>시도별 — 지원자 가운데 제2외국어/한문을 고른 몫</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>고른 사람</th><th>2027 몫</th><th>2026 몫</th></tr></thead>
+      <tbody>
+        {지역.map((r) => (
+          <tr><th>{r.k}</th><td class="num">{쉼(r.고름)}</td><td class="num">{r.몫}%</td><td class="num">{r.몫앞}%</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 몇 명이 어느 과목을 골랐는지일 뿐, 어느 과목이 낫다는 뜻이 아닙니다.</li>
+    <li>평가원 표에서 시도별 갈래는 «골랐나/안 골랐나»뿐입니다. 시도마다 어느 언어를 골랐는지는 공개되지 않아 못 쟀습니다.</li>
+    <li>등급·표준점수, 왜 그 과목을 골랐는지는 이 표에 없습니다. 재지 않았습니다.</li>
+    <li>지원자 수입니다. 5교시는 마지막 교시라 시험 날 실제로 보는 사람은 더 적을 수 있으나, 그 수는 이 표에 없습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/csat-applicants-by-province">2027 수능 지원자 시도별 — 이 축의 중심 지면</a></li>
+    <li><a href="/csat-inquiry-subject-count">탐구 17과목 지원자 수</a></li>
+    <li><a href="/csat-vocational-inquiry-by-province">직업탐구 지원자 시도별</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>과목별·시도별 지원자</strong> — 한국교육과정평가원 「2027학년도 대학수학능력시험 응시원서 접수 결과」(2026-09-08) 붙임1·2,
+    「2026학년도 …」(2025-09-09) 붙임1·2 · 9과목 합 = 선택한 사람 수로 검산 · 저희가 받은 때 {d.만든날}
+  </p>
+
+  <NextQuestionBrief 모은것="한국교육과정평가원 수능 제2외국어/한문 과목별·시도별 지원자 원표를 두 해 맞대어 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

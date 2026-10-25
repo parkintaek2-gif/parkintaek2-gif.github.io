@@ -1,0 +1,142 @@
+---
+/**
+ * /100y/csat-applicants-by-province — **2027학년도 수능 지원자 시도별** — 평가원 원표 17개 시도, 전년과 나란히
+ *
+ * ── 왜 만들었나 (2026-10-26 · 1번 · 「수능 D-24 — 평가원 원표」 축의 중심 지면) ──────────────
+ * 이슈   2027학년도 수능은 2026년 11월 19일이다(오늘 D-24). 교육부는 10월 20일 국무회의에 시행 지원대책을 올려
+ *        전국 1,312개 시험장, 지원자 551,864명을 밝혔다. 그 551,864명이 어느 시도에 몇 명인가.
+ * 축     평가원 보도자료 «붙임» 원표(시도 × 영역·선택과목)를 2026·2027 두 해 모두 받아 검산해 두었다
+ *        (src/data/100yearmap/csat-kice-tables.json). 이웃 지면 /csat-applicant-mix 는 교육청 보도자료를 모은 것이라
+ *        서울·경기가 비어 있었다 — 이 표는 17개 시도가 다 있다.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 지원자 수다. 시험 날 실제로 본 사람 수가 아니다 — 결시는 이 표에 없다.
+ * ⛔ 늘고 준 까닭(학생 수·N수생·이사)은 재지 않았다. 숫자만 놓는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/csat-kice-tables.json';
+
+const d = 원 as any;
+const 앞 = d.시도별['2026'];
+const 뒤 = d.시도별['2027'];
+const 시도: string[] = d.시도순;
+const 쉼 = (n: number) => n.toLocaleString();
+const 부호 = (n: number) => (n > 0 ? `+${쉼(n)}` : n < 0 ? `−${쉼(-n)}` : '0');
+const 율 = (a: number, b: number) => ((a / b) * 100).toFixed(1);
+const 행 = 시도
+  .map((k) => ({ k, 앞: 앞[k].계, 뒤: 뒤[k].계, 차: 뒤[k].계 - 앞[k].계, 몫: 율(뒤[k].계, 뒤.계.계) }))
+  .sort((a, b) => b.뒤 - a.뒤);
+const 는곳 = 행.filter((r) => r.차 > 0).sort((a, b) => b.차 - a.차);
+const 준곳 = 행.filter((r) => r.차 < 0).sort((a, b) => a.차 - b.차);
+const 수도권 = ['서울', '경기', '인천'].reduce((a, k) => a + 뒤[k].계, 0);
+
+const TITLE = `2027 수능 지원자 시도별 — ${쉼(뒤.계.계)}명, 17곳 중 ${는곳.length}곳만 늘었다`;
+const desc =
+  `2027학년도 수능(2026년 11월 19일) 지원자 ${쉼(뒤.계.계)}명을 평가원 원표 그대로 17개 시도로 갈랐습니다. ` +
+  `전년보다 늘어난 곳은 ${는곳.map((r) => `${r.k}(${부호(r.차)})`).join('·')} ${는곳.length}곳이고 ${준곳.length}곳은 줄었습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2026·2027학년도 대학수학능력시험 지원자 시도별',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: '한국교육과정평가원' },
+    spatialCoverage: '대한민국 17개 시·도',
+    temporalCoverage: '2025/2026',
+    variableMeasured: ['시도별 수능 지원자 수', '전년 대비 증감'],
+  },
+  {
+    '@type': 'FAQPage',
+    '@context': 'https://schema.org',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '2027학년도 수능 지원자는 몇 명이고 언제 치르나요?',
+        acceptedAnswer: { '@type': 'Answer', text: `한국교육과정평가원 집계 지원자는 ${쉼(뒤.계.계)}명으로 전년(${쉼(앞.계.계)}명)보다 ${쉼(앞.계.계 - 뒤.계.계)}명 적습니다. 시험은 2026년 11월 19일(목), 성적 통지는 12월 11일이며 교육부는 전국 ${쉼(d.시험.시험장)}개 시험장을 밝혔습니다.` },
+      },
+      {
+        '@type': 'Question',
+        name: '수능 지원자가 가장 많은 시도는 어디인가요?',
+        acceptedAnswer: { '@type': 'Answer', text: `${행[0].k} ${쉼(행[0].뒤)}명(${행[0].몫}%), ${행[1].k} ${쉼(행[1].뒤)}명(${행[1].몫}%), ${행[2].k} ${쉼(행[2].뒤)}명 순입니다. 가장 적은 곳은 ${행[16].k} ${쉼(행[16].뒤)}명입니다.` },
+      },
+      {
+        '@type': 'Question',
+        name: '작년보다 수능 지원자가 늘어난 지역은?',
+        acceptedAnswer: { '@type': 'Answer', text: `17개 시도 가운데 ${는곳.map((r) => `${r.k} ${부호(r.차)}명`).join(', ')} ${는곳.length}곳입니다. 가장 많이 준 곳은 ${준곳[0].k}(${부호(준곳[0].차)}명)입니다.` },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>2027 수능 지원자 시도별 —<br class="pcbr" /> 17곳 중 {는곳.length}곳만 늘었다</h1>
+  <p class="sub">
+    수능이 2026년 11월 19일, 오늘로 24일 남았습니다. 교육부가 10월 20일 밝힌 지원자 <strong>{쉼(뒤.계.계)}명</strong>을
+    평가원 원표 그대로 17개 시도에 놓고, 1년 전과 나란히 세웠습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">2027학년도 수능 지원자 (2026학년도 {쉼(앞.계.계)}명)</p>
+    <p class="answer-num">{쉼(뒤.계.계)}명</p>
+    <p class="answer-sub">늘어난 시도 {는곳.length}곳 · 줄어든 시도 {준곳.length}곳 · 서울·경기·인천 {율(수도권, 뒤.계.계)}%</p>
+  </div>
+
+  <p>
+    지원자 100명 가운데 {율(뒤['경기'].계, 뒤.계.계)}명은 경기, {율(뒤['서울'].계, 뒤.계.계)}명은 서울에서 원서를 냈습니다.
+    전국은 {쉼(앞.계.계 - 뒤.계.계)}명 줄었지만 {는곳.map((r) => `${r.k}(${부호(r.차)}명)`).join('·')}는 늘었습니다.
+    가장 많이 준 곳은 {준곳.slice(0, 3).map((r) => `${r.k}(${부호(r.차)}명)`).join('·')}입니다.
+  </p>
+
+  <h2>시도별 — 2026학년도와 2027학년도</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>2027학년도</th><th>2026학년도</th><th>증감</th><th>전국 몫</th></tr></thead>
+      <tbody>
+        {행.map((r) => (
+          <tr>
+            <th>{r.k}</th>
+            <td class="num">{쉼(r.뒤)}</td>
+            <td class="num">{쉼(r.앞)}</td>
+            <td class="num">{부호(r.차)}</td>
+            <td class="num">{r.몫}%</td>
+          </tr>
+        ))}
+        <tr><th>전국</th><td class="num"><strong>{쉼(뒤.계.계)}</strong></td><td class="num">{쉼(앞.계.계)}</td><td class="num">{부호(뒤.계.계 - 앞.계.계)}</td><td class="num">100%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>같은 표에서 갈라 본 것</h2>
+  <ul>
+    <li><a href="/csat-math-choice-by-province">수학 선택과목 시도별 — 미적분 지원자 1년 새 {쉼(앞.계.미적분 - 뒤.계.미적분)}명 줄었다</a></li>
+    <li><a href="/csat-korean-choice-by-province">국어 선택과목 시도별 — 언어와 매체 {율(뒤.계.언매, 뒤.계.화작 + 뒤.계.언매)}%</a></li>
+    <li><a href="/csat-inquiry-subject-count">탐구 17과목 지원자 수 — 생명과학Ⅰ·지구과학Ⅰ이 가장 많이 줄었다</a></li>
+    <li><a href="/csat-second-language-count">제2외국어·한문 9과목 지원자 수</a></li>
+    <li><a href="/csat-vocational-inquiry-by-province">직업탐구 지원자 시도별</a></li>
+  </ul>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 어느 시도에 몇 명이 원서를 냈는지일 뿐, 그곳 수험생이 어떻다는 뜻이 아닙니다.</li>
+    <li>⚠ <strong>지원자</strong> 수입니다. 시험 날 실제로 본 사람은 이보다 적습니다. 결시자 수는 시험 뒤 따로 나옵니다.</li>
+    <li>시도는 평가원 표의 구분 그대로입니다. 2027학년도 표의 «전남광주(구.광주)»·«전남광주(구.전남)»을 2026학년도 광주·전남 자리에 놓았습니다.</li>
+    <li>늘고 준 까닭(고3 학생 수, 졸업생 지원, 이사)은 이 표가 답하지 않습니다. 재학생·졸업생 갈래는 <a href="/csat-applicant-mix">수능 지원자 구성</a>과 <a href="/n-su-ratio-by-province">N수생 비율 시도별</a>에 있습니다.</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>시도별 지원자</strong> — 한국교육과정평가원 「2027학년도 대학수학능력시험 응시원서 접수 결과」(2026-09-08) 붙임1,
+    「2026학년도 …」(2025-09-09) 붙임1 · 두 해 모두 행 합·열 합으로 검산했습니다 ·
+    <strong>시험일·시험장 수</strong> — 교육부 2027학년도 수능 시행 지원대책(2026-10-20 국무회의 보고) · 저희가 받은 때 {d.만든날}
+  </p>
+
+  <NextQuestionBrief 모은것="한국교육과정평가원 수능 지원자 현황 원표(2026·2027학년도)를 17개 시도로 맞대어 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

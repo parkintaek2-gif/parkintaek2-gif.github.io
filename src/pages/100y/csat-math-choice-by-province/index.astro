@@ -1,0 +1,141 @@
+---
+/**
+ * /100y/csat-math-choice-by-province — **수능 수학 선택과목 시도별** — 확률과 통계·미적분·기하, 2026 vs 2027
+ *
+ * ── 왜 만들었나 (2026-10-26 · 1번 · 「수능 D-24 — 평가원 원표」 축) ──────────────
+ * 이슈   수능 D-24. 2028학년도부터 국어·수학이 공통과목이 된다(교육부 2028 대입 개편 확정안, 2023-12) — 그래서 2027학년도가 «마지막 선택형 수능»으로 보도됐다(이투데이 2024-08-15, «전망»). 선택이 1년 새 어떻게 움직였나.
+ * 축     평가원 원표 시도 × 수학 선택과목 두 해(csat-kice-tables.json). 17개 시도 모두를 같은 잣대로 놓는다.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ «미적분이 유리하다/불리하다»를 쓰지 않는다. 표준점수·대학 반영은 이 표에 없다.
+ * ⛔ 비율의 분모는 그 시도 «수능 지원자 전체»(수학 미선택 포함)다 — 지면에 밝힌다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/csat-kice-tables.json';
+
+const d = 원 as any;
+const 앞 = d.시도별['2026'];
+const 뒤 = d.시도별['2027'];
+const 시도: string[] = d.시도순;
+const 쉼 = (n: number) => n.toLocaleString();
+const 율 = (a: number, b: number) => ((a / b) * 100).toFixed(1);
+const 행 = 시도
+  .map((k) => ({
+    k,
+    확통: 뒤[k].확통, 미적: 뒤[k].미적분, 기하: 뒤[k].기하, 안봄: 뒤[k].수학미선택, 계: 뒤[k].계,
+    미적율: Number(율(뒤[k].미적분, 뒤[k].계)), 미적율앞: Number(율(앞[k].미적분, 앞[k].계)),
+  }))
+  .sort((a, b) => b.미적율 - a.미적율);
+const 다줄었나 = 시도.every((k) => 뒤[k].미적분 < 앞[k].미적분);
+const 미적차 = 앞.계.미적분 - 뒤.계.미적분;
+const 확통차 = 뒤.계.확통 - 앞.계.확통;
+
+const TITLE = `수능 수학 선택과목 시도별 — 미적분 1년 새 ${쉼(미적차)}명 줄었다`;
+const desc =
+  `2027학년도 수능 지원자 ${쉼(뒤.계.계)}명 가운데 확률과 통계 ${쉼(뒤.계.확통)}명, 미적분 ${쉼(뒤.계.미적분)}명, 기하 ${쉼(뒤.계.기하)}명입니다. ` +
+  `미적분은 전년보다 ${쉼(미적차)}명 줄었고${다줄었나 ? ' 17개 시도 모두에서 줄었습니다' : ''}. 미적분 몫은 ${행[0].k} ${행[0].미적율}%에서 ${행[16].k} ${행[16].미적율}%까지입니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2026·2027학년도 수능 수학 선택과목 지원자 시도별',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: '한국교육과정평가원' },
+    spatialCoverage: '대한민국 17개 시·도',
+    variableMeasured: ['확률과 통계 지원자', '미적분 지원자', '기하 지원자', '수학 미선택'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '2027 수능 미적분·확률과 통계·기하 지원자는 몇 명인가요?',
+        acceptedAnswer: { '@type': 'Answer', text: `평가원 집계로 확률과 통계 ${쉼(뒤.계.확통)}명(전년 ${쉼(앞.계.확통)}명), 미적분 ${쉼(뒤.계.미적분)}명(전년 ${쉼(앞.계.미적분)}명), 기하 ${쉼(뒤.계.기하)}명(전년 ${쉼(앞.계.기하)}명)이고, 수학을 고르지 않은 지원자가 ${쉼(뒤.계.수학미선택)}명입니다.` },
+      },
+      {
+        '@type': 'Question',
+        name: '미적분 선택 비율이 가장 높은 지역은?',
+        acceptedAnswer: { '@type': 'Answer', text: `지원자 전체 대비 미적분 몫은 ${행.slice(0, 3).map((r) => `${r.k} ${r.미적율}%`).join(', ')} 순이고, 가장 낮은 곳은 ${행[16].k} ${행[16].미적율}%입니다. 전국은 ${율(뒤.계.미적분, 뒤.계.계)}%입니다.` },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>수능 수학 선택과목 시도별 —<br class="pcbr" /> 미적분 {쉼(미적차)}명 줄었다</h1>
+  <p class="sub">
+    수능 D-24. 2027학년도 지원자 100명 가운데 <strong>{율(뒤.계.확통, 뒤.계.계)}명이 확률과 통계</strong>,
+    {율(뒤.계.미적분, 뒤.계.계)}명이 미적분, {율(뒤.계.기하, 뒤.계.계)}명이 기하를 골랐습니다. 1년 전에는 미적분이 {율(앞.계.미적분, 앞.계.계)}명이었습니다. 2028학년도부터 수학은 선택과목 없는 공통과목이 되어, 이 갈래가 있는 수능은 이번이 마지막으로 보도됐습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">미적분 지원자 — 2026학년도 {쉼(앞.계.미적분)}명 → 2027학년도</p>
+    <p class="answer-num">{쉼(뒤.계.미적분)}명</p>
+    <p class="answer-sub">확률과 통계 +{쉼(확통차)}명 · 기하 −{쉼(앞.계.기하 - 뒤.계.기하)}명{다줄었나 ? ' · 17개 시도 모두 미적분 감소' : ''}</p>
+  </div>
+
+  <h2>전국 — 두 해 나란히</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>과목</th><th>2027학년도</th><th>2026학년도</th><th>증감</th></tr></thead>
+      <tbody>
+        {[['확률과 통계', '확통'], ['미적분', '미적분'], ['기하', '기하'], ['수학 안 고름', '수학미선택']].map(([n, c]) => (
+          <tr><th>{n}</th><td class="num">{쉼(뒤.계[c])}</td><td class="num">{쉼(앞.계[c])}</td><td class="num">{뒤.계[c] - 앞.계[c] > 0 ? '+' : '−'}{쉼(Math.abs(뒤.계[c] - 앞.계[c]))}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>시도별 — 미적분 몫이 높은 순</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>확률과 통계</th><th>미적분</th><th>기하</th><th>미적분 몫 2027</th><th>2026</th></tr></thead>
+      <tbody>
+        {행.map((r) => (
+          <tr>
+            <th>{r.k}</th>
+            <td class="num">{쉼(r.확통)}</td>
+            <td class="num">{쉼(r.미적)}</td>
+            <td class="num">{쉼(r.기하)}</td>
+            <td class="num">{r.미적율}%</td>
+            <td class="num">{r.미적율앞}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 몇 명이 무엇을 골랐는지일 뿐, 어느 과목이 낫다는 뜻이 아닙니다.</li>
+    <li>몫의 분모는 그 시도 <strong>수능 지원자 전체</strong>(수학을 고르지 않은 사람 포함)입니다.</li>
+    <li>왜 미적분이 줄었는지 — 탐구 쏠림, 대학 반영 방식, 학생 구성 — 는 이 표가 답하지 않습니다. 재지 않았습니다.</li>
+    <li>지원자 수입니다. 시험 날 결시한 사람이 빠지면 실제 응시 인원은 더 적습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/csat-applicants-by-province">2027 수능 지원자 시도별 — 이 축의 중심 지면</a></li>
+    <li><a href="/csat-korean-choice-by-province">국어 선택과목 시도별</a></li>
+    <li><a href="/csat-inquiry-subject-count">탐구 17과목 지원자 수</a></li>
+    <li><a href="/csat-subject-choice">사탐런 — 사탐만·과탐만·교차</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>선택과목별 지원자</strong> — 한국교육과정평가원 「2027학년도 대학수학능력시험 응시원서 접수 결과」(2026-09-08) 붙임1,
+    「2026학년도 …」(2025-09-09) 붙임1 · 행 합·열 합 검산 ·
+    <strong>2028 개편</strong> — 교육부 2028 대학입시제도 개편 확정안(2023-12) · 이투데이 2024-08-15 보도(«마지막 선택형 수능» 전망) · 저희가 받은 때 {d.만든날}
+  </p>
+
+  <NextQuestionBrief 모은것="한국교육과정평가원 수능 지원자 현황 원표에서 수학 선택과목을 시도별로 두 해 맞대어 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

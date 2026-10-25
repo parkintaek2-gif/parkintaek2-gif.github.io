@@ -1,0 +1,127 @@
+---
+/**
+ * /100y/csat-inquiry-subject-count — **수능 탐구 17과목 지원자 수** — 생활과 윤리부터 지구과학Ⅱ까지, 2026 vs 2027
+ *
+ * ── 왜 만들었나 (2026-10-26 · 1번 · 「수능 D-24 — 평가원 원표」 축) ──────────────
+ * 이슈   수능 D-24. 「사탐런」 보도가 이어진다. 이웃 지면 /csat-subject-choice 는 사탐만·과탐만·교차 세 갈래였다 —
+ *        이 지면은 «과목 하나하나»로 간다. 「생명과학1 응시자 수」「지구과학1 응시인원」처럼 과목 이름으로 찾는 사람에게 답한다.
+ * 축     평가원 붙임2(4·5교시 선택과목별 지원자) 두 해(csat-kice-tables.json).
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 과목 인원은 «과목 선택 수»다 — 두 과목을 고른 사람은 두 번 센다. 과목 인원을 더해 «사람 수»라 쓰지 않는다.
+ * ⛔ 과목이 «쉽다·유리하다»를 쓰지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/csat-kice-tables.json';
+
+const d = 원 as any;
+const 앞 = d.과목별['2026'].사회과학탐구;
+const 뒤 = d.과목별['2027'].사회과학탐구;
+const 사탐: string[] = d.사회탐구과목;
+const 과탐: string[] = d.과학탐구과목;
+const 쉼 = (n: number) => n.toLocaleString();
+const 부호 = (n: number) => (n > 0 ? `+${쉼(n)}` : `−${쉼(-n)}`);
+const 사람27 = d.시도별['2027'].계.사과탐계;
+const 사람26 = d.시도별['2026'].계.사과탐계;
+const 율 = (a: number, b: number) => ((a / b) * 100).toFixed(1);
+const 줄 = (s: string) => ({ s, 앞: 앞[s], 뒤: 뒤[s], 차: 뒤[s] - 앞[s], 변: Number(율(뒤[s] - 앞[s], 앞[s])), 몫: 율(뒤[s], 사람27) });
+const 모두 = [...사탐, ...과탐].map(줄).sort((a, b) => b.뒤 - a.뒤);
+const 많이준 = [...모두].sort((a, b) => a.차 - b.차);
+const 많이는 = [...모두].sort((a, b) => b.차 - a.차);
+const 합 = (xs: string[], o: any) => xs.reduce((a, s) => a + o[s], 0);
+
+const TITLE = `수능 탐구 과목별 지원자 수 — 생명과학Ⅰ ${쉼(뒤['생명과학Ⅰ'])}명, 1년 새 ${율(앞['생명과학Ⅰ'] - 뒤['생명과학Ⅰ'], 앞['생명과학Ⅰ'])}% 줄었다`;
+const desc =
+  `2027학년도 수능 사회·과학탐구 17과목 지원자 수를 평가원 원표로 실었습니다. 가장 많은 과목은 ${모두[0].s} ${쉼(모두[0].뒤)}명, ` +
+  `가장 많이 준 과목은 ${많이준[0].s}(${부호(많이준[0].차)}명)·${많이준[1].s}(${부호(많이준[1].차)}명)입니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2026·2027학년도 수능 사회·과학탐구 과목별 지원자 수',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: '한국교육과정평가원' },
+    variableMeasured: [...사탐, ...과탐].map((s) => `${s} 지원자 수`),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      ...['생명과학Ⅰ', '지구과학Ⅰ', '사회·문화', '생활과 윤리', '물리학Ⅰ', '화학Ⅰ'].map((s) => ({
+        '@type': 'Question',
+        name: `2027 수능 ${s} 지원자는 몇 명인가요?`,
+        acceptedAnswer: { '@type': 'Answer', text: `평가원 집계 ${쉼(뒤[s])}명입니다. 2026학년도 ${쉼(앞[s])}명보다 ${부호(뒤[s] - 앞[s])}명(${율(뒤[s] - 앞[s], 앞[s])}%)입니다. 사회·과학탐구 지원자 ${쉼(사람27)}명 가운데 ${율(뒤[s], 사람27)}%가 이 과목을 골랐습니다.` },
+      })),
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>수능 탐구 17과목 지원자 수 —<br class="pcbr" /> 생명과학Ⅰ·지구과학Ⅰ이 가장 많이 줄었다</h1>
+  <p class="sub">
+    수능 D-24. 사회·과학탐구를 보는 2027학년도 지원자는 <strong>{쉼(사람27)}명</strong>입니다.
+    그 가운데 생명과학Ⅰ을 고른 사람은 {쉼(뒤['생명과학Ⅰ'])}명 — 1년 전 {쉼(앞['생명과학Ⅰ'])}명이었습니다. 17과목을 하나씩 놓았습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">과학탐구 8과목 선택 수 — 2026학년도 {쉼(합(과탐, 앞))} → 2027학년도</p>
+    <p class="answer-num">{쉼(합(과탐, 뒤))}</p>
+    <p class="answer-sub">사회탐구 9과목 {쉼(합(사탐, 앞))} → {쉼(합(사탐, 뒤))} · 탐구 지원자(사람) {쉼(사람26)} → {쉼(사람27)}명</p>
+  </div>
+
+  <h2>17과목 — 지원자 많은 순</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>과목</th><th>2027학년도</th><th>2026학년도</th><th>증감</th><th>증감률</th><th>탐구 지원자 중</th></tr></thead>
+      <tbody>
+        {모두.map((r) => (
+          <tr>
+            <th>{r.s}</th>
+            <td class="num">{쉼(r.뒤)}</td>
+            <td class="num">{쉼(r.앞)}</td>
+            <td class="num">{부호(r.차)}</td>
+            <td class="num">{r.변 > 0 ? '+' : ''}{r.변}%</td>
+            <td class="num">{r.몫}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    가장 많이 는 과목은 {많이는.slice(0, 3).map((r) => `${r.s}(${부호(r.차)}명)`).join('·')}, 가장 많이 준 과목은
+    {' '}{많이준.slice(0, 3).map((r) => `${r.s}(${부호(r.차)}명)`).join('·')}입니다. 과학탐구 8과목은 모두 줄었습니다.
+  </p>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 과목마다 몇 명이 골랐는지일 뿐, 어느 과목이 낫다는 뜻이 아닙니다.</li>
+    <li>⚠ 과목 인원은 <strong>과목 선택 수</strong>입니다. 두 과목을 고른 사람은 두 번 셉니다. 과목 인원을 더한 값은 사람 수가 아닙니다.</li>
+    <li>«탐구 지원자 중» 몫의 분모는 사회·과학탐구를 고른 사람 {쉼(사람27)}명입니다(평가원 표와 같은 기준).</li>
+    <li>왜 과학탐구가 줄었는지는 이 표가 답하지 않습니다. 사탐만·과탐만·교차 갈래는 <a href="/csat-subject-choice">사탐런 지면</a>에 있습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/csat-applicants-by-province">2027 수능 지원자 시도별 — 이 축의 중심 지면</a></li>
+    <li><a href="/csat-math-choice-by-province">수학 선택과목 시도별</a></li>
+    <li><a href="/csat-korean-choice-by-province">국어 선택과목 시도별</a></li>
+    <li><a href="/csat-second-language-count">제2외국어·한문 9과목 지원자 수</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>과목별 지원자</strong> — 한국교육과정평가원 「2027학년도 대학수학능력시험 응시원서 접수 결과」(2026-09-08) 붙임2,
+    「2026학년도 …」(2025-09-09) 붙임2 · 과목 합 = 2과목 선택자×2 + 1과목 선택자로 검산 · 저희가 받은 때 {d.만든날}
+  </p>
+
+  <NextQuestionBrief 모은것="한국교육과정평가원 수능 선택과목별 지원자 원표(2026·2027학년도)를 과목마다 맞대어 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

@@ -1,0 +1,124 @@
+---
+/**
+ * /100y/csat-korean-choice-by-province — **수능 국어 선택과목 시도별** — 화법과 작문 vs 언어와 매체, 2026 vs 2027
+ *
+ * ── 왜 만들었나 (2026-10-26 · 1번 · 「수능 D-24 — 평가원 원표」 축) ──────────────
+ * 이슈   수능 D-24. 국어 선택과목이 있는 마지막 수능(2028학년도부터 공통과목)에서 언어와 매체를 고른 사람이 1년 새 크게 줄었다.
+ * 축     평가원 원표 시도 × 국어 선택과목 두 해(csat-kice-tables.json).
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 언매 몫의 분모는 «화작 + 언매»(국어를 고른 사람)다. 국어 미선택은 따로 센다.
+ * ⛔ 어느 과목이 점수에 낫다는 말을 쓰지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/csat-kice-tables.json';
+
+const d = 원 as any;
+const 앞 = d.시도별['2026'];
+const 뒤 = d.시도별['2027'];
+const 시도: string[] = d.시도순;
+const 쉼 = (n: number) => n.toLocaleString();
+const 율 = (a: number, b: number) => ((a / b) * 100).toFixed(1);
+const 언매몫 = (r: any) => Number(율(r.언매, r.화작 + r.언매));
+const 행 = 시도
+  .map((k) => ({ k, 화작: 뒤[k].화작, 언매: 뒤[k].언매, 안봄: 뒤[k].국어미선택, 몫: 언매몫(뒤[k]), 몫앞: 언매몫(앞[k]) }))
+  .sort((a, b) => b.몫 - a.몫);
+const 언매차 = 앞.계.언매 - 뒤.계.언매;
+const 다줄었나 = 시도.every((k) => 언매몫(뒤[k]) < 언매몫(앞[k]));
+
+const TITLE = `수능 국어 선택과목 시도별 — 언어와 매체 ${언매몫(뒤.계)}%, 1년 새 ${쉼(언매차)}명 줄었다`;
+const desc =
+  `2027학년도 수능에서 국어를 고른 지원자 가운데 화법과 작문 ${쉼(뒤.계.화작)}명, 언어와 매체 ${쉼(뒤.계.언매)}명(${언매몫(뒤.계)}%)입니다. ` +
+  `언어와 매체 몫은 ${행[0].k} ${행[0].몫}%에서 ${행[16].k} ${행[16].몫}%까지 시도마다 다릅니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2026·2027학년도 수능 국어 선택과목 지원자 시도별',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: '한국교육과정평가원' },
+    spatialCoverage: '대한민국 17개 시·도',
+    variableMeasured: ['화법과 작문 지원자', '언어와 매체 지원자', '국어 미선택'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '2027 수능 화법과 작문·언어와 매체 지원자는 몇 명인가요?',
+        acceptedAnswer: { '@type': 'Answer', text: `평가원 집계로 화법과 작문 ${쉼(뒤.계.화작)}명(전년 ${쉼(앞.계.화작)}명), 언어와 매체 ${쉼(뒤.계.언매)}명(전년 ${쉼(앞.계.언매)}명)입니다. 국어를 고른 사람 가운데 언어와 매체 몫은 ${언매몫(앞.계)}%에서 ${언매몫(뒤.계)}%로 바뀌었습니다.` },
+      },
+      {
+        '@type': 'Question',
+        name: '언어와 매체를 고른 비율이 가장 높은 지역은?',
+        acceptedAnswer: { '@type': 'Answer', text: `${행.slice(0, 3).map((r) => `${r.k} ${r.몫}%`).join(', ')} 순이고 가장 낮은 곳은 ${행[16].k} ${행[16].몫}%입니다.` },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>수능 국어 선택과목 시도별 —<br class="pcbr" /> 언어와 매체 {언매몫(뒤.계)}%</h1>
+  <p class="sub">
+    국어를 고른 2027학년도 지원자 100명 가운데 <strong>{언매몫(뒤.계)}명이 언어와 매체</strong>, 나머지가 화법과 작문입니다.
+    1년 전에는 {언매몫(앞.계)}명이었습니다. 시도마다 이 몫이 얼마나 다른지 평가원 원표로 놓았습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">언어와 매체 지원자 — 2026학년도 {쉼(앞.계.언매)}명 → 2027학년도</p>
+    <p class="answer-num">{쉼(뒤.계.언매)}명</p>
+    <p class="answer-sub">화법과 작문 +{쉼(뒤.계.화작 - 앞.계.화작)}명 · 국어 안 고름 {쉼(뒤.계.국어미선택)}명{다줄었나 ? ' · 17개 시도 모두 언매 몫 감소' : ''}</p>
+  </div>
+
+  <h2>시도별 — 언어와 매체 몫이 높은 순</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>화법과 작문</th><th>언어와 매체</th><th>언매 몫 2027</th><th>2026</th></tr></thead>
+      <tbody>
+        {행.map((r) => (
+          <tr>
+            <th>{r.k}</th>
+            <td class="num">{쉼(r.화작)}</td>
+            <td class="num">{쉼(r.언매)}</td>
+            <td class="num">{r.몫}%</td>
+            <td class="num">{r.몫앞}%</td>
+          </tr>
+        ))}
+        <tr><th>전국</th><td class="num">{쉼(뒤.계.화작)}</td><td class="num">{쉼(뒤.계.언매)}</td><td class="num"><strong>{언매몫(뒤.계)}%</strong></td><td class="num">{언매몫(앞.계)}%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 숫자를 어떻게 읽어야 하나</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 몇 명이 무엇을 골랐는지일 뿐, 어느 쪽이 맞는 선택이라는 뜻이 아닙니다.</li>
+    <li>언매 몫의 분모는 <strong>국어를 고른 사람</strong>(화작 + 언매)입니다. 국어를 고르지 않은 지원자는 따로 적었습니다.</li>
+    <li>왜 언어와 매체가 줄었는지는 이 표가 답하지 않습니다. 원인은 재지 않았습니다.</li>
+    <li>2028학년도 수능부터 국어는 선택과목 없는 공통과목이 됩니다(교육부 2028 대입 개편 확정안). 이 두 갈래는 이번이 마지막으로 보도됐습니다.</li>
+  </ul>
+
+  <h2>같은 축의 다른 지면</h2>
+  <ul>
+    <li><a href="/csat-applicants-by-province">2027 수능 지원자 시도별 — 이 축의 중심 지면</a></li>
+    <li><a href="/csat-math-choice-by-province">수학 선택과목 시도별</a></li>
+    <li><a href="/csat-inquiry-subject-count">탐구 17과목 지원자 수</a></li>
+    <li><a href="/csat-applicant-mix">수능 지원자 구성 — 재학생·졸업생</a></li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    <strong>선택과목별 지원자</strong> — 한국교육과정평가원 「2027학년도 대학수학능력시험 응시원서 접수 결과」(2026-09-08) 붙임1,
+    「2026학년도 …」(2025-09-09) 붙임1 · 행 합·열 합 검산 · 저희가 받은 때 {d.만든날}
+  </p>
+
+  <NextQuestionBrief 모은것="한국교육과정평가원 수능 지원자 현황 원표에서 국어 선택과목을 시도별로 두 해 맞대어 센 실측" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
