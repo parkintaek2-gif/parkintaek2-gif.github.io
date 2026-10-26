@@ -1,0 +1,16 @@
+{
+  "무엇": "2026-10-26~30 3분기 실적 발표 28개사(아시아경제 10/25 일정)의 코스피 시가총액 몫(회사 단위 = 보통주+우선주, 10/23 종가) — SeoulMarkets 기사 kospi-earnings-week-28-companies-63-percent-of-market-value-october-2026 와 같은 수",
+  "출처": "Korea Exchange (KRX OPEN API) KOSPI daily stock trading 2026-10-23 (archive/raw/stocks/20261023.ndjson, 940 listings, total 4,582.2 trillion won) · earnings calendar: The Asia Business Daily, 25 October 2026",
+  "받은날": "2026-10-23",
+  "회사수": 28,
+  "합계몫": 62.80,
+  "두곳몫": 50.79,
+  "나머지몫": 12.01,
+  "날별": [
+    { "날": "Mon 26", "회사": 3, "몫": 0.52 },
+    { "날": "Tue 27", "회사": 7, "몫": 2.00 },
+    { "날": "Wed 28", "회사": 7, "몫": 23.97, "이름": "SK hynix" },
+    { "날": "Thu 29", "회사": 7, "몫": 34.29, "이름": "Samsung" },
+    { "날": "Fri 30", "회사": 4, "몫": 2.01 }
+  ]
+}
