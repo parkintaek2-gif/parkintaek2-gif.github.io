@@ -265,6 +265,11 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
                 margin-bottom: 1.6rem; }
     .sections a { color: var(--ink); text-decoration: none; font-weight: 600; }
     .sections a:hover { text-decoration: underline; }
+    /* 두 층 메뉴 — 윗줄은 큰 것 둘, 아랫줄은 K-Review 의 여덟 */
+    .sections.two-level { padding-bottom: 1rem; }
+    .sections .top { display: block; font-size: .98rem; }
+    .sections .sub { display: block; margin-top: .4rem; font-size: .8rem; }
+    .sections .sub a { font-weight: 500; color: var(--muted); }
     .logo { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; text-decoration: none; color: var(--ink); }
     .logo span { color: var(--accent); }
     /* BI 그림 — 어두운 바탕에서도 글자가 보이게 밝기를 뒤집는다(원본은 흰 바탕용이다) */
@@ -356,14 +361,19 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
         한국어는 리뷰, 영어는 스타다(사장님: 「영어 서비스는 … 스타를 다루는 내용만」).
     */}
     {한국어 && (
-      <nav class="sections" aria-label="메뉴">
-        {리뷰분류.map((c, i) => (
-          <>
-            {i > 0 && <span aria-hidden="true"> · </span>}
-            <a href={`/ko/${c.코드}`}>{c.명칭}</a>
-          </>
-        ))}
-        <span aria-hidden="true"> · </span><a href="/ko">전체</a>
+      <nav class="sections two-level" aria-label="메뉴">
+        <span class="top">
+          <a href="/ko/kpop">K-POP</a>
+          <span aria-hidden="true"> · </span><a href="/ko">K-Review</a>
+        </span>
+        <span class="sub">
+          {리뷰분류.filter((c) => c.상위 === 'kreview').map((c, i) => (
+            <>
+              {i > 0 && <span aria-hidden="true"> · </span>}
+              <a href={`/ko/${c.코드}`}>{c.명칭}</a>
+            </>
+          ))}
+        </span>
       </nav>
     )}
     {!한국어 && (
@@ -409,8 +419,7 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
       {한국어 && (
         <Fragment>
           <p>
-            K Culture Wire — 경기와 드라마·예능 리뷰, 그리고 네티즌 반응.{' '}
-            사진은 구단·협회·방송사·OTT가 제공한 것만 쓰고, 어디서 받았는지 밝힙니다.{' '}
+            K Culture Wire — 스포츠, K-컬쳐 리뷰, 그리고 네티즌 반응까지{' '}
             <a href="/ko">전체 리뷰</a>
             <span aria-hidden="true"> · </span><a href="/contact">제보하기</a>
             <span aria-hidden="true"> · </span><a href="/corrections">정정</a>
