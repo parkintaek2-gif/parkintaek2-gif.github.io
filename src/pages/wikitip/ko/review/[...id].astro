@@ -97,12 +97,16 @@ const 관련리뷰 = (await getCollection('kcwReviews'))
       </figure>
     )}
 
-    {/* 리뷰 대상. ⛔ 대상이 있어야 리뷰다 */}
-    <dl class="subject">
-      <div><dt>대상</dt><dd>{d.subject.명칭}</dd></div>
-      <div><dt>일시</dt><dd>{날짜표기(d.subject.일시)}</dd></div>
-      <div><dt>주체</dt><dd>{d.subject.주체}</dd></div>
-    </dl>
+    {/*
+      무엇을 리뷰했는지. ⛔ 대상이 있어야 리뷰다.
+      🔴 [2026-10-26 · 사장님] 「순한글, 번역투, **너희 ai만 쓰는 표현 금지**」
+        여기가 「대상 / 일시 / 주체」라는 표였다. 그것은 우리가 자료를 담는 칸 이름이지
+        독자가 읽는 말이 아니다. 신문 지면이 쓰는 꼴로 한 줄로 적는다.
+    */}
+    <p class="subject">
+      {d.subject.주체} 「{d.subject.명칭}」 ·{' '}
+      {날짜표기(d.subject.일시)} {d.subject.유형 === 'match' ? '경기' : '공개'}
+    </p>
 
     <div class="body">
       <Content />
@@ -117,7 +121,7 @@ const 관련리뷰 = (await getCollection('kcwReviews'))
     */}
     {d.반응.length > 0 && (
       <section class="react">
-        <h2>이용자 반응</h2>
+        <h2>네티즌 반응</h2>
         <ul>
           {d.반응.map((r) => (
             <li>
@@ -129,7 +133,7 @@ const 관련리뷰 = (await getCollection('kcwReviews'))
           ))}
         </ul>
         <p class="fine">
-          공개된 지면에 게시된 문장을 원문대로 전재했다. 계정명은 기재하지 않는다.
+          공개된 게시판에 올라온 글을 그대로 옮겼습니다. 아이디는 쓰지 않습니다.
         </p>
       </section>
     )}
@@ -148,7 +152,7 @@ const 관련리뷰 = (await getCollection('kcwReviews'))
         ⛔ 쓴 것만 적는다. 안 쓴 보도자료를 실적처럼 늘어놓지 않는다. */}
     {d.보도자료.length > 0 && (
       <section class="src">
-        <h2>사용한 보도자료</h2>
+        <h2>참고한 보도자료</h2>
         <ul>
           {d.보도자료.map((b) => (
             <li>
@@ -162,7 +166,7 @@ const 관련리뷰 = (await getCollection('kcwReviews'))
 
     {d.sources.length > 0 && (
       <section class="src">
-        <h2>수치의 출처</h2>
+        <h2>수치 출처</h2>
         <ul>
           {d.sources.map((s) => (
             <li>
@@ -176,7 +180,7 @@ const 관련리뷰 = (await getCollection('kcwReviews'))
 
     {d.image && (
       <p class="photo-src">
-        사진 — {d.image.제공처}. 입수 경로:{' '}
+        사진 — {d.image.제공처}. 받아 온 곳:{' '}
         <a href={d.image.출처주소} rel="nofollow noopener">{d.image.출처주소}</a>
       </p>
     )}
@@ -209,11 +213,8 @@ const 관련리뷰 = (await getCollection('kcwReviews'))
   figure { margin: 0 0 1.6rem; }
   figure img { width: 100%; height: auto; display: block; border-radius: 6px; }
   figcaption { font-size: .82rem; color: var(--muted); margin-top: .5rem; }
-  .subject { display: grid; gap: .4rem; margin: 0 0 2rem; padding: .9rem 1rem;
-             background: var(--card); border: 1px solid var(--line); border-radius: 6px; }
-  .subject div { display: flex; gap: .8rem; font-size: .88rem; }
-  .subject dt { margin: 0; color: var(--muted); min-width: 2.8rem; }
-  .subject dd { margin: 0; }
+  .subject { margin: 0 0 2rem; padding: .7rem .9rem; font-size: .88rem;
+             background: var(--card); border-left: 3px solid var(--accent); border-radius: 0 4px 4px 0; }
   .body :global(h2) { font-size: 1.15rem; margin: 2rem 0 .6rem; }
   .body :global(p) { margin: 0 0 1.1rem; }
   .react { margin-top: 2.5rem; }

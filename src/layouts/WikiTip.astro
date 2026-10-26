@@ -61,11 +61,14 @@ export interface Props {
    * ⚠ 한국어 지면은 리뷰다(`/ko/…`). 영어 지면은 스타·데이터 그대로다.
    */
   lang?: 'en' | 'ko';
+  /** 두 칸 짜임을 쓰는 화면만 true — 글 폭을 넓힌다(사장님 2026-10-26 「2칼럼으로」) */
+  wide?: boolean;
 }
 const {
   title, description, noindex = false, jsonLd, canonical, page,
   ogImage = 'https://www.kculturewire.com/og.png',
   lang = 'en',
+  wide = false,
 } = Astro.props;
 /* 한국어 지면인가 — 아래에서 차림표·꼬리말·`<html lang>` 이 이것으로 갈린다 */
 const 한국어 = lang === 'ko';
@@ -264,7 +267,14 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
     .sections a:hover { text-decoration: underline; }
     .logo { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; text-decoration: none; color: var(--ink); }
     .logo span { color: var(--accent); }
-    .tag { font-size: .78rem; color: var(--muted); }
+    /* BI 그림 — 어두운 바탕에서도 글자가 보이게 밝기를 뒤집는다(원본은 흰 바탕용이다) */
+    .logo.bi { line-height: 0; }
+    .logo.bi img { height: 34px; width: auto; display: block; }
+    @media (prefers-color-scheme: dark) { .logo.bi img { filter: invert(1) hue-rotate(180deg); } }
+    .tag { font-size: .78rem; color: var(--muted); font-weight: 600; letter-spacing: .02em; }
+    /* 🔴 [2026-10-26 · 사장님] 「칼럼을 1칼럼에서 2칼럼으로 늘려서」 — 두 칸을 받으려면
+       글 폭(46rem)으로는 좁다. 두 칸을 쓰는 화면만 넓힌다. 기사는 그대로 좁게 둔다 */
+    .wrap.wide { max-width: 64rem; }
     footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--line);
              color: var(--muted); font-size: .84rem; }
     footer a { color: var(--muted); }
@@ -317,10 +327,24 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
   )}
 </head>
 <body>
-  <div class="wrap">
+  <div class={wide ? "wrap wide" : "wrap"}>
+    {/*
+      🔴 [2026-10-26 · 사장님] 「**경기·드라마·쇼 리뷰와 이용자 반응 >>> 이게 뭐니 /
+        K-Review 등처럼 영어로 이해되는 단어로 바꿔, 주저리주저리 나열하지마**」
+        「**K Culture Wire BI 만들 걸 활용해**」
+      ⛔ 이름표에 다루는 것을 늘어놓지 않는다. 한 낱말이다.
+      ⚠ BI 그림은 `public/wikitip/brand/` 에 둔다 — `public/brand/` 에 두면
+        kculturewire.com 에서 404 다(세 사이트가 한 서버를 쓴다).
+    */}
     <div class="site">
-      <a class="logo" href={한국어 ? '/ko' : '/'}>K Culture <span>Wire</span></a>
-      <span class="tag">{한국어 ? '경기·드라마·쇼 리뷰와 이용자 반응' : 'Korean pop culture, in numbers'}</span>
+      {한국어 ? (
+        <a class="logo bi" href="/ko">
+          <img src="/brand/kculturewire-logo-5x1.png" alt="K Culture Wire" width="240" height="48" />
+        </a>
+      ) : (
+        <a class="logo" href="/">K Culture <span>Wire</span></a>
+      )}
+      <span class="tag">{한국어 ? 'K-Review' : 'Korean pop culture, in numbers'}</span>
     </div>
     {/*
       🔴 [2026-10-26 · 사장님 지시] 한국어 메뉴 — 분류 9종.
@@ -332,7 +356,7 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
         한국어는 리뷰, 영어는 스타다(사장님: 「영어 서비스는 … 스타를 다루는 내용만」).
     */}
     {한국어 && (
-      <nav class="sections" aria-label="분류">
+      <nav class="sections" aria-label="메뉴">
         {리뷰분류.map((c, i) => (
           <>
             {i > 0 && <span aria-hidden="true"> · </span>}
@@ -385,10 +409,10 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
       {한국어 && (
         <Fragment>
           <p>
-            K Culture Wire — 경기와 드라마·쇼의 리뷰, 그리고 이용자 반응.{' '}
-            사진은 구단·협회·방송사·OTT 가 제공한 것만 사용하고, 입수 경로를 캡션에 기재한다.{' '}
+            K Culture Wire — 경기와 드라마·예능 리뷰, 그리고 네티즌 반응.{' '}
+            사진은 구단·협회·방송사·OTT가 제공한 것만 쓰고, 어디서 받았는지 밝힙니다.{' '}
             <a href="/ko">전체 리뷰</a>
-            <span aria-hidden="true"> · </span><a href="/contact">알려 주기</a>
+            <span aria-hidden="true"> · </span><a href="/contact">제보하기</a>
             <span aria-hidden="true"> · </span><a href="/corrections">정정</a>
             <span aria-hidden="true"> · </span><a href="/privacy">쿠키</a>
             <span aria-hidden="true"> · </span><a href="/terms">약관</a>
@@ -403,13 +427,13 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
             {PUBLISHER.address}
           </p>
           <p class="cite">
-            <b>인용 안내.</b> 관찰한 내용과 전재한 반응을 구분해 기재하고, 수치는 출처를 명시한다.
+            <b>인용하실 때.</b> 직접 확인한 내용과 옮겨 온 반응을 구분해 주시고, 수치는 출처를 함께 적어 주십시오.
             {' '}<span class="cite-line">K Culture Wire, <em>{title}</em>, {인용연도},
             {' '}{정본 ?? 'https://www.kculturewire.com/ko'}</span> — 틀린 것이 있으면
             {' '}<a href="/contact">알려 주시면</a> <a href="/corrections">정정</a>에 남긴다.
           </p>
           <p>
-            <a href={자매링크("https://klifemap.ai/", "footer")}>KLifeMap</a> — 사주·운세를 자료로 읽는 곳 ·{' '}
+            <a href={자매링크("https://klifemap.ai/", "footer")}>KLifeMap</a> — 사주와 운세를 데이터로 읽는 곳 ·{' '}
             <a href={자매링크("https://100yearmap.com/", "footer")}>백년지도</a> — 0세부터 100세까지의 진로 지도 ·{' '}
             <a href={자매링크("https://seoulmarkets.com/", "footer")} hreflang="en">SeoulMarkets</a>
             {' '}— 한국 금융시장을 영문으로

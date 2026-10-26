@@ -41,7 +41,7 @@ const 날짜표기 = (d: Date) => {
    ⚠ 대신 분류마다 **무엇을 다루는지**를 붙인다 — 손님이 검색하는 말이 거기에 들어 있다. */
 const TITLE = `${해당분류?.명칭 ?? category} — ${해당분류?.중심내용 ?? ''}`.trim().replace(/—\s*$/, '');
 const DESC = 목록.length === 0
-  ? `${해당분류?.설명 ?? ''} 아직 등록된 리뷰가 없다.`
+  ? `${해당분류?.설명 ?? ''} 아직 올라온 리뷰가 없습니다.`
   : `${해당분류?.설명 ?? ''} 리뷰 ${목록.length}건.`;
 
 const jsonLd = {
@@ -67,7 +67,7 @@ const jsonLd = {
 
   {목록.length === 0 && (
     <p class="none">
-      아직 등록된 리뷰가 없다. <a href="/ko">다른 분류</a>를 확인하실 수 있다.
+      아직 올라온 리뷰가 없습니다. <a href="/ko">다른 것</a>을 보십시오.
     </p>
   )}
 
@@ -77,7 +77,7 @@ const jsonLd = {
         <li>
           <a href={`/ko/review/${r.id}`}>{r.data.title}</a>
           <p class="dek">{r.data.dek}</p>
-          <p class="when">{날짜표기(r.data.pubDate)} · 대상: {r.data.subject.명칭}</p>
+          <p class="when">{날짜표기(r.data.pubDate)} · {r.data.subject.명칭}</p>
         </li>
       ))}
     </ul>
@@ -86,8 +86,8 @@ const jsonLd = {
   {/* 🔴 사장님 사진 규칙 — 해당 분류에 적용되는 항목만 공개한다 */}
   <p class="fine">
     {해당분류?.계열 === 'sports'
-      ? '본 분류의 사진은 구단이나 해당 협회가 제공하는 경기 사진만 사용한다. 엠블럼·로고는 사용하지 않는다.'
-      : '본 분류의 사진은 방송사 홈페이지의 사진이나, 제공처가 해당 OTT 로 명시된 사진만 사용한다.'}
+      ? '여기 사진은 구단이나 협회가 제공한 경기 사진만 씁니다. 엠블럼과 로고는 쓰지 않습니다.'
+      : '여기 사진은 방송사나 해당 OTT가 제공한 것만 씁니다.'}
   </p>
 </WikiTip>
 
