@@ -59,6 +59,6 @@ Gen.G were second in at 3-0 in 2024 as well, and went out in the semi-finals tha
 
 ## What it does not say
 
-The order of qualifying is not a ranking of strength, and the past two years do not predict this one. LYON, now 2-1, play again in round four. Hanwha Life (1-2) and T1 (1-1) are still in the Swiss Stage. All records and the full order for 2024 and 2025 are on [our Worlds 2026 page](/worlds-2026).
+The order of qualifying is not a ranking of strength, and the past two years do not predict this one. LYON, now 2-1, play again in round four. Hanwha Life (1-2) and T1 (2-1 after they [beat CTBC Flying Oyster](/article/t1-beat-ctbc-flying-oyster-2-1-worlds-2026-nine-of-twelve-qualified) on 27 October) are still in the Swiss Stage. All records and the full order for 2024 and 2025 are on [our Worlds 2026 page](/worlds-2026).
 
 *Results and game statistics from Riot Games' official LoL Esports schedule and live stats feed. Times are Korea Standard Time.*

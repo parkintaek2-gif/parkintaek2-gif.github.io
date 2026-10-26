@@ -56,6 +56,6 @@ Three of twelve is a description of two past fields. It is not a probability for
 
 ## Where the LCK stands
 
-Dplus Kia are through at 3-0 ([the first team in](/article/dplus-kia-first-into-worlds-2026-quarter-finals-first-in-has-not-won)). Gen.G joined them at 3-0 by beating LYON 2-1 later that morning ([the result](/article/gen-g-beat-lyon-2-1-join-dplus-kia-worlds-2026-quarter-finals-lck-first-two)). T1 are 1-1 and play CTBC Flying Oyster at 02:00 KST on 27 October. Hanwha Life's next opponent comes from round four, which Riot had not yet paired when we wrote.
+Dplus Kia are through at 3-0 ([the first team in](/article/dplus-kia-first-into-worlds-2026-quarter-finals-first-in-has-not-won)). Gen.G joined them at 3-0 by beating LYON 2-1 later that morning ([the result](/article/gen-g-beat-lyon-2-1-join-dplus-kia-worlds-2026-quarter-finals-lck-first-two)). T1 were 1-1 and played CTBC Flying Oyster at 02:00 KST on 27 October; they [beat them](/article/t1-beat-ctbc-flying-oyster-2-1-worlds-2026-nine-of-twelve-qualified) and are 2-1. Hanwha Life's next opponent comes from round four, which Riot had not yet paired when we wrote.
 
 *Results and game statistics from Riot Games' official LoL Esports schedule and live stats feed. Times are Korea Standard Time.*

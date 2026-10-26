@@ -42,6 +42,8 @@ export const 뺀까닭 = {
   TLAW: 'Counted with the Team Liquid article, which covers the whole organisation; read with care.',
 };
 export const 대회문서 = '2026 League of Legends World Championship';
+/* [10/27] 선수 문서 — 언어마다 제목이 다르다(독일어 Lee Sang-hyeok 등). 영어 문서의 언어 연결로 찾는다 */
+export const 선수문서 = { Faker: 'Faker (gamer)' };
 export const 평소 = ['20261001', '20261013']; /* 대회 전(플레이인 10/16 KST 시작) */
 
 export function 가운데(xs) {
@@ -49,6 +51,25 @@ export function 가운데(xs) {
   if (!s.length) return null;
   const m = Math.floor(s.length / 2);
   return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+
+/**
+ * [2026-10-27 · 1번] 스위스에서 «어떤 전적을 거친 팀»이 끝에 어디로 갔나.
+ *   거친전적('2-1') → [{ team, final: '3-1', qualified: true }] — 그 전적에 한 번이라도 선 팀 전부.
+ *   ⛔ 끝나지 않은 해(2026)에서는 쓰지 않는다 — 아직 끝이 없다.
+ */
+export function 거친전적(경기들, 전적) {
+  const 승 = {}; const 패 = {}; const 선 = new Set();
+  const 적 = (c) => `${승[c] ?? 0}-${패[c] ?? 0}`;
+  for (const e of 경기들) {
+    const [a, b] = e.match.teams;
+    const 이긴 = a.result.outcome === 'win' || (b.result.outcome !== 'win' && a.result.gameWins > b.result.gameWins) ? a : b;
+    const 진 = 이긴 === a ? b : a;
+    승[이긴.code] = (승[이긴.code] ?? 0) + 1;
+    패[진.code] = (패[진.code] ?? 0) + 1;
+    for (const c of [이긴.code, 진.code]) if (적(c) === 전적) 선.add(c);
+  }
+  return [...선].map((c) => ({ team: c, final: 적(c), qualified: (승[c] ?? 0) >= 3 }));
 }
 
 /** 스위스 경기 목록에서 «3승 도달 순서»를 센다 */
@@ -115,6 +136,9 @@ if (process.argv.includes('--selftest')) {
   const r = 진출순서([경기('A', 'B'), 경기('A', 'C'), 경기('B', 'C'), 경기('A', 'D')]);
   재('3-0 이 먼저 잡힌다', r.순서.length === 1 && r.순서[0].team === 'A' && r.순서[0].record === '3-0');
   재('문서 없는 팀은 null', 팀문서.LYON === null && 팀문서.LOS === null);
+  const 거 = 거친전적([경기('A', 'B'), 경기('C', 'D'), 경기('A', 'C'), 경기('B', 'D'), 경기('D', 'A'), 경기('A', 'B')], '2-1');
+  재('2-1 을 거친 팀과 끝 전적', 거.length === 1 && 거[0].team === 'A' && 거[0].final === '3-1' && 거[0].qualified === true);
+  재('0-2 를 거친 팀', 거친전적([경기('A', 'B'), 경기('A', 'B')], '0-2')[0]?.team === 'B');
   console.log(실패 ? `⛔ ${실패}개 틀림` : '✅ 자가시험 통과');
   process.exit(실패 ? 1 : 0);
 }
@@ -136,7 +160,12 @@ for (const 해 of ['2023', '2024', '2025', '2026']) {
     끝자리[t.code] = t.result.outcome === 'win' && e.blockName === 'Finals' ? 'Champion' : `${e.blockName.replace(/s$/, '')}`;
   }
   const { 순서, 승, 패 } = 진출순서(스위스);
+  /* [10/27] 끝난 해만 — 2-1·1-2·0-2 를 거친 팀이 끝에 어디로 갔나 */
+  const 끝난해 = 해 === '2024' || 해 === '2025';
+  const 거친 = 끝난해 ? Object.fromEntries(['2-1', '1-2', '0-2'].map((r) => [r, 거친전적(스위스, r)
+    .map((x) => ({ ...x, name: 스위스.flatMap((e) => e.match.teams).find((t) => t.code === x.team)?.name ?? x.team, finish: 끝자리[x.team] ?? null }))])) : null;
   해별[해] = {
+    fromRecord: 거친,
     swissMatchesCompleted: 스위스.length,
     firstSwissMatch: 스위스[0]?.startTime ?? null,
     qualifiedInOrder: 순서.map((q, i) => ({ ...q, place: i + 1, finish: 끝자리[q.team] ?? null })),
@@ -166,6 +195,28 @@ for (const [code, 제목] of Object.entries(팀문서)) {
   console.log(`  ${code} ${판들.length}개 언어`);
 }
 
+/* [10/27] 2026 팀의 소속 리그 — Riot getTeams 의 homeLeague (지금 값이라 2026 팀에만 쓴다) */
+const 리그 = {};
+{
+  const 팀목록 = (await 받기('https://esports-api.lolesports.com/persisted/gw/getTeams?hl=en-US', RIOT)).data.teams;
+  for (const code of Object.keys(해별['2026'].records)) {
+    const 후보 = 팀목록.filter((t) => t.code === code);
+    const 맞 = 후보.find((t) => t.name === 이름[code]) ?? 후보.find((t) => t.status === 'active') ?? null;
+    리그[code] = 맞?.homeLeague?.name ?? null;
+  }
+}
+
+/* [10/27] 선수 문서 — 페이커. 대회 기간 언어별 열람 */
+const 선수들 = {};
+for (const [키, 제목] of Object.entries(선수문서)) {
+  const 판 = [];
+  for (const { lang, title } of await 언어들(제목)) {
+    판.push({ lang, title, daily: await 날별(lang, title, 끝) });
+    await sleep(120);
+  }
+  선수들[키] = { article: 제목, team: 'T1', editions: 판 };
+}
+
 const 대회판 = [];
 for (const { lang, title } of await 언어들(대회문서)) {
   대회판.push({ lang, title, daily: await 날별(lang, title, 끝) });
@@ -174,7 +225,8 @@ for (const { lang, title } of await 언어들(대회문서)) {
 
 /* ⛔ 요청한 끝날이 아니라 «실제로 받은» 마지막 날을 적는다 — Wikimedia 는 하루 늦게 낸다 */
 const 받은날들 = [...Object.values(팀들).flatMap((t) => (t.editions ?? []).flatMap((e) => Object.keys(e.daily))),
-  ...대회판.flatMap((e) => Object.keys(e.daily))];
+  ...대회판.flatMap((e) => Object.keys(e.daily)),
+  ...Object.values(선수들).flatMap((p) => p.editions.flatMap((e) => Object.keys(e.daily)))];
 const 받은끝 = 받은날들.sort().at(-1) ?? null;
 
 const 나감 = {
@@ -190,6 +242,9 @@ const 나감 = {
   lastDayRequested: 끝,
   years: 해별,
   teams: 팀들,
+  leagues2026: 리그,
+  leaguesNote: 'League is the team\'s home league in Riot\'s team list (getTeams) when this page was built.',
+  players: 선수들,
   tournamentArticle: { title: 대회문서, editions: 대회판 },
 };
 fs.writeFileSync(낼곳, `${JSON.stringify(나감, null, 1)}\n`);

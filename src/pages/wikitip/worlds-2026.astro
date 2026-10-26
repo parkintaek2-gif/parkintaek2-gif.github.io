@@ -56,6 +56,37 @@ const 대회 = (d as any).tournamentArticle.editions.map((e: any) => ({
 const 해들 = ['2024', '2025'].map((y) => ({ y, rows: (d as any).years[y].qualifiedInOrder as any[] }));
 const 올해 = (d as any).years['2026'];
 
+/* [10/27] 2-1·1-2·0-2 를 거친 팀이 끝에 어디로 갔나 — 2024·2025 */
+const 거친표 = ['2-1', '1-2', '0-2'].map((r) => {
+  const 줄 = ['2024', '2025'].flatMap((y) => ((d as any).years[y].fromRecord?.[r] ?? []).map((x: any) => ({ ...x, y })));
+  return { r, n: 줄.length, q: 줄.filter((x: any) => x.qualified).length, 줄 };
+});
+const 지금그전적 = (r: string) => Object.entries(올해.records).filter(([, v]) => v === r).map(([c]) => (d as any).teams[c]?.name ?? c);
+
+/* [10/27] 2026 리그별 — Riot getTeams 의 homeLeague */
+const 리그들 = (d as any).leagues2026 ?? {};
+const 리그표 = Object.entries(
+  Object.entries(올해.records).reduce((acc: any, [c, r]: any) => {
+    const L = 리그들[c] ?? 'not measured';
+    (acc[L] ??= []).push({ c, name: (d as any).teams[c]?.name ?? c, r, w: Number(r[0]), l: Number(r[2]) });
+    return acc;
+  }, {}),
+).map(([L, ts]: any) => ({
+  L, ts: ts.sort((a: any, b: any) => b.w - a.w || a.l - b.l),
+  through: ts.filter((t: any) => t.w >= 3).length, out: ts.filter((t: any) => t.l >= 3).length,
+})).sort((a: any, b: any) => b.ts.length - a.ts.length || b.through - a.through);
+
+/* [10/27] 페이커 문서 — 언어별 평소(10/1~10/13 가운데값) 대비 스위스 날(UTC 10/24 부터) */
+const 페이커 = (d as any).players?.Faker;
+const 가운데 = (xs: number[]) => { const s = xs.filter((x) => Number.isFinite(x)).sort((a, b) => a - b); if (!s.length) return null; const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+const 페이커날 = ['20261024', '20261025', '20261026', '20261027'].filter((x) => x <= 끝);
+const 페이커줄 = (페이커?.editions ?? []).map((e: any) => {
+  const 평소값 = 가운데(Object.entries(e.daily).filter(([k]) => k >= (d as any).usualDays[0] && k <= (d as any).usualDays[1]).map(([, v]) => v as number));
+  const 스위스 = 가운데(페이커날.map((k) => e.daily[k]).filter((v: any) => v !== undefined));
+  return { lang: e.lang, usual: 평소값, swiss: 스위스, ratio: 평소값 && 스위스 !== null ? Math.round((100 * 스위스) / 평소값) / 100 : null };
+}).filter((x: any) => x.usual !== null && x.usual >= 20).sort((a: any, b: any) => (b.ratio ?? -1) - (a.ratio ?? -1));
+const 페이커가운데 = 가운데(페이커줄.map((x: any) => x.ratio).filter((x: any) => x !== null));
+
 const TITLE = 'Worlds 2026, counted: the order teams qualify, and the languages that read them';
 const DESC = `Riot's official schedule shows the order teams reached the Worlds quarter-finals in 2024 and 2025 and how far each went. `
   + `Wikipedia shows which language reads each 2026 team: ${잰팀.length} of 16 teams measured, ${못잰팀.length} not.`;
@@ -69,7 +100,7 @@ const jsonLd = {
   isBasedOn: ['https://lolesports.com/en-US/schedule', 'https://wikimedia.org/api/rest_v1/'],
   temporalCoverage: '2024-10/2026-10',
 };
-const 언어 = (l: string) => ({ en: 'English', zh: 'Chinese', fr: 'French', es: 'Spanish', ko: 'Korean', vi: 'Vietnamese', de: 'German', ja: 'Japanese', pt: 'Portuguese', ru: 'Russian' } as Record<string, string>)[l] ?? l;
+const 언어 = (l: string) => ({ en: 'English', zh: 'Chinese', fr: 'French', es: 'Spanish', ko: 'Korean', vi: 'Vietnamese', de: 'German', ja: 'Japanese', pt: 'Portuguese', ru: 'Russian', pl: 'Polish', it: 'Italian', tr: 'Turkish', cs: 'Czech' } as Record<string, string>)[l] ?? l;
 ---
 
 {/* ⛔ noAds — Riot 자료를 쓰는 지면이다. Production 승인 전에 광고가 뜨면 API 가 영구 취소된다 */}
@@ -98,6 +129,60 @@ const 언어 = (l: string) => ({ en: 'English', zh: 'Chinese', fr: 'French', es:
       </table>
     </div>
   </section>
+
+  <section>
+    <h2>2026 by league</h2>
+    <p class="note">League is each team's home league in Riot's team list. Three wins reach the quarter-finals; three losses go home.</p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>League</th><th>Teams</th><th>Through</th><th>Out</th><th>Records</th></tr></thead>
+        <tbody>
+          {리그표.map((g: any) => (
+            <tr><td class="nm">{g.L}</td><td>{g.ts.length}</td><td>{g.through}</td><td>{g.out}</td>
+              <td class="fine">{g.ts.map((t: any) => `${t.name} ${t.r}`).join(' · ')}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Where teams at 2-1, 1-2 and 0-2 ended up in 2024 and 2025</h2>
+    <p class="note">Every team that stood at each record at any point of the Swiss Stage, followed to its last Swiss result.
+      Teams at that record in 2026 now: 2-1 — {지금그전적('2-1').join(', ') || 'none'}; 1-2 — {지금그전적('1-2').join(', ') || 'none'}; 0-2 — {지금그전적('0-2').join(', ') || 'none'}.</p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Record</th><th>Teams, 2024 and 2025</th><th>Qualified</th><th>Who</th></tr></thead>
+        <tbody>
+          {거친표.map((g: any) => (
+            <tr><td>{g.r}</td><td>{g.n}</td><td class="tot">{g.q}</td>
+              <td class="fine">{g.줄.map((x: any) => `${x.name} ${x.y} (${x.final}, ${x.finish === 'Champion' ? 'won the title' : x.finish ? `lost in the ${x.finish.toLowerCase()}` : 'out in the Swiss Stage'})`).join(' · ')}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="q">At 2-1, six teams meet each other in three best-of-three matches, so exactly half go through in that round in every year.
+      That half is the format, not form. Two years are two past fields, not odds for 2026.</p>
+  </section>
+
+  {페이커 && (
+    <section>
+      <h2>Faker's article, by language</h2>
+      <p class="note">Reads on each Swiss day Wikimedia had published (UTC {페이커날.map(날글).join(', ')}), against the edition's usual day
+        (median of {날글((d as any).usualDays[0])}–{날글((d as any).usualDays[1])}). Editions with at least 20 reads on a usual day.
+        Typical edition: {페이커가운데 === null ? 'not measured' : `${페이커가운데} times usual`}.</p>
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th>Edition</th><th>Usual day</th><th>Swiss day</th><th>Times usual</th></tr></thead>
+          <tbody>
+            {페이커줄.map((x: any) => (
+              <tr><td>{언어(x.lang)}</td><td>{수(x.usual)}</td><td>{수(x.swiss)}</td><td class="tot">{x.ratio ?? 'not measured'}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
 
   <section>
     <h2>Who qualified first in 2024 and 2025, and where they finished</h2>
@@ -174,4 +259,6 @@ const 언어 = (l: string) => ({ en: 'English', zh: 'Chinese', fr: 'French', es:
 <style>
   /* 출처 줄의 긴 주소가 휴대폰 너비(390)를 83px 밀어냈다 — 2026-10-26 */
   .src li { overflow-wrap: anywhere; }
+  /* [10/27] 긴 팀 목록 칸이 휴대폰에서 표를 넓히지 않게 */
+  td.fine { overflow-wrap: anywhere; min-width: 12em; }
 </style>

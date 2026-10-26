@@ -243,6 +243,12 @@ const 영상그림 = new Set((videoData.videos ?? []).map((v: any) => v.set));
    ⚠ 아래 열두 편의 제목은 **라이브 지면 제목에서 가져왔다** — 지어내지 않았다. */
 const videoSets = [
   {
+    set: 't1-beat-ctbc-flying-oyster-2-1-worlds-2026-nine-of-twelve-qualified-voiced',
+    page: '/article/t1-beat-ctbc-flying-oyster-2-1-worlds-2026-nine-of-twelve-qualified',
+    title: 'T1 Beat CTBC Flying Oyster to Go 2-1 at Worlds 2026. In 2024 and 2025, 9 of 12 Teams at 2-1 Qualified',
+    description: '22 seconds: T1 beat CTBC Flying Oyster 14 kills to 6 and 7 towers to 4 on 27 October 2026 (KST) to reach 2-1 in the Worlds Swiss Stage. In 2024 and 2025, 12 teams reached 2-1 and 9 qualified; half of that is built into the format. A count from Riot\'s official records, not a forecast.',
+  },
+  {
     set: 'dplus-kia-first-into-worlds-2026-quarter-finals-first-in-has-not-won-voiced',
     page: '/article/dplus-kia-first-into-worlds-2026-quarter-finals-first-in-has-not-won',
     title: 'Dplus Kia First Into Worlds 2026 Quarter-Finals at 3-0. The Last Two Teams First In Did Not Win',

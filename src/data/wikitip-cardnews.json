@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-21T23:07:58.415Z",
+  "generated": "2026-10-26T22:41:24.535Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -53,6 +53,21 @@
         3,
         4,
         5
+      ]
+    },
+    {
+      "set": "a-korean-groups-peak-wikipedia-reading-typically-halves-within-2-months",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4
       ]
     },
     {
@@ -392,6 +407,23 @@
       ]
     },
     {
+      "set": "bts-latin-america-tour-spanish-wikipedia-overtakes-english",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "bts-six-signs-ordinary-9249-behind-them-are-not",
       "sq": [
         1,
@@ -492,6 +524,23 @@
       ]
     },
     {
+      "set": "cortis-debuted-smallest-and-now-outreads-every-2025-rookie",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "day-pillars-of-9249-korean-entertainers",
       "sq": [
         1,
@@ -544,6 +593,40 @@
     },
     {
       "set": "eight-ways-we-have-been-wrong",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "faker-played-one-game-and-two-finalists-have-no-wikipedia-page",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "faker-wikipedia-worlds-2026-german-reading-up-four-times-korean-below-usual",
       "sq": [
         1,
         2,
@@ -1421,6 +1504,23 @@
       ]
     },
     {
+      "set": "lisa-press-play-minnie-same-day-thai-wikipedia-minnie-outread-lisa",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "malaysia-reads-the-label",
       "sq": [
         1,
@@ -1558,6 +1658,23 @@
     },
     {
       "set": "music-has-no-squid-game-and-is-more-concentrated-anyway",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "nearly-half-of-korean-netflix-top-10-titles-only-ever-charted-in-one-country",
       "sq": [
         1,
         2,
@@ -2010,6 +2127,23 @@
       ]
     },
     {
+      "set": "sopa-alumni-are-fewer-but-read-in-more-languages-per-person",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "spanish-leads-for-six-of-seven-bts-members",
       "sq": [
         1,
@@ -2045,6 +2179,21 @@
     },
     {
       "set": "squid-game-is-first-until-you-count-countries",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "set": "squid-game-is-half-of-korean-netflix-in-latvia-and-2-percent-in-vietnam",
       "sq": [
         1,
         2,
@@ -2944,6 +3093,23 @@
       ]
     },
     {
+      "set": "worlds-2026-chinese-wikipedia-reads-it-most-korean-wikipedia-barely-reads-lck",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "young-firms-explain-some-of-it",
       "sq": [
         1,
@@ -2995,35 +3161,54 @@
       ]
     }
   ],
-  "setCount": 178,
-  "imageCount": 1744,
+  "setCount": 188,
+  "imageCount": 1840,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
+    "100-days-of-deception-netflix-3-to-22-countries-gulf-no-europe",
     "24-netflix-k-titles-ran-long-21-never-left-south-korea",
     "68-weeks-of-fan-votes-and-fifth-place-in-lookups",
     "a-korean-chart-life-is-three-weeks-and-unbroken",
     "a-korean-gossip-desk-names-eighteen-people-abroad-two-vanish",
     "age-gaps-make-headlines-groups-carry-them-quietly",
+    "agent-kim-charted-in-81-countries-but-was-number-one-in-31-percent",
+    "all-eight-of-the-panels-fourth-generation-girl-groups-read-less-now-than-in-year-two",
+    "all-of-us-are-dead-season-2-season-1-charted-in-all-93-netflix-countries-at-once",
     "an-ai-actor-gave-a-cnn-interview-we-counted-who-people-actually-look-up",
     "an-awards-show-moves-to-kaohsiung-and-the-reading-data-agrees",
     "baekhyun-court-injunction-reading-spike-hits-only-him",
     "blackpink-lisa-reads-higher-than-any-bts-member-our-panel-missed-her",
+    "brand-index-ad-faces-wikipedia-reading-disagrees",
     "brands-are-not-one-thing",
+    "bts-jin-137-week-streak-wikipedia-reading-fell",
+    "bts-jin-quadrupled-his-fan-vote-count-in-eight-days",
     "bts-set-a-9-billion-stream-record-english-wikipedia-reading-hit-a-month-low",
+    "bts-spotify-record-did-not-move-wikipedia-reading",
     "chinese-not-japanese-reads-korean-stars",
+    "cortis-keonho-overtakes-sunghyun-starpoll-wikipedia-falls",
+    "cortis-sunghyun-retakes-starpoll-first-keonho-lead-lasted-one-day",
     "crash-landing-on-you-72-weeks-in-japan",
     "december-looking-june-quiet",
     "device-is-not-age-for-korean-acts",
+    "doctor-x-korean-remake-pulls-japanese-original-into-netflix-top-10",
+    "doctor-x-mafia-in-white-sends-english-readers-to-japanese-original",
+    "doctor-x-netflix-number-one-charts-in-only-2-of-35-european-countries",
+    "doctor-x-netflix-number-one-take-charge-of-my-heart-more-hours",
     "doing-both-music-and-acting-triples-the-odds-of-being-read-in-english",
+    "dplus-kia-first-into-worlds-2026-quarter-finals-first-in-has-not-won",
     "eum-moon-suks-creature-role-wikipedia-reading-nearly-5x",
     "fan-votes-and-encyclopedia-reads-disagree",
     "five-agencies-one-day-and-what-a-label-count-cannot-say",
     "garfield-alone-explains-a-fifth-of-when-the-source-wins",
+    "gen-g-beat-lyon-2-1-join-dplus-kia-worlds-2026-quarter-finals-lck-first-two",
     "han-na-chang-rco-debut-wikipedia-reading-spiked-47x",
+    "hanwha-life-fall-to-1-2-at-worlds-2026-three-of-twelve-came-back",
     "hoshi-page-tripled-the-day-his-injury-was-reported",
+    "hwang-sun-woos-freestyle-heat-jumped-his-wikipedia-reading-20-times",
     "illits-third-100-million-song-in-japan-same-flat-line-in-english",
     "iu-reading-had-already-risen-before-todays-donation-was-announced",
     "ius-anniversary-donation-day-read-exactly-like-the-day-before-it",
+    "ive-illit-riize-comeback-collision-wikipedia-reading-gap",
     "january-peaks-september-does-not",
     "jewelrys-full-reunion-after-20-years-moved-seo-in-youngs-reading-6x",
     "jimin-g-dragon-and-san-ranked-the-same-way-in-reputation-and-in-reading",
@@ -3032,43 +3217,75 @@
     "jin-called-sold-out-king-ranks-5th-of-7-in-bts",
     "jins-billion-stream-song-did-not-move-his-wikipedia-page",
     "jo-arams-drama-premiere-wikipedia-reading-jumped-9x",
+    "katseye-lost-best-k-pop-but-outread-the-winner-20-to-1",
     "katseyes-animal-hit-100-million-views-wikipedia-reading-fell-that-day",
     "kdol-named-jimin-no-1-wikipedia-says-third-in-bts",
+    "korea-fan-vote-king-is-trot-english-wikipedia-barely-reads-them",
+    "korea-netflix-top-10-shows-no-other-country-watches",
+    "korean-celebrities-are-not-born-evenly-across-the-year-idols-alone-we-cant-tell",
     "korean-groups-look-shortest-lived-but-the-cohorts-are-31-years-apart",
+    "koreas-netflix-tv-number-one-spot-stayed-korean-for-87-weeks",
     "kpop-generation-lines-are-a-year-off",
     "lee-jung-jae-drew-10-percent-hyun-bin-drew-34-percent",
+    "lisa-is-the-first-solo-act-to-win-vma-best-pop",
+    "lisa-press-play-release-day-wikipedia-stage-vs-release",
     "lovely-runners-co-stars-outread-their-own-fan-vote-rank",
     "malaysia-and-singapore-hold-the-same-korean-list",
     "malaysia-gets-korean-titles-in-the-debut-week",
+    "minnie-thai-ep-wikipedia-thai-reads-up-seven-times-chinese-tops-thai",
     "more-netflix-appearances-looked-steadier-we-could-not-confirm-it",
+    "nana-outread-top-on-the-day-but-his-page-moved-further",
     "nana-stage-fall-wikipedia-reading-jumped-20-times",
     "netflix-weeks-in-top-10-is-not-weeks-in-a-row",
     "newjeans-topped-the-fan-vote-red-velvets-irene-reads-more",
+    "niziu-took-six-years-and-three-releases-to-reach-a-korean-mini-album",
+    "october-2026-kpop-comebacks-english-wikipedia-lift-teen-top",
     "one-film-is-most-of-the-english-k-pop-news-feed",
+    "one-in-six-korean-netflix-hours-sits-under-a-shared-title",
     "one-member-outdraws-her-own-group-by-04-percent",
     "only-four-countries-come-close-to-all-korean",
+    "park-bo-gum-netflix-chart-record-when-life-gives-you-tangerines-43-countries",
     "pentagons-reading-peaked-the-day-of-their-10th-anniversary-comeback",
+    "physical-100-italy-mexico-netflix-format-export-reach",
     "plaves-wikipedia-reading-rose-before-the-melon-awards-news-broke",
     "rm-and-j-hope-wikipedia-pages-did-not-move-when-lea-salonga-unfollowed-them",
     "rose-was-already-26-percent-above-average-the-day-before-her-single",
     "seo-kang-joons-reading-more-than-doubled-in-a-week-we-dont-know-why",
     "seventeen-thirteen-members-none-close-to-the-group",
+    "son-heung-min-free-kick-post-nycfc-draw",
     "song-so-hees-reading-tripled-the-day-after-her-new-single",
+    "south-korea-won-its-first-asian-games-esports-gold-and-still-reads-10-to-1-behind-faker",
     "stray-kids-rose-1-4x-at-rock-in-rio-hwasa-rose-2-4x",
     "sunday-adds-28-percent-to-k-pop-wikipedia-reading",
+    "t1-beat-ctbc-flying-oyster-2-1-worlds-2026-nine-of-twelve-qualified",
+    "take-charge-of-my-heart-co-leads-wikipedia-reading-gap",
+    "tantara-song-hye-kyo-gong-yoo-netflix-chart-records-title-by-title",
+    "teen-top-comeback-two-members-jump-one-gets-zero",
+    "ten-schools-hold-half-of-korean-entertainment",
     "the-biggest-foreign-draw-is-not-seoul",
     "the-ceiling-and-the-band",
+    "the-great-flood-matched-squid-games-reach-not-its-run",
     "the-instrument-was-wrong-not-the-question",
     "the-lost-two-years-happened-to-everyone",
     "the-only-part-of-a-korean-headline-an-english-reader-can-read",
+    "the-perfect-lie-yoo-yeon-seok-seo-hyun-jin-is-not-the-dutch-netflix-series",
+    "the-top-1-percent-of-k-pop-names-draw-21-percent-of-english-reading",
     "top-ruled-out-a-bigbang-reunion-readers-barely-noticed",
     "twelve-coed-korean-groups-is-a-floor",
     "twenty-nine-names-in-our-panel-averaged-zero-english-readers",
+    "twice-jihyo-jeongyeon-chaeyoung-leave-jyp-wikipedia-reads",
     "two-of-the-days-top-1000-english-wikipedia-pages-were-korean",
+    "two-same-day-premieres-chart-topper-smallest-wikipedia-gain",
     "v-champion-6-3-million-media-value-wikipedia-flat",
+    "v-reads-most-among-bts-members-but-topped-zero-headlines",
     "vs-news-jung-kook-outreads-rm-on-wikipedia",
     "we-found-the-cause-seo-kang-joons-spike-and-his-co-star-moved-the-same-way",
     "what-the-record-cannot-see-about-nationality",
-    "yekwon-sunwoo-piano-reading-spiked-30x-after-a-tv-cameo"
+    "worlds-2026-swiss-round-one-lpl-winless-lck-sweep",
+    "worlds-2026-swiss-round-three-schedule-who-plays-for-what",
+    "worlds-2026-swiss-round-two-gen-g-dplus-kia-win-lck-derbies",
+    "yekwon-sunwoo-piano-reading-spiked-30x-after-a-tv-cameo",
+    "yeo-seo-jeongs-vault-final-berth-moved-her-wikipedia-reading-10x",
+    "zodiac-year-does-not-predict-korean-stardom-1047-actors"
   ]
 }

@@ -57,6 +57,6 @@ Two years is a very small sample. It does not say a 3-0 start is a disadvantage,
 
 ## Who is next
 
-Gen.G, the other LCK team at 2-0, beat LYON 2-1 three hours later and took the second spot ([the result](/article/gen-g-beat-lyon-2-1-join-dplus-kia-worlds-2026-quarter-finals-lck-first-two)). Hanwha Life lost to Invictus Gaming and are 1-2; T1 are 1-1 and play CTBC Flying Oyster on 27 October.
+Gen.G, the other LCK team at 2-0, beat LYON 2-1 three hours later and took the second spot ([the result](/article/gen-g-beat-lyon-2-1-join-dplus-kia-worlds-2026-quarter-finals-lck-first-two)). Hanwha Life lost to Invictus Gaming and are 1-2; T1 were 1-1 and then [beat CTBC Flying Oyster](/article/t1-beat-ctbc-flying-oyster-2-1-worlds-2026-nine-of-twelve-qualified) on 27 October to reach 2-1.
 
 *Match results and game statistics from Riot Games' official LoL Esports schedule and live stats feed. Times are Korea Standard Time.*
