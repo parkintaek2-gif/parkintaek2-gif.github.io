@@ -1227,6 +1227,10 @@ const handle = async (req, res) => {
      * 안 겹친다. 뜻이 가장 가까운 살아 있는 재작성본(비율 기반, 스케일브레이크 없음)으로 보낸다. */
     '/article/korea-us-surplus-doubled': '/article/korea-trade-surplus-four-partners-customs',
     '/article/korea-trade-surplus-tripled-five-partners': '/article/korea-trade-surplus-four-partners-customs',
+    /* 🔴 [2026-10-26 · 1번 · 사장님 「서울마켓츠 색인 거부됐다. 해결 해라」] 위 둘과 «같은 날 같이 내린»
+       셋째 지면인데 이 표에서 빠져 있었다 — 서치콘솔이 「찾을 수 없음(404)」으로 알려 왔다.
+       대중 무역수지 글이라 대중 무역을 다룬 살아 있는 재작성본으로 보낸다. */
+    '/article/korea-china-trade-balance-flipped': '/article/korea-trade-surplus-not-china',
   };
   {
     const 보낼곳 = 사라진지면[pathname];
