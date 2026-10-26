@@ -36,7 +36,10 @@ const 날짜표기 = (d: Date) => {
   return `${t.getFullYear()}년 ${t.getMonth() + 1}월 ${t.getDate()}일`;
 };
 
-const TITLE = `${해당분류?.명칭 ?? category} — K Culture Wire`;
+/* ⛔ 제목에 사이트 이름을 적지 않는다 — 틀(WikiTip.astro)이 「 | K Culture Wire」를 붙인다.
+   🔴 처음에 여기에 적었더니 라이브 제목이 「드라마리뷰 — K Culture Wire | K Culture Wire」였다.
+   ⚠ 대신 분류마다 **무엇을 다루는지**를 붙인다 — 손님이 검색하는 말이 거기에 들어 있다. */
+const TITLE = `${해당분류?.명칭 ?? category} — ${해당분류?.중심내용 ?? ''}`.trim().replace(/—\s*$/, '');
 const DESC = 목록.length === 0
   ? `${해당분류?.설명 ?? ''} 아직 등록된 리뷰가 없다.`
   : `${해당분류?.설명 ?? ''} 리뷰 ${목록.length}건.`;
