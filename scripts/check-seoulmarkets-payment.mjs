@@ -234,7 +234,9 @@ async function 단추그려지나() {
     const { createRequire } = await import('node:module');
     const require = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
     const puppeteer = require('puppeteer-core');
-    b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+    /* ⚠ protocolTimeout 을 20초로 줄인다 — 기본값은 3분이라, 새 창에 붙다가 멈추면
+       점검 전체가 3분을 서 있다가 「시간이 다 되어 확인하지 못했다」로 끝난다. */
+    b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 20000 });
   /* 🔴 [2026-10-11 · 5번] **빈 자리에서 잰다.**
      사장님 크롬(9222)에 저장된 값이 새 탭에 따라온다 — 오늘 klifemap 에서 `bj_lang=zh` 가
      따라와 지면 열한 장이 모두 중국어로 보였다. 지면이 깨진 줄 알고 고칠 뻔했다.
@@ -282,28 +284,55 @@ async function 단추그려지나() {
      * ⇒ 「그려진다」와 「눌러서 열린다」는 다른 것이다. 둘 다 잰다.
      * ⛔ 페이팔 «로그인·승인»은 건드리지 않는다 — 창이 뜨는 것까지만 본다. 돈은 안 움직인다.
      */
+    /* 🔴🔴 [2026-10-26 23:4x · 5번] **이 자리가 거짓 경보를 냈다.**
+     *
+     * 사장님: 「결제, 로그인이 가장 중요한데 왜 페이팔을 방치하나」
+     * 23시 05분 점검이 「🔴 막혔다」를 찍었고 나는 그대로 업무보고에 올렸다.
+     * 실제로는 **페이팔이 멀쩡히 팔리고 있었다.** 손으로 눌러 보니 결제창이 뜬다.
+     *
+     * 까닭 둘 —
+     *   ① 새 창이 뜨면 puppeteer 가 그 창에 «붙으면서» Network.enable 을 부르는데
+     *      그것이 시간 초과로 터진다(ProtocolError). 결제창은 떴는데 자가 넘어졌다.
+     *   ② 그 오류를 `catch { 창떴나 = null }` 로 삼켜 까닭이 한 줄도 안 남았다.
+     *
+     * ⇒ 새 창에 «붙지 않는다». 크롬 대상 목록(127.0.0.1:9222/json/list)을 읽어서 센다.
+     * ⇒ 오류는 삼키지 않고 적는다. 「못 쟀다」만 적히면 다음 사람도 까닭을 모른다.
+     * ⚠ 단추 자체가 paypal.com/smart/buttons iframe 이다 — 그것을 창으로 세면
+     *   «누르기 전에도» 통과한다. 결제창은 type=page 이고 주소가 /pay · /checkoutnow 다.
+     *   (실측 2026-10-26: https://www.paypal.com/pay?atomic-event-state=…)
+     * ⛔ 페이팔 로그인·승인은 건드리지 않는다 — 창이 뜨는 것까지만 본다. 돈은 안 움직인다. */
     let 창떴나 = null;
+    let 창못잰까닭 = null;
     try {
-      const 전탭 = (await b.pages()).length;
-      const 새창약속 = new Promise((맞다) => {
-        const 손 = (t) => { b.off('targetcreated', 손); 맞다(t); };
-        b.on('targetcreated', 손);
-        setTimeout(() => { b.off('targetcreated', 손); 맞다(null); }, 15000);
-      });
-      /* 페이팔 단추는 iframe 안에 있다 — 그 틀 가운데를 누른다 */
+      const 대상들 = async () => {
+        const r = await fetch('http://127.0.0.1:9222/json/list', { signal: AbortSignal.timeout(5000) });
+        return (await r.json()).map((t) => ({ id: t.id, url: t.url || '', type: t.type }));
+      };
+      const 결제창인가 = (t) => t.type === 'page' && /paypal[.]com[/](pay|checkoutnow|webapps|signin)/i.test(t.url);
       const 틀 = await page.$('#paypalButtons iframe');
-      if (틀) {
-        const 네모 = await 틀.boundingBox();
-        if (네모) await page.mouse.click(네모.x + 네모.width / 2,네모.y + 20);
+      const 네모 = 틀 ? await 틀.boundingBox() : null;
+      if (!네모) { 창떴나 = false; 창못잰까닭 = '단추를 누를 자리가 없다'; }
+      else {
+        await page.mouse.click(네모.x + 네모.width / 2, 네모.y + 20);
+        창떴나 = false;
+        for (let i = 0; i < 20; i += 1) {
+          await new Promise((r) => setTimeout(r, 1000));
+          const 창 = (await 대상들()).filter(결제창인가);
+          if (창.length) {
+            창떴나 = true;
+            /* ⛔ 우리가 연 창은 우리가 닫는다. 붙지 않고 HTTP 로 닫는다 */
+            for (const t of 창) {
+              try { await fetch('http://127.0.0.1:9222/json/close/' + t.id, { signal: AbortSignal.timeout(4000) }); } catch { /* 넘어간다 */ }
+            }
+            break;
+          }
+        }
       }
-      const 새것 = await 새창약속;
-      await new Promise((r) => setTimeout(r, 4000));
-      const 뒤탭 = await b.pages();
-      const 페이팔창 = 뒤탭.map((p) => p.url()).filter((u) => /paypal\.com/i.test(u));
-      창떴나 = 페이팔창.length > 0 || (!!새것 && /paypal/i.test(새것.url() || ''));
-      /* ⛔ 우리가 연 창은 우리가 닫는다 — 사장님 창은 건드리지 않는다 */
-      for (const p of 뒤탭.slice(전탭)) { try { await p.close(); } catch { /* 그만 */ } }
-    } catch { 창떴나 = null; }
+    } catch (e) {
+      창떴나 = null;
+      창못잰까닭 = String(e?.message ?? e).slice(0, 100);
+      console.log('   ⬜ 결제창을 못 쟀다 — ' + 창못잰까닭);
+    }
 
     return { ...본것, 창떴나 };
   } catch { return null; }
