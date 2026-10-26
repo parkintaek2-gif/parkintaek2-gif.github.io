@@ -48,6 +48,9 @@ import { 이웃고르기 } from '../../lib/japan-company-page.mjs';
 import { 이은흑자해, 이은적자해, 해마다늘었나, 해줄 } from '../../lib/profit-streak.mjs';
 /* 🔴 화면에 한국어를 내지 않는다 — 자료의 업종이 한글이라 그대로 새던 자리다 */
 import { 업종말, 업종주소 } from '../../lib/sector-en.mjs';
+/* 🔴 [2026-10-27 · 1번, 5번 지시] 증권사 리서치 — /v1/research 에 496개사가 있는데 이 지면엔 한 줄도 없었다.
+   scripts/build-company-research.mjs 가 만든다(한글 없음·없는 값은 null). ⛔ 판정이 아니라 분포만 낸다 */
+import 리서치표 from '../../data/company-research.json';
 
 export async function getStaticPaths() {
   const 행들 = (fin as any).rows as any[];
@@ -112,6 +115,7 @@ export async function getStaticPaths() {
         /* 🔴 [2026-10-11 · 5번] 설립일 — DART 기업개황에 3,931/3,931 이 처음부터 있었다.
            받아 두고 묶음에 안 담아 이 지면이 모르고 있었다. ⛔ 없으면 null — 안 그린다 */
         설립일: 설립표.get(h.code) ?? null,
+        리서치: ((리서치표 as any).byCode as any)[h.code] ?? null,
         같은업종,
         업종회사수: (업종별.get(h.sector || 'Unclassified') ?? []).length,
       },
@@ -120,7 +124,8 @@ export async function getStaticPaths() {
   return 길;
 }
 
-const { code, nameEn, nameKo, market, sector, sectorSlug, 줄들, 흑자기록, 사람, 대표들, 설립일, 같은업종, 업종회사수 } = Astro.props as any;
+const { code, nameEn, nameKo, market, sector, sectorSlug, 줄들, 흑자기록, 사람, 대표들, 설립일, 같은업종, 업종회사수, 리서치 } = Astro.props as any;
+const 리서치메타 = (리서치표 as any)._meta;
 
 const 마지막 = 줄들[줄들.length - 1] ?? null;
 const 처음해 = 줄들[0]?.year ?? null;
@@ -136,7 +141,14 @@ const num = (n: number | null) =>
 const yr = (n: number | null) =>
   n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 1 });
 
-const title = `${nameEn} (${code}) — revenue, profit and assets, FY${끝해 ?? '—'}`;
+/* 🔴 [2026-10-27 · 5번 지시] 리서치가 있는 회사는 손님이 찾는 말(target price · analyst ratings)을 제목에.
+   ⛔ 목표주가를 낸 곳이 하나도 없으면 「target price」를 제목에 쓰지 않는다 — 없는 것을 약속하지 않는다 */
+const 리서치이름 = 리서치?.nameEn || nameEn;
+const 원 = (n: number | null) => (n == null ? '—' : `KRW ${Math.round(n).toLocaleString('en-GB')}`);
+const 리포트말 = 리서치 ? `${리서치.reports} ${리서치.brokerReports === 리서치.reports ? 'broker' : 'research'} report${리서치.reports === 1 ? '' : 's'}` : '';
+const title = 리서치 && 리서치.latestTargets.firms > 0 ? `${리서치이름} (${code}) target price & analyst ratings — ${리포트말}`
+  : 리서치 ? `${리서치이름} (${code}) analyst ratings & research — ${리포트말}`
+  : `${nameEn} (${code}) — revenue, profit and assets, FY${끝해 ?? '—'}`;
 const 설명줄 = 마지막 && 마지막.revenue != null
   ? `${nameEn} (${code}${market ? `, ${market}` : ''}) reported KRW ${bn(마지막.revenue)}bn revenue in ${끝해}.`
   : `${nameEn} (${code}${market ? `, ${market}` : ''}) — reported financials from Korean regulatory filings.`;
@@ -161,7 +173,14 @@ const 대표이름들 = (대표들 ?? [])
 const 대표줄 = 대표이름들.length
   ? ` Representative director (CEO): ${대표이름들.join(', ')}.`
   : '';
-const description = `${설명줄}${대표줄} Three years of filed revenue, operating profit, net profit, assets and equity, from the Korean regulator's own disclosure database.`;
+/* 리서치 요약 한 줄 — 분포만(범위·중앙값). 「컨센서스 판정」을 만들지 않는다 */
+const 리서치줄 = !리서치 ? ''
+  : 리서치.latestTargets.firms > 1
+    ? `${리포트말} from ${리서치.firms} firms (${리서치.first} to ${리서치.last}); latest targets ${원(리서치.latestTargets.min)}–${원(리서치.latestTargets.max)}, median ${원(리서치.latestTargets.median)}. `
+    : 리서치.latestTargets.firms === 1
+      ? `${리포트말} from ${리서치.firms} firm${리서치.firms === 1 ? '' : 's'} (${리서치.first} to ${리서치.last}); one stated target, ${원(리서치.latestTargets.min)}. `
+      : `${리포트말} from ${리서치.firms} firm${리서치.firms === 1 ? '' : 's'} (${리서치.first} to ${리서치.last}); no target price stated. `;
+const description = 리서치 ? `${리서치줄}${설명줄}${대표줄}` : `${설명줄}${대표줄} Three years of filed revenue, operating profit, net profit, assets and equity, from the Korean regulator's own disclosure database.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -208,6 +227,71 @@ const jsonLd = {
       </p>
       <p class="lede">{설명줄}</p>
     </header>
+
+    {리서치 && (
+      <section id="broker-research">
+        <h2>Broker research: target prices and ratings</h2>
+        <p class="fact">
+          <b>{리서치.reports}</b> report{리서치.reports === 1 ? '' : 's'} from <b>{리서치.firms}</b> firm{리서치.firms === 1 ? '' : 's'} between {리서치.first} and {리서치.last}.
+          {리서치.latestTargets.firms > 1 && (
+            <> Taking the latest stated target from each of {리서치.latestTargets.firms} firms, target prices range
+            from <b>{원(리서치.latestTargets.min)}</b> to <b>{원(리서치.latestTargets.max)}</b>; the median is <b>{원(리서치.latestTargets.median)}</b>.</>
+          )}
+          {리서치.latestTargets.firms === 1 && (<> One firm stated a target price: <b>{원(리서치.latestTargets.min)}</b>.</>)}
+          {리서치.latestTargets.firms === 0 && (<> None of these reports stated a target price.</>)}
+        </p>
+        <p class="note">
+          {리서치.reports > 리서치.latest.length ? `The ${리서치.latest.length} most recent reports, newest first. ` : 'Newest first. '}
+          Ratings are as each firm stated them, translated into English. "Not stated" means the
+          report carried no value — it is not a zero.
+        </p>
+        <div class="scroll">
+          <table class="research">
+            <thead>
+              {/* 폰(390px)에서 표가 옆으로 밀려도 목표주가는 첫 화면에 보이게 앞에 둔다 */}
+              <tr><th>Date</th><th>Target price</th><th>Rating</th><th>Firm</th><th>Analyst</th></tr>
+            </thead>
+            <tbody>
+              {리서치.latest.map((r: any) => (
+                <tr>
+                  <td><time datetime={r.date}>{r.date}</time></td>
+                  <td class={r.targetKrw == null ? 'dim' : ''}>{r.targetKrw == null ? 'Not stated' : 원(r.targetKrw)}</td>
+                  <td class={r.rating ? 'left' : 'left dim'}>{r.rating ?? 'Not stated'}</td>
+                  <td class="left">{r.firm}</td>
+                  <td class={r.analyst ? 'left' : 'left dim'}>{r.analyst ?? 'Not stated'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {리서치.latest.some((r: any) => r.firmType !== 'brokerage') && (
+          <p class="note">
+            Some publishers here are not securities firms — credit-information agencies and the Korea IR
+            Service publish company analysis but do not issue target prices.
+          </p>
+        )}
+        {리서치.latest.some((r: any) => r.analyst) && (
+          <p class="note">
+            Analyst names are our Roman spellings of the Korean names on the listing; the analyst may spell
+            their name differently. Where the listing gave no name, we took it from Hankyung Consensus only
+            when the date, firm and ticker pointed to exactly one report.
+          </p>
+        )}
+        <p class="note">
+          Report titles are not shown: the source lists them in Korean only, and we do not publish our own
+          translation of another firm's headline.
+        </p>
+        <p class="warn">
+          This is a record of what brokers published, not investment advice. It is a sample of broker
+          research — the reports our collection picked up, not every report written on this company — and the
+          range and median describe that sample, not a market consensus. These are statistics, not a verdict.
+        </p>
+        <p class="dim small">
+          Source: broker reports collected by SeoulMarkets from Naver Finance's research listing and from
+          brokers' own websites, {리서치메타.firstDay} to {리서치메타.lastDay}.
+        </p>
+      </section>
+    )}
 
     <section>
       <h2>Reported financials</h2>
@@ -496,6 +580,10 @@ const jsonLd = {
   .peers a { font-size: .92rem; color: #2a4d8f; text-decoration: none; }
   .peers a:hover { text-decoration: underline; }
   .more { font-size: .92rem; }
+  .research { font-size: .9rem; }
+  .research td, .research th { white-space: nowrap; padding: .4rem .5rem; }
+  .research td.left, .research thead th:nth-child(n+3) { text-align: left; }
+  .small { font-size: .8rem; margin: .6rem 0 0; }
   .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec;
          font-size: .84rem; color: #556; }
   .src p { margin: .5rem 0; }
