@@ -1781,6 +1781,43 @@ export const GET: APIRoute = async () => {
   entries.push({ path: '/service-years', priority: '0.9', changefreq: 'weekly' });
   entries.push({ path: '/age-in-headlines', priority: '0.9', changefreq: 'weekly' });
 
+  /**
+   * 🔴 [2026-10-26 · 사장님 지시] **한국어 리뷰 서비스.**
+   *   「케이컬쳐와이어를 한국어와 영어로 서비스하자... 카테고리는 크게 K-POP, 드라마리뷰,
+   *     쇼리뷰, e스포츠리뷰, 야구리뷰, 축구리뷰, 농구리뷰, 배구리뷰, 스포츠리뷰」
+   * ⛔ 분류 명칭을 여기 기재하지 않는다 — `src/lib/리뷰분류.mjs` 하나를 참조한다.
+   * ⛔ **리뷰가 0건인 분류는 사이트맵에 넣지 않는다.** 그 지면은 `noindex` 이므로, 넣으면
+   *   사이트맵과 메타태그가 어긋나 모순된 신호가 된다(이 파일 머리의 규칙 그대로).
+   */
+  {
+    const { 분류 } = await import('../../lib/리뷰분류.mjs');
+    const 리뷰 = (await getCollection('kcwReviews')).filter((e: any) => !e.data.draft);
+    if (리뷰.length) {
+      entries.push({ path: '/ko', priority: '0.9', changefreq: 'daily' });
+      for (const c of 분류) {
+        const 건수 = 리뷰.filter((r: any) => r.data.category === c.코드).length;
+        if (건수 > 0) entries.push({ path: `/ko/${c.코드}`, priority: '0.8', changefreq: 'daily' });
+      }
+      for (const r of 리뷰) {
+        const 리뷰날 = r.data.updatedDate ?? r.data.pubDate;
+        entries.push({
+          path: `/ko/review/${r.id}`,
+          priority: '0.9',
+          changefreq: 'monthly',
+          lastmod: new Date(리뷰날).toISOString().slice(0, 10),
+          /* ⛔ 사진이 없는 리뷰에 그림을 적지 않는다 — 없는 그림을 적으면 거짓 신호다 */
+          ...(r.data.image ? {
+            image: {
+              loc: `${ORIGIN}${r.data.image.src}`,
+              title: r.data.title,
+              caption: r.data.image.캡션,
+            },
+          } : {}),
+        });
+      }
+    }
+  }
+
   const articles = await getCollection('kcwArticles');
   for (const a of articles.filter((e) => !e.data.draft)) {
     const 날 = a.data.updatedDate ?? a.data.pubDate;
