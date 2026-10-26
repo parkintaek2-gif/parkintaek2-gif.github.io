@@ -1,0 +1,157 @@
+---
+/**
+ * /100y/students-per-teacher-2026 — **2026 교원 1명당 학생 수·교원 수** — 유치원·초·중·고, 교육기본통계
+ *
+ * ── 왜 만들었나 (2026-10-27 · 1번 · 「2027 교사 임용 17개 시도」 축의 롱테일) ──────────────
+ * 롱테일 「교원 1인당 학생 수 2026」「초등학교 교사 수」「전국 교사 몇 명」을 해마다 찾는 사람에게 학교급별로 답한다.
+ *        임용 경쟁률을 보러 온 사람이 «그 교사들이 지금 몇 명이고 학생은 몇 명인가»를 바로 이어 볼 수 있게 한다.
+ * 축     교육부·한국교육개발원 2026년 교육기본통계 보도자료(teacher-exam-2027.json 교육기본통계2026).
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ OECD 교육지표의 «교사 1인당 학생 수»와 맞대지 않는다 — 기준 연도·셈법(휴직·파견 교사)이 다르다.
+ * ⛔ 「교사가 남는다/모자란다」를 쓰지 않는다. 숫자만 놓는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/teacher-exam-2027.json';
+
+const d = (원 as any).교육기본통계2026;
+const 급: string[] = d.학교급;
+const 쉼 = (n: number) => n.toLocaleString();
+const 부호 = (n: number) => (n > 0 ? `+${쉼(n)}` : n < 0 ? `−${쉼(-n)}` : '0');
+const 율 = (a: number, b: number) => ((a / b) * 100).toFixed(1);
+const 행 = 급.map((k) => ({
+  k,
+  학교: d.학교수[k][0],
+  학생: d.학생수[k][0],
+  학생차: d.학생수[k][1],
+  학생율: 율(d.학생수[k][1], d.학생수[k][0] - d.학생수[k][1]),
+  교원: d.교원수[k][0],
+  교원차: d.교원수[k][1],
+  비: d.교원1인당학생[k][0].toFixed(1),
+  비앞: d.교원1인당학생[k][1].toFixed(1),
+  학급: d.학급당학생[k][0].toFixed(1),
+  학급앞: d.학급당학생[k][1],
+}));
+const 초 = 행.find((r) => r.k === '초등학교')!;
+const 합 = d.합계;
+
+const TITLE = `교원 1명당 학생 수 2026 — 초등 ${초.비}명, 교원 ${쉼(합.교원수[0])}명`;
+const desc =
+  `2026년 교육기본통계로 본 유치원·초·중·고 교원 수와 교원 1명당 학생 수입니다. 유·초·중등 교원은 ${쉼(합.교원수[0])}명으로 1년 새 ${쉼(합.교원수[1] - 합.교원수[0])}명 줄었고, ` +
+  `학생은 ${쉼(합.학생수[1] - 합.학생수[0])}명 줄었습니다. 초등학교 교원 1명당 학생은 ${초.비앞}명에서 ${초.비}명이 됐습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2026년 유·초·중등 교원 수와 교원 1인당 학생 수',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: '교육부·한국교육개발원' },
+    temporalCoverage: '2025/2026',
+    variableMeasured: ['학교 수', '학생 수', '교원 수', '교원 1인당 학생 수', '학급당 학생 수'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '2026년 우리나라 유·초·중등 교원은 몇 명인가요?',
+        acceptedAnswer: { '@type': 'Answer', text: `2026년 교육기본통계 기준 유·초·중등(특수학교 등 포함) 교원은 ${쉼(합.교원수[0])}명으로 전년(${쉼(합.교원수[1])}명)보다 ${쉼(합.교원수[1] - 합.교원수[0])}명 적습니다. ${행.map((r) => `${r.k} ${쉼(r.교원)}명`).join(', ')}입니다.` },
+      },
+      {
+        '@type': 'Question',
+        name: '교원 1인당 학생 수는 학교급별로 몇 명인가요?',
+        acceptedAnswer: { '@type': 'Answer', text: `${행.map((r) => `${r.k} ${r.비}명(전년 ${r.비앞}명)`).join(', ')}입니다. 네 학교급 모두 1년 전보다 같거나 적습니다.` },
+      },
+      {
+        '@type': 'Question',
+        name: '초등학생은 1년 새 몇 명 줄었나요?',
+        acceptedAnswer: { '@type': 'Answer', text: `초등학생은 ${쉼(초.학생)}명으로 ${쉼(-초.학생차)}명(${-Number(초.학생율)}%) 줄었습니다. 같은 기간 초등학교 교원은 ${쉼(-초.교원차)}명 줄었습니다.` },
+      },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>교원 1명당 학생 수 2026 —<br class="pcbr" /> 초등 {초.비}명</h1>
+  <p class="sub">
+    2027학년도 교사 임용시험 원서접수가 끝났습니다. 그 교사들이 들어갈 학교에 지금 교원은 몇 명이고 학생은 몇 명인지,
+    2026년 교육기본통계로 학교급마다 세웠습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">2026년 유·초·중등 교원 (2025년 {쉼(합.교원수[1])}명)</p>
+    <p class="answer-num">{쉼(합.교원수[0])}명</p>
+    <p class="answer-sub">학생 {쉼(합.학생수[0])}명 · 1년 새 학생 {쉼(합.학생수[1] - 합.학생수[0])}명 감소 · 교원 {쉼(합.교원수[1] - 합.교원수[0])}명 감소</p>
+  </div>
+
+  <p>
+    1년 사이 초등학생은 {쉼(-초.학생차)}명({-Number(초.학생율)}%) 줄었고 초등학교 교원은 {쉼(-초.교원차)}명 줄었습니다.
+    학생이 더 많이 줄어 초등학교 교원 1명당 학생은 {초.비앞}명에서 {초.비}명이 됐습니다.
+    중학교·고등학교는 학생이 줄고 교원은 조금 늘었습니다.
+  </p>
+
+  <h2>학교급별 — 교원 1명당 학생 수</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학교급</th><th>2026년</th><th>2025년</th><th>학급당 학생</th></tr></thead>
+      <tbody>
+        {행.map((r) => (
+          <tr><th>{r.k}</th><td class="num"><strong>{r.비}명</strong></td><td class="num">{r.비앞}명</td><td class="num">{r.학급}명</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>학교급별 — 학교·학생·교원</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학교급</th><th>학교</th><th>학생</th><th>학생 증감</th><th>교원</th><th>교원 증감</th></tr></thead>
+      <tbody>
+        {행.map((r) => (
+          <tr>
+            <th>{r.k}</th>
+            <td class="num">{쉼(r.학교)}</td>
+            <td class="num">{쉼(r.학생)}</td>
+            <td class="num">{부호(r.학생차)}</td>
+            <td class="num">{쉼(r.교원)}</td>
+            <td class="num">{부호(r.교원차)}</td>
+          </tr>
+        ))}
+        <tr><th>합계</th><td class="num">{쉼(합.학교수[0])}</td><td class="num">{쉼(합.학생수[0])}</td><td class="num">{부호(합.학생수[0] - 합.학생수[1])}</td><td class="num">{쉼(합.교원수[0])}</td><td class="num">{부호(합.교원수[0] - 합.교원수[1])}</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">합계 줄은 보도자료의 «유·초·중등» 합계입니다. 특수학교·각종학교 등이 함께 들어 있어 위 네 줄을 더한 값보다 큽니다.</p>
+
+  <h2>이어서 볼 것</h2>
+  <ul>
+    <li><a href="/teacher-exam-competition-2027">2027 중등교사 임용 경쟁률 17개 시도</a></li>
+    <li><a href="/elementary-teacher-exam-2027">2027 초등교사 임용 경쟁률 시도별</a></li>
+    <li><a href="/teacher-hiring-outlook-2030">교사 신규채용 전망 2027~2030</a></li>
+    <li><a href="/teacher-ratio-by-area">고등학교 교원 1명당 학생 수 시군구별</a></li>
+  </ul>
+
+  <h2>이 숫자를 어떻게 읽어야 하나요?</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 전국 평균이라 한 학교, 한 교실의 사정은 이 수와 다릅니다.</li>
+    <li>OECD 교육지표의 «교사 1인당 학생 수»는 기준 연도와 셈법(휴직·파견 교사를 빼는지)이 달라 이 표와 맞대지 않습니다.</li>
+    <li>교원이 남는지 모자라는지는 이 표가 답하지 않습니다. 과목·지역·학교마다 다르고, 그 수는 재지 않았습니다.</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    교육부·한국교육개발원 「2026년 교육기본통계 조사 결과 발표」(2026-08-26, 2026년 4월 1일 기준) 보도자료의 학교급별 표를 옮겼습니다 ·
+    저희가 받은 때 {(원 as any).만든날}
+  </p>
+
+  <NextQuestionBrief 모은것="교육부·한국교육개발원 2026년 교육기본통계의 학교급별 교원 수·학생 수·교원 1인당 학생 수" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

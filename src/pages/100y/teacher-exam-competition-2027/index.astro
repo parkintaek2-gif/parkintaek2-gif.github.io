@@ -1,0 +1,149 @@
+---
+/**
+ * /100y/teacher-exam-competition-2027 — **2027 중등교사 임용 경쟁률 17개 시도** — 선발·지원을 한 표에
+ *
+ * ── 왜 만들었나 (2026-10-27 · 1번 · 「2027 교사 임용 17개 시도」 축의 중심 지면) ──────────────
+ * 이슈   2027학년도 공립 중등교사 임용시험 원서접수 결과가 10월 21일 시도교육청마다 나왔다(1차 11월 28일).
+ *        기사는 제 시도만 다뤘고, 머리 수에 무엇을 넣었는지도 시도마다 달랐다.
+ * 축     17개 시도 발표를 하나하나 열어(경기·인천·충남·광주·전남은 교육청 원본 PDF·엑셀) 선발·지원을 옮기고
+ *        범위를 함께 적었다(teacher-exam-2027.json 중등). 교육부 수급방향(2027학년도 중등 4,700~5,100명)과 잇는다.
+ *
+ * ── ⛔ 지키는 것 ────────────────────────────────────────────────────────
+ * ⛔ 전국 경쟁률을 만들지 않는다 — 시도마다 범위가 달라 «발표 수를 더한 값»으로만 쓴다.
+ * ⛔ 「어디가 붙기 쉽다」를 쓰지 않는다. 원서 낸 사람 ÷ 뽑을 사람일 뿐이다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/teacher-exam-2027.json';
+
+const 전 = 원 as any;
+const c = 전.중등;
+const 쉼 = (n: number) => n.toLocaleString();
+const 나눔 = (a: number[] | null) => (a && a[0] ? (a[1] / a[0]).toFixed(2) : null);
+const 행 = c.시도
+  .map((r: any) => ({ ...r, 율: (r.지원 / r.선발).toFixed(2), 전율: r.전년 ? 나눔(r.전년) : r.전년율 != null ? r.전년율.toFixed(2) : null }))
+  .sort((a: any, b: any) => Number(b.율) - Number(a.율));
+const 선발합 = 행.reduce((a: number, r: any) => a + r.선발, 0);
+const 지원합 = 행.reduce((a: number, r: any) => a + r.지원, 0);
+const 경기 = 행.find((r: any) => r.시도 === '경기');
+const 맨위 = 행[0];
+const 맨아래 = 행[행.length - 1];
+const 전년있는곳 = 행.filter((r: any) => r.전율);
+const 오른곳 = 전년있는곳.filter((r: any) => Number(r.율) > Number(r.전율));
+const 범 = 전.수급방향.신규채용['2027'].중등;
+
+const TITLE = `2027 중등교사 임용 경쟁률 17개 시도 — ${맨위.시도} ${맨위.율}대 1, ${맨아래.시도} ${맨아래.율}대 1`;
+const desc =
+  `2027학년도 공립 중등교사 임용시험(1차 11월 28일) 원서접수 결과를 17개 시도 발표로 한 표에 모았습니다. 발표 수를 더하면 ${쉼(선발합)}명 선발에 ${쉼(지원합)}명이 지원했고, ` +
+  `지원 ÷ 선발은 ${맨위.시도} ${맨위.율}부터 ${맨아래.시도} ${맨아래.율}까지입니다. 시도마다 머리 수에 넣은 범위를 함께 적었습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2027학년도 공립 중등교사 임용시험 17개 시도 선발·지원 인원',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    sourceOrganization: { '@type': 'Organization', name: '17개 시·도교육청' },
+    spatialCoverage: '대한민국 17개 시·도',
+    variableMeasured: ['선발 인원', '지원자 수', '지원 ÷ 선발'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '2027학년도 중등교사 임용시험 1차는 언제인가요?',
+        acceptedAnswer: { '@type': 'Answer', text: `2026년 11월 28일(토)입니다. 원서는 10월 16일 마감됐고, 시도교육청은 10월 21일 접수 결과를 냈습니다.` },
+      },
+      {
+        '@type': 'Question',
+        name: '2027 중등 임용 지원자는 모두 몇 명인가요?',
+        acceptedAnswer: { '@type': 'Answer', text: `17개 시도 발표의 공립 머리 수를 더하면 ${쉼(선발합)}명 선발에 ${쉼(지원합)}명 지원입니다. 시도마다 유·초 몫 비교과나 장애 구분을 넣은 범위가 달라 하나의 전국 경쟁률로 묶지 않았습니다.` },
+      },
+      ...행.slice(0, 8).map((r: any) => ({
+        '@type': 'Question',
+        name: `2027 ${r.시도} 중등교사 임용 경쟁률은 얼마인가요?`,
+        acceptedAnswer: { '@type': 'Answer', text: `${r.선발}명 선발에 ${쉼(r.지원)}명이 지원해 ${r.율}대 1입니다(지원 ÷ 선발, ${r.범위}).${r.전율 ? ` 2026학년도는 ${r.전율}대 1이었습니다.` : ''}` },
+      })),
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>2027 중등교사 임용 경쟁률 —<br class="pcbr" /> 17개 시도 한 표</h1>
+  <p class="sub">
+    공립 중등교사 임용 원서접수 결과가 10월 21일 시도마다 따로 나왔습니다. 1차 시험은 11월 28일입니다.
+    17개 시도 발표를 하나하나 열어 선발·지원을 옮기고, 머리 수에 무엇이 들었는지까지 함께 적었습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">17개 시도 발표 수를 더한 값 — 공립 중등</p>
+    <p class="answer-num">{쉼(선발합)}명 선발 · {쉼(지원합)}명 지원</p>
+    <p class="answer-sub">지원 ÷ 선발 {맨위.시도} {맨위.율} ↔ {맨아래.시도} {맨아래.율} · 경기 {쉼(경기.선발)}명 선발</p>
+  </div>
+
+  <p>
+    지원자 100명 가운데 {Math.round((경기.지원 / 지원합) * 100)}명은 경기에 원서를 냈습니다. 경기는 {쉼(경기.선발)}명 선발에 {쉼(경기.지원)}명이 지원해 {경기.율}대 1입니다.
+    전년 수가 함께 발표된 {전년있는곳.length}곳({전년있는곳.map((r: any) => r.시도).join('·')})은 {오른곳.length === 전년있는곳.length ? '모두' : `${오른곳.length}곳이`} 1년 전보다 지원 ÷ 선발이 높아졌습니다.
+    교육부는 2027학년도 공립 중등 교과교사 신규채용을 {쉼(범[0])}~{쉼(범[1])}명으로 전망했습니다(<a href="/teacher-hiring-outlook-2030">신규채용 전망</a>).
+  </p>
+
+  <h2>시도별 — 공립 중등</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>선발</th><th>지원</th><th>지원÷선발</th><th>2026학년도</th></tr></thead>
+      <tbody>
+        {행.map((r: any) => (
+          <tr><th>{r.시도}</th><td class="num">{쉼(r.선발)}</td><td class="num">{쉼(r.지원)}</td><td class="num"><strong>{r.율}</strong></td><td class="num">{r.전율 ?? '미확인'}</td></tr>
+        ))}
+        <tr><th>더한 값</th><td class="num">{쉼(선발합)}</td><td class="num">{쉼(지원합)}</td><td class="num">—</td><td class="num">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">«더한 값» 줄의 경쟁률은 비웠습니다. 시도마다 범위가 달라 나누면 뜻이 흐려집니다.</p>
+
+  <h2>시도마다 머리 수에 넣은 것 · 가장 높고 낮은 과목</h2>
+  <ul class="small">
+    {행.map((r: any) => (
+      <li>
+        <strong>{r.시도}</strong> — {r.범위}{r.일반 ? ` · 장애 구분을 뺀 일반 ${쉼(r.일반[0])}명에 ${쉼(r.일반[1])}명` : ''}
+        {r.최고 ? ` · 가장 높은 과목 ${r.최고}` : ''}{r.최저 ? ` · 가장 낮은 과목 ${r.최저}` : ''}
+        {r['⚠'] ? ` · ${r['⚠']}` : ''}
+      </li>
+    ))}
+  </ul>
+  <p class="note">과목별 수는 시도마다 기준(일반만, 장애 포함, 비교과 포함)이 달라 시도끼리 견주지 않습니다. 1~2명 뽑는 과목은 몇 명 차이로 크게 움직입니다.</p>
+
+  <h2>같은 축에서 갈라 본 것</h2>
+  <ul>
+    <li><a href="/gyeonggi-teacher-exam-2027">경기 중등교사 임용 과목별 — 37과목 선발·지원</a></li>
+    <li><a href="/private-school-teacher-exam-2027">사립학교 교사 위탁 채용 시도별</a></li>
+    <li><a href="/elementary-teacher-exam-2027">초등교사 임용 경쟁률 시도별 — 1차 11월 7일</a></li>
+    <li><a href="/teacher-hiring-outlook-2030">교사 신규채용 전망 2027~2030</a></li>
+    <li><a href="/students-per-teacher-2026">교원 1명당 학생 수 2026</a></li>
+  </ul>
+
+  <h2>이 숫자를 어떻게 읽어야 하나요?</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 원서를 낸 사람 수를 뽑을 사람 수로 나눈 값일 뿐, 누가 붙을지를 말하지 않습니다. 1차에 실제로 오지 않는 사람도 있습니다.</li>
+    <li>서울·경기·인천·충남은 유치원·초등 몫 보건·사서·전문상담·영양까지 머리 수에 들어 있고, 다른 곳은 아닐 수 있습니다. 위 목록에 시도마다 적었습니다.</li>
+    <li>사립학교 위탁 채용은 이 표에 넣지 않았습니다(<a href="/private-school-teacher-exam-2027">따로 모은 표</a>).</li>
+    <li>전년 수는 교육청 발표에 함께 실린 곳만 적었습니다. 나머지는 0이 아니라 미확인입니다.</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    17개 시도교육청 「2027학년도 중등학교교사 등 임용후보자 선정경쟁시험 응시원서 접수현황」(2026-10-19 18:00 기준, 10-21 발표) —
+    경기·인천·충남·광주·전남은 교육청 게시판 원본, 나머지 12곳은 교육청 발표를 실은 기사(대부분 10월 21일자)를 시도마다 열어 옮겼습니다 · 저희가 받은 때 {전.만든날}
+  </p>
+
+  <NextQuestionBrief 모은것="2027학년도 공립 중등교사 임용시험 17개 시도교육청 원서접수 결과를 시도마다 원본·기사로 열어 범위까지 맞대어 모은 표" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .small { font-size: .92em; }
+</style>
