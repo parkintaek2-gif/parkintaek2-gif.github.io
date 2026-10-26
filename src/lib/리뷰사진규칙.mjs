@@ -100,6 +100,36 @@ export function 사진위반(리뷰) {
   return 위반;
 }
 
+/**
+ * 🔴🔴 [2026-10-26 · 라이브에서 터진 것] **사진이 404 였다.**
+ * ───────────────────────────────────────────────────────────────────────────
+ * 첫 리뷰를 배포하고 라이브를 눌러 보니 지면은 200 인데 **사진만 404** 였다.
+ *   `public/review/…`      → `dist/review/…`          서울마켓츠 뿌리
+ *   kculturewire.com 요청  → `/wikitip` 이 앞에 붙는다 → `dist/wikitip/review/…` 를 찾는다
+ * ⇒ 세 사이트가 한 서버를 쓰므로 **KCW 가 쓰는 파일은 `public/wikitip/` 밑에 두어야 한다**
+ *   (`public/wikitip/cardnews` 가 이미 그렇게 돼 있었다).
+ *
+ * ⛔ 빌드는 통과했다. 스키마도 통과했다. **파일이 거기 있는지는 아무도 안 봤다.**
+ *   그래서 여기서 본다 — 없으면 빌드가 선다.
+ * ⚠ 브라우저 주소(`/review/…`)와 파일 자리(`public/wikitip/review/…`)는 다르다.
+ *   둘을 헷갈리지 않도록 이 함수 하나가 그 변환을 쥔다.
+ *
+ * @param {string} src  리뷰에 적힌 주소 (`/review/…`)
+ * @param {{존재하나?: (경로: string) => boolean}} 도구  검사용으로 갈아끼울 수 있게 둔다
+ */
+export function 사진파일자리(src) {
+  return `public/wikitip${String(src ?? '')}`;
+}
+
+export function 사진파일없나(리뷰, 존재하나) {
+  const src = 리뷰?.image?.src;
+  if (!src || typeof 존재하나 !== 'function') return null;
+  const 자리 = 사진파일자리(src);
+  if (존재하나(자리)) return null;
+  return `사진 파일이 없다 — ${자리} 에 두어야 kculturewire.com 에서 ${src} 로 나간다`
+    + ' (세 사이트가 한 서버를 쓴다. public/ 뿌리에 두면 404 다)';
+}
+
 /* ───────────────────────────── 자가시험 ─────────────────────────────
    [실행] node src/lib/리뷰사진규칙.mjs --자가시험
    ⛔ 아래 사례는 가공한 것이 아니다. ①은 금일 오전 실제로 송고된 사진이다. */
@@ -199,6 +229,15 @@ if (process.argv.includes('--자가시험')) {
   검증('도메인에 포함된 logo 는 적출하지 않는다', 엠블럼판별({
     src: '/review/match.jpg', 출처주소: 'https://logos-example.com/photo/match.jpg', 캡션: '경기',
   }).length === 0);
+
+  /* 🔴 라이브에서 실제로 404 가 났던 자리 */
+  검증('🔴 사진 파일 자리는 public/wikitip 밑이다 — 뿌리에 두면 404 다',
+    사진파일자리('/review/a.jpg') === 'public/wikitip/review/a.jpg');
+  검증('🔴 파일이 없으면 적출한다',
+    (사진파일없나(정상, () => false) ?? '').includes('사진 파일이 없다'));
+  검증('파일이 있으면 통과한다', 사진파일없나(정상, () => true) === null);
+  검증('사진 없는 리뷰는 파일 검사를 하지 않는다',
+    사진파일없나({ category: 'show' }, () => false) === null);
 
   console.log(`\n  ${총건수 - 실패건수}/${총건수} 통과`);
   process.exit(실패건수 ? 1 : 0);

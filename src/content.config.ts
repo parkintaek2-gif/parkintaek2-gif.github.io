@@ -2,8 +2,9 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 /* 🔴 2026-10-26 사장님 지시로 신설된 리뷰 서비스. 분류와 사진 규칙의 정본은 아래 두 파일이다 */
+import fs from 'node:fs';
 import { 분류코드 } from './lib/리뷰분류.mjs';
-import { 사진위반 } from './lib/리뷰사진규칙.mjs';
+import { 사진위반, 사진파일없나 } from './lib/리뷰사진규칙.mjs';
 
 /**
  * 기사 frontmatter 스키마.
@@ -261,6 +262,10 @@ const kcwReviews = defineCollection({
     for (const 항목 of 사진위반(d)) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['image'], message: 항목 });
     }
+    /* 🔴 [2026-10-26] 첫 리뷰를 배포하고 보니 지면은 200 인데 **사진만 404** 였다.
+       규칙은 다 통과했는데 «파일이 그 자리에 있는지»는 아무도 안 봤다. 여기서 본다. */
+    const 파일흠 = 사진파일없나(d, (자리) => fs.existsSync(자리));
+    if (파일흠) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['image'], message: 파일흠 });
   }),
 });
 
