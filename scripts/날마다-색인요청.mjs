@@ -278,6 +278,12 @@ export function 넣어졌나(글) {
 export function 자가시험() {
   const 결과 = [];
   const T = (이름, 참) => 결과.push({ 이름, 참: !!참 });
+  /* 이 파일 자신을 읽어서 «고쳐 둔 것이 그대로 있나»를 본다 —
+     돌려 보지 않고도 되돌아간 자리를 잡는다(2026-10-27) */
+  const 이파일글 = (() => {
+    try { return fs.readFileSync(fileURLToPath(import.meta.url), 'utf8'); }
+    catch (e) { return ''; }
+  })();
 
   T('⛔ 오늘 날짜에 toISOString 을 안 쓴다',
     /^\d{4}-\d{2}-\d{2}$/.test(오늘(new Date(2026, 9, 4))) && 오늘(new Date(2026, 9, 4)) === '2026-10-04');
@@ -359,6 +365,21 @@ export function 자가시험() {
   T('단추를 못 찾은 것도 가린다', 넣어졌나('⬜ 「색인 생성 요청」 단추를 못 찾았다') === '못찾음');
   T('⛔ 모르면 null — 「됨」으로 적지 않는다', 넣어졌나('아무 글') === null && 넣어졌나('') === null);
 
+  /* 🔴🔴 [2026-10-27] **큰 사이트맵을 못 받고 「비었다」로 넘어가던 흠**을 잡는 자리.
+     KLifeMap 사이트맵이 1MB 를 넘긴 날부터 한 달 넘게 차례에서 통째로 빠져 있었다.
+     ⛔ 「없다」와 「못 쟀다」를 가르지 않으면 자물쇠가 초록불을 켜면서 아무 일도 안 한다. */
+  T('🔴 1MB 가 넘는 사이트맵을 받을 버퍼를 둔다',
+    /maxBuffer/.test(이파일글) && /64 \* 1024 \* 1024/.test(이파일글));
+  T('🔴 못 받으면 빈 글자가 아니라 null 을 돌려준다 — 「비었다」와 가른다',
+    /return null;\s*\/\* 빈 글자가 아니라 null/.test(이파일글));
+  T('🔴 못 받은 까닭을 화면에 적는다 — 조용히 넘어가지 않는다',
+    /못 받았다: /.test(이파일글));
+  /* ⚠ 「옛 꼴이 «없나»」를 글자로 찾는 검사는 두지 않는다 — 찾는 글자가 검사 자신의
+     글자에 걸려 영영 빨강으로 남는다. 두 번 겪고 지웠다(2026-10-27).
+     있어야 할 것 셋(버퍼·null·까닭 적기)으로 충분하다. */
+  T('🔴 기다리는 시간이 1.2MB 를 받을 만큼인가',
+    /'--max-time', '30'/.test(이파일글));
+
   const 빨강 = 결과.filter((r) => !r.참).length;
   console.log('■ 날마다 색인요청 — 자가시험');
   for (const r of 결과) console.log(`  ${r.참 ? '✅' : '🔴'} ${r.이름}`);
@@ -436,9 +457,27 @@ if (내가실행됐다) {
     'https://seoulmarkets.com/sitemap-japan.xml',
   ];
   const { execFileSync } = await import('node:child_process');
+  /* 🔴🔴🔴 [2026-10-27 · 5번 실측] **KLifeMap 사이트맵이 통째로 빠져 있었다.**
+   *   이 자가 날마다 「⬜ https://klifemap.ai/sitemap.xml — 못 받았거나 비었다」를 찍고
+   *   조용히 다음 것으로 넘어갔다. 그래서 하루 열 장이 전부 SeoulMarkets 로 갔다.
+   *
+   *   라이브를 재 보니 그 사이트맵은 멀쩡했다 — 200 · 1,206,178 bytes · 주소 3,203개.
+   *   ⛔ 깨진 것은 사이트가 아니라 **이 자**였다. `execFileSync` 의 기본 버퍼가 1MB 라
+   *     1.2MB 를 받다가 터졌고, `catch { return ''; }` 가 그 오류를 삼켜
+   *     「빈 사이트맵」으로 둔갑시켰다.
+   *
+   *   ⛔⛔ **못 받은 것을 빈 것으로 돌려주지 않는다.** 그러면 「없다」와 「못 쟀다」가
+   *     같아 보이고, 자물쇠는 날마다 초록불을 켜면서 아무 일도 안 한다.
+   *   ⚠ 사이트맵은 앞으로도 커진다. 버퍼를 넉넉히 둔다. */
   const 받아온다 = (주소) => {
-    try { return execFileSync('curl', ['-sS', '--max-time', '20', 주소], { encoding: 'utf8' }); }
-    catch { return ''; }
+    try {
+      return execFileSync('curl', ['-sS', '--max-time', '30', 주소],
+        { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+    } catch (e) {
+      console.log('🔴 ' + 주소 + ' — 못 받았다: ' + (e && e.message ? String(e.message).slice(0, 120) : '까닭 모름'));
+      console.log('   ⛔ 이것은 「비었다」가 아니라 «못 쟀다»다. 이 사이트맵 몫이 오늘 통째로 빈다.');
+      return null;                      /* 빈 글자가 아니라 null — 비어 있는 것과 가른다 */
+    }
   };
 
   const 고른것 = 인자.find((a) => a.startsWith('http'));
@@ -477,8 +516,11 @@ if (내가실행됐다) {
   let 모두 = []; let 사이트맵 = null;
   for (const s of 볼사이트맵) {
     const xml = 받아온다(s);
+    /* ⛔ 「못 받았다」와 「받았는데 비었다」를 가른다 — 받아온다() 가 못 받으면 null 이다.
+       못 받은 것을 조용히 「비었다」로 적으면 그 사이트가 영영 차례에서 빠진다(2026-10-27). */
+    if (xml === null) continue;
     const 목록 = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
-    if (!목록.length) { console.log(`⬜ ${s} — 못 받았거나 비었다. 다음 것을 본다`); continue; }
+    if (!목록.length) { console.log(`⬜ ${s} — 받았는데 주소가 한 줄도 없다. 다음 것을 본다`); continue; }
     /* ⭐ 아직 한 번도 안 넣은 것이 남아 있는 사이트맵에서 멈춘다 */
     const 남은수 = (아직안넣은것(목록, 줄들) ?? []).length;
     console.log(`   ${s} — ${목록.length}장 중 아직 ${남은수}장 안 넣었다`);
