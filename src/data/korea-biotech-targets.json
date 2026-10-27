@@ -1,0 +1,2828 @@
+{
+ "_meta": {
+  "what": "Korean biotech and pharmaceutical companies with broker research in our sample: per-company target-price distribution and latest close.",
+  "rule": "KSIC code on the DART company register starts with 21 (pharmaceuticals, medicinal chemicals and medical supplies) or is 70113 (medical and pharmaceutical research and development); plus companies named in namedAdditions.",
+  "namedAdditions": [
+   {
+    "code": "326030",
+    "reason": "Filed under KSIC 7011 (natural-science research) rather than the narrower 70113, but its business report filed with DART in March 2025 describes a single operating segment, new drugs."
+   }
+  ],
+  "researchSource": "Broker reports listed on Naver Finance's research board and on brokers' own websites, collected by SeoulMarkets (archive/index/research.ndjson). Analyst names partly matched from Hankyung Consensus where date, firm and ticker matched exactly one report.",
+  "researchFirstDay": "2026-06-29",
+  "researchLastDay": "2026-10-26",
+  "priceSource": "Financial Services Commission stock price data (data.go.kr 15094808), daily close.",
+  "priceFile": "20261023.ndjson",
+  "priceDate": "2026-10-23",
+  "industrySource": "DART company register (Financial Supervisory Service), industry code field.",
+  "matched": 265,
+  "withResearch": 36,
+  "withTarget": 17,
+  "withGap": 17,
+  "order": "Most firms with a stated target first; then most reports; then ticker.",
+  "builtBy": "scripts/build-korea-sector-targets.mjs — do not edit by hand"
+ },
+ "rows": [
+  {
+   "code": "128940",
+   "nameEn": "Hanmi Pharmaceutical",
+   "ksic": "21212",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 14,
+   "brokerReports": 14,
+   "firms": 10,
+   "first": "2026-08-25",
+   "last": "2026-10-21",
+   "targets": {
+    "firms": 10,
+    "min": 530000,
+    "max": 730000,
+    "median": 680000,
+    "oldest": "2026-08-25",
+    "newest": "2026-10-21"
+   },
+   "latestRating": "Buy",
+   "close": 361500,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.8810511756569848
+  },
+  {
+   "code": "207940",
+   "nameEn": "Samsung Biologics",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 16,
+   "brokerReports": 16,
+   "firms": 9,
+   "first": "2026-08-31",
+   "last": "2026-10-22",
+   "targets": {
+    "firms": 9,
+    "min": 1850000,
+    "max": 2000000,
+    "median": 2000000,
+    "oldest": "2026-08-31",
+    "newest": "2026-10-22"
+   },
+   "latestRating": "Buy",
+   "close": 1466000,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.36425648021828105
+  },
+  {
+   "code": "145020",
+   "nameEn": "Hugel",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 5,
+   "brokerReports": 5,
+   "firms": 5,
+   "first": "2026-09-23",
+   "last": "2026-10-21",
+   "targets": {
+    "firms": 5,
+    "min": 250000,
+    "max": 340000,
+    "median": 300000,
+    "oldest": "2026-09-23",
+    "newest": "2026-10-21"
+   },
+   "latestRating": "Buy",
+   "close": 180100,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.6657412548584121
+  },
+  {
+   "code": "326030",
+   "nameEn": "SK Biopharmaceuticals",
+   "ksic": "7011",
+   "ksicEn": null,
+   "includedBy": "named",
+   "reason": "Filed under KSIC 7011 (natural-science research) rather than the narrower 70113, but its business report filed with DART in March 2025 describes a single operating segment, new drugs.",
+   "market": "KOSPI",
+   "reports": 7,
+   "brokerReports": 7,
+   "firms": 5,
+   "first": "2026-08-27",
+   "last": "2026-10-21",
+   "targets": {
+    "firms": 4,
+    "min": 155000,
+    "max": 160000,
+    "median": 160000,
+    "oldest": "2026-08-27",
+    "newest": "2026-10-21"
+   },
+   "latestRating": "Buy",
+   "close": 76900,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.080624187256177
+  },
+  {
+   "code": "006280",
+   "nameEn": "GC Biopharma",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 4,
+   "brokerReports": 4,
+   "firms": 4,
+   "first": "2026-10-20",
+   "last": "2026-10-22",
+   "targets": {
+    "firms": 4,
+    "min": 180000,
+    "max": 190000,
+    "median": 182500,
+    "oldest": "2026-10-20",
+    "newest": "2026-10-22"
+   },
+   "latestRating": "Buy",
+   "close": 132200,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.38048411497730705
+  },
+  {
+   "code": "196170",
+   "nameEn": "Alteogen",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 6,
+   "brokerReports": 5,
+   "firms": 4,
+   "first": "2026-08-24",
+   "last": "2026-10-16",
+   "targets": {
+    "firms": 3,
+    "min": 450000,
+    "max": 540000,
+    "median": 450000,
+    "oldest": "2026-09-03",
+    "newest": "2026-10-12"
+   },
+   "latestRating": "Buy",
+   "close": 224500,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.0044543429844097
+  },
+  {
+   "code": "068270",
+   "nameEn": "Celltrion",
+   "ksic": "21100",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 3,
+   "brokerReports": 3,
+   "firms": 3,
+   "first": "2026-09-28",
+   "last": "2026-10-23",
+   "targets": {
+    "firms": 3,
+    "min": 260000,
+    "max": 300000,
+    "median": 280000,
+    "oldest": "2026-09-28",
+    "newest": "2026-10-23"
+   },
+   "latestRating": "Buy",
+   "close": 194400,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.440329218106996
+  },
+  {
+   "code": "195940",
+   "nameEn": "HK inno.N",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 3,
+   "brokerReports": 3,
+   "firms": 3,
+   "first": "2026-09-10",
+   "last": "2026-10-13",
+   "targets": {
+    "firms": 3,
+    "min": 56000,
+    "max": 68000,
+    "median": 66000,
+    "oldest": "2026-09-10",
+    "newest": "2026-10-13"
+   },
+   "latestRating": "Buy",
+   "close": 34100,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.935483870967742
+  },
+  {
+   "code": "086450",
+   "nameEn": "Dongkook Pharmaceutical",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 3,
+   "brokerReports": 3,
+   "firms": 3,
+   "first": "2026-10-02",
+   "last": "2026-10-26",
+   "targets": {
+    "firms": 2,
+    "min": 30000,
+    "max": 32000,
+    "median": 31000,
+    "oldest": "2026-10-02",
+    "newest": "2026-10-26"
+   },
+   "latestRating": "Buy",
+   "close": 24450,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.2678936605316973
+  },
+  {
+   "code": "000100",
+   "nameEn": "Yuhan",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-08-19",
+   "last": "2026-10-16",
+   "targets": {
+    "firms": 2,
+    "min": 110000,
+    "max": 140000,
+    "median": 125000,
+    "oldest": "2026-08-19",
+    "newest": "2026-10-16"
+   },
+   "latestRating": "Buy",
+   "close": 84700,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.4757969303423848
+  },
+  {
+   "code": "170900",
+   "nameEn": "Dong-A ST",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-08-28",
+   "last": "2026-10-19",
+   "targets": {
+    "firms": 2,
+    "min": 50000,
+    "max": 50000,
+    "median": 50000,
+    "oldest": "2026-08-28",
+    "newest": "2026-10-19"
+   },
+   "latestRating": "Buy",
+   "close": 34600,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.4450867052023122
+  },
+  {
+   "code": "009420",
+   "nameEn": "HanAll Biopharma",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-09-28",
+   "last": "2026-09-28",
+   "targets": {
+    "firms": 1,
+    "min": 70000,
+    "max": 70000,
+    "median": 70000,
+    "oldest": "2026-09-28",
+    "newest": "2026-09-28"
+   },
+   "latestRating": "Buy",
+   "close": 40200,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.7412935323383085
+  },
+  {
+   "code": "237690",
+   "nameEn": "ST Pharm",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 1,
+   "first": "2026-09-22",
+   "last": "2026-09-28",
+   "targets": {
+    "firms": 1,
+    "min": 170000,
+    "max": 170000,
+    "median": 170000,
+    "oldest": "2026-09-28",
+    "newest": "2026-09-28"
+   },
+   "latestRating": "Buy",
+   "close": 89900,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.8909899888765296
+  },
+  {
+   "code": "340570",
+   "nameEn": "T&L",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-08-19",
+   "last": "2026-09-23",
+   "targets": {
+    "firms": 1,
+    "min": 48000,
+    "max": 48000,
+    "median": 48000,
+    "oldest": "2026-08-19",
+    "newest": "2026-08-19"
+   },
+   "latestRating": "Buy",
+   "close": 24400,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.9672131147540983
+  },
+  {
+   "code": "068760",
+   "nameEn": "Celltrion Pharm Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-09-02",
+   "last": "2026-09-02",
+   "targets": {
+    "firms": 1,
+    "min": 61000,
+    "max": 61000,
+    "median": 61000,
+    "oldest": "2026-09-02",
+    "newest": "2026-09-02"
+   },
+   "latestRating": "Buy",
+   "close": 37600,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.6223404255319149
+  },
+  {
+   "code": "086900",
+   "nameEn": "Medytox",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-08-20",
+   "last": "2026-08-20",
+   "targets": {
+    "firms": 1,
+    "min": 70000,
+    "max": 70000,
+    "median": 70000,
+    "oldest": "2026-08-20",
+    "newest": "2026-08-20"
+   },
+   "latestRating": "Market Perform",
+   "close": 67400,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.03857566765578646
+  },
+  {
+   "code": "185750",
+   "nameEn": "Chong Kun Dang Pharmaceutical",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-08-24",
+   "last": "2026-08-24",
+   "targets": {
+    "firms": 1,
+    "min": 110000,
+    "max": 110000,
+    "median": 110000,
+    "oldest": "2026-08-24",
+    "newest": "2026-08-24"
+   },
+   "latestRating": "Buy",
+   "close": 64700,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.7001545595054095
+  },
+  {
+   "code": "078140",
+   "nameEn": "Daebonglsco.,Ltd",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 2,
+   "brokerReports": 1,
+   "firms": 2,
+   "first": "2026-09-28",
+   "last": "2026-10-08",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 6800,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "115180",
+   "nameEn": "Qurient Co., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-08-24",
+   "last": "2026-10-14",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": "Not rated",
+   "close": 19470,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "220100",
+   "nameEn": "FutureChem",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 2,
+   "brokerReports": 1,
+   "firms": 2,
+   "first": "2026-09-04",
+   "last": "2026-10-26",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 8990,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "246960",
+   "nameEn": "SCL Science Inc.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-08-27",
+   "last": "2026-08-28",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 2300,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "002800",
+   "nameEn": "SINSIN PHARMACEUTICAL Co., LTD.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-09-28",
+   "last": "2026-09-28",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 4080,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "023910",
+   "nameEn": "Daehan New Pharm",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-08-26",
+   "last": "2026-08-26",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 25300,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "042520",
+   "nameEn": "HANS BIOMED CORPORATION",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-09-30",
+   "last": "2026-09-30",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 17960,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "086820",
+   "nameEn": "Bio Solution Co.,Ltd.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-09-07",
+   "last": "2026-09-07",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 5720,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "200130",
+   "nameEn": "Kolmar BNH",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-10-22",
+   "last": "2026-10-22",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 7560,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "200670",
+   "nameEn": "Humedix",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-23",
+   "last": "2026-10-23",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 23700,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "217730",
+   "nameEn": "KANGSTEM BIOTECH CO., LTD.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-09-28",
+   "last": "2026-09-28",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 1834,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "226950",
+   "nameEn": "OliX Pharmaceuticals",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-08-19",
+   "last": "2026-08-19",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 103300,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "290650",
+   "nameEn": "L&C Bio",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-13",
+   "last": "2026-10-13",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 60000,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "293780",
+   "nameEn": "Aptabio Therapeutics Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-08-26",
+   "last": "2026-08-26",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 6240,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "298380",
+   "nameEn": "ABL Bio",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-09-01",
+   "last": "2026-09-01",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 44250,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "314140",
+   "nameEn": "RPbio Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-09-04",
+   "last": "2026-09-04",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 5430,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "424870",
+   "nameEn": "ImmuneOncia Therapeutics, Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-06-29",
+   "last": "2026-06-29",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 2925,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "456160",
+   "nameEn": "G2GBIO, Inc.",
+   "ksic": "21212",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-21",
+   "last": "2026-10-21",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 49700,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "475830",
+   "nameEn": "Orum Therapeutics, Inc.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-09-07",
+   "last": "2026-09-07",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": "Not rated",
+   "close": 16260,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  }
+ ],
+ "noResearch": [
+  {
+   "code": "066930",
+   "nameEn": "Abbott Diagnostics Korea Inc.",
+   "ksic": "21309",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "174900",
+   "nameEn": "AbClon Inc.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "203400",
+   "nameEn": "ABION Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "950130",
+   "nameEn": "Access Bio, Inc.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "179530",
+   "nameEn": "ADBIOTECH Co.,Ltd.",
+   "ksic": "21230",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "001540",
+   "nameEn": "AHN-GOOK PHARMACEUTICAL Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "002250",
+   "nameEn": "ALVOGEN KOREA CO.,LTD",
+   "ksic": "21212",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "074430",
+   "nameEn": "AMINOLOGICS CO.,LTD.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "251280",
+   "nameEn": "AngioLab, Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "397030",
+   "nameEn": "AprilBio Co.,Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "003060",
+   "nameEn": "Aprogen Biologics Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "007460",
+   "nameEn": "Aprogen, Inc",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "261780",
+   "nameEn": "ARIBIOLAB",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "246720",
+   "nameEn": "ASTA Co., Ltd.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "354390",
+   "nameEn": "BASKHANBIOPharma Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "200780",
+   "nameEn": "BCWORLDPHARM Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "053030",
+   "nameEn": "Binex Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "251120",
+   "nameEn": "BIO-FD&C CO.,LTD.",
+   "ksic": "2110",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "281310",
+   "nameEn": "Bio-Synectics, Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "199730",
+   "nameEn": "BioInfra Co.,Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "266470",
+   "nameEn": "BioInfra Life Science Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "064550",
+   "nameEn": "BIONEERCORPORATION",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "377740",
+   "nameEn": "BioNote, Inc.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "099430",
+   "nameEn": "BioPlus Co., Ltd",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "086040",
+   "nameEn": "BiotoxtechCo.,Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "256840",
+   "nameEn": "BNC KOREA, Inc.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "206640",
+   "nameEn": "Boditech Med Inc.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "003850",
+   "nameEn": "Boryung Corporation",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "003000",
+   "nameEn": "BUKWANG PHARMACEUTICAL IND CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "214370",
+   "nameEn": "CAREGEN CO.,LTD.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "331920",
+   "nameEn": "Celemics, Inc.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "352770",
+   "nameEn": "Celestra Inc.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "049960",
+   "nameEn": "CELL BIOTECH CO ., LTD",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "308430",
+   "nameEn": "Cellbion Co., Ltd",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "268600",
+   "nameEn": "Cellivery Therapeutics, Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "049180",
+   "nameEn": "CELLUMED CO., LTD.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "083790",
+   "nameEn": "CG Invites Co., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "085660",
+   "nameEn": "Chabiotech Co.,Ltd.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "052670",
+   "nameEn": "CHEIL BIO CO., LTD.",
+   "ksic": "21230",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "034940",
+   "nameEn": "ChoA Pharmaceutical Co., LTD.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "001630",
+   "nameEn": "CHONGKUNDANG HOLDINGS CORP.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "015170",
+   "nameEn": "CHOONG ANG BIOTECH CO.,LTD",
+   "ksic": "21230",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "072020",
+   "nameEn": "CHOONG ANG VACCINE LABORATORY",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "063160",
+   "nameEn": "CKD Bio Corp.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "058820",
+   "nameEn": "CMG Pharmaceutical Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "166480",
+   "nameEn": "CORESTEMCHEMON Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "215570",
+   "nameEn": "CRONEX.CO.,LTD",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "060590",
+   "nameEn": "CTC BIO, INC.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "086460",
+   "nameEn": "Curable. Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "456190",
+   "nameEn": "CURACHEM Co., ltd.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "365270",
+   "nameEn": "curacle co., ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "372320",
+   "nameEn": "Curocell Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "217330",
+   "nameEn": "Cytogen, Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "347850",
+   "nameEn": "D&D Pharmatech Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "067080",
+   "nameEn": "DAE HWA PHARM CO., LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "054670",
+   "nameEn": "Daehan Nupharm Co.,Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "036480",
+   "nameEn": "Daesung Microbiological Labs. Co. Ltd",
+   "ksic": "21230",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "003220",
+   "nameEn": "DAEWON PHARMACEUTICAL CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "016890",
+   "nameEn": "Daewoong Bio Inc.",
+   "ksic": "21100",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "003090",
+   "nameEn": "DAEWOONG CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "069620",
+   "nameEn": "DAEWOONG PHARMA",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "041500",
+   "nameEn": "DBL Co., Ltd.",
+   "ksic": "21309",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "086080",
+   "nameEn": "DiNonA Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "006620",
+   "nameEn": "DongKoo Bio & Pharma Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "303810",
+   "nameEn": "DongKook Life Science Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "006600",
+   "nameEn": "DONGSHIN PHARMACEUTICAL CO.,LTD",
+   "ksic": "21212",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "002210",
+   "nameEn": "DONGSUNG PHARMACEUTICAL CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "000020",
+   "nameEn": "DONGWHA PHARM.CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "223250",
+   "nameEn": "DreamCIS INC.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "383930",
+   "nameEn": "DT&CRO CO., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "176750",
+   "nameEn": "DuChemBio Co, LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "456070",
+   "nameEn": "ENCell Co., Ltd.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "140610",
+   "nameEn": "Ensol Biosciences Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "183490",
+   "nameEn": "ENZYCHEM LIFESCIENCES CORPORATION",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "245620",
+   "nameEn": "Eone Diagnomics Genome Center Co., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "446440",
+   "nameEn": "Epi Biotech Co., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "206650",
+   "nameEn": "EuBiologics Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "263050",
+   "nameEn": "Eutilex Co.,Ltd.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "185490",
+   "nameEn": "EyeGene,Inc",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "341170",
+   "nameEn": "Future Medicine  Co., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "142280",
+   "nameEn": "GC Medical Science Corporation",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "234690",
+   "nameEn": "GC WellBeing Corporation",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "229000",
+   "nameEn": "Gencurix Inc.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "109820",
+   "nameEn": "GENEMATRIX INC.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "011000",
+   "nameEn": "GeneOne Life Science, Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "095700",
+   "nameEn": "Genexine, Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "389030",
+   "nameEn": "GENINUS Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "225220",
+   "nameEn": "GENOLUTION INC.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "314130",
+   "nameEn": "Genome&Company",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "358570",
+   "nameEn": "GI Innovation Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "031390",
+   "nameEn": "GREEN CROSS CELL CORPORATION",
+   "ksic": "21100",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "114450",
+   "nameEn": "GREEN LIFESCIENCE CO., LTD.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "293480",
+   "nameEn": "Hana Pharm. Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "002390",
+   "nameEn": "HANDOK Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "003040",
+   "nameEn": "HANIL PHARMACEUTICALIND CO.,LTD",
+   "ksic": "21212",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "044070",
+   "nameEn": "HANSEOPHARM.CO.,LTD.",
+   "ksic": "21212",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "450330",
+   "nameEn": "HASS Corp.",
+   "ksic": "21309",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "084990",
+   "nameEn": "Helixmith Co., Ltd",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "106190",
+   "nameEn": "HIGH TECH PHARM CO.,LTD.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "278650",
+   "nameEn": "HLB bioStep Co.,Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "028300",
+   "nameEn": "HLB Co.,LTD.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "187420",
+   "nameEn": "HLB Genex, Inc.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "067630",
+   "nameEn": "HLB Life Science CO.,LTD.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "046210",
+   "nameEn": "HLB PANAGENE Co., LTD.",
+   "ksic": "21301",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "196300",
+   "nameEn": "HLB Pep Co., Ltd.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "343090",
+   "nameEn": "HLB SCIENCE Inc.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "036840",
+   "nameEn": "Hucord Co., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "205470",
+   "nameEn": "HUMASIS CO., LTD.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "243070",
+   "nameEn": "HUONS CO., LTD.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "084110",
+   "nameEn": "Huons Global Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "061250",
+   "nameEn": "HWAIL PHARM. CO., LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "004310",
+   "nameEn": "HYUNDAI PHARMACEUTICAL CO., LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "039060",
+   "nameEn": "IBXENE CORP.",
+   "ksic": "21100",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "249420",
+   "nameEn": "IL DONG PHARMACEUTICAL CO., LTD.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "000230",
+   "nameEn": "ILDONG HOLDINGS CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "003120",
+   "nameEn": "ILSUNG IS CO., LTD.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "007570",
+   "nameEn": "ILYANG PHARMACEUTICAL CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "456570",
+   "nameEn": "IMGT Corporation Limited",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "950260",
+   "nameEn": "INGENIA Therapeutics Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "287840",
+   "nameEn": "IntoCell, Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "048530",
+   "nameEn": "iNtRON Biotechnology, Inc.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "216400",
+   "nameEn": "INVITES BIOCORE CO., LTD",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "086890",
+   "nameEn": "ISU Abxis Co., Ltd.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "309710",
+   "nameEn": "IT-CHEM Co., Ltd.",
+   "ksic": "21100",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "271980",
+   "nameEn": "JEIL PHARMACEUTICAL CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "216080",
+   "nameEn": "JETEMA Co.,Ltd.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "007370",
+   "nameEn": "JIN YANG PHARMACEUTICAL. CO., LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "234080",
+   "nameEn": "JW LIFESCIENCE CORPORATION",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "001060",
+   "nameEn": "JW PHARMACEUTICAL",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "067290",
+   "nameEn": "JW SHINYAK CORPORATION",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "446600",
+   "nameEn": "KaiBioTech Co., Ltd",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "220250",
+   "nameEn": "KAINOS MEDICINE, INC.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "256940",
+   "nameEn": "Keeps Biopharma Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "348150",
+   "nameEn": "KoBioLabs, Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "038710",
+   "nameEn": "Kolmarpharma Co.,Ltd.",
+   "ksic": "21212",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "102940",
+   "nameEn": "KOLON LIFE SCIENCE Inc.",
+   "ksic": "2110",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "950160",
+   "nameEn": "Kolon TissueGene, Inc.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "041960",
+   "nameEn": "KOMIPHARM INTERNATIONAL CO., LTD.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "260660",
+   "nameEn": "KOREA ARLICO PHARM CO.,LTD.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "032300",
+   "nameEn": "KOREA PHARMA Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "033270",
+   "nameEn": "KOREA UNITED PHARM INC",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "014570",
+   "nameEn": "KOREAN DRUG CO., LTD.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "002720",
+   "nameEn": "Kukje Pharma Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "307750",
+   "nameEn": "KUKJEON Co.,Ltd",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "009290",
+   "nameEn": "KWANGDONG PHARMACEUTICAL CO.,LTD",
+   "ksic": "21220",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "214390",
+   "nameEn": "KYONGBO PHARMACEUTICAL CO., LTD.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "053950",
+   "nameEn": "KYUNG NAM PHARM.CO.,LTD.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "011040",
+   "nameEn": "KyungdongPharm",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "084650",
+   "nameEn": "LabGenomics. Co., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "068870",
+   "nameEn": "LG LIFE SCIENCES,  LTD.",
+   "ksic": "21212",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "141080",
+   "nameEn": "LigaChem Biosciences Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "233250",
+   "nameEn": "Median Diagnostics Inc.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "078160",
+   "nameEn": "MEDIPOSTCO.,LTD.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "236340",
+   "nameEn": "Medizen Humancare Inc Co., Ltd",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "235980",
+   "nameEn": "MedPacto, Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "059210",
+   "nameEn": "METABIOMED.CO.,LTD",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "140410",
+   "nameEn": "Mezzion Pharma Co., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "432980",
+   "nameEn": "MFC Co., Ltd.",
+   "ksic": "21100",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "322970",
+   "nameEn": "Moogene Medi Co., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "317450",
+   "nameEn": "MYUNGIN PHARM.CO., LTD",
+   "ksic": "21212",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "017180",
+   "nameEn": "MYUNGMOON PHARM CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "007390",
+   "nameEn": "NATURECELL CO.,LTD.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "138610",
+   "nameEn": "NIBEC CO., LTD.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "182400",
+   "nameEn": "NKGen Biotech Korea Co., Ltd.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "262760",
+   "nameEn": "NKMAX Co.,Ltd.",
+   "ksic": "21212",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "229500",
+   "nameEn": "NovMetaPharma Co., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "244460",
+   "nameEn": "OLIPASS CORPORATION",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "153710",
+   "nameEn": "Optipharm.CO.,LTD",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "131030",
+   "nameEn": "OPTUS Pharmaceutical Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "002630",
+   "nameEn": "ORIENTBIO Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "039200",
+   "nameEn": "OSCOTECInc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "222110",
+   "nameEn": "Pangen Biotech Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "241820",
+   "nameEn": "PCL. Inc",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "187660",
+   "nameEn": "Penetrium Bioscience Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "304840",
+   "nameEn": "PeopleBio, Inc.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "087010",
+   "nameEn": "Peptron, Inc.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "208340",
+   "nameEn": "PharmAbcine Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "217950",
+   "nameEn": "PHARMARESEARCH BIO Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "214450",
+   "nameEn": "PharmaResearch Co., Ltd.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "004720",
+   "nameEn": "PharmGen Science, Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "388870",
+   "nameEn": "Pharos iBio Co., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "041910",
+   "nameEn": "Polaris AI Pharma Corp.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "298060",
+   "nameEn": "POONGJEON PHARMACY CO.,LTD.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "334970",
+   "nameEn": "Prestige Biologics Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "950210",
+   "nameEn": "Prestige BioPharma Limited",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "296160",
+   "nameEn": "ProGen, Co,, LTD.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "464490",
+   "nameEn": "QuadMedicine Inc.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "348080",
+   "nameEn": "Quratis Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "003190",
+   "nameEn": "R Bio CO., LTD.",
+   "ksic": "21100",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "102460",
+   "nameEn": "REYON PHARMACEUTICAL CO., LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "376900",
+   "nameEn": "ROKIT HEALTHCARE Inc.",
+   "ksic": "21309",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "476830",
+   "nameEn": "Rznomics Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "304360",
+   "nameEn": "S.Biomedics Co., Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "000250",
+   "nameEn": "SAM CHUN DANG PHARM CO. LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "009300",
+   "nameEn": "Sam-A Pharm. Co. Ltd",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "014950",
+   "nameEn": "SAMIK  PHARM.  CO.,LTD.",
+   "ksic": "21212",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "000520",
+   "nameEn": "SAMIL PHARMACEUTICAL CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "005500",
+   "nameEn": "SAMJIN PHARMACEUTICAL CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "001360",
+   "nameEn": "SAMSUNG PHARMACEUTICAL.CO.,Ltd.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "096530",
+   "nameEn": "SEEGENE, INC.",
+   "ksic": "2130",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "018680",
+   "nameEn": "SEOUL PHARMA CO.,LTD",
+   "ksic": "2121",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "084450",
+   "nameEn": "SESILCORPORATION",
+   "ksic": "21100",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "100700",
+   "nameEn": "SEWOONMEDICAL CO,. LTD.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "378800",
+   "nameEn": "Shaperon Inc.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "012790",
+   "nameEn": "SHINIL PHARMACEUTICAL CO., LTD.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "019170",
+   "nameEn": "SHINPOONG PHARMACEUTICAL CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "215600",
+   "nameEn": "SillaJen, Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "302440",
+   "nameEn": "SK Bioscience Co.,Ltd",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "258540",
+   "nameEn": "SL Therapeutics, Inc.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "253840",
+   "nameEn": "Sugentech, Inc.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "067370",
+   "nameEn": "SunBio, Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "246710",
+   "nameEn": "T&R Biofab Co., Ltd",
+   "ksic": "21100",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "464280",
+   "nameEn": "TDSPHARM Co., Ltd.",
+   "ksic": "21212",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "191420",
+   "nameEn": "Tego Science, Inc.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "200230",
+   "nameEn": "TELCON RF PHARMACEUTICAL. Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "066700",
+   "nameEn": "THERAGEN ETEX CO.,LTD.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "321550",
+   "nameEn": "TiumBio Co., Ltd.",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "080720",
+   "nameEn": "UNION KOREA PHARM CO.,Ltd",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "323990",
+   "nameEn": "Vaxcell-Bio Therapeutics",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "082800",
+   "nameEn": "VIVOZON PHARMACEUTICAL CO., LTD.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "016580",
+   "nameEn": "WHANIN PHARM CO.,LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "330350",
+   "nameEn": "Withus Pharmaceutical. Co., LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "278380",
+   "nameEn": "Wonbiogen Co., Ltd.",
+   "ksic": "21309",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "307280",
+   "nameEn": "Wonbiogen Co.,Ltd.",
+   "ksic": "213",
+   "ksicEn": "Medical supplies",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "018620",
+   "nameEn": "WooGeneB&GCO.,Ltd",
+   "ksic": "21230",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "373110",
+   "nameEn": "Xcell Therapeutics Inc.",
+   "ksic": "211",
+   "ksicEn": "Basic medicinal substances and biological products",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "338840",
+   "nameEn": "Y-Biologics, Inc",
+   "ksic": "70113",
+   "ksicEn": "Medical and pharmaceutical research and development",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "003520",
+   "nameEn": "YUNGJIN PHARM. CO., LTD",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "000220",
+   "nameEn": "Yuyu Pharma, Inc.",
+   "ksic": "212",
+   "ksicEn": "Medicines",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  }
+ ],
+ "ruleMisses": [
+  {
+   "code": "310210",
+   "nameEn": "Voronoi, Inc.",
+   "ksic": "701",
+   "ksicEn": "natural-science and engineering research",
+   "reports": 2
+  },
+  {
+   "code": "476060",
+   "nameEn": "Onconic Therapeutics Inc.",
+   "ksic": "701",
+   "ksicEn": "natural-science and engineering research",
+   "reports": 1
+  },
+  {
+   "code": "468530",
+   "nameEn": "PROTEINA CO.,LTD.",
+   "ksic": "701",
+   "ksicEn": "natural-science and engineering research",
+   "reports": 2
+  },
+  {
+   "code": "394800",
+   "nameEn": "3billion Inc.",
+   "ksic": "701",
+   "ksicEn": "natural-science and engineering research",
+   "reports": 1
+  }
+ ]
+}

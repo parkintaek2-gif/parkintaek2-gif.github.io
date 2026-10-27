@@ -1,0 +1,16 @@
+---
+/*
+ * /data/korea-defense-target-prices — **한국 방산·항공우주(한화에어로스페이스·현대로템·LIG·KAI …) 종목의 증권사 목표주가를 한 화면에.**
+ *
+ * ── 왜 (2026-10-27 · 1번) ────────────────────────────────────────────────
+ * 반도체 지면(/data/korea-semiconductor-target-prices)과 같은 방법·같은 정직 규칙으로, 해외 개인 투자자가
+ * 많이 찾는 업종을 하나씩 주소로 낸다. 지면은 src/components/SectorTargetPage.astro 한 벌로 그린다.
+ * 업종 규칙(KSIC 코드)·이름 박은 예외와 까닭·놓치는 예는 src/lib/sector-targets.mjs 의 defense 줄에 있다.
+ *
+ * 자료: src/data/korea-defense-targets.json (scripts/build-korea-sector-targets.mjs defense)
+ */
+import SectorTargetPage from '../../components/SectorTargetPage.astro';
+import data from '../../data/korea-defense-targets.json';
+---
+
+<SectorTargetPage sectorKey="defense" data={data} />

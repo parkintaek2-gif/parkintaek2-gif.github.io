@@ -412,6 +412,11 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/account-name-variants', changefreq: 'monthly', priority: '0.8' },
       /* [2026-10-27 · 1번 · 5번 지시] 반도체 목표주가 한 화면 — 지면·사이트맵·llms 를 한 커밋에 */
       { loc: '/data/korea-semiconductor-target-prices', changefreq: 'weekly', priority: '0.9' },
+      /* [2026-10-27 · 1번] 같은 꼴 업종 지면 넷 — 조선·방산·2차전지·제약바이오(src/lib/sector-targets.mjs) */
+      { loc: '/data/korea-shipbuilding-target-prices', changefreq: 'weekly', priority: '0.9' },
+      { loc: '/data/korea-defense-target-prices', changefreq: 'weekly', priority: '0.9' },
+      { loc: '/data/korea-battery-target-prices', changefreq: 'weekly', priority: '0.9' },
+      { loc: '/data/korea-biotech-target-prices', changefreq: 'weekly', priority: '0.9' },
       // 🔴 [2026-09-18 · 6번] 이 파일의 넷째 사고 — 신용등급·외국인보유·재무축 지면 다섯이
       // 같은 실수로 빠져 있었다(9/15~9/17에 만들고 이 목록에 안 넣음). 사이트맵이 11줄로
       // 보인 진짜 까닭은 「자료가 없어서」가 아니라 이 목록이 낡아서였다.

@@ -1,0 +1,356 @@
+{
+ "_meta": {
+  "what": "Korean defense and aerospace companies with broker research in our sample: per-company target-price distribution and latest close.",
+  "rule": "KSIC code on the DART company register starts with 252 (weapons and ammunition) or 313 (aircraft, spacecraft and their engines and parts); plus companies named in namedAdditions.",
+  "namedAdditions": [
+   {
+    "code": "272210",
+    "reason": "Filed under KSIC 26299 (other electronic components), but its business report filed with DART in March 2025 gives its defense segment KRW 2,098.8bn of KRW 2,803.7bn total 2024 revenue (74.9%)."
+   },
+   {
+    "code": "064350",
+    "reason": "Filed under KSIC 31910 (railway equipment), but its business report filed with DART in March 2025 reports defense as one of its three operating segments, alongside rail and plant."
+   }
+  ],
+  "researchSource": "Broker reports listed on Naver Finance's research board and on brokers' own websites, collected by SeoulMarkets (archive/index/research.ndjson). Analyst names partly matched from Hankyung Consensus where date, firm and ticker matched exactly one report.",
+  "researchFirstDay": "2026-06-29",
+  "researchLastDay": "2026-10-26",
+  "priceSource": "Financial Services Commission stock price data (data.go.kr 15094808), daily close.",
+  "priceFile": "20261023.ndjson",
+  "priceDate": "2026-10-23",
+  "industrySource": "DART company register (Financial Supervisory Service), industry code field.",
+  "matched": 17,
+  "withResearch": 9,
+  "withTarget": 5,
+  "withGap": 5,
+  "order": "Most firms with a stated target first; then most reports; then ticker.",
+  "builtBy": "scripts/build-korea-sector-targets.mjs — do not edit by hand"
+ },
+ "rows": [
+  {
+   "code": "064350",
+   "nameEn": "Hyundai Rotem",
+   "ksic": "31910",
+   "ksicEn": null,
+   "includedBy": "named",
+   "reason": "Filed under KSIC 31910 (railway equipment), but its business report filed with DART in March 2025 reports defense as one of its three operating segments, alongside rail and plant.",
+   "market": "KOSPI",
+   "reports": 12,
+   "brokerReports": 12,
+   "firms": 8,
+   "first": "2026-09-30",
+   "last": "2026-10-20",
+   "targets": {
+    "firms": 8,
+    "min": 150000,
+    "max": 226000,
+    "median": 170000,
+    "oldest": "2026-10-06",
+    "newest": "2026-10-20"
+   },
+   "latestRating": "Buy",
+   "close": 82700,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.0556227327690446
+  },
+  {
+   "code": "079550",
+   "nameEn": "LIG Defense&Aerospace Co., Ltd.",
+   "ksic": "25200",
+   "ksicEn": "Weapons and ammunition",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 6,
+   "brokerReports": 6,
+   "firms": 5,
+   "first": "2026-09-30",
+   "last": "2026-10-22",
+   "targets": {
+    "firms": 4,
+    "min": 830000,
+    "max": 1120000,
+    "median": 975000,
+    "oldest": "2026-09-30",
+    "newest": "2026-10-22"
+   },
+   "latestRating": "Buy",
+   "close": 475500,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.050473186119874
+  },
+  {
+   "code": "047810",
+   "nameEn": "Korea Aerospace Industries",
+   "ksic": "31311",
+   "ksicEn": "Manned aircraft, spacecraft and auxiliary equipment",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 4,
+   "brokerReports": 4,
+   "firms": 3,
+   "first": "2026-09-30",
+   "last": "2026-10-12",
+   "targets": {
+    "firms": 3,
+    "min": 182000,
+    "max": 186000,
+    "median": 186000,
+    "oldest": "2026-10-01",
+    "newest": "2026-10-12"
+   },
+   "latestRating": "Buy",
+   "close": 102200,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.8199608610567515
+  },
+  {
+   "code": "012450",
+   "nameEn": "Hanwha Aerospace",
+   "ksic": "31321",
+   "ksicEn": "Aircraft engines",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 5,
+   "brokerReports": 5,
+   "firms": 3,
+   "first": "2026-08-24",
+   "last": "2026-10-20",
+   "targets": {
+    "firms": 2,
+    "min": 1550000,
+    "max": 1650000,
+    "median": 1600000,
+    "oldest": "2026-10-01",
+    "newest": "2026-10-20"
+   },
+   "latestRating": "Buy",
+   "close": 792000,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.0202020202020203
+  },
+  {
+   "code": "272210",
+   "nameEn": "Hanwha Systems",
+   "ksic": "26299",
+   "ksicEn": null,
+   "includedBy": "named",
+   "reason": "Filed under KSIC 26299 (other electronic components), but its business report filed with DART in March 2025 gives its defense segment KRW 2,098.8bn of KRW 2,803.7bn total 2024 revenue (74.9%).",
+   "market": "KOSPI",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-10-06",
+   "last": "2026-10-19",
+   "targets": {
+    "firms": 2,
+    "min": 98000,
+    "max": 136000,
+    "median": 117000,
+    "oldest": "2026-10-06",
+    "newest": "2026-10-19"
+   },
+   "latestRating": "Buy",
+   "close": 66300,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.7647058823529411
+  },
+  {
+   "code": "462350",
+   "nameEn": "INNOSPACE Co., Ltd.",
+   "ksic": "31311",
+   "ksicEn": "Manned aircraft, spacecraft and auxiliary equipment",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-10-21",
+   "last": "2026-10-21",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 4950,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "478340",
+   "nameEn": "Nara Space Technology Inc.",
+   "ksic": "31311",
+   "ksicEn": "Manned aircraft, spacecraft and auxiliary equipment",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-10-21",
+   "last": "2026-10-21",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 10000,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "484590",
+   "nameEn": "SAMYANG COMTECH CO., LTD.",
+   "ksic": "25200",
+   "ksicEn": "Weapons and ammunition",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-13",
+   "last": "2026-10-13",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 5960,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "488900",
+   "nameEn": "Vitzro Nextech Co., LTD",
+   "ksic": "31322",
+   "ksicEn": "Aircraft parts",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-10-21",
+   "last": "2026-10-21",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 8410,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  }
+ ],
+ "noResearch": [
+  {
+   "code": "067390",
+   "nameEn": "AeroSpace Technology of Korea, Inc.",
+   "ksic": "31322",
+   "ksicEn": "Aircraft parts",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "263540",
+   "nameEn": "Earth & Aerospace Manufacturing Ind. Co. Ltd",
+   "ksic": "31322",
+   "ksicEn": "Aircraft parts",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "010820",
+   "nameEn": "FIRSTEC CO.,LTD.",
+   "ksic": "252",
+   "ksicEn": "Weapons and ammunition",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "221840",
+   "nameEn": "HIZEAERO Co.,Ltd.",
+   "ksic": "313",
+   "ksicEn": "Aircraft, spacecraft and parts",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "274090",
+   "nameEn": "Kencoa Aerospace Corporation",
+   "ksic": "31322",
+   "ksicEn": "Aircraft parts",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "288180",
+   "nameEn": "KP Aero Industries Co., Ltd.",
+   "ksic": "31322",
+   "ksicEn": "Aircraft parts",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "474170",
+   "nameEn": "Lumir Inc.",
+   "ksic": "31311",
+   "ksicEn": "Manned aircraft, spacecraft and auxiliary equipment",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "099320",
+   "nameEn": "SatrecInitiativeCo.,Ltd.",
+   "ksic": "3131",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  }
+ ],
+ "ruleMisses": [
+  {
+   "code": "103140",
+   "nameEn": "Poongsan",
+   "ksic": "242",
+   "ksicEn": "non-ferrous metals",
+   "reports": 4
+  },
+  {
+   "code": "000880",
+   "nameEn": "Hanwha",
+   "ksic": "20494",
+   "ksicEn": "explosives",
+   "reports": 2
+  },
+  {
+   "code": "064960",
+   "nameEn": "SNT Motiv",
+   "ksic": "303",
+   "ksicEn": "motor vehicle parts",
+   "reports": 1
+  }
+ ]
+}

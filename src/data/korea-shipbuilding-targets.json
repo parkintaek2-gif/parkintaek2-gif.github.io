@@ -1,0 +1,320 @@
+{
+ "_meta": {
+  "what": "Korean shipbuilding companies with broker research in our sample: per-company target-price distribution and latest close.",
+  "rule": "KSIC code on the DART company register starts with 311 (building of ships and boats, including floating structures and ship sections); plus companies named in namedAdditions.",
+  "namedAdditions": [
+   {
+    "code": "009540",
+    "reason": "Filed under KSIC 64992 (holding companies), but its business report filed with DART in March 2025 puts the shipbuilding segment at 82.0% of its 2024 revenue."
+   }
+  ],
+  "researchSource": "Broker reports listed on Naver Finance's research board and on brokers' own websites, collected by SeoulMarkets (archive/index/research.ndjson). Analyst names partly matched from Hankyung Consensus where date, firm and ticker matched exactly one report.",
+  "researchFirstDay": "2026-06-29",
+  "researchLastDay": "2026-10-26",
+  "priceSource": "Financial Services Commission stock price data (data.go.kr 15094808), daily close.",
+  "priceFile": "20261023.ndjson",
+  "priceDate": "2026-10-23",
+  "industrySource": "DART company register (Financial Supervisory Service), industry code field.",
+  "matched": 19,
+  "withResearch": 6,
+  "withTarget": 6,
+  "withGap": 6,
+  "order": "Most firms with a stated target first; then most reports; then ticker.",
+  "builtBy": "scripts/build-korea-sector-targets.mjs — do not edit by hand"
+ },
+ "rows": [
+  {
+   "code": "010140",
+   "nameEn": "Samsung Heavy Industries",
+   "ksic": "3111",
+   "ksicEn": "Building of ships and floating structures",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 6,
+   "brokerReports": 6,
+   "firms": 5,
+   "first": "2026-09-29",
+   "last": "2026-10-19",
+   "targets": {
+    "firms": 5,
+    "min": 33000,
+    "max": 42000,
+    "median": 35000,
+    "oldest": "2026-09-29",
+    "newest": "2026-10-19"
+   },
+   "latestRating": "Buy",
+   "close": 16830,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.0796197266785503
+  },
+  {
+   "code": "329180",
+   "nameEn": "HD Hyundai Heavy Industries",
+   "ksic": "31113",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 6,
+   "brokerReports": 6,
+   "firms": 5,
+   "first": "2026-09-23",
+   "last": "2026-10-19",
+   "targets": {
+    "firms": 5,
+    "min": 720000,
+    "max": 840000,
+    "median": 806000,
+    "oldest": "2026-09-23",
+    "newest": "2026-10-19"
+   },
+   "latestRating": "Buy",
+   "close": 305000,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.6426229508196721
+  },
+  {
+   "code": "042660",
+   "nameEn": "Hanwha Ocean",
+   "ksic": "3111",
+   "ksicEn": "Building of ships and floating structures",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 5,
+   "brokerReports": 5,
+   "firms": 4,
+   "first": "2026-09-29",
+   "last": "2026-10-19",
+   "targets": {
+    "firms": 4,
+    "min": 110000,
+    "max": 128000,
+    "median": 119500,
+    "oldest": "2026-09-29",
+    "newest": "2026-10-19"
+   },
+   "latestRating": "Buy",
+   "close": 55300,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.1609403254972874
+  },
+  {
+   "code": "009540",
+   "nameEn": "HD Korea Shipbuilding & Offshore Engineering",
+   "ksic": "64992",
+   "ksicEn": null,
+   "includedBy": "named",
+   "reason": "Filed under KSIC 64992 (holding companies), but its business report filed with DART in March 2025 puts the shipbuilding segment at 82.0% of its 2024 revenue.",
+   "market": "KOSPI",
+   "reports": 4,
+   "brokerReports": 4,
+   "firms": 3,
+   "first": "2026-08-25",
+   "last": "2026-10-19",
+   "targets": {
+    "firms": 3,
+    "min": 470000,
+    "max": 532000,
+    "median": 530000,
+    "oldest": "2026-08-25",
+    "newest": "2026-10-19"
+   },
+   "latestRating": "Buy",
+   "close": 248000,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.1370967741935485
+  },
+  {
+   "code": "439260",
+   "nameEn": "DAEHAN SHIPBUILDING Co., Ltd.",
+   "ksic": "3111",
+   "ksicEn": "Building of ships and floating structures",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 1,
+   "first": "2026-09-29",
+   "last": "2026-09-29",
+   "targets": {
+    "firms": 1,
+    "min": 75000,
+    "max": 75000,
+    "median": 75000,
+    "oldest": "2026-09-29",
+    "newest": "2026-09-29"
+   },
+   "latestRating": "Buy",
+   "close": 37050,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.0242914979757085
+  },
+  {
+   "code": "075580",
+   "nameEn": "Sejin Heavy Industries",
+   "ksic": "31114",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-09-01",
+   "last": "2026-09-01",
+   "targets": {
+    "firms": 1,
+    "min": 18500,
+    "max": 18500,
+    "median": 18500,
+    "oldest": "2026-09-01",
+    "newest": "2026-09-01"
+   },
+   "latestRating": "Buy",
+   "close": 7480,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.4732620320855614
+  }
+ ],
+ "noResearch": [
+  {
+   "code": "064820",
+   "nameEn": "CAPE INDUSTRIES LTD.",
+   "ksic": "31114",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "031990",
+   "nameEn": "DaesunSipbuilding&Engineering",
+   "ksic": "3111",
+   "ksicEn": "Building of ships and floating structures",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "108380",
+   "nameEn": "DAEYANG ELECTRIC CO.,LTD",
+   "ksic": "31114",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "099410",
+   "nameEn": "Dongbang Ship Machinery Co., Ltd",
+   "ksic": "31114",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "092460",
+   "nameEn": "HANLA IMS Co., LTD",
+   "ksic": "31114",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "010620",
+   "nameEn": "HD HYUNDAI MIPO CO.,LTD.",
+   "ksic": "3111",
+   "ksicEn": "Building of ships and floating structures",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "460930",
+   "nameEn": "HYUNDAI HYMS CO., LTD.",
+   "ksic": "31114",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "333430",
+   "nameEn": "IL SEUNG Co., LTD",
+   "ksic": "311",
+   "ksicEn": "Building of ships and boats",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "101930",
+   "nameEn": "Inhwa Precision Co., Ltd.",
+   "ksic": "31114",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "067250",
+   "nameEn": "K Shipbuilding Co., Ltd.",
+   "ksic": "3111",
+   "ksicEn": "Building of ships and floating structures",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "054180",
+   "nameEn": "MEDICOX Co., Ltd.",
+   "ksic": "31114",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "060240",
+   "nameEn": "STACO LINK Co.,Ltd.",
+   "ksic": "311",
+   "ksicEn": "Building of ships and boats",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "102210",
+   "nameEn": "TRES Co., Ltd.",
+   "ksic": "31114",
+   "ksicEn": null,
+   "includedBy": "ksic",
+   "market": null
+  }
+ ],
+ "ruleMisses": [
+  {
+   "code": "082740",
+   "nameEn": "Hanwha Engine",
+   "ksic": "29111",
+   "ksicEn": "internal combustion engines",
+   "reports": 4
+  },
+  {
+   "code": "071970",
+   "nameEn": "HD-Hyundai Marine Engine Co., Ltd.",
+   "ksic": "29119",
+   "ksicEn": "other engines and turbines",
+   "reports": 2
+  },
+  {
+   "code": "443060",
+   "nameEn": "HD Hyundai Marine Solution",
+   "ksic": "7212",
+   "ksicEn": "engineering services",
+   "reports": 5
+  },
+  {
+   "code": "033500",
+   "nameEn": "Dongsung Finetec",
+   "ksic": "201",
+   "ksicEn": "basic chemicals",
+   "reports": 1
+  }
+ ]
+}

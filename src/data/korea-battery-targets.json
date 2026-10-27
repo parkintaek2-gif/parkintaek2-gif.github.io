@@ -1,0 +1,442 @@
+{
+ "_meta": {
+  "what": "Korean battery companies with broker research in our sample: per-company target-price distribution and latest close.",
+  "rule": "KSIC code on the DART company register starts with 282 (manufacture of batteries and accumulators); plus companies named in namedAdditions.",
+  "namedAdditions": [
+   {
+    "code": "086520",
+    "reason": "Filed under KSIC 64992 (holding companies), but its business report filed with DART in March 2025 gives its battery-materials segment (cathode materials, through EcoPro BM) KRW 3,296.5bn of 2024 sales before intra-group eliminations, against KRW 234.5bn for its environment segment."
+   }
+  ],
+  "researchSource": "Broker reports listed on Naver Finance's research board and on brokers' own websites, collected by SeoulMarkets (archive/index/research.ndjson). Analyst names partly matched from Hankyung Consensus where date, firm and ticker matched exactly one report.",
+  "researchFirstDay": "2026-06-29",
+  "researchLastDay": "2026-10-26",
+  "priceSource": "Financial Services Commission stock price data (data.go.kr 15094808), daily close.",
+  "priceFile": "20261023.ndjson",
+  "priceDate": "2026-10-23",
+  "industrySource": "DART company register (Financial Supervisory Service), industry code field.",
+  "matched": 27,
+  "withResearch": 10,
+  "withTarget": 8,
+  "withGap": 8,
+  "order": "Most firms with a stated target first; then most reports; then ticker.",
+  "builtBy": "scripts/build-korea-sector-targets.mjs — do not edit by hand"
+ },
+ "rows": [
+  {
+   "code": "373220",
+   "nameEn": "LG Energy Solution",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 8,
+   "brokerReports": 8,
+   "firms": 7,
+   "first": "2026-09-15",
+   "last": "2026-10-15",
+   "targets": {
+    "firms": 7,
+    "min": 480000,
+    "max": 560000,
+    "median": 510000,
+    "oldest": "2026-09-15",
+    "newest": "2026-10-15"
+   },
+   "latestRating": "Buy",
+   "close": 383000,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.33159268929503916
+  },
+  {
+   "code": "006400",
+   "nameEn": "Samsung SDI",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 3,
+   "brokerReports": 3,
+   "firms": 3,
+   "first": "2026-09-15",
+   "last": "2026-10-14",
+   "targets": {
+    "firms": 3,
+    "min": 740000,
+    "max": 1000000,
+    "median": 940000,
+    "oldest": "2026-09-15",
+    "newest": "2026-10-14"
+   },
+   "latestRating": "Buy",
+   "close": 490500,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.9164118246687054
+  },
+  {
+   "code": "082920",
+   "nameEn": "Vitzrocell",
+   "ksic": "28201",
+   "ksicEn": "Primary cells and batteries",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-09-01",
+   "last": "2026-09-04",
+   "targets": {
+    "firms": 2,
+    "min": 38000,
+    "max": 45000,
+    "median": 41500,
+    "oldest": "2026-09-01",
+    "newest": "2026-09-04"
+   },
+   "latestRating": "Buy",
+   "close": 23250,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.7849462365591398
+  },
+  {
+   "code": "003670",
+   "nameEn": "POSCO Future M",
+   "ksic": "282",
+   "ksicEn": "Batteries and accumulators",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 1,
+   "first": "2026-09-23",
+   "last": "2026-10-21",
+   "targets": {
+    "firms": 1,
+    "min": 290000,
+    "max": 290000,
+    "median": 290000,
+    "oldest": "2026-10-21",
+    "newest": "2026-10-21"
+   },
+   "latestRating": "Buy",
+   "close": 160800,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.8034825870646767
+  },
+  {
+   "code": "091580",
+   "nameEn": "SANGSINENERGYDISPLAYPRECISIONCO.,LTD",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 2,
+   "brokerReports": 1,
+   "firms": 2,
+   "first": "2026-08-19",
+   "last": "2026-09-30",
+   "targets": {
+    "firms": 1,
+    "min": 30000,
+    "max": 30000,
+    "median": 30000,
+    "oldest": "2026-08-19",
+    "newest": "2026-08-19"
+   },
+   "latestRating": "Buy",
+   "close": 24150,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.2422360248447204
+  },
+  {
+   "code": "007340",
+   "nameEn": "DN Automotive",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-08-24",
+   "last": "2026-08-24",
+   "targets": {
+    "firms": 1,
+    "min": 80000,
+    "max": 80000,
+    "median": 80000,
+    "oldest": "2026-08-24",
+    "newest": "2026-08-24"
+   },
+   "latestRating": "Buy",
+   "close": 41050,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.94884287454324
+  },
+  {
+   "code": "066970",
+   "nameEn": "L&F",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-23",
+   "last": "2026-10-23",
+   "targets": {
+    "firms": 1,
+    "min": 140000,
+    "max": 140000,
+    "median": 140000,
+    "oldest": "2026-10-23",
+    "newest": "2026-10-23"
+   },
+   "latestRating": "Buy",
+   "close": 85900,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.6298020954598371
+  },
+  {
+   "code": "243840",
+   "nameEn": "SHIN HEUNG ENERGY & ELECTRONICS CO., LTD.",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-08-19",
+   "last": "2026-08-19",
+   "targets": {
+    "firms": 1,
+    "min": 10000,
+    "max": 10000,
+    "median": 10000,
+    "oldest": "2026-08-19",
+    "newest": "2026-08-19"
+   },
+   "latestRating": "Buy",
+   "close": 5840,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.7123287671232876
+  },
+  {
+   "code": "004490",
+   "nameEn": "SEBANG GLOBAL BATTERY CO.,LTD",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-08-19",
+   "last": "2026-08-19",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 57100,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "086520",
+   "nameEn": "ECOPRO CO.,LTD",
+   "ksic": "64992",
+   "ksicEn": null,
+   "includedBy": "named",
+   "reason": "Filed under KSIC 64992 (holding companies), but its business report filed with DART in March 2025 gives its battery-materials segment (cathode materials, through EcoPro BM) KRW 3,296.5bn of 2024 sales before intra-group eliminations, against KRW 234.5bn for its environment segment.",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-08-19",
+   "last": "2026-08-19",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 72700,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  }
+ ],
+ "noResearch": [
+  {
+   "code": "027440",
+   "nameEn": "Coreaelectronics & development.inc",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "101360",
+   "nameEn": "Eco&Dream Co., Ltd.",
+   "ksic": "282",
+   "ksicEn": "Batteries and accumulators",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "247540",
+   "nameEn": "ECOPRO BM CO.,LTD.",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "450080",
+   "nameEn": "ECOPRO MATERIALS CO., LTD.",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "232530",
+   "nameEn": "Energy Material Technology Co., Ltd.",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "033790",
+   "nameEn": "FINO INC.",
+   "ksic": "282",
+   "ksicEn": "Batteries and accumulators",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "023890",
+   "nameEn": "HANKOOK ATLASBX CO.,LTD.",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "446540",
+   "nameEn": "Megatouch Co., Ltd",
+   "ksic": "28201",
+   "ksicEn": "Primary cells and batteries",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "038990",
+   "nameEn": "NEXCON TECHNOLOGY Co., LTD",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "000420",
+   "nameEn": "ROCKET ELECTRIC CO.,LTD",
+   "ksic": "28201",
+   "ksicEn": "Primary cells and batteries",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "361610",
+   "nameEn": "SK ie technology Co., Ltd.",
+   "ksic": "282",
+   "ksicEn": "Batteries and accumulators",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "458650",
+   "nameEn": "SUNGWOO CO., LTD",
+   "ksic": "282",
+   "ksicEn": "Batteries and accumulators",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "434190",
+   "nameEn": "Talos Co., Ltd.",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "360070",
+   "nameEn": "TOP MATERIAL Co., Ltd",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "126340",
+   "nameEn": "VINA TECH CO.,LTD",
+   "ksic": "282",
+   "ksicEn": "Batteries and accumulators",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "048760",
+   "nameEn": "VK CORPORATION",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "393890",
+   "nameEn": "W-SCOPE CHUNGJU PLANT Co., Ltd.",
+   "ksic": "28202",
+   "ksicEn": "Accumulators (rechargeable batteries)",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  }
+ ],
+ "ruleMisses": [
+  {
+   "code": "051910",
+   "nameEn": "LG Chem",
+   "ksic": "20111",
+   "ksicEn": "basic petrochemicals",
+   "reports": 1
+  },
+  {
+   "code": "278280",
+   "nameEn": "Chunbo",
+   "ksic": "201",
+   "ksicEn": "basic chemicals",
+   "reports": 1
+  }
+ ]
+}

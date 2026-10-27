@@ -53,8 +53,17 @@ import { 업종말, 업종주소 } from '../../lib/sector-en.mjs';
 import 리서치표 from '../../data/company-research.json';
 /* [2026-10-27 · 1번] 반도체 지면(/data/korea-semiconductor-target-prices)에 든 회사는 리서치 구역에서 그 지면을 가리킨다 */
 import 반도체표 from '../../data/korea-semiconductor-targets.json';
+/* [2026-10-27 · 1번] 업종 지면을 넓혔다 — 조선·방산·2차전지·제약바이오도 같은 꼴로 가리킨다(src/lib/sector-targets.mjs) */
+import 조선표 from '../../data/korea-shipbuilding-targets.json';
+import 방산표 from '../../data/korea-defense-targets.json';
+import 전지표 from '../../data/korea-battery-targets.json';
+import 바이오표 from '../../data/korea-biotech-targets.json';
+import { 업종 as 목표업종 } from '../../lib/sector-targets.mjs';
 
 export async function getStaticPaths() {
+  /* ⚠ getStaticPaths 는 따로 떼어 돈다 — 머리말 상수를 못 본다. 그래서 여기서 만든다 */
+  const 업종지면표 = [['semiconductor', 반도체표], ['shipbuilding', 조선표], ['defense', 방산표], ['battery', 전지표], ['biotech', 바이오표]]
+    .map(([k, d]: any) => ({ s: 목표업종(k) as any, 코드: new Set(((d as any).rows as any[]).map((x: any) => x.code)) }));
   const 행들 = (fin as any).rows as any[];
   const 사람들 = (ppl as any).rows as any[];
 
@@ -125,7 +134,8 @@ export async function getStaticPaths() {
            받아 두고 묶음에 안 담아 이 지면이 모르고 있었다. ⛔ 없으면 null — 안 그린다 */
         설립일: 설립표.get(h.code) ?? null,
         리서치: 그리서치,
-        반도체: ((반도체표 as any).rows as any[]).some((x) => x.code === h.code),
+        /* 이 회사가 «표에» 든 업종 지면들(리서치가 있는 회사만 표에 든다) */
+        업종지면: 업종지면표.filter((x) => x.코드.has(h.code)).map((x) => ({ path: x.s.path, plural: x.s.plural })),
         같은업종,
         업종회사수: (업종별.get(h.sector || 'Unclassified') ?? []).length,
       },
@@ -134,7 +144,7 @@ export async function getStaticPaths() {
   return 길;
 }
 
-const { code, nameEn, nameKo, market, sector, sectorSlug, 줄들, 흑자기록, 사람, 대표들, 설립일, 같은업종, 업종회사수, 리서치, 매출없음, 반도체 } = Astro.props as any;
+const { code, nameEn, nameKo, market, sector, sectorSlug, 줄들, 흑자기록, 사람, 대표들, 설립일, 같은업종, 업종회사수, 리서치, 매출없음, 업종지면 } = Astro.props as any;
 const 리서치메타 = (리서치표 as any)._meta;
 
 const 마지막 = 줄들[줄들.length - 1] ?? null;
@@ -302,9 +312,9 @@ const jsonLd = {
           Source: broker reports collected by SeoulMarkets from Naver Finance's research listing and from
           brokers' own websites, {리서치메타.firstDay} to {리서치메타.lastDay}.
         </p>
-        {반도체 && (
-          <p><a class="more" href="/data/korea-semiconductor-target-prices">Compare target prices across Korean semiconductor stocks →</a></p>
-        )}
+        {(업종지면 ?? []).map((x: any) => (
+          <p><a class="more" href={x.path}>Compare target prices across {x.plural} →</a></p>
+        ))}
       </section>
     )}
 
