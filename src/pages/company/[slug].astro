@@ -190,7 +190,9 @@ const 리서치줄 = !리서치 ? ''
     : 리서치.latestTargets.firms === 1
       ? `${리포트말} from ${리서치.firms} firm${리서치.firms === 1 ? '' : 's'} (${리서치.first} to ${리서치.last}); one stated target, ${원(리서치.latestTargets.min)}. `
       : `${리포트말} from ${리서치.firms} firm${리서치.firms === 1 ? '' : 's'} (${리서치.first} to ${리서치.last}); no target price stated. `;
-const description = 리서치 ? `${리서치줄}${설명줄}${대표줄}` : `${설명줄}${대표줄} Three years of filed revenue, operating profit, net profit, assets and equity, from the Korean regulator's own disclosure database.`;
+/* 🔴 [2026-10-27 · 1번] 리서치 줄을 앞에 두자 대표 줄이 160자 밖으로 밀렸다(270장, 시험 빨간불).
+   ⇒ 리서치 → 대표 → 매출 순 — 구글이 자르는 자리 안에 「target」과 「CEO」가 다 든다 */
+const description = 리서치 ? `${리서치줄}${대표줄.trim()}${대표줄 ? ' ' : ''}${설명줄}` :`${설명줄}${대표줄} Three years of filed revenue, operating profit, net profit, assets and equity, from the Korean regulator's own disclosure database.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
