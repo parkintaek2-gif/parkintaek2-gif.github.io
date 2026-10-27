@@ -35,7 +35,11 @@ import Base from '../layouts/Base.astro';
 import OtherMarkets from '../components/OtherMarkets.astro';
 import { SITE_URL } from '../consts';
 import fin from '../data/korea-financials-tape.json';
-import { 낼만한가, 조원억 } from '../lib/company-page.mjs';
+import { 낼만한가, 지면낼만한가, 조원억 } from '../lib/company-page.mjs';
+/* 🔴 [2026-10-27 · 1번] 낱장([slug].astro)·사이트맵과 «같은 자» — 매출 칸이 비어도 리서치가 있으면 서는 금융사 등 15곳이
+   여기서 빠지면 홈에서 안 닿는 지면이 된다(배포 관문이 15장을 잡았다) */
+import 리서치표 from '../data/company-research.json';
+const 리서치 = (code: string) => ((리서치표 as any).byCode as any)[code] ?? null;
 import { 주소표만들기 } from '../lib/company-slug.mjs';
 import { 업종말, 업종주소 } from '../lib/sector-en.mjs';
 
@@ -50,7 +54,7 @@ const 갈래 = new Map<string, { en: string; 수: number; 매출: number }>();
 let 낸회사 = 0;
 let 통매출 = 0;
 for (const [code, rs] of 묶음) {
-  if (!낼만한가(rs)) continue;
+  if (!지면낼만한가(rs, 리서치(code))) continue;
   낸회사 += 1;
   const en = 업종말(rs[0].sector);
   const slug = 업종주소(rs[0].sector);
@@ -73,10 +77,11 @@ const 주소표 = 주소표만들기(회사머리);
 const 업종별회사 = new Map<string, Array<{ slug: string; name: string; rev: number | null }>>();
 let 걸린회사 = 0;
 for (const [code, rs] of 묶음) {
-  if (!낼만한가(rs)) continue;
+  if (!지면낼만한가(rs, 리서치(code))) continue;
   const slug = 주소표.get(String(code));
   const key = 업종주소(rs[0].sector);
   const name = rs[0].name_en || rs[0].nameEn;
+  if (!낼만한가(rs) && !String(name || '').trim()) continue;   /* 낱장과 같은 거름 — 영문 이름 없는 매출 없는 회사는 지면이 없다 */
   /* ⛔ 주소나 이름이 없으면 «안 건다». 빈 주소로 걸면 404 를 손님에게 내민다 */
   if (!slug || !key || !name) continue;
   if (!업종별회사.has(key)) 업종별회사.set(key, []);
