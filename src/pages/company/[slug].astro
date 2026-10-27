@@ -39,7 +39,7 @@ import 임원표 from '../../data/korea-executives-tape.json';
 import 개황표 from '../../data/korea-company-profile-tape.json';
 import { 직위영문 } from '../../lib/exec-title-en.mjs';
 import { 주소표만들기 } from '../../lib/company-slug.mjs';
-import { 재무줄, 사람줄, 늘어난비, 시장말, 낼만한가 } from '../../lib/company-page.mjs';
+import { 재무줄, 사람줄, 늘어난비, 시장말, 낼만한가, 지면낼만한가, 잰해만 } from '../../lib/company-page.mjs';
 /* 🔴 [2026-10-04] 이웃고르기 — 일본 쪽에서 쓰던 것을 그대로 쓴다. 같은 흠이 여기도 있었다 */
 import { 이웃고르기 } from '../../lib/japan-company-page.mjs';
 /* 🔴 [2026-09-23] 자료를 2021년까지 소급해 다섯 해가 됐다. 그 전에는 세 해뿐이라
@@ -51,6 +51,8 @@ import { 업종말, 업종주소 } from '../../lib/sector-en.mjs';
 /* 🔴 [2026-10-27 · 1번, 5번 지시] 증권사 리서치 — /v1/research 에 496개사가 있는데 이 지면엔 한 줄도 없었다.
    scripts/build-company-research.mjs 가 만든다(한글 없음·없는 값은 null). ⛔ 판정이 아니라 분포만 낸다 */
 import 리서치표 from '../../data/company-research.json';
+/* [2026-10-27 · 1번] 반도체 지면(/data/korea-semiconductor-target-prices)에 든 회사는 리서치 구역에서 그 지면을 가리킨다 */
+import 반도체표 from '../../data/korea-semiconductor-targets.json';
 
 export async function getStaticPaths() {
   const 행들 = (fin as any).rows as any[];
@@ -85,7 +87,12 @@ export async function getStaticPaths() {
   const 길 = [];
   for (const h of 회사머리) {
     const rs = 묶음.get(h.code)!;
-    if (!낼만한가(rs)) continue;                    /* ② 낼 내용이 없으면 지면을 안 만든다 */
+    const 그리서치 = ((리서치표 as any).byCode as any)[h.code] ?? null;
+    /* ② 낼 내용이 없으면 지면을 안 만든다.
+       🔴 [2026-10-27 · 1번] 매출 칸이 비어도 리서치 + 잰 재무가 있으면 낸다(금융사 등 15곳) */
+    if (!지면낼만한가(rs, 그리서치)) continue;
+    const 매출없음 = !낼만한가(rs);
+    if (매출없음 && !String(h.name_en || '').trim()) continue;   /* ⛔ 영문 이름이 없으면 제목이 빈다 */
     /* 🔴 [2026-10-04 · 5번] 여기가 `.slice(0, 12)` 였다 — 한국 회사 2,521장이 «모두 같은
        12개»를 가리켜 1,926장이 들어오는 길 하나뿐이었다. 구글은 링크를 타고 온다. */
     const 한벌 = 업종별.get(h.sector || 'Unclassified') ?? [];
@@ -99,7 +106,9 @@ export async function getStaticPaths() {
         market: 시장말(h.market),
         sector: 업종말(h.sector),          /* 영문. 모르면 null — 지면이 그 줄을 안 그린다 */
         sectorSlug: 업종주소(h.sector),
-        줄들: 재무줄(rs),
+        /* 매출 칸 없이 내는 지면은 잰 값이 없는 해를 뺀다 — 대시만 늘어선 줄을 안 그린다 */
+        줄들: 매출없음 ? 잰해만(재무줄(rs)) : 재무줄(rs),
+        매출없음,
         /* ⛔ 순이익을 신고한 해만 센다. 빠진 해를 적자로 읽지 않는다 */
         흑자기록: {
           잰해: 해줄(rs).length,
@@ -115,7 +124,8 @@ export async function getStaticPaths() {
         /* 🔴 [2026-10-11 · 5번] 설립일 — DART 기업개황에 3,931/3,931 이 처음부터 있었다.
            받아 두고 묶음에 안 담아 이 지면이 모르고 있었다. ⛔ 없으면 null — 안 그린다 */
         설립일: 설립표.get(h.code) ?? null,
-        리서치: ((리서치표 as any).byCode as any)[h.code] ?? null,
+        리서치: 그리서치,
+        반도체: ((반도체표 as any).rows as any[]).some((x) => x.code === h.code),
         같은업종,
         업종회사수: (업종별.get(h.sector || 'Unclassified') ?? []).length,
       },
@@ -124,13 +134,13 @@ export async function getStaticPaths() {
   return 길;
 }
 
-const { code, nameEn, nameKo, market, sector, sectorSlug, 줄들, 흑자기록, 사람, 대표들, 설립일, 같은업종, 업종회사수, 리서치 } = Astro.props as any;
+const { code, nameEn, nameKo, market, sector, sectorSlug, 줄들, 흑자기록, 사람, 대표들, 설립일, 같은업종, 업종회사수, 리서치, 매출없음, 반도체 } = Astro.props as any;
 const 리서치메타 = (리서치표 as any)._meta;
 
 const 마지막 = 줄들[줄들.length - 1] ?? null;
 const 처음해 = 줄들[0]?.year ?? null;
 const 끝해 = 마지막?.year ?? null;
-const 매출증감 = 늘어난비(줄들, 'revenue');
+const 매출증감 = 매출없음 ? null : 늘어난비(줄들, 'revenue');
 
 const bn = (n: number | null) =>
   n == null ? '—' : n.toLocaleString('en-GB', { maximumFractionDigits: 0 });
@@ -290,6 +300,9 @@ const jsonLd = {
           Source: broker reports collected by SeoulMarkets from Naver Finance's research listing and from
           brokers' own websites, {리서치메타.firstDay} to {리서치메타.lastDay}.
         </p>
+        {반도체 && (
+          <p><a class="more" href="/data/korea-semiconductor-target-prices">Compare target prices across Korean semiconductor stocks →</a></p>
+        )}
       </section>
     )}
 
@@ -300,11 +313,19 @@ const jsonLd = {
         We do not convert to dollars — an exchange rate would be a number we made up, not one the
         company reported.
       </p>
+      {매출없음 && (
+        <p class="note">
+          Revenue is not shown for this company: it files its top line under headings such as interest,
+          insurance or operating income rather than a revenue line, and our tape does not read those.
+          It is not measured here — not zero. Margins built on revenue are left out for the same reason,
+          and years with no figures in our tape are not listed.
+        </p>
+      )}
       <div class="scroll">
         <table>
           <thead>
             <tr>
-              <th>Year</th><th>Revenue</th><th>Operating profit</th><th>Net profit</th>
+              <th>Year</th>{!매출없음 && <th>Revenue</th>}<th>Operating profit</th><th>Net profit</th>
               <th>Assets</th><th>Equity</th><th>Basis</th>
             </tr>
           </thead>
@@ -312,7 +333,7 @@ const jsonLd = {
             {줄들.map((r: any) => (
               <tr>
                 <td>{r.year}</td>
-                <td>{bn(r.revenue)}</td>
+                {!매출없음 && <td>{bn(r.revenue)}</td>}
                 <td class={r.operating != null && r.operating < 0 ? 'neg' : ''}>{bn(r.operating)}</td>
                 <td class={r.net != null && r.net < 0 ? 'neg' : ''}>{bn(r.net)}</td>
                 <td>{bn(r.assets)}</td>
@@ -334,14 +355,14 @@ const jsonLd = {
       <div class="scroll">
         <table>
           <thead>
-            <tr><th>Year</th><th>Operating margin</th><th>Net margin</th><th>Equity / assets</th><th>Return on equity</th></tr>
+            <tr><th>Year</th>{!매출없음 && <><th>Operating margin</th><th>Net margin</th></>}<th>Equity / assets</th><th>Return on equity</th></tr>
           </thead>
           <tbody>
             {줄들.map((r: any) => (
               <tr>
                 <td>{r.year}</td>
-                <td class={r.영업이익률 != null && r.영업이익률 < 0 ? 'neg' : ''}>{pct(r.영업이익률)}</td>
-                <td class={r.순이익률 != null && r.순이익률 < 0 ? 'neg' : ''}>{pct(r.순이익률)}</td>
+                {!매출없음 && <td class={r.영업이익률 != null && r.영업이익률 < 0 ? 'neg' : ''}>{pct(r.영업이익률)}</td>}
+                {!매출없음 && <td class={r.순이익률 != null && r.순이익률 < 0 ? 'neg' : ''}>{pct(r.순이익률)}</td>}
                 <td>{pct(r.자기자본비율)}</td>
                 <td class={r.ROE != null && r.ROE < 0 ? 'neg' : ''}>{pct(r.ROE)}</td>
               </tr>

@@ -1,0 +1,248 @@
+---
+/*
+ * /data/korea-semiconductor-target-prices — **한국 반도체 종목의 증권사 목표주가를 한 화면에.**
+ *
+ * ── 왜 (2026-10-27 · 5번 지시, 10-30 21:00 까지 · 사장님 「투자는 쉽게, 정보는 자세히」) ──
+ * 해외 개인 투자자(홍콩·대만)가 가장 많이 찾는 것이 한국 반도체인데, 한국어로 나오는
+ * 증권사 리서치를 영어로 한 번에 볼 곳이 없다. 우리는 그 리서치를 이미 모아 두었다.
+ *
+ * ⛔ 이 지면이 지키는 것
+ * ⛔ 「반도체」를 무엇으로 갈랐는지 지면에 적는다 — 규칙·예외·놓치는 것까지.
+ * ⛔ 목표 중앙값과 종가의 차이는 «둘 다 잰 것»일 때만 낸다. 아니면 「Not measured」.
+ * ⛔ 「upside」·「저평가」라고 쓰지 않는다 — 증권사가 낸 수와 거래된 값의 차이일 뿐이다.
+ * ⛔ 등수를 매기지 않는다. 줄은 «목표를 낸 증권사가 많은 순» — 자료가 두꺼운 순서다.
+ * ⛔ 화면에 한국어를 내지 않는다.
+ *
+ * 자료: src/data/korea-semiconductor-targets.json (scripts/build-korea-semiconductor-targets.mjs)
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import data from '../../data/korea-semiconductor-targets.json';
+import fin from '../../data/korea-financials-tape.json';
+import 리서치표 from '../../data/company-research.json';
+import { 주소표만들기 } from '../../lib/company-slug.mjs';
+import { 지면낼만한가 } from '../../lib/company-page.mjs';
+
+const m = (data as any)._meta;
+const rows = (data as any).rows as any[];
+const 없음 = (data as any).noResearch as any[];
+const 놓친 = (data as any).ruleMisses as any[];
+
+/* 회사 낱장 주소 — [slug].astro 와 «같은 자»로 만든다. 지면이 없는 회사는 링크를 안 건다(404 금지) */
+const 묶음 = new Map<string, any[]>();
+for (const r of (fin as any).rows as any[]) {
+  if (!묶음.has(r.code)) 묶음.set(r.code, []);
+  묶음.get(r.code)!.push(r);
+}
+const 회사머리 = [...묶음.entries()].map(([code, rs]) => ({ code, ...rs[0] }));
+const 주소표 = 주소표만들기(회사머리);
+const 주소 = (code: string): string | null => {
+  const rs = 묶음.get(code);
+  if (!rs || !지면낼만한가(rs, ((리서치표 as any).byCode as any)[code] ?? null)) return null;
+  const s = 주소표.get(code);
+  return s ? `/company/${s}` : null;
+};
+
+const 원 = (n: number | null) => (n == null ? null : `KRW ${Math.round(n).toLocaleString('en-GB')}`);
+const 퍼 = (n: number | null) => (n == null ? null : `${n >= 0 ? '+' : ''}${(n * 100).toLocaleString('en-GB', { maximumFractionDigits: 1, minimumFractionDigits: 1 })}%`);
+const 수 = (n: number) => n.toLocaleString('en-GB');
+
+const 목표있음 = rows.filter((r) => r.targets.firms > 0);
+const 리포트합 = rows.reduce((a, r) => a + r.reports, 0);
+const 이름 = (r: any) => r.nameEn ?? r.code;
+const 앞둘 = rows.slice(0, 2);
+
+const TITLE = 'Korean semiconductor stocks — analyst target prices & ratings (SK hynix, Samsung Electronics …)';
+const DESC = `Broker target prices for ${rows.length} Korean chip stocks on one page — ${앞둘.map((r) => `${이름(r)} median ${원(r.targets.median)}`).join(', ')}. `
+  + `${수(리포트합)} reports from ${m.researchFirstDay} to ${m.researchLastDay}, Korean research summarised in English, with the latest close.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korean semiconductor stocks: broker target prices and ratings',
+  description: DESC,
+  url: `${SITE_URL}/data/korea-semiconductor-target-prices`,
+  temporalCoverage: `${m.researchFirstDay}/${m.researchLastDay}`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: ['broker reports', 'brokers', 'latest target price range', 'median of latest target prices', 'close price'],
+  isAccessibleForFree: true,
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <nav class="crumbs">
+      <a href="/">SeoulMarkets</a> <span>›</span> <a href="/data">Data</a>
+    </nav>
+    <p class="kicker">Korean semiconductors · broker research in English</p>
+    <h1>Korean semiconductor stocks: analyst target prices and ratings</h1>
+    <p class="sample">
+      {rows.length} companies with research · {수(리포트합)} reports · {m.researchFirstDay} to {m.researchLastDay} · close prices of {m.priceDate}
+    </p>
+
+    <p class="lead">
+      Research on Korean chip companies is mostly published in Korean. We collect it and summarise it here in
+      English: each firm's latest target price, the range and median across firms, and the gap to the latest close.
+      Each name links to its own page with the report-by-report list. A sample of broker research, not advice.
+    </p>
+
+    <section>
+      <h2>Target prices, company by company</h2>
+      <p class="note">
+        Ordered by how many firms stated a target, then by reports — depth of coverage, not a ranking.
+        Swipe the table sideways for dates, close and gap.
+      </p>
+      <div class="scroll">
+        <table class="t">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Ticker</th>
+              <th>Median target</th>
+              <th>Latest targets (range)</th>
+              <th>Firms with a target</th>
+              <th>Reports</th>
+              <th>Firms</th>
+              <th>Targets dated</th>
+              <th>Latest report</th>
+              <th>Close</th>
+              <th>Median target vs close</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => {
+              const href = 주소(r.code);
+              const t = r.targets;
+              return (
+                <tr>
+                  <td class="name">{href ? <a href={href}>{이름(r)}</a> : 이름(r)}{r.includedBy === 'named' && <sup><a href="#rule">*</a></sup>}</td>
+                  <td>{r.code}</td>
+                  <td>{t.firms > 0 ? <b>{원(t.median)}</b> : <span class="dim">No target stated</span>}</td>
+                  <td>{t.firms > 1 ? `${원(t.min)} – ${원(t.max)}` : t.firms === 1 ? <span class="dim">One firm</span> : <span class="dim">—</span>}</td>
+                  <td>{t.firms}</td>
+                  <td>{r.reports}</td>
+                  <td>{r.firms}</td>
+                  <td>{t.oldest ? (t.oldest === t.newest ? t.oldest : `${t.oldest} to ${t.newest}`) : <span class="dim">—</span>}</td>
+                  <td><time datetime={r.last}>{r.last}</time></td>
+                  <td>{r.close != null ? `${원(r.close)} (${r.closeDate})` : <span class="dim">Not measured</span>}</td>
+                  <td>{r.medianVsClose != null ? 퍼(r.medianVsClose) : <span class="dim">Not measured</span>}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        For each firm we take only its most recent stated target, so a firm that wrote five times counts once.
+        "Targets dated" gives the oldest and newest of those latest targets — a target written weeks ago can sit
+        next to a recent close, and the gap below mixes both dates.
+      </p>
+      <p class="note">
+        "Median target vs close" is the median of the firms' latest targets divided by the close on
+        {' '}{m.priceDate}, minus one. It is shown only when both numbers exist. It is a gap between what
+        brokers wrote and what the market paid on one day — not an expected return. When only one firm stated
+        a target, the "median" is that single firm's figure. "No target stated" means none of the reports in
+        our sample carried a target price; it is not a zero. {목표있음.length} of {rows.length} companies have
+        at least one stated target.
+      </p>
+    <p class="warn">
+      This is a record of what brokers published, not investment advice. It is a sample — the reports our
+      collection picked up between {m.researchFirstDay} and {m.researchLastDay}, not every report written —
+      and the range and median describe that sample, not a market consensus. These are statistics, not a
+      verdict on any stock.
+    </p>
+    </section>
+
+    <section id="rule">
+      <h2>What counts as "semiconductor" here</h2>
+      <p>
+        A company is included when the industry code on its record in the Korean regulator's company register
+        (DART) starts with <b>261</b> — manufacture of semiconductors, covering integrated circuits (memory and
+        non-memory) and discrete devices such as diodes, transistors and LEDs — or is <b>29271</b>, manufacture
+        of machinery for semiconductor manufacturing. The codes are the Korean Standard Industrial Classification
+        (KSIC); the English names are our rendering of them.
+      </p>
+      <p>
+        One company is added by name: {m.namedAdditions.map((a: any) => {
+          const r = rows.find((x) => x.code === a.code);
+          return <><b>{r ? 이름(r) : a.code}</b> ({a.code}, marked *). {a.reason}</>;
+        })}
+      </p>
+      <p>
+        By this rule plus that one addition, {m.matched} listed companies qualify. {rows.length} of them have at least one report in our
+        sample and are in the table above; the other {없음.length} are listed below.
+      </p>
+      <p class="note">
+        The rule misses companies that serve the chip industry but file under another code. Examples with
+        research in our sample, left out of the table:{' '}
+        {놓친.map((x, i) => {
+          const href = 주소(x.code);
+          return <>{i > 0 && ', '}{href ? <a href={href}>{x.nameEn ?? x.code}</a> : (x.nameEn ?? x.code)} ({x.ksicEn ? `${x.ksicEn}, ` : ''}KSIC {x.ksic})</>;
+        })}. We keep to the filed code rather than choosing companies by hand, so the list can be checked.
+      </p>
+    </section>
+
+    <section>
+      <h2>Matched the rule, no broker report in our sample</h2>
+      <p class="note">
+        {없음.length} companies. No report in our sample is not the same as no research being written — it
+        means our collection did not pick one up between {m.researchFirstDay} and {m.researchLastDay}.
+      </p>
+      <ul class="peers">
+        {없음.map((x) => {
+          const href = 주소(x.code);
+          return <li>{href ? <a href={href}>{x.nameEn ?? x.code}</a> : (x.nameEn ?? x.code)} <span class="dim">{x.code}</span></li>;
+        })}
+      </ul>
+    </section>
+
+    <footer class="src">
+      <p>
+        <b>Sources.</b> Broker research: {m.researchSource} Industry codes: DART company register, Financial
+        Supervisory Service. Close prices: Financial Services Commission daily stock prices via data.go.kr,
+        {' '}{m.priceDate}. Ratings and target prices are as each firm stated them; ratings are translated
+        into English.
+      </p>
+      <p>
+        <b>Not investment advice.</b> This page reports what brokers published and what the market closed at.
+        It contains no recommendation to buy, hold or sell.
+      </p>
+      <p class="dim">
+        Report titles are not shown: the source lists them in Korean only, and we do not publish our own
+        translation of another firm's headline. Where a value was not reported we write so rather than zero.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 72rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+  .crumbs { font-size: .85rem; color: #667; margin-bottom: 1rem; }
+  .crumbs a { color: #445; text-decoration: none; }
+  .crumbs span { margin: 0 .35rem; color: #aab; }
+  .kicker { font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: #6a7488; margin: 0 0 .3rem; }
+  h1 { font-size: 1.85rem; line-height: 1.25; margin: 0 0 .5rem; }
+  .sample { font-size: .88rem; color: #667; margin: 0 0 1rem; }
+  .lead { font-size: 1.05rem; color: #334; margin: 0 0 1rem; }
+  section { margin: 2rem 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+  .note { font-size: .88rem; color: #667; margin: .6rem 0; }
+  .warn { font-size: .85rem; color: #665; background: #fbfaf4; border-left: 3px solid #ddd6b8;
+          padding: .55rem .8rem; margin: .8rem 0 0; }
+  .scroll { overflow-x: auto; max-width: 100%; -webkit-overflow-scrolling: touch; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  .t { font-size: .88rem; }
+  .t th, .t td { padding: .42rem .55rem; border-bottom: 1px solid #e8eaef; text-align: right; white-space: nowrap; }
+  .t thead th { font-size: .78rem; color: #556; border-bottom: 2px solid #d8dbe2; vertical-align: bottom; }
+  .t th:first-child, .t td:first-child { text-align: left; position: sticky; left: 0; background: #fff; }
+  .t td.name a { color: #2a4d8f; text-decoration: none; }
+  .t td.name a:hover { text-decoration: underline; }
+  .dim { color: #889; }
+  .peers { display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+           gap: .3rem 1rem; list-style: none; padding: 0; margin: .5rem 0 0; font-size: .9rem; }
+  .peers li { min-width: 0; overflow-wrap: anywhere; }
+  .peers a { color: #2a4d8f; text-decoration: none; }
+  .src { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e3e6ec; font-size: .84rem; color: #556; }
+  .src p { margin: .5rem 0; }
+  @media (max-width: 640px) { h1 { font-size: 1.45rem; } .wrap { padding: 1rem .8rem 3rem; } .peers { grid-template-columns: 1fr 1fr; } }
+</style>

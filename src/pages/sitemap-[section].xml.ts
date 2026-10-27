@@ -8,7 +8,9 @@ import countryProfiles from '../data/country-trade-profiles.json';
    지면을 찍는 «까닭»이 색인이므로, 여기 빠지면 2,575장을 지은 뜻이 없다. */
 import fin from '../data/korea-financials-tape.json';
 import { 주소표만들기 } from '../lib/company-slug.mjs';
-import { 낼만한가 } from '../lib/company-page.mjs';
+import { 지면낼만한가 } from '../lib/company-page.mjs';
+/* [2026-10-27 · 1번] 회사 낱장과 «같은 자» — 매출 칸이 없어도 리서치가 있으면 지면이 선다 */
+import 리서치표 from '../data/company-research.json';
 import { 업종주소 } from '../lib/sector-en.mjs';
 /* 🔴 [2026-09-23 · 5번] 일본 상장사 지면 3,707장. 같은 까닭으로 여기에 넣는다 */
 import jp from '../data/japan-financials-tape.json';
@@ -214,7 +216,8 @@ export const GET: APIRoute = async ({ params }) => {
     const 것: Url[] = [{ loc: '/companies', lastmod: 가장최근, changefreq: 'weekly', priority: '0.9' }];
     for (const h of 회사머리) {
       const 그회사 = 묶음.get(h.code);
-      if (!낼만한가(그회사)) continue;
+      if (!지면낼만한가(그회사, ((리서치표 as any).byCode as any)[h.code] ?? null)) continue;
+      if (!String(h.name_en || '').trim() && !지면낼만한가(그회사, null)) continue;   /* 낱장과 같은 거름 */
       것.push({
         loc: '/company/' + 주소표.get(h.code),
         lastmod: 받아온날(그회사, 날표) ?? undefined,   /* ⛔ 모르면 안 붙는다 */
@@ -407,6 +410,8 @@ export const GET: APIRoute = async ({ params }) => {
          ⚠ 이번에도 빌드가 끝난 뒤 check-sitemap-page-coverage.mjs 가 잡아 줬다.
            그 자는 «이미 있었다». 없어서 틀린 것이 아니라 «안 돌려서» 틀렸다. */
       { loc: '/data/account-name-variants', changefreq: 'monthly', priority: '0.8' },
+      /* [2026-10-27 · 1번 · 5번 지시] 반도체 목표주가 한 화면 — 지면·사이트맵·llms 를 한 커밋에 */
+      { loc: '/data/korea-semiconductor-target-prices', changefreq: 'weekly', priority: '0.9' },
       // 🔴 [2026-09-18 · 6번] 이 파일의 넷째 사고 — 신용등급·외국인보유·재무축 지면 다섯이
       // 같은 실수로 빠져 있었다(9/15~9/17에 만들고 이 목록에 안 넣음). 사이트맵이 11줄로
       // 보인 진짜 까닭은 「자료가 없어서」가 아니라 이 목록이 낡아서였다.

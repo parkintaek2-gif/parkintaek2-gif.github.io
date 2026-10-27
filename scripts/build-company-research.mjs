@@ -182,8 +182,11 @@ function main() {
     const 날짜들 = rs.map((x) => x.date).filter(Boolean).sort();
     /* 증권사마다 «가장 최근에 낸» 목표주가 하나 — 한 곳이 여러 번 냈다고 분포를 기울이지 않는다 */
     const 최근목표 = new Map();
-    for (const x of rs) if (x.targetKrw != null && !최근목표.has(x.firm)) 최근목표.set(x.firm, x.targetKrw);
+    const 최근목표날 = new Map();
+    for (const x of rs) if (x.targetKrw != null && !최근목표.has(x.firm)) { 최근목표.set(x.firm, x.targetKrw); 최근목표날.set(x.firm, x.date ?? null); }
     const 목표들 = [...최근목표.values()];
+    /* [2026-10-27 · 반도체 지면] 그 «증권사별 최신 목표»가 언제 나온 것인지 — 오래된 목표가 섞였는지 손님이 보게 */
+    const 목표날들 = [...최근목표날.values()].filter(Boolean).sort();
     if (날짜들[0] && (!최초 || 날짜들[0] < 최초)) 최초 = 날짜들[0];
     if (날짜들.at(-1) && (!최종 || 날짜들.at(-1) > 최종)) 최종 = 날짜들.at(-1);
     출력[code] = {
@@ -199,6 +202,8 @@ function main() {
         min: 목표들.length ? Math.min(...목표들) : null,
         max: 목표들.length ? Math.max(...목표들) : null,
         median: 중앙값(목표들),
+        oldest: 목표날들[0] ?? null,
+        newest: 목표날들.at(-1) ?? null,
       },
       latest: rs.slice(0, 최근몇건),
     };

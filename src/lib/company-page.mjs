@@ -110,6 +110,33 @@ export function 낼만한가(행들) {
   return 것.some((r) => Number.isFinite(r?.revenue_krw) && r.revenue_krw > 0);
 }
 
+/**
+ * 🔴 [2026-10-27 · 1번, 5번 지시] **매출 줄은 없지만 증권사 리서치가 있는 회사** — 지면을 낸다.
+ * 은행·보험·증권·지주사는 매출을 「매출액」이 아니라 이자수익·보험수익·영업수익으로 적어
+ * 우리 테이프의 revenue 칸이 비어 있다. 그래서 KB금융·신한·삼성생명 같은 곳이 리서치가
+ * 있는데도 지면이 없었다(18곳). «낼 내용이 없는» 것이 아니라 «매출 칸을 못 읽은» 것이다.
+ * ⇒ 리서치가 한 건이라도 있고, 영업이익·순이익·자산·자본 가운데 하나라도 «잰 값»이 있으면 낸다.
+ * ⛔ 재무가 하나도 안 잡힌 곳은 여전히 안 낸다 — 리서치 한 줄짜리 얇은 지면을 늘리지 않는다.
+ * ⛔ 지면은 이 회사들의 매출·이익률 칸을 «그리지 않는다»(못 잰 것을 0 이나 빈칸 줄로 늘어놓지 않는다).
+ *   ⚠ 2023년 보험사 두 곳은 revenue 가 0 으로 들어와 있다 — 매출 칸을 아예 안 그리는 까닭이다.
+ */
+const 잰칸들 = ['operating_profit_krw', 'net_profit_krw', 'assets_krw', 'equity_krw'];
+export function 리서치로낼만한가(행들, 리서치) {
+  if (낼만한가(행들)) return false;                       /* 매출이 있으면 원래 길로 낸다 */
+  if (!리서치 || !(Number(리서치.reports) > 0)) return false;
+  return (행들 ?? []).some((r) => 잰칸들.some((k) => Number.isFinite(r?.[k])));
+}
+
+/** 회사 지면이 «서는가» — 낱장·사이트맵·다른 지면의 링크가 같은 자를 쓴다(어긋나면 404 를 건다) */
+export function 지면낼만한가(행들, 리서치) {
+  return 낼만한가(행들) || 리서치로낼만한가(행들, 리서치);
+}
+
+/** 매출 칸 없이 내는 지면에서 쓸 줄 — 잰 값이 하나도 없는 해는 뺀다(대시만 늘어선 줄을 안 그린다) */
+export function 잰해만(줄들) {
+  return (줄들 ?? []).filter((r) => ['operating', 'net', 'assets', 'equity'].some((k) => r?.[k] != null));
+}
+
 /* ── 자가시험 ─────────────────────────────────────────────── */
 if (process.argv?.[1]?.endsWith('company-page.mjs') && process.argv.includes('--자가시험')) {
   const 잰다 = [];
@@ -160,6 +187,23 @@ if (process.argv?.[1]?.endsWith('company-page.mjs') && process.argv.includes('--
   본다('🔴 매출이 한 해도 없으면 안 낸다 — 얇은 지면을 수천 장 내지 않는다',
     낼만한가([{ revenue_krw: 0 }, { revenue_krw: null }]) === false);
   본다('⛔ 빈 것은 안 낸다', 낼만한가([]) === false && 낼만한가(null) === false);
+
+  /* 리서치로 내는 지면 — 금융사 */
+  const 금융 = [
+    { year: 2025, revenue_krw: null, operating_profit_krw: 8518e9, net_profit_krw: 5841e9, assets_krw: 797923e9, equity_krw: 60830e9 },
+    { year: 2022, revenue_krw: null, operating_profit_krw: null, net_profit_krw: null, assets_krw: null, equity_krw: null },
+  ];
+  본다('🔴 매출 칸이 비어도 리서치·재무가 있으면 낸다(KB금융 꼴)', 리서치로낼만한가(금융, { reports: 3 }) === true);
+  본다('⛔ 리서치가 없으면 안 낸다', 리서치로낼만한가(금융, null) === false && 리서치로낼만한가(금융, { reports: 0 }) === false);
+  본다('⛔ 재무가 하나도 없으면 리서치가 있어도 안 낸다',
+    리서치로낼만한가([{ year: 2025, revenue_krw: null }], { reports: 5 }) === false);
+  본다('매출이 있는 회사는 이 길이 아니다(원래 길)', 리서치로낼만한가([{ revenue_krw: 1, net_profit_krw: 1 }], { reports: 1 }) === false);
+  본다('지면낼만한가 = 둘 중 하나', 지면낼만한가([{ revenue_krw: 1 }], null) && 지면낼만한가(금융, { reports: 1 }) && !지면낼만한가(금융, null));
+  본다('⚠ 매출 0(보험사 2023 꼴)은 매출로 안 친다', 낼만한가([{ revenue_krw: 0, net_profit_krw: 5 }]) === false
+    && 리서치로낼만한가([{ revenue_krw: 0, net_profit_krw: 5 }], { reports: 1 }) === true);
+  const 잰줄 = 잰해만(재무줄(금융));
+  본다('잰 값이 없는 해는 뺀다', 잰줄.length === 1 && 잰줄[0].year === 2025);
+  본다('⛔ 빈 것에 안 터진다', 잰해만(null).length === 0);
 
   const 진 = 잰다.filter(([, v]) => !v);
   for (const [이름, v] of 잰다) console.log(`${v ? '✅' : '🔴'} ${이름}`);

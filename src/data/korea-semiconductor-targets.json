@@ -1,0 +1,1789 @@
+{
+ "_meta": {
+  "what": "Korean semiconductor companies with broker research in our sample: per-company target-price distribution and latest close.",
+  "rule": "KSIC code on the DART company register starts with 261 (manufacture of semiconductors) or is 29271 (machinery for semiconductor manufacturing); plus companies named in namedAdditions.",
+  "namedAdditions": [
+   {
+    "code": "005930",
+    "reason": "Filed under KSIC 264 (communication and broadcasting equipment), but its 2025 business report lists the Device Solutions (DS) semiconductor division as a separate reporting segment."
+   }
+  ],
+  "researchSource": "Broker reports listed on Naver Finance's research board and on brokers' own websites, collected by SeoulMarkets (archive/index/research.ndjson). Analyst names partly matched from Hankyung Consensus where date, firm and ticker matched exactly one report.",
+  "researchFirstDay": "2026-06-29",
+  "researchLastDay": "2026-10-26",
+  "priceSource": "Financial Services Commission stock price data (data.go.kr 15094808), daily close.",
+  "priceFile": "20261023.ndjson",
+  "priceDate": "2026-10-23",
+  "industrySource": "DART company register (Financial Supervisory Service), industry code field.",
+  "matched": 150,
+  "withResearch": 29,
+  "withTarget": 20,
+  "withGap": 20,
+  "order": "Most firms with a stated target first; then most reports; then ticker.",
+  "builtBy": "scripts/build-korea-semiconductor-targets.mjs — do not edit by hand"
+ },
+ "rows": [
+  {
+   "code": "005930",
+   "nameEn": "Samsung Electronics",
+   "ksic": "264",
+   "ksicEn": null,
+   "includedBy": "named",
+   "reason": "Filed under KSIC 264 (communication and broadcasting equipment), but its 2025 business report lists the Device Solutions (DS) semiconductor division as a separate reporting segment.",
+   "market": "KOSPI",
+   "reports": 18,
+   "brokerReports": 18,
+   "firms": 12,
+   "first": "2026-08-26",
+   "last": "2026-10-12",
+   "targets": {
+    "firms": 12,
+    "min": 350000,
+    "max": 630000,
+    "median": 515000,
+    "oldest": "2026-09-22",
+    "newest": "2026-10-12"
+   },
+   "latestRating": "Buy",
+   "close": 215500,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.3897911832946637
+  },
+  {
+   "code": "000660",
+   "nameEn": "SK hynix",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 11,
+   "brokerReports": 11,
+   "firms": 8,
+   "first": "2026-08-20",
+   "last": "2026-10-13",
+   "targets": {
+    "firms": 8,
+    "min": 2700000,
+    "max": 4000000,
+    "median": 3400000,
+    "oldest": "2026-08-20",
+    "newest": "2026-10-13"
+   },
+   "latestRating": "Buy",
+   "close": 1277000,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.6624902114330462
+  },
+  {
+   "code": "166090",
+   "nameEn": "Hana Materials",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 3,
+   "brokerReports": 3,
+   "firms": 3,
+   "first": "2026-08-26",
+   "last": "2026-10-22",
+   "targets": {
+    "firms": 2,
+    "min": 90000,
+    "max": 100000,
+    "median": 95000,
+    "oldest": "2026-08-26",
+    "newest": "2026-10-22"
+   },
+   "latestRating": "Buy",
+   "close": 52300,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.8164435946462716
+  },
+  {
+   "code": "440110",
+   "nameEn": "FADU INC.",
+   "ksic": "26112",
+   "ksicEn": "Non-memory and other integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 3,
+   "brokerReports": 3,
+   "firms": 2,
+   "first": "2026-09-23",
+   "last": "2026-10-20",
+   "targets": {
+    "firms": 2,
+    "min": 100000,
+    "max": 110000,
+    "median": 105000,
+    "oldest": "2026-10-16",
+    "newest": "2026-10-20"
+   },
+   "latestRating": "Buy",
+   "close": 46950,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.2364217252396168
+  },
+  {
+   "code": "031980",
+   "nameEn": "PSK HOLDINGS INC.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-09-07",
+   "last": "2026-10-12",
+   "targets": {
+    "firms": 2,
+    "min": 200000,
+    "max": 260000,
+    "median": 230000,
+    "oldest": "2026-09-07",
+    "newest": "2026-10-12"
+   },
+   "latestRating": "Buy",
+   "close": 173300,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.3271783035199076
+  },
+  {
+   "code": "417840",
+   "nameEn": "Justem.CO.,LTD",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 3,
+   "brokerReports": 3,
+   "firms": 3,
+   "first": "2026-08-19",
+   "last": "2026-10-12",
+   "targets": {
+    "firms": 1,
+    "min": 27000,
+    "max": 27000,
+    "median": 27000,
+    "oldest": "2026-08-19",
+    "newest": "2026-08-19"
+   },
+   "latestRating": "Buy",
+   "close": 13640,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.9794721407624634
+  },
+  {
+   "code": "011930",
+   "nameEn": "Shinsung E&G",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSPI",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-08-21",
+   "last": "2026-08-26",
+   "targets": {
+    "firms": 1,
+    "min": 27000,
+    "max": 27000,
+    "median": 27000,
+    "oldest": "2026-08-26",
+    "newest": "2026-08-26"
+   },
+   "latestRating": "Buy",
+   "close": 14920,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.8096514745308312
+  },
+  {
+   "code": "033640",
+   "nameEn": "Nepes",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 2,
+   "brokerReports": 1,
+   "firms": 2,
+   "first": "2026-08-20",
+   "last": "2026-09-30",
+   "targets": {
+    "firms": 1,
+    "min": 40000,
+    "max": 40000,
+    "median": 40000,
+    "oldest": "2026-08-20",
+    "newest": "2026-08-20"
+   },
+   "latestRating": "Buy",
+   "close": 23300,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.7167381974248928
+  },
+  {
+   "code": "122640",
+   "nameEn": "YEST Co.,Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-09-01",
+   "last": "2026-10-21",
+   "targets": {
+    "firms": 1,
+    "min": 57000,
+    "max": 57000,
+    "median": 57000,
+    "oldest": "2026-10-21",
+    "newest": "2026-10-21"
+   },
+   "latestRating": "Buy",
+   "close": 28400,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.007042253521127
+  },
+  {
+   "code": "200470",
+   "nameEn": "APACT Co., Ltd.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-10-12",
+   "last": "2026-10-26",
+   "targets": {
+    "firms": 1,
+    "min": 14300,
+    "max": 14300,
+    "median": 14300,
+    "oldest": "2026-10-12",
+    "newest": "2026-10-12"
+   },
+   "latestRating": "Buy",
+   "close": 9310,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.535982814178303
+  },
+  {
+   "code": "036200",
+   "nameEn": "Unisem",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-22",
+   "last": "2026-10-22",
+   "targets": {
+    "firms": 1,
+    "min": 12000,
+    "max": 12000,
+    "median": 12000,
+    "oldest": "2026-10-22",
+    "newest": "2026-10-22"
+   },
+   "latestRating": "Buy",
+   "close": 8830,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.35900339750849386
+  },
+  {
+   "code": "089890",
+   "nameEn": "KOSES Co.,Ltd",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-20",
+   "last": "2026-10-20",
+   "targets": {
+    "firms": 1,
+    "min": 55000,
+    "max": 55000,
+    "median": 55000,
+    "oldest": "2026-10-20",
+    "newest": "2026-10-20"
+   },
+   "latestRating": "Buy",
+   "close": 39900,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.3784461152882206
+  },
+  {
+   "code": "092870",
+   "nameEn": "Exicon",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-08",
+   "last": "2026-10-08",
+   "targets": {
+    "firms": 1,
+    "min": 68000,
+    "max": 68000,
+    "median": 68000,
+    "oldest": "2026-10-08",
+    "newest": "2026-10-08"
+   },
+   "latestRating": "Buy",
+   "close": 51300,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.32553606237816757
+  },
+  {
+   "code": "095610",
+   "nameEn": "TES",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-08-19",
+   "last": "2026-08-19",
+   "targets": {
+    "firms": 1,
+    "min": 200000,
+    "max": 200000,
+    "median": 200000,
+    "oldest": "2026-08-19",
+    "newest": "2026-08-19"
+   },
+   "latestRating": "Buy",
+   "close": 110200,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.8148820326678765
+  },
+  {
+   "code": "098460",
+   "nameEn": "Koh Young Technology",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-08-20",
+   "last": "2026-08-20",
+   "targets": {
+    "firms": 1,
+    "min": 42000,
+    "max": 42000,
+    "median": 42000,
+    "oldest": "2026-08-20",
+    "newest": "2026-08-20"
+   },
+   "latestRating": "Buy",
+   "close": 29250,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.4358974358974359
+  },
+  {
+   "code": "200710",
+   "nameEn": "ADTechnology Co., Ltd.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-08-21",
+   "last": "2026-08-21",
+   "targets": {
+    "firms": 1,
+    "min": 44000,
+    "max": 44000,
+    "median": 44000,
+    "oldest": "2026-08-21",
+    "newest": "2026-08-21"
+   },
+   "latestRating": "Buy",
+   "close": 18490,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 1.3796646836127637
+  },
+  {
+   "code": "319660",
+   "nameEn": "PSK",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-12",
+   "last": "2026-10-12",
+   "targets": {
+    "firms": 1,
+    "min": 190000,
+    "max": 190000,
+    "median": 190000,
+    "oldest": "2026-10-12",
+    "newest": "2026-10-12"
+   },
+   "latestRating": "Buy",
+   "close": 117500,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.6170212765957446
+  },
+  {
+   "code": "348210",
+   "nameEn": "Nextin",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-08-25",
+   "last": "2026-08-25",
+   "targets": {
+    "firms": 1,
+    "min": 40000,
+    "max": 40000,
+    "median": 40000,
+    "oldest": "2026-08-25",
+    "newest": "2026-08-25"
+   },
+   "latestRating": "Buy",
+   "close": 27850,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.4362657091561939
+  },
+  {
+   "code": "403870",
+   "nameEn": "HPSP",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-09-28",
+   "last": "2026-09-28",
+   "targets": {
+    "firms": 1,
+    "min": 71000,
+    "max": 71000,
+    "median": 71000,
+    "oldest": "2026-09-28",
+    "newest": "2026-09-28"
+   },
+   "latestRating": "Buy",
+   "close": 47700,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 0.4884696016771488
+  },
+  {
+   "code": "456010",
+   "nameEn": "ICTK Co., Ltd.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-02",
+   "last": "2026-10-02",
+   "targets": {
+    "firms": 1,
+    "min": 60000,
+    "max": 60000,
+    "median": 60000,
+    "oldest": "2026-10-02",
+    "newest": "2026-10-02"
+   },
+   "latestRating": "Buy",
+   "close": 17250,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": 2.4782608695652173
+  },
+  {
+   "code": "036540",
+   "nameEn": "SFA Semicon",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-09-01",
+   "last": "2026-09-01",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 8740,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "077360",
+   "nameEn": "Duksan Hi-Metal",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-08-25",
+   "last": "2026-08-25",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 11200,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "083450",
+   "nameEn": "GST",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-09-07",
+   "last": "2026-09-07",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 42850,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "092190",
+   "nameEn": "SEOUL VIOSYS CO., LTD.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-08-31",
+   "last": "2026-08-31",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 6520,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "117730",
+   "nameEn": "T-Robotics co., Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-09-23",
+   "last": "2026-09-23",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 12450,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "217190",
+   "nameEn": "Genesem Inc.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-12",
+   "last": "2026-10-12",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 8340,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "234030",
+   "nameEn": "SYNIC SOLUTION CO., LTD.",
+   "ksic": "26112",
+   "ksicEn": "Non-memory and other integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-08-28",
+   "last": "2026-08-28",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 2730,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "289930",
+   "nameEn": "Wavice Inc.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-09-04",
+   "last": "2026-09-04",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 7130,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  },
+  {
+   "code": "452430",
+   "nameEn": "Sapien Semiconductors Inc.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-08-24",
+   "last": "2026-08-24",
+   "targets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latestRating": null,
+   "close": 26200,
+   "closeDate": "2026-10-23",
+   "closeNoTrade": false,
+   "medianVsClose": null
+  }
+ ],
+ "noResearch": [
+  {
+   "code": "177900",
+   "nameEn": "3ALogics. Inc.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "102120",
+   "nameEn": "ABOV Semiconductor Co.,Ltd.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "364950",
+   "nameEn": "AI Korea Co., Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "059120",
+   "nameEn": "AJINEXTEK Co., Ltd.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "117670",
+   "nameEn": "Alphachips, Inc.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "172670",
+   "nameEn": "ALT Co.,Ltd.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "123860",
+   "nameEn": "Anapass, Inc.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "445090",
+   "nameEn": "ASICLAND Co.,Ltd",
+   "ksic": "26112",
+   "ksicEn": "Non-memory and other integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "017900",
+   "nameEn": "AUK CORP",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "146320",
+   "nameEn": "BCnC Co., Ltd.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "264660",
+   "nameEn": "C&G Hi Tech Co., Ltd",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "009310",
+   "nameEn": "Charm Engineering Co.,Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "094360",
+   "nameEn": "Chips&Media, Inc.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "160980",
+   "nameEn": "CYMECHS Inc.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "196490",
+   "nameEn": "DA Technology Co.,Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "000990",
+   "nameEn": "DB HiTek Co.,LTD",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "187870",
+   "nameEn": "DEVICE CO.,Ltd",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "001830",
+   "nameEn": "DONGBUELECTRONICS CO.,LTD",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "094170",
+   "nameEn": "DONGWOON ANATECH CO.,LTD.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "098400",
+   "nameEn": "Enspert. Inc.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "039030",
+   "nameEn": "EO Technics CO.,LTD",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "084370",
+   "nameEn": "EugeneTechnologyCo.,Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "032580",
+   "nameEn": "Fidelix Co., Ltd.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "399720",
+   "nameEn": "GAONCHIPS CO., LTD.",
+   "ksic": "26112",
+   "ksicEn": "Non-memory and other integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "082270",
+   "nameEn": "GemVax & KAEL Co.,Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "012410",
+   "nameEn": "GLOSTECH CO.,Ltd.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "382800",
+   "nameEn": "GnBS eco Co.,Ltd",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "402490",
+   "nameEn": "Green Resource Co.,Ltd",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "067310",
+   "nameEn": "HanaMicronInc.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "042700",
+   "nameEn": "HANMI Semiconductor CO., LTD.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "078350",
+   "nameEn": "HANYANG DIGITECH CO.,LTD.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "322000",
+   "nameEn": "HD HYUNDAI ENERGY SOLUTIONS CO.,LTD.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "365590",
+   "nameEn": "HiDeep Inc.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "036170",
+   "nameEn": "HMNEX Co.,Ltd.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "053810",
+   "nameEn": "i-factory Co.,Ltd",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "052860",
+   "nameEn": "I&C Technology Co., Ltd.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "040910",
+   "nameEn": "ICD Co.,Ltd",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "149010",
+   "nameEn": "IK Semicon Co., Ltd.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "020760",
+   "nameEn": "ILJIN DISPLAY CO.,LTD.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "115610",
+   "nameEn": "IMAGIS Co., Ltd.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "084810",
+   "nameEn": "International Resources Development Co.,Ltd",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "014010",
+   "nameEn": "INTERPION SEM CONDUCTOR CO.,LTD",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "051820",
+   "nameEn": "IPSLtd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "464500",
+   "nameEn": "Iron Device Corp.",
+   "ksic": "26112",
+   "ksicEn": "Non-memory and other integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "212710",
+   "nameEn": "ISTE Co.,Ltd.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "090470",
+   "nameEn": "JAS Robotics Inc.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "080220",
+   "nameEn": "Jeju Semiconductor Corp.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "452160",
+   "nameEn": "JNB Co.,Ltd",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "089790",
+   "nameEn": "JT Corporation.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "077960",
+   "nameEn": "K-eng CO., LTD",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "092220",
+   "nameEn": "KEC CORPORATION",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "455180",
+   "nameEn": "KGA CO., LTD",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "272110",
+   "nameEn": "KnJ Co.,Ltd.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "036850",
+   "nameEn": "Knowledge*on Inc.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "027840",
+   "nameEn": "KODENSHIKOREA CORP",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "183300",
+   "nameEn": "KoMiCo Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "053740",
+   "nameEn": "Kook Je Electric Korea Co., Ltd",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "093640",
+   "nameEn": "Korea Robot Manufacturing Co., Ltd.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "355150",
+   "nameEn": "KOSTECSYS. CO., LTD.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "169670",
+   "nameEn": "Kostek Systems, Inc.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "412350",
+   "nameEn": "Laserssel Co. Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "311060",
+   "nameEn": "LAT CO., LTD.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "376190",
+   "nameEn": "LB Lusem Co., Ltd.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "061970",
+   "nameEn": "LB SEMICON, INC.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "096870",
+   "nameEn": "LDTInc.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "083310",
+   "nameEn": "LOTVacuum.Co.,Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "038060",
+   "nameEn": "LUMENS CO., LTD.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "092590",
+   "nameEn": "Luxpia Co., Ltd.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KONEX"
+  },
+  {
+   "code": "108320",
+   "nameEn": "LX Semicon Co., Ltd.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "241770",
+   "nameEn": "MECARO.CO.,LTD.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "049950",
+   "nameEn": "meerecompanyIncorporated",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "059090",
+   "nameEn": "MiCo Ltd.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "424980",
+   "nameEn": "MICRO2NANO, INC.",
+   "ksic": "26129",
+   "ksicEn": "Other semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "101400",
+   "nameEn": "N CITRON, INC.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "046720",
+   "nameEn": "N-HITECH CO., LTD",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "088020",
+   "nameEn": "NatureGlobal Inc.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "092600",
+   "nameEn": "NC& Co., Ltd.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "089240",
+   "nameEn": "Neosemitech Corporation",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "144960",
+   "nameEn": "New Power Plasma Co.,Ltd",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "110570",
+   "nameEn": "Nexolon Company Limited.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "396270",
+   "nameEn": "Nextchip Co., Ltd.",
+   "ksic": "26112",
+   "ksicEn": "Non-memory and other integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "072530",
+   "nameEn": "Nice Metal Co.,LTD",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "080520",
+   "nameEn": "ODTech",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "271830",
+   "nameEn": "PAMTEK CO., LTD.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "123260",
+   "nameEn": "PineNex Co., Ltd",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "321260",
+   "nameEn": "PRO2000 CO.,LTD.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "053610",
+   "nameEn": "PROTEC Co., Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "037240",
+   "nameEn": "Pyeong Ahn Trading, Inc.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "066310",
+   "nameEn": "Q.S.ICo.,Ltd.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "432720",
+   "nameEn": "QUALITAS SEMICONDUCTOR CO., LTD.",
+   "ksic": "26112",
+   "ksicEn": "Non-memory and other integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "317120",
+   "nameEn": "RANIX INC.",
+   "ksic": "26112",
+   "ksicEn": "Non-memory and other integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "096610",
+   "nameEn": "RFsemiTechnologies,Inc.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "088280",
+   "nameEn": "SAWNICS INC.",
+   "ksic": "26129",
+   "ksicEn": "Other semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "070480",
+   "nameEn": "Seen BnTek Co.,Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "081220",
+   "nameEn": "SemiteqCo.,Ltd",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "046890",
+   "nameEn": "SEOUL SEMICONDUCTOR CO., LTD.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "429270",
+   "nameEn": "Sigetronics, Inc.",
+   "ksic": "26129",
+   "ksicEn": "Other semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "033170",
+   "nameEn": "Signetics Corp.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "082930",
+   "nameEn": "SiliconFileTechnologiesInc.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "158300",
+   "nameEn": "Solution Advanced Technology Co.,Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "031800",
+   "nameEn": "ST&I Co., Ltd.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "039440",
+   "nameEn": "Systems Technology Incorporated",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "064520",
+   "nameEn": "TechL Co., LTD.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "089030",
+   "nameEn": "Techwing, Inc.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "054450",
+   "nameEn": "TelechipsInc.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "048510",
+   "nameEn": "Testech Incorporation",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "062860",
+   "nameEn": "TLIInc.",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "086390",
+   "nameEn": "UniTestInc.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "089970",
+   "nameEn": "VM Inc.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "043590",
+   "nameEn": "WELKEEPS HITECH CO.,LTD",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "097800",
+   "nameEn": "WINPAC INC.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "123100",
+   "nameEn": "WONIK TERA SEMICON CO.,LTD.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "103130",
+   "nameEn": "Woongjin Energy Co., Ltd",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "153490",
+   "nameEn": "WOOREE E&L Haroutine Co.,LTD.",
+   "ksic": "2612",
+   "ksicEn": "Diodes, transistors and similar semiconductor devices",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "396470",
+   "nameEn": "WOT.CO.,LTD.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "011690",
+   "nameEn": "Y2 Solution CO.,LTD",
+   "ksic": "2611",
+   "ksicEn": "Electronic integrated circuits",
+   "includedBy": "ksic",
+   "market": "KOSPI"
+  },
+  {
+   "code": "038720",
+   "nameEn": "YOUILENSYS Corporation",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "085990",
+   "nameEn": "Young Chan Tech Co.,Ltd.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": null
+  },
+  {
+   "code": "389020",
+   "nameEn": "Zaram Technology,Inc.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "079370",
+   "nameEn": "ZEUSCO.,LTD.",
+   "ksic": "29271",
+   "ksicEn": "Machinery for semiconductor manufacturing",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  },
+  {
+   "code": "303030",
+   "nameEn": "Zinitix Co.,Ltd.",
+   "ksic": "261",
+   "ksicEn": "Semiconductors",
+   "includedBy": "ksic",
+   "market": "KOSDAQ"
+  }
+ ],
+ "ruleMisses": [
+  {
+   "code": "240810",
+   "nameEn": "Wonik IPS",
+   "ksic": "292",
+   "ksicEn": "special-purpose machinery",
+   "reports": 1
+  },
+  {
+   "code": "058470",
+   "nameEn": "Leeno Industrial",
+   "ksic": "2629",
+   "ksicEn": "other electronic components",
+   "reports": 3
+  },
+  {
+   "code": "357780",
+   "nameEn": "Soulbrain",
+   "ksic": "204",
+   "ksicEn": "other chemical products",
+   "reports": 1
+  },
+  {
+   "code": "232140",
+   "nameEn": "YC Corporation",
+   "ksic": "292",
+   "ksicEn": "special-purpose machinery",
+   "reports": 2
+  },
+  {
+   "code": "003160",
+   "nameEn": "DI CORPORATION",
+   "ksic": "27212",
+   "ksicEn": "measuring, testing and analysing instruments",
+   "reports": 2
+  }
+ ]
+}
