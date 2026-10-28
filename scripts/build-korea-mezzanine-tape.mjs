@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { pathToFileURL } from 'node:url';
 /**
  * build-korea-mezzanine-tape.mjs — **F7. Korea Mezzanine Tape.** (SeoulMarkets 데이터 API)
  *   CB·BW·EB(전환사채·신주인수권부사채·교환사채) 공시 원자료를 **한 건(filing) 한 줄**로 API 에 낸다.
@@ -181,47 +182,53 @@ if (process.argv.includes('--자가시험')) {
 }
 
 if (!자가시험()) { console.log('🔴 자가시험이 깨졌다 — 만들지 않는다.'); process.exit(1); }
-console.log('');
+/* 🔴 [2026-10-28 · 5번] 가져오면 도는 자였다 — 다른 자가 들여오면 아래가 그대로 돌아
+   그 자의 보고 대신 이 글이 찍힌다(검사: check-가져오면-도는자.mjs).
+   ⛔ 관문 글귀만 끼워 넣지 않았다. 직접 불렸을 때만 돌도록 실제로 감쌌다. */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  console.log('');
 
-const 적는다 = process.argv.includes('--적는다');
-const {
-  rows, sourceFile, byType, withFloor, floorWithheldWithNote, floorWithheldNoNote,
-} = 짓기();
+  const 적는다 = process.argv.includes('--적는다');
+  const {
+    rows, sourceFile, byType, withFloor, floorWithheldWithNote, floorWithheldNoNote,
+  } = 짓기();
 
-console.log(`■ Korea Mezzanine Tape — ${sourceFile} · ${rows.length}줄`);
-console.log(`   CB ${byType.CB} · BW ${byType.BW} · EB ${byType.EB}`);
-console.log(`   리픽싱 하한 있음 ${withFloor} · 해당없음 ${floorWithheldWithNote} · 못잼 ${floorWithheldNoNote}`);
+  console.log(`■ Korea Mezzanine Tape — ${sourceFile} · ${rows.length}줄`);
+  console.log(`   CB ${byType.CB} · BW ${byType.BW} · EB ${byType.EB}`);
+  console.log(`   리픽싱 하한 있음 ${withFloor} · 해당없음 ${floorWithheldWithNote} · 못잼 ${floorWithheldNoNote}`);
 
-if (!적는다) { console.log('\n⭐ 아직 안 적었다. --적는다 를 붙인다.'); process.exit(0); }
+  if (!적는다) { console.log('\n⭐ 아직 안 적었다. --적는다 를 붙인다.'); process.exit(0); }
 
-const 오늘 = new Date();
-const 낼것 = {
-  _meta: {
-    product: 'Korea Mezzanine Tape',
-    builtAt: 영문시각(오늘),
-    sourceFile: `src/data/full/${sourceFile}`,
-    rows: rows.length,
-    byType,
-    withFloor,
-    floorWithheldWithNote,
-    floorWithheldNoNote,
-    source: 'DART filings for convertible bonds (CB), bonds with warrants (BW) and exchangeable '
-      + 'bonds (EB), collected by us and published as our licensed dataset.',
-    notThis: [
-      'Not a judgement. A zero coupon or a private placement is a fact about a filing, not a '
-        + 'criticism of the company.',
-      'Not a dilution forecast. We publish the terms as filed and never model what a conversion '
-        + 'would do.',
-      'Not a complete history. The window is what we have collected.',
-      'Not a signal. Nothing here is a view on any security.',
-    ],
-    refixFloorNote: 'refixFloorPriceKrw is null either because the filing marked the field not '
-      + 'applicable (refixFloorNote carries the filed reason — this is the normal case for EB, '
-      + 'which structurally has no refixing floor) or because we could not measure it '
-      + '(refixFloorNote is also null in that case). The two are not the same thing.',
-  },
-  rows,
-};
-fs.mkdirSync(path.dirname(path.join(뿌리, 낼곳)), { recursive: true });
-fs.writeFileSync(path.join(뿌리, 낼곳), JSON.stringify(낼것, null, 1), 'utf8');
-console.log(`\n📁 적었다 — ${낼곳}`);
+  const 오늘 = new Date();
+  const 낼것 = {
+    _meta: {
+      product: 'Korea Mezzanine Tape',
+      builtAt: 영문시각(오늘),
+      sourceFile: `src/data/full/${sourceFile}`,
+      rows: rows.length,
+      byType,
+      withFloor,
+      floorWithheldWithNote,
+      floorWithheldNoNote,
+      source: 'DART filings for convertible bonds (CB), bonds with warrants (BW) and exchangeable '
+        + 'bonds (EB), collected by us and published as our licensed dataset.',
+      notThis: [
+        'Not a judgement. A zero coupon or a private placement is a fact about a filing, not a '
+          + 'criticism of the company.',
+        'Not a dilution forecast. We publish the terms as filed and never model what a conversion '
+          + 'would do.',
+        'Not a complete history. The window is what we have collected.',
+        'Not a signal. Nothing here is a view on any security.',
+      ],
+      refixFloorNote: 'refixFloorPriceKrw is null either because the filing marked the field not '
+        + 'applicable (refixFloorNote carries the filed reason — this is the normal case for EB, '
+        + 'which structurally has no refixing floor) or because we could not measure it '
+        + '(refixFloorNote is also null in that case). The two are not the same thing.',
+    },
+    rows,
+  };
+  fs.mkdirSync(path.dirname(path.join(뿌리, 낼곳)), { recursive: true });
+  fs.writeFileSync(path.join(뿌리, 낼곳), JSON.stringify(낼것, null, 1), 'utf8');
+  console.log(`\n📁 적었다 — ${낼곳}`);
+
+}

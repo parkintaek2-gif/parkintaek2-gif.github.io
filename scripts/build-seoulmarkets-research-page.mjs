@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { pathToFileURL } from 'node:url';
 /**
  * build-seoulmarkets-research-page.mjs — 무료 영문 깔때기 지면이 쓸 것만 뽑는다.
  *
@@ -295,14 +296,20 @@ const 낼것 = {
   mostCited: 많이인용된것(줄들, 80),
   newest: 최신것(줄들, 40),
 };
-fs.writeFileSync(path.join(뿌리, 낼길), JSON.stringify(낼것, null, 2), 'utf8');
+/* 🔴 [2026-10-28 · 5번] 가져오면 도는 자였다 — 다른 자가 들여오면 아래가 그대로 돌아
+   그 자의 보고 대신 이 글이 찍힌다(검사: check-가져오면-도는자.mjs).
+   ⛔ 관문 글귀만 끼워 넣지 않았다. 직접 불렸을 때만 돌도록 실제로 감쌌다. */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  fs.writeFileSync(path.join(뿌리, 낼길), JSON.stringify(낼것, null, 2), 'utf8');
 
-const 크기 = (fs.statSync(path.join(뿌리, 낼길)).size / 1024).toFixed(0);
-console.log(`\n✅ 냈다 — ${낼길} (${크기} KB · 대장은 ${(fs.statSync(path.join(뿌리, 대장길)).size / 1024).toFixed(0)} KB)`);
-console.log(`   담은 편수 ${낼것.indexed.toLocaleString()} · 화면에 내는 것 ${낼것.mostCited.length + 낼것.newest.length}편`);
-console.log(`   주제 ${낼것.topicsTotal}가지(위 ${낼것.topics.length}) · 저널 ${낼것.journalsTotal}가지(위 ${낼것.journals.length}) · 저널 못 적음 ${낼것.journalMissing}`);
-console.log(`   본문 쓸 수 있음 ${낼것.reuse?.쓸수있음} · 안 됨 ${낼것.reuse?.안됨} · 못 쟀다 ${낼것.reuse?.못쟀다}`);
-console.log(`   🔴 한국어로 쓴 것 ${낼것.inKorean}편 · 한글 이름 저널 ${낼것.koreanJournals}가지`);
-console.log('      ⇒ 목록에서 빼고 «세어서» 적는다. 버리는 것이 아니다 — 화면에 한국어를 안 내기 때문이다');
-console.log('\n⛔ 지면 문장은 「한국시장을 다룬 논문」이 아니라 「이 네 낱말이 나오는 논문」이다.');
-console.log('   구절 검색이라 곁가지가 섞인다 — 실측: 「KMPI: measuring knowledge management performance」가 들어 있다.');
+  const 크기 = (fs.statSync(path.join(뿌리, 낼길)).size / 1024).toFixed(0);
+  console.log(`\n✅ 냈다 — ${낼길} (${크기} KB · 대장은 ${(fs.statSync(path.join(뿌리, 대장길)).size / 1024).toFixed(0)} KB)`);
+  console.log(`   담은 편수 ${낼것.indexed.toLocaleString()} · 화면에 내는 것 ${낼것.mostCited.length + 낼것.newest.length}편`);
+  console.log(`   주제 ${낼것.topicsTotal}가지(위 ${낼것.topics.length}) · 저널 ${낼것.journalsTotal}가지(위 ${낼것.journals.length}) · 저널 못 적음 ${낼것.journalMissing}`);
+  console.log(`   본문 쓸 수 있음 ${낼것.reuse?.쓸수있음} · 안 됨 ${낼것.reuse?.안됨} · 못 쟀다 ${낼것.reuse?.못쟀다}`);
+  console.log(`   🔴 한국어로 쓴 것 ${낼것.inKorean}편 · 한글 이름 저널 ${낼것.koreanJournals}가지`);
+  console.log('      ⇒ 목록에서 빼고 «세어서» 적는다. 버리는 것이 아니다 — 화면에 한국어를 안 내기 때문이다');
+  console.log('\n⛔ 지면 문장은 「한국시장을 다룬 논문」이 아니라 「이 네 낱말이 나오는 논문」이다.');
+  console.log('   구절 검색이라 곁가지가 섞인다 — 실측: 「KMPI: measuring knowledge management performance」가 들어 있다.');
+
+}

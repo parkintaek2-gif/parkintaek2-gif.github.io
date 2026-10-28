@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { pathToFileURL } from 'node:url';
 /**
  * build-korea-valuation-tape.mjs — **F2. Korea Valuation Tape.**
  *   시세(시가총액) × 재무제표(순이익·자본총계) → PER · PBR · ROE · 부채비율
@@ -368,108 +369,114 @@ if (process.argv.includes('--자가시험')) {
 }
 
 if (!자가시험()) { console.log('🔴 자가시험이 깨졌다 — 만들지 않는다.'); process.exit(1); }
-console.log('');
+/* 🔴 [2026-10-28 · 5번] 가져오면 도는 자였다 — 다른 자가 들여오면 아래가 그대로 돌아
+   그 자의 보고 대신 이 글이 찍힌다(검사: check-가져오면-도는자.mjs).
+   ⛔ 관문 글귀만 끼워 넣지 않았다. 직접 불렸을 때만 돌도록 실제로 감쌌다. */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  console.log('');
 
-/* ⚠ [2026-09-25] `--save` 도 같은 뜻이다. 윈도 작업 스케줄러의 .cmd 안에서는 한글 인자가
-   CP949 로 깨지며 «뒷글자까지 먹는다» — 2026-09-24 에 실제로 겪었다(예약은 exit 0 을 내는데
-   아무 일도 안 일어났다). ⇒ 예약에서 부를 때는 반드시 영문 인자를 쓴다.
-   ⛔ 이 줄을 한글만 받게 되돌리지 말 것. 되돌리면 매시 갱신이 «조용히» 멈춘다. */
-const 적는다 = process.argv.includes('--적는다') || process.argv.includes('--save');
+  /* ⚠ [2026-09-25] `--save` 도 같은 뜻이다. 윈도 작업 스케줄러의 .cmd 안에서는 한글 인자가
+     CP949 로 깨지며 «뒷글자까지 먹는다» — 2026-09-24 에 실제로 겪었다(예약은 exit 0 을 내는데
+     아무 일도 안 일어났다). ⇒ 예약에서 부를 때는 반드시 영문 인자를 쓴다.
+     ⛔ 이 줄을 한글만 받게 되돌리지 말 것. 되돌리면 매시 갱신이 «조용히» 멈춘다. */
+  const 적는다 = process.argv.includes('--적는다') || process.argv.includes('--save');
 
-/* 재무제표 — 가장 최근 판 */
-let 재무목록 = null;
-try { 재무목록 = fs.readdirSync(path.join(ROOT, 재무방)); } catch { /* 없다 */ }
-const 재무파일 = 최근파일(재무목록, /^financials-\d{4}-\d{8}\.json$/);
-if (!재무파일) {
-  console.log(`🔴 재무제표가 아직 없다 — ${재무방}`);
-  console.log('   먼저 돌린다: node scripts/collect-dart-financials.mjs --해 2025 --적는다');
-  process.exit(1);
-}
-const 재무 = JSON.parse(fs.readFileSync(path.join(ROOT, 재무방, 재무파일), 'utf8'));
+  /* 재무제표 — 가장 최근 판 */
+  let 재무목록 = null;
+  try { 재무목록 = fs.readdirSync(path.join(ROOT, 재무방)); } catch { /* 없다 */ }
+  const 재무파일 = 최근파일(재무목록, /^financials-\d{4}-\d{8}\.json$/);
+  if (!재무파일) {
+    console.log(`🔴 재무제표가 아직 없다 — ${재무방}`);
+    console.log('   먼저 돌린다: node scripts/collect-dart-financials.mjs --해 2025 --적는다');
+    process.exit(1);
+  }
+  const 재무 = JSON.parse(fs.readFileSync(path.join(ROOT, 재무방, 재무파일), 'utf8'));
 
-/* 시세 — 가장 최근 판 */
-let 시세목록 = null;
-try { 시세목록 = fs.readdirSync(path.join(ROOT, 시세방)); } catch { /* 없다 */ }
-const 시세파일 = 최근파일(시세목록, /^\d{8}\.ndjson$/);
-const 시세 = 시세파일
-  ? 시세읽기(fs.readFileSync(path.join(ROOT, 시세방, 시세파일), 'utf8'))
-  : null;
+  /* 시세 — 가장 최근 판 */
+  let 시세목록 = null;
+  try { 시세목록 = fs.readdirSync(path.join(ROOT, 시세방)); } catch { /* 없다 */ }
+  const 시세파일 = 최근파일(시세목록, /^\d{8}\.ndjson$/);
+  const 시세 = 시세파일
+    ? 시세읽기(fs.readFileSync(path.join(ROOT, 시세방, 시세파일), 'utf8'))
+    : null;
 
-console.log(`■ 재무 ${재무파일} — ${재무.해}년 · 쟀다 ${재무.쟀다}/${재무.전체}`);
-console.log(`■ 시세 ${시세파일 ?? '⬜ 없다'} — ${시세 ? `${시세.표.size}종목 · 판 ${시세.날}` : '못 읽었다'}`);
+  console.log(`■ 재무 ${재무파일} — ${재무.해}년 · 쟀다 ${재무.쟀다}/${재무.전체}`);
+  console.log(`■ 시세 ${시세파일 ?? '⬜ 없다'} — ${시세 ? `${시세.표.size}종목 · 판 ${시세.날}` : '못 읽었다'}`);
 
-const 업종영문 = 업종영문사전읽기();
-const 줄들 = (재무.줄들 ?? []).map((x) => 한줄(x, 시세?.표.get(String(x.종목)) ?? null,
-  { 시세판: 시세?.날 ?? null, 업종영문 }));
-const 보고 = 셈보고(줄들);
+  const 업종영문 = 업종영문사전읽기();
+  const 줄들 = (재무.줄들 ?? []).map((x) => 한줄(x, 시세?.표.get(String(x.종목)) ?? null,
+    { 시세판: 시세?.날 ?? null, 업종영문 }));
+  const 보고 = 셈보고(줄들);
 
-console.log('');
-console.log(`■ Korea Valuation Tape — ${보고.전체}줄`);
-console.log(`   PER  ${보고.per} / ${보고.전체}`);
-console.log(`   PBR  ${보고.pbr} / ${보고.전체}`);
-console.log(`   ROE  ${보고.roe} / ${보고.전체}`);
-console.log(`   industryEn  ${보고.industryEn} / ${보고.전체} (F3 사전에 없는 업종명은 null)`);
-console.log(`   못 붙은 줄 ${보고.못붙음} — 줄은 남겼다(까닭이 칸에 있다)`);
+  console.log('');
+  console.log(`■ Korea Valuation Tape — ${보고.전체}줄`);
+  console.log(`   PER  ${보고.per} / ${보고.전체}`);
+  console.log(`   PBR  ${보고.pbr} / ${보고.전체}`);
+  console.log(`   ROE  ${보고.roe} / ${보고.전체}`);
+  console.log(`   industryEn  ${보고.industryEn} / ${보고.전체} (F3 사전에 없는 업종명은 null)`);
+  console.log(`   못 붙은 줄 ${보고.못붙음} — 줄은 남겼다(까닭이 칸에 있다)`);
 
-/* 못 붙은 까닭을 갈래로 센다 — 「못 붙었다」로 뭉치지 않는다 */
-const 까닭셈 = new Map();
-for (const x of 줄들) if (x.notMeasured) 까닭셈.set(x.notMeasured, (까닭셈.get(x.notMeasured) ?? 0) + 1);
-for (const [k, v] of [...까닭셈].sort((a, b) => b[1] - a[1])) console.log(`     ${v}줄  ${k}`);
+  /* 못 붙은 까닭을 갈래로 센다 — 「못 붙었다」로 뭉치지 않는다 */
+  const 까닭셈 = new Map();
+  for (const x of 줄들) if (x.notMeasured) 까닭셈.set(x.notMeasured, (까닭셈.get(x.notMeasured) ?? 0) + 1);
+  for (const [k, v] of [...까닭셈].sort((a, b) => b[1] - a[1])) console.log(`     ${v}줄  ${k}`);
 
-if (!적는다) { console.log('\n⭐ 아직 안 적었다. --적는다 를 붙인다.'); process.exit(0); }
+  if (!적는다) { console.log('\n⭐ 아직 안 적었다. --적는다 를 붙인다.'); process.exit(0); }
 
-const 오늘 = new Date();
-const 낼것 = {
-  _meta: {
-    product: 'Korea Valuation Tape',
-    builtAt: 영문시각(오늘),
-    priceAsOf: 시세?.날 ?? null,
-    fiscalYear: 재무.해,
-    report: 'Annual (11011)',
-    rows: 보고.전체,
-    withPer: 보고.per,
-    withPbr: 보고.pbr,
-    withRoe: 보고.roe,
-    notMeasured: 보고.못붙음,
-    note: 'PER is null when net income is not positive. PBR and ROE are null when total '
-      + 'equity is not positive. Consolidated (CFS) is used when available, otherwise '
-      + 'separate (OFS); the basis column says which. No sector averages are computed.',
-    /* 🔴 이 줄이 이 상품에서 가장 중요한 고백이다 — 안 적으면 손님이 TTM 으로 읽는다 */
-    howToRead: 'These are trailing annual multiples, not trailing twelve months. The market cap '
-      + 'column is a single trading day (priceAsOf) and the earnings and equity columns come from '
-      + 'the annual report for fiscalYear. The gap between those two dates is months, so a company '
-      + 'whose earnings moved since its last annual filing will read high or low here. That is why '
-      + 'both dates ship as columns: the multiple can be recomputed against any other price date.',
-    whyRowsAreKept: 'Rows that could not be computed are kept, with the reason in notMeasured. '
-      + 'Dropping them would remove the denominator and leave a flattering count.',
-  },
-  rows: 줄들,
-};
-/**
- * 🔴 [2026-10-06 19:29 · 5번] **시각 칸만 바뀐 것을 「바뀌었다」로 적지 않는다.**
- *
- * 이 자는 돌 때마다 `builtAt` 를 새로 찍었다. 알맹이가 한 줄도 안 바뀌어도 파일이
- * 더러워진다. 그 탓에 **빌드를 돌릴 때마다 배포 관문이 「커밋 안 된 변경」으로 막았다** —
- * 오늘 저녁에만 세 번 막혔다. 막힐 때마다 뜻 없는 커밋을 하나씩 더 쌓았다.
- *
- * ⛔ 자물쇠가 «뜻 없는 일»로 울면 사람은 결국 자물쇠를 건너뛴다. 그것이 더 비싸다.
- * ⇒ 시각 칸을 뺀 알맹이가 같으면 **안 쓴다.** 이 저장소의 build-kcw-headlines.mjs 가
- *   이미 쓰는 꼴이다 — 거기 것을 그대로 가져왔다.
- * ⛔ 못 읽으면 «같다»고 치지 않는다. 그때는 쓴다.
- */
-const 낼길 = path.join(ROOT, 낼곳);
-let 그대로다 = false;
-try {
-  const 옛 = JSON.parse(fs.readFileSync(낼길, 'utf8'));
-  const { builtAt: _버린다, ...옛머리 } = 옛._meta ?? {};
-  const { builtAt: _버린다2, ...새머리 } = 낼것._meta;
-  그대로다 = JSON.stringify({ ...옛, _meta: 옛머리 }) === JSON.stringify({ ...낼것, _meta: 새머리 });
-} catch { 그대로다 = false; }
+  const 오늘 = new Date();
+  const 낼것 = {
+    _meta: {
+      product: 'Korea Valuation Tape',
+      builtAt: 영문시각(오늘),
+      priceAsOf: 시세?.날 ?? null,
+      fiscalYear: 재무.해,
+      report: 'Annual (11011)',
+      rows: 보고.전체,
+      withPer: 보고.per,
+      withPbr: 보고.pbr,
+      withRoe: 보고.roe,
+      notMeasured: 보고.못붙음,
+      note: 'PER is null when net income is not positive. PBR and ROE are null when total '
+        + 'equity is not positive. Consolidated (CFS) is used when available, otherwise '
+        + 'separate (OFS); the basis column says which. No sector averages are computed.',
+      /* 🔴 이 줄이 이 상품에서 가장 중요한 고백이다 — 안 적으면 손님이 TTM 으로 읽는다 */
+      howToRead: 'These are trailing annual multiples, not trailing twelve months. The market cap '
+        + 'column is a single trading day (priceAsOf) and the earnings and equity columns come from '
+        + 'the annual report for fiscalYear. The gap between those two dates is months, so a company '
+        + 'whose earnings moved since its last annual filing will read high or low here. That is why '
+        + 'both dates ship as columns: the multiple can be recomputed against any other price date.',
+      whyRowsAreKept: 'Rows that could not be computed are kept, with the reason in notMeasured. '
+        + 'Dropping them would remove the denominator and leave a flattering count.',
+    },
+    rows: 줄들,
+  };
+  /**
+   * 🔴 [2026-10-06 19:29 · 5번] **시각 칸만 바뀐 것을 「바뀌었다」로 적지 않는다.**
+   *
+   * 이 자는 돌 때마다 `builtAt` 를 새로 찍었다. 알맹이가 한 줄도 안 바뀌어도 파일이
+   * 더러워진다. 그 탓에 **빌드를 돌릴 때마다 배포 관문이 「커밋 안 된 변경」으로 막았다** —
+   * 오늘 저녁에만 세 번 막혔다. 막힐 때마다 뜻 없는 커밋을 하나씩 더 쌓았다.
+   *
+   * ⛔ 자물쇠가 «뜻 없는 일»로 울면 사람은 결국 자물쇠를 건너뛴다. 그것이 더 비싸다.
+   * ⇒ 시각 칸을 뺀 알맹이가 같으면 **안 쓴다.** 이 저장소의 build-kcw-headlines.mjs 가
+   *   이미 쓰는 꼴이다 — 거기 것을 그대로 가져왔다.
+   * ⛔ 못 읽으면 «같다»고 치지 않는다. 그때는 쓴다.
+   */
+  const 낼길 = path.join(ROOT, 낼곳);
+  let 그대로다 = false;
+  try {
+    const 옛 = JSON.parse(fs.readFileSync(낼길, 'utf8'));
+    const { builtAt: _버린다, ...옛머리 } = 옛._meta ?? {};
+    const { builtAt: _버린다2, ...새머리 } = 낼것._meta;
+    그대로다 = JSON.stringify({ ...옛, _meta: 옛머리 }) === JSON.stringify({ ...낼것, _meta: 새머리 });
+  } catch { 그대로다 = false; }
 
-if (그대로다) {
-  console.log(`\n⬜ 달라진 것이 없어 «안 썼다» — ${낼곳}`);
-  console.log('   ⚠ 「안 돌았다」가 아니다. 재 보니 알맹이가 같았다는 뜻이다');
-} else {
-  fs.writeFileSync(낼길, JSON.stringify(낼것, null, 1), 'utf8');
-  console.log(`\n📁 적었다 — ${낼곳}`);
+  if (그대로다) {
+    console.log(`\n⬜ 달라진 것이 없어 «안 썼다» — ${낼곳}`);
+    console.log('   ⚠ 「안 돌았다」가 아니다. 재 보니 알맹이가 같았다는 뜻이다');
+  } else {
+    fs.writeFileSync(낼길, JSON.stringify(낼것, null, 1), 'utf8');
+    console.log(`\n📁 적었다 — ${낼곳}`);
+  }
+
 }

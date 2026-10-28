@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { pathToFileURL } from 'node:url';
 /**
  * collect-korea-markets-research.mjs — **한국시장을 다룬 논문**을 모은다.
  *
@@ -343,13 +344,19 @@ const 대장 = {
   본문쓸수있나: 본문,
   줄들: [...줄들].sort((a, b) => (b.인용 ?? -1) - (a.인용 ?? -1)),
 };
-fs.writeFileSync(path.join(뿌리, 대장길), JSON.stringify(대장, null, 2), 'utf8');
+/* 🔴 [2026-10-28 · 5번] 가져오면 도는 자였다 — 다른 자가 들여오면 아래가 그대로 돌아
+   그 자의 보고 대신 이 글이 찍힌다(검사: check-가져오면-도는자.mjs).
+   ⛔ 관문 글귀만 끼워 넣지 않았다. 직접 불렸을 때만 돌도록 실제로 감쌌다. */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  fs.writeFileSync(path.join(뿌리, 대장길), JSON.stringify(대장, null, 2), 'utf8');
 
-console.log(`\n■ 대장 — ${대장길}`);
-console.log(`   편수 ${줄들.length.toLocaleString()} · 주제 ${주제.length}가지 · 해 ${해.해별.length}가지 (해 없음 ${해.해없음})`);
-console.log(`   본문 쓸 수 있는 것 ${본문.쓸수있음} · 안 되는 것 ${본문.안됨} · 못 쟀다 ${본문.못쟀다}`);
-console.log('   ⛔ 「오픈액세스」와 「본문을 써도 되나」는 다른 말이다 — 라이선스 칸으로만 갈랐다');
-for (const q of Object.values(모은것.물음별)) {
-  console.log(`   ${q.이름.padEnd(22)} 전체 ${q.전체?.toLocaleString() ?? '못 쟀다'}편`);
+  console.log(`\n■ 대장 — ${대장길}`);
+  console.log(`   편수 ${줄들.length.toLocaleString()} · 주제 ${주제.length}가지 · 해 ${해.해별.length}가지 (해 없음 ${해.해없음})`);
+  console.log(`   본문 쓸 수 있는 것 ${본문.쓸수있음} · 안 되는 것 ${본문.안됨} · 못 쟀다 ${본문.못쟀다}`);
+  console.log('   ⛔ 「오픈액세스」와 「본문을 써도 되나」는 다른 말이다 — 라이선스 칸으로만 갈랐다');
+  for (const q of Object.values(모은것.물음별)) {
+    console.log(`   ${q.이름.padEnd(22)} 전체 ${q.전체?.toLocaleString() ?? '못 쟀다'}편`);
+  }
+  console.log('\n⭐ 다음 — 이 대장으로 무료 영문 지면을 짓는다(깔때기). 상품은 영어판 FnGuide 쪽이다.');
+
 }
-console.log('\n⭐ 다음 — 이 대장으로 무료 영문 지면을 짓는다(깔때기). 상품은 영어판 FnGuide 쪽이다.');

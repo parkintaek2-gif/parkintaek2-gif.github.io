@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { pathToFileURL } from 'node:url';
 /**
  * build-korea-ownership-tape.mjs — **F7. Korea Ownership Ledger.** (SeoulMarkets 데이터 API)
  *   DART 대량보유(majorstock)·임원·주요주주 소유(elestock) 원자료를 **행 단위**로 API 에 낸다.
@@ -223,60 +224,66 @@ if (process.argv.includes('--자가시험')) {
 }
 
 if (!자가시험()) { console.log('🔴 자가시험이 깨졌다 — 만들지 않는다.'); process.exit(1); }
-console.log('');
+/* 🔴 [2026-10-28 · 5번] 가져오면 도는 자였다 — 다른 자가 들여오면 아래가 그대로 돌아
+   그 자의 보고 대신 이 글이 찍힌다(검사: check-가져오면-도는자.mjs).
+   ⛔ 관문 글귀만 끼워 넣지 않았다. 직접 불렸을 때만 돌도록 실제로 감쌌다. */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  console.log('');
 
-const 적는다 = process.argv.includes('--적는다');
-const 대량 = 짓기_대량보유();
-const 임원 = 짓기_임원주주();
+  const 적는다 = process.argv.includes('--적는다');
+  const 대량 = 짓기_대량보유();
+  const 임원 = 짓기_임원주주();
 
-console.log(`■ Korea Ownership Ledger — filings: ${대량.sourceFile} · ${대량.rows.length}줄`);
-console.log(`   general ${대량.byKind.general} · abbreviated ${대량.byKind.abbreviated} · unmapped ${대량.unmappedKind}`);
-console.log(`■ Korea Ownership Ledger — executives: ${임원.sourceFile} · ${임원.rows.length}줄`);
-console.log(`   registered ${임원.byOfficerStatus.registered} · unregistered ${임원.byOfficerStatus.unregistered} · 주요주주뿐 ${임원.byOfficerStatus.not_an_officer}`);
+  console.log(`■ Korea Ownership Ledger — filings: ${대량.sourceFile} · ${대량.rows.length}줄`);
+  console.log(`   general ${대량.byKind.general} · abbreviated ${대량.byKind.abbreviated} · unmapped ${대량.unmappedKind}`);
+  console.log(`■ Korea Ownership Ledger — executives: ${임원.sourceFile} · ${임원.rows.length}줄`);
+  console.log(`   registered ${임원.byOfficerStatus.registered} · unregistered ${임원.byOfficerStatus.unregistered} · 주요주주뿐 ${임원.byOfficerStatus.not_an_officer}`);
 
-if (!적는다) { console.log('\n⭐ 아직 안 적었다. --적는다 를 붙인다.'); process.exit(0); }
+  if (!적는다) { console.log('\n⭐ 아직 안 적었다. --적는다 를 붙인다.'); process.exit(0); }
 
-const 오늘 = new Date();
-const notThisFilings = [
-  'Not investment advice or a recommendation.',
-  'Not a romanized name list. holder_name is printed exactly as filed — Korean text stays Korean.',
-  'Not a full float table. Only holders required to file (5%+ substantial shareholding), not every shareholder.',
-  'Not a live feed. Reflects filings collected as of the source file date.',
-];
-const notThisExecutives = [
-  'Not investment advice or a recommendation.',
-  'Not a romanized name list. person_name is printed exactly as filed.',
-  'Not a full insider list beyond what DART requires officers and major shareholders to file.',
-  'Not a live feed. Reflects filings collected as of the source file date.',
-];
+  const 오늘 = new Date();
+  const notThisFilings = [
+    'Not investment advice or a recommendation.',
+    'Not a romanized name list. holder_name is printed exactly as filed — Korean text stays Korean.',
+    'Not a full float table. Only holders required to file (5%+ substantial shareholding), not every shareholder.',
+    'Not a live feed. Reflects filings collected as of the source file date.',
+  ];
+  const notThisExecutives = [
+    'Not investment advice or a recommendation.',
+    'Not a romanized name list. person_name is printed exactly as filed.',
+    'Not a full insider list beyond what DART requires officers and major shareholders to file.',
+    'Not a live feed. Reflects filings collected as of the source file date.',
+  ];
 
-fs.mkdirSync(path.dirname(path.join(뿌리, 낼곳_filings)), { recursive: true });
-fs.writeFileSync(path.join(뿌리, 낼곳_filings), JSON.stringify({
-  _meta: {
-    product: 'Korea Ownership Ledger — substantial-shareholding filings',
-    builtAt: 영문시각(오늘),
-    sourceFile: `src/data/full/${대량.sourceFile}`,
-    rows: 대량.rows.length,
-    byKind: 대량.byKind,
-    unmappedKind: 대량.unmappedKind,
-    withRelatedParty: 대량.withRelatedParty,
-    source: 'DART (Financial Supervisory Service) majorstock — substantial shareholding (5%+) filings, collected by us and published as our licensed dataset.',
-    notThis: notThisFilings,
-  },
-  rows: 대량.rows,
-}, null, 1), 'utf8');
-console.log(`\n📁 적었다 — ${낼곳_filings}`);
+  fs.mkdirSync(path.dirname(path.join(뿌리, 낼곳_filings)), { recursive: true });
+  fs.writeFileSync(path.join(뿌리, 낼곳_filings), JSON.stringify({
+    _meta: {
+      product: 'Korea Ownership Ledger — substantial-shareholding filings',
+      builtAt: 영문시각(오늘),
+      sourceFile: `src/data/full/${대량.sourceFile}`,
+      rows: 대량.rows.length,
+      byKind: 대량.byKind,
+      unmappedKind: 대량.unmappedKind,
+      withRelatedParty: 대량.withRelatedParty,
+      source: 'DART (Financial Supervisory Service) majorstock — substantial shareholding (5%+) filings, collected by us and published as our licensed dataset.',
+      notThis: notThisFilings,
+    },
+    rows: 대량.rows,
+  }, null, 1), 'utf8');
+  console.log(`\n📁 적었다 — ${낼곳_filings}`);
 
-fs.writeFileSync(path.join(뿌리, 낼곳_executives), JSON.stringify({
-  _meta: {
-    product: 'Korea Ownership Ledger — officer/major-shareholder ownership rows',
-    builtAt: 영문시각(오늘),
-    sourceFile: `src/data/full/${임원.sourceFile}`,
-    rows: 임원.rows.length,
-    byOfficerStatus: 임원.byOfficerStatus,
-    source: 'DART (Financial Supervisory Service) elestock — officer/major-shareholder ownership status filings, collected by us and published as our licensed dataset.',
-    notThis: notThisExecutives,
-  },
-  rows: 임원.rows,
-}, null, 1), 'utf8');
-console.log(`📁 적었다 — ${낼곳_executives}`);
+  fs.writeFileSync(path.join(뿌리, 낼곳_executives), JSON.stringify({
+    _meta: {
+      product: 'Korea Ownership Ledger — officer/major-shareholder ownership rows',
+      builtAt: 영문시각(오늘),
+      sourceFile: `src/data/full/${임원.sourceFile}`,
+      rows: 임원.rows.length,
+      byOfficerStatus: 임원.byOfficerStatus,
+      source: 'DART (Financial Supervisory Service) elestock — officer/major-shareholder ownership status filings, collected by us and published as our licensed dataset.',
+      notThis: notThisExecutives,
+    },
+    rows: 임원.rows,
+  }, null, 1), 'utf8');
+  console.log(`📁 적었다 — ${낼곳_executives}`);
+
+}

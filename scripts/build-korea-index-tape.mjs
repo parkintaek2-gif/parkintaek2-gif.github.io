@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { pathToFileURL } from 'node:url';
 /**
  * build-korea-index-tape.mjs — **F4. Korea Index Tape.**
  *   KRX 지수 168개(코스피/코스닥/KRX/테마) 스냅샷 → 영문 지수 축 상품
@@ -239,51 +240,57 @@ if (process.argv.includes('--자가시험')) {
 }
 
 if (!자가시험()) { console.log('🔴 자가시험이 깨졌다 — 만들지 않는다.'); process.exit(1); }
-console.log('');
+/* 🔴 [2026-10-28 · 5번] 가져오면 도는 자였다 — 다른 자가 들여오면 아래가 그대로 돌아
+   그 자의 보고 대신 이 글이 찍힌다(검사: check-가져오면-도는자.mjs).
+   ⛔ 관문 글귀만 끼워 넣지 않았다. 직접 불렸을 때만 돌도록 실제로 감쌌다. */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  console.log('');
 
-const 적는다 = process.argv.includes('--적는다');
+  const 적는다 = process.argv.includes('--적는다');
 
-let 목록 = null;
-try { 목록 = fs.readdirSync(path.join(ROOT, 원본방)); } catch { /* 없다 */ }
-const 최근 = 최근파일(목록, /^\d{8}\.ndjson$/);
-if (!최근) {
-  console.log(`🔴 지수 스냅샷이 아직 없다 — ${원본방}`);
-  process.exit(1);
+  let 목록 = null;
+  try { 목록 = fs.readdirSync(path.join(ROOT, 원본방)); } catch { /* 없다 */ }
+  const 최근 = 최근파일(목록, /^\d{8}\.ndjson$/);
+  if (!최근) {
+    console.log(`🔴 지수 스냅샷이 아직 없다 — ${원본방}`);
+    process.exit(1);
+  }
+  const 원본줄들 = ndjson읽기(fs.readFileSync(path.join(ROOT, 원본방, 최근), 'utf8'));
+  console.log(`■ 지수 판 ${최근} — ${원본줄들.length}줄`);
+
+  const 이름영문 = 이름영문사전읽기();
+  const 줄들 = 원본줄들.map((x) => 한줄(x, { 이름영문 }));
+  const 보고 = 셈보고(줄들);
+
+  console.log('');
+  console.log(`■ Korea Index Tape — ${보고.전체}줄`);
+  console.log(`   nameEn      ${보고.nameEn} / ${보고.전체}`);
+  console.log(`   yearLow 살음 ${보고.yearLow살음} / ${보고.전체}`);
+  console.log(`   yearLow 못잼 ${보고.yearLow못잼} / ${보고.전체} (sentinel·증거부족 — null 로 냈다)`);
+
+  if (!적는다) { console.log('\n⭐ 아직 안 적었다. --적는다 를 붙인다.'); process.exit(0); }
+
+  const 오늘 = new Date();
+  const 낼것 = {
+    _meta: {
+      product: 'Korea Index Tape',
+      builtAt: 영문시각(오늘),
+      snapshotDate: 원본줄들[0]?.일자 ?? null,
+      sourceFile: `${원본방}/${최근}`,
+      rows: 보고.전체,
+      withNameEn: 보고.nameEn,
+      withYearLow: 보고.yearLow살음,
+      yearLowNotMeasured: 보고.yearLow못잼,
+      note: 'yearLow (and its date) is null whenever the source reported exactly 0 — in the '
+        + `${최근} snapshot, ${보고.yearLow못잼} of ${보고.전체} rows carried a 0 that was paired `
+        + 'with a yearLowDate one day after the snapshot date itself, an impossible value. That is '
+        + 'a source placeholder, not a real annual low of zero. See yearLowNotMeasured per row.',
+      whyRowsAreKept: 'Rows that could not be fully measured are kept, with the reason in the '
+        + 'relevant *NotMeasured column. Dropping them would remove the denominator.',
+    },
+    rows: 줄들,
+  };
+  fs.writeFileSync(path.join(ROOT, 낼곳), JSON.stringify(낼것, null, 1), 'utf8');
+  console.log(`\n📁 적었다 — ${낼곳}`);
+
 }
-const 원본줄들 = ndjson읽기(fs.readFileSync(path.join(ROOT, 원본방, 최근), 'utf8'));
-console.log(`■ 지수 판 ${최근} — ${원본줄들.length}줄`);
-
-const 이름영문 = 이름영문사전읽기();
-const 줄들 = 원본줄들.map((x) => 한줄(x, { 이름영문 }));
-const 보고 = 셈보고(줄들);
-
-console.log('');
-console.log(`■ Korea Index Tape — ${보고.전체}줄`);
-console.log(`   nameEn      ${보고.nameEn} / ${보고.전체}`);
-console.log(`   yearLow 살음 ${보고.yearLow살음} / ${보고.전체}`);
-console.log(`   yearLow 못잼 ${보고.yearLow못잼} / ${보고.전체} (sentinel·증거부족 — null 로 냈다)`);
-
-if (!적는다) { console.log('\n⭐ 아직 안 적었다. --적는다 를 붙인다.'); process.exit(0); }
-
-const 오늘 = new Date();
-const 낼것 = {
-  _meta: {
-    product: 'Korea Index Tape',
-    builtAt: 영문시각(오늘),
-    snapshotDate: 원본줄들[0]?.일자 ?? null,
-    sourceFile: `${원본방}/${최근}`,
-    rows: 보고.전체,
-    withNameEn: 보고.nameEn,
-    withYearLow: 보고.yearLow살음,
-    yearLowNotMeasured: 보고.yearLow못잼,
-    note: 'yearLow (and its date) is null whenever the source reported exactly 0 — in the '
-      + `${최근} snapshot, ${보고.yearLow못잼} of ${보고.전체} rows carried a 0 that was paired `
-      + 'with a yearLowDate one day after the snapshot date itself, an impossible value. That is '
-      + 'a source placeholder, not a real annual low of zero. See yearLowNotMeasured per row.',
-    whyRowsAreKept: 'Rows that could not be fully measured are kept, with the reason in the '
-      + 'relevant *NotMeasured column. Dropping them would remove the denominator.',
-  },
-  rows: 줄들,
-};
-fs.writeFileSync(path.join(ROOT, 낼곳), JSON.stringify(낼것, null, 1), 'utf8');
-console.log(`\n📁 적었다 — ${낼곳}`);

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { pathToFileURL } from 'node:url';
 /**
  * build-korea-people-tape.mjs — **F7. Korea People Tape.** (SeoulMarkets 데이터 API)
  *   상장사 인력 공시(성별 인원·근속·급여) 원자료를 **한 회사 한 줄**로 API 에 낸다.
@@ -185,43 +186,49 @@ if (process.argv.includes('--자가시험')) {
 }
 
 if (!자가시험()) { console.log('🔴 자가시험이 깨졌다 — 만들지 않는다.'); process.exit(1); }
-console.log('');
+/* 🔴 [2026-10-28 · 5번] 가져오면 도는 자였다 — 다른 자가 들여오면 아래가 그대로 돌아
+   그 자의 보고 대신 이 글이 찍힌다(검사: check-가져오면-도는자.mjs).
+   ⛔ 관문 글귀만 끼워 넣지 않았다. 직접 불렸을 때만 돌도록 실제로 감쌌다. */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  console.log('');
 
-const 적는다 = process.argv.includes('--적는다');
-const { rows, sourceFile, withPayRatio, payWithheldWithReason, payWithheldNoReason } = 짓기();
+  const 적는다 = process.argv.includes('--적는다');
+  const { rows, sourceFile, withPayRatio, payWithheldWithReason, payWithheldNoReason } = 짓기();
 
-console.log(`■ Korea People Tape — ${sourceFile} · ${rows.length}줄`);
-console.log(`   급여비율 있음 ${withPayRatio} · 해당없음 ${payWithheldWithReason} · 못잼 ${payWithheldNoReason}`);
+  console.log(`■ Korea People Tape — ${sourceFile} · ${rows.length}줄`);
+  console.log(`   급여비율 있음 ${withPayRatio} · 해당없음 ${payWithheldWithReason} · 못잼 ${payWithheldNoReason}`);
 
-if (!적는다) { console.log('\n⭐ 아직 안 적었다. --적는다 를 붙인다.'); process.exit(0); }
+  if (!적는다) { console.log('\n⭐ 아직 안 적었다. --적는다 를 붙인다.'); process.exit(0); }
 
-const 오늘 = new Date();
-const 낼것 = {
-  _meta: {
-    product: 'Korea People Tape',
-    builtAt: 영문시각(오늘),
-    sourceFile: `src/data/full/${sourceFile}`,
-    rows: rows.length,
-    withPayRatio,
-    payWithheldWithReason,
-    payWithheldNoReason,
-    source: 'Workforce figures that Korean listed companies file with the Financial Supervisory '
-      + 'Service (headcount, tenure and pay by gender), joined to KRX daily closing prices. We '
-      + 'collect the filings ourselves and publish this as our licensed dataset.',
-    notThis: [
-      'Not a claim about discrimination. The filings carry ratios, not reasons: job mix, seniority '
-        + 'mix and contract type all sit inside a single number.',
-      'Not a benchmark. No company is scored, ranked as good, or compared to a norm.',
-      'Not total payroll. Pay fields are annual pay PER PERSON in Korean won.',
-      'womenShareRatio and the tenure/pay ratio fields are raw ratios (0-1, roughly), not percentages.',
-    ],
-    payRatioWithheldReasonNote: 'payRatioWomenToMen is null either because the filing marked the '
-      + 'figure not applicable (payRatioWithheldReason carries the filed reason) or because we could '
-      + 'not measure it (payRatioWithheldReason is also null in that case — the two are not the same '
-      + 'thing, and this file lets a client tell them apart).',
-  },
-  rows,
-};
-fs.mkdirSync(path.dirname(path.join(뿌리, 낼곳)), { recursive: true });
-fs.writeFileSync(path.join(뿌리, 낼곳), JSON.stringify(낼것, null, 1), 'utf8');
-console.log(`\n📁 적었다 — ${낼곳}`);
+  const 오늘 = new Date();
+  const 낼것 = {
+    _meta: {
+      product: 'Korea People Tape',
+      builtAt: 영문시각(오늘),
+      sourceFile: `src/data/full/${sourceFile}`,
+      rows: rows.length,
+      withPayRatio,
+      payWithheldWithReason,
+      payWithheldNoReason,
+      source: 'Workforce figures that Korean listed companies file with the Financial Supervisory '
+        + 'Service (headcount, tenure and pay by gender), joined to KRX daily closing prices. We '
+        + 'collect the filings ourselves and publish this as our licensed dataset.',
+      notThis: [
+        'Not a claim about discrimination. The filings carry ratios, not reasons: job mix, seniority '
+          + 'mix and contract type all sit inside a single number.',
+        'Not a benchmark. No company is scored, ranked as good, or compared to a norm.',
+        'Not total payroll. Pay fields are annual pay PER PERSON in Korean won.',
+        'womenShareRatio and the tenure/pay ratio fields are raw ratios (0-1, roughly), not percentages.',
+      ],
+      payRatioWithheldReasonNote: 'payRatioWomenToMen is null either because the filing marked the '
+        + 'figure not applicable (payRatioWithheldReason carries the filed reason) or because we could '
+        + 'not measure it (payRatioWithheldReason is also null in that case — the two are not the same '
+        + 'thing, and this file lets a client tell them apart).',
+    },
+    rows,
+  };
+  fs.mkdirSync(path.dirname(path.join(뿌리, 낼곳)), { recursive: true });
+  fs.writeFileSync(path.join(뿌리, 낼곳), JSON.stringify(낼것, null, 1), 'utf8');
+  console.log(`\n📁 적었다 — ${낼곳}`);
+
+}

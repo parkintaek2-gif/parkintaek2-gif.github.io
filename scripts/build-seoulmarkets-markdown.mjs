@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { pathToFileURL } from 'node:url';
 /**
  * build-seoulmarkets-markdown.mjs — SeoulMarkets 기사마다 «AI가 읽기 쉬운 마크다운 판»을 낸다.
  *
@@ -158,16 +159,22 @@ const 파일들 = fs.readdirSync(기사폴더).filter((f) => f.endsWith('.md'));
 let 냄 = 0;
 let 건너뜀 = 0;
 let 노트없음 = 0;
-for (const 파일 of 파일들) {
-  const slug = 파일.replace(/\.md$/, '');
-  const 원문 = fs.readFileSync(path.join(기사폴더, 파일), 'utf8');
-  const htmlPath = path.join(distDir, `${slug}.html`);
-  const articleHtml = fs.existsSync(htmlPath) ? fs.readFileSync(htmlPath, 'utf8') : null;
-  if (!articleHtml) { 건너뜀++; continue; }
-  const md = 기사변환(원문, articleHtml);
-  if (!md) { 건너뜀++; continue; }
-  if (!md.includes('Verification Notes')) 노트없음++;
-  fs.writeFileSync(path.join(distDir, `${slug}.md`), md);
-  냄++;
+/* 🔴 [2026-10-28 · 5번] 가져오면 도는 자였다 — 다른 자가 들여오면 아래가 그대로 돌아
+   그 자의 보고 대신 이 글이 찍힌다(검사: check-가져오면-도는자.mjs).
+   ⛔ 관문 글귀만 끼워 넣지 않았다. 직접 불렸을 때만 돌도록 실제로 감쌌다. */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  for (const 파일 of 파일들) {
+    const slug = 파일.replace(/\.md$/, '');
+    const 원문 = fs.readFileSync(path.join(기사폴더, 파일), 'utf8');
+    const htmlPath = path.join(distDir, `${slug}.html`);
+    const articleHtml = fs.existsSync(htmlPath) ? fs.readFileSync(htmlPath, 'utf8') : null;
+    if (!articleHtml) { 건너뜀++; continue; }
+    const md = 기사변환(원문, articleHtml);
+    if (!md) { 건너뜀++; continue; }
+    if (!md.includes('Verification Notes')) 노트없음++;
+    fs.writeFileSync(path.join(distDir, `${slug}.md`), md);
+    냄++;
+  }
+  console.log(`✅ 마크다운 판 ${냄}개 냄 · 못 낸(draft·빌드없음) ${건너뜀}개 · notes 없이 낸 것 ${노트없음}개 — dist/article/*.md`);
+
 }
-console.log(`✅ 마크다운 판 ${냄}개 냄 · 못 낸(draft·빌드없음) ${건너뜀}개 · notes 없이 낸 것 ${노트없음}개 — dist/article/*.md`);
