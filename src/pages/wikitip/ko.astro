@@ -56,7 +56,7 @@ const 인기것 = 조회있나
   : 리뷰목록.slice(0, 5);
 
 const TITLE = 'K-Review — 경기와 드라마, 그날의 반응';
-const DESC = '롤드컵·야구·축구·농구·배구 경기와 드라마·예능 리뷰. 그날 결과와 다음 일정, '
+const DESC = '야구·축구·골프·농구·e스포츠 경기와 드라마·예능 리뷰. 그날 결과와 다음 일정, '
   + '그리고 네티즌이 남긴 반응을 함께 싣습니다.';
 
 const jsonLd = {
@@ -173,7 +173,12 @@ const jsonLd = {
   .list li.with-thumb > .dek,
   .list li.with-thumb > .when { grid-column: 2; }
   .thumb { grid-column: 1; grid-row: 1 / span 4; line-height: 0; }
-  .thumb img { width: 96px; height: 64px; object-fit: cover; border-radius: 4px; }
+  /* 🔴 [2026-10-28 · 사장님] 「썸네일에 사람 얼굴이 잘렸잖아. 사진을 위를 기준으로 하면
+     얼굴이 잘리지 않을거야」
+     ⛔ object-fit: cover 는 기준이 «가운데»라 세로로 긴 사진의 위아래를 똑같이 잘라 낸다.
+       경기·인물 사진은 얼굴이 위쪽에 있어 그 절반이 날아갔다.
+     ⇒ 자르는 기준을 위로 옮긴다. 발밑이 잘리는 것은 얼굴이 잘리는 것보다 낫다. */
+  .thumb img { width: 96px; height: 64px; object-fit: cover; object-position: top; border-radius: 4px; }
   .t { font-weight: 700; font-size: 1.04rem; line-height: 1.4; }
   .cat { display: inline-block; font-size: .72rem; color: var(--accent); font-weight: 700; }
   .dek { margin: .25rem 0 0; color: var(--muted); font-size: .89rem; }

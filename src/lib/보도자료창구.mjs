@@ -31,6 +31,8 @@
  *   사진    그 창구에서 사진을 받을 수 있나
  *   확인    마지막으로 열어 본 날과 그때의 응답
  */
+import { 분류코드 } from './리뷰분류.mjs';
+
 export const 창구 = [
   /* ── OTT ───────────────────────────────────────────────────────── */
   {
@@ -116,6 +118,30 @@ export const 창구 = [
     확인: { 날: '2026-10-26', 응답: 200 },
     비고: '대회 날짜별 앨범. 사진마다 촬영자와 날짜가 붙어 있다 — 그대로 캡션에 옮긴다',
   },
+  /* 골프 — 2026-10-28 에 칸을 새로 냈다. 창구도 그날 재서 적는다.
+     ⛔ KLPGA 는 `www.` 를 붙이면 302 다. 붙이지 않는다 */
+  {
+    분류: ['golf'],
+    이름: 'KLPGA 공식',
+    주소: 'https://klpga.co.kr/web/main/index',
+    사진: false,
+    확인: { 날: '2026-10-28', 응답: 200 },
+    비고: '첫 화면만 확인했다. 보도자료 자리는 아직 못 찾았다',
+  },
+  {
+    분류: ['golf'],
+    이름: 'KPGA 알림',
+    주소: 'https://www.kpga.co.kr/kpga/news/notice',
+    사진: false,
+    확인: { 날: '2026-10-28', 응답: 200 },
+  },
+  {
+    분류: ['golf'],
+    이름: '대한골프협회',
+    주소: 'https://www.kgagolf.or.kr/web/main/index',
+    사진: false,
+    확인: { 날: '2026-10-28', 응답: 200 },
+  },
   {
     분류: ['basketball'],
     이름: 'KBL 보도자료',
@@ -124,7 +150,7 @@ export const 창구 = [
     확인: { 날: '2026-10-26', 응답: 200 },
   },
   {
-    분류: ['volleyball'],
+    분류: ['sports'],
     이름: 'KOVO 보도자료',
     주소: 'https://kovo.co.kr/media/report_list.asp',
     사진: true,
@@ -196,8 +222,7 @@ if (process.argv.includes('--자가시험')) {
   검증('모든 창구에 확인한 날이 있다',
     창구.every((x) => /^\d{4}-\d{2}-\d{2}$/.test(x.확인?.날 ?? '')));
   검증('모든 창구가 리뷰 분류를 쓴다', (() => {
-    const 아는것 = new Set(['kpop', 'drama', 'show', 'esports', 'baseball',
-      'football', 'basketball', 'volleyball', 'sports']);
+    const 아는것 = new Set(분류코드);
     return 창구.every((x) => x.분류.every((c) => 아는것.has(c)));
   })());
   console.log(`\n  ${총건수 - 실패건수}/${총건수} 통과`);
