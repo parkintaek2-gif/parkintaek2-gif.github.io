@@ -41,7 +41,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const 여기 = path.dirname(fileURLToPath(import.meta.url));
 const 뿌리 = path.resolve(여기, '..');
@@ -97,6 +97,11 @@ if (process.argv.includes('--자가시험')) {
   process.exit(흠 ? 1 : 0);
 }
 
+/* 🔴 [2026-10-28 · 5번] **가져오기만 해도 돌면 안 된다.**
+   다른 자가 이 파일의 함수 하나를 빌리려고 import 했을 뿐인데 본체가 돌아
+   파일을 쓰거나 process.exit 을 맞는 일이 저장소에 263자리 있었다.
+   ⇒ 직접 실행했을 때만 돈다. ⛔ 이 울타리를 걷지 않는다. */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
 const 받은것 = process.argv.slice(2).filter((x) => !x.startsWith('--'));
 const 볼곳 = 받은것.length ? 받은것 : ['content'];
 
@@ -124,3 +129,4 @@ for (const [길, 걸림] of 걸린것) {
 console.log(`\n⛔ 걸린 글 ${걸린것.length}장 — **배포하지 않는다**`);
 console.log('   글을 고친 뒤 다시 돌린다. ⛔ 금지어를 다른 금지어로 바꾸지 않는다');
 process.exit(1);
+}

@@ -30,7 +30,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 글폴더 = path.join(뿌리, 'content/kcw-reviews');
@@ -244,6 +244,12 @@ if (process.argv.includes('--자가시험')) {
   process.exit(흠 ? 1 : 0);
 }
 
+/* 🔴 [2026-10-28 · 5번] **가져오기만 해도 돌면 안 된다.**
+   다른 자가 이 파일의 함수 하나를 빌리려고 import 했을 뿐인데 본체가 돌아
+   파일을 쓰거나 process.exit 을 맞는 일이 저장소에 263자리 있었다.
+   ⇒ 직접 실행했을 때만 돈다. ⛔ 이 울타리를 걷지 않는다. */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+
 if (!fs.existsSync(낼곳)) {
   console.error('⛔ dist/wikitip/ko/review 가 없다 — 먼저 빌드를 돌린다.');
   process.exit(1);
@@ -259,3 +265,4 @@ for (const 파일 of 파일들) {
   냄 += 1;
 }
 console.log(`✅ 평문 판 ${냄}장 냈다 · 안 낸 것(draft 등) ${건너뜀}장 — dist/wikitip/ko/review/*.md`);
+}
