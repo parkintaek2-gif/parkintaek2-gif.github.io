@@ -8,6 +8,13 @@ subject:
   유형: match
   일시: 2026-10-22T10:00:00+09:00
   주체: "아시아패럴림픽위원회(APC)"
+image:
+  src: "/review/asian-para-games-shooting-50m-prone.jpg"
+  대체텍스트: "2026 아이치·나고야 장애인아시아경기대회 사격 혼성 50m 소총 복사 결선. 대회 이름과 날짜를 담은 안내 그림"
+  캡션: "2026 아이치·나고야 장애인아시아경기대회 사격 혼성 50m 소총 복사(SH1) 결선."
+  제공처: "K Culture Wire"
+  제공처유형: own
+  출처주소: "https://www.asianparalympic.org/"
 sources:
   - org: "2026 아이치·나고야 장애인아시아경기대회 조직위원회"
     api: "사격 혼성 50m 소총 복사(SH1) 결선 기록(10월 22일)"

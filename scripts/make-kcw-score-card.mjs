@@ -174,10 +174,23 @@ export function 사실카드글(것) {
 export function 주제가르기(명칭, 주체) {
   const 글 = String(명칭 ?? '').trim();
   if (!글) return null;
-  /* 대회 이름은 「연도 + 대회명」으로 시작하는 일이 많다 */
-  const m = 글.match(/^((?:20\d{2}[-\s]?(?:20\d{2})?\s*)?[^\s]*(?:아시아경기대회|아시안컵|아시안게임|월드컵|올림픽|리그|시즌|포스트시즌))\s+(.+)$/);
+
+  /* ① 글쓴이가 이미 줄표로 갈라 놓았으면 그대로 따른다 — 가장 믿을 만하다 */
+  const 줄표 = 글.split(/\s+[—–-]\s+/);
+  if (줄표.length === 2 && 줄표[0] && 줄표[1]) return { 윗말: 줄표[0].trim(), 큰말: 줄표[1].trim() };
+
+  /* ② 대회 이름이 앞에 서는 꼴 — 「…대회 / …컵 / …리그」 까지가 윗말이다 */
+  const m = 글.match(/^(.*?(?:아시아경기대회|장애인아시아경기대회|아시안컵|아시안게임|월드컵|올림픽|선수권대회|챔피언십|포스트시즌|정규리그))\s+(.+)$/);
   if (m) return { 윗말: m[1].trim(), 큰말: m[2].trim() };
-  return { 윗말: String(주체 ?? '').trim(), 큰말: 글 };
+
+  /* ③ 주체(구단·협회) 이름으로 시작하면 그 이름까지가 윗말이다 */
+  const 주 = String(주체 ?? '').trim();
+  if (주 && 글.startsWith(주) && 글.length > 주.length + 1) {
+    return { 윗말: 주, 큰말: 글.slice(주.length).trim() };
+  }
+
+  /* ④ 못 가르면 통째로 큰말에 둔다 — 억지로 자르지 않는다 */
+  return { 윗말: 주, 큰말: 글 };
 }
 
 /* ───────────────────────────── 자가시험 ───────────────────────────── */
@@ -223,6 +236,22 @@ function 자가시험() {
   참('엠블럼은 글에 실어 넣는다', (참그림.match(/src="data:image\/png;base64,/g) || []).length === 2);
   참('⛔ 대조군 — file:// 주소가 남아 있으면 안 된다', 참그림.includes('file://') === false);
 
+  /* 🔴 경기가 아닌 글 — 주제를 둘로 가르는 자 */
+  참('줄표가 있으면 그대로 가른다',
+    JSON.stringify(주제가르기('2027 AFC 아시안컵 — 한국 조별리그 E조 일정 확정', 'AFC'))
+    === '{"윗말":"2027 AFC 아시안컵","큰말":"한국 조별리그 E조 일정 확정"}');
+  참('대회 이름 뒤에서 가른다',
+    JSON.stringify(주제가르기('2026 아이치·나고야 장애인아시아경기대회 사격 혼성 50m 소총 복사(SH1) 결선', 'APC'))
+    === '{"윗말":"2026 아이치·나고야 장애인아시아경기대회","큰말":"사격 혼성 50m 소총 복사(SH1) 결선"}');
+  참('주체 이름 뒤에서 가른다',
+    JSON.stringify(주제가르기('롯데 자이언츠 제22대 감독·신임 단장 선임', '롯데 자이언츠'))
+    === '{"윗말":"롯데 자이언츠","큰말":"제22대 감독·신임 단장 선임"}');
+  참('⛔ 못 가르면 통째로 큰말에 둔다',
+    주제가르기('무슨무슨일', '어디어디').큰말 === '무슨무슨일');
+  참('주제가 비면 없다고 한다', 주제가르기('', '어디') === null);
+  참('사실 카드에 큰말이 들어간다',
+    사실카드글({ 윗말: 'ㄱ', 큰말: 'ㄴㄷ', 아랫말: 'ㄹ', 색: '#000', 바닥: 'ㅁ' }).includes('>ㄴㄷ<'));
+
   console.log(`점수판 짓는 자 — 자가시험 ${통과} 통과 · ${실패} 실패`);
   return 실패 === 0;
 }
@@ -238,12 +267,32 @@ async function 한다() {
   const 제목 = 머리값(글, 'title');
   const 명칭 = 머리값(글, '  명칭') ?? 머리값(글, '명칭');
   const 일시 = 머리값(글, '  일시') ?? 머리값(글, '일시');
+  const 주체 = 머리값(글, '  주체') ?? 머리값(글, '주체');
 
   const 점수 = 점수읽기(제목);
   const 두팀 = 두팀읽기(명칭);
+  const 낼곳 = path.join(뿌리, 'public', 'wikitip', 'review', `${path.basename(길, '.md')}.jpg`);
+
+  /* 🔴 [2026-10-29 · 사장님] 「각 메뉴에도 썸네일 넣어」 — 경기가 아닌 글도 썸네일이 있어야 한다.
+     점수가 없으면 점수판 대신 «사실 카드»를 짓는다. 억지로 점수판을 씌우지 않는다. */
   if (!점수 || !두팀) {
-    console.log(`⬜ ${path.basename(길)} — 점수나 두 팀을 못 읽었다. 점수판을 짓지 않는다`);
-    console.log(`   제목 «${제목}»  ·  경기 «${명칭}»`);
+    const 가른것 = 주제가르기(명칭, 주체);
+    if (!가른것) {
+      console.log(`⬜ ${path.basename(길)} — 주제(명칭)가 없다. 그림을 짓지 않는다`);
+      process.exit(0);
+    }
+    const 것 = {
+      윗말: 가른것.윗말 || 주체 || 'K Culture Wire',
+      큰말: 가른것.큰말,
+      아랫말: 날짜글(일시),
+      색: '#2b3a67',
+      바닥: 'K Culture Wire · klifemap 계열',
+    };
+    console.log(`🟡 사실 카드 — «${것.윗말}» / «${것.큰말}»`);
+    if (!적는다) { console.log('   --적는다 로 그린다'); process.exit(0); }
+    await 그려서찍는다(사실카드글(것), 낼곳);
+    console.log(`✅ ${path.relative(뿌리, 낼곳)} (${Math.round(fs.statSync(낼곳).size / 1024)}KB)`);
+    console.log('   ⚠ 그린 것으로 끝이 아니다 — 열어서 눈으로 본다');
     process.exit(0);
   }
   const 이긴쪽 = 이긴팀(제목, 두팀);
@@ -281,29 +330,33 @@ async function 한다() {
     바닥: '엠블럼 — 한국야구위원회(KBO) · 점수판 — K Culture Wire',
   };
 
-  const 낼곳 = path.join(뿌리, 'public', 'wikitip', 'review', `${path.basename(길, '.md')}.jpg`);
   console.log(`🟡 ${것.왼} ${것.점수왼} : ${것.점수오} ${것.오}  (이긴 쪽 ${이긴쪽 ?? '모름'})`);
   console.log(`   ${것.대회} · ${것.날짜}`);
   if (!적는다) { console.log('   --적는다 로 그린다'); process.exit(0); }
 
+  await 그려서찍는다(그림글(것), 낼곳);
+  console.log(`✅ ${path.relative(뿌리, 낼곳)} (${Math.round(fs.statSync(낼곳).size / 1024)}KB)`);
+  console.log('   ⚠ 그린 것으로 끝이 아니다 — 열어서 눈으로 본다');
+}
+
+/** 글 한 장을 크롬에 띄워 그림으로 찍는다 — 글꼴이 확실하다 */
+async function 그려서찍는다(글, 낼곳) {
   const require = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
   const puppeteer = require('puppeteer-core');
   const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
   const p = await b.newPage();
   try {
     await p.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1 });
-    await p.setContent(그림글(것), { waitUntil: 'networkidle0', timeout: 60000 });
+    await p.setContent(글, { waitUntil: 'networkidle0', timeout: 60000 });
     await new Promise((r) => setTimeout(r, 400));
     await p.screenshot({ path: 낼곳, type: 'jpeg', quality: 92 });
   } finally {
     await p.close();
     b.disconnect();
   }
-  /* 자가시험 — 그린 뒤에 «파일이 그림인가»를 잰다. 0바이트도 「썼다」로 끝나지 않는다 */
+  /* ⛔ 「썼다」로 끝내지 않는다 — 0바이트도 쓰기는 쓴다 */
   const 크기 = fs.statSync(낼곳).size;
   if (크기 < 10000) { console.log(`🔴 그림이 너무 작다(${크기}바이트) — 제대로 안 그려졌다`); process.exit(1); }
-  console.log(`✅ ${path.relative(뿌리, 낼곳)} (${Math.round(크기 / 1024)}KB)`);
-  console.log('   ⚠ 그린 것으로 끝이 아니다 — 열어서 눈으로 본다');
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
