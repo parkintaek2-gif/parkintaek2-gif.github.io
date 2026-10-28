@@ -3,9 +3,9 @@
   "what": "Broker research on Korean listed companies, per company, for /company/[slug] pages.",
   "source": "Broker reports listed on Naver Finance's research board and on brokers' own websites, collected by SeoulMarkets (archive/index/research.ndjson). Analyst names partly matched from Hankyung Consensus where date, firm and ticker matched exactly one report.",
   "firstDay": "2026-06-29",
-  "lastDay": "2026-10-26",
-  "indexRecords": 1139,
-  "companies": 475,
+  "lastDay": "2026-10-28",
+  "indexRecords": 1272,
+  "companies": 491,
   "unmatchedSubjects": 3,
   "analystFromHankyung": 104,
   "latestShown": 10,
@@ -449,21 +449,29 @@
   },
   "108490": {
    "nameEn": "Robotis",
-   "reports": 2,
-   "brokerReports": 2,
+   "reports": 3,
+   "brokerReports": 3,
    "firms": 2,
    "first": "2026-08-24",
-   "last": "2026-08-24",
-   "withTarget": 2,
+   "last": "2026-10-27",
+   "withTarget": 3,
    "latestTargets": {
     "firms": 2,
     "min": 350000,
     "max": 356000,
     "median": 353000,
     "oldest": "2026-08-24",
-    "newest": "2026-08-24"
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Hanwha Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 350000
+    },
     {
      "date": "2026-08-24",
      "firm": "Mirae Asset Securities",
@@ -546,21 +554,29 @@
   },
   "112610": {
    "nameEn": "CS Wind",
-   "reports": 1,
-   "brokerReports": 1,
-   "firms": 1,
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
    "first": "2026-10-23",
-   "last": "2026-10-23",
-   "withTarget": 1,
+   "last": "2026-10-27",
+   "withTarget": 2,
    "latestTargets": {
-    "firms": 1,
-    "min": 80000,
+    "firms": 2,
+    "min": 68000,
     "max": 80000,
-    "median": 80000,
+    "median": 74000,
     "oldest": "2026-10-23",
-    "newest": "2026-10-23"
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Shinhan Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 68000
+    },
     {
      "date": "2026-10-23",
      "firm": "Hana Securities",
@@ -770,11 +786,11 @@
   },
   "122640": {
    "nameEn": "YEST Co.,Ltd.",
-   "reports": 2,
-   "brokerReports": 2,
+   "reports": 3,
+   "brokerReports": 3,
    "firms": 2,
    "first": "2026-09-01",
-   "last": "2026-10-21",
+   "last": "2026-10-27",
    "withTarget": 1,
    "latestTargets": {
     "firms": 1,
@@ -785,6 +801,14 @@
     "newest": "2026-10-21"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": null,
+     "targetKrw": null
+    },
     {
      "date": "2026-10-21",
      "firm": "Eugene Investment & Securities",
@@ -1036,21 +1060,45 @@
   },
   "128940": {
    "nameEn": "Hanmi Pharmaceutical",
-   "reports": 14,
-   "brokerReports": 14,
+   "reports": 17,
+   "brokerReports": 17,
    "firms": 10,
    "first": "2026-08-25",
-   "last": "2026-10-21",
-   "withTarget": 14,
+   "last": "2026-10-28",
+   "withTarget": 17,
    "latestTargets": {
     "firms": 10,
     "min": 530000,
-    "max": 730000,
-    "median": 680000,
+    "max": 720000,
+    "median": 655000,
     "oldest": "2026-08-25",
-    "newest": "2026-10-21"
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "iM Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 600000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Mirae Asset Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 700000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Kyobo Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 600000
+    },
     {
      "date": "2026-10-21",
      "firm": "iM Securities",
@@ -1106,30 +1154,6 @@
      "analyst": null,
      "rating": "Buy",
      "targetKrw": 650000
-    },
-    {
-     "date": "2026-08-27",
-     "firm": "Shinhan Securities",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 650000
-    },
-    {
-     "date": "2026-08-25",
-     "firm": "Kiwoom Securities",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 730000
-    },
-    {
-     "date": "2026-08-25",
-     "firm": "IBK Investment & Securities",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 530000
     }
    ]
   },
@@ -1367,6 +1391,116 @@
      "analyst": null,
      "rating": "Buy",
      "targetKrw": 60000
+    }
+   ]
+  },
+  "138930": {
+   "nameEn": "BNK Financial Group",
+   "reports": 6,
+   "brokerReports": 6,
+   "firms": 6,
+   "first": "2026-10-27",
+   "last": "2026-10-27",
+   "withTarget": 6,
+   "latestTargets": {
+    "firms": 6,
+    "min": 17000,
+    "max": 21000,
+    "median": 18500,
+    "oldest": "2026-10-27",
+    "newest": "2026-10-27"
+   },
+   "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "iM Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 17000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Kiwoom Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 20000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 18000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 21000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Kyobo Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 18000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Hanwha Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 19000
+    }
+   ]
+  },
+  "139130": {
+   "nameEn": "iM Financial Group",
+   "reports": 3,
+   "brokerReports": 3,
+   "firms": 3,
+   "first": "2026-10-28",
+   "last": "2026-10-28",
+   "withTarget": 3,
+   "latestTargets": {
+    "firms": 3,
+    "min": 20000,
+    "max": 24000,
+    "median": 22000,
+    "oldest": "2026-10-28",
+    "newest": "2026-10-28"
+   },
+   "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "iM Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 20000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 24000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Kyobo Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 22000
     }
    ]
   },
@@ -1811,21 +1945,37 @@
   },
   "170900": {
    "nameEn": "Dong-A ST",
-   "reports": 2,
-   "brokerReports": 2,
-   "firms": 2,
+   "reports": 4,
+   "brokerReports": 4,
+   "firms": 4,
    "first": "2026-08-28",
-   "last": "2026-10-19",
-   "withTarget": 2,
+   "last": "2026-10-28",
+   "withTarget": 4,
    "latestTargets": {
-    "firms": 2,
+    "firms": 4,
     "min": 50000,
-    "max": 50000,
+    "max": 51000,
     "median": 50000,
     "oldest": "2026-08-28",
-    "newest": "2026-10-19"
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "iM Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 50000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 51000
+    },
     {
      "date": "2026-10-19",
      "firm": "Kiwoom Securities",
@@ -1920,6 +2070,49 @@
      "analyst": null,
      "rating": null,
      "targetKrw": null
+    }
+   ]
+  },
+  "175330": {
+   "nameEn": "JB Financial Group",
+   "reports": 3,
+   "brokerReports": 3,
+   "firms": 3,
+   "first": "2026-10-28",
+   "last": "2026-10-28",
+   "withTarget": 3,
+   "latestTargets": {
+    "firms": 3,
+    "min": 34000,
+    "max": 38000,
+    "median": 38000,
+    "oldest": "2026-10-28",
+    "newest": "2026-10-28"
+   },
+   "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Kiwoom Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 38000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "iM Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 34000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Kyobo Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 38000
     }
    ]
   },
@@ -2864,6 +3057,33 @@
     }
    ]
   },
+  "214450": {
+   "nameEn": "Pharma Research",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-28",
+   "last": "2026-10-28",
+   "withTarget": 1,
+   "latestTargets": {
+    "firms": 1,
+    "min": 430000,
+    "max": 430000,
+    "median": 430000,
+    "oldest": "2026-10-28",
+    "newest": "2026-10-28"
+   },
+   "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Kiwoom Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 430000
+    }
+   ]
+  },
   "215000": {
    "nameEn": "Golfzon",
    "reports": 1,
@@ -2947,21 +3167,37 @@
   },
   "218410": {
    "nameEn": "RFHIC",
-   "reports": 1,
-   "brokerReports": 1,
-   "firms": 1,
+   "reports": 3,
+   "brokerReports": 3,
+   "firms": 3,
    "first": "2026-09-02",
-   "last": "2026-09-02",
-   "withTarget": 1,
+   "last": "2026-10-28",
+   "withTarget": 3,
    "latestTargets": {
-    "firms": 1,
-    "min": 150000,
+    "firms": 3,
+    "min": 72000,
     "max": 150000,
-    "median": 150000,
+    "median": 81000,
     "oldest": "2026-09-02",
-    "newest": "2026-09-02"
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Shinhan Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 81000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Eugene Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 72000
+    },
     {
      "date": "2026-09-02",
      "firm": "Hana Securities",
@@ -3380,21 +3616,61 @@
   },
   "237690": {
    "nameEn": "ST Pharm",
-   "reports": 2,
-   "brokerReports": 2,
-   "firms": 1,
+   "reports": 7,
+   "brokerReports": 7,
+   "firms": 5,
    "first": "2026-09-22",
-   "last": "2026-09-28",
-   "withTarget": 2,
+   "last": "2026-10-28",
+   "withTarget": 7,
    "latestTargets": {
-    "firms": 1,
-    "min": 170000,
-    "max": 170000,
-    "median": 170000,
-    "oldest": "2026-09-28",
-    "newest": "2026-09-28"
+    "firms": 5,
+    "min": 130000,
+    "max": 180000,
+    "median": 150000,
+    "oldest": "2026-10-28",
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Kiwoom Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 130000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Shinhan Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 150000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "IBK Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 150000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Daishin Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 150000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 180000
+    },
     {
      "date": "2026-09-28",
      "firm": "Daishin Securities",
@@ -3499,6 +3775,33 @@
      "analyst": null,
      "rating": "Buy",
      "targetKrw": 79000
+    }
+   ]
+  },
+  "241690": {
+   "nameEn": "UNITEKNO Co., Ltd",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-10-27",
+   "last": "2026-10-27",
+   "withTarget": 0,
+   "latestTargets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Korea IR Service",
+     "firmType": "ir-service",
+     "analyst": null,
+     "rating": null,
+     "targetKrw": null
     }
    ]
   },
@@ -4095,21 +4398,85 @@
   },
   "267260": {
    "nameEn": "HD Hyundai Electric",
-   "reports": 7,
-   "brokerReports": 7,
-   "firms": 6,
+   "reports": 15,
+   "brokerReports": 15,
+   "firms": 8,
    "first": "2026-08-24",
-   "last": "2026-10-19",
-   "withTarget": 7,
+   "last": "2026-10-28",
+   "withTarget": 15,
    "latestTargets": {
-    "firms": 6,
+    "firms": 8,
     "min": 650000,
-    "max": 1165000,
-    "median": 1060000,
-    "oldest": "2026-10-07",
-    "newest": "2026-10-19"
+    "max": 1000000,
+    "median": 850000,
+    "oldest": "2026-10-28",
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Mirae Asset Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 1000000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "IBK Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 850000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Shinhan Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 850000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "SK Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 650000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Daishin Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 720000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 940000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 900000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Hanwha Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 800000
+    },
     {
      "date": "2026-10-19",
      "firm": "SK Securities",
@@ -4125,67 +4492,50 @@
      "analyst": null,
      "rating": "Buy",
      "targetKrw": 1100000
-    },
-    {
-     "date": "2026-10-12",
-     "firm": "Hanwha Investment & Securities",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 1000000
-    },
-    {
-     "date": "2026-10-07",
-     "firm": "Daishin Securities",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 1020000
-    },
-    {
-     "date": "2026-10-07",
-     "firm": "Yuanta Securities Korea",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 1165000
-    },
-    {
-     "date": "2026-10-07",
-     "firm": "Hana Securities",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 1150000
-    },
-    {
-     "date": "2026-08-24",
-     "firm": "SK Securities",
-     "firmType": "brokerage",
-     "analyst": "Na Min-sik; Ko Seo-yeong",
-     "analystVia": "hankyung",
-     "rating": "Buy",
-     "targetKrw": 900000
     }
    ]
   },
   "267270": {
    "nameEn": "HD Construction Equipment Co.,Ltd.",
-   "reports": 1,
-   "brokerReports": 1,
-   "firms": 1,
+   "reports": 4,
+   "brokerReports": 4,
+   "firms": 3,
    "first": "2026-10-15",
-   "last": "2026-10-15",
-   "withTarget": 1,
+   "last": "2026-10-27",
+   "withTarget": 4,
    "latestTargets": {
-    "firms": 1,
-    "min": 187000,
-    "max": 187000,
-    "median": 187000,
-    "oldest": "2026-10-15",
-    "newest": "2026-10-15"
+    "firms": 3,
+    "min": 140000,
+    "max": 175000,
+    "median": 160000,
+    "oldest": "2026-10-27",
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Kiwoom Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 175000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Daishin Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 160000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Shinhan Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 140000
+    },
     {
      "date": "2026-10-15",
      "firm": "Kiwoom Securities",
@@ -4233,21 +4583,85 @@
   },
   "272210": {
    "nameEn": "Hanwha Systems",
-   "reports": 2,
-   "brokerReports": 2,
-   "firms": 2,
+   "reports": 10,
+   "brokerReports": 10,
+   "firms": 8,
    "first": "2026-10-06",
-   "last": "2026-10-19",
-   "withTarget": 2,
+   "last": "2026-10-28",
+   "withTarget": 9,
    "latestTargets": {
-    "firms": 2,
-    "min": 98000,
-    "max": 136000,
-    "median": 117000,
-    "oldest": "2026-10-06",
-    "newest": "2026-10-19"
+    "firms": 7,
+    "min": 94000,
+    "max": 121000,
+    "median": 100000,
+    "oldest": "2026-10-28",
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Kiwoom Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 121000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "SK Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 100000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Shinhan Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Neutral",
+     "targetKrw": null
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Eugene Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 100000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Daishin Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 96000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 109000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "DS Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 94000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Hanwha Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 100000
+    },
     {
      "date": "2026-10-19",
      "firm": "Daishin Securities",
@@ -4685,21 +5099,29 @@
   },
   "294870": {
    "nameEn": "HDC Hyundai Development",
-   "reports": 7,
-   "brokerReports": 7,
-   "firms": 6,
+   "reports": 8,
+   "brokerReports": 8,
+   "firms": 7,
    "first": "2026-09-21",
-   "last": "2026-10-26",
-   "withTarget": 7,
+   "last": "2026-10-27",
+   "withTarget": 8,
    "latestTargets": {
-    "firms": 6,
-    "min": 30000,
+    "firms": 7,
+    "min": 29000,
     "max": 35000,
-    "median": 33000,
+    "median": 32000,
     "oldest": "2026-10-23",
-    "newest": "2026-10-26"
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 29000
+    },
     {
      "date": "2026-10-26",
      "firm": "IBK Investment & Securities",
@@ -5211,6 +5633,41 @@
     }
    ]
   },
+  "322000": {
+   "nameEn": "HD HYUNDAI ENERGY SOLUTIONS CO.,LTD.",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-10-27",
+   "last": "2026-10-27",
+   "withTarget": 2,
+   "latestTargets": {
+    "firms": 2,
+    "min": 170000,
+    "max": 184000,
+    "median": 177000,
+    "oldest": "2026-10-27",
+    "newest": "2026-10-27"
+   },
+   "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Kyobo Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 184000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "DS Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 170000
+    }
+   ]
+  },
   "326030": {
    "nameEn": "SK Biopharmaceuticals",
    "reports": 7,
@@ -5602,21 +6059,29 @@
   },
   "353200": {
    "nameEn": "Daeduck Electronics",
-   "reports": 7,
-   "brokerReports": 7,
-   "firms": 5,
+   "reports": 8,
+   "brokerReports": 8,
+   "firms": 6,
    "first": "2026-09-28",
-   "last": "2026-10-23",
-   "withTarget": 7,
+   "last": "2026-10-27",
+   "withTarget": 8,
    "latestTargets": {
-    "firms": 5,
+    "firms": 6,
     "min": 180000,
     "max": 240000,
     "median": 190000,
     "oldest": "2026-10-08",
-    "newest": "2026-10-23"
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Daishin Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 190000
+    },
     {
      "date": "2026-10-23",
      "firm": "iM Securities",
@@ -6377,6 +6842,33 @@
     }
    ]
   },
+  "403850": {
+   "nameEn": "The Pinkfong Company, Inc.",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-10-28",
+   "last": "2026-10-28",
+   "withTarget": 0,
+   "latestTargets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Korea IR Service",
+     "firmType": "ir-service",
+     "analyst": null,
+     "rating": null,
+     "targetKrw": null
+    }
+   ]
+  },
   "403870": {
    "nameEn": "HPSP",
    "reports": 1,
@@ -6566,12 +7058,12 @@
    ]
   },
   "424870": {
-   "nameEn": null,
-   "reports": 1,
+   "nameEn": "ImmuneOncia Therapeutics, Inc.",
+   "reports": 2,
    "brokerReports": 1,
-   "firms": 1,
+   "firms": 2,
    "first": "2026-06-29",
-   "last": "2026-06-29",
+   "last": "2026-10-27",
    "withTarget": 0,
    "latestTargets": {
     "firms": 0,
@@ -6583,9 +7075,44 @@
    },
    "latest": [
     {
+     "date": "2026-10-27",
+     "firm": "Korea IR Service",
+     "firmType": "ir-service",
+     "analyst": null,
+     "rating": null,
+     "targetKrw": null
+    },
+    {
      "date": "2026-06-29",
      "firm": "Hanyang Securities",
      "firmType": "brokerage",
+     "analyst": null,
+     "rating": null,
+     "targetKrw": null
+    }
+   ]
+  },
+  "424980": {
+   "nameEn": "MICRO2NANO, INC.",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-10-27",
+   "last": "2026-10-27",
+   "withTarget": 0,
+   "latestTargets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Korea IR Service",
+     "firmType": "ir-service",
      "analyst": null,
      "rating": null,
      "targetKrw": null
@@ -6751,21 +7278,61 @@
   },
   "443060": {
    "nameEn": "HD Hyundai Marine Solution",
-   "reports": 5,
-   "brokerReports": 5,
-   "firms": 4,
+   "reports": 10,
+   "brokerReports": 10,
+   "firms": 6,
    "first": "2026-09-29",
-   "last": "2026-10-15",
-   "withTarget": 5,
+   "last": "2026-10-27",
+   "withTarget": 10,
    "latestTargets": {
-    "firms": 4,
-    "min": 300000,
-    "max": 448000,
-    "median": 345000,
-    "oldest": "2026-09-29",
-    "newest": "2026-10-15"
+    "firms": 6,
+    "min": 250000,
+    "max": 388000,
+    "median": 285000,
+    "oldest": "2026-10-15",
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "SK Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 280000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Shinhan Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 250000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Mirae Asset Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 250000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 388000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 290000
+    },
     {
      "date": "2026-10-15",
      "firm": "Samsung Securities",
@@ -7534,21 +8101,29 @@
   },
   "476060": {
    "nameEn": "Onconic Therapeutics Inc.",
-   "reports": 1,
-   "brokerReports": 0,
-   "firms": 1,
+   "reports": 2,
+   "brokerReports": 1,
+   "firms": 2,
    "first": "2026-09-04",
-   "last": "2026-09-04",
-   "withTarget": 0,
+   "last": "2026-10-27",
+   "withTarget": 1,
    "latestTargets": {
-    "firms": 0,
-    "min": null,
-    "max": null,
-    "median": null,
-    "oldest": null,
-    "newest": null
+    "firms": 1,
+    "min": 22500,
+    "max": 22500,
+    "median": 22500,
+    "oldest": "2026-10-27",
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "IBK Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 22500
+    },
     {
      "date": "2026-09-04",
      "firm": "Korea IR Service",
@@ -8891,21 +9466,29 @@
   },
   "003230": {
    "nameEn": "Samyang Foods",
-   "reports": 4,
-   "brokerReports": 4,
-   "firms": 4,
+   "reports": 5,
+   "brokerReports": 5,
+   "firms": 5,
    "first": "2026-08-26",
-   "last": "2026-10-21",
-   "withTarget": 4,
+   "last": "2026-10-27",
+   "withTarget": 5,
    "latestTargets": {
-    "firms": 4,
+    "firms": 5,
     "min": 1750000,
     "max": 2000000,
-    "median": 1830000,
+    "median": 1800000,
     "oldest": "2026-08-26",
-    "newest": "2026-10-21"
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Hanwha Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 1800000
+    },
     {
      "date": "2026-10-21",
      "firm": "Yuanta Securities Korea",
@@ -8942,21 +9525,29 @@
   },
   "003490": {
    "nameEn": "Korean Air",
-   "reports": 10,
-   "brokerReports": 10,
+   "reports": 11,
+   "brokerReports": 11,
    "firms": 6,
    "first": "2026-09-08",
-   "last": "2026-10-19",
-   "withTarget": 10,
+   "last": "2026-10-27",
+   "withTarget": 11,
    "latestTargets": {
     "firms": 6,
     "min": 37000,
     "max": 43000,
     "median": 40000,
     "oldest": "2026-10-16",
-    "newest": "2026-10-19"
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Hanwha Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 43000
+    },
     {
      "date": "2026-10-19",
      "firm": "iM Securities",
@@ -9029,14 +9620,6 @@
      "analyst": null,
      "rating": "Buy",
      "targetKrw": 41000
-    },
-    {
-     "date": "2026-09-08",
-     "firm": "Mirae Asset Securities",
-     "firmType": "brokerage",
-     "analyst": "Ryu Je-hyeon",
-     "rating": "Buy",
-     "targetKrw": 37000
     }
    ]
   },
@@ -9790,21 +10373,29 @@
   },
   "005850": {
    "nameEn": "SL Corporation",
-   "reports": 1,
-   "brokerReports": 1,
-   "firms": 1,
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
    "first": "2026-09-28",
-   "last": "2026-09-28",
-   "withTarget": 1,
+   "last": "2026-10-28",
+   "withTarget": 2,
    "latestTargets": {
-    "firms": 1,
-    "min": 89000,
+    "firms": 2,
+    "min": 70000,
     "max": 89000,
-    "median": 89000,
+    "median": 79500,
     "oldest": "2026-09-28",
-    "newest": "2026-09-28"
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Kyobo Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 70000
+    },
     {
      "date": "2026-09-28",
      "firm": "Hanwha Investment & Securities",
@@ -9944,21 +10535,53 @@
   },
   "005940": {
    "nameEn": "NH Investment & Securities",
-   "reports": 2,
-   "brokerReports": 2,
-   "firms": 2,
+   "reports": 6,
+   "brokerReports": 6,
+   "firms": 4,
    "first": "2026-08-25",
-   "last": "2026-10-07",
-   "withTarget": 2,
+   "last": "2026-10-27",
+   "withTarget": 6,
    "latestTargets": {
-    "firms": 2,
-    "min": 35000,
-    "max": 39000,
-    "median": 37000,
-    "oldest": "2026-08-25",
-    "newest": "2026-10-07"
+    "firms": 4,
+    "min": 29000,
+    "max": 36000,
+    "median": 34000,
+    "oldest": "2026-10-27",
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "iM Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 29000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Kiwoom Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 36000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "SK Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 32000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 36000
+    },
     {
      "date": "2026-10-07",
      "firm": "Hana Securities",
@@ -9974,6 +10597,33 @@
      "analyst": null,
      "rating": "Buy",
      "targetKrw": 35000
+    }
+   ]
+  },
+  "005950": {
+   "nameEn": "Isu Chemical",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-27",
+   "last": "2026-10-27",
+   "withTarget": 0,
+   "latestTargets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Daishin Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": null,
+     "targetKrw": null
     }
    ]
   },
@@ -10765,21 +11415,29 @@
   },
   "009540": {
    "nameEn": "HD Korea Shipbuilding & Offshore Engineering",
-   "reports": 4,
-   "brokerReports": 4,
-   "firms": 3,
+   "reports": 5,
+   "brokerReports": 5,
+   "firms": 4,
    "first": "2026-08-25",
-   "last": "2026-10-19",
-   "withTarget": 4,
+   "last": "2026-10-27",
+   "withTarget": 5,
    "latestTargets": {
-    "firms": 3,
-    "min": 470000,
+    "firms": 4,
+    "min": 410000,
     "max": 532000,
-    "median": 530000,
+    "median": 500000,
     "oldest": "2026-08-25",
-    "newest": "2026-10-19"
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "IBK Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 410000
+    },
     {
      "date": "2026-10-19",
      "firm": "Kiwoom Securities",
@@ -11092,21 +11750,77 @@
   },
   "011070": {
    "nameEn": "LG Innotek",
-   "reports": 5,
-   "brokerReports": 5,
-   "firms": 5,
+   "reports": 12,
+   "brokerReports": 12,
+   "firms": 10,
    "first": "2026-09-29",
-   "last": "2026-10-08",
-   "withTarget": 5,
+   "last": "2026-10-28",
+   "withTarget": 12,
    "latestTargets": {
-    "firms": 5,
-    "min": 920000,
+    "firms": 10,
+    "min": 530000,
     "max": 1300000,
-    "median": 1100000,
+    "median": 605000,
     "oldest": "2026-09-29",
-    "newest": "2026-10-08"
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "IBK Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 560000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Kiwoom Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 600000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "iM Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 580000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Shinhan Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 610000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "SK Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 600000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Daishin Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 700000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 530000
+    },
     {
      "date": "2026-10-08",
      "firm": "Yuanta Securities Korea",
@@ -11130,22 +11844,6 @@
      "analyst": null,
      "rating": "Buy",
      "targetKrw": 1100000
-    },
-    {
-     "date": "2026-09-29",
-     "firm": "DS Investment & Securities",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 1300000
-    },
-    {
-     "date": "2026-09-29",
-     "firm": "Daishin Securities",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 920000
     }
    ]
   },
@@ -11760,21 +12458,29 @@
   },
   "017670": {
    "nameEn": "SK Telecom",
-   "reports": 8,
-   "brokerReports": 8,
+   "reports": 9,
+   "brokerReports": 9,
    "firms": 4,
    "first": "2026-08-28",
-   "last": "2026-10-14",
-   "withTarget": 8,
+   "last": "2026-10-28",
+   "withTarget": 9,
    "latestTargets": {
     "firms": 4,
     "min": 110000,
     "max": 150000,
     "median": 129000,
     "oldest": "2026-10-07",
-    "newest": "2026-10-14"
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 140000
+    },
     {
      "date": "2026-10-14",
      "firm": "Yuanta Securities Korea",
@@ -12450,21 +13156,85 @@
   },
   "024110": {
    "nameEn": "Industrial Bank of Korea",
-   "reports": 2,
-   "brokerReports": 2,
-   "firms": 2,
+   "reports": 10,
+   "brokerReports": 10,
+   "firms": 8,
    "first": "2026-10-07",
-   "last": "2026-10-12",
-   "withTarget": 2,
+   "last": "2026-10-27",
+   "withTarget": 10,
    "latestTargets": {
-    "firms": 2,
-    "min": 26000,
+    "firms": 8,
+    "min": 25000,
     "max": 28500,
-    "median": 27250,
-    "oldest": "2026-10-07",
-    "newest": "2026-10-12"
+    "median": 27000,
+    "oldest": "2026-10-27",
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "iM Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 27000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Kiwoom Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 28000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "SK Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 26000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "IBK Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 25000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 25500
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 28500
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Kyobo Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 27000
+    },
+    {
+     "date": "2026-10-27",
+     "firm": "Hanwha Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 28500
+    },
     {
      "date": "2026-10-12",
      "firm": "Hana Securities",
@@ -12769,6 +13539,41 @@
     }
    ]
   },
+  "029780": {
+   "nameEn": "Samsung Card",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-10-28",
+   "last": "2026-10-28",
+   "withTarget": 2,
+   "latestTargets": {
+    "firms": 2,
+    "min": 51000,
+    "max": 60000,
+    "median": 55500,
+    "oldest": "2026-10-28",
+    "newest": "2026-10-28"
+   },
+   "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "iM Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 51000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 60000
+    }
+   ]
+  },
   "030000": {
    "nameEn": "Cheil Worldwide",
    "reports": 3,
@@ -12814,21 +13619,29 @@
   },
   "030200": {
    "nameEn": "KT",
-   "reports": 6,
-   "brokerReports": 6,
+   "reports": 7,
+   "brokerReports": 7,
    "firms": 4,
    "first": "2026-09-01",
-   "last": "2026-10-15",
-   "withTarget": 6,
+   "last": "2026-10-28",
+   "withTarget": 7,
    "latestTargets": {
     "firms": 4,
     "min": 72000,
     "max": 76000,
     "median": 73000,
-    "oldest": "2026-10-13",
-    "newest": "2026-10-15"
+    "oldest": "2026-10-14",
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 76000
+    },
     {
      "date": "2026-10-15",
      "firm": "SK Securities",
@@ -13048,21 +13861,29 @@
   },
   "032640": {
    "nameEn": "LG Uplus",
-   "reports": 5,
-   "brokerReports": 5,
+   "reports": 6,
+   "brokerReports": 6,
    "firms": 3,
    "first": "2026-09-01",
-   "last": "2026-10-19",
-   "withTarget": 5,
+   "last": "2026-10-28",
+   "withTarget": 6,
    "latestTargets": {
     "firms": 3,
     "min": 19000,
     "max": 20000,
     "median": 19500,
-    "oldest": "2026-10-13",
-    "newest": "2026-10-19"
+    "oldest": "2026-10-16",
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 20000
+    },
     {
      "date": "2026-10-19",
      "firm": "iM Securities",
@@ -13361,21 +14182,29 @@
   },
   "034220": {
    "nameEn": "LG Display",
-   "reports": 7,
-   "brokerReports": 7,
+   "reports": 8,
+   "brokerReports": 8,
    "firms": 6,
    "first": "2026-10-06",
-   "last": "2026-10-26",
-   "withTarget": 7,
+   "last": "2026-10-27",
+   "withTarget": 8,
    "latestTargets": {
     "firms": 6,
     "min": 10000,
     "max": 13000,
     "median": 11000,
     "oldest": "2026-10-08",
-    "newest": "2026-10-26"
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Daishin Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 10500
+    },
     {
      "date": "2026-10-26",
      "firm": "Kiwoom Securities",
@@ -13561,21 +14390,37 @@
   },
   "035420": {
    "nameEn": "NAVER",
-   "reports": 7,
-   "brokerReports": 7,
-   "firms": 6,
+   "reports": 9,
+   "brokerReports": 9,
+   "firms": 7,
    "first": "2026-08-20",
-   "last": "2026-10-07",
-   "withTarget": 6,
+   "last": "2026-10-28",
+   "withTarget": 7,
    "latestTargets": {
     "firms": 5,
     "min": 300000,
     "max": 400000,
     "median": 320000,
     "oldest": "2026-09-08",
-    "newest": "2026-10-07"
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Daishin Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": null,
+     "targetKrw": null
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 400000
+    },
     {
      "date": "2026-10-07",
      "firm": "Eugene Investment & Securities",
@@ -14117,6 +14962,33 @@
     }
    ]
   },
+  "038390": {
+   "nameEn": "RedcapTour Co., Ltd.",
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-10-28",
+   "last": "2026-10-28",
+   "withTarget": 0,
+   "latestTargets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Korea IR Service",
+     "firmType": "ir-service",
+     "analyst": null,
+     "rating": null,
+     "targetKrw": null
+    }
+   ]
+  },
   "039130": {
    "nameEn": "Hana Tour",
    "reports": 1,
@@ -14397,21 +15269,85 @@
   },
   "042660": {
    "nameEn": "Hanwha Ocean",
-   "reports": 5,
-   "brokerReports": 5,
-   "firms": 4,
+   "reports": 13,
+   "brokerReports": 13,
+   "firms": 9,
    "first": "2026-09-29",
-   "last": "2026-10-19",
-   "withTarget": 5,
+   "last": "2026-10-28",
+   "withTarget": 13,
    "latestTargets": {
-    "firms": 4,
-    "min": 110000,
-    "max": 128000,
-    "median": 119500,
-    "oldest": "2026-09-29",
-    "newest": "2026-10-19"
+    "firms": 9,
+    "min": 90000,
+    "max": 119000,
+    "median": 90000,
+    "oldest": "2026-10-19",
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "SK Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 90000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "IBK Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 90000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "iM Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 98000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Eugene Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 90000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Mirae Asset Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 90000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Shinhan Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 90000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 100000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "DS Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 100000
+    },
     {
      "date": "2026-10-19",
      "firm": "Kiwoom Securities",
@@ -14427,30 +15363,6 @@
      "analyst": null,
      "rating": "Buy",
      "targetKrw": 120000
-    },
-    {
-     "date": "2026-10-14",
-     "firm": "SK Securities",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 110000
-    },
-    {
-     "date": "2026-09-29",
-     "firm": "Mirae Asset Securities",
-     "firmType": "brokerage",
-     "analyst": "Kim Ju-hui",
-     "rating": null,
-     "targetKrw": 128000
-    },
-    {
-     "date": "2026-09-29",
-     "firm": "Mirae Asset Securities",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 128000
     }
    ]
   },
@@ -14562,61 +15474,127 @@
     }
    ]
   },
-  "047040": {
-   "nameEn": "Daewoo E&C",
-   "reports": 5,
-   "brokerReports": 5,
-   "firms": 4,
-   "first": "2026-09-21",
-   "last": "2026-10-16",
-   "withTarget": 5,
+  "046440": {
+   "nameEn": null,
+   "reports": 1,
+   "brokerReports": 0,
+   "firms": 1,
+   "first": "2026-10-28",
+   "last": "2026-10-28",
+   "withTarget": 0,
    "latestTargets": {
-    "firms": 4,
-    "min": 20000,
-    "max": 24000,
-    "median": 23500,
-    "oldest": "2026-10-13",
-    "newest": "2026-10-16"
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
    },
    "latest": [
     {
-     "date": "2026-10-16",
-     "firm": "Yuanta Securities Korea",
+     "date": "2026-10-28",
+     "firm": "Korea IR Service",
+     "firmType": "ir-service",
+     "analyst": null,
+     "rating": null,
+     "targetKrw": null
+    }
+   ]
+  },
+  "047040": {
+   "nameEn": "Daewoo E&C",
+   "reports": 14,
+   "brokerReports": 14,
+   "firms": 10,
+   "first": "2026-09-21",
+   "last": "2026-10-28",
+   "withTarget": 14,
+   "latestTargets": {
+    "firms": 10,
+    "min": 19000,
+    "max": 24000,
+    "median": 20000,
+    "oldest": "2026-10-14",
+    "newest": "2026-10-28"
+   },
+   "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Shinhan Securities",
      "firmType": "brokerage",
      "analyst": null,
      "rating": "Buy",
-     "targetKrw": 24000
+     "targetKrw": 19000
     },
     {
-     "date": "2026-10-15",
-     "firm": "Shinhan Securities",
+     "date": "2026-10-28",
+     "firm": "IBK Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 22000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Eugene Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 19000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Mirae Asset Securities",
      "firmType": "brokerage",
      "analyst": null,
      "rating": "Buy",
      "targetKrw": 20000
     },
     {
-     "date": "2026-10-14",
-     "firm": "Kiwoom Securities",
+     "date": "2026-10-28",
+     "firm": "Daishin Securities",
      "firmType": "brokerage",
      "analyst": null,
      "rating": "Buy",
-     "targetKrw": 23000
+     "targetKrw": 20000
     },
     {
-     "date": "2026-10-13",
-     "firm": "Mirae Asset Securities",
+     "date": "2026-10-28",
+     "firm": "Hyundai Motor Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 20000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Yuanta Securities Korea",
      "firmType": "brokerage",
      "analyst": null,
      "rating": "Buy",
      "targetKrw": 24000
     },
     {
-     "date": "2026-09-21",
+     "date": "2026-10-28",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 20000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Hanwha Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 22000
+    },
+    {
+     "date": "2026-10-16",
      "firm": "Yuanta Securities Korea",
      "firmType": "brokerage",
-     "analyst": "Kim Do-yeop",
-     "analystVia": "hankyung",
+     "analyst": null,
      "rating": "Buy",
      "targetKrw": 24000
     }
@@ -15169,21 +16147,77 @@
   },
   "055550": {
    "nameEn": "Shinhan Financial Group",
-   "reports": 5,
-   "brokerReports": 5,
-   "firms": 4,
+   "reports": 12,
+   "brokerReports": 12,
+   "firms": 7,
    "first": "2026-10-07",
-   "last": "2026-10-14",
-   "withTarget": 4,
+   "last": "2026-10-28",
+   "withTarget": 11,
    "latestTargets": {
-    "firms": 4,
-    "min": 132000,
-    "max": 135000,
-    "median": 133000,
-    "oldest": "2026-10-07",
-    "newest": "2026-10-14"
+    "firms": 7,
+    "min": 127000,
+    "max": 140000,
+    "median": 134000,
+    "oldest": "2026-10-28",
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Kiwoom Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 130000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "iM Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 127000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "SK Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 134000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 140000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 135000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Kyobo Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 134000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Hanwha Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 132000
+    },
     {
      "date": "2026-10-14",
      "firm": "iM Securities",
@@ -15207,22 +16241,6 @@
      "analyst": null,
      "rating": "Buy",
      "targetKrw": 132000
-    },
-    {
-     "date": "2026-10-08",
-     "firm": "Hana Securities",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 135000
-    },
-    {
-     "date": "2026-10-07",
-     "firm": "SK Securities",
-     "firmType": "brokerage",
-     "analyst": null,
-     "rating": "Buy",
-     "targetKrw": 134000
     }
    ]
   },
@@ -15492,11 +16510,11 @@
   },
   "064290": {
    "nameEn": "Intekplus",
-   "reports": 1,
-   "brokerReports": 1,
+   "reports": 2,
+   "brokerReports": 2,
    "firms": 1,
    "first": "2026-08-21",
-   "last": "2026-08-21",
+   "last": "2026-10-27",
    "withTarget": 0,
    "latestTargets": {
     "firms": 0,
@@ -15507,6 +16525,14 @@
     "newest": null
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": null,
+     "targetKrw": null
+    },
     {
      "date": "2026-08-21",
      "firm": "Yuanta Securities Korea",
@@ -15995,21 +17021,61 @@
   },
   "068270": {
    "nameEn": "Celltrion",
-   "reports": 3,
-   "brokerReports": 3,
-   "firms": 3,
+   "reports": 8,
+   "brokerReports": 8,
+   "firms": 7,
    "first": "2026-09-28",
-   "last": "2026-10-23",
-   "withTarget": 3,
+   "last": "2026-10-28",
+   "withTarget": 7,
    "latestTargets": {
-    "firms": 3,
-    "min": 260000,
+    "firms": 6,
+    "min": 270000,
     "max": 300000,
-    "median": 280000,
+    "median": 285000,
     "oldest": "2026-09-28",
-    "newest": "2026-10-23"
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Kiwoom Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": null,
+     "targetKrw": null
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "iM Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 270000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "IBK Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 280000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Daishin Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 290000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Hyundai Motor Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 300000
+    },
     {
      "date": "2026-10-23",
      "firm": "iM Securities",
@@ -16479,6 +17545,33 @@
     }
    ]
   },
+  "079370": {
+   "nameEn": "ZEUSCO.,LTD.",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-27",
+   "last": "2026-10-27",
+   "withTarget": 0,
+   "latestTargets": {
+    "firms": 0,
+    "min": null,
+    "max": null,
+    "median": null,
+    "oldest": null,
+    "newest": null
+   },
+   "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": null,
+     "targetKrw": null
+    }
+   ]
+  },
   "079550": {
    "nameEn": "LIG Defense&Aerospace Co., Ltd.",
    "reports": 6,
@@ -16939,21 +18032,29 @@
   },
   "086450": {
    "nameEn": "Dongkook Pharmaceutical",
-   "reports": 3,
-   "brokerReports": 3,
+   "reports": 4,
+   "brokerReports": 4,
    "firms": 3,
    "first": "2026-10-02",
-   "last": "2026-10-26",
-   "withTarget": 2,
+   "last": "2026-10-27",
+   "withTarget": 3,
    "latestTargets": {
     "firms": 2,
     "min": 30000,
     "max": 32000,
     "median": 31000,
     "oldest": "2026-10-02",
-    "newest": "2026-10-26"
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Mirae Asset Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 32000
+    },
     {
      "date": "2026-10-26",
      "firm": "Mirae Asset Securities",
@@ -17009,21 +18110,29 @@
   },
   "086790": {
    "nameEn": "Hana Financial Group",
-   "reports": 9,
-   "brokerReports": 9,
-   "firms": 8,
+   "reports": 10,
+   "brokerReports": 10,
+   "firms": 9,
    "first": "2026-09-02",
-   "last": "2026-10-26",
-   "withTarget": 9,
+   "last": "2026-10-28",
+   "withTarget": 10,
    "latestTargets": {
-    "firms": 8,
+    "firms": 9,
     "min": 156000,
     "max": 175000,
-    "median": 165500,
+    "median": 166000,
     "oldest": "2026-09-02",
-    "newest": "2026-10-26"
+    "newest": "2026-10-28"
    },
    "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Yuanta Securities Korea",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 175000
+    },
     {
      "date": "2026-10-26",
      "firm": "iM Securities",
@@ -17209,21 +18318,29 @@
   },
   "089860": {
    "nameEn": "Lotte Rental",
-   "reports": 5,
-   "brokerReports": 5,
+   "reports": 6,
+   "brokerReports": 6,
    "firms": 4,
    "first": "2026-08-20",
-   "last": "2026-10-26",
-   "withTarget": 5,
+   "last": "2026-10-27",
+   "withTarget": 6,
    "latestTargets": {
     "firms": 4,
     "min": 57000,
     "max": 60000,
     "median": 59500,
-    "oldest": "2026-09-01",
-    "newest": "2026-10-26"
+    "oldest": "2026-09-02",
+    "newest": "2026-10-27"
    },
    "latest": [
+    {
+     "date": "2026-10-27",
+     "firm": "Daishin Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 60000
+    },
     {
      "date": "2026-10-26",
      "firm": "Eugene Investment & Securities",
@@ -17532,6 +18649,33 @@
     }
    ]
   },
+  "094360": {
+   "nameEn": "Chips&Media",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-28",
+   "last": "2026-10-28",
+   "withTarget": 1,
+   "latestTargets": {
+    "firms": 1,
+    "min": 17400,
+    "max": 17400,
+    "median": 17400,
+    "oldest": "2026-10-28",
+    "newest": "2026-10-28"
+   },
+   "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "Eugene Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 17400
+    }
+   ]
+  },
   "094480": {
    "nameEn": "GalaxiaMoneytree Co.,Ltd.",
    "reports": 1,
@@ -17583,6 +18727,41 @@
      "analyst": null,
      "rating": null,
      "targetKrw": null
+    }
+   ]
+  },
+  "095340": {
+   "nameEn": "ISC",
+   "reports": 2,
+   "brokerReports": 2,
+   "firms": 2,
+   "first": "2026-10-28",
+   "last": "2026-10-28",
+   "withTarget": 2,
+   "latestTargets": {
+    "firms": 2,
+    "min": 180000,
+    "max": 250000,
+    "median": 215000,
+    "oldest": "2026-10-28",
+    "newest": "2026-10-28"
+   },
+   "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "IBK Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 180000
+    },
+    {
+     "date": "2026-10-28",
+     "firm": "Hana Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 250000
     }
    ]
   },
@@ -17669,6 +18848,33 @@
      "analyst": null,
      "rating": "Buy",
      "targetKrw": 23000
+    }
+   ]
+  },
+  "096530": {
+   "nameEn": "Seegene",
+   "reports": 1,
+   "brokerReports": 1,
+   "firms": 1,
+   "first": "2026-10-28",
+   "last": "2026-10-28",
+   "withTarget": 1,
+   "latestTargets": {
+    "firms": 1,
+    "min": 44000,
+    "max": 44000,
+    "median": 44000,
+    "oldest": "2026-10-28",
+    "newest": "2026-10-28"
+   },
+   "latest": [
+    {
+     "date": "2026-10-28",
+     "firm": "IBK Investment & Securities",
+     "firmType": "brokerage",
+     "analyst": null,
+     "rating": "Buy",
+     "targetKrw": 44000
     }
    ]
   },
