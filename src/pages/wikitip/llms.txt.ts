@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
+import { getCollection } from 'astro:content';
 import data from '../../data/kcw-llms.json';
+import { 분류 } from '../../lib/리뷰분류.mjs';
 
 /**
  * K Culture Wire llms.txt — AI 답변엔진(챗GPT·클로드·퍼플렉시티 등)이 읽는 안내문.
@@ -26,7 +28,47 @@ import data from '../../data/kcw-llms.json';
  * ⚠ `robots.txt.ts` 와 같은 이유로 `src/pages/wikitip/` 밑에 둔다 —
  *   `public/llms.txt` 는 서울마켓 것이라 우리 주소로는 404 가 난다(server.mjs 라우팅).
  */
-export const GET: APIRoute = () => {
+export const GET: APIRoute = async () => {
+  /* 🔴🔴 [2026-10-28 · 사장님] 「**케이컬쳐와이어도 철저하게 검색색인, seo, geo 맞춤으로
+     운용해**」
+     ─────────────────────────────────────────────────────────────────────
+     재 보니 이 안내문에 **한국어 K-Review 가 한 줄도 없었다.** 사이트맵에는 들어 있는데
+     여기에는 없어서, AI 답변엔진은 그 지면이 있다는 것조차 모른다.
+     ⚠ 답변엔진에서 들어온 손님이 90일에 23명으로 바깥 채널 가운데 가장 컸다(2026-08-29 실측).
+       그 문에 한국어 쪽 안내가 안 걸려 있었다.
+     ⛔ 손으로 적지 않는다 — 실제 글 묶음에서 가져온다. 글이 늘면 여기도 저절로 는다. */
+  const 리뷰 = (await getCollection('kcwReviews'))
+    .filter((e: any) => !e.data.draft)
+    .sort((a: any, b: any) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate));
+  const 분류명 = new Map(분류.map((c: any) => [c.코드, c.명칭]));
+  const 분류설명 = 분류
+    .filter((c: any) => 리뷰.some((r: any) => r.data.category === c.코드))
+    .map((c: any) => `- ${c.명칭} (\`/ko/${c.코드}\`) — ${c.설명}`)
+    .join('\n');
+  const 리뷰줄 = 리뷰
+    .slice(0, 40)
+    .map((r: any) => `- [${r.data.title}](https://www.kculturewire.com/ko/review/${r.id})`
+      + ` — ${분류명.get(r.data.category) ?? r.data.category} · ${String(r.data.pubDate).slice(0, 10)}`
+      + (r.data.dek ? `. ${r.data.dek}` : ''))
+    .join('\n');
+  const 한국어글 = 리뷰.length === 0 ? '' : `
+## Korean edition — K-Review (in Korean, at /ko)
+
+The Korean edition is a different service from the English one, not a translation of it.
+It reviews what aired or was played that day — sports matches, dramas, variety shows and K-pop —
+and carries what viewers actually wrote about it, quoted with a link to where it was written.
+Every photo names who supplied it. ${리뷰.length} reviews are published.
+Each review also has a plain-markdown version at the same path with .md appended
+(e.g. https://www.kculturewire.com/ko/review/${리뷰[0].id}.md) — same text, no navigation,
+with the quoted reactions, the photo credit and the sources listed at the end.
+
+${분류설명}
+
+### Reviews
+
+${리뷰줄}
+`;
+
   const 갈래글 = (data.갈래들 as any[]).map((s) => {
     const 줄들 = s.줄들
       .map((r: any) => (r.설명
@@ -76,7 +118,7 @@ same text, no navigation, with the sources and limits listed at the end.
 - Where a figure is missing we mark it unmeasured. We do not write it as zero.
 
 ${갈래글}
-
+${한국어글}
 ## Per-entity pages (one subject, its measured facts)
 
 ${낱장}
