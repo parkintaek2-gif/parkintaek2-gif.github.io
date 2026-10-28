@@ -102,15 +102,15 @@ const jsonLd = [
   </div>
 
   <p>
-    ⚠ <strong>특목고 안의 갈래는 학교 이름으로 가른 것입니다.</strong> NEIS 는 과학고·외고 같은 갈래를 따로 주지
-    않습니다. 이름에 갈래가 드러나지 않는 곳은 「그 밖」에 넣었습니다. 자율고는 NEIS 에서 자사고와 자공고를
+    ⚠ <strong>특목고 안의 종류는 학교 이름으로 가른 것입니다.</strong> NEIS 는 과학고·외고 같은 종류를 따로 주지
+    않습니다. 이름에 종류가 드러나지 않는 곳은 「그 밖」에 넣었습니다. 자율고는 NEIS 에서 자사고와 자공고를
     가르지 않아 저희도 가르지 않았습니다.
   </p>
 
-  <h2>특목고 갈래별 학교 수 (이름 기준)</h2>
+  <h2>특목고 종류별 학교 수 (이름 기준)</h2>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>갈래</th><th>학교</th></tr></thead>
+      <thead><tr><th>종류</th><th>학교</th></tr></thead>
       <tbody>
         {갈래수.map((x) => (<tr><th>{x.이름}</th><td class="num">{x.수}</td></tr>))}
       </tbody>
@@ -169,7 +169,7 @@ const jsonLd = [
     <strong>학교 목록·고교유형·주소</strong> — NEIS 교육정보 개방 포털 학교기본정보 ·
     저희가 받은 때 {(schools as any[])[0]?.기준시각?.slice(0, 10)}
   </p>
-  <p class="note">⚠ 고교유형은 NEIS 값 그대로이고, <strong>특목고 안의 갈래(이름 기준)와 지역 셈은 저희가 낸 것</strong>입니다.</p>
+  <p class="note">⚠ 고교유형은 NEIS 값 그대로이고, <strong>특목고 안의 종류(이름 기준)와 지역 셈은 저희가 낸 것</strong>입니다.</p>
 
   <NextQuestionBrief 모은것="NEIS 학교기본정보의 고교유형을 시도·시군구로 센 실측" />
 </HundredYear>

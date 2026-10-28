@@ -96,13 +96,13 @@ const jsonLd = [
   <h2>어떤 학교들인가</h2>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>갈래 (이름으로 나눔)</th><th>학교 수</th></tr></thead>
+      <thead><tr><th>종류 (이름으로 나눔)</th><th>학교 수</th></tr></thead>
       <tbody>
         {갈래수.map((r) => (<tr><th>{r.g}</th><td class="num">{r.n}</td></tr>))}
       </tbody>
     </table>
   </div>
-  <p>⚠ 갈래는 NEIS 칸이 아니라 <strong>학교 이름</strong>으로 나눈 것입니다. NEIS 고교유형으로는 일반고 {국립.filter((x) => x.고교유형 === '일반고').length}곳, 특목고 {국립.filter((x) => x.고교유형 === '특목고').length}곳입니다.</p>
+  <p>⚠ 종류는 NEIS 칸이 아니라 <strong>학교 이름</strong>으로 나눈 것입니다. NEIS 고교유형으로는 일반고 {국립.filter((x) => x.고교유형 === '일반고').length}곳, 특목고 {국립.filter((x) => x.고교유형 === '특목고').length}곳입니다.</p>
 
   <h2>시도별</h2>
   <div class="tablewrap">
@@ -117,7 +117,7 @@ const jsonLd = [
   <h2>전체 목록 (오래된 순)</h2>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>학교</th><th>지역</th><th>갈래</th><th>NEIS 설립</th></tr></thead>
+      <thead><tr><th>학교</th><th>지역</th><th>종류</th><th>NEIS 설립</th></tr></thead>
       <tbody>
         {국립.map((x) => (
           <tr>
