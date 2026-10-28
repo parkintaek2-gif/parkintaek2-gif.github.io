@@ -100,6 +100,51 @@ try {
   console.log(`\n── 속성 ${속성} — ${주소들.length}개`);
   await p.goto(속성주소(속성), { waitUntil: 'networkidle2', timeout: 90000 });
   await 잠깐(4000);
+
+  /* 🔴🔴 [2026-10-29 · 5번] **문이 잠겼는데 「모름」으로 적고 있었다.**
+     ─────────────────────────────────────────────────────────────────
+     [무엇이 있었나] 오늘 열 개가 모두 「모름」으로 대장에 적혔는데 하나도 안 들어갔다.
+       서치콘솔이 **「이 속성에 액세스할 수 없습니다」**를 띄우고 있었다 — 크롬에 든 계정이
+       admin@klifedesign.net 인데 네 속성 모두 그 계정에 권한이 없다.
+       검사칸은 «있긴 한데 폭이 0» 이라 `click()` 이 터졌다.
+     [무엇이 나빴나] 「모름」은 **단추를 누른 뒤 알림만 못 읽은 것**을 뜻한다(10-09 의 뜻매김).
+       누르지도 못한 것을 그 말로 적으면 **하루 몫 열 개가 헛되이 깎인다** —
+       그날의 색인 요청이 통째로 사라지는데 대장에는 「했다」로 남는다.
+     ⇒ 문이 잠긴 것을 «먼저» 보고, 그 속성은 **한 줄도 적지 않고** 건너뛴다.
+     ⛔ 「칸이 있다」를 「쓸 수 있다」로 읽지 않는다 — 폭이 0 이면 못 쓰는 칸이다. */
+  const 문 = await p.evaluate(() => {
+    const 칸 = document.querySelector('input[aria-label*="검사"], input[placeholder*="검사"]');
+    const r = 칸 ? 칸.getBoundingClientRect() : null;
+    const t = document.body.innerText || '';
+    return {
+      잠겼나: /액세스할 수 없습니다|소유권 확인|not-verified/.test(`${t} ${location.href}`),
+      계정: (t.match(/([\w.+-]+@[\w.-]+) 계정으로 로그인됨/) || [])[1] || '(모름)',
+      칸폭: r ? Math.round(r.width) : 0,
+    };
+  });
+  if (문.잠겼나 || 문.칸폭 === 0) {
+    console.log(`🔴 ${속성} — **문이 잠겼다.** 한 줄도 안 적고 건너뛴다 (하루 몫을 안 깎는다)`);
+    console.log(`   크롬에 든 계정 ${문.계정} · 검사칸 폭 ${문.칸폭}`);
+    console.log('   ⇒ 이 속성을 볼 수 있는 계정으로 크롬에 들어가야 한다');
+    /* ⭐ 자국을 «여기서» 남긴다 — 검색 자물쇠의 면제는 이 자국이 있을 때만 열린다.
+       ⛔ 손으로 만들어 면제를 사지 않는다. 실제로 문을 두드려 본 자만 이 줄을 쓴다. */
+    try {
+      const fs = (await import('node:fs')).default;
+      const path = (await import('node:path')).default;
+      const { fileURLToPath } = await import('node:url');
+      const 뿌리 = fileURLToPath(new URL('..', import.meta.url));
+      const 방 = path.join(뿌리, 'docs', '고정업무-마커');
+      fs.mkdirSync(방, { recursive: true });
+      const 때 = new Date();
+      fs.appendFileSync(
+        path.join(방, `${때.toLocaleDateString('sv-SE')}-서치콘솔-문잠김.txt`),
+        `${때.toLocaleString('sv-SE')}\t${속성}\t계정 ${문.계정}\t검사칸폭 ${문.칸폭}\n`,
+        'utf8',
+      );
+    } catch (e) { console.log(`   ⚠ 자국을 못 남겼다 — ${e.message}`); }
+    continue;
+  }
+
   for (const u of 주소들) {
     const 칸 = await p.$('input[aria-label*="검사"], input[placeholder*="검사"], input[type="text"]');
     if (!칸) { console.log(`🔴 ${속성} — 검사 입력칸을 못 찾았다. 이 속성은 건너뛴다`); break; }
