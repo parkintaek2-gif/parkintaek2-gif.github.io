@@ -1,0 +1,126 @@
+#!/usr/bin/env node
+/**
+ * check-손님글-금지어.mjs — **지면에 실리는 글에 금지어가 있으면 배포를 막는다.**
+ *
+ * ── 🔴🔴🔴 사장님 (2026-10-28, 원문) ─────────────────────────────────
+ *   「순한글, IT용어, 이상한 번역투 사용금지 원칙을 철저히 적용해.
+ *     **웹, 업무보고서, pdf 등 모든 부분에서** 철저히 사용금지 원칙을
+ *     **절대적으로 적용하기 위한 강제조치도 마련해**」
+ *   「**금지어 >>> 1번, 중부매일계정도 마찬가지로 적용하게 금지어 막는 장치를 만들어**」
+ *
+ * ── 무엇이 비어 있었나 ────────────────────────────────────────────────
+ *   금지어를 막는 자리가 둘 있었다.
+ *     · 메일    send-mail.mjs 가 보내기 직전에 본문·첨부를 잰다 ✅
+ *     · 기사    collect-jbnews-sports-articles.mjs 가 데스킹에서 바꿔 준다 ✅
+ *   **빠진 자리가 하나 있었다 — 1번이 쓰는 지면 글이다.**
+ *   그 글은 메일로 안 가고 **배포로** 나간다. 배포 길에는 재는 자가 없었다.
+ *   배포 관문의 ③-ㄷ5 는 `src/pages` 의 「억지 순한글 조어」만 봤고,
+ *   정작 글이 들어 있는 `content/` 는 한 번도 안 봤다.
+ *   ⇒ 이 자가 그 자리를 메운다. **글이 지면으로 나가기 전에 막는다.**
+ *
+ * ── 어떻게 재나 ───────────────────────────────────────────────────────
+ *   ⛔ 손으로 세지 않는다 — 정본(`순한글-금지어.mjs`)의 `재기` 를 그대로 쓴다.
+ *     내가 split 으로 셌다가 「한 번 더 **지면** 탈락한다」의 '지면'과
+ *     「엇**갈렸다**」의 '갈렸다'가 걸렸다. 정본은 앞뒤 글자를 보고 그것을 이미 거른다.
+ *     **헛빨간불이 쌓이면 사람이 이 자를 안 보게 되고, 그러면 진짜 하나도 같이 묻힌다.**
+ *   ⚠ 머리말(frontmatter)과 코드 덩이는 손님이 읽는 글이 아니라 빼고 잰다.
+ *   ⚠ 주석 줄(`#`·`//`)도 정본이 알아서 뺀다.
+ *
+ * ── 못 박은 수를 두지 않는다 ──────────────────────────────────────────
+ *   ③-ㄷ5 는 「못 박은 수보다 늘 때만」 운다. 고칠 것이 138장이라 다 막으면
+ *   배포가 멈추기 때문이다. **여기는 다르다** — 2026-10-28 에 재 보니
+ *   `content/` 534장 가운데 걸린 것이 **0장**이었다. 깨끗할 때 걸어야 0 이 지켜진다.
+ *   ⛔ 나중에 늘었다고 바닥값을 올리지 않는다. 올리는 순간 이 자는 아무것도 안 막는다.
+ *
+ * 쓰는 법
+ *   node scripts/check-손님글-금지어.mjs                content/ 를 다 잰다
+ *   node scripts/check-손님글-금지어.mjs content/kcw-reviews   그 폴더만
+ *   node scripts/check-손님글-금지어.mjs --자가시험
+ *
+ * 끝났다고 보는 기준 — 「걸린 글 0장」. 걸리면 **1 로 끝난다**(배포가 멈춘다).
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const 여기 = path.dirname(fileURLToPath(import.meta.url));
+const 뿌리 = path.resolve(여기, '..');
+const { 재기 } = await import('file://' + path.join(여기, '순한글-금지어.mjs').replace(/\\/g, '/'));
+
+/** 잴 글의 확장자 — 지면으로 나가는 글만 */
+const 글확장자 = ['.md', '.mdx'];
+
+/** 폴더를 훑어 글을 모은다 */
+export function 모은다(방) {
+  if (!fs.existsSync(방)) return [];
+  if (fs.statSync(방).isFile()) return [방];
+  const 것들 = [];
+  for (const e of fs.readdirSync(방, { withFileTypes: true })) {
+    const 길 = path.join(방, e.name);
+    if (e.isDirectory()) 것들.push(...모은다(길));
+    else if (글확장자.some((x) => e.name.endsWith(x))) 것들.push(길);
+  }
+  return 것들;
+}
+
+/**
+ * 손님이 실제로 읽는 부분만 남긴다.
+ * ⛔ 머리말을 재면 안 된다 — 거기에는 분류 코드·주소 같은 «기계가 읽는 값»이 들어 있다.
+ * ⛔ 코드 덩이도 안 잰다 — 손님이 쳐 보는 «명령»이라 말씨에 맞춰 바꾸면 안 돈다.
+ */
+export function 손님글만(글) {
+  return String(글 ?? '')
+    .replace(/^---[\s\S]*?\n---\n/, '')
+    .replace(/```[\s\S]*?```/g, ' ');
+}
+
+/** 글 한 장을 잰다 → [{말, 대신, 갈래, 수, 보기}] */
+export function 글하나(길) {
+  return 재기(손님글만(fs.readFileSync(길, 'utf8')));
+}
+
+if (process.argv.includes('--자가시험')) {
+  let 총 = 0; let 흠 = 0;
+  const 본다 = (이름, 참인가) => {
+    총 += 1;
+    if (참인가) console.log('  ✅ ' + 이름);
+    else { 흠 += 1; console.log('  ❌ ' + 이름); }
+  };
+  본다('머리말은 빼고 잰다', 손님글만('---\ncategory: baseball\n---\n본문').trim() === '본문');
+  본다('코드 덩이는 빼고 잰다', !손님글만('앞\n```\n까닭\n```\n뒤').includes('까닭'));
+  본다('금지어를 잡는다', 재기('그런 까닭에 그렇습니다').length > 0);
+  본다('「지면 탈락」은 안 잡는다 — 지다+면이다', 재기('한 번 더 지면 탈락한다').length === 0);
+  본다('「엇갈렸다」는 안 잡는다', 재기('평가가 엇갈렸다').length === 0);
+  본다('멀쩡한 글은 안 잡는다', 재기('27일 잠실에서 96대87로 이겼다.').length === 0);
+  본다('없는 폴더는 빈 목록', 모은다(path.join(뿌리, '없는폴더')).length === 0);
+  console.log(`\n  ${총 - 흠}/${총} 통과`);
+  process.exit(흠 ? 1 : 0);
+}
+
+const 받은것 = process.argv.slice(2).filter((x) => !x.startsWith('--'));
+const 볼곳 = 받은것.length ? 받은것 : ['content'];
+
+const 글들 = 볼곳.flatMap((x) => 모은다(path.isAbsolute(x) ? x : path.join(뿌리, x)));
+const 걸린것 = [];
+for (const 길 of 글들) {
+  const 걸림 = 글하나(길);
+  if (걸림.length) 걸린것.push([길, 걸림]);
+}
+
+console.log(`■ 지면에 실리는 글 ${글들.length}장을 금지어 ${(await import('file://' + path.join(여기, '순한글-금지어.mjs').replace(/\\/g, '/'))).금지어.length}개로 쟀다`);
+
+if (!걸린것.length) {
+  console.log('✅ 걸린 글 0장 — 그대로 배포해도 된다');
+  process.exit(0);
+}
+
+for (const [길, 걸림] of 걸린것) {
+  console.log(`\n🔴 ${path.relative(뿌리, 길).replace(/\\/g, '/')}`);
+  for (const x of 걸림) {
+    console.log(`   ⛔ 「${x.말}」 ${x.수}번 → ${x.대신}`);
+    if (x.보기) console.log(`      … ${String(x.보기).trim()} …`);
+  }
+}
+console.log(`\n⛔ 걸린 글 ${걸린것.length}장 — **배포하지 않는다**`);
+console.log('   글을 고친 뒤 다시 돌린다. ⛔ 금지어를 다른 금지어로 바꾸지 않는다');
+process.exit(1);
