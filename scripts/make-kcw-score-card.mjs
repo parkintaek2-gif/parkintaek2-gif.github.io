@@ -134,6 +134,52 @@ export function 그림글(것) {
   </body></html>`;
 }
 
+/**
+ * 🔴 [2026-10-29 · 5번] 경기가 아닌 글의 그림 — 「사실 카드」.
+ *   사장님: 「각 메뉴에도 썸네일 넣어」. 그런데 일정 안내·감독 선임처럼 **점수가 없는 글**이 있다.
+ *   점수판을 억지로 씌우지 않는다 — 그 글의 «주제»를 그대로 크게 적는다.
+ *   ⛔ 없는 숫자를 지어내지 않는다. 적는 것은 기사 머리말에 이미 있는 말뿐이다.
+ */
+export function 사실카드글(것) {
+  const { 윗말, 큰말, 아랫말, 색, 바닥 } = 것;
+  return `<!doctype html><html><head><meta charset="utf-8"><style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1200px;height:630px;background:#fff;
+       font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;
+       display:flex;flex-direction:column}
+  .bar{height:8px;background:${색}}
+  .mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+       padding:0 96px;text-align:center}
+  .up{font-size:24px;font-weight:700;color:${색};letter-spacing:.04em}
+  .big{margin-top:22px;font-size:62px;font-weight:800;line-height:1.26;
+       color:#161b22;letter-spacing:-.025em}
+  .dn{margin-top:26px;font-size:22px;color:#97a0ad}
+  .foot{padding:0 64px 44px;text-align:center;font-size:19px;color:#97a0ad}
+  </style></head><body>
+  <div class="bar"></div>
+  <div class="mid">
+    <div class="up">${윗말}</div>
+    <div class="big">${큰말}</div>
+    ${아랫말 ? `<div class="dn">${아랫말}</div>` : ''}
+  </div>
+  <div class="foot">${바닥}</div>
+  </body></html>`;
+}
+
+/**
+ * 주제 명칭을 「윗말 / 큰말」로 가른다.
+ * 「2026 장애인아시아경기대회 사격 50m 복사」 → 윗말 «2026 장애인아시아경기대회» · 큰말 «사격 50m 복사»
+ * ⚠ 가를 자리를 못 찾으면 통째로 큰말에 둔다 — 억지로 자르지 않는다.
+ */
+export function 주제가르기(명칭, 주체) {
+  const 글 = String(명칭 ?? '').trim();
+  if (!글) return null;
+  /* 대회 이름은 「연도 + 대회명」으로 시작하는 일이 많다 */
+  const m = 글.match(/^((?:20\d{2}[-\s]?(?:20\d{2})?\s*)?[^\s]*(?:아시아경기대회|아시안컵|아시안게임|월드컵|올림픽|리그|시즌|포스트시즌))\s+(.+)$/);
+  if (m) return { 윗말: m[1].trim(), 큰말: m[2].trim() };
+  return { 윗말: String(주체 ?? '').trim(), 큰말: 글 };
+}
+
 /* ───────────────────────────── 자가시험 ───────────────────────────── */
 function 자가시험() {
   let 통과 = 0; let 실패 = 0;
