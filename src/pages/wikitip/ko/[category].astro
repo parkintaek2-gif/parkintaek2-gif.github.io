@@ -73,9 +73,18 @@ const jsonLd = {
 
   {목록.length > 0 && (
     <ul class="list">
+      {/* 🔴 [2026-10-28 · 사장님] 「**k-review 드라마 등 각 메뉴에도 썸네일 넣어**」
+          앞 지면(`/ko`)에는 썸네일이 있는데 분류 지면에는 제목과 설명뿐이었다.
+          ⛔ `:has()` 를 쓰지 않는다 — 사진이 있는 줄에만 이름표를 직접 단다(`/ko` 와 같은 길).
+          ⛔ 자르는 기준은 «위»다. 가운데로 자르면 얼굴이 날아간다(사장님 2026-10-28). */}
       {목록.map((r) => (
-        <li>
-          <a href={`/ko/review/${r.id}`}>{r.data.title}</a>
+        <li class={r.data.image ? 'with-thumb' : ''}>
+          {r.data.image && (
+            <a class="thumb" href={`/ko/review/${r.id}`} tabindex="-1" aria-hidden="true">
+              <img src={r.data.image.src} alt="" loading="lazy" />
+            </a>
+          )}
+          <a class="t" href={`/ko/review/${r.id}`}>{r.data.title}</a>
           <p class="dek">{r.data.dek}</p>
           <p class="when">{날짜표기(r.data.pubDate)} · {r.data.subject.명칭}</p>
         </li>
@@ -97,7 +106,17 @@ const jsonLd = {
   .none { color: var(--muted); }
   .list { list-style: none; padding: 0; margin: 0; }
   .list li { padding: 1rem 0; border-top: 1px solid var(--line); }
-  .list a { font-weight: 700; font-size: 1.05rem; }
+  /* ⚠ `:has()` 를 안 쓴다 — 안 도는 바우저가 있으면 짱이 통째로 무너진다.
+     사진이 있는 줄에만 이름표를 달아 갈라 낸다(`/ko` 와 같은 길). */
+  .list li.with-thumb { display: grid; grid-template-columns: 96px 1fr; gap: 0 .9rem; align-items: start; }
+  .list li.with-thumb > .t,
+  .list li.with-thumb > .dek,
+  .list li.with-thumb > .when { grid-column: 2; }
+  .thumb { grid-column: 1; grid-row: 1 / span 3; line-height: 0; }
+  /* 🔴 [2026-10-28 · 사장님] 「썸네일에 사람 얼굴이 잘렸잖아. 사진을 위를 기준으로 하면
+     얼굴이 잘리지 않을거야」 — 자르는 기준을 «위»로 둔다. 발밑이 잘리는 편이 낫다. */
+  .thumb img { width: 96px; height: 64px; object-fit: cover; object-position: top; border-radius: 4px; }
+  .list a.t { font-weight: 700; font-size: 1.05rem; }
   .dek { margin: .3rem 0 0; color: var(--muted); font-size: .9rem; }
   .when { margin: .3rem 0 0; color: var(--muted); font-size: .8rem; }
   .fine { margin-top: 2.5rem; color: var(--muted); font-size: .82rem; }
