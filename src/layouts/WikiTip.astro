@@ -273,7 +273,8 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
     /* ⚠ 긴 낱말·URL 이 좁은 화면을 가로로 밀지 않게. 이 사이트에서 한 번 크게 데였다 */
     p, li, td, th, dd, dt, a { overflow-wrap: break-word; }
     .wrap { max-width: 46rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
-    .site { display: flex; align-items: baseline; gap: .6rem; padding: 0 0 .5rem; }
+    /* ⚠ CI 를 키운 뒤로 바탕줄(baseline) 맞춤이 어긋났다 — 가운데로 맞춰 함께 세운다 */
+    .site { display: flex; align-items: center; gap: .7rem; padding: .2rem 0 .6rem; flex-wrap: wrap; }
     /* 갈래 줄 — 이름표가 아니라 **길**이다. 로고 바로 아래, 첫 화면에서 바로 보이는 자리 */
     .sections { font-size: .86rem; padding: 0 0 1.4rem; border-bottom: 1px solid var(--line);
                 margin-bottom: 1.6rem; }
@@ -288,7 +289,11 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
     .logo span { color: var(--accent); }
     /* BI 그림 — 어두운 바탕에서도 글자가 보이게 밝기를 뒤집는다(원본은 흰 바탕용이다) */
     .logo.bi { line-height: 0; }
-    .logo.bi img { height: 34px; width: auto; display: block; }
+    /* 🔴 [2026-10-29 · 사장님] 「**K Culture Wire >>> CI 크기 좀 키워**」
+       34px → 56px. 좁은 화면(560px 밑)에서는 44px 로 — 그대로 키우면 메뉴가 밀린다.
+       ⚠ 원본은 5:1 꼴이라 56px 이면 가로 280px 다. 폰 가로(360px)에서도 들어간다. */
+    .logo.bi img { height: 56px; width: auto; display: block; }
+    @media (max-width: 560px) { .logo.bi img { height: 44px; } }
     @media (prefers-color-scheme: dark) { .logo.bi img { filter: invert(1) hue-rotate(180deg); } }
     .tag { font-size: .78rem; color: var(--muted); font-weight: 600; letter-spacing: .02em; }
     /* 🔴 [2026-10-26 · 사장님] 「칼럼을 1칼럼에서 2칼럼으로 늘려서」 — 두 칸을 받으려면
