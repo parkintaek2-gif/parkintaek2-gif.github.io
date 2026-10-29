@@ -553,10 +553,27 @@ if (내가실행됐다 && !process.argv.includes('--자가시험')) {
     console.log('   ⛔ 손님이 값을 내고도 못 받는 채로 지면을 내보내지 않는다.');
   }
 
+  /* 🔴🔴🔴 [2026-10-29 · 사장님] 「엠블럼 말고 감독이나 선수 사진을 가급적 써」
+     사진 규칙은 프런트매터의 image 한 칸만 보고 있었다 — 본문에 마크다운으로 넣은
+     사진은 제공처를 안 적어도, 바깥 서버를 가리켜도 그냥 통과했다. 여기서 막는다. */
+  let 본문사진막을것 = [{ 왜: "검사를 못 돌렸다" }];
+  try {
+    const { execFileSync: 돌린다9 } = await import("node:child_process");
+    const 저장소9 = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
+    const 말9 = 돌린다9(process.execPath, [path.join(저장소9, "scripts", "check-본문에-넣은-사진도-규칙을-지키나.mjs")], { cwd: 저장소9, encoding: "utf8", timeout: 120000, stdio: ["ignore", "pipe", "pipe"] });
+    본문사진막을것 = /모두 규칙을 지킨다/.test(말9) ? [] : [{ 왜: "본문 사진이 규칙에 어긋난다" }];
+    console.log("");
+    console.log(본문사진막을것.length ? "🔴🔴 본문에 넣은 사진이 규칙에 어긋난다" : "✅ 본문에 넣은 사진도 규칙을 지킨다");
+  } catch (e) {
+    본문사진막을것 = [{ 왜: "검사를 못 돌렸다" }];
+    console.log("");
+    console.log("🔴 본문 사진 검사를 못 돌렸다 — " + String(e.message).slice(0, 200));
+  }
+
   const 통과 = 열쇠.맞다 && 최신.최신이다 && 깨끗.깨끗하다 && 사라진것.length === 0
     && 파일빠짐.빠진것.length === 0 && 감수막을것.length === 0 && !소통막힘 && !손님길막힘
     && !보고막힘                       /* [2026-09-19] 사장님 「세 세션에 다 채워」 */
-    && 설정빠짐.length === 0;
+    && 설정빠짐.length === 0 && 본문사진막을것.length === 0;
   console.log(판정글({ 열쇠, 최신, 깨끗, 지킴수: 줄들.length, 사라진것, 통과 }));
   console.log('');
   for (const 줄 of 파일줄) console.log(줄);
