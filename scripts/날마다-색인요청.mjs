@@ -462,6 +462,28 @@ if (내가실행됐다) {
     'https://klifemap.ai/sitemap.xml',
     'https://seoulmarkets.com/sitemap-japan.xml',
   ];
+  /* 🔴🔴🔴 [2026-10-29 · 5번 실측] **권한이 없는 속성의 사이트맵은 차례에서 뺀다.**
+   *   오늘 열 장이 전부 「못찾음」으로 돌아왔다. 까닭은 사이트맵이 아니라 **권한**이었다 —
+   *   크롬에 든 admin@klifedesign.net 이 쓸 수 있는 속성은 klifemap 주소 꼴 둘뿐이고,
+   *   seoulmarkets · kculturewire · 100yearmap 은 「이 속성에 액세스할 수 없습니다」다.
+   *   (여덟 속성을 하나씩 눌러 재 봤다 — scripts/구글-색인요청.mjs 의 못들어가는곳 참고)
+   *
+   * ⛔ 못 넣는 곳에 차례를 주면 **그날 몫이 통째로 사라진다.** 넣을 수 있는 데로 보낸다.
+   * ⛔ 위의 「한쪽으로 몰지 않는다」를 어기는 것이 아니다 — 지금은 한쪽밖에 문이 없다.
+   *   권한이 열리면 이 거르개가 저절로 풀려 차례가 되돌아온다. 손으로 되돌릴 것이 없다.
+   * ⚠ 다 막히면 거르지 않는다 — 빈 차례로 돌면 까닭이 안 보인다. 그때는 그대로 두고 적게 한다. */
+  const { 못들어가는곳 } = await import('./구글-색인요청.mjs');
+  const 열린차례 = 사이트맵차례.filter((u) => {
+    try { return !못들어가는곳[new URL(u).hostname.toLowerCase().replace(/^www./, '')]; }
+    catch { return true; }
+  });
+  if (열린차례.length > 0 && 열린차례.length < 사이트맵차례.length) {
+    for (const u of 사이트맵차례.filter((x) => !열린차례.includes(x))) {
+      console.log(`⬜ 차례에서 뺐다 — ${u} (이 계정에 그 속성 권한이 없다)`);
+    }
+    사이트맵차례.length = 0;
+    사이트맵차례.push(...열린차례);
+  }
   const { execFileSync } = await import('node:child_process');
   /* 🔴🔴🔴 [2026-10-27 · 5번 실측] **KLifeMap 사이트맵이 통째로 빠져 있었다.**
    *   이 자가 날마다 「⬜ https://klifemap.ai/sitemap.xml — 못 받았거나 비었다」를 찍고
