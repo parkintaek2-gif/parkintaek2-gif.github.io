@@ -700,7 +700,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
         const { createRequire } = await import('node:module');
         const 부르기 = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
         브라우저 = await 부르기('puppeteer-core')
-          .connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+          .connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
         if (!fs.existsSync(OCR자)) { 브라우저.disconnect(); 브라우저 = null; console.log('⚠ tesseract 가 없다 — 스캔 쪽은 못 읽는다\n'); }
       } catch (e) { console.log(`⚠ 크롬(9222)에 못 붙었다 — 스캔 쪽은 못 읽는다: ${e.message}\n`); }
     }

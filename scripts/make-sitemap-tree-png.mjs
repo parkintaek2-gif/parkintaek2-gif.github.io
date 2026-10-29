@@ -23,7 +23,7 @@ const puppeteer = require('puppeteer-core');
 const 것들 = fs.readdirSync(방).filter((f) => f.endsWith('.svg'));
 if (!것들.length) { console.log('🔴 SVG 가 없다 — 먼저 node scripts/make-sitemap-tree.mjs'); process.exit(1); }
 
-const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
 const page = await b.newPage();
 try {
   for (const f of 것들) {

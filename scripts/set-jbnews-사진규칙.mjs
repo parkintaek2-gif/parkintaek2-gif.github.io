@@ -295,7 +295,7 @@ if (내가실행됐다) {
   }
 
   const puppeteer = 요구('puppeteer-core');
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
   const page = await b.newPage();          /* ⛔ 사장님 탭을 쓰지 않는다 */
   try {
     await page.goto('https://claude.ai/', { waitUntil: 'domcontentloaded', timeout: 60000 });

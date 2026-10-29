@@ -145,7 +145,7 @@ async function 잰다() {
 
   const require = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
   const puppeteer = require('puppeteer-core');
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
   const page = await b.newPage();
   let 나쁨 = 0;
   const 적을것 = [];

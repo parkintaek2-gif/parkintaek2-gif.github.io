@@ -34,7 +34,7 @@
 import { createRequire } from 'node:module';
 
 /** 사장님 크롬 붙는 주소 — ⛔ 새로 띄우지 않는다. 이미 켜진 창에 «붙는다» */
-export const 붙는곳 = 'http://127.0.0.1:9222';
+export const 붙는곳 = (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222');
 
 /** 리서치와 관련 있어 보이는 주소·글자만 고른다 */
 export function 리서치같나(글) {
@@ -66,7 +66,7 @@ function 자가시험() {
   let 흠 = 0;
   const 검 = (말, 참) => { if (!참) { 흠 += 1; console.log('  🔴 ' + 말); } else console.log('  ✅ ' + 말); };
 
-  검('9222 에 «붙는» 주소다 (새로 띄우지 않는다)', 붙는곳 === 'http://127.0.0.1:9222');
+  검('9222 에 «붙는» 주소다 (새로 띄우지 않는다)', 붙는곳 === (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'));
   검('리서치 글자를 알아본다', 리서치같나('기업분석') && 리서치같나('/research/list'));
   검('⛔ 아무 글자나 리서치로 보지 않는다', !리서치같나('고객센터'));
   검('⛔ 빈 것도 견딘다', !리서치같나(null) && !리서치같나(''));

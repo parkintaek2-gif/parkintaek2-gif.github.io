@@ -107,7 +107,7 @@ async function 주다() {
   try { 지난 = 기록읽기(fs.readFileSync(기록길, 'utf8')); } catch { 지난 = new Map(); }
 
   const puppeteer = await import('puppeteer-core');
-  const b = await puppeteer.default.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 10 * 60_000 });
+  const b = await puppeteer.default.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 10 * 60_000 });
   const page = await b.newPage();
   const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
   const 새줄 = [];

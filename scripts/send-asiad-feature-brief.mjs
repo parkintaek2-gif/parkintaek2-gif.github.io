@@ -270,7 +270,7 @@ if (내가진입점) {
   const puppeteer = require('puppeteer-core');
   const 쉼 = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 15 * 60_000 });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 15 * 60_000 });
   const page = await b.newPage();
   try {
     await page.setViewport({ width: 1500, height: 1000 });

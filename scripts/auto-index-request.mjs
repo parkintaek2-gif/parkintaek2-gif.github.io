@@ -272,7 +272,7 @@ if (나인가) {
   const puppeteer = require2('puppeteer-core');
   const 쉼 = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
   const 적을것 = [];
   try {
     /* ⛔ 자원마다 창이 다르다 — 자원이 바뀌면 다시 연다 */

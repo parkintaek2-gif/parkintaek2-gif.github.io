@@ -2468,7 +2468,7 @@ if (내가진입점) {
     new Date().toLocaleDateString('sv-SE'));
   fs.mkdirSync(되돌릴방, { recursive: true });
 
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
   const page = await b.newPage();
   let 고친수 = 0; let 그대로 = 0; let 탈 = 0;
   try {

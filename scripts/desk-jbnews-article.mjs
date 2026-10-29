@@ -787,7 +787,7 @@ export async function 혼자데스킹(본문, 이름) {
        기본값이 **180초**다. 그 선을 넘으면 evaluate 가 통째로 터진다.
      ⛔ 이 값을 지우거나 줄이지 않는다. 줄이면 데스킹이 «조용히» 안 걸리고,
        사장님이 「팩트가 틀린다」고 하셔서 만든 관문이 그대로 뚫린다. */
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 30 * 60_000 });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 30 * 60_000 });
   const page = await b.newPage();
   try {
     await page.goto(`https://claude.ai/project/${데스킹프로젝트}`, { waitUntil: 'domcontentloaded', timeout: 90000 });

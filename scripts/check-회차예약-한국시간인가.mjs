@@ -90,7 +90,7 @@ function 자가시험() {
 async function 주다() {
   const 고친다 = process.argv.includes('--고친다');
   const puppeteer = await import('puppeteer-core');
-  const b = await puppeteer.default.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 10 * 60_000 });
+  const b = await puppeteer.default.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 10 * 60_000 });
   const page = await b.newPage();
   const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
   let 틀림 = 0; let 못읽음 = 0;

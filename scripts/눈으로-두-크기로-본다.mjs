@@ -132,7 +132,7 @@ if (내가실행됐다) {
   const { default: puppeteer } = await import('puppeteer-core');
   let b;
   try {
-    b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+    b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
   } catch (e) {
     console.log('⛔ 크롬에 못 붙었다 — 9222 로 열린 크롬이 있어야 한다. 못 쟀다');
     console.log(`   ${e.message}`);

@@ -132,7 +132,7 @@ function 자가시험() {
 async function 잰다() {
   const require = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
   const puppeteer = require('puppeteer-core');
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
   const page = await b.newPage();
   let 나쁨 = 0;
   console.log('■ 네이버 애널리틱스가 «실제로 도는가» — 네 사이트' + String.fromCharCode(10));

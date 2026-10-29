@@ -342,7 +342,7 @@ if (내가진입점 && process.argv.includes('--자가시험')) {
   const 적는다 = process.argv.includes('--적는다');
   const require = createRequire('file:///C:/Users/User/Documents/GitHub/dataeconomics/package.json');
   const puppeteer = require('puppeteer-core');
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 240000 });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 240000 });
   const page = await b.newPage();
   let 탈 = 0;
   try {

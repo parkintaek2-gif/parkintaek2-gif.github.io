@@ -40,7 +40,7 @@ import { pathToFileURL } from 'node:url';
 import { put } from '../src/lib/store.mjs';
 
 /** 크롬 원격 디버그 주소 — CLAUDE.md 「9222 로 붙는다」 절과 같다. */
-export const 크롬주소 = 'http://127.0.0.1:9222';
+export const 크롬주소 = (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222');
 export const 목록지면 = 'https://www.saudiexchange.sa/wps/portal/saudiexchange/ourmarkets/main-market-watch/'
   + '!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8ziTR3NDIw8LAz8LVxcnA0C3bwtPLwM_I0MzMz1C7IdFQFj30mM/';
 

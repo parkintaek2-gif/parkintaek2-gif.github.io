@@ -110,7 +110,7 @@ if (내가실행됐다) {
   }
 
   const puppeteer = (await import('puppeteer-core')).default;
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
   let 맥락 = null;
   const 잰것 = [];
   try {

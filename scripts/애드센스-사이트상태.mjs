@@ -4,7 +4,7 @@
 import puppeteer from 'puppeteer-core';
 import fs from 'node:fs';
 
-const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 180000 });
+const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 180000 });
 let p = null;
 try {
   p = await b.newPage();

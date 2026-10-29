@@ -122,7 +122,7 @@ if (내가진입점) {
   const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
   const require = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
   const puppeteer = require('puppeteer-core');
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
   const page = await b.newPage();
   let 끝값 = 1;
   /* 🔴 [2026-09-29] 브라우저를 연 뒤의 일은 «함수 안»에 둔다.

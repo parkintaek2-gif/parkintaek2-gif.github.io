@@ -243,7 +243,7 @@ async function 손님으로결제창까지() {
   try {
     const { createRequire } = await import('node:module');
     const 부르기 = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
-    b = await 부르기('puppeteer-core').connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+    b = await 부르기('puppeteer-core').connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
     방 = await b.createBrowserContext();          /* 사장님 로그인과 갈라 놓는다 */
     page = await 방.newPage();
     /* 🔴 [2026-09-17] 이 점검이 «사람»으로, 그것도 «새 손님»으로 세어지고 있었다 —

@@ -107,7 +107,7 @@ if (내가진입점 && process.argv.includes('--자가시험')) {
   const 적는다 = process.argv.includes('--적는다');
   const require = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
   const puppeteer = require('puppeteer-core');
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
   const page = await b.newPage();
   try {
     await page.goto(`https://claude.ai/scheduled-task/${아홉시}`, { waitUntil: 'domcontentloaded', timeout: 90000 });

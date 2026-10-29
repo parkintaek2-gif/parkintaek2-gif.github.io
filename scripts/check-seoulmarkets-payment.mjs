@@ -236,7 +236,7 @@ async function 단추그려지나() {
     const puppeteer = require('puppeteer-core');
     /* ⚠ protocolTimeout 을 20초로 줄인다 — 기본값은 3분이라, 새 창에 붙다가 멈추면
        점검 전체가 3분을 서 있다가 「시간이 다 되어 확인하지 못했다」로 끝난다. */
-    b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 20000 });
+    b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 20000 });
   /* 🔴 [2026-10-11 · 5번] **빈 자리에서 잰다.**
      사장님 크롬(9222)에 저장된 값이 새 탭에 따라온다 — 오늘 klifemap 에서 `bj_lang=zh` 가
      따라와 지면 열한 장이 모두 중국어로 보였다. 지면이 깨진 줄 알고 고칠 뻔했다.

@@ -142,7 +142,7 @@ async function 돈다(무엇) {
   const puppeteer = require('puppeteer-core');
   const 쉼 = (ms) => new Promise((r) => setTimeout(r, ms));
   fs.mkdirSync(백업방, { recursive: true });
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 300000 });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 300000 });
   const page = await b.newPage();
   let 탈 = 0;
   try {

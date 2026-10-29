@@ -17,7 +17,7 @@ const require = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/p
 const puppeteer = require('puppeteer-core');
 const 쉼 = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 240000 });
+const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 240000 });
 const page = await b.newPage();
 try {
   await page.goto('https://claude.ai', { waitUntil: 'domcontentloaded', timeout: 90000 });

@@ -343,7 +343,7 @@ async function 한다() {
 async function 그려서찍는다(글, 낼곳) {
   const require = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
   const puppeteer = require('puppeteer-core');
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
   const p = await b.newPage();
   try {
     await p.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1 });

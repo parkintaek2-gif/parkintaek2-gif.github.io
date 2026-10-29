@@ -280,7 +280,7 @@ async function 잰다() {
 
   const puppeteer = await import('puppeteer-core');
   const b = await puppeteer.default.connect({
-    browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 5 * 60_000,
+    browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 5 * 60_000,
   });
   const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
   const 낼곳 = 'C:/Users/User/OneDrive/Desktop/klm-새벽빛-미리보기/화면들/';

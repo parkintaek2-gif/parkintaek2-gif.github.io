@@ -151,7 +151,7 @@ async function 잰다() {
   const 훑기 = 훑기본문.replace('__읽힘선__', String(읽힘선));
   const puppeteer = await import('puppeteer-core');
   const b = await puppeteer.default.connect({
-    browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 5 * 60_000,
+    browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 5 * 60_000,
   });
   const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
   const 줄들 = [];

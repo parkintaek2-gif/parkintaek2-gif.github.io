@@ -3092,7 +3092,7 @@ const 앞선인물 = (() => {
 })();
 if (앞선인물.length) console.log(`■ 그리고 ${앞선인물.length}건은 «인물»까지 맞대어 본다 (예고 중복을 막는다)`);
 
-const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 30 * 60_000 });
+const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 30 * 60_000 });
 const page = await b.newPage();
 const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
 let 거둠 = 0, 건너 = 0, 없음 = 0;

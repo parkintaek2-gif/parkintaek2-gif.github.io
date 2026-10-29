@@ -78,7 +78,7 @@ export function 흠인가(이름, 글) {
 async function 자가시험() {
   const { test } = await import('node:test');
   const A = await import('node:assert/strict');
-  const 붙는다 = "const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222' });";
+  const 붙는다 = "const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222') });";
   const 띄운다 = 'const b = await puppeteer.launch({ headless: true });';
   /* 실제 자의 모양 그대로 — 지면을 «열고»(goto) «들여다본다»(evaluate) */
   const 말잰다 = 'await p.goto(밑); const 글 = await p.evaluate(() => document.body.innerText);';

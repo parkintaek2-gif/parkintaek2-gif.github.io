@@ -318,7 +318,7 @@ async function 의뢰한다(주문길, 보낼까) {
   const D = await import('./desk-jbnews-article.mjs');
   let b;
   try {
-    b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+    b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
     const page = await b.newPage();
     await page.goto('https://claude.ai/recents', { waitUntil: 'domcontentloaded', timeout: 45000 });
     await new Promise((r) => setTimeout(r, 3000));

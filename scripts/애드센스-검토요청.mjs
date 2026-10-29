@@ -40,7 +40,7 @@ const 진짜 = process.argv.includes('--진짜');
 const 목록 = process.env.ADSENSE_SITES_URL || 'https://adsense.google.com/adsense/u/1/pub-3547185342873229/sites/list';
 const 이름 = 볼곳.replace(/\./g, '_');
 
-const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null, protocolTimeout: 240000 });
+const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null, protocolTimeout: 240000 });
 let p = null;
 try {
   p = await b.newPage();

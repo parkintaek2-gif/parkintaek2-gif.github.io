@@ -141,7 +141,7 @@ export function 줄가르기(칸들) {
  *     (Chrome/152.0.7977.65 · Protocol 1.3). 사장님 창을 건드리지 않고 **새 탭**만 연다.
  *   ⛔ 사장님 탭을 닫거나 옮기지 않는다. 우리가 연 탭만 우리가 닫는다.
  */
-export const 붙을주소 = 'http://127.0.0.1:9222';
+export const 붙을주소 = (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222');
 
 export async function 붙는곳찾기(가져오기 = fetch) {
   try {

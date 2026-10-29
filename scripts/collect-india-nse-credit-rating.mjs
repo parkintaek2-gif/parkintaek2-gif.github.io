@@ -164,7 +164,7 @@ export function 갈무리한다(줄들, 갈래이름, 오늘 = new Date()) {
 async function 받아온다() {
   const require = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
   const puppeteer = require('puppeteer-core');
-  const b = await puppeteer.connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+  const b = await puppeteer.connect({ browserURL: (process.env.KLM_CHROME_PORT ? 'http://127.0.0.1:' + process.env.KLM_CHROME_PORT : 'http://127.0.0.1:9222'), defaultViewport: null });
   const page = await b.newPage();          /* ⭐ 언제나 «새 탭» */
   try {
     await page.goto(지면, { waitUntil: 'domcontentloaded', timeout: 60000 });
