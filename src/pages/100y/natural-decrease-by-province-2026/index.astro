@@ -1,0 +1,115 @@
+---
+/**
+ * /100y/natural-decrease-by-province-2026 — **출생아 − 사망자 시도별 2026년 1~8월** (축 「2026 출생 시도별」, 이슈)
+ *
+ * ── 왜 만들었나 (2026-10-31 · 1번) ──────────────
+ * 이슈   「8월 인구동향」(10-28) — 8월 사망자 30,308명, 출생아보다 6,605명 많아 인구가 자연감소했다.
+ * 축     같은 KOSIS 월별 표로 1~8월 시도별 «출생아 − 사망자»를 2025년 같은 기간과 나란히 놓았다.
+ *        2026년 1~8월 태어난 사람이 더 많은 곳은 17개 시도 중 4곳(서울·울산·세종·경기)이다. 2025년 같은 기간은 세종 1곳이었다.
+ *
+ * ⛔ 인구 이동(전입·전출)은 이 수에 없다. 「인구가 늘었다」로 쓰지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/births-2026.json';
+
+const d = 원 as any;
+const 쉼 = (n: number) => n.toLocaleString();
+const 부호 = (n: number) => (n > 0 ? '+' : '') + 쉼(n);
+const 합 = (r: any, a: string, b: string, k: string) => r.월.filter((m: any) => m.월 >= a && m.월 <= b).reduce((t: number, m: any) => t + m[k], 0);
+const 줄 = (r: any) => {
+  const 출 = 합(r, '202601', '202608', '출생'); const 사 = 합(r, '202601', '202608', '사망');
+  const 출전 = 합(r, '202501', '202508', '출생'); const 사전 = 합(r, '202501', '202508', '사망');
+  return { 이름: r.짧은, 출, 사, 차: 출 - 사, 차전: 출전 - 사전, 비: (출 / 사 * 100).toFixed(0) };
+};
+const 전 = 줄(d.전국);
+const 행 = d.시도.map(줄).sort((a: any, b: any) => b.차 - a.차);
+const 많은곳 = 행.filter((r: any) => r.차 > 0);
+const 많은곳전 = 행.filter((r: any) => r.차전 > 0);
+const 팔 = d.전국.월.at(-1);
+const 낮 = [...행].sort((a: any, b: any) => Number(a.비) - Number(b.비));
+
+const TITLE = `출생아 − 사망자 시도별 2026년 1~8월 — ${많은곳.length}곳만 더 많이 태어났다`;
+const desc =
+  `2026년 1~8월 전국은 사망자가 출생아보다 ${쉼(-전.차)}명 많습니다(2025년 같은 기간 ${쉼(-전.차전)}명). ` +
+  `17개 시도 중 태어난 사람이 더 많은 곳은 ${많은곳.map((r: any) => r.이름).join('·')} ${많은곳.length}곳이고, 1년 전에는 ${많은곳전.map((r: any) => r.이름).join('·')} ${많은곳전.length}곳이었습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2026년 1~8월 시도별 출생아·사망자·자연증감(잠정)',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    spatialCoverage: '대한민국 시·도',
+    isBasedOn: 'https://kosis.kr (101/DT_1B8000G)',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: '2026년에 출생아가 사망자보다 많은 시도는 어디인가요?', acceptedAnswer: { '@type': 'Answer', text: `1~8월 누계로 ${많은곳.map((r: any) => `${r.이름}(${부호(r.차)}명)`).join(', ')}입니다. 나머지 ${17 - 많은곳.length}개 시도는 사망자가 더 많습니다.` } },
+      { '@type': 'Question', name: '2026년 8월 인구 자연감소는 몇 명인가요?', acceptedAnswer: { '@type': 'Answer', text: `8월 출생아 ${쉼(팔.출생)}명, 사망자 ${쉼(팔.사망)}명으로 ${쉼(팔.사망 - 팔.출생)}명 자연감소했습니다(잠정).` } },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>출생아 − 사망자 —<br class="pcbr" /> 2026년 1~8월 17개 시도</h1>
+  <p class="sub">
+    출생아가 늘어도 나라 전체로는 사망자가 더 많습니다. 시도마다 태어난 사람과 세상을 떠난 사람을 나란히 놓았습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">2026년 1~8월 · 전국 출생아 − 사망자</p>
+    <p class="answer-num">{부호(전.차)}명</p>
+    <p class="answer-sub">2025년 같은 기간 {부호(전.차전)}명 · 태어난 사람이 더 많은 곳 17개 시도 중 {많은곳.length}곳(1년 전 {많은곳전.length}곳)</p>
+  </div>
+
+  <p>
+    태어난 사람이 더 많은 곳은 {많은곳.map((r: any) => `${r.이름}(${부호(r.차)}명)`).join('·')}입니다.
+    사망자 100명당 출생아로 보면 {낮[0].이름} {낮[0].비}명, {낮[1].이름} {낮[1].비}명이 가장 적고, 세종이 {행.find((r: any) => r.이름 === '세종').비}명으로 가장 많습니다.
+  </p>
+
+  <h2>시도별 — 1~8월 누계</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>출생아</th><th>사망자</th><th>차이</th><th>1년 전 차이</th><th>사망 100명당 출생</th></tr></thead>
+      <tbody>
+        <tr class="total"><th>전국</th><td class="num">{쉼(전.출)}</td><td class="num">{쉼(전.사)}</td><td class="num"><strong>{부호(전.차)}</strong></td><td class="num">{부호(전.차전)}</td><td class="num">{전.비}</td></tr>
+        {행.map((r: any) => (
+          <tr><th>{r.이름}</th><td class="num">{쉼(r.출)}</td><td class="num">{쉼(r.사)}</td><td class="num"><strong>{부호(r.차)}</strong></td><td class="num">{부호(r.차전)}</td><td class="num">{r.비}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">단위 명 · 차이 = 출생아 − 사망자(통계 용어로 자연증감) · 2026년은 잠정치</p>
+
+  <h2>같은 자료로 본 다른 표</h2>
+  <ul>
+    <li><a href="/births-by-province-2026">2026년 1~8월 출생아 17개 시도</a></li>
+    <li><a href="/population-decline-regions">인구감소지역</a></li>
+    <li><a href="/death-causes">사망 원인</a></li>
+  </ul>
+
+  <h2>이 숫자를 어떻게 읽어야 하나요?</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 한 지역의 출생과 사망을 센 것일 뿐, 그곳 삶이 낫다 못하다를 말하지 않습니다.</li>
+    <li>이 수에는 이사 온 사람·떠난 사람이 들어 있지 않습니다. 실제 인구 증감과 다릅니다.</li>
+    <li>2026년 잠정치는 17개 시도를 더한 값이 전국과 몇 명 다릅니다(출생 3명·사망 7명). 원인은 미확인이라 전국 줄은 발표된 전국 수를 그대로 씁니다.</li>
+    <li>노인 인구가 많은 지역일수록 사망자가 많습니다. 지역의 나이 구성이 다르다는 점을 함께 봐야 합니다.</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    국가데이터처 KOSIS 「월·분기·연간 인구동향」(101/DT_1B8000G) · 「2026년 8월 인구동향」 2026-10-28 발표 · KOSIS 마지막 수정 {d.출처.KOSIS마지막수정} · 저희가 받은 때 {d.받은때}
+  </p>
+
+  <NextQuestionBrief 모은것="국가데이터처 월별 인구동향으로 17개 시도의 2026년 1~8월 출생아와 사망자를 나란히 놓고 1년 전과 견준 표" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .total th, .total td { border-bottom: 2px solid currentColor; }
+</style>

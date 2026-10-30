@@ -1,0 +1,131 @@
+---
+/**
+ * /100y/mother-age-by-city-2025 — **엄마 평균 출산 나이 시군구 2025** (롱테일, 축 「2026 출생 시도별」에 딸림)
+ *
+ * ── 왜 만들었나 (2026-10-31 · 1번) ──────────────
+ * 롱테일 「○○구 평균 출산 나이」「35세 이상 출산 비율」을 찾는 사람에게 229곳을 한 표로 준다.
+ * 축     KOSIS 101/DT_1B81A28(2025 확정) — 모의 평균 출산연령과 5세 단위 출생아 수. 35세 이상 비중은 저희가 연령별 출생아를 더해 나눴다.
+ *
+ * ⛔ 「늦게 낳는다」 같은 평가를 쓰지 않는다. 출생아 100명 미만인 곳은 * 로 표시한다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/births-2026.json';
+
+const d = 원 as any;
+const 쉼 = (n: number) => n.toLocaleString();
+const 전 = d.시군구2025.전국;
+const L = (d.시군구2025.목록 as any[]).map((r) => {
+  const 모두 = Object.values(r.연령 ?? {}).reduce((t: number, v: any) => t + (v ?? 0), 0) as number;
+  const 늦 = ['35', '40', '45'].reduce((t, k) => t + (r.연령?.[k] ?? 0), 0);
+  return { ...r, 모두, 늦비: 모두 ? (늦 / 모두 * 100) : null };
+});
+const 이름 = (r: any) => (r.시도 === '세종' ? '세종시' : `${r.시도} ${r.이름}`);
+const 띠 = [
+  { 이름: '32세 미만', 참: (v: number) => v < 32 },
+  { 이름: '32~33세', 참: (v: number) => v >= 32 && v < 33 },
+  { 이름: '33~34세', 참: (v: number) => v >= 33 && v < 34 },
+  { 이름: '34~35세', 참: (v: number) => v >= 34 && v < 35 },
+  { 이름: '35세 이상', 참: (v: number) => v >= 35 },
+].map((b) => ({ ...b, 수: L.filter((r) => b.참(r.평균연령)).length }));
+const 큰곳 = L.filter((r) => r.출생25 >= 100);
+const 높 = [...큰곳].sort((a, b) => b.평균연령 - a.평균연령);
+const 낮 = [...큰곳].sort((a, b) => a.평균연령 - b.평균연령);
+const 전늦 = (() => { const 모두 = L.reduce((t, r) => t + r.모두, 0); const 늦 = L.reduce((t, r) => t + (r.늦비 ?? 0) * r.모두 / 100, 0); return (늦 / 모두 * 100).toFixed(1); })();
+const 늦줄 = [...큰곳].sort((a, b) => b.늦비 - a.늦비);
+
+const TITLE = `엄마 평균 출산 나이 시군구 2025 — ${낮[0].평균연령}세부터 ${높[0].평균연령}세까지`;
+const desc =
+  `2025년 확정 출생통계로 229개 시군구의 모(母) 평균 출산 나이와 35세 이상 엄마가 낳은 아이 비중을 실었습니다. 전국 평균은 ${전.평균연령}세입니다. ` +
+  `출생아 100명 이상인 곳 가운데 가장 높은 곳은 ${이름(높[0])}(${높[0].평균연령}세), 가장 낮은 곳은 ${이름(낮[0])}(${낮[0].평균연령}세)입니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2025년 시군구별 모의 평균 출산연령·연령별 출생아(확정)',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    spatialCoverage: '대한민국 시·군·구 229곳',
+    temporalCoverage: '2025',
+    isBasedOn: 'https://kosis.kr (101/DT_1B81A28)',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: '2025년 엄마 평균 출산 나이는 몇 세인가요?', acceptedAnswer: { '@type': 'Answer', text: `전국 ${전.평균연령}세입니다(국가데이터처 2025년 출생통계 확정치). 229개 시군구 중 ${띠[3].수 + 띠[4].수}곳이 34세 이상입니다.` } },
+      { '@type': 'Question', name: '평균 출산 나이가 가장 높은 시군구는 어디인가요?', acceptedAnswer: { '@type': 'Answer', text: `출생아 100명 이상인 곳 가운데 ${높.slice(0, 5).map((r) => `${이름(r)} ${r.평균연령}세`).join(', ')}입니다.` } },
+      { '@type': 'Question', name: '35세 이상 엄마가 낳은 아이는 얼마나 되나요?', acceptedAnswer: { '@type': 'Answer', text: `229곳 연령별 출생아를 더해 나누면 전국 ${전늦}%입니다. 출생아 100명 이상인 곳 가운데 가장 높은 곳은 ${이름(늦줄[0])}(${늦줄[0].늦비.toFixed(1)}%)입니다.` } },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>엄마 평균 출산 나이 —<br class="pcbr" /> 시군구 229곳 2025</h1>
+  <p class="sub">
+    「나만 늦은 걸까?」 동네마다 엄마가 아이를 낳은 평균 나이와, 35세 이상 엄마가 낳은 아이 비중을 한 표에 놓았습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">2025년 · 전국 엄마 평균 출산 나이</p>
+    <p class="answer-num">{전.평균연령}세</p>
+    <p class="answer-sub">35세 이상 엄마가 낳은 아이 {전늦}% · 시군구별 {낮[0].평균연령}~{높[0].평균연령}세(출생아 100명 이상인 곳)</p>
+  </div>
+
+  <h2>평균 출산 나이로 나눈 229곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>평균 출산 나이</th><th>시군구 수</th></tr></thead>
+      <tbody>{띠.map((b) => <tr><th>{b.이름}</th><td class="num">{b.수}곳</td></tr>)}</tbody>
+    </table>
+  </div>
+
+  <h2>평균 나이가 높은 곳 · 낮은 곳</h2>
+  <p class="note">출생아 100명 이상인 {큰곳.length}곳 가운데</p>
+  <div class="two">
+    <ol>{높.slice(0, 8).map((r) => <li>{이름(r)} {r.평균연령}세</li>)}</ol>
+    <ol>{낮.slice(0, 8).map((r) => <li>{이름(r)} {r.평균연령}세</li>)}</ol>
+  </div>
+
+  <h2>229곳 전체</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>시군구</th><th>평균 출산 나이</th><th>35세 이상 비중</th><th>출생아</th></tr></thead>
+      <tbody>
+        {L.map((r) => (
+          <tr><td>{r.시도}</td><th>{r.이름}</th><td class="num">{r.평균연령}{r.출생25 < 100 ? '*' : ''}</td><td class="num">{r.늦비 == null ? '미확인' : `${r.늦비.toFixed(1)}%`}</td><td class="num">{쉼(r.출생25)}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">평균 출산 나이 단위 세 · 35세 이상 비중 = 35~49세 엄마가 낳은 아이 ÷ 15~49세 엄마가 낳은 아이(저희 계산) · * 출생아 100명 미만</p>
+
+  <h2>같은 자료로 본 다른 표</h2>
+  <ul>
+    <li><a href="/births-by-city-2025">시군구 출생아·합계출산율 2025</a></li>
+    <li><a href="/births-by-province-2026">2026년 1~8월 출생아 17개 시도</a></li>
+    <li><a href="/marriage-age">결혼 나이</a></li>
+  </ul>
+
+  <h2>이 숫자를 어떻게 읽어야 하나요?</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 그 동네에서 아이를 낳은 엄마들 나이의 평균일 뿐, 아이를 가질 알맞은 나이를 말하지 않습니다.</li>
+    <li>평균에는 첫째·둘째·셋째가 모두 들어 있습니다. 첫아이 나이와는 다릅니다.</li>
+    <li>출생아가 적은 곳은 몇 명의 나이로 평균이 크게 움직입니다. * 표시를 함께 보십시오.</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    국가데이터처 KOSIS 「시군구/모의 평균 출산연령, 모의 연령별(5세 간격) 출생」(101/DT_1B81A28, 2025년 확정) · 저희가 받은 때 {d.받은때}
+  </p>
+
+  <NextQuestionBrief 모은것="국가데이터처 출생통계로 전국 229개 시군구의 2025년 엄마 평균 출산 나이와 35세 이상 엄마 출생 비중을 정리한 표" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: .92em; }
+  @media (max-width: 480px) { .two { grid-template-columns: 1fr; } }
+</style>

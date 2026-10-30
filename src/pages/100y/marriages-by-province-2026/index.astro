@@ -1,0 +1,130 @@
+---
+/**
+ * /100y/marriages-by-province-2026 — **2026년 1~8월 혼인 시도별** (축 「2026 출생 시도별」, 이슈)
+ *
+ * ── 왜 만들었나 (2026-10-31 · 1번) ──────────────
+ * 이슈   「8월 인구동향」(10-28)에서 8월 혼인이 1년 전보다 1.2% 줄었다. 출생은 늘었는데 혼인은 줄었다는 기사가 나왔다.
+ * 축     같은 KOSIS 월별 표에서 시도별로 떼어 보면, 8월 감소분은 거의 경기 한 곳에서 나왔다(경기 −1,243건, 나머지 16곳 합 +1,032건 — 시도 합은 잠정치라 전국과 13건 다르다).
+ *        1~8월 누계로는 17개 시도 중 14곳이 늘었다.
+ *
+ * ⛔ 「결혼이 다시 줄기 시작했다」는 판정을 쓰지 않는다. 한 달 수는 신고 시점에 따라 출렁인다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/births-2026.json';
+
+const d = 원 as any;
+const 쉼 = (n: number) => n.toLocaleString();
+const 부호 = (n: number) => (n > 0 ? '+' : '') + 쉼(n);
+const 합 = (r: any, a: string, b: string) => r.월.filter((m: any) => m.월 >= a && m.월 <= b).reduce((t: number, m: any) => t + m.혼인, 0);
+const 달 = (r: any, m: string) => r.월.find((x: any) => x.월 === m).혼인;
+const 줄 = (r: any) => {
+  const 올 = 합(r, '202601', '202608'); const 작 = 합(r, '202501', '202508'); const 옛 = 합(r, '201901', '201908');
+  return { 이름: r.짧은, 올, 작, 옛, 율: ((올 / 작 - 1) * 100).toFixed(1), 팔: 달(r, '202608'), 팔전: 달(r, '202508') };
+};
+const 전 = 줄(d.전국);
+const 행 = d.시도.map(줄).sort((a: any, b: any) => Number(b.율) - Number(a.율));
+const 준곳 = 행.filter((r: any) => r.올 < r.작);
+const 경 = 행.find((r: any) => r.이름 === '경기');
+const 나머지 = 행.filter((r: any) => r.이름 !== '경기').reduce((t: number, r: any) => t + (r.팔 - r.팔전), 0);
+const 팔율 = ((전.팔 / 전.팔전 - 1) * 100).toFixed(1);
+const 넘은곳 = 행.filter((r: any) => r.올 > r.옛);
+
+const TITLE = `2026년 1~8월 혼인 시도별 — 8월 감소는 경기에서`;
+const desc =
+  `8월 혼인은 ${쉼(전.팔)}건으로 1년 전보다 ${Math.abs(Number(팔율))}% 줄었습니다. 시도별로 떼어 보면 경기가 ${쉼(경.팔전 - 경.팔)}건 줄었고 나머지 16개 시도는 합쳐서 ${쉼(나머지)}건 늘었습니다. ` +
+  `1~8월 누계는 ${쉼(전.올)}건으로 ${전.율}% 많고, 17개 시도 중 ${17 - 준곳.length}곳이 늘었습니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2026년 1~8월 시도별 혼인 건수(잠정)',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    spatialCoverage: '대한민국 시·도',
+    temporalCoverage: '2019-01/2026-08',
+    isBasedOn: 'https://kosis.kr (101/DT_1B8000G)',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: '2026년 8월 혼인은 왜 줄었다고 나오나요?', acceptedAnswer: { '@type': 'Answer', text: `전국 8월 혼인 ${쉼(전.팔)}건은 1년 전 ${쉼(전.팔전)}건보다 ${쉼(전.팔전 - 전.팔)}건 적습니다. 경기가 ${쉼(경.팔전)}건에서 ${쉼(경.팔)}건으로 줄었고 나머지 16개 시도는 합쳐서 ${쉼(나머지)}건 늘었습니다. 줄어든 원인은 통계에 나오지 않습니다.` } },
+      { '@type': 'Question', name: '2026년 1~8월 혼인 건수는 얼마인가요?', acceptedAnswer: { '@type': 'Answer', text: `${쉼(전.올)}건(잠정)으로 1년 전 같은 기간 ${쉼(전.작)}건보다 ${전.율}% 많습니다.` } },
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>2026년 1~8월 혼인 —<br class="pcbr" /> 시도별로 떼어 보면</h1>
+  <p class="sub">
+    「출생은 늘었는데 8월 혼인은 줄었다」는 기사가 나왔습니다. 같은 자료를 17개 시도로 나누면 줄어든 몫이 어디서 나왔는지 보입니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">2026년 8월 혼인 · 1년 전과 차이</p>
+    <p class="answer-num">전국 {부호(전.팔 - 전.팔전)}건 · 경기 {부호(경.팔 - 경.팔전)}건</p>
+    <p class="answer-sub">경기를 뺀 16개 시도 합 {부호(나머지)}건 · 1~8월 누계는 {쉼(전.올)}건, {전.율}% 많음</p>
+  </div>
+
+  <p>
+    1~8월 누계로는 17개 시도 중 {17 - 준곳.length}곳이 1년 전보다 늘었고 {준곳.map((r: any) => r.이름).join('·')}은 줄었습니다.
+    2019년 같은 기간({쉼(전.옛)}건)과 견주면 전국은 {전.올 > 전.옛 ? `${쉼(전.올 - 전.옛)}건 많고` : `아직 ${쉼(전.옛 - 전.올)}건 적고`}, 2019년보다 많은 곳은 {넘은곳.length ? 넘은곳.map((r: any) => r.이름).join('·') : '없습니다'}{넘은곳.length ? '입니다' : ''}.
+  </p>
+
+  <h2>8월 한 달 — 시도별 차이</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>2026년 8월</th><th>2025년 8월</th><th>차이</th></tr></thead>
+      <tbody>
+        <tr class="total"><th>전국</th><td class="num">{쉼(전.팔)}</td><td class="num">{쉼(전.팔전)}</td><td class="num"><strong>{부호(전.팔 - 전.팔전)}</strong></td></tr>
+        {[...행].sort((a: any, b: any) => (a.팔 - a.팔전) - (b.팔 - b.팔전)).map((r: any) => (
+          <tr><th>{r.이름}</th><td class="num">{쉼(r.팔)}</td><td class="num">{쉼(r.팔전)}</td><td class="num">{부호(r.팔 - r.팔전)}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>1~8월 누계 — 시도별</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>2026</th><th>2025</th><th>증감률</th><th>2019</th></tr></thead>
+      <tbody>
+        <tr class="total"><th>전국</th><td class="num">{쉼(전.올)}</td><td class="num">{쉼(전.작)}</td><td class="num"><strong>{전.율}%</strong></td><td class="num">{쉼(전.옛)}</td></tr>
+        {행.map((r: any) => (
+          <tr><th>{r.이름}</th><td class="num">{쉼(r.올)}</td><td class="num">{쉼(r.작)}</td><td class="num"><strong>{r.율}%</strong></td><td class="num">{쉼(r.옛)}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">단위 건 · 혼인 신고를 받은 곳(신고 기준) · 2026년은 잠정치</p>
+
+  <h2>같은 자료로 본 다른 표</h2>
+  <ul>
+    <li><a href="/births-by-province-2026">2026년 1~8월 출생아 17개 시도</a></li>
+    <li><a href="/births-by-month-2026">월별 출생아 2019~2026</a></li>
+    <li><a href="/marriage-age">결혼 나이</a></li>
+  </ul>
+
+  <h2>이 숫자를 어떻게 읽어야 하나요?</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 혼인 신고 건수일 뿐, 누가 언제 결혼해야 하는지를 말하지 않습니다.</li>
+    <li>혼인 통계는 신고한 달로 셉니다. 신고 시점은 결혼식 날과 다를 수 있어 한 달 수는 출렁입니다.</li>
+    <li>8월 시도별 수를 더한 값은 전국 수와 몇 건 다릅니다(잠정치). 그래서 경기를 뺀 16개 시도 합과 경기 차이를 더해도 전국 차이와 꼭 맞지는 않습니다. 원인은 미확인입니다.</li>
+    <li>경기 8월이 왜 줄었는지는 이 통계에 나오지 않습니다. 원인은 미확인입니다.</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    국가데이터처 KOSIS 「월·분기·연간 인구동향」(101/DT_1B8000G) · 「2026년 8월 인구동향」 2026-10-28 발표 · KOSIS 마지막 수정 {d.출처.KOSIS마지막수정} · 저희가 받은 때 {d.받은때}
+  </p>
+
+  <NextQuestionBrief 모은것="국가데이터처 월별 인구동향으로 17개 시도의 2026년 혼인 건수를 8월 한 달과 1~8월 누계로 나눠 1년 전·2019년과 견준 표" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .total th, .total td { border-bottom: 2px solid currentColor; }
+</style>

@@ -1,0 +1,131 @@
+---
+/**
+ * /100y/births-by-city-2025 — **시군구 출생아·합계출산율 2025 — 229곳** (롱테일, 축 「2026 출생 시도별」에 딸림)
+ *
+ * ── 왜 만들었나 (2026-10-31 · 1번) ──────────────
+ * 롱테일 「○○구 출생아 수」「○○군 합계출산율」을 찾는 사람에게 229곳을 한 표로 준다. 2025년 확정치(2026-08 발표).
+ * 축     KOSIS 101/DT_1B81A23 — 기초 단위(코드 끝자리 0)만 쓰고 일반시 아래 구는 겹치지 않게 뺐다. 229곳을 더하면 전국 254,341명과 같다.
+ *
+ * ⛔ 출생아 100명 미만인 곳의 합계출산율은 몇 명 차이로 크게 흔들린다 — 표에 표시한다. 순위로 줄 세우지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/births-2026.json';
+
+const d = 원 as any;
+const 쉼 = (n: number) => n.toLocaleString();
+const 전 = d.시군구2025.전국;
+const L = d.시군구2025.목록 as any[];
+const 합 = L.reduce((t, r) => t + r.출생25, 0);
+const 는 = L.filter((r) => r.출생25 > r.출생24).length;
+const 준 = L.filter((r) => r.출생25 < r.출생24).length;
+const 띠 = [
+  { 이름: '0.6명 미만', 참: (v: number) => v < 0.6 },
+  { 이름: '0.6~0.8명', 참: (v: number) => v >= 0.6 && v < 0.8 },
+  { 이름: '0.8~1.0명', 참: (v: number) => v >= 0.8 && v < 1.0 },
+  { 이름: '1.0~1.2명', 참: (v: number) => v >= 1.0 && v < 1.2 },
+  { 이름: '1.2명 이상', 참: (v: number) => v >= 1.2 },
+].map((b) => ({ ...b, 수: L.filter((r) => b.참(r.합계25)).length }));
+const 많이 = [...L].sort((a, b) => b.출생25 - a.출생25);
+const 큰곳 = L.filter((r) => r.출생25 >= 100);
+const 높 = [...큰곳].sort((a, b) => b.합계25 - a.합계25);
+const 작은곳 = L.length - 큰곳.length;
+const 이름 = (r: any) => (r.시도 === '세종' ? '세종시' : `${r.시도} ${r.이름}`);
+
+const TITLE = `시군구 출생아·합계출산율 2025 — 229곳 한 표`;
+const desc =
+  `2025년 확정 출생통계로 전국 229개 시군구의 출생아 수와 합계출산율을 2024년과 함께 실었습니다. 229곳 중 ${는}곳은 출생아가 늘고 ${준}곳은 줄었습니다. ` +
+  `가장 많이 태어난 곳은 ${이름(많이[0])} ${쉼(많이[0].출생25)}명, 출생아 100명 이상인 곳 가운데 합계출산율이 가장 높은 곳은 ${이름(높[0])} ${높[0].합계25}명입니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2025년 시군구별 출생아 수·합계출산율(확정)',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    spatialCoverage: '대한민국 시·군·구 229곳',
+    temporalCoverage: '2024/2025',
+    isBasedOn: 'https://kosis.kr (101/DT_1B81A23)',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: '2025년 출생아가 가장 많은 시군구는 어디인가요?', acceptedAnswer: { '@type': 'Answer', text: 많이.slice(0, 5).map((r) => `${이름(r)} ${쉼(r.출생25)}명`).join(', ') + ' 순입니다.' } },
+      { '@type': 'Question', name: '2025년 합계출산율이 높은 시군구는 어디인가요?', acceptedAnswer: { '@type': 'Answer', text: `출생아 100명 이상인 곳 가운데 ${높.slice(0, 5).map((r) => `${이름(r)} ${r.합계25}명`).join(', ')}입니다. 전국은 ${전.합계25}명입니다.` } },
+      ...많이.slice(0, 8).map((r) => ({ '@type': 'Question', name: `2025년 ${이름(r)} 출생아 수와 합계출산율은?`, acceptedAnswer: { '@type': 'Answer', text: `출생아 ${쉼(r.출생25)}명(2024년 ${쉼(r.출생24)}명), 합계출산율 ${r.합계25}명(2024년 ${r.합계24}명)입니다.` } })),
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>시군구 출생아·합계출산율 2025 —<br class="pcbr" /> 229곳</h1>
+  <p class="sub">
+    우리 동네에서는 아이가 몇 명 태어났을까요. 2025년 확정 출생통계로 229개 시군구를 한 표에 놓고 2024년과 견줬습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">229개 시군구 · 2025년</p>
+    <p class="answer-num">{는}곳 늘고 · {준}곳 줄었다</p>
+    <p class="answer-sub">전국 출생아 {쉼(전.출생25)}명(2024년 {쉼(전.출생24)}명) · 합계출산율 {전.합계25}명 · 229곳을 더한 값 {쉼(합)}명으로 검산</p>
+  </div>
+
+  <h2>합계출산율로 나눈 229곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>합계출산율</th><th>시군구 수</th></tr></thead>
+      <tbody>
+        {띠.map((b) => <tr><th>{b.이름}</th><td class="num">{b.수}곳</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    229곳 중 {띠[0].수 + 띠[1].수}곳은 0.8명 아래이고, 1.0명 이상은 {띠[3].수 + 띠[4].수}곳입니다.
+    출생아가 100명이 안 되는 {작은곳}곳은 몇 명 차이로 값이 크게 바뀌어, 아래 표에 * 로 표시했습니다.
+  </p>
+
+  <h2>출생아가 많은 10곳</h2>
+  <ol>
+    {많이.slice(0, 10).map((r) => <li>{이름(r)} — {쉼(r.출생25)}명 (2024년 {쉼(r.출생24)}명) · 합계출산율 {r.합계25}명</li>)}
+  </ol>
+
+  <h2>229곳 전체</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>시군구</th><th>출생아 2025</th><th>2024</th><th>합계출산율 2025</th><th>2024</th></tr></thead>
+      <tbody>
+        {L.map((r) => (
+          <tr><td>{r.시도}</td><th>{r.이름}</th><td class="num">{쉼(r.출생25)}</td><td class="num">{쉼(r.출생24)}</td><td class="num">{r.합계25}{r.출생25 < 100 ? '*' : ''}</td><td class="num">{r.합계24}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">단위 출생아 명 · 합계출산율은 여성 1명이 평생 낳을 것으로 보는 아이 수(명) · * 출생아 100명 미만</p>
+
+  <h2>같은 자료로 본 다른 표</h2>
+  <ul>
+    <li><a href="/births-by-province-2026">2026년 1~8월 출생아 17개 시도</a></li>
+    <li><a href="/mother-age-by-city-2025">엄마 평균 출산 나이 시군구 2025</a></li>
+    <li><a href="/fertility-rate">시도별 합계출산율 2000~</a></li>
+  </ul>
+
+  <h2>이 숫자를 어떻게 읽어야 하나요?</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 동네마다 아이가 몇 명 태어났는지일 뿐, 어디서 아이를 키우기 좋다는 판정이 아닙니다.</li>
+    <li>출생아는 엄마의 주소지 기준으로 셉니다. 병원이 있는 곳이 아닙니다.</li>
+    <li>합계출산율은 그 지역 가임 여성 수로 나눈 값이라, 젊은 여성이 적은 군은 출생아가 적어도 높게 나올 수 있습니다.</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    국가데이터처 KOSIS 「시군구/출생아수, 합계출산율」(101/DT_1B81A23, 2024·2025년 확정) · 기초 단위 229곳(일반시 아래 구는 겹치지 않게 뺌) · 저희가 받은 때 {d.받은때}
+  </p>
+
+  <NextQuestionBrief 모은것="국가데이터처 출생통계로 전국 229개 시군구의 2025년 출생아 수와 합계출산율을 2024년과 견준 표" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>

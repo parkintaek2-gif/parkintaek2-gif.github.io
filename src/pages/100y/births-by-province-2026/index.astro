@@ -1,0 +1,156 @@
+---
+/**
+ * /100y/births-by-province-2026 — **2026년 1~8월 출생아 시도별** (축 지면)
+ *
+ * ── 왜 만들었나 (2026-10-31 · 1번 · 「2026 출생 시도별」 축) ──────────────
+ * 이슈   국가데이터처 「2026년 8월 인구동향」(10-28). 8월 출생아 23,703명, 26개월째 1년 전보다 늘었다.
+ *        기사는 「모든 시도에서 늘었다」고 썼는데, 그 셈은 광주·전남을 합친 «전남광주통합특별시» 기준이다.
+ * 축     KOSIS 월별 시도 표(101/DT_1B8000G)에서 17개 시도를 따로 놓고 1~8월 누계·8월 한 달·2019년 같은 기간을 함께 본다.
+ *        광주만 떼면 8월은 1년 전보다 줄었다. 2019년 같은 기간을 넘은 곳은 경기·대전 두 곳뿐이다.
+ *
+ * ⛔ 월별 수는 잠정치다. 「출산이 회복됐다」는 판정을 쓰지 않는다 — 수만 놓는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원 from '../../../data/100yearmap/births-2026.json';
+
+const d = 원 as any;
+const 쉼 = (n: number) => n.toLocaleString();
+const 합 = (r: any, a: string, b: string, k: string) => r.월.filter((m: any) => m.월 >= a && m.월 <= b).reduce((t: number, m: any) => t + (m[k] ?? 0), 0);
+const 달 = (r: any, m: string) => r.월.find((x: any) => x.월 === m);
+const 줄 = (r: any) => {
+  const 올 = 합(r, '202601', '202608', '출생');
+  const 작 = 합(r, '202501', '202508', '출생');
+  const 옛 = 합(r, '201901', '201908', '출생');
+  return { 이름: r.짧은, 올, 작, 옛, 율: ((올 / 작 - 1) * 100).toFixed(1), 팔: 달(r, '202608').출생, 팔전: 달(r, '202508').출생 };
+};
+const 전 = 줄(d.전국);
+const 시도합 = d.시도.reduce((t: number, r: any) => t + 합(r, '202601', '202608', '출생'), 0);
+const 행 = d.시도.map(줄).sort((a: any, b: any) => Number(b.율) - Number(a.율));
+const 는곳 = 행.filter((r: any) => r.올 > r.작);
+const 팔준곳 = 행.filter((r: any) => r.팔 < r.팔전);
+const 넘은곳 = 행.filter((r: any) => r.올 > r.옛);
+const 광 = 행.find((r: any) => r.이름 === '광주');
+const 통 = d.전남광주통합;
+const 통팔 = 달(통, '202608').출생;
+const 통팔전 = 달(통, '202508').출생;
+
+const TITLE = `2026년 1~8월 출생아 시도별 — 17개 시도 중 ${는곳.length}곳이 늘었다`;
+const desc =
+  `국가데이터처 월별 인구동향으로 17개 시도의 2026년 1~8월 출생아를 1년 전·2019년 같은 기간과 나란히 실었습니다. 전국 ${쉼(전.올)}명으로 ${전.율}% 늘었고, ` +
+  `시도별 증가율은 ${행.at(-1).이름} ${행.at(-1).율}%부터 ${행[0].이름} ${행[0].율}%까지입니다. 2019년 같은 기간보다 많은 곳은 ${넘은곳.map((r: any) => r.이름).join('·')}입니다.`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: '2026년 1~8월 시도별 출생아 수(잠정)',
+    description: desc,
+    creator: { '@type': 'Organization', name: '백년지도' },
+    spatialCoverage: '대한민국 시·도',
+    temporalCoverage: '2019-01/2026-08',
+    variableMeasured: ['출생아 수', '전년 같은 기간 대비 증감률'],
+    isBasedOn: 'https://kosis.kr (101/DT_1B8000G)',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '2026년 1~8월 출생아는 몇 명인가요?',
+        acceptedAnswer: { '@type': 'Answer', text: `월별 잠정치를 더하면 ${쉼(전.올)}명으로 1년 전 같은 기간(${쉼(전.작)}명)보다 ${전.율}% 많습니다. 국가데이터처 보도자료의 누계는 193,783명입니다.` },
+      },
+      {
+        '@type': 'Question',
+        name: '8월 출생아는 모든 시도에서 늘었나요?',
+        acceptedAnswer: { '@type': 'Answer', text: `광주·전남을 합친 전남광주통합특별시 기준으로는 모두 늘었습니다. 광주만 따로 보면 8월 ${광.팔}명으로 1년 전(${광.팔전}명)보다 적습니다.` },
+      },
+      ...행.slice(0, 5).map((r: any) => ({
+        '@type': 'Question',
+        name: `2026년 ${r.이름} 출생아는 얼마나 늘었나요?`,
+        acceptedAnswer: { '@type': 'Answer', text: `1~8월 ${쉼(r.올)}명으로 1년 전 같은 기간 ${쉼(r.작)}명보다 ${r.율}% 많습니다. 2019년 같은 기간은 ${쉼(r.옛)}명이었습니다.` },
+      })),
+    ],
+  },
+];
+---
+
+<HundredYear title={TITLE} description={desc} jsonLd={jsonLd}>
+  <h1>2026년 1~8월 출생아 —<br class="pcbr" /> 17개 시도 한 표</h1>
+  <p class="sub">
+    10월 28일 나온 「8월 인구동향」에서 출생아는 26개월째 1년 전보다 늘었습니다. 기사는 전국 수만 다뤘습니다. 17개 시도를 따로 놓고 2019년과도 견줬습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">2026년 1~8월 출생아 · 전국</p>
+    <p class="answer-num">{쉼(전.올)}명</p>
+    <p class="answer-sub">1년 전 같은 기간보다 {전.율}% 많음 · 17개 시도 중 {는곳.length}곳이 늘었다 · 2019년 같은 기간({쉼(전.옛)}명)보다는 {쉼(전.옛 - 전.올)}명 적다</p>
+  </div>
+
+  <p>
+    늘어난 정도는 {행.at(-1).이름} {행.at(-1).율}%부터 {행[0].이름} {행[0].율}%까지 퍼져 있습니다.
+    2019년 같은 기간보다 많은 곳은 {넘은곳.map((r: any) => r.이름).join('·')} {넘은곳.length}곳이고, 나머지 {17 - 넘은곳.length}곳은 아직 2019년보다 적습니다.
+  </p>
+
+  <h2>시도별 — 1~8월 누계</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>2026</th><th>2025</th><th>증감률</th><th>2019</th></tr></thead>
+      <tbody>
+        <tr class="total"><th>전국</th><td class="num">{쉼(전.올)}</td><td class="num">{쉼(전.작)}</td><td class="num"><strong>{전.율}%</strong></td><td class="num">{쉼(전.옛)}</td></tr>
+        {행.map((r: any) => (
+          <tr><th>{r.이름}</th><td class="num">{쉼(r.올)}</td><td class="num">{쉼(r.작)}</td><td class="num"><strong>{r.율}%</strong></td><td class="num">{r.올 > r.옛 ? <strong>{쉼(r.옛)}</strong> : 쉼(r.옛)}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">단위 명 · 같은 해 1~8월 월별 수를 더한 값 · 2019년 칸 굵은 글씨는 2026년이 2019년보다 많은 곳</p>
+
+  <h2>8월 한 달 — 광주는 줄었다</h2>
+  <p>
+    8월 한 달만 보면 17개 시도 중 {17 - 팔준곳.length}곳이 1년 전보다 늘었고 {팔준곳.map((r: any) => r.이름).join('·')}는 줄었습니다({팔준곳.map((r: any) => `${r.팔전}명 → ${r.팔}명`).join('·')}).
+    「모든 시도에서 늘었다」는 발표는 광주·전남을 합친 전남광주통합특별시({쉼(통팔전)}명 → {쉼(통팔)}명) 기준입니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>2026년 8월</th><th>2025년 8월</th><th>차이</th></tr></thead>
+      <tbody>
+        {[...행].sort((a: any, b: any) => (b.팔 - b.팔전) - (a.팔 - a.팔전)).map((r: any) => (
+          <tr><th>{r.이름}</th><td class="num">{쉼(r.팔)}</td><td class="num">{쉼(r.팔전)}</td><td class="num">{r.팔 - r.팔전 > 0 ? '+' : ''}{쉼(r.팔 - r.팔전)}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>같은 자료로 본 다른 표</h2>
+  <ul>
+    <li><a href="/births-by-month-2026">월별 출생아 2019~2026 — 26개월째 증가</a></li>
+    <li><a href="/marriages-by-province-2026">2026년 1~8월 혼인 시도별 — 8월 감소는 경기에서</a></li>
+    <li><a href="/natural-decrease-by-province-2026">출생아 − 사망자 시도별 — 4곳만 더 많이 태어났다</a></li>
+    <li><a href="/births-by-city-2025">시군구 출생아·합계출산율 2025 — 229곳</a></li>
+    <li><a href="/mother-age-by-city-2025">엄마 평균 출산 나이 시군구 2025</a></li>
+    <li><a href="/fertility-rate">시도별 합계출산율 2000~</a></li>
+  </ul>
+
+  <h2>이 숫자를 어떻게 읽어야 하나요?</h2>
+  <ul>
+    <li><strong>이것은 통계이지 당신이 아닙니다.</strong> 한 지역에서 아이가 몇 명 태어났는지일 뿐, 그곳에 사는 누군가가 언제 아이를 가져야 하는지를 말하지 않습니다.</li>
+    <li>2026년 월별 수는 잠정치입니다. 내년 확정 발표 때 고쳐질 수 있습니다.</li>
+    <li>월별 수를 더한 전국 누계({쉼(전.올)}명)는 보도자료 누계(193,783명)와 1명 다릅니다. 둘 다 적어 둡니다. 17개 시도를 더하면 {쉼(시도합)}명으로 전국과 {쉼(전.올 - 시도합)}명 다르고, 그 원인은 미확인입니다.</li>
+    <li>출생아 수는 그 지역 인구 크기에 따라 달라집니다. 인구 대비로는 <a href="/fertility-rate">합계출산율</a>을 함께 보십시오.</li>
+  </ul>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <p class="note">
+    국가데이터처 KOSIS 「월·분기·연간 인구동향(출생·사망·혼인·이혼)」(101/DT_1B8000G, 2019년 1월~2026년 8월) · 「2026년 8월 인구동향」 2026-10-28 발표 ·
+    KOSIS 마지막 수정 {d.출처.KOSIS마지막수정} · 저희가 받은 때 {d.받은때}
+  </p>
+
+  <NextQuestionBrief 모은것="국가데이터처 월별 인구동향으로 17개 시도의 2026년 1~8월 출생아를 2025년·2019년 같은 기간과 나란히 놓은 표" />
+</HundredYear>
+
+<style>
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .total th, .total td { border-bottom: 2px solid currentColor; }
+</style>
