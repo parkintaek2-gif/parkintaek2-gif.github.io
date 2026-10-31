@@ -230,6 +230,7 @@ async function renderIndex({ user, arts }) {
     '편집국 · SeoulMarkets',
     `<h1>편집국</h1>
 <p class="sub">${esc(user)} · ${kst.toISOString().slice(0, 16).replace('T', ' ')} KST</p>
+<p><a href="/admin/column"><b>백년지도 칼럼 쓰기 →</b></a></p>
 
 <h2>오늘</h2>
 <ul class="ev">${events.map((e) => `<li class="${e.tier}">${esc(e.text)}</li>`).join('')}</ul>

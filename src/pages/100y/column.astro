@@ -1,0 +1,62 @@
+---
+/**
+ * 백년지도 칼럼 — 목록 화면이자 «껍데기» (2026-10-31 · 1번)
+ *
+ * 사장님 지시로 사장님이 직접 칼럼을 쓰신다. 글은 R2 에 있고(src/lib/column.mjs),
+ * 새 글이 빌드 없이 바로 나가야 하므로 **server.mjs 가 요청 때마다 이 파일을 읽어 채운다.**
+ *   /column           이 파일의 <section class="column-page"> 안을 공개 칼럼 목록으로 바꾼다
+ *   /column/<주소>    같은 자리에 글 본문을 넣고 제목·설명·canonical·OG·JSON-LD 를 바꾼다
+ *
+ * ⭐ 왜 이렇게 하나 — 머리말·메뉴·꼬리말·글꼴·광고·분석을 서버에서 또 한 벌 짜면
+ *   레이아웃이 바뀔 때마다 칼럼만 옛 얼굴로 남는다. 빌드된 레이아웃을 그대로 쓰면 같이 바뀐다.
+ *
+ * ⛔ 아래 <section class="column-page"> 안에 또 <section> 을 넣지 않는다 — 서버가
+ *   첫 </section> 까지를 갈아 끼운다.
+ * ⛔ 이 파일에 범위(scoped) <style> 을 두지 않는다 — 서버가 만든 글에는 그 표시가 없어 안 걸린다.
+ *   그래서 is:inline 이다.
+ * ⚠ 서버가 못 채우면(저장소 장애 등) 이 화면 그대로 나가지 않는다 — 서버가 「잠시 뒤」 화면을 낸다.
+ *   「아직 없습니다」는 실제로 0편일 때만 맞는 말이다.
+ */
+import HundredYear from '../../layouts/HundredYear.astro';
+
+const DESC = '백년지도가 쓰는 칼럼입니다. 0세부터 100세까지, 교육·일과 돈·집과 가족·나이 듦을 숫자와 함께 생각합니다.';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: '백년지도 칼럼',
+  description: DESC,
+  inLanguage: 'ko',
+  author: { '@type': 'Organization', name: '백년지도', url: 'https://100yearmap.com' },
+};
+---
+
+<HundredYear title="백년지도 칼럼" description={DESC} jsonLd={jsonLd}>
+  <style is:inline>
+    .column-page .col-kicker { margin: 0.6rem 0 0.2rem; font-size: var(--fs-note); color: var(--gold); }
+    .column-page .col-kicker a { color: inherit; }
+    .column-page h1 { word-break: keep-all; }
+    .column-page .lead { color: var(--muted); margin: 0 0 1rem; word-break: keep-all; }
+    .column-page .col-meta { font-size: var(--fs-note); color: var(--muted); margin: 0 0 1.5rem; }
+    .column-page .col-cats { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
+    .column-page .col-cats a { display: inline-flex; align-items: center; min-height: 44px; padding: 0.25rem 0.85rem; border: 1px solid var(--line); border-radius: 999px; font-size: var(--fs-note); text-decoration: none; }
+    .column-page .col-cats a[aria-current='page'] { border-color: var(--gold); color: var(--gold); font-weight: 700; }
+    .column-page .col-list { list-style: none; margin: 0 0 1.5rem; padding: 0; }
+    .column-page .col-list li { border-top: 1px solid var(--line); }
+    .column-page .col-list a { display: block; padding: 0.85rem 0; min-height: 44px; text-decoration: none; color: inherit; }
+    .column-page .col-cat { display: block; font-size: var(--fs-note); color: var(--gold); }
+    .column-page .col-title { display: block; font-family: var(--serif); font-size: 1.1rem; line-height: 1.45; word-break: keep-all; }
+    .column-page .col-sub, .column-page .col-date { display: block; font-size: var(--fs-note); color: var(--muted); word-break: keep-all; }
+    .column-page .col-body { font-size: 1.04rem; line-height: 1.9; word-break: keep-all; overflow-wrap: anywhere; }
+    .column-page .col-body p { margin: 0 0 1.2rem; }
+    .column-page .col-body h2 { margin: 2rem 0 0.7rem; }
+    .column-page .col-foot { margin: 2rem 0 1rem; padding-top: 0.8rem; border-top: 1px solid var(--line); font-size: var(--fs-note); color: var(--muted); }
+    .column-page .col-more-h { margin-top: 1.5rem; }
+  </style>
+  <section class="column-page">
+    <p class="col-kicker">백년지도 칼럼</p>
+    <h1>백년지도 칼럼</h1>
+    <p class="lead">0세부터 100세까지, 숫자 뒤에 있는 이야기를 백년지도가 씁니다.</p>
+    <p class="note">아직 실린 칼럼이 없습니다.</p>
+    <p class="col-foot">칼럼은 백년지도의 생각입니다. 길을 정하는 것은 읽는 분입니다.</p>
+  </section>
+</HundredYear>

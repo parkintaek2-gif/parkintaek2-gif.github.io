@@ -130,6 +130,9 @@ export const GET: APIRoute = () => {
        백년지도 /contact 가 404」라 적어 뒀는데 9/7 에도 404 였다. 애드센스는 «연락 수단»을 본다.
        ⚠ 우선순위를 0.4 로 둔다 — 검색 유입용 지면이 아니고 «심사와 신뢰»용 지면이다 */
     { path: '/contact', priority: '0.4', changefreq: 'monthly' },
+    /* 🔴 [2026-10-31 · 1번] 백년지도 칼럼 목록. 칼럼 하나하나의 주소는 R2 에 있어 빌드가 모른다 —
+       server.mjs 가 이 사이트맵을 낼 때 공개 칼럼을 덧붙인다(src/lib/column.mjs 사이트맵더하기) */
+    { path: '/column', priority: '0.8', changefreq: 'daily' },
     { path: '/terms', priority: '0.4', changefreq: 'yearly' },
     { path: '/privacy', priority: '0.4', changefreq: 'yearly' },
     { path: '/refund', priority: '0.4', changefreq: 'yearly' },

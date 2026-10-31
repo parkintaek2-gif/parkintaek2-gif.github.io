@@ -31,6 +31,10 @@ Most pages below also have a plain-markdown version at the same path with .md
 appended (e.g. https://100yearmap.com/tutoring-income.md) — tables and sources
 included, navigation chrome stripped.
 
+## Columns
+
+- [100 Year Map Column (백년지도 칼럼)](https://100yearmap.com/column): opinion columns written by 100 Year Map itself (byline: 백년지도, an organization, not a person). Categories: education, work and money, home and family, aging, society and statistics. These are our views, clearly labeled as columns — the data pages below are where the numbers are.
+
 ## Life-stage pages (age 0–100, one topic per page)
 
 - [Nursery deserts](https://100yearmap.com/nursery): districts with zero daycare centers, ages 0–5

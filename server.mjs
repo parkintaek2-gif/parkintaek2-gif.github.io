@@ -30,6 +30,10 @@ import { 메일보내기 } from './src/lib/gmail-send.mjs';
 import { 상품, 상품찾기 } from './src/data/licence-products.mjs';
 import { 데이터셋목록, 데이터셋찾기, 줄파일들, 골라야하나 } from './src/data/licence-datasets.mjs';
 import { 묶기 } from './src/lib/tar-gz.mjs';
+/* 🔴 [2026-10-31 · 1번] 백년지도 칼럼 — 사장님이 편집국에서 쓰시고, 이 서버가 R2 에서 읽어 바로 낸다 */
+import * as 칼럼 from './src/lib/column.mjs';
+import { 칼럼편집국 } from './src/lib/column-admin.mjs';
+import { readFile as 파일읽기 } from 'node:fs/promises';
 
 /*
  * 🔴🔴 [2026-09-15 20:4x] **손님이 돈을 내고 «빈 봉투»를 받게 돼 있었다.**
@@ -299,7 +303,9 @@ const handle = async (req, res) => {
      셋 가운데 하나만 빠져도 지면은 멀쩡한데 접수만 조용히 깨진다. 2026-09-15 의 결제 사고가 그것이다. */
   const POST허용 = req.method === 'POST' && (parsed.pathname === '/v1/subscribe' || parsed.pathname === '/api/comments' || parsed.pathname === '/v1/keys' || parsed.pathname === '/v1/trial'
     || parsed.pathname === '/api/pay/order' || parsed.pathname === '/api/pay/capture' || parsed.pathname === '/api/pay/subscription-confirm' || parsed.pathname === '/api/vote'
-    || parsed.pathname === '/api/account/signup' || parsed.pathname === '/api/account/login');
+    || parsed.pathname === '/api/account/signup' || parsed.pathname === '/api/account/login'
+    /* 🔴 [2026-10-31 · 1번] 칼럼 저장·삭제. 로그인 확인은 아래 /admin 분기가 먼저 한다 */
+    || parsed.pathname === '/admin/column/save' || parsed.pathname === '/admin/column/delete');
   if (req.method !== 'GET' && req.method !== 'HEAD' && !POST허용) {
     res.writeHead(405, { ...BASE_HEADERS, Allow: 'GET, HEAD' }).end('Method Not Allowed');
     return;
@@ -1099,6 +1105,17 @@ const handle = async (req, res) => {
       'X-Robots-Tag': 'noindex, nofollow',
     };
 
+    /* ── 백년지도 칼럼 쓰기 (2026-10-31 · 1번) ─────────────────────────
+     * 사장님: 「내가 글을 쓸 수 있는 cms를 게시판 식으로 만들어 나와 너희만 접속 가능하게」
+     * ⭐ 로그인은 «위의 편집국 확인 그대로»다 — 따로 만들지 않았다. 여기 닿았으면 이미 통과했다.
+     * 저장 요청은 같은 곳에서 왔는지·화면 확인값이 맞는지를 column-admin.mjs 가 한 번 더 본다. */
+    if (pathname === '/admin/column' || pathname.startsWith('/admin/column/')) {
+      const r = await 칼럼편집국(req, pathname);
+      res.writeHead(r.status, { ...adminHeaders, ...r.headers });
+      res.end(req.method === 'HEAD' ? undefined : r.body);
+      return;
+    }
+
     /* /admin/traffic — 유입 현황 (JSON).
      * ⚠ **인증 안쪽**에 둔다. 우리 유입 분포는 밖에 보일 이유가 없다.
      * 집계만 있고 개인을 식별할 값은 애초에 안 모은다(traffic.mjs). */
@@ -1165,6 +1182,28 @@ const handle = async (req, res) => {
   }
 
   const headOnly = req.method === 'HEAD';
+
+  /* ── 백년지도 칼럼 — 서버가 채워 내는 네 자리 (2026-10-31 · 1번) ──────────
+   *   /            첫 화면의 빈 칸(data-slot="home-columns")을 최근 공개 칼럼 셋으로 바꾼다
+   *   /column      목록(?c=카테고리)
+   *   /column/<주소> 글
+   *   /sitemap.xml 정적 사이트맵에 공개 칼럼 주소를 덧붙인다
+   * ⭐ 글은 R2 에 있어 빌드가 모른다. 그래서 정적 파일을 읽어 «여기서» 채운다.
+   * ⛔ 저장소가 늦거나 죽어도 첫 화면·사이트맵은 칼럼 없이 그대로 낸다(칼럼 때문에 홈이 죽지 않는다).
+   *   칼럼 화면만 「잠시 뒤」로 답한다 — 「아직 없다」고 거짓으로 말하지 않는다. */
+  if (prefix === '/100y' && (pathname === '/100y' || pathname === '/100y/sitemap.xml' || pathname === '/100y/column' || pathname === '/100y/column.md' || pathname.startsWith('/100y/column/'))) {
+    const r = await 백년칼럼화면(pathname, parsed.searchParams);
+    if (r) {
+      res.writeHead(r.status, {
+        ...BASE_HEADERS,
+        'Content-Type': r.type,
+        'Cache-Control': r.status === 200 ? cacheFor(pathname, r.type.startsWith('application/xml') ? '.xml' : '.html') : 'no-store',
+        'Content-Length': Buffer.byteLength(r.body),
+      });
+      res.end(headOnly ? undefined : r.body);
+      return;
+    }
+  }
 
   const hit = await resolveFile(pathname);
   if (hit) {
@@ -1288,6 +1327,80 @@ const handle = async (req, res) => {
   }
   res.writeHead(404, { ...BASE_HEADERS, 'Content-Type': 'text/plain' }).end('Not Found');
 };
+
+/**
+ * 백년지도 칼럼 화면을 만든다. 돌려주는 것: { status, type, body } · null 이면 정적 처리로 넘긴다.
+ * ⚠ 정적 파일(dist/100y.html · dist/100y/column.html · dist/100y/sitemap.xml)을 «껍데기»로 쓴다.
+ */
+async function 백년칼럼화면(pathname, searchParams) {
+  const HTML = 'text/html; charset=utf-8';
+  const 읽기 = async (상대) => { try { return await 파일읽기(join(ROOT, 상대), 'utf8'); } catch { return null; } };
+
+  if (pathname === '/100y') {
+    const 홈 = await 읽기('100y.html');
+    if (!홈) return null;
+    const 글들 = await 칼럼.공개목록();
+    return { status: 200, type: HTML, body: 칼럼.홈채우기(홈, 글들 ?? []) };
+  }
+  if (pathname === '/100y/sitemap.xml') {
+    const xml = await 읽기('100y/sitemap.xml');
+    if (!xml) return null;
+    const 글들 = await 칼럼.공개목록();
+    return { status: 200, type: TYPES['.xml'], body: 칼럼.사이트맵더하기(xml, 글들 ?? []) };
+  }
+
+  /* 빌드가 낸 column.md 는 «0편일 때» 모습이라 실제 목록과 어긋난다 — 여기서 새로 쓴다 */
+  if (pathname === '/100y/column.md') {
+    const 글들 = await 칼럼.공개목록();
+    if (글들 == null) return { status: 503, type: TYPES['.md'], body: '# 백년지도 칼럼\n\n칼럼을 잠시 불러오지 못했습니다.\n' };
+    const 줄 = 글들.map((g) => `- [${g.title.replace(/[[\]]/g, '')}](${칼럼.ORIGIN}${칼럼.글주소(g.slug)}) — ${칼럼.카테고리이름(g.category)} · ${칼럼.날짜만(g.publishedAt || g.createdAt)}`);
+    return { status: 200, type: TYPES['.md'], body: `# 백년지도 칼럼\n\n백년지도가 쓰는 칼럼입니다. 필자: 백년지도.\n\n${줄.length ? 줄.join('\n') : '아직 실린 칼럼이 없습니다.'}\n` };
+  }
+
+  const 껍데기 = await 읽기('100y/column.html');
+  if (!껍데기) return null;
+  const 잠시뒤 = () => ({
+    status: 503, type: HTML,
+    body: 칼럼.껍데기채우기(껍데기, { 제목: '백년지도 칼럼', 설명: '칼럼을 잠시 불러오지 못했습니다.', 주소: 칼럼.ORIGIN + '/column', 본문: '<p class="col-kicker">백년지도 칼럼</p><h1>잠시 뒤 다시 열어 주십시오</h1><p class="lead">칼럼을 불러오지 못했습니다. 글이 사라진 것은 아닙니다.</p><p class="note"><a href="/">백년지도 첫 화면으로 →</a></p>' })
+      ?? 'Service Unavailable',
+  });
+  const 글들 = await 칼럼.공개목록();
+  if (글들 == null) return 잠시뒤();
+
+  if (pathname === '/100y/column') {
+    const c = searchParams.get('c') ?? '';
+    const 고른것 = 칼럼.카테고리이름(c) ? c : '';
+    const 이름 = 고른것 ? `백년지도 칼럼 — ${칼럼.카테고리이름(고른것)}` : '백년지도 칼럼';
+    const body = 칼럼.껍데기채우기(껍데기, {
+      제목: 이름,
+      설명: 고른것 ? `백년지도 칼럼 가운데 「${칼럼.카테고리이름(고른것)}」 글을 모았습니다.` : '백년지도가 쓰는 칼럼입니다. 0세부터 100세까지, 교육·일과 돈·집과 가족·나이 듦을 숫자와 함께 생각합니다.',
+      주소: 칼럼.ORIGIN + 칼럼.목록주소(고른것),
+      본문: 칼럼.목록본문HTML(글들, 고른것),
+    });
+    return body ? { status: 200, type: HTML, body } : null;
+  }
+
+  let slug;
+  try { slug = decodeURIComponent(pathname.slice('/100y/column/'.length)); } catch { slug = null; }
+  if (!slug || !칼럼.주소맞나(slug)) return null;   // 정적 처리로 넘겨 404 를 낸다
+  let 글;
+  try { 글 = await 칼럼.공개글찾기(slug); } catch (e) {
+    console.error('[column] 글을 못 읽었다 —', e?.message ?? e);
+    return 잠시뒤();
+  }
+  if (!글) return null;
+  const 주소 = 칼럼.ORIGIN + 칼럼.글주소(글.slug);
+  const body = 칼럼.껍데기채우기(껍데기, {
+    제목: 글.title,
+    설명: 칼럼.글설명(글),
+    주소,
+    종류: 'article',
+    jsonLd: 칼럼.글jsonLd(글),
+    본문: 칼럼.글본문HTML(글, 글들),
+    덧머리: `<meta property="article:published_time" content="${칼럼.esc(글.publishedAt || 글.createdAt)}"><meta property="article:modified_time" content="${칼럼.esc(글.updatedAt)}"><meta property="article:section" content="${칼럼.esc(칼럼.카테고리이름(글.category))}">`,
+  });
+  return body ? { status: 200, type: HTML, body } : null;
+}
 
 const server = createServer((req, res) => {
   /* ── 유입 측정 ────────────────────────────────────────────────────
