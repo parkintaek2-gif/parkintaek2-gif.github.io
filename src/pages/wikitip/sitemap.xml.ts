@@ -243,6 +243,12 @@ const 영상그림 = new Set((videoData.videos ?? []).map((v: any) => v.set));
    ⚠ 아래 열두 편의 제목은 **라이브 지면 제목에서 가져왔다** — 지어내지 않았다. */
 const videoSets = [
   {
+    set: 't1-beat-movistar-koi-2-0-reach-worlds-2026-quarter-finals-at-3-1-voiced',
+    page: '/article/t1-beat-movistar-koi-2-0-reach-worlds-2026-quarter-finals-at-3-1',
+    title: 'T1 Beat Movistar KOI 2-0 to Reach the Worlds 2026 Quarter-Finals at 3-1, the Record They Won With in 2024',
+    description: '22 seconds: T1 swept Movistar KOI 42 kills to 19 and 19 towers to 5 over two games on 29 October 2026 (KST) to qualify for the Worlds quarter-finals at 3-1. In 2024 and 2025, six teams qualified at 3-1 and one won the title; the 3-2 teams went further. Sixteen teams is too few for a pattern. A count from Riot\'s official records, not a forecast.',
+  },
+  {
     set: 't1-beat-ctbc-flying-oyster-2-1-worlds-2026-nine-of-twelve-qualified-voiced',
     page: '/article/t1-beat-ctbc-flying-oyster-2-1-worlds-2026-nine-of-twelve-qualified',
     title: 'T1 Beat CTBC Flying Oyster to Go 2-1 at Worlds 2026. In 2024 and 2025, 9 of 12 Teams at 2-1 Qualified',

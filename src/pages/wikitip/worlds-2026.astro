@@ -25,7 +25,8 @@ const 날글 = (s: string | null) => (s ? `${Number(s.slice(6, 8))} ${['January'
 
 const 끝 = (d as any).lastDay as string;
 /* 스위스 기간에 받은 날들(UTC 날짜) — 첫 경기 10/23 17:00 UTC 부터 */
-const 스위스날 = ['20261023', '20261024', '20261025', '20261026', '20261027'].filter((x) => x <= 끝);
+/* [10/31] 손으로 적은 날 목록이 10/27 에서 멈춰 있었다 — 스위스 마지막 날(11/1)까지 받은 만큼 센다 */
+const 스위스날 = ['20261023', '20261024', '20261025', '20261026', '20261027', '20261028', '20261029', '20261030', '20261031', '20261101'].filter((x) => x <= 끝);
 
 const 팀줄 = Object.entries((d as any).teams).map(([code, t]: [string, any]) => {
   if (!t.editions) return { code, name: t.name, measured: false, why: t.excludedBecause };
@@ -57,10 +58,17 @@ const 해들 = ['2024', '2025'].map((y) => ({ y, rows: (d as any).years[y].quali
 const 올해 = (d as any).years['2026'];
 
 /* [10/27] 2-1·1-2·0-2 를 거친 팀이 끝에 어디로 갔나 — 2024·2025 */
-const 거친표 = ['2-1', '1-2', '0-2'].map((r) => {
+const 거친표 = ['2-1', '1-2', '0-2', '2-2'].map((r) => {
   const 줄 = ['2024', '2025'].flatMap((y) => ((d as any).years[y].fromRecord?.[r] ?? []).map((x: any) => ({ ...x, y })));
   return { r, n: 줄.length, q: 줄.filter((x: any) => x.qualified).length, 줄 };
 });
+/* [10/31] 스위스 끝 전적(3-0·3-1·3-2)별로 녹아웃에서 어디까지 갔나 — 2024·2025 */
+const 끝까지 = ['3-0', '3-1', '3-2'].map((r) => {
+  const 줄 = ['2024', '2025'].flatMap((y) => ((d as any).years[y].finishBySwissRecord?.[r] ?? []).map((x: any) => ({ ...x, y })));
+  const 넷 = 줄.filter((x: any) => ['Semifinal', 'Final', 'Champion'].includes(x.finish)).length;
+  return { r, n: 줄.length, 넷, 줄 };
+});
+const 끝말 = (f: string | null) => (f === 'Champion' ? 'won the title' : f ? `lost in the ${f.toLowerCase()}` : 'not measured');
 const 지금그전적 = (r: string) => Object.entries(올해.records).filter(([, v]) => v === r).map(([c]) => (d as any).teams[c]?.name ?? c);
 
 /* [10/27] 2026 리그별 — Riot getTeams 의 homeLeague */
@@ -79,7 +87,7 @@ const 리그표 = Object.entries(
 /* [10/27] 페이커 문서 — 언어별 평소(10/1~10/13 가운데값) 대비 스위스 날(UTC 10/24 부터) */
 const 페이커 = (d as any).players?.Faker;
 const 가운데 = (xs: number[]) => { const s = xs.filter((x) => Number.isFinite(x)).sort((a, b) => a - b); if (!s.length) return null; const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
-const 페이커날 = ['20261024', '20261025', '20261026', '20261027'].filter((x) => x <= 끝);
+const 페이커날 = 스위스날.filter((x) => x >= '20261024');
 const 페이커줄 = (페이커?.editions ?? []).map((e: any) => {
   const 평소값 = 가운데(Object.entries(e.daily).filter(([k]) => k >= (d as any).usualDays[0] && k <= (d as any).usualDays[1]).map(([, v]) => v as number));
   const 스위스 = 가운데(페이커날.map((k) => e.daily[k]).filter((v: any) => v !== undefined));
@@ -147,9 +155,9 @@ const 언어 = (l: string) => ({ en: 'English', zh: 'Chinese', fr: 'French', es:
   </section>
 
   <section>
-    <h2>Where teams at 2-1, 1-2 and 0-2 ended up in 2024 and 2025</h2>
+    <h2>Where teams at 2-1, 1-2, 0-2 and 2-2 ended up in 2024 and 2025</h2>
     <p class="note">Every team that stood at each record at any point of the Swiss Stage, followed to its last Swiss result.
-      Teams at that record in 2026 now: 2-1 — {지금그전적('2-1').join(', ') || 'none'}; 1-2 — {지금그전적('1-2').join(', ') || 'none'}; 0-2 — {지금그전적('0-2').join(', ') || 'none'}.</p>
+      Teams at that record in 2026 now: 2-1 — {지금그전적('2-1').join(', ') || 'none'}; 1-2 — {지금그전적('1-2').join(', ') || 'none'}; 0-2 — {지금그전적('0-2').join(', ') || 'none'}; 2-2 — {지금그전적('2-2').join(', ') || 'none'}.</p>
     <div class="scroll-x">
       <table>
         <thead><tr><th>Record</th><th>Teams, 2024 and 2025</th><th>Qualified</th><th>Who</th></tr></thead>
@@ -162,7 +170,25 @@ const 언어 = (l: string) => ({ en: 'English', zh: 'Chinese', fr: 'French', es:
       </table>
     </div>
     <p class="q">At 2-1, six teams meet each other in three best-of-three matches, so exactly half go through in that round in every year.
-      That half is the format, not form. Two years are two past fields, not odds for 2026.</p>
+      That half is the format, not form. The same is true at 2-2: six teams, three deciders, three through. Two years are two past fields, not odds for 2026.</p>
+  </section>
+
+  <section>
+    <h2>Does the Swiss record say how far a team goes?</h2>
+    <p class="note">Every team that qualified in 2024 and 2025, grouped by the record it qualified with, followed to the round it went out in.</p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Qualified at</th><th>Teams</th><th>Reached the semi-finals or further</th><th>Who</th></tr></thead>
+        <tbody>
+          {끝까지.map((g: any) => (
+            <tr><td>{g.r}</td><td>{g.n}</td><td class="tot">{g.넷}</td>
+              <td class="fine">{g.줄.map((x: any) => `${x.name} ${x.y} (${끝말(x.finish)})`).join(' · ')}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="q">In these two years the 3-2 teams went furthest, and the two titles were won at 3-1 and 3-2. Sixteen teams is too few to call that a pattern;
+      it is a reason not to read the Swiss record as a ranking.</p>
   </section>
 
   {페이커 && (

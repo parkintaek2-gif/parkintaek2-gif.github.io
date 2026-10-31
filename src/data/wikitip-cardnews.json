@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-26T22:41:24.535Z",
+  "generated": "2026-10-30T22:55:12.436Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -1488,6 +1488,23 @@
     },
     {
       "set": "le-sserafim-blizzcon-drove-a-real-wikipedia-spike",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "lee-jae-wook-netflix-chart-record-alchemy-of-souls-45-countries-dead-end-job",
       "sq": [
         1,
         2,
@@ -3161,8 +3178,8 @@
       ]
     }
   ],
-  "setCount": 188,
-  "imageCount": 1840,
+  "setCount": 189,
+  "imageCount": 1850,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "100-days-of-deception-netflix-3-to-22-countries-gulf-no-europe",
@@ -3176,6 +3193,7 @@
     "all-of-us-are-dead-season-2-season-1-charted-in-all-93-netflix-countries-at-once",
     "an-ai-actor-gave-a-cnn-interview-we-counted-who-people-actually-look-up",
     "an-awards-show-moves-to-kaohsiung-and-the-reading-data-agrees",
+    "anyones-legend-out-of-worlds-2026-at-0-3-a-year-after-going-3-0",
     "baekhyun-court-injunction-reading-spike-hits-only-him",
     "blackpink-lisa-reads-higher-than-any-bts-member-our-panel-missed-her",
     "brand-index-ad-faces-wikipedia-reading-disagrees",
@@ -3201,6 +3219,7 @@
     "five-agencies-one-day-and-what-a-label-count-cannot-say",
     "garfield-alone-explains-a-fifth-of-when-the-source-wins",
     "gen-g-beat-lyon-2-1-join-dplus-kia-worlds-2026-quarter-finals-lck-first-two",
+    "go-min-si-netflix-chart-record-tastefully-yours-54-countries-dead-end-job",
     "han-na-chang-rco-debut-wikipedia-reading-spiked-47x",
     "hanwha-life-fall-to-1-2-at-worlds-2026-three-of-twelve-came-back",
     "hoshi-page-tripled-the-day-his-injury-was-reported",
@@ -3258,6 +3277,7 @@
     "stray-kids-rose-1-4x-at-rock-in-rio-hwasa-rose-2-4x",
     "sunday-adds-28-percent-to-k-pop-wikipedia-reading",
     "t1-beat-ctbc-flying-oyster-2-1-worlds-2026-nine-of-twelve-qualified",
+    "t1-beat-movistar-koi-2-0-reach-worlds-2026-quarter-finals-at-3-1",
     "take-charge-of-my-heart-co-leads-wikipedia-reading-gap",
     "tantara-song-hye-kyo-gong-yoo-netflix-chart-records-title-by-title",
     "teen-top-comeback-two-members-jump-one-gets-zero",
@@ -3270,6 +3290,7 @@
     "the-only-part-of-a-korean-headline-an-english-reader-can-read",
     "the-perfect-lie-yoo-yeon-seok-seo-hyun-jin-is-not-the-dutch-netflix-series",
     "the-top-1-percent-of-k-pop-names-draw-21-percent-of-english-reading",
+    "top-esports-beat-bilibili-2-1-worlds-2026-quarter-finals-t1-ended-their-last-two-runs",
     "top-ruled-out-a-bigbang-reunion-readers-barely-noticed",
     "twelve-coed-korean-groups-is-a-floor",
     "twenty-nine-names-in-our-panel-averaged-zero-english-readers",
@@ -3281,6 +3302,7 @@
     "vs-news-jung-kook-outreads-rm-on-wikipedia",
     "we-found-the-cause-seo-kang-joons-spike-and-his-co-star-moved-the-same-way",
     "what-the-record-cannot-see-about-nationality",
+    "worlds-2026-after-three-rounds-lck-two-through-lpl-none",
     "worlds-2026-swiss-round-one-lpl-winless-lck-sweep",
     "worlds-2026-swiss-round-three-schedule-who-plays-for-what",
     "worlds-2026-swiss-round-two-gen-g-dplus-kia-win-lck-derbies",

@@ -162,10 +162,15 @@ for (const 해 of ['2023', '2024', '2025', '2026']) {
   const { 순서, 승, 패 } = 진출순서(스위스);
   /* [10/27] 끝난 해만 — 2-1·1-2·0-2 를 거친 팀이 끝에 어디로 갔나 */
   const 끝난해 = 해 === '2024' || 해 === '2025';
-  const 거친 = 끝난해 ? Object.fromEntries(['2-1', '1-2', '0-2'].map((r) => [r, 거친전적(스위스, r)
+  /* [10/31] 2-2(마지막 판)도 센다 — 11/1 결정전 여섯 팀의 자리 */
+  const 거친 = 끝난해 ? Object.fromEntries(['2-1', '1-2', '0-2', '2-2'].map((r) => [r, 거친전적(스위스, r)
     .map((x) => ({ ...x, name: 스위스.flatMap((e) => e.match.teams).find((t) => t.code === x.team)?.name ?? x.team, finish: 끝자리[x.team] ?? null }))])) : null;
+  /* [10/31] 스위스 끝 전적(3-0·3-1·3-2)별로 녹아웃에서 어디까지 갔나 — 끝난 해만 */
+  const 끝전적별 = 끝난해 ? Object.fromEntries(['3-0', '3-1', '3-2'].map((r) => [r, 순서.filter((q) => q.record === r)
+    .map((q) => ({ team: q.team, name: q.name, finish: 끝자리[q.team] ?? null }))])) : null;
   해별[해] = {
     fromRecord: 거친,
+    finishBySwissRecord: 끝전적별,
     swissMatchesCompleted: 스위스.length,
     firstSwissMatch: 스위스[0]?.startTime ?? null,
     qualifiedInOrder: 순서.map((q, i) => ({ ...q, place: i + 1, finish: 끝자리[q.team] ?? null })),

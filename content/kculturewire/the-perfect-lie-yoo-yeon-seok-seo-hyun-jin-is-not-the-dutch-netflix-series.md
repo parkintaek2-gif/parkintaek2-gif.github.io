@@ -21,16 +21,20 @@ crossChecks:
   - "Netflix's The Perfect Lie: 79 of 93 countries, all in the week of 20 September; 6 weeks (13 September to 18 October 2026), best position 1; number 1 on the global non-English TV list in its first two weeks."
   - "In the Netherlands it was number 1 for its first three weeks and still number 5 in the week of 18 October."
   - "Median Korean title in KCultureWire's title table (978 Korean films and series, weeks of July 2021 to 13 September 2026, built 6 October 2026): 2 countries."
-  - "Yoo Yeon-seok, widest series: Narco-Saints 82 countries; Tastefully Yours 54; When the Phone Rings 52; Phantom Lawyer 20; The Interest of Love 12; Hospital Playlist 11."
+  - "Yoo Yeon-seok, widest series: Narco-Saints 82 countries; When the Phone Rings 52; Phantom Lawyer 20; The Interest of Love 12; Hospital Playlist 11."
   - "Seo Hyun-jin, widest series: The Trunk 41 countries; Black Dog 2."
   - "Dr. Romantic season 1 (2016), the series in which the two last appeared together: 8 countries, all in Asia."
 excluded:
+  - "Tastefully Yours (54 countries): Yoo Yeon-seok appears only in a special appearance, episodes 5 to 7, per his English Wikipedia filmography."
   - "The Three Musketeers, a film that charted in one country in July 2022: we could not confirm it is a title Seo Hyun-jin appears in. Not counted."
   - "Dr. Romantic season 2, which Seo Hyun-jin is not in."
   - "Viewer numbers. A chart position is not an audience."
   - "Whether MBC's The Perfect Lie will stream on Netflix: not announced in the sources we read."
 pages:
   - "/kdrama-netflix"
+corrections:
+  - date: 2026-10-31
+    note: "Published with Tastefully Yours (54 countries) in Yoo Yeon-seok's table, as the second-widest of his series. His English Wikipedia filmography lists it as a special appearance in episodes 5 to 7; the series is led by Kang Ha-neul and Go Min-si. It is now set aside like any cameo, and the sentence that said two of his last four series passed 50 countries now names one, When the Phone Rings. Narco-Saints, at 82, is still his widest. Found while counting Go Min-si's record on 31 October."
 ---
 
 If you search for ***The Perfect Lie*** this week you will find two different series.
@@ -62,7 +66,6 @@ Yoo Yeon-seok and Seo Hyun-jin last played opposite each other in *Dr. Romantic*
 | Title | Countries | Weeks on any chart | Best position |
 |---|---|---|---|
 | **Narco-Saints** | **82** | 10 | 1 |
-| Tastefully Yours | 54 | 8 | 1 |
 | When the Phone Rings | 52 | 10 | 1 |
 | Phantom Lawyer | 20 | 11 | 1 |
 | The Interest of Love | 12 | 9 | 1 |
@@ -78,7 +81,7 @@ Yoo Yeon-seok and Seo Hyun-jin last played opposite each other in *Dr. Romantic*
 
 **Together:** *Dr. Romantic* season 1 charted in **8 countries**, all in Asia: Hong Kong, Indonesia, Japan, Malaysia, the Philippines, Singapore, Thailand and Vietnam.
 
-The spread is wide. Yoo Yeon-seok's series run from one country to 82, and two of his last four (*When the Phone Rings* and *Tastefully Yours*) passed 50. For comparison, the median Korean title in our table of 978 charting Korean films and series reached **2 countries**. More Korean series, ranked by weeks and by countries, are on [our Netflix chart page](/kdrama-netflix).
+The spread is wide. Yoo Yeon-seok's series run from one country to 82, and *When the Phone Rings* passed 50. For comparison, the median Korean title in our table of 978 charting Korean films and series reached **2 countries**. More Korean series, ranked by weeks and by countries, are on [our Netflix chart page](/kdrama-netflix).
 
 ## What this does and does not say
 

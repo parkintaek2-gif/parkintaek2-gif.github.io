@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-27T07:38+09:00",
+  "generated": "2026-10-31T07:53+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -359,6 +359,13 @@
       "uploadDate": "2026-10-27",
       "thumb": "/video/thumb/t1-beat-ctbc-flying-oyster-2-1-worlds-2026-nine-of-twelve-qualified-voiced.jpg",
       "src": "/video/t1-beat-ctbc-flying-oyster-2-1-worlds-2026-nine-of-twelve-qualified-voiced.mp4"
+    },
+    {
+      "set": "t1-beat-movistar-koi-2-0-reach-worlds-2026-quarter-finals-at-3-1-voiced",
+      "seconds": 22.5,
+      "uploadDate": "2026-10-31",
+      "thumb": "/video/thumb/t1-beat-movistar-koi-2-0-reach-worlds-2026-quarter-finals-at-3-1-voiced.jpg",
+      "src": "/video/t1-beat-movistar-koi-2-0-reach-worlds-2026-quarter-finals-at-3-1-voiced.mp4"
     },
     {
       "set": "the-age-in-the-headline-is-one-desk-not-a-country-voiced",
