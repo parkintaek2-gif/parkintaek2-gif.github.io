@@ -13,7 +13,7 @@
  *
  * ── 어디에 두나 ────────────────────────────────────────────────────
  *   R2(store.mjs)가 정본이다. git 에도, 컨테이너 디스크에도 두지 않는다.
- *     100y/columns/index.json          목록(제목·카테고리·상태·날짜 — 본문 없음)
+ *     100y/columns/index.json          목록(제목·상태·날짜 — 본문 없음)
  *     100y/columns/posts/<id>.json     글 하나(본문 포함)
  *   ⛔ store.put() 을 그냥 쓰지 않는다 — R2 가 실패해도 던지지 않는 설계라, 삼키면
  *     「저장했다」고 답하고 다음 재배포에 글이 사라진다. accounts.mjs 와 같은 원칙으로
@@ -38,18 +38,10 @@ export const 필자 = '백년지도';
 export const ORIGIN = 'https://100yearmap.com';
 
 /**
- * 칼럼 카테고리 — 사장님이 나중에 늘릴 수 있게 코드 한 곳에 둔다.
- * 늘리는 법: 아래에 { key: '영문-소문자', 이름: '보이는 이름' } 한 줄을 더한다.
- * ⛔ 이미 쓴 key 는 바꾸지 않는다 — 주소(/column?c=key)와 저장된 글이 그 key 를 가리킨다.
+ * 🔴 [2026-10-31 · 사장님] 「칼럼 카테고리 없애. 내 맘대로 쓸거야.」
+ *   카테고리를 두지 않는다 — 고르는 칸도, 목록의 갈래 단추도, 글 위의 갈래 이름도 없다.
+ *   ⚠ 예전에 저장된 글에 category 값이 남아 있어도 화면에는 쓰지 않는다.
  */
-export const 카테고리 = [
-  { key: 'edu', 이름: '교육·진학' },
-  { key: 'work-money', 이름: '일과 돈' },
-  { key: 'home-family', 이름: '집과 가족' },
-  { key: 'aging', 이름: '나이 듦' },
-  { key: 'society', 이름: '사회와 통계' },
-];
-export const 카테고리이름 = (key) => 카테고리.find((c) => c.key === key)?.이름 ?? '';
 
 export const 한도 = { 제목: 120, 부제: 200, 본문: 50_000, 주소: 80 };
 
@@ -189,14 +181,12 @@ export function 검사(입력) {
   const 값 = {
     title: String(입력?.title ?? '').replace(/\s+/g, ' ').trim(),
     subtitle: String(입력?.subtitle ?? '').replace(/\s+/g, ' ').trim(),
-    category: String(입력?.category ?? '').trim(),
     slug: String(입력?.slug ?? '').trim().toLowerCase(),
     body: String(입력?.body ?? '').replace(/\r\n?/g, '\n').replace(/\u0000/g, '').trim(),
   };
   if (!값.title) 오류.push('제목을 적어 주십시오.');
   if (값.title.length > 한도.제목) 오류.push(`제목은 ${한도.제목}자까지입니다(지금 ${값.title.length}자).`);
   if (값.subtitle.length > 한도.부제) 오류.push(`부제는 ${한도.부제}자까지입니다(지금 ${값.subtitle.length}자).`);
-  if (!카테고리이름(값.category)) 오류.push('카테고리를 골라 주십시오.');
   if (!값.body) 오류.push('본문을 적어 주십시오.');
   if (값.body.length > 한도.본문) 오류.push(`본문은 ${한도.본문.toLocaleString()}자까지입니다(지금 ${값.body.length.toLocaleString()}자).`);
   if (값.slug && !주소맞나(값.slug)) 오류.push('주소는 한글·영문 소문자·숫자와 줄표(-)만 쓸 수 있습니다.');
@@ -289,7 +279,7 @@ const 차례로 = (fn) => {
 };
 
 const 목록줄 = (g) => ({
-  id: g.id, slug: g.slug, title: g.title, subtitle: g.subtitle, category: g.category,
+  id: g.id, slug: g.slug, title: g.title, subtitle: g.subtitle,
   author: g.author, status: g.status, createdAt: g.createdAt, updatedAt: g.updatedAt,
   publishedAt: g.publishedAt ?? null,
 });
@@ -320,7 +310,6 @@ export function 저장({ id = null, 값, 공개 }) {
       slug,
       title: 값.title,
       subtitle: 값.subtitle,
-      category: 값.category,
       author: 필자,
       body: 값.body,
       status: 공개 ? 'published' : 'draft',
@@ -353,13 +342,13 @@ export function 지우기(id) {
 /* ══ 손님 화면 ══════════════════════════════════════════════════════ */
 
 export const 글주소 = (slug) => `/column/${encodeURIComponent(slug)}`;
-export const 목록주소 = (c) => (c ? `/column?c=${encodeURIComponent(c)}` : '/column');
+export const 목록주소 = () => '/column';
 
 /** 홈 1/3 지점에 들어갈 최근 칼럼. 글이 없으면 빈 글자(빈 상자를 안 그린다) */
 export function 홈칼럼HTML(공개글들, 몇 = 3) {
   const 글들 = (공개글들 ?? []).slice(0, 몇);
   if (!글들.length) return '';
-  const 줄 = 글들.map((g) => `<li><a href="${esc(글주소(g.slug))}"><span class="hc-cat">${esc(카테고리이름(g.category))}</span><strong class="hc-title">${esc(g.title)}</strong>${g.subtitle ? `<span class="hc-sub">${esc(g.subtitle)}</span>` : ''}<span class="hc-date">${esc(한글날짜(g.publishedAt || g.createdAt))}</span></a></li>`).join('');
+  const 줄 = 글들.map((g) => `<li><a href="${esc(글주소(g.slug))}"><strong class="hc-title">${esc(g.title)}</strong>${g.subtitle ? `<span class="hc-sub">${esc(g.subtitle)}</span>` : ''}<span class="hc-date">${esc(한글날짜(g.publishedAt || g.createdAt))}</span></a></li>`).join('');
   return `<section class="home-columns" aria-labelledby="home-columns-h">
 <style>
 .home-columns{margin:1.75rem 0 1.5rem;padding:1.1rem 1.1rem .6rem;border:1px solid var(--line);border-radius:.75rem;background:var(--card,transparent)}
@@ -368,7 +357,6 @@ export function 홈칼럼HTML(공개글들, 몇 = 3) {
 .home-columns li{border-top:1px solid var(--line)}
 .home-columns li:first-child{border-top:0}
 .home-columns a{display:block;padding:.7rem 0;text-decoration:none;color:inherit;min-height:44px}
-.home-columns .hc-cat{display:block;font-size:var(--fs-note,13px);color:var(--gold,var(--accent))}
 .home-columns .hc-title{display:block;font-family:var(--serif,inherit);font-size:1.05rem;line-height:1.4;word-break:keep-all}
 .home-columns .hc-sub{display:block;font-size:var(--fs-note,13px);color:var(--muted);word-break:keep-all}
 .home-columns .hc-date{display:block;font-size:var(--fs-note,13px);color:var(--muted)}
@@ -382,22 +370,15 @@ export function 홈칼럼HTML(공개글들, 몇 = 3) {
 }
 
 /** 목록 화면 안쪽 */
-export function 목록본문HTML(공개글들, c = '') {
-  const 고른것 = 카테고리이름(c) ? c : '';
-  const 글들 = 고른것 ? 공개글들.filter((g) => g.category === 고른것) : 공개글들;
-  const 칸 = [{ key: '', 이름: '전체' }, ...카테고리]
-    .map((k) => `<a href="${esc(목록주소(k.key))}"${k.key === 고른것 ? ' aria-current="page"' : ''}>${esc(k.이름)}</a>`)
-    .join('');
+export function 목록본문HTML(공개글들) {
+  const 글들 = 공개글들;
   const 줄 = 글들
-    .map((g) => `<li><a href="${esc(글주소(g.slug))}"><span class="col-cat">${esc(카테고리이름(g.category))}</span><strong class="col-title">${esc(g.title)}</strong>${g.subtitle ? `<span class="col-sub">${esc(g.subtitle)}</span>` : ''}<span class="col-date">${esc(한글날짜(g.publishedAt || g.createdAt))} · 글 ${esc(g.author || 필자)}</span></a></li>`)
+    .map((g) => `<li><a href="${esc(글주소(g.slug))}"><strong class="col-title">${esc(g.title)}</strong>${g.subtitle ? `<span class="col-sub">${esc(g.subtitle)}</span>` : ''}<span class="col-date">${esc(한글날짜(g.publishedAt || g.createdAt))} · 글 ${esc(g.author || 필자)}</span></a></li>`)
     .join('');
-  const 빈말 = 고른것
-    ? `<p class="note">「${esc(카테고리이름(고른것))}」에는 아직 실린 칼럼이 없습니다.</p>`
-    : '<p class="note">아직 실린 칼럼이 없습니다.</p>';
+  const 빈말 = '<p class="note">아직 실린 칼럼이 없습니다.</p>';
   return `<p class="col-kicker">${esc(코너이름)}</p>
-<h1>${고른것 ? `${esc(코너이름)} — ${esc(카테고리이름(고른것))}` : esc(코너이름)}</h1>
+<h1>${esc(코너이름)}</h1>
 <p class="lead">0세부터 100세까지, 숫자 뒤에 있는 이야기를 백년지도가 씁니다.</p>
-<nav class="col-cats" aria-label="칼럼 카테고리">${칸}</nav>
 ${줄 ? `<ul class="col-list">${줄}</ul>` : 빈말}
 <p class="col-foot">칼럼은 백년지도의 생각입니다. 길을 정하는 것은 읽는 분입니다.</p>`;
 }
@@ -407,7 +388,7 @@ export function 글본문HTML(글, 다른글들 = []) {
   const 날 = 글.publishedAt || 글.createdAt;
   const 고친날 = 날짜만(글.updatedAt) !== 날짜만(날) ? ` · 고친 날 <time datetime="${esc(글.updatedAt)}">${esc(한글날짜(글.updatedAt))}</time>` : '';
   const 더 = 다른글들.filter((g) => g.id !== 글.id).slice(0, 3);
-  return `<p class="col-kicker"><a href="/column">${esc(코너이름)}</a> · <a href="${esc(목록주소(글.category))}">${esc(카테고리이름(글.category))}</a></p>
+  return `<p class="col-kicker"><a href="/column">${esc(코너이름)}</a></p>
 <h1>${esc(글.title)}</h1>
 ${글.subtitle ? `<p class="lead">${esc(글.subtitle)}</p>` : ''}
 <p class="col-meta">글 ${esc(글.author || 필자)} · <time datetime="${esc(날)}">${esc(한글날짜(날))}</time>${고친날}</p>
@@ -415,7 +396,7 @@ ${글.subtitle ? `<p class="lead">${esc(글.subtitle)}</p>` : ''}
 ${본문HTML(글.body)}
 </div>
 <p class="col-foot">칼럼은 백년지도의 생각입니다. 길을 정하는 것은 읽는 분입니다.</p>
-${더.length ? `<h2 class="col-more-h">다른 칼럼</h2><ul class="col-list">${더.map((g) => `<li><a href="${esc(글주소(g.slug))}"><span class="col-cat">${esc(카테고리이름(g.category))}</span><strong class="col-title">${esc(g.title)}</strong></a></li>`).join('')}</ul>` : ''}
+${더.length ? `<h2 class="col-more-h">다른 칼럼</h2><ul class="col-list">${더.map((g) => `<li><a href="${esc(글주소(g.slug))}"><strong class="col-title">${esc(g.title)}</strong></a></li>`).join('')}</ul>` : ''}
 <p class="note"><a href="/column">칼럼 목록으로 →</a></p>`;
 }
 
@@ -428,7 +409,7 @@ export function 글jsonLd(글) {
     headline: 줄임(글.title, 110),
     description: 글설명(글),
     inLanguage: 'ko',
-    articleSection: 카테고리이름(글.category),
+    articleSection: 코너이름,
     datePublished: 글.publishedAt || 글.createdAt,
     dateModified: 글.updatedAt,
     mainEntityOfPage: url,

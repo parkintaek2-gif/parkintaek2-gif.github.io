@@ -78,11 +78,12 @@ if (Store.remoteEnabled) {
 /* ── 3. 입력 검사 ── */
 {
   const 빈 = C.검사({});
-  본다('빈 입력은 오류', 빈.오류.length >= 3);
+  본다('빈 입력은 오류', 빈.오류.length >= 2);
   const 긴 = C.검사({ title: '가'.repeat(121), category: 'edu', body: 'x' });
   본다('긴 제목은 자르지 않고 오류', 긴.오류.some((e) => e.includes('제목')) && 긴.값.title.length === 121);
-  const 없는칸 = C.검사({ title: 'a', category: 'nope', body: 'x' });
-  본다('없는 카테고리는 오류', 없는칸.오류.some((e) => e.includes('카테고리')));
+  /* 사장님 10/31 「칼럼 카테고리 없애」 — 카테고리 없이도 글이 들어가야 한다 */
+  const 칸없이 = C.검사({ title: 'a', body: 'x' });
+  본다('카테고리 없이 통과', 칸없이.오류.length === 0 && !('category' in 칸없이.값));
   const 좋은 = C.검사({ title: ' 제목  하나 ', category: 'aging', body: '본문', slug: '' });
   본다('좋은 입력', 좋은.오류.length === 0 && 좋은.값.title === '제목 하나');
 }
@@ -192,8 +193,7 @@ if (process.argv.includes('--단위만')) {
     const 새글 = await 부른다('GET', '/admin/column/new', { auth: true });
     const 확인 = (새글.body.match(/name="t" value="([0-9a-f]{64})"/) ?? [])[1];
     본다('쓰기 화면에 확인값', Boolean(확인));
-    const 카테고리칸 = (새글.body.match(/<option value="[a-z-]+"/g) ?? []).length;
-    본다('카테고리 고르기 칸', 카테고리칸 === C.카테고리.length, String(카테고리칸));
+    본다('쓰기 화면에 카테고리 칸 없음', !새글.body.includes('카테고리') && !새글.body.includes('name="category"'));
 
     const 글 = { t: 확인, id: '', title: '<script>alert(1)</script> 서른둘의 결혼', subtitle: '부제', category: 'home-family', slug: '', body: '첫 문단 **굵게**\n\n[학과](/major) [나쁜](javascript:alert(1))', action: 'publish' };
     const 남의곳 = await 부른다('POST', '/admin/column/save', { auth: true, headers: 폼머리('https://evil.example'), body: 폼(글) });
@@ -223,9 +223,9 @@ if (process.argv.includes('--단위만')) {
     const 목록2 = await 부른다('GET', '/column');
     const 주소 = (목록2.body.match(/href="(\/column\/[^"]+)"/) ?? [])[1];
     본다('목록에 글', 목록2.status === 200 && Boolean(주소) && !목록2.body.includes('초안 글'));
-    const 걸러 = await 부른다('GET', '/column?c=edu');
-    본다('카테고리 거르기', 걸러.status === 200 && !걸러.body.includes('서른둘의 결혼') && 걸러.body.includes('아직 실린 칼럼이 없습니다'));
-    본다('카테고리 canonical', 걸러.body.includes('rel="canonical" href="https://100yearmap.com/column?c=edu"'));
+    본다('목록에 카테고리 단추 없음', !목록2.body.includes('<nav class="col-cats"') && !목록2.body.includes('칼럼 카테고리'));
+    const 옛주소 = await 부른다('GET', '/column?c=edu');
+    본다('옛 카테고리 주소도 전체 목록', 옛주소.status === 200 && 옛주소.body.includes('서른둘의 결혼') && 옛주소.body.includes('rel="canonical" href="https://100yearmap.com/column"'));
 
     const 본 = await 부른다('GET', 주소);
     본다('글 200', 본.status === 200, String(본.status));

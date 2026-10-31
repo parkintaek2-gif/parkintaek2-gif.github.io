@@ -1185,7 +1185,7 @@ const handle = async (req, res) => {
 
   /* ── 백년지도 칼럼 — 서버가 채워 내는 네 자리 (2026-10-31 · 1번) ──────────
    *   /            첫 화면의 빈 칸(data-slot="home-columns")을 최근 공개 칼럼 셋으로 바꾼다
-   *   /column      목록(?c=카테고리)
+   *   /column      목록
    *   /column/<주소> 글
    *   /sitemap.xml 정적 사이트맵에 공개 칼럼 주소를 덧붙인다
    * ⭐ 글은 R2 에 있어 빌드가 모른다. 그래서 정적 파일을 읽어 «여기서» 채운다.
@@ -1353,7 +1353,7 @@ async function 백년칼럼화면(pathname, searchParams) {
   if (pathname === '/100y/column.md') {
     const 글들 = await 칼럼.공개목록();
     if (글들 == null) return { status: 503, type: TYPES['.md'], body: '# 백년지도 칼럼\n\n칼럼을 잠시 불러오지 못했습니다.\n' };
-    const 줄 = 글들.map((g) => `- [${g.title.replace(/[[\]]/g, '')}](${칼럼.ORIGIN}${칼럼.글주소(g.slug)}) — ${칼럼.카테고리이름(g.category)} · ${칼럼.날짜만(g.publishedAt || g.createdAt)}`);
+    const 줄 = 글들.map((g) => `- [${g.title.replace(/[[\]]/g, '')}](${칼럼.ORIGIN}${칼럼.글주소(g.slug)}) — ${칼럼.날짜만(g.publishedAt || g.createdAt)}`);
     return { status: 200, type: TYPES['.md'], body: `# 백년지도 칼럼\n\n백년지도가 쓰는 칼럼입니다. 필자: 백년지도.\n\n${줄.length ? 줄.join('\n') : '아직 실린 칼럼이 없습니다.'}\n` };
   }
 
@@ -1368,14 +1368,11 @@ async function 백년칼럼화면(pathname, searchParams) {
   if (글들 == null) return 잠시뒤();
 
   if (pathname === '/100y/column') {
-    const c = searchParams.get('c') ?? '';
-    const 고른것 = 칼럼.카테고리이름(c) ? c : '';
-    const 이름 = 고른것 ? `백년지도 칼럼 — ${칼럼.카테고리이름(고른것)}` : '백년지도 칼럼';
     const body = 칼럼.껍데기채우기(껍데기, {
-      제목: 이름,
-      설명: 고른것 ? `백년지도 칼럼 가운데 「${칼럼.카테고리이름(고른것)}」 글을 모았습니다.` : '백년지도가 쓰는 칼럼입니다. 0세부터 100세까지, 교육·일과 돈·집과 가족·나이 듦을 숫자와 함께 생각합니다.',
-      주소: 칼럼.ORIGIN + 칼럼.목록주소(고른것),
-      본문: 칼럼.목록본문HTML(글들, 고른것),
+      제목: '백년지도 칼럼',
+      설명: '백년지도가 쓰는 칼럼입니다. 0세부터 100세까지, 숫자 뒤에 있는 이야기를 씁니다.',
+      주소: 칼럼.ORIGIN + 칼럼.목록주소(),
+      본문: 칼럼.목록본문HTML(글들),
     });
     return body ? { status: 200, type: HTML, body } : null;
   }
@@ -1397,7 +1394,7 @@ async function 백년칼럼화면(pathname, searchParams) {
     종류: 'article',
     jsonLd: 칼럼.글jsonLd(글),
     본문: 칼럼.글본문HTML(글, 글들),
-    덧머리: `<meta property="article:published_time" content="${칼럼.esc(글.publishedAt || 글.createdAt)}"><meta property="article:modified_time" content="${칼럼.esc(글.updatedAt)}"><meta property="article:section" content="${칼럼.esc(칼럼.카테고리이름(글.category))}">`,
+    덧머리: `<meta property="article:published_time" content="${칼럼.esc(글.publishedAt || 글.createdAt)}"><meta property="article:modified_time" content="${칼럼.esc(글.updatedAt)}"><meta property="article:section" content="${칼럼.esc(칼럼.코너이름)}">`,
   });
   return body ? { status: 200, type: HTML, body } : null;
 }

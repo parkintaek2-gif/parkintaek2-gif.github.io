@@ -5,7 +5,7 @@
  *   먼저 막는다(같은 계정·같은 방식). 여기서는 로그인을 따로 만들지 않는다.
  *
  * 게시판 모양 —
- *   GET  /admin/column               목록(제목·카테고리·상태·작성일, 새 글이 위)
+ *   GET  /admin/column               목록(제목·상태·작성일, 새 글이 위)
  *   GET  /admin/column/new           새 글 쓰기
  *   GET  /admin/column/edit/<id>     고치기
  *   GET  /admin/column/preview/<id>  저장된 글 미리보기
@@ -135,7 +135,6 @@ ${g.status === 'published' ? `<a class="btn" href="${esc(C.글주소(g.slug))}" 
 <input type="hidden" name="t" value="${확인값()}"><input type="hidden" name="id" value="${esc(g.id)}">
 <button class="btn bad" type="submit">삭제</button></form>
 </div></td>
-<td>${esc(C.카테고리이름(g.category))}</td>
 <td>${상태글(g.status)}</td>
 <td class="d">${esc(C.날짜만(g.createdAt))}</td>
 </tr>`).join('');
@@ -144,14 +143,14 @@ ${g.status === 'published' ? `<a class="btn" href="${esc(C.글주소(g.slug))}" 
 <p class="d"><a href="/admin">← 편집국</a> · <a href="/column" target="_blank" rel="noopener">칼럼 목록 보기(백년지도에서 열기)</a></p>
 ${저장소알림()}${알림}
 ${글들.length
-    ? `<table><thead><tr><th>제목</th><th>카테고리</th><th>상태</th><th>작성일</th></tr></thead><tbody>${줄}</tbody></table>`
+    ? `<table><thead><tr><th>제목</th><th>상태</th><th>작성일</th></tr></thead><tbody>${줄}</tbody></table>`
     : '<p class="msg">아직 쓴 칼럼이 없습니다. 「글쓰기」를 눌러 첫 칼럼을 써 주십시오.</p>'}
 <div class="rules">필자는 모두 「${esc(C.필자)}」로 나갑니다. 「공개」한 글은 백년지도 첫 화면과 칼럼 목록에 바로 나옵니다.</div>`);
 }
 
 function 미리보기HTML(값) {
   return `<div class="preview">
-<p class="kick">미리보기 — ${esc(C.코너이름)} · ${esc(C.카테고리이름(값.category))}</p>
+<p class="kick">미리보기 — ${esc(C.코너이름)}</p>
 <h1>${esc(값.title || '(제목 없음)')}</h1>
 ${값.subtitle ? `<p class="lead">${esc(값.subtitle)}</p>` : ''}
 <p class="meta">글 ${esc(C.필자)} · ${esc(C.한글날짜(값.publishedAt || 값.createdAt || C.지금KST()))}</p>
@@ -160,9 +159,6 @@ ${값.subtitle ? `<p class="lead">${esc(값.subtitle)}</p>` : ''}
 }
 
 function 쓰기화면({ id = '', 값 = {}, 오류 = [], 미리보기 = false, 공개됨 = false, 상태 = '' }) {
-  const 고르기 = C.카테고리
-    .map((k) => `<option value="${esc(k.key)}"${값.category === k.key ? ' selected' : ''}>${esc(k.이름)}</option>`)
-    .join('');
   return 화면(id ? '칼럼 수정 · 편집국' : '새 칼럼 · 편집국', `
 <p class="d"><a href="/admin/column">← 칼럼 목록</a></p>
 <h1>${id ? '칼럼 수정' : '새 칼럼 쓰기'}${상태 ? ` ${상태글(상태)}` : ''}</h1>
@@ -176,8 +172,6 @@ ${미리보기 ? `<p class="msg">아래는 미리보기입니다. 아직 저장�
 <input id="f-title" type="text" name="title" maxlength="${C.한도.제목}" required value="${esc(값.title)}">
 <label for="f-sub">부제 <span class="hint">적지 않아도 됩니다</span></label>
 <input id="f-sub" type="text" name="subtitle" maxlength="${C.한도.부제}" value="${esc(값.subtitle)}">
-<label for="f-cat">카테고리</label>
-<select id="f-cat" name="category" required><option value="">고르십시오</option>${고르기}</select>
 <label for="f-body">본문 <span class="hint">빈 줄로 문단을 나눕니다 · **굵게** · [글자](주소)로 링크 · 「## 」로 시작하는 줄은 소제목</span></label>
 <textarea id="f-body" name="body" maxlength="${C.한도.본문}" required>${esc(값.body)}</textarea>
 <label for="f-slug">주소 <span class="hint">비워 두면 제목으로 만듭니다. 한 번 공개한 글은 주소가 바뀌지 않습니다</span></label>
@@ -229,7 +223,7 @@ export async function 칼럼편집국(req, pathname) {
 
     if (pathname === '/admin/column/save') {
       const 동작 = String(f.get('action') ?? 'draft');
-      const 입력 = { title: f.get('title'), subtitle: f.get('subtitle'), category: f.get('category'), slug: f.get('slug'), body: f.get('body') };
+      const 입력 = { title: f.get('title'), subtitle: f.get('subtitle'), slug: f.get('slug'), body: f.get('body') };
       let 기존 = null;
       if (id) {
         try { 기존 = await C.글읽기(id); } catch (e) { return 못읽음(e); }
