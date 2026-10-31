@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-31T07:45+09:00",
+ "generated": "2026-10-31T13:10+09:00",
  "whatThisIs": "Worlds 2026 counted two ways: the Swiss Stage order of qualification from Riot's official schedule (2024, 2025 and 2026), and Wikipedia reading of each team's article by language edition.",
  "whatThisIsNot": "Not a prediction. Past years show how earlier fields went, not how this one will. Wikipedia reads count look-ups, not viewers or fans.",
  "sources": {
@@ -16,19 +16,17 @@
   "2023": {
    "fromRecord": null,
    "finishBySwissRecord": null,
-   "swissMatchesCompleted": 7,
-   "firstSwissMatch": "2023-10-27T07:00:00Z",
+   "swissMatchesCompleted": 5,
+   "firstSwissMatch": "2023-10-28T07:00:00Z",
    "qualifiedInOrder": null,
    "records": {
-    "DK": "1-1",
-    "LNG": "1-0",
     "NRG": "1-0",
     "T1": "1-0",
-    "KT": "1-1",
+    "KT": "1-0",
     "WBG": "1-0",
     "BLG": "1-1",
-    "GAM": "0-1",
     "G2": "0-2",
+    "DK": "0-1",
     "FNC": "0-1"
    },
    "note": "The official schedule feed starts part-way through the 2023 Swiss Stage (first match it returns: 22 October 2023), so 2023 is not counted."
@@ -620,7 +618,7 @@
   "2026": {
    "fromRecord": null,
    "finishBySwissRecord": null,
-   "swissMatchesCompleted": 28,
+   "swissMatchesCompleted": 30,
    "firstSwissMatch": "2026-10-23T17:00:00Z",
    "qualifiedInOrder": [
     {
@@ -661,7 +659,7 @@
    ],
    "records": {
     "GEN": "3-0",
-    "HLE": "1-2",
+    "HLE": "2-2",
     "MKOI": "2-2",
     "KC": "2-2",
     "DK": "3-0",
@@ -669,11 +667,11 @@
     "T1": "3-1",
     "LYON": "2-2",
     "TES": "3-1",
-    "G2": "1-2",
+    "G2": "1-3",
     "IG": "3-1",
     "BLG": "2-2",
-    "LOS": "1-2",
-    "TLAW": "1-2",
+    "LOS": "2-2",
+    "TLAW": "1-3",
     "AL": "0-3",
     "TSW": "0-3"
    }
