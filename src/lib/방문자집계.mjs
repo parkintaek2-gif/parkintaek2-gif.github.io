@@ -53,7 +53,37 @@ export function 사이트이름(host) {
   return String(host ?? '').toLowerCase().replace(/:\d+$/, '').replace(/^www\./, '') || '(모름)';
 }
 
-/* 날짜 → 사이트 → { 사람: Set<지문>, 조회수: number } */
+/* ── 🔴🔴🔴 [2026-11-01 08:52 · 사장님] 「오늘 방문자가 이렇게 많다고?」 ──────────
+   사장님이 보신 수치 — 케이컬처와이어 2,061명 · 서울마켓츠 1,683명 · 백년지도 1,393명.
+   **사람이 아니다.** 아홉 시간 만에 그 수가 될 리 없다(어제 구글 집계는 네 곳 합쳐 198명).
+
+   내가 만든 집계가 **자동 접속을 걸러내지 않았다.** 검색엔진 수집기·AI 수집기·보안
+   스캐너가 전부 「방문자 한 명」으로 세어졌다. IP로 센다고 사람이 되는 것이 아니다.
+
+   ⚠ 이 규칙으로도 **자기를 브라우저라고 속이는 것은 못 거른다.** 못 거른다고 적는다 —
+     0으로 채우지 않는다. 그래서 화면에 「사람」과 「자동」을 **갈라서** 보여 준다.
+     거른 수만 보여 주면 거르개가 틀렸을 때 아무도 모른다. */
+const 자동표식 = new RegExp([
+  'bot', 'crawl', 'spider', 'slurp', 'archiver', 'scrap', 'fetch', 'monitor', 'uptime',
+  'pingdom', 'curl', 'wget', 'python-requests', 'python-urllib', 'go-http-client',
+  'java/', 'libwww', 'okhttp', 'axios', 'node-fetch', 'headless', 'phantomjs',
+  'puppeteer', 'playwright', 'lighthouse', 'preview', 'facebookexternalhit', 'embedly',
+  'whatsapp', 'telegram', 'slackbot', 'discord', 'applebot', 'bytespider', 'gptbot',
+  'claudebot', 'anthropic', 'ccbot', 'perplexity', 'amazonbot', 'yandex', 'baidu',
+  'sogou', 'petal', 'ahrefs', 'semrush', 'mj12', 'dotbot', 'dataforseo', 'blexbot',
+  'serpstat', 'zoominfo', 'censys', 'masscan', 'zgrab', 'nmap', 'expanse', 'netcraft',
+  'internetmeasurement', 'feedfetcher', 'google-read-aloud', 'chrome-lighthouse',
+].join('|'), 'i');
+
+/** 사람이 연 것인가. ⛔ 브라우저 이름이 아예 없으면 사람으로 보지 않는다 — 진짜 브라우저는 보낸다 */
+export function 사람인가(ua) {
+  const s = String(ua ?? '').trim();
+  if (!s) return false;
+  if (자동표식.test(s)) return false;
+  return /mozilla|opera|safari|chrome|firefox|edge/i.test(s);
+}
+
+/* 날짜 → 사이트 → { 사람: Set, 자동: Set, 조회수, 자동조회수, 이름표: Map } */
 const 담는곳 = new Map();
 let 바뀜 = false;
 let 불러온날 = null;
@@ -63,16 +93,27 @@ function 그날칸(날짜) {
   return 담는곳.get(날짜);
 }
 
-/** 한 번 받아 간 것을 센다 */
-export function 기록(host, ip, 날짜 = 오늘()) {
+function 빈칸() { return { 사람: new Set(), 자동: new Set(), 조회수: 0, 자동조회수: 0, 이름표: new Map() }; }
+
+/** 한 번 받아 간 것을 센다. **사람과 자동을 갈라서 센다** (2026-11-01) */
+export function 기록(host, ip, ua, 날짜 = 오늘()) {
   const 칸 = 그날칸(날짜);
   const 이름 = 사이트이름(host);
-  if (!칸.has(이름)) 칸.set(이름, { 사람: new Set(), 조회수: 0 });
+  if (!칸.has(이름)) 칸.set(이름, 빈칸());
   const 것 = 칸.get(이름);
-  것.조회수 += 1;
-  const 값 = 지문(ip, 날짜);
-  if (!것.사람.has(값)) { 것.사람.add(값); 바뀜 = true; return true; }
   바뀜 = true;
+  const 값 = 지문(ip, 날짜);
+  /* 누가 긁어 가는지 사장님도 보셔야 한다 — 브라우저 이름을 그대로 센다.
+     ⛔ 개인을 가리키는 것이 아니라 프로그램 이름이다. 주소는 여기 적지 않는다. */
+  const 표 = String(ua ?? '').slice(0, 120) || '(이름 없음)';
+  것.이름표.set(표, (것.이름표.get(표) ?? 0) + 1);
+  if (!사람인가(ua)) {
+    것.자동조회수 += 1;
+    것.자동.add(값);
+    return false;
+  }
+  것.조회수 += 1;
+  if (!것.사람.has(값)) { 것.사람.add(값); return true; }
   return false;
 }
 
@@ -81,7 +122,13 @@ export function 집계(날짜 = 오늘()) {
   const 칸 = 담는곳.get(날짜);
   const 답 = {};
   if (!칸) return 답;
-  for (const [이름, 것] of 칸) 답[이름] = { 방문자: 것.사람.size, 조회수: 것.조회수 };
+  for (const [이름, 것] of 칸) {
+    답[이름] = {
+      방문자: 것.사람.size, 조회수: 것.조회수,
+      자동: 것.자동.size, 자동조회수: 것.자동조회수,
+      이름표: [...것.이름표].sort((a, b) => b[1] - a[1]).slice(0, 25),
+    };
+  }
   return 답;
 }
 
@@ -92,7 +139,13 @@ export async function 저장하기(날짜 = 오늘()) {
   const 칸 = 담는곳.get(날짜);
   if (!칸) return false;
   const 몸 = { 날짜, 사이트: {} };
-  for (const [이름, 것] of 칸) 몸.사이트[이름] = { 지문들: [...것.사람], 조회수: 것.조회수 };
+  for (const [이름, 것] of 칸) {
+    몸.사이트[이름] = {
+      지문들: [...것.사람], 조회수: 것.조회수,
+      자동지문들: [...것.자동], 자동조회수: 것.자동조회수,
+      이름표: Object.fromEntries([...것.이름표].sort((a, b) => b[1] - a[1]).slice(0, 40)),
+    };
+  }
   await store.put(저장이름(날짜), JSON.stringify(몸), 'application/json');
   바뀜 = false;
   return true;
@@ -110,7 +163,11 @@ export async function 불러오기(날짜 = 오늘()) {
   if (!몸 || !몸.사이트) return false;
   const 칸 = 그날칸(날짜);
   for (const [이름, 것] of Object.entries(몸.사이트)) {
-    칸.set(이름, { 사람: new Set(것.지문들 ?? []), 조회수: Number(것.조회수 ?? 0) });
+    칸.set(이름, {
+      사람: new Set(것.지문들 ?? []), 조회수: Number(것.조회수 ?? 0),
+      자동: new Set(것.자동지문들 ?? []), 자동조회수: Number(것.자동조회수 ?? 0),
+      이름표: new Map(Object.entries(것.이름표 ?? {})),
+    });
   }
   return true;
 }
@@ -124,7 +181,11 @@ export async function 지난날집계(날짜) {
     const 몸 = JSON.parse(typeof 글 === 'string' ? 글 : Buffer.from(글).toString('utf8'));
     const 답 = {};
     for (const [이름, 것] of Object.entries(몸.사이트 ?? {})) {
-      답[이름] = { 방문자: (것.지문들 ?? []).length, 조회수: Number(것.조회수 ?? 0) };
+      답[이름] = {
+        방문자: (것.지문들 ?? []).length, 조회수: Number(것.조회수 ?? 0),
+        자동: (것.자동지문들 ?? []).length, 자동조회수: Number(것.자동조회수 ?? 0),
+        이름표: Object.entries(것.이름표 ?? {}).sort((a, b) => b[1] - a[1]).slice(0, 25),
+      };
     }
     return 답;
   } catch (e) { return null; }
@@ -156,15 +217,34 @@ export function 자가시험() {
   T('www 와 포트를 떼고 같은 사이트로 본다',
     사이트이름('www.kculturewire.com:443') === 'kculturewire.com');
 
+  /* 🔴 [2026-11-01 · 사장님 「오늘 방문자가 이렇게 많다고?」] 자동 접속 거르기 */
+  const 사람 = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36';
+  T('검색엔진 수집기는 사람이 아니다', !사람인가('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'));
+  T('AI 수집기는 사람이 아니다', !사람인가('Mozilla/5.0 (compatible; GPTBot/1.2; +https://openai.com/gptbot)'));
+  T('AI 수집기는 사람이 아니다 (둘째)', !사람인가('Mozilla/5.0 (compatible; ClaudeBot/1.0)'));
+  T('보안 스캐너는 사람이 아니다', !사람인가('Mozilla/5.0 zgrab/0.x'));
+  T('명령줄 도구는 사람이 아니다', !사람인가('curl/8.4.0') && !사람인가('python-requests/2.31.0'));
+  T('⛔ 브라우저 이름이 없으면 사람으로 보지 않는다', !사람인가('') && !사람인가(null));
+  T('진짜 브라우저는 사람이다', 사람인가(사람));
+  T('휴대폰 브라우저도 사람이다',
+    사람인가('Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 Version/17.5 Mobile/15E148 Safari/604.1'));
+
   담는곳.clear();
-  기록('seoulmarkets.com', '1.1.1.1', '2026-11-01');
-  기록('seoulmarkets.com', '1.1.1.1', '2026-11-01');
-  기록('seoulmarkets.com', '2.2.2.2', '2026-11-01');
+  기록('seoulmarkets.com', '1.1.1.1', 사람, '2026-11-01');
+  기록('seoulmarkets.com', '1.1.1.1', 사람, '2026-11-01');
+  기록('seoulmarkets.com', '2.2.2.2', 사람, '2026-11-01');
+  기록('seoulmarkets.com', '9.9.9.9', 'Googlebot/2.1', '2026-11-01');
+  기록('seoulmarkets.com', '9.9.9.8', 'Googlebot/2.1', '2026-11-01');
   const a = 집계('2026-11-01');
   T('🔴 같은 IP는 몇 번 와도 1명이다 (사장님 지시)', a['seoulmarkets.com'].방문자 === 2);
   T('조회수는 받아 간 횟수를 그대로 더한다', a['seoulmarkets.com'].조회수 === 3);
+  T('🔴 자동 접속은 방문자에 안 들어간다', a['seoulmarkets.com'].방문자 === 2);
+  T('🔴 자동 접속은 버리지 않고 따로 센다 — 거르개가 틀리면 보여야 한다',
+    a['seoulmarkets.com'].자동 === 2 && a['seoulmarkets.com'].자동조회수 === 2);
+  T('누가 긁어 가는지 이름이 남는다',
+    a['seoulmarkets.com'].이름표.some((x) => x[0].includes('Googlebot') && x[1] === 2));
 
-  기록('100yearmap.com', '3.3.3.3', '2026-11-01');
+  기록('100yearmap.com', '3.3.3.3', 사람, '2026-11-01');
   T('사이트마다 따로 센다', 집계('2026-11-01')['100yearmap.com'].방문자 === 1);
   T('다른 날은 섞이지 않는다', Object.keys(집계('2026-10-31')).length === 0);
   담는곳.clear();

@@ -1133,10 +1133,19 @@ const handle = async (req, res) => {
         res.end(req.method === 'HEAD' ? undefined : JSON.stringify({ 날짜, 사이트: 표 }, null, 1));
         return;
       }
+      const ㄴ = (x) => Number(x ?? 0).toLocaleString('ko-KR');
       const 줄 = Object.entries(표).sort((a, b) => b[1].방문자 - a[1].방문자)
-        .map(([이름, v]) => `<tr><td>${이름}</td><td class="n">${v.방문자.toLocaleString('ko-KR')}</td>`
-          + `<td class="n">${v.조회수.toLocaleString('ko-KR')}</td>`
-          + `<td class="n">${v.방문자 ? (v.조회수 / v.방문자).toFixed(1) : '0'}</td></tr>`).join('');
+        .map(([이름, v]) => `<tr><td>${이름}</td><td class="n">${ㄴ(v.방문자)}</td>`
+          + `<td class="n">${ㄴ(v.조회수)}</td>`
+          + `<td class="n">${v.방문자 ? (v.조회수 / v.방문자).toFixed(1) : '0'}</td>`
+          + `<td class="n auto">${ㄴ(v.자동)}</td><td class="n auto">${ㄴ(v.자동조회수)}</td></tr>`).join('');
+      /* 🔴 누가 긁어 가는지 사장님도 보셔야 한다. 거르개가 틀렸으면 여기서 드러난다 */
+      const 이름표모음 = new Map();
+      for (const v of Object.values(표)) {
+        for (const [이름, n] of (v.이름표 ?? [])) 이름표모음.set(이름, (이름표모음.get(이름) ?? 0) + n);
+      }
+      const 긁는것 = [...이름표모음].sort((a, b) => b[1] - a[1]).slice(0, 15)
+        .map(([이름, n]) => `<tr><td style="font-size:12px;word-break:break-all;">${String(이름).replace(/[<>&]/g, '')}</td><td class="n">${ㄴ(n)}</td></tr>`).join('');
       const 앞날 = new Date(`${날짜}T00:00:00+09:00`);
       const 하루전 = new Date(앞날.getTime() - 86400000);
       const 하루뒤 = new Date(앞날.getTime() + 86400000);
@@ -1153,23 +1162,29 @@ th,td{padding:11px 12px;border-top:1px solid #eceef2;font-size:14px;text-align:l
 th{background:#f3f4f7;font-size:12.5px;color:#4a505c}
 tr:first-child td{border-top:0}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+td.auto,th.auto{color:#8a909c}
 .nav{margin:16px 0;font-size:14px}
 .nav a{color:#2b4bd8;text-decoration:none;margin-right:14px}
 .note{margin-top:18px;font-size:12.5px;color:#5c6270;line-height:1.7}
 .none{padding:18px;color:#5c6270;font-size:14px;background:#fff;border:1px solid #e3e5ea;border-radius:10px}
 </style></head><body><div class="wrap">
 <h1>방문자 — ${날짜}</h1>
-<p class="sub">우리 서버가 IP로 직접 집계한 수치입니다. 같은 IP는 하루에 몇 번 와도 1명입니다.</p>
+<p class="sub">우리 서버가 IP로 직접 집계한 수치입니다. 같은 IP는 하루에 몇 번 와도 1명입니다.<br>
+<b>방문자는 사람만 센 수입니다.</b> 검색엔진·AI 수집기 같은 자동 접속은 오른쪽에 따로 세어 둡니다.</p>
 <div class="nav">
   <a href="/admin/visitors?date=${방문.오늘(하루전)}">← 하루 전</a>
   <a href="/admin/visitors">오늘</a>
   <a href="/admin/visitors?date=${방문.오늘(하루뒤)}">하루 뒤 →</a>
 </div>
-${줄 ? `<table><thead><tr><th>사이트</th><th class="n">방문자</th><th class="n">조회수</th><th class="n">1인당</th></tr></thead><tbody>${줄}</tbody></table>`
+${줄 ? `<table><thead><tr><th>사이트</th><th class="n">방문자</th><th class="n">조회수</th><th class="n">1인당</th><th class="n auto">자동</th><th class="n auto">자동 조회</th></tr></thead><tbody>${줄}</tbody></table>`
+  + (긁는것 ? `<h2 style="font-size:14px;margin:22px 0 8px;">들어온 것들 (많은 차례로 15개)</h2>
+<table><thead><tr><th>브라우저·프로그램 이름</th><th class="n">연 횟수</th></tr></thead><tbody>${긁는것}</tbody></table>` : '')
     : '<p class="none">그 날 집계가 없습니다. 이 기능을 넣은 2026-11-01 이전 날짜는 수치가 없습니다.</p>'}
 <p class="note">
   · 화면(HTML)을 받아 간 요청만 셉니다. 그림·스타일 요청은 세지 않습니다.<br>
   · IP 원본은 저장하지 않습니다. 날짜를 섞은 되돌릴 수 없는 값으로만 셉니다.<br>
+  · <b>자동</b> 칸은 검색엔진·AI 수집기·보안 스캐너입니다. 사람 수에 넣지 않습니다.<br>
+  · 자기를 브라우저라고 속이는 자동 접속은 못 거릅니다. 못 거른다고 적어 둡니다.<br>
   · 케이라이프맵은 서버가 달라 이 표에 없습니다. 별도 주소에서 봅니다.
 </p>
 </div></body></html>`;
@@ -1506,7 +1521,7 @@ const server = createServer((req, res) => {
     try {
       const 종류 = String(res.응답종류 ?? res.getHeader('Content-Type') ?? '');
       if (res.statusCode < 400 && 종류.startsWith('text/html')) {
-        방문.기록(req.headers.host, 방문.주소뽑기(req));
+        방문.기록(req.headers.host, 방문.주소뽑기(req), req.headers['user-agent']);
       }
     } catch { /* 집계 때문에 사이트가 죽는 일은 없어야 한다 */ }
   });
