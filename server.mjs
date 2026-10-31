@@ -34,6 +34,9 @@ import { 묶기 } from './src/lib/tar-gz.mjs';
 import * as 칼럼 from './src/lib/column.mjs';
 import { 칼럼편집국 } from './src/lib/column-admin.mjs';
 import { readFile as 파일읽기 } from 'node:fs/promises';
+/* 🔴 [2026-11-01 · 사장님] 「ip가 같은 곳은 방문자 한명(즉 순방문자)로 계산해」
+   ⛔ IP 원본은 저장하지 않는다 — 날짜를 섞은 되돌릴 수 없는 값으로만 센다. */
+import * as 방문 from './src/lib/방문자집계.mjs';
 
 /*
  * 🔴🔴 [2026-09-15 20:4x] **손님이 돈을 내고 «빈 봉투»를 받게 돼 있었다.**
@@ -1116,6 +1119,65 @@ const handle = async (req, res) => {
       return;
     }
 
+    /* 🔴 [2026-11-01 · 사장님] 「ip가 같은 곳은 방문자 한명(즉 순방문자)로 계산해」
+     *   「각 사이트마다 방문자, 페이지뷰를 어디서 볼 수 있나」
+     * ⇒ 열면 바로 보이는 화면. 구글 애널리틱스에서 여러 번 눌러 찾지 않아도 된다.
+     * ⚠ 이 수치는 우리 서버가 IP로 직접 센 것이다. IP 원본은 저장하지 않는다. */
+    if (pathname === '/admin/visitors') {
+      const 날짜 = (parsed.searchParams.get('date') || '').match(/^\d{4}-\d{2}-\d{2}$/)
+        ? parsed.searchParams.get('date') : 방문.오늘();
+      const 오늘인가 = 날짜 === 방문.오늘();
+      const 표 = 오늘인가 ? 방문.집계(날짜) : (await 방문.지난날집계(날짜)) ?? {};
+      if (parsed.searchParams.get('json') === '1') {
+        res.writeHead(200, { ...adminHeaders, 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(req.method === 'HEAD' ? undefined : JSON.stringify({ 날짜, 사이트: 표 }, null, 1));
+        return;
+      }
+      const 줄 = Object.entries(표).sort((a, b) => b[1].방문자 - a[1].방문자)
+        .map(([이름, v]) => `<tr><td>${이름}</td><td class="n">${v.방문자.toLocaleString('ko-KR')}</td>`
+          + `<td class="n">${v.조회수.toLocaleString('ko-KR')}</td>`
+          + `<td class="n">${v.방문자 ? (v.조회수 / v.방문자).toFixed(1) : '0'}</td></tr>`).join('');
+      const 앞날 = new Date(`${날짜}T00:00:00+09:00`);
+      const 하루전 = new Date(앞날.getTime() - 86400000);
+      const 하루뒤 = new Date(앞날.getTime() + 86400000);
+      const 몸 = `<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>방문자 — ${날짜}</title>
+<style>
+body{font-family:system-ui,"Malgun Gothic",sans-serif;margin:0;padding:24px 16px;background:#fbfbfd;color:#15171c}
+.wrap{max-width:720px;margin:0 auto}
+h1{font-size:20px;margin:0 0 4px}
+.sub{color:#5c6270;font-size:13px;margin:0 0 18px}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e3e5ea;border-radius:10px;overflow:hidden}
+th,td{padding:11px 12px;border-top:1px solid #eceef2;font-size:14px;text-align:left}
+th{background:#f3f4f7;font-size:12.5px;color:#4a505c}
+tr:first-child td{border-top:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.nav{margin:16px 0;font-size:14px}
+.nav a{color:#2b4bd8;text-decoration:none;margin-right:14px}
+.note{margin-top:18px;font-size:12.5px;color:#5c6270;line-height:1.7}
+.none{padding:18px;color:#5c6270;font-size:14px;background:#fff;border:1px solid #e3e5ea;border-radius:10px}
+</style></head><body><div class="wrap">
+<h1>방문자 — ${날짜}</h1>
+<p class="sub">우리 서버가 IP로 직접 집계한 수치입니다. 같은 IP는 하루에 몇 번 와도 1명입니다.</p>
+<div class="nav">
+  <a href="/admin/visitors?date=${방문.오늘(하루전)}">← 하루 전</a>
+  <a href="/admin/visitors">오늘</a>
+  <a href="/admin/visitors?date=${방문.오늘(하루뒤)}">하루 뒤 →</a>
+</div>
+${줄 ? `<table><thead><tr><th>사이트</th><th class="n">방문자</th><th class="n">조회수</th><th class="n">1인당</th></tr></thead><tbody>${줄}</tbody></table>`
+    : '<p class="none">그 날 집계가 없습니다. 이 기능을 넣은 2026-11-01 이전 날짜는 수치가 없습니다.</p>'}
+<p class="note">
+  · 화면(HTML)을 받아 간 요청만 셉니다. 그림·스타일 요청은 세지 않습니다.<br>
+  · IP 원본은 저장하지 않습니다. 날짜를 섞은 되돌릴 수 없는 값으로만 셉니다.<br>
+  · 케이라이프맵은 서버가 달라 이 표에 없습니다. 별도 주소에서 봅니다.
+</p>
+</div></body></html>`;
+      res.writeHead(200, { ...adminHeaders, 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(req.method === 'HEAD' ? undefined : 몸);
+      return;
+    }
+
     /* /admin/traffic — 유입 현황 (JSON).
      * ⚠ **인증 안쪽**에 둔다. 우리 유입 분포는 밖에 보일 이유가 없다.
      * 집계만 있고 개인을 식별할 값은 애초에 안 모은다(traffic.mjs). */
@@ -1400,6 +1462,19 @@ async function 백년칼럼화면(pathname, searchParams) {
 }
 
 const server = createServer((req, res) => {
+  /* 🔴 [2026-11-01] **`writeHead(status, 머리)` 로 넣은 머리글은 `getHeader()` 로 못 읽는다.**
+     그래서 「화면을 받아 갔나」를 응답 종류로 판별하려다 한 건도 못 셌다(실물 시험에서 잡았다).
+     ⇒ 여기서 한 번 감싸 두고 종류를 기억해 둔다. 응답 내용은 손대지 않는다. */
+  const 원래머리쓰기 = res.writeHead.bind(res);
+  res.writeHead = function (...인자) {
+    try {
+      const 머리 = 인자.find((x) => x && typeof x === 'object' && !Array.isArray(x));
+      const t = 머리 && (머리['Content-Type'] ?? 머리['content-type']);
+      if (t) res.응답종류 = String(t);
+    } catch { /* 기억에 실패해도 응답은 그대로 나간다 */ }
+    return 원래머리쓰기(...인자);
+  };
+
   /* ── 유입 측정 ────────────────────────────────────────────────────
    * ⚠ **응답이 끝난 뒤에** 센다. 요청 처리 경로를 한 톨도 늦추지 않는다.
    *   그리고 `센다`/`flush할때되면` 은 **던지지 않도록** 만들어져 있다(traffic.mjs).
@@ -1426,6 +1501,14 @@ const server = createServer((req, res) => {
       });
       flush할때되면();
     } catch { /* 측정은 조용히 실패한다 */ }
+    /* 🔴 [2026-11-01 · 사장님] IP 기준 순방문자. 화면(HTML)을 받아 간 것만 센다 —
+       그림·스타일·자료 요청까지 세면 한 사람이 수십 번으로 부풀어 뜻이 없어진다. */
+    try {
+      const 종류 = String(res.응답종류 ?? res.getHeader('Content-Type') ?? '');
+      if (res.statusCode < 400 && 종류.startsWith('text/html')) {
+        방문.기록(req.headers.host, 방문.주소뽑기(req));
+      }
+    } catch { /* 집계 때문에 사이트가 죽는 일은 없어야 한다 */ }
   });
 
   handle(req, res).catch((err) => {
@@ -1441,6 +1524,8 @@ const server = createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`serving dist/ on http://0.0.0.0:${PORT}`);
+  /* 그 날 저장분을 읽어 이어서 센다 — 배포로 다시 떠도 오전치가 사라지지 않게 */
+  방문.시작한다().catch((e) => console.warn('[방문자] 시작 실패(집계는 계속한다) —', e?.message ?? e));
 });
 
 /**
@@ -1472,6 +1557,11 @@ async function 끝낼때흘려쓴다(신호) {
       new Promise((풀기) => { setTimeout(() => 풀기({ timeout: true }), 2000); }),
     ]);
     console.log(`[${신호}] 유입 집계 마지막 흘려쓰기 — ${JSON.stringify(결과)}`);
+    /* 🔴 [2026-11-01] IP 기준 집계도 같이 저장한다 — 배포가 잦아 이 자리가 없으면 그날치가 샌다 */
+    await Promise.race([
+      방문.저장하기().catch(() => false),
+      new Promise((풀기) => { setTimeout(() => 풀기(false), 2000); }),
+    ]);
   } catch (e) {
     console.error(`[${신호}] 흘려쓰기 실패(무시하고 나간다) — ${e?.message ?? e}`);
   }
