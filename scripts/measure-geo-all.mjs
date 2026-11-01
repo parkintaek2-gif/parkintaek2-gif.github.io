@@ -36,6 +36,10 @@ export function 봇갈래수(글) {
   const 갈래 = new Set();
   for (const m of s.matchAll(/'(ai:[^']+)'/g)) 갈래.add(m[1]);
   for (const m of s.matchAll(/\['(AI크롤러|AI봇)'/g)) 갈래.add(m[1]);
+  /* [2026-11-02] klifemap 이 ['AI-오픈AI사용자', …] 꼴로 갈래를 나눴는데 이 자가
+     그 이름표를 몰라 «0갈래»라고 적었다. 실제로는 열 갈래였다.
+     ⛔ 재는 쪽을 안 고치면 고친 것이 고쳐지지 않은 것으로 보인다. */
+  for (const m of s.matchAll(/\['(AI-[^']+)'/g)) 갈래.add(m[1]);
   return 갈래.size;
 }
 
@@ -58,6 +62,8 @@ function 자가시험() {
   본다('한 칸에 뭉친 것은 1 로 센다',
     봇갈래수("['AI크롤러', /gptbot|claudebot/i],") === 1);
   본다('아무것도 없으면 0', 봇갈래수('const a = 1;') === 0);
+  본다('AI- 로 시작하는 이름표도 갈래로 센다',
+    봇갈래수("['AI-오픈AI사용자', /chatgpt-user/i], ['AI-퍼플렉시티', /perplexity/i],") === 2);
   본다('같은 갈래를 두 번 세지 않는다',
     봇갈래수("'ai:perplexity' … 'ai:perplexity'") === 1);
   console.log(흠 ? `\n🔴 자가시험 ${흠}개 흠` : '\n✅ 자가시험 4가지 다 지났다');
