@@ -1163,6 +1163,7 @@ th{background:#f3f4f7;font-size:12.5px;color:#4a505c}
 tr:first-child td{border-top:0}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 td.auto,th.auto{color:#8a909c}
+.섞임{margin:0 0 16px;padding:12px 14px;border:1px solid #e8c88a;background:#fdf6e6;border-radius:9px;font-size:13px;line-height:1.75;color:#6b5420}
 .nav{margin:16px 0;font-size:14px}
 .nav a{color:#2b4bd8;text-decoration:none;margin-right:14px}
 .note{margin-top:18px;font-size:12.5px;color:#5c6270;line-height:1.7}
@@ -1171,6 +1172,10 @@ td.auto,th.auto{color:#8a909c}
 <h1>방문자 — ${날짜}</h1>
 <p class="sub">우리 서버가 IP로 직접 집계한 수치입니다. 같은 IP는 하루에 몇 번 와도 1명입니다.<br>
 <b>방문자는 사람만 센 수입니다.</b> 검색엔진·AI 수집기 같은 자동 접속은 오른쪽에 따로 세어 둡니다.</p>
+${날짜 <= '2026-11-01' ? `<p class="섞임"><b>이 날은 사람과 자동을 못 갈랐습니다.</b>
+자동 접속을 가려내는 장치를 2026-11-01 09시에 넣었습니다. 그 전에 쌓인 수치에는
+검색엔진·AI 수집기가 섞여 있습니다 — <b>사람 수로 읽지 마십시오.</b>
+사람 수로 보실 수 있는 것은 2026-11-02 수치부터입니다.</p>` : ''}
 <div class="nav">
   <a href="/admin/visitors?date=${방문.오늘(하루전)}">← 하루 전</a>
   <a href="/admin/visitors">오늘</a>
