@@ -6,7 +6,7 @@ pubDate: 2026-11-01T17:00:00+09:00
 subject:
   명칭: "노시환(한화 이글스) 메이저리그 포스팅 요청"
   유형: season
-  일시: 2026-10-31T00:00:00+09:00
+  일시: 2026-10-31T12:00:00+09:00
   주체: "한국야구위원회(KBO)"
 image:
   src: "/review/kbo-noh-sihwan-mlb-posting.jpg"
