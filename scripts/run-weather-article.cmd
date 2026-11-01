@@ -1,4 +1,10 @@
 @echo off
+rem Set UTF-8 first -- this file is saved as UTF-8 and the log path below contains
+rem Korean. Without this, cmd reads the path as CP949, cannot find the folder, and
+rem SKIPS the whole line while still returning exit code 0. Index requests silently
+rem stopped for 9 days this way (2026-10-23 .. 2026-11-01). The same fix went into
+rem run-jbnews-sports-collect.cmd on 2026-10-15 and never reached this file.
+chcp 65001 >nul
 REM Daily weather article for Jungbu Maeil -- owner's instruction 2026-10-17:
 REM   "write a weather article, [tomorrow's weather] at the front of the headline,
 REM    keywords must include Daejeon weather and Cheongju weather,
