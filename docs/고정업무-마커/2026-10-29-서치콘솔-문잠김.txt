@@ -1,0 +1,12 @@
+2026-10-29 12:30:39	sc-domain:klifemap.ai	계정 admin@klifedesign.net	검사칸폭 0
+2026-10-29 12:30:46	sc-domain:klifemap.ai	계정 admin@klifedesign.net	검사칸폭 0
+2026-10-29 12:30:53	sc-domain:klifemap.ai	계정 admin@klifedesign.net	검사칸폭 0
+2026-10-29 12:31:00	sc-domain:klifemap.ai	계정 admin@klifedesign.net	검사칸폭 0
+2026-10-29 12:31:07	sc-domain:klifemap.ai	계정 admin@klifedesign.net	검사칸폭 0
+2026-10-29 12:31:15	sc-domain:seoulmarkets.com	계정 admin@klifedesign.net	검사칸폭 0
+2026-10-29 12:31:21	sc-domain:seoulmarkets.com	계정 admin@klifedesign.net	검사칸폭 0
+2026-10-29 12:31:28	sc-domain:seoulmarkets.com	계정 admin@klifedesign.net	검사칸폭 0
+2026-10-29 12:31:35	sc-domain:seoulmarkets.com	계정 admin@klifedesign.net	검사칸폭 0
+2026-10-29 12:31:41	sc-domain:klifemap.ai	계정 admin@klifedesign.net	검사칸폭 0
+2026-10-29 12:31:59	sc-domain:seoulmarkets.com	계정 admin@klifedesign.net	검사칸폭 0
+2026-10-29 12:34:12	https://seoulmarkets.com/	계정 admin@klifedesign.net	검사칸폭 0
