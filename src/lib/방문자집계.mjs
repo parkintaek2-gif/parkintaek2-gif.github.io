@@ -30,10 +30,18 @@ import * as store from './store.mjs';
 const 소금 = process.env.VISIT_SALT || 'klifedesign-visit-2026';
 const 저장주기ms = 60_000;
 
-/** 오늘 날짜 (한국시간). ⛔ toISOString 금지 — 날이 하루 어긋난다 */
+/** 오늘 날짜(한국시간). **이 기계가 어느 시간대에 있든 같은 답을 낸다.**
+ *  🔴 [2026-11-02 · 사장님] 「관리자페이지에서 방문자수 집계 시간을 한국시간으로 바꿔」
+ *  앞 식은 `9*60 - getTimezoneOffset()` 이었다. 부호가 뒤집혀 있어 **KST 기계에서는
+ *  열여덟 시간을 더했다** — 11월 2일 오전 10시를 11월 3일 새벽 4시로 읽었다.
+ *  UTC 서버에서만 우연히 맞았다. 이제 더하고 빼지 않고 한국시간을 직접 묻는다.
+ *  ⛔ toISOString 금지 · ⛔ getTimezoneOffset 으로 날짜를 만들지 않는다 */
 export function 오늘(d = new Date()) {
-  const k = new Date(d.getTime() + (9 * 60 - d.getTimezoneOffset()) * 60_000);
-  return `${k.getFullYear()}-${String(k.getMonth() + 1).padStart(2, '0')}-${String(k.getDate()).padStart(2, '0')}`;
+  const 칸 = {};
+  new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(d).forEach((x) => { 칸[x.type] = x.value; });
+  return `${칸.year}-${칸.month}-${칸.day}`;
 }
 
 /** IP를 되돌릴 수 없는 값으로 바꾼다. 날짜를 섞어 날마다 달라지게 한다 */
@@ -210,6 +218,16 @@ export function 자가시험() {
 
   T('⛔ 날짜에 toISOString 을 쓰지 않는다 — 한국시간으로 센다',
     오늘(new Date('2026-10-31T16:30:00Z')) === '2026-11-01');
+  /* 🔴 [2026-11-02 · 사장님 「방문자수 집계 시간을 한국시간으로 바꿔」]
+     앞 식(`9*60 - getTimezoneOffset()`)은 부호가 뒤집혀 있어 UTC 서버에서만 맞았다.
+     KST 기계에서는 열여덟 시간을 더해 날이 하루 앞섰다. 아래 세 줄이 그것을 잡는다 —
+     이 검사는 재는 기계가 어느 시간대에 있든 같은 답을 요구한다. */
+  T('🔴 재는 기계가 KST 든 UTC 든 같은 날을 낸다',
+    오늘(new Date('2026-11-02T01:00:00Z')) === '2026-11-02');
+  T('🔴 한국시간 자정 1분 전은 아직 그 날이다',
+    오늘(new Date('2026-11-02T14:59:00Z')) === '2026-11-02');
+  T('🔴 한국시간 자정을 넘기면 다음 날이다',
+    오늘(new Date('2026-11-02T15:01:00Z')) === '2026-11-03');
   T('같은 IP·같은 날은 같은 값이다', 지문('1.2.3.4', '2026-11-01') === 지문('1.2.3.4', '2026-11-01'));
   T('🔴 날이 바뀌면 같은 IP라도 값이 달라진다 — 날을 가로질러 추적할 수 없다',
     지문('1.2.3.4', '2026-11-01') !== 지문('1.2.3.4', '2026-11-02'));
