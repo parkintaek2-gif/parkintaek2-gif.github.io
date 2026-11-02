@@ -1548,10 +1548,56 @@ const server = createServer((req, res) => {
   });
 });
 
+/* ══════════════════════════════════════════════════════════════════════
+   🔴🔴 [2026-11-02 · 사장님] 「케이라이프맵 관리자 페이지에 세 사이트
+                              방문자 등의 집계를 볼 수 있게 해」
+   ─────────────────────────────────────────────────────────────────────
+   서울마켓츠·백년지도·케이컬처와이어는 이 서버가 함께 낸다. 케이라이프맵은 서버가
+   다르다. 그래서 **이쪽이 저쪽으로 보낸다.** 사장님은 화면 하나에서 네 곳을 보신다.
+   ⛔ 개인을 가리키는 것은 보내지 않는다 — 수와 접속 정보 목록뿐이다.
+   ⛔ 보내기가 실패해도 이 서버가 멈추지 않는다. 집계는 그대로 돈다.
+   ⚠ 열쇠(KLM_ADMIN_KEY)가 없으면 **조용히 아무 일도 하지 않는다.** 내 자리에서
+     띄울 때마다 라이브로 수치가 날아가면 안 된다.
+   ══════════════════════════════════════════════════════════════════════ */
+const KLM_ADMIN_KEY = process.env.KLM_ADMIN_KEY || '';
+const KLM_받는곳 = process.env.KLM_BASE || 'https://klifemap.ai';
+const 보내는주기ms = 2 * 60 * 1000;
+
+async function 케이라이프맵에보낸다() {
+  if (!KLM_ADMIN_KEY) return false;
+  try {
+    const 날짜 = 방문.오늘();
+    const 표 = 방문.집계(날짜);
+    if (!Object.keys(표).length) return false;
+    const r = await fetch(`${KLM_받는곳}/api/admin/visitors/outside`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-admin-key': KLM_ADMIN_KEY },
+      body: JSON.stringify({ 날짜, 사이트: 표 }),
+      signal: AbortSignal.timeout(20000),
+    });
+    if (!r.ok) {
+      console.warn(`[방문자] 케이라이프맵에 못 보냈다 — HTTP ${r.status}`);
+      return false;
+    }
+    return true;
+  } catch (e) {
+    console.warn('[방문자] 케이라이프맵에 못 보냈다 —', e?.message ?? e);
+    return false;
+  }
+}
+
 server.listen(PORT, () => {
   console.log(`serving dist/ on http://0.0.0.0:${PORT}`);
   /* 그 날 저장분을 읽어 이어서 센다 — 배포로 다시 떠도 오전치가 사라지지 않게 */
   방문.시작한다().catch((e) => console.warn('[방문자] 시작 실패(집계는 계속한다) —', e?.message ?? e));
+  if (KLM_ADMIN_KEY) {
+    케이라이프맵에보낸다();
+    const 시계 = setInterval(() => { 케이라이프맵에보낸다(); }, 보내는주기ms);
+    if (시계.unref) 시계.unref();
+    console.log('[방문자] 케이라이프맵 관리자 화면으로 2분마다 보낸다');
+  } else {
+    console.log('[방문자] KLM_ADMIN_KEY 가 없어 케이라이프맵으로 보내지 않는다');
+  }
 });
 
 /**
