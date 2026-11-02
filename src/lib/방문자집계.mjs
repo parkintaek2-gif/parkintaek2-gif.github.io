@@ -108,6 +108,12 @@ export function 사람인가(ua) {
   if (자동표식.test(s)) return false;
   if (제집주소를밝히나.test(s)) return false;   /* 수집기가 스스로 밝힌 제 집 주소 */
   if (/^node\b/i.test(s)) return false;         /* 우리 스크립트가 두드린 것 */
+  /* 🔴 [2026-11-02 · 사장님 「리눅스 부분은 페이지뷰에서 빼자」]
+     11/2 사람으로 센 조회 393회 가운데 「X11; Linux x86_64 · Chrome/152」가 52회였다.
+     리눅스 데스크톱 크롬은 서버에서 도는 수집기가 흔히 쓰는 이름이다.
+     ⚠ 진짜 리눅스 PC 손님도 함께 빠진다 — 사람 수에서 빠지고 자동 칸에 남는다.
+     ⛔ 안드로이드는 이름에 Linux 가 들어가도 사람이다. 그래서 X11 만 본다. */
+  if (/X11;[^)]*Linux/i.test(s) && !/android/i.test(s)) return false;
   return /mozilla|opera|safari|chrome|firefox|edge/i.test(s);
 }
 
