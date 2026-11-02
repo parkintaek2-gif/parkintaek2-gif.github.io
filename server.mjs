@@ -1532,7 +1532,8 @@ const server = createServer((req, res) => {
     try {
       const 종류 = String(res.응답종류 ?? res.getHeader('Content-Type') ?? '');
       if (res.statusCode < 400 && 종류.startsWith('text/html')) {
-        방문.기록(req.headers.host, 방문.주소뽑기(req), req.headers['user-agent']);
+        방문.기록(req.headers.host, 방문.주소뽑기(req), req.headers['user-agent'],
+          undefined, req.url);
       }
     } catch { /* 집계 때문에 사이트가 죽는 일은 없어야 한다 */ }
   });
