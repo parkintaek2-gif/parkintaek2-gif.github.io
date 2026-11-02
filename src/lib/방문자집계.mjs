@@ -70,7 +70,7 @@ export function 사이트이름(host) {
 
    ⚠ 이 규칙으로도 **자기를 브라우저라고 속이는 것은 못 거른다.** 못 거른다고 적는다 —
      0으로 채우지 않는다. 그래서 화면에 「사람」과 「자동」을 **갈라서** 보여 준다.
-     거른 수만 보여 주면 거르개가 틀렸을 때 아무도 모른다. */
+     거른 수만 보여 주면 판별 규칙가 틀렸을 때 아무도 모른다. */
 const 자동표식 = new RegExp([
   'bot', 'crawl', 'spider', 'slurp', 'archiver', 'scrap', 'fetch', 'monitor', 'uptime',
   'pingdom', 'curl', 'wget', 'python-requests', 'python-urllib', 'go-http-client',
@@ -289,7 +289,7 @@ export function 자가시험() {
   T('🔴 같은 IP는 몇 번 와도 1명이다 (사장님 지시)', a['seoulmarkets.com'].방문자 === 2);
   T('조회수는 받아 간 횟수를 그대로 더한다', a['seoulmarkets.com'].조회수 === 3);
   T('🔴 자동 접속은 방문자에 안 들어간다', a['seoulmarkets.com'].방문자 === 2);
-  T('🔴 자동 접속은 버리지 않고 따로 센다 — 거르개가 틀리면 보여야 한다',
+  T('🔴 자동 접속은 버리지 않고 따로 센다 — 판별 규칙이 틀리면 보여야 한다',
     a['seoulmarkets.com'].자동 === 2 && a['seoulmarkets.com'].자동조회수 === 2);
   T('누가 긁어 가는지 이름이 남는다',
     a['seoulmarkets.com'].이름표.some((x) => x[0].includes('Googlebot') && x[1] === 2));
