@@ -1137,9 +1137,12 @@ const handle = async (req, res) => {
       const 줄 = Object.entries(표).sort((a, b) => b[1].방문자 - a[1].방문자)
         .map(([이름, v]) => `<tr><td>${이름}</td><td class="n">${ㄴ(v.방문자)}</td>`
           + `<td class="n">${ㄴ(v.조회수)}</td>`
-          + `<td class="n">${v.방문자 ? (v.조회수 / v.방문자).toFixed(1) : '0'}</td>`
-          + `<td class="n auto">${ㄴ(v.자동)}</td><td class="n auto">${ㄴ(v.자동조회수)}</td></tr>`).join('');
-      /* 🔴 누가 긁어 가는지 사장님도 보셔야 한다. 거르개가 틀렸으면 여기서 드러난다 */
+          /* ⛔ 아무도 안 왔으면 0 이 아니라 '—' 다 — 나눌 것이 없는 것과 0 은 다르다 */
+          + `<td class="n">${v.방문자 ? (v.조회수 / v.방문자).toFixed(1) : '—'}</td>`
+          + `<td class="n auto">${ㄴ(v.자동)}</td><td class="n auto">${ㄴ(v.자동조회수)}</td>`
+          /* 🔴 [2026-11-02] 못 가린 것은 사람에도 자동에도 넣지 않는다 — 따로 적는다 */
+          + `<td class="n auto">${ㄴ(v.미분류방문자)}</td></tr>`).join('');
+      /* 🔴 누가 긁어 가는지 사장님도 보셔야 한다. 판별 규칙이 틀렸으면 여기서 드러난다 */
       const 이름표모음 = new Map();
       for (const v of Object.values(표)) {
         for (const [이름, n] of (v.이름표 ?? [])) 이름표모음.set(이름, (이름표모음.get(이름) ?? 0) + n);
@@ -1181,7 +1184,7 @@ ${날짜 <= '2026-11-01' ? `<p class="섞임"><b>이 날은 사람과 자동을 
   <a href="/admin/visitors">오늘</a>
   <a href="/admin/visitors?date=${방문.오늘(하루뒤)}">하루 뒤 →</a>
 </div>
-${줄 ? `<table><thead><tr><th>사이트</th><th class="n">방문자</th><th class="n">조회수</th><th class="n">1인당</th><th class="n auto">자동</th><th class="n auto">자동 조회</th></tr></thead><tbody>${줄}</tbody></table>`
+${줄 ? `<table><thead><tr><th>사이트</th><th class="n">방문자</th><th class="n">조회수</th><th class="n">1인당</th><th class="n auto">자동</th><th class="n auto">자동 조회</th><th class="n auto">미분류</th></tr></thead><tbody>${줄}</tbody></table>`
   + (긁는것 ? `<h2 style="font-size:14px;margin:22px 0 8px;">들어온 것들 (많은 차례로 15개)</h2>
 <table><thead><tr><th>브라우저·프로그램 이름</th><th class="n">연 횟수</th></tr></thead><tbody>${긁는것}</tbody></table>` : '')
     : '<p class="none">그 날 집계가 없습니다. 이 기능을 넣은 2026-11-01 이전 날짜는 수치가 없습니다.</p>'}
@@ -1190,7 +1193,10 @@ ${줄 ? `<table><thead><tr><th>사이트</th><th class="n">방문자</th><th cla
   · IP 원본은 저장하지 않습니다. 날짜를 섞은 되돌릴 수 없는 값으로만 셉니다.<br>
   · <b>자동</b> 칸은 검색엔진·AI 수집기·보안 스캐너입니다. 사람 수에 넣지 않습니다.<br>
   · 자기를 브라우저라고 속이는 자동 접속은 못 거릅니다. 못 거른다고 적어 둡니다.<br>
-  · 케이라이프맵은 서버가 달라 이 표에 없습니다. 별도 주소에서 봅니다.
+  · <b>미분류</b>는 접속 이름이 안 남았거나 이름이 끊겨 사람인지 자동인지 <b>못 가린 것</b>입니다.
+    사람에도 자동에도 넣지 않습니다 — 0으로 채우지 않고 못 가렸다고 적습니다.<br>
+  · <b>1인당</b>은 사람으로 센 방문자가 받아 간 횟수입니다. 같은 사람이 다시 오면 그 사람 몫에 더합니다.<br>
+  · 집계 방식은 케이라이프맵과 같습니다(2026-11-02 사장님 지시). 케이라이프맵은 서버가 달라 이 표에 없습니다.
 </p>
 </div></body></html>`;
       res.writeHead(200, { ...adminHeaders, 'Content-Type': 'text/html; charset=utf-8' });

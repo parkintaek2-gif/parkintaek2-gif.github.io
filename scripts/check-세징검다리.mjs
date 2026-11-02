@@ -366,7 +366,15 @@ async function 잰다() {
         }),
       });
       const o = await r.json().catch(() => null);
-      if (r.status >= 500) {
+      /* 🔴🔴 [2026-11-02] 여기서 401 은 «막힌 것이 아니라 막은 것»이다.
+         2026-10-31 에 사장님이 29,000원을 치르셨는데 감정창이 안 열렸다 —
+         장부의 손님 칸이 비어 있어서였다(이용권은 손님 번호에 붙는다).
+         그래서 **주인 없는 유료 주문을 만들지 않도록** 서버가 막아 두었다.
+         ⛔ 그 막음을 빨간불로 적으면 거짓 경보가 되고, 거짓 경보는 진짜 경보를 죽인다.
+         ⇒ 비회원은 401 이 «맞는 답»이고, 손님의 진짜 길은 아래에서 끝까지 걸어 본다. */
+      if (r.status === 401 && o && o.code === 'LOGIN_REQUIRED') {
+        console.log('    ✅ 비회원 주문은 막혀 있다 — 주인 없는 유료 주문을 안 만든다(의도된 막음)');
+      } else if (r.status >= 500) {
         console.log(`    🔴🔴 **원화 주문에 오류 번호가 나간다 — HTTP ${r.status}** ${o ? String(o.error || '') : ''}`);
         console.log('       ⛔ 화면이 굴러가더라도 이것은 「된다」가 아니다. 서버가 못 한다고 답하고 있다');
         빨강++;
@@ -379,14 +387,66 @@ async function 잰다() {
       } else {
         console.log(`    ✅ 원화 주문 200  — 장부번호 ${String(o.merchantUid).slice(0, 14)}… · ${o.quote.finalTotal.toLocaleString()}원 · ${o.method || '토스'}`);
       }
+
+      /* ══════════════════════════════════════════════════════════════
+         🔴🔴 [2026-11-02 · 사장님 「결제와 로그인 전체 모니터링해」]
+         여태 이 자가 «로그인한 손님의 길»을 한 번도 안 걸어 봤다.
+         한국 손님이 실제로 치르는 길은 이것 하나다 —
+           ① 비회원 결제로 계정이 생기고 쪽지(토큰)를 받는다
+           ② 그 쪽지를 들고 원화 주문을 만든다
+           ③ 주문번호와 금액을 받아 결제창을 연다
+         ⛔ 승인(capture)은 부르지 않는다. 카드번호를 넣지 않는다.
+         ⚠ 같은 주소로 다시 오면 서버가 계정을 또 만들지 않고 다시 쓴다 —
+           그래서 이 검사를 날마다 돌려도 회원 수가 늘지 않는다. */
+      console.log('\n【로그인한 손님이 끝까지 가나】  ⛔ 승인(capture)은 부르지 않는다');
+      const 머리 = { 'content-type': 'application/json', 'x-api-key': 열쇠 };
+      const g = await fetch(밑 + '/api/auth/guest-checkout', {
+        method: 'POST',
+        headers: 머리,
+        body: JSON.stringify({
+          /* 우리 도메인의 점검용 주소다 — 손님 주소를 쓰지 않는다 */
+          email: 'lock-check@klifedesign.net',
+          phone: '01000000000', name: '자물쇠 점검',
+          termsAgreed: true, privacyAgreed: true, ageConfirmed: true,
+        }),
+      });
+      const gj = await g.json().catch(() => null);
+      if (!g.ok || !gj || !gj.token) {
+        console.log(`    🔴 들어오기가 막혔다 — HTTP ${g.status} ${gj ? String(gj.error || '') : ''}`);
+        console.log('       ⛔ 여기서 막히면 한국 손님은 «아무것도 살 수 없다»');
+        빨강++;
+      } else {
+        console.log('    ✅ 들어왔다 — 쪽지를 받았다');
+        const r2 = await fetch(밑 + '/api/billing/checkout', {
+          method: 'POST',
+          headers: Object.assign({ authorization: 'Bearer ' + gj.token }, 머리),
+          body: JSON.stringify({
+            items: [{ service: 'saju', qty: 1 }],
+            membershipTier: 'general', purchaseType: 'single',
+          }),
+        });
+        const o2 = await r2.json().catch(() => null);
+        if (r2.status !== 200) {
+          console.log(`    🔴🔴 **로그인한 손님도 못 산다 — HTTP ${r2.status}** ${o2 ? String(o2.error || '') : ''}`);
+          빨강++;
+        } else if (!o2 || !o2.merchantUid || !(o2.quote && o2.quote.finalTotal > 0)) {
+          console.log('    🔴 200 은 받았는데 주문번호·금액이 없다 — 화면이 이 둘로 결제창을 연다');
+          빨강++;
+        } else {
+          console.log(`    ✅ 주문이 만들어진다 — 장부번호 ${String(o2.merchantUid).slice(0, 14)}… · `
+            + `${o2.quote.finalTotal.toLocaleString()}원 · ${o2.method || '토스'}`);
+          console.log('    ⚠ 이 주문은 장부에 pending 으로 남는다. 승인은 안 했으니 돈은 안 움직인다');
+          /* 🔴 주인이 붙었나 — 2026-10-31 에 돈을 받고도 못 열어 드린 까닭이 이 칸이었다 */
+          const 주인 = o2.customerId ?? o2.customer_id ?? (o2.order && o2.order.customerId);
+          if (주인) console.log('    ✅ 주문에 주인이 붙었다 — 결제가 나면 그 계정에서 열린다');
+          else console.log('    ⬜ 주문의 주인 칸을 답에서 못 봤다 — 서버가 안 내줄 수도 있다. 0 으로 치지 않는다');
+        }
+      }
     }
   } catch (e) {
     console.log(`    ⬜ 못 쟀다 — ${String(e.message).slice(0, 70)}`);
   }
 
-  console.log('\n⚠ 아직 이 검사가 «안 보는» 것 — 로그인한 손님의 길');
-  console.log('   /checkout.html 은 「결제는 로그인 후 이용하실 수 있습니다」에서 멈춘다(의도된 설계).');
-  console.log('   ⛔ 위 「막힌 곳 없음」을 «손님이 끝까지 산다»로 읽지 않는다.');
   return 빨강;
 }
 
