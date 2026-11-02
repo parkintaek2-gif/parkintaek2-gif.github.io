@@ -81,8 +81,14 @@ import { 사장님메일, 옛주소, 없는주소 } from './lib/boss-mail.mjs';
  *   **`cs` 를 «사용자»로 먼저 만들어야 한다.** 별칭으로는 안 된다.
  */
 const 자리번호 = String(process.env.CLAUDE_SEAT ?? '').match(/^[1-9]$/)?.[0] ?? null;
+/* 🔴🔴 [2026-11-02 · 사장님] 「admin으로 보내」
+   오늘 u5@ 로 보낸 것 가운데 «기사 두 건이 사장님께 안 닿았다». 같은 날 같은 주소에서
+   보낸 보고 메일은 닿았다 — 보내는 쪽에서는 성공으로 보이는데 받는 쪽에 없었다.
+   사장님이 admin@ 으로 보내라 이르셨다. 사장님 계정이라 존재가 확실하다.
+   ⛔ 5번 자리만 바꾼다. 다른 유닛의 보내는 주소는 건드리지 않는다. */
 export const 보내는주소 = process.env.MAIL_FROM
-  ?? (자리번호 ? `u${자리번호}@klifedesign.net` : 'cs@klifedesign.net');
+  ?? (자리번호 === '5' ? 'admin@klifedesign.net'
+    : 자리번호 ? `u${자리번호}@klifedesign.net` : 'cs@klifedesign.net');
 export const 보내는이름 = 'K Culture Wire';
 export const 갈래 = 'https://www.googleapis.com/auth/gmail.send';
 
@@ -96,7 +102,10 @@ export const 갈래 = 'https://www.googleapis.com/auth/gmail.send';
  *   ⇒ 어느 자리에서도 겹치지 않는 `admin@` 을 기준으로 삼는다. 사장님 계정이라 존재가 확실하다.
  * ⚠ 「관리용 주소를 쓰지 않는다」는 **보내는** 주소 이야기다. 재 보는 데 쓰는 것은 별개다.
  */
-export const 기준주소 = process.env.MAIL_PROBE ?? 'admin@klifedesign.net';
+/* 🔴 [2026-11-02] 5번이 admin@ 으로 보내게 되면서 기준과 보낼 주소가 같아졌다.
+   같아지면 둘을 견줄 수 없어 이 판단이 통째로 죽는다 — 겹치면 다른 주소로 비킨다. */
+export const 기준주소 = process.env.MAIL_PROBE
+  ?? (보내는주소 === 'admin@klifedesign.net' ? 'u1@klifedesign.net' : 'admin@klifedesign.net');
 
 /**
  * ⭐ 구글이 준 «오류 글자»를 읽는다.
