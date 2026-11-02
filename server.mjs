@@ -1564,9 +1564,38 @@ const KLM_ADMIN_KEY = process.env.KLM_ADMIN_KEY || '';
 const KLM_받는곳 = process.env.KLM_BASE || 'https://klifemap.ai';
 const 보내는주기ms = 2 * 60 * 1000;
 
+/* 🔴🔴 [2026-11-03 · 사장님 「조회수와 사람수에서 우리를 빼」]
+   «우리» 바깥 주소 목록을 케이라이프맵에서 받아 온다.
+   ⛔ 이 저장소는 공개다 — 주소를 여기 적지 않는다.
+   ⛔ 못 받으면 **쥐고 있던 것을 그대로 둔다.** 빈 목록으로 덮으면 우리가 다시
+     손님으로 세어지는데, 그것이 «조용히» 틀리는 자리다.
+   ⚠ 받은 뒤 다시가른다()가 그 날 오전치까지 소급해서 고친다. */
+async function 우리주소를받아온다() {
+  if (!KLM_ADMIN_KEY) return false;
+  try {
+    const r = await fetch(`${KLM_받는곳}/api/admin/visitors/our-ips`, {
+      headers: { 'x-admin-key': KLM_ADMIN_KEY },
+      signal: AbortSignal.timeout(20000),
+    });
+    if (!r.ok) {
+      console.warn(`[방문자] 우리 주소 목록을 못 받았다 — HTTP ${r.status} (쥐고 있던 것을 그대로 쓴다)`);
+      return false;
+    }
+    const j = await r.json();
+    return 방문.우리주소를받는다(j?.주소);
+  } catch (e) {
+    console.warn('[방문자] 우리 주소 목록을 못 받았다 —', e?.message ?? e);
+    return false;
+  }
+}
+
 async function 케이라이프맵에보낸다() {
   if (!KLM_ADMIN_KEY) return false;
   try {
+    /* ⚠ 보내기 «전에» 받아서 다시 가른다 — 옛 기준으로 센 수를 올리면 화면에
+       고쳐지기 전 수치가 2분 동안 남는다. */
+    await 우리주소를받아온다();
+    try { 방문.다시가른다(); } catch (e) { /* 다시 가르다 걸려도 보내는 것은 계속한다 */ }
     const 날짜 = 방문.오늘();
     const 표 = 방문.집계(날짜);
     if (!Object.keys(표).length) return false;
