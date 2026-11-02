@@ -81,13 +81,33 @@ const 자동표식 = new RegExp([
   'sogou', 'petal', 'ahrefs', 'semrush', 'mj12', 'dotbot', 'dataforseo', 'blexbot',
   'serpstat', 'zoominfo', 'censys', 'masscan', 'zgrab', 'nmap', 'expanse', 'netcraft',
   'internetmeasurement', 'feedfetcher', 'google-read-aloud', 'chrome-lighthouse',
+  /* 🔴 [2026-11-02] 이름에 bot 이 없어 「사람」으로 세어지던 것들 */
+  'yeti', 'daum', 'naver.me', 'mediapartners', 'adsbot', 'googleother',
+  'google-inspectiontool', 'bingpreview', 'seznam', 'exabot', 'exasearch',
+  'reflection.ai', 'timpi', 'webz', 'diffbot', 'cohere', 'meta-externalagent',
+  'imagesift', 'awario', 'scrapy', 'postman', 'insomnia', 'guzzle', 'aiohttp',
+  'httpx', 'restsharp', 'dart:io', 'symfony', 'laravel', 'http_request',
 ].join('|'), 'i');
+
+/* 🔴🔴 [2026-11-02 · 사장님] 「klifemap.ai 방문자가 292인데, 어제 보고에는 10%도
+   안되던데..뭔가 이상하다」 — 재어 보니 맞는 말씀이었다.
+
+   이름을 하나씩 적어 막는 방식이 샜다. **네이버 수집기 Yeti 가 「사람」으로 세어지고
+   있었다** — 이름 어디에도 bot·crawl·spider 가 없기 때문이다. 하루 166번 들어왔다.
+
+   ⇒ 이름을 더 적는 대신 **수집기가 스스로 밝히는 표식**을 규칙으로 세운다.
+     수집기는 관례로 UA 안에 제 집 주소나 메일을 「+http…」·「+mailto:」 로 적는다.
+     사람이 쓰는 브라우저는 그런 것을 절대 적지 않는다. 이 한 줄이 Yeti 도,
+     앞으로 나올 이름 모르는 수집기도 함께 잡는다. */
+const 제집주소를밝히나 = /\+(https?:\/\/|mailto:)/i;
 
 /** 사람이 연 것인가. ⛔ 브라우저 이름이 아예 없으면 사람으로 보지 않는다 — 진짜 브라우저는 보낸다 */
 export function 사람인가(ua) {
   const s = String(ua ?? '').trim();
   if (!s) return false;
   if (자동표식.test(s)) return false;
+  if (제집주소를밝히나.test(s)) return false;   /* 수집기가 스스로 밝힌 제 집 주소 */
+  if (/^node\b/i.test(s)) return false;         /* 우리 스크립트가 두드린 것 */
   return /mozilla|opera|safari|chrome|firefox|edge/i.test(s);
 }
 
@@ -241,6 +261,18 @@ export function 자가시험() {
   T('AI 수집기는 사람이 아니다', !사람인가('Mozilla/5.0 (compatible; GPTBot/1.2; +https://openai.com/gptbot)'));
   T('AI 수집기는 사람이 아니다 (둘째)', !사람인가('Mozilla/5.0 (compatible; ClaudeBot/1.0)'));
   T('보안 스캐너는 사람이 아니다', !사람인가('Mozilla/5.0 zgrab/0.x'));
+  /* 🔴🔴 [2026-11-02 · 사장님 「292인데… 뭔가 이상하다」] 이름에 bot 이 없는 수집기.
+     Yeti 가 하루 166번 들어와 전부 「사람」으로 세어졌다. 이 줄들이 그것을 잡는다 */
+  T('🔴 네이버 수집기(Yeti)는 사람이 아니다',
+    !사람인가('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko; compatible; Yeti/1.1; +https://naver.me/bf7vcQn) Chrome/125.0.0.0 Safari/537.36'));
+  T('🔴 제 집 주소를 밝히면 이름을 몰라도 수집기다',
+    !사람인가('Mozilla/5.0 (compatible; NeverSeenBefore/9.9; +https://example.ai/crawler) Chrome/140.0 Safari/537.36'));
+  T('🔴 메일 주소를 밝혀도 수집기다',
+    !사람인가('Mozilla/5.0 (compatible; SomeAgent/1.0; +mailto:hi@example.com)'));
+  T('🔴 우리 스크립트(node)가 두드린 것은 방문자가 아니다',
+    !사람인가('node') && !사람인가('node/26.3.1'));
+  T('⛔ 대조군 — 진짜 브라우저에는 + 로 시작하는 주소가 없다',
+    사람인가('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36'));
   T('명령줄 도구는 사람이 아니다', !사람인가('curl/8.4.0') && !사람인가('python-requests/2.31.0'));
   T('⛔ 브라우저 이름이 없으면 사람으로 보지 않는다', !사람인가('') && !사람인가(null));
   T('진짜 브라우저는 사람이다', 사람인가(사람));
