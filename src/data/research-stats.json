@@ -1,10 +1,10 @@
 {
-  "records": 1548,
+  "records": 1599,
   "first_day": "2026-06-29",
-  "latest_day": "2026-11-02",
+  "latest_day": "2026-11-03",
   "brokers": 21,
-  "subjects": 531,
-  "with_target_price": 1283,
-  "generated_at_kst": "2026-11-03 07:00:05",
+  "subjects": 535,
+  "with_target_price": 1329,
+  "generated_at_kst": "2026-11-03 22:00:08",
   "note": "scripts/build-research-index.mjs 가 만든다. 손으로 고치지 말 것 — 다음 실행에 덮인다."
 }
