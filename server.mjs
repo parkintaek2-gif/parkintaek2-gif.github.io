@@ -1534,6 +1534,14 @@ const server = createServer((req, res) => {
       if (res.statusCode < 400 && 종류.startsWith('text/html')) {
         방문.기록(req.headers.host, 방문.주소뽑기(req), req.headers['user-agent'],
           undefined, req.url);
+      } else if (res.statusCode < 400
+        && /^(text\/css|application\/javascript|text\/javascript|font\/|image\/)/.test(종류)) {
+        /* 🔴 [2026-11-03 · 사장님 「오늘 잘못됐지? 수정해」]
+           **조회수로 세지 않는다.** 「이 주소가 브라우저였다」는 표만 남긴다.
+           진짜 브라우저는 화면을 받으면 모양표·글씨체·그림을 이어서 받아 간다.
+           주소를 바꿔 가며 브라우저 이름을 흉내 내는 수집기는 화면만 받고 끝낸다.
+           ⚠ 아직 판정에 쓰지 않는다 — 세어서 따로 보여 주기만 한다. */
+        방문.부속기록(req.headers.host, 방문.주소뽑기(req));
       }
     } catch { /* 집계 때문에 사이트가 죽는 일은 없어야 한다 */ }
   });
