@@ -461,7 +461,10 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
             <b>인용하실 때.</b> 직접 확인한 내용과 옮겨 온 반응을 구분해 주시고, 수치는 출처를 함께 적어 주십시오.
             {' '}<span class="cite-line">K Culture Wire, <em>{title}</em>, {인용연도},
             {' '}{정본 ?? 'https://www.kculturewire.com/ko'}</span> — 틀린 것이 있으면
-            {' '}<a href="/contact">알려 주시면</a> <a href="/corrections">정정</a>에 남긴다.
+            {/* 🔴 [2026-11-03 · 사장님] 「정정에 남긴다」 → 「정정하고 정정했음을 알립니다」.
+                손님께 드리는 말인데 끝맺음이 평서체였고, 「정정에 남긴다」는 우리끼리 쓰는
+                말이라 손님에게는 무엇을 해 드리는지가 안 보였다. */}
+            {' '}<a href="/contact">알려 주시면</a> <a href="/corrections">정정</a>하고 정정했음을 알립니다.
           </p>
           <p>
             <a href={자매링크("https://klifemap.ai/", "footer")}>KLifeMap</a> — 사주와 운세를 데이터로 읽는 곳 ·{' '}
@@ -559,7 +562,10 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
         method is on <a href="/about">how we count</a>. Please cite as
         {' '}<span class="cite-line">K Culture Wire, <em>{title}</em>, {인용연도},
         {' '}{정본 ?? 'https://www.kculturewire.com'}</span> — and if a number here is wrong,
-        {' '}<a href="/contact">tell us</a> and it goes on <a href="/corrections">corrections</a>.
+        {/* 🔴 [2026-11-03] 한국어 쪽 약속을 고치면서 영어도 같이 고친다 — 한쪽만 고치면
+            같은 지면이 사람마다 다른 약속을 하게 된다. 고친 뒤 알려 드리는 것까지가 약속이다. */}
+        {' '}<a href="/contact">tell us</a>: we correct it, log it on
+        {' '}<a href="/corrections">corrections</a>, and write back to let you know.
       </p>
       {/*
         ⚠ 다른 두 사이트로 나가는 링크. 사장님 지시 —
