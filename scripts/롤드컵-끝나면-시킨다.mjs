@@ -53,7 +53,7 @@ function 한국날짜(t) {
 
 function 지시문(e) {
   const [a, b] = e.match.teams;
-  const 이긴팀 = a.result?.outcome === 'win' ? a : b;
+  const 이긴팀 = (a.result?.gameWins ?? 0) > (b.result?.gameWins ?? 0) ? a : b;
   const 진팀 = 이긴팀 === a ? b : a;
   const 이름 = (x) => 팀말[x.code] ?? x.name;
   const 단계 = 단계말[e.blockName];
@@ -81,7 +81,10 @@ for (const e of 오늘경기) {
   const [a, b] = e.match.teams;
   const 판 = `${a.code} ${a.result?.gameWins ?? '-'}:${b.result?.gameWins ?? '-'} ${b.code}`;
   if (시킨것.includes(e.match.id)) { console.log(`이미 시킴 — ${판}`); continue; }
-  if (e.state !== 'completed') { console.log(`아직 — ${e.state} ${판}`); continue; }
+  /* 라이엇 일정은 3:0이 나도 한참 «inProgress»로 남는다(2026-11-05 09:35~). 선승 수에 닿으면 끝난 것으로 본다 */
+  const 선승 = Math.ceil((e.match.strategy?.count ?? 5) / 2);
+  const 끝남 = e.state === 'completed' || [a, b].some((x) => (x.result?.gameWins ?? 0) >= 선승);
+  if (!끝남) { console.log(`아직 — ${e.state} ${판}`); continue; }
   if (짚기만) { console.log(`끝남(짚기만) — ${판}`); continue; }
   const 파일 = path.join(뿌리, 'docs', `지시-중부매일-${오늘.replaceAll('-', '')}-롤드컵-${e.blockName}.txt`);
   fs.writeFileSync(파일, 지시문(e) + '\n');
